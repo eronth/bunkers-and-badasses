@@ -1,0 +1,22 @@
+{
+  "BNB.AbilityStr": "Strength",
+  "BNB.AbilityCon": "Constitution",
+  "BNB.AbilityDex": "Dexterity",
+  "BNB.AbilityInt": "Intelligence",
+  "BNB.AbilityWis": "Wisdom",
+  "BNB.AbilityCha": "Charisma",
+
+  "BNB.AbilityStrAbbr": "str",
+  "BNB.AbilityConAbbr": "con",
+  "BNB.AbilityDexAbbr": "dex",
+  "BNB.AbilityIntAbbr": "int",
+  "BNB.AbilityWisAbbr": "wis",
+  "BNB.AbilityChaAbbr": "cha",
+
+  "BNB.EffectCreate": "Create Effect",
+  "BNB.EffectToggle": "Toggle Effect",
+  "BNB.EffectEdit": "Edit Effect",
+  "BNB.EffectDelete": "Delete Effect",
+
+  "BNB.Add": "Add"
+}
