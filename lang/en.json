@@ -13,6 +13,16 @@
   "BNB.AbilityWisAbbr": "wis",
   "BNB.AbilityChaAbbr": "cha",
 
+  "BNB.StatAcc": "Accuracy",
+  "BNB.StatDmg": "Damage",
+  "BNB.StatSpd": "Speed",
+  "BNB.StatMst": "Mastery",
+  
+  "BNB.StatAccAbbr": "acc",
+  "BNB.StatDmgAbbr": "dmg",
+  "BNB.StatSpdAbbr": "spd",
+  "BNB.StatMstAbbr": "mst",
+
   "BNB.EffectCreate": "Create Effect",
   "BNB.EffectToggle": "Toggle Effect",
   "BNB.EffectEdit": "Edit Effect",
