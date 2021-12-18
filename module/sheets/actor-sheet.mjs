@@ -50,6 +50,10 @@ export class BNBActorSheet extends ActorSheet {
       this._prepareItems(context);
     }
 
+    if (actorData.type == 'vault-hunter') {
+      this._prepareVaultHunterData(context);
+    }
+
     // Add roll data for TinyMCE editors.
     context.rollData = context.actor.getRollData();
 
@@ -70,6 +74,13 @@ export class BNBActorSheet extends ActorSheet {
     // Handle ability scores.
     for (let [k, v] of Object.entries(context.data.abilities)) {
       v.label = game.i18n.localize(CONFIG.BNB.abilities[k]) ?? k;
+    }
+  }
+
+  _prepareVaultHunterData(context) {
+    // Handle stat scores.
+    for (let [k, v] of Object.entries(context.data.stats)) {
+      v.label = game.i18n.localize(CONFIG.BNB.stats[k]) ?? k;
     }
   }
 
