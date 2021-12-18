@@ -21,3 +21,17 @@ BNB.abilityAbbreviations = {
   "wis": "BNB.AbilityWisAbbr",
   "cha": "BNB.AbilityChaAbbr"
 };
+
+BNB.stats = {
+  "acc": "BNB.StatAcc",
+  "dmg": "BNB.StatDmg",
+  "spd": "BNB.StatSpd",
+  "mst": "BNB.StatMst"
+};
+
+BNB.statAbbreviations = {
+  "acc": "BNB.StatAccAbbr",
+  "dmg": "BNB.StatDmgAbbr",
+  "spd": "BNB.StatSpdAbbr",
+  "mst": "BNB.StatMstAbbr"
+};
