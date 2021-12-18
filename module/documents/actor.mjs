@@ -37,6 +37,7 @@ export class BNBActor extends Actor {
     // things organized.
     this._prepareCharacterData(actorData);
     this._prepareNpcData(actorData);
+    this._prepareVaultHunterData(actorData);
   }
 
   /**
@@ -67,6 +68,25 @@ export class BNBActor extends Actor {
   }
 
   /**
+   * Prepare Character type specific data
+   */
+   _prepareVaultHunterData(actorData) {
+    if (actorData.type !== 'vault-hunter') return;
+
+    // Make modifications to data here. For example:
+    const data = actorData.data;
+
+    // Loop through stat scores, and add their modifiers to our sheet output.
+    for (let [key, stat] of Object.entries(data.stats)) {
+      // Calculate stats based on archetype, class, and allocated points.
+      stat.total = stat.value + data.archetype.stats[key].value + data.class.stats[key].value;
+
+      // Calculate the modifier from the stat total.
+      stat.mod = Math.floor(stat.total / 2);
+    }
+  }
+
+  /**
    * Override getRollData() that's supplied to rolls.
    */
   getRollData() {
@@ -75,6 +95,7 @@ export class BNBActor extends Actor {
     // Prepare character roll data.
     this._getCharacterRollData(data);
     this._getNpcRollData(data);
+    this._getVaultHunterRollData(data);
 
     return data;
   }
@@ -106,6 +127,26 @@ export class BNBActor extends Actor {
     if (this.data.type !== 'npc') return;
 
     // Process additional NPC data here.
+  }
+
+  /**
+   * Prepare vault hunter roll data.
+   */
+   _getVaultHunterRollData(data) {
+    if (this.data.type !== 'vault-hunter') return;
+
+    // Copy the stat scores to the top level, so that rolls can use
+    // formulas like `@acc.mod + 4`.
+    if (data.stats) {
+      for (let [k, v] of Object.entries(data.stats)) {
+        data[k] = foundry.utils.deepClone(v);
+      }
+    }
+
+    // Add level for easier access, or fall back to 0.
+    if (data.attributes.level) {
+      data.lvl = data.attributes.level.value ?? 0;
+    }
   }
 
 }
