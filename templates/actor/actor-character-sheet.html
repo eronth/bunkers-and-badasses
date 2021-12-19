@@ -39,6 +39,17 @@
         </div>
 
       </div>
+
+      <div class="abilities flexcol">
+        <div class="ability flexrow flex-group-center">
+        {{#each data.abilities as |ability key|}}
+          <label for="data.abilities.{{key}}.value" class="resource-label rollable flexlarge align-left" data-roll="d20+@abilities.{{key}}.mod" data-label="{{ability.label}}">{{ability.label}}</label>
+          <input type="text" name="data.abilities.{{key}}.value" value="{{ability.value}}" data-dtype="Number"/>
+          <span class="ability-mod rollable" data-roll="d20+@abilities.{{key}}.mod" data-label="{{ability.label}}">{{numberFormat ability.mod decimals=0 sign=true}}</span>
+          {{/each}}
+        </div>
+      </div>
+      
     </div>
   </header>
 
