@@ -223,19 +223,19 @@
   text-align: center;
 }
 
-/* Styles limited to bnb sheets */
-.bnb {
+/* Styles limited to boilerplate sheets */
+.boilerplate {
   /* ----------------------------------------- */
   /*  Items Lists                              */
   /* ----------------------------------------- */
-  /* Example style for bnb (can be removed if not needed) */
+  /* Example style for Boilerplate (can be removed if not needed) */
 }
 
-.bnb .item-form {
+.boilerplate .item-form {
   font-family: "Roboto", sans-serif;
 }
 
-.bnb .sheet-header {
+.boilerplate .sheet-header {
   -webkit-box-flex: 0;
   -ms-flex: 0 auto;
   flex: 0 auto;
@@ -255,7 +255,7 @@
   margin-bottom: 10px;
 }
 
-.bnb .sheet-header .profile-img {
+.boilerplate .sheet-header .profile-img {
   -webkit-box-flex: 0;
   -ms-flex: 0 0 100px;
   flex: 0 0 100px;
@@ -263,50 +263,50 @@
   margin-right: 10px;
 }
 
-.bnb .sheet-header .header-fields {
+.boilerplate .sheet-header .header-fields {
   -webkit-box-flex: 1;
   -ms-flex: 1;
   flex: 1;
 }
 
-.bnb .sheet-header h1.charname {
+.boilerplate .sheet-header h1.charname {
   height: 50px;
   padding: 0px;
   margin: 5px 0;
   border-bottom: 0;
 }
 
-.bnb .sheet-header h1.charname input {
+.boilerplate .sheet-header h1.charname input {
   width: 100%;
   height: 100%;
   margin: 0;
 }
 
-.bnb .sheet-tabs {
+.boilerplate .sheet-tabs {
   -webkit-box-flex: 0;
   -ms-flex: 0;
   flex: 0;
 }
 
-.bnb .sheet-body,
-.bnb .sheet-body .tab,
-.bnb .sheet-body .tab .editor {
+.boilerplate .sheet-body,
+.boilerplate .sheet-body .tab,
+.boilerplate .sheet-body .tab .editor {
   height: 100%;
 }
 
-.bnb .tox .tox-editor-container {
+.boilerplate .tox .tox-editor-container {
   background: #fff;
 }
 
-.bnb .tox .tox-edit-area {
+.boilerplate .tox .tox-edit-area {
   padding: 0 8px;
 }
 
-.bnb .resource-label {
+.boilerplate .resource-label {
   font-weight: bold;
 }
 
-.bnb .items-header {
+.boilerplate .items-header {
   height: 28px;
   margin: 2px 0;
   padding: 0;
@@ -318,12 +318,12 @@
   font-weight: bold;
 }
 
-.bnb .items-header > * {
+.boilerplate .items-header > * {
   font-size: 14px;
   text-align: center;
 }
 
-.bnb .items-header .item-name {
+.boilerplate .items-header .item-name {
   font-weight: bold;
   padding-left: 5px;
   text-align: left;
@@ -332,7 +332,7 @@
   display: flex;
 }
 
-.bnb .items-list {
+.boilerplate .items-list {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -341,13 +341,13 @@
   color: #444;
 }
 
-.bnb .items-list .item-list {
+.boilerplate .items-list .item-list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-.bnb .items-list .item-name {
+.boilerplate .items-list .item-name {
   -webkit-box-flex: 2;
   -ms-flex: 2;
   flex: 2;
@@ -363,13 +363,13 @@
   display: flex;
 }
 
-.bnb .items-list .item-name h3, .bnb .items-list .item-name h4 {
+.boilerplate .items-list .item-name h3, .boilerplate .items-list .item-name h4 {
   margin: 0;
   white-space: nowrap;
   overflow-x: hidden;
 }
 
-.bnb .items-list .item-controls {
+.boilerplate .items-list .item-controls {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -381,13 +381,13 @@
   justify-content: flex-end;
 }
 
-.bnb .items-list .item-controls a {
+.boilerplate .items-list .item-controls a {
   font-size: 12px;
   text-align: center;
   margin: 0 6px;
 }
 
-.bnb .items-list .item {
+.boilerplate .items-list .item {
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
@@ -395,15 +395,15 @@
   border-bottom: 1px solid #c9c7b8;
 }
 
-.bnb .items-list .item:last-child {
+.boilerplate .items-list .item:last-child {
   border-bottom: none;
 }
 
-.bnb .items-list .item .item-name {
+.boilerplate .items-list .item .item-name {
   color: #191813;
 }
 
-.bnb .items-list .item .item-name .item-image {
+.boilerplate .items-list .item .item-name .item-image {
   -webkit-box-flex: 0;
   -ms-flex: 0 0 30px;
   flex: 0 0 30px;
@@ -413,14 +413,14 @@
   margin-right: 5px;
 }
 
-.bnb .items-list .item-prop {
+.boilerplate .items-list .item-prop {
   text-align: center;
   border-left: 1px solid #c9c7b8;
   border-right: 1px solid #c9c7b8;
   font-size: 12px;
 }
 
-.bnb .items-list .items-header {
+.boilerplate .items-list .items-header {
   height: 28px;
   margin: 2px 0;
   padding: 0;
@@ -432,32 +432,32 @@
   font-weight: bold;
 }
 
-.bnb .items-list .items-header > * {
+.boilerplate .items-list .items-header > * {
   font-size: 12px;
   text-align: center;
 }
 
-.bnb .items-list .items-header .item-name {
+.boilerplate .items-list .items-header .item-name {
   padding-left: 5px;
   text-align: left;
 }
 
-.bnb .item-formula {
+.boilerplate .item-formula {
   -webkit-box-flex: 0;
   -ms-flex: 0 0 200px;
   flex: 0 0 200px;
   padding: 0 8px;
 }
 
-.bnb .effects .item .effect-source,
-.bnb .effects .item .effect-duration,
-.bnb .effects .item .effect-controls {
+.boilerplate .effects .item .effect-source,
+.boilerplate .effects .item .effect-duration,
+.boilerplate .effects .item .effect-controls {
   text-align: center;
   border-left: 1px solid #c9c7b8;
   border-right: 1px solid #c9c7b8;
   font-size: 12px;
 }
 
-.bnb .effects .item .effect-controls {
+.boilerplate .effects .item .effect-controls {
   border: none;
 }
