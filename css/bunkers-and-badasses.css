@@ -461,3 +461,18 @@
 .bnb .effects .item .effect-controls {
   border: none;
 }
+
+.bnb .hp {
+  font-size: 12px;
+}
+
+.bnb .regen {
+  font-size: 10px;
+}
+
+.xpBar:hover, .xpBar:focus {
+  color: #000;
+  text-shadow: 0 0 10px red;
+  cursor: pointer;
+  background-color: #ffc;
+}

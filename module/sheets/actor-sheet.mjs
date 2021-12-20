@@ -50,10 +50,6 @@ export class BNBActorSheet extends ActorSheet {
       this._prepareItems(context);
     }
 
-    if (actorData.type == 'vault-hunter') {
-      this._prepareVaultHunterData(context);
-    }
-
     // Add roll data for TinyMCE editors.
     context.rollData = context.actor.getRollData();
 
@@ -75,12 +71,15 @@ export class BNBActorSheet extends ActorSheet {
     for (let [k, v] of Object.entries(context.data.abilities)) {
       v.label = game.i18n.localize(CONFIG.BNB.abilities[k]) ?? k;
     }
-  }
 
-  _prepareVaultHunterData(context) {
     // Handle stat scores.
     for (let [k, v] of Object.entries(context.data.stats)) {
       v.label = game.i18n.localize(CONFIG.BNB.stats[k]) ?? k;
+    }
+
+    // Handle hp scores.
+    for (let [k, v] of Object.entries(context.data.hps)) {
+      v.label = game.i18n.localize(CONFIG.BNB.hps[k]) ?? k;
     }
   }
 
@@ -152,6 +151,7 @@ export class BNBActorSheet extends ActorSheet {
 
     // Add Inventory Item
     html.find('.item-create').click(this._onItemCreate.bind(this));
+    html.find('.xp-gain').click(this._onXpGain.bind(this));
 
     // Delete Inventory Item
     html.find('.item-delete').click(ev => {
@@ -168,7 +168,7 @@ export class BNBActorSheet extends ActorSheet {
     html.find('.rollable').click(this._onRoll.bind(this));
 
     // Drag events for macros.
-    if (this.actor.owner) {
+    if (this.actor.isOwner) {
       let handler = ev => this._onDragStart(ev);
       html.find('li.item').each((i, li) => {
         if (li.classList.contains("inventory-header")) return;
@@ -203,6 +203,30 @@ export class BNBActorSheet extends ActorSheet {
 
     // Finally, create the item!
     return await Item.create(itemData, {parent: this.actor});
+  }
+
+  async _onXpGain(event) {
+    var testdata = "mydata1";
+
+    let html = await renderTemplate("systems/bunkers-and-badasses/templates/dialog/xp-gain.html", {
+      data: this.actor.data.data, 
+      testdata: testdata,
+      level: this.actor.data.data.attributes.level.value
+    });
+    new Dialog({
+      title: "Conviction Roll",
+      content: html,
+      buttons: {
+        "corruption" : {
+          label : "Corruption",
+          callback : async () => { alert("hello") }
+        },
+        "mutation" : {
+            label : "Mutation",
+            callback : async () => { alert("hello2") }
+        }
+      }
+    }).render(true)
   }
 
   /**

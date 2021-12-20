@@ -28,5 +28,10 @@
   "BNB.EffectEdit": "Edit Effect",
   "BNB.EffectDelete": "Delete Effect",
 
+  "BNB.FleshHealth": "Health",
+  "BNB.ArmorHealth": "Armor",
+  "BNB.ShieldHealth": "Shield",
+  
+
   "BNB.Add": "Add"
 }

@@ -35,3 +35,9 @@ BNB.statAbbreviations = {
   "spd": "BNB.StatSpdAbbr",
   "mst": "BNB.StatMstAbbr"
 };
+
+BNB.hps = {
+  "flesh": "BNB.FleshHealth",
+  "armor": "BNB.ArmorHealth",
+  "shield": "BNB.ShieldHealth"
+};

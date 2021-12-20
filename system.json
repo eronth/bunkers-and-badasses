@@ -35,8 +35,8 @@
   "initiative": "1d20",
   "gridDistance": 1,
   "gridUnits": "sq",
-  "primaryTokenAttribute": "resources.health",
-  "secondaryTokenAttribute": "resources.shield",
+  "primaryTokenAttribute": "resources.hp.health",
+  "secondaryTokenAttribute": "resources.hp.shield",
   "url": "https://your/hosted/system/repo/",
   "manifest": "https://your/hosted/system/repo/system.json",
   "download": "https://your/packaged/download/archive.zip"
