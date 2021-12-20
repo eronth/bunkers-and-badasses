@@ -3,10 +3,25 @@
     "types": ["character", "npc"],
     "templates": {
       "base": {
-        "health": {
-          "value": 10,
-          "min": 0,
-          "max": 10
+        "hps": {
+          "flesh": {
+            "value": 10,
+            "min": 0,
+            "max": 10,
+            "regen": 0
+          },
+          "armor": {
+            "value": 3,
+            "min": 0,
+            "max": 3,
+            "regen": 1
+          },
+          "shield": {
+            "value": 10,
+            "min": 0,
+            "max": 15,
+            "regen": 5
+          }
         },
         "power": {
           "value": 5,
@@ -42,7 +57,22 @@
         "cha": {
           "value": 10
         }
-      }
+      },
+      "stats": {
+        "acc": {
+          "value": 0
+        },
+        "dmg": {
+          "value": 0
+        },
+        "spd": {
+          "value": 0
+        },
+        "mst": {
+          "value": 0
+        }
+      },
+      "xp": []
     },
     "npc": {
       "templates": ["base"],
@@ -53,7 +83,10 @@
     "types": ["item", "feature", "spell"],
     "templates": {
       "base": {
-        "description": ""
+        "description": "",
+        "carried": true,
+        "equipped": false,
+        "weilded": false
       }
     },
     "item": {
@@ -68,6 +101,13 @@
     "spell": {
       "templates": ["base"],
       "spellLevel": 1
+    },
+    "boost": {
+      "value": 0,
+      "stat": "",
+      "check": "",
+      "conditional": "",
+      "active": true
     }
   }
 }
