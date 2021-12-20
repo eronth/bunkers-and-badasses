@@ -206,27 +206,92 @@ export class BNBActorSheet extends ActorSheet {
   }
 
   async _onXpGain(event) {
-    var testdata = "mydata1";
+    if(this.diag?.rendered)
+      return;
 
-    let html = await renderTemplate("systems/bunkers-and-badasses/templates/dialog/xp-gain.html", {
+    event.preventDefault();
+    this.createXpGainDialog();
+  }
+
+  async _addXpGain(event) {
+    return () => {
+      alert("addXpGain");
+    }
+    // var gainsCount = this.actor.data.data.attributes.xp.gains.length;
+    // this.actor.data.data.attributes.xp.gains.push({id: gainsCount+1, xp: 20, description: "test"});
+    // //$('#xp-gain-dialog').dialog('destroy');
+    // this.createXpGainDialog();
+  }
+
+  async _deleteXpGain(event) { 
+
+  }
+
+  async createXpGainDialog() {
+    var xppo = this.actor.data.data.attributes.xp;
+    xppo.gains.push({id: xppo.gains.length+1, value: 0, description: "test"});
+    
+    let htmlContent = await renderTemplate("systems/bunkers-and-badasses/templates/dialog/xp-gain.html", {
       data: this.actor.data.data, 
-      testdata: testdata,
-      level: this.actor.data.data.attributes.level.value
+      level: this.actor.data.data.attributes.level.value,
+      xp: xppo,
+      onClickAddXpGain: this._addXpGain.bind(this),
     });
-    new Dialog({
-      title: "Conviction Roll",
-      content: html,
+
+    var menow = this.diag;
+    if (this.diag && !this.diag?.rendered) {
+      // consider destroying the old one.
+    }
+    
+    this.diag = new Dialog({
+      title: "XP Gain",
+      Id: "xp-gain-dialog",
+      content: htmlContent,
       buttons: {
-        "corruption" : {
-          label : "Corruption",
-          callback : async () => { alert("hello") }
+        "save" : {
+          label : "Save",
+          callback : async (html) => { 
+            alert("hello"); 
+            this.xpGainCallback(html);
+          }
         },
-        "mutation" : {
-            label : "Mutation",
-            callback : async () => { alert("hello2") }
+        "cancel" : {
+            label : "Cancel",
+            callback : async () => { 
+              alert("hello2");
+            }
         }
       }
-    }).render(true)
+    }).render(true);
+  }  
+
+  async xpGainCallback(html) {
+    var mylevel = parseInt(html.find("#blah")[0].value);
+
+    var dialogGains = [];
+
+    var gains = html.find("#xp-gain-list");
+    var gainkids = gains.children();
+    Array.from(gainkids).forEach((child, key) => {
+      var xp, desc;
+      child.childNodes.forEach((childNode, cnkey) => {
+        if (childNode.id) {
+          if (childNode.id === "xp-gain-"+(key+1)+"-value") {
+            xp = parseInt(childNode.value);
+          } else if (childNode.id === "xp-gain-"+(key+1)+"-description") {
+            desc = childNode.value;
+          }
+        }
+      }, this);
+      dialogGains.push({id: dialogGains.length+1, value: xp, description: desc});
+    }, this);
+
+
+    this.actor.data.data.attributes.level.value = mylevel;
+    // this.actor.data.data.attributes.xp.gains.length = 0;
+    // this.actor.data.data.attributes.xp.gains.push(...dialogGains);
+
+    this.actor.update({"data.attributes.xp.gains": dialogGains});//{disabled: !effect.data.disabled});
   }
 
   /**

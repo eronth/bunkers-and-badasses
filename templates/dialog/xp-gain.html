@@ -1,10 +1,38 @@
 <div class="dialog-fields">
-  <div class="xp-gain">
-    <label for="xp-gain">XP Gain</label>
-    <label for="xp-gain">a {{testdata}}</label>
-    <label for="xp-gain">b {{level}}</label>
-    <label for="xp-gain">c {{data.attributes.level.value}}</label>
-    <label for="xp-gain">d {{actor.data.attributes.level.value}}</label>
-    <label for="xp-gain">e {{this.actor.data.attributes.level.value}}</label>
+  <div class="lvl">
+    <label for="lvl">LVL</label>
+    <label for="lvl">c {{data.attributes.level.value}}</label>
+    <input style='width:10px' 
+      type="text" 
+      id="blah" value="{{data.attributes.level.value}}"
+      data-dtype="Number" 
+      />
   </div>
+  <div class="xp-gain" id="xp-gain-list">
+    {{#each xp.gains as |gain key|}}
+    <div class="xp-gain" id="xp-gain-{{gain.id}}">
+      <label for="xp-gain">XP Gain</label>
+      <input style='width:30px' 
+        type="text" 
+        id="xp-gain-{{gain.id}}-value" 
+        value="{{gain.value}}"
+        data-dtype="Number"
+        onclick="this.select()"
+        />
+      <input style='width:100px' 
+        type="text" 
+        id="xp-gain-{{gain.id}}-description" 
+        value="{{gain.description}}"
+        data-dtype="Text"
+        onclick="this.select()"
+        />
+    </div>
+    {{/each}}
+  </div>
+    <!-- <a class="item-control add-xp-gain" 
+      title="Gain XP"
+      onClick="{{onClickAddXpGain}}()">
+      Add EXP Instance
+    </a> -->
+
 </div>
