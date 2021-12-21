@@ -1,10 +1,6 @@
 <ol class="items-list">
-  <button class="btn btn-primary xp-gain" data-action="gainXp">
-    <a class="item-control" 
-    title="Gain XP"
-     >
-        Gain XP
-    </a>
+  <button class="btn btn-primary item-control xp-gain">
+    <i class="fas fa-plus"></i> Gain XP
   </button>
   <a class="item-control item-create" 
       title="Create item" 
@@ -16,6 +12,41 @@
         <i class="fas fa-edit"></i>
     </a>
 </ol>
+<section class="grid grid-2col">
+  <!-- <div class="flexcol">
+    <div class="flexrow flex-group-center">
+      <input 
+        class="flex-size-3"
+        name="data.archetypes.archetype1.name" 
+        value="{{data.archetypes.archetype1.name}}"
+        type="text" data-type="Text"
+      />
+      <input 
+        class=""
+        name="data.archetypes.archetype1.level" 
+        value="{{data.archetypes.archetype1.level}}"
+        type="text" data-type="Number"
+      />
+    </div>
+  </div> -->
+  {{> "systems/bunkers-and-badasses/templates/actor/parts/actor-builder-archetype.html"
+    archetypeNum="1" 
+    archetype=data.archetypes.archetype1
+  }}
+  {{> "systems/bunkers-and-badasses/templates/actor/parts/actor-builder-archetype.html"
+    archetypeNum="2" 
+    archetype=data.archetypes.archetype2
+  }}
+  <!-- <div class="flexcol">
+    <div class="flexrow flex-group-center">
+      <label class="flexlarge">Chosen Class</label>
+      <label>SP Used</label>
+      <label>x</label>
+      <label>/</label>
+      <label>y</label>
+    </div>
+  </div> -->
+</section>
 <!-- archetype1
 archetype1 level
 archetype1 starting stats

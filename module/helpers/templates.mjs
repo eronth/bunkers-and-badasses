@@ -11,6 +11,7 @@
     "systems/bunkers-and-badasses/templates/actor/parts/actor-items.html",
     "systems/bunkers-and-badasses/templates/actor/parts/actor-spells.html",
     "systems/bunkers-and-badasses/templates/actor/parts/actor-builder.html",
+    "systems/bunkers-and-badasses/templates/actor/parts/actor-builder-archetype.html",
     "systems/bunkers-and-badasses/templates/actor/parts/actor-effects.html",
   ]);
 };

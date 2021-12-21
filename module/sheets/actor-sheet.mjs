@@ -106,23 +106,26 @@ export class BNBActorSheet extends ActorSheet {
       8: [],
       9: []
     };
+    const archetypeLevels = [];
+    const archetypeFeats = [];
+    const classSkills = [];
 
     // Iterate through items, allocating to containers
     for (let i of context.items) {
       i.img = i.img || DEFAULT_TOKEN;
-      // Append to gear.
+      
       if (i.type === 'item') {
-        gear.push(i);
-      }
-      // Append to features.
-      else if (i.type === 'feature') {
-        features.push(i);
-      }
-      // Append to spells.
-      else if (i.type === 'spell') {
+        gear.push(i); // Append to gear.
+      } else if (i.type === 'feature') {
+        features.push(i); // Append to features.
+      } else if (i.type === 'spell') {
         if (i.data.spellLevel != undefined) {
-          spells[i.data.spellLevel].push(i);
+          spells[i.data.spellLevel].push(i); // Append to spells.
         }
+      } else if (i.type === 'archetypeLevel') {
+        archetypeLevels.push(i); // Append to archetypeLevels.
+      } else if (i.type === 'archetypeFeat') {
+        archetypeFeats.push(i); // Append to archetypeFeats.
       }
     }
 
@@ -130,6 +133,9 @@ export class BNBActorSheet extends ActorSheet {
     context.gear = gear;
     context.features = features;
     context.spells = spells;
+    context.archetypeLevels = archetypeLevels;
+    context.archetypeFeats = archetypeFeats;
+    context.classSkills = classSkills;
    }
 
   /* -------------------------------------------- */
@@ -238,7 +244,6 @@ export class BNBActorSheet extends ActorSheet {
       onClickAddXpGain: this._addXpGain.bind(this),
     });
 
-    var menow = this.diag;
     if (this.diag && !this.diag?.rendered) {
       // consider destroying the old one.
     }
@@ -266,7 +271,7 @@ export class BNBActorSheet extends ActorSheet {
   }  
 
   async xpGainCallback(html) {
-    var mylevel = parseInt(html.find("#blah")[0].value);
+    var levelValue = parseInt(html.find("#level")[0].value);
 
     var dialogGains = [];
 
@@ -287,11 +292,11 @@ export class BNBActorSheet extends ActorSheet {
     }, this);
 
 
-    this.actor.data.data.attributes.level.value = mylevel;
+    //this.actor.data.data.attributes.level.value = levelValue;
     // this.actor.data.data.attributes.xp.gains.length = 0;
     // this.actor.data.data.attributes.xp.gains.push(...dialogGains);
 
-    this.actor.update({"data.attributes.xp.gains": dialogGains});//{disabled: !effect.data.disabled});
+    this.actor.update({"data.attributes.level.value": levelValue, "data.attributes.xp.gains": dialogGains});//{disabled: !effect.data.disabled});
   }
 
   /**

@@ -1,0 +1,66 @@
+<div class="flexcol">
+  <!-- Archetype Locked/Unlocked -->
+  <!-- Archetype Name and Level -->
+  <div class="flexrow flex-group-center">
+    <input 
+      class="flex-size-3"
+      name="data.archetypes.archetype{{archetypeNum}}.name" 
+      value="{{archetype.name}}"
+      type="text" data-type="Text"
+    />
+    <input 
+      class=""
+      name="data.archetypes.archetype{{archetypeNum}}.level" 
+      value="{{archetype.level}}"
+      type="text" data-type="Number"
+    />
+  </div>
+  <!-- Archetype Stats -->
+  <div class="flexrow flex-group-center">
+    <label>Acc</label>
+    <input 
+      name="data.archetypes.archetype{{archetypeNum}}.baseStats.acc" 
+      value="{{archetype.baseStats.acc}}"
+      type="text" data-type="Number" />
+    <label>Dmg</label>
+    <input 
+      name="data.archetypes.archetype{{archetypeNum}}.baseStats.dmg" 
+      value="{{archetype.baseStats.dmg}}"
+      type="text" data-type="Number" />
+    <label>Spd</label>
+    <input 
+      name="data.archetypes.archetype{{archetypeNum}}.baseStats.spd" 
+      value="{{archetype.baseStats.spd}}"
+      type="text" data-type="Number" />
+    <label>Mst</label>
+    <input 
+      name="data.archetypes.archetype{{archetypeNum}}.baseStats.mst" 
+      value="{{archetype.baseStats.mst}}"
+      type="text" data-type="Number" />
+  </div>
+  <!-- Archetype Levels -->
+  <ol class="items-list">
+    <li class="item flexrow items-header">
+      <div class="item-name">Achetype Level Reward</div>
+      <div class="item-controls">
+        <a 
+          class="item-control item-create" 
+          title="Create item" data-type="archetypeLevel"
+          data-archetype-number="{{archetypeNum}}">
+            <i class="fas fa-plus"></i> Add LVL
+          </a>
+      </div>
+    </li>
+    {{#each archetypeLevels as |item id|}}
+    <li class="item flexrow items-header" data-item-id="{{item._id}}">
+      <div class="item-name flexrow">
+        <h4>hi {{item.data.archetypeNumber}} {{item.name}}</h4>
+      </div>
+      <div class="item-controls">
+        <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+        <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+      </div>
+    </li>
+    {{/each}}
+  </ol>
+</div>

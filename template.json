@@ -75,21 +75,56 @@
         "mst": {
           "value": 0
         }
-      }
-    },
-    "npc": {
-      "templates": ["base"],
-      "cr": 0
+      },
+      "archetypes": {
+        "archetype1": {
+          "name": "",
+          "level": 1,
+          "baseStats": {
+            "acc": 0,
+            "dmg": 0,
+            "spd": 0,
+            "mst": 0
+          }
+        },
+        "archetype2": {
+          "name": "",
+          "level": 0
+        }
+      },
+      "class": {
+        "name": "",
+        "actionSkill": {
+          "name": "",
+          "effect": "",
+          "notes": "",
+          "uses": {
+            "value": 0,
+            "min": 0,
+            "max": 0
+          }
+        },
+        "baseStats": {
+          "acc": 0,
+          "dmg": 0,
+          "spd": 0,
+          "mst": 0
+        }
+      },
+      "info": {
+        "background": "",
+        "traits": {},
+        "appearance": ""
+      },
+      "notes": ""
     }
   },
   "Item": {
-    "types": ["item", "feature", "spell"],
+    "types": ["item", "feature", "spell",
+      "archetypeLevel", "archetypeFeat", "classSkill"],
     "templates": {
       "base": {
-        "description": "",
-        "carried": true,
-        "equipped": false,
-        "weilded": false
+        "description": ""
       }
     },
     "item": {
@@ -98,13 +133,35 @@
       "weight": 0,
       "formula": "d20 + @str.mod + ceil(@lvl / 2)"
     },
-    "feature": {
-      "templates": ["base"]
-    },
     "spell": {
       "templates": ["base"],
       "spellLevel": 1
     },
+    "archetypeLevel": {
+      "templates": ["base"],
+      "archetypeNumber": 0,
+      "level": 1,
+      "bonus": ""
+    },
+    "feature": {
+      "templates": ["base"]
+    },
+    "archetypeFeat": {
+      "templates": ["base"],
+      "requirements": ""
+    },
+    "classSkill": {
+      "templates": ["base"],
+      "tier": 1,
+      "skillLevel": 0
+    },
+    "gun": {
+      "templates": ["base"],
+      "carried": true,
+      "equipped": false,
+      "weilded": false
+    },
+    "remainder": "guns, potions, relics, grenades, shields, armors",
     "boost": {
       "value": 0,
       "stat": "",

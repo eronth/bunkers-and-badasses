@@ -59,7 +59,7 @@
             <label for="data.stats.{{key}}.value" class="resource-label rollable flexlarge align-left" data-roll="d20+@stats.{{key}}.mod" data-label="{{stat.label}}">{{stat.label}}</label>
           </div>
           <div>
-            <input type="text" disabled=true name="data.stats.{{key}}.value" value="{{stat.value}}" data-dtype="Number"/>
+            <input type="text" disabled=true name="data.stats.{{key}}.value" value="{{stat.value}}" data-type="Number"/>
           </div>
           <div>
             <span class="ability-mod rollable" data-roll="d20+@stats.{{key}}.mod" data-label="{{stat.label}}">({{numberFormat stat.mod decimals=0 sign=true}})</span>
@@ -78,7 +78,7 @@
         <label for="data.attributes.level.value" class="resource-label">100</label>
       </div>
       <div class="resource-content flexrow flex-center flex-between">
-        <input type="text" name="data.attributes.level.value" value="{{data.attributes.level.value}}" data-dtype="Number"/>
+        <input type="text" name="data.attributes.level.value" value="{{data.attributes.level.value}}" data-type="Number"/>
       </div>
       <div>
         <label for="data.attributes.level.value" class="resource-label">Level</label>
