@@ -202,6 +202,24 @@
   flex: 2;
 }
 
+.flex-size-2 {
+  -webkit-box-flex: 2;
+  -ms-flex: 2;
+  flex: 2;
+}
+
+.flex-size-3 {
+  -webkit-box-flex: 3;
+  -ms-flex: 3;
+  flex: 3;
+}
+
+.flex-size-4 {
+  -webkit-box-flex: 4;
+  -ms-flex: 4;
+  flex: 4;
+}
+
 .align-left {
   -webkit-box-pack: start;
   -ms-flex-pack: start;
