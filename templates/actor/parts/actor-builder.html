@@ -13,22 +13,6 @@
     </a>
 </ol>
 <section class="grid grid-2col">
-  <!-- <div class="flexcol">
-    <div class="flexrow flex-group-center">
-      <input 
-        class="flex-size-3"
-        name="data.archetypes.archetype1.name" 
-        value="{{data.archetypes.archetype1.name}}"
-        type="text" data-type="Text"
-      />
-      <input 
-        class=""
-        name="data.archetypes.archetype1.level" 
-        value="{{data.archetypes.archetype1.level}}"
-        type="text" data-type="Number"
-      />
-    </div>
-  </div> -->
   {{> "systems/bunkers-and-badasses/templates/actor/parts/actor-builder-archetype.html"
     archetypeNum="1" 
     archetype=data.archetypes.archetype1
@@ -37,17 +21,35 @@
     archetypeNum="2" 
     archetype=data.archetypes.archetype2
   }}
-  <!-- <div class="flexcol">
-    <div class="flexrow flex-group-center">
-      <label class="flexlarge">Chosen Class</label>
-      <label>SP Used</label>
-      <label>x</label>
-      <label>/</label>
-      <label>y</label>
-    </div>
-  </div> -->
 </section>
-<!-- archetype1
+<!-- Archetype Feats -->
+<section>
+  <ol class="items-list">
+    <li class="item flexrow items-header">
+      <div class="item-name">Achetype Feats</div>
+      <div class="item-controls">
+        <a 
+          class="item-control item-create" 
+          title="Create item" data-type="archetype feat">
+            <i class="fas fa-plus"></i> Add Feat
+          </a>
+      </div>
+    </li>
+    {{#each archetypeFeats as |item id|}}
+    <li class="item flexrow items-header" data-item-id="{{item._id}}">
+      <div class="item-name flexrow">
+        <h4>{{item.name}}</h4><h5>{{item.description}}</h4>
+      </div>
+      <div class="item-controls">
+        <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+        <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+      </div>
+    </li>
+    {{/each}}
+  </ol>
+</section>
+  <!-- archetype1
+</section>
 archetype1 level
 archetype1 starting stats
 each bonus (plus an adder)

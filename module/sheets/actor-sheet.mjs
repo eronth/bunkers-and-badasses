@@ -122,10 +122,12 @@ export class BNBActorSheet extends ActorSheet {
         if (i.data.spellLevel != undefined) {
           spells[i.data.spellLevel].push(i); // Append to spells.
         }
-      } else if (i.type === 'archetypeLevel') {
-        archetypeLevels.push(i); // Append to archetypeLevels.
-      } else if (i.type === 'archetypeFeat') {
-        archetypeFeats.push(i); // Append to archetypeFeats.
+      } else if (i.type === 'Archetype Level') {
+        archetypeLevels.push(i); // Append to archetype Levels.
+      } else if (i.type === 'Archetype Feat') {
+        archetypeFeats.push(i); // Append to archetype Feats.
+      } else if (i.type === 'Class Skill') {
+        classSkills.push(i); // Append to class Skills.
       }
     }
 

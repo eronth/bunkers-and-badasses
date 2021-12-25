@@ -121,7 +121,7 @@
   },
   "Item": {
     "types": ["item", "feature", "spell",
-      "archetypeLevel", "archetypeFeat", "classSkill"],
+      "Archetype Level", "Archetype Feat", "Class Skill"],
     "templates": {
       "base": {
         "description": ""
@@ -137,7 +137,7 @@
       "templates": ["base"],
       "spellLevel": 1
     },
-    "archetypeLevel": {
+    "Archetype Level": {
       "templates": ["base"],
       "archetypeNumber": 0,
       "level": 1,
@@ -146,11 +146,11 @@
     "feature": {
       "templates": ["base"]
     },
-    "archetypeFeat": {
+    "Archetype Feat": {
       "templates": ["base"],
       "requirements": ""
     },
-    "classSkill": {
+    "Class Skill": {
       "templates": ["base"],
       "tier": 1,
       "skillLevel": 0
