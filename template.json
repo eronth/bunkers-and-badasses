@@ -148,6 +148,7 @@
     },
     "Archetype Feat": {
       "templates": ["base"],
+      "archetype": "",
       "requirements": ""
     },
     "Class Skill": {
