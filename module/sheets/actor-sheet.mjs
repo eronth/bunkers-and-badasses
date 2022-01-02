@@ -148,7 +148,8 @@ export class BNBActorSheet extends ActorSheet {
 
     // Render the item sheet for viewing/editing prior to the editable check.
     html.find('.item-edit').click(ev => {
-      const li = $(ev.currentTarget).parents(".item");
+      ev.stopPropagation();
+      const li = $(ev.currentTarget).parents(".item-element-group");
       const item = this.actor.items.get(li.data("itemId"));
       item.sheet.render(true);
     });
@@ -157,13 +158,17 @@ export class BNBActorSheet extends ActorSheet {
     // Everything below here is only needed if the sheet is editable
     if (!this.isEditable) return;
 
+    // Display inventory details.
+    html.find(".item-dropdown").mousedown(this._expandItemDropdown.bind(this))
+
     // Add Inventory Item
-    html.find('.item-create').click(this._onItemCreate.bind(this));
     html.find('.xp-gain').click(this._onXpGain.bind(this));
+    html.find('.item-create').click(this._onItemCreate.bind(this));
 
     // Delete Inventory Item
     html.find('.item-delete').click(ev => {
-      const li = $(ev.currentTarget).parents(".item");
+      ev.stopPropagation();
+      const li = $(ev.currentTarget).parents(".item-element-group");
       const item = this.actor.items.get(li.data("itemId"));
       item.delete();
       li.slideUp(200, () => this.render(false));
@@ -300,6 +305,47 @@ export class BNBActorSheet extends ActorSheet {
 
     this.actor.update({"data.attributes.level.value": levelValue, "data.attributes.xp.gains": dialogGains});//{disabled: !effect.data.disabled});
   }
+
+  _expandItemDropdown(event) {
+    let id = $(event.currentTarget).attr("data-item-id")
+    let item = this.actor.items.get(id)
+    if (item && event.button == 0)
+      this._createDropdown(event, { text: item.data.data.description });
+    else if (item)
+      item.sheet.render(true)
+  }
+
+  _createDropdown(event, dropdownData) {
+    let dropdownHTML = ""
+    event.preventDefault()
+    let li = $(event.currentTarget).parents(".item-element-group")
+    // Toggle expansion for an item
+    if (li.hasClass("expanded")) // If expansion already shown - remove
+    {
+      let summary = li.children(".item-summary");
+      summary.slideUp(200, () => summary.remove());
+    } else {
+      // Add a div with the item summary belowe the item
+      let div
+      if (!dropdownData) {
+        return
+      } else {
+        dropdownHTML = `<div class="item-summary">${TextEditor.enrichHTML(dropdownData.text)}`;
+      }
+      // if (dropdownData.tags) {
+      //     let tags = `<div class='tags'>`
+      //     dropdownData.tags.forEach(tag => {
+      //         tags = tags.concat(`<span class='tag'>${tag}</span>`)
+      //     })
+      //     dropdownHTML = dropdownHTML.concat(tags)
+      // }
+      dropdownHTML += "</div>"
+      div = $(dropdownHTML)
+      li.append(div.hide());
+      div.slideDown(200);
+    }
+    li.toggleClass("expanded");
+}
 
   /**
    * Handle clickable rolls.

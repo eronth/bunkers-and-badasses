@@ -6,35 +6,50 @@
     </div>
   </header>
 
-  {{!-- Sheet Tab Navigation --}}
+  <!-- {{!-- Sheet Tab Navigation --}}
   <nav class="sheet-tabs tabs" data-group="primary">
     <a class="item" data-tab="description">Description</a>
     <a class="item" data-tab="attributes">Attributes</a>
-  </nav>
+  </nav> -->
 
   {{!-- Sheet Body --}}
   <section class="sheet-body">
 
-    {{!-- Description Tab --}}
+    <!-- {{!-- Description Tab --}}
     <div class="tab" data-group="primary" data-tab="description">
       {{editor content=data.description target="data.description" rollData=rollData button=true owner=owner editable=editable}}
-    </div>
+    </div> -->
     
     {{!-- Attributes Tab --}}
-    <div class="tab attributes" data-group="primary" data-tab="attributes">
+    <div class="attributes flexcol" data-group="primary">
       {{!-- As you add new fields, add them in here! --}}
-      <div class="resource">
-        <label class="resource-label">Archetype</label>
-        <input type="text" name="data.archetype" value="{{data.archetype}}" placeholder="Achetype that Feat is from"/>
+      <div class="flexrow">
+        <div class="resource flexrow">
+          <label class="resource-label flex-size-1">Archetype</label>
+          <input class="flex-size-2" 
+                 type="text" 
+                 name="data.archetype" 
+                 value="{{data.archetype}}" 
+                 placeholder="Feat's Archetype"/>
+        </div>
+        <div class="resource flexrow">
+          <label class="resource-label flex-size-1">Requirement</label>
+          <input class="flex-size-2"
+                 type="text" 
+                 name="data.requirement" 
+                 value="{{data.requirement}}" 
+                 placeholder="Requirement (if any)"/>
+        </div>
       </div>
-      <div class="resource">
-        <label class="resource-label">Requirement</label>
-        <input type="text" name="data.requirement" value="{{data.requirement}}" placeholder="Requirements, if any"/>
-      </div>
-      <div class="resource">
+      <div class="resource col">
         <label class="resource-label">Description</label>
-        <input type="text" name="data.description" value="{{data.description}}" placeholder="Description of feat's effects."/>
+        <textarea type="text" 
+                  rows="4"
+                  name="data.description"
+                  placeholder="Description of feat's effects.">{{data.description}}</textarea>
       </div>
     </div>
   </section>
+
+  
 </form>

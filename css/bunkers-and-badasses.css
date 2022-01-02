@@ -429,6 +429,11 @@
   display: flex;
 }
 
+.bnb .items-list .item-text {
+  justify-content: flex-start;
+  text-align: left;
+}
+
 .bnb .items-list .item-name h3, .bnb .items-list .item-name h4 {
   margin: 0;
   white-space: nowrap;
@@ -508,6 +513,11 @@
   text-align: left;
 }
 
+.bnb .items-list .items-header .item-text {
+  padding-left: 5px;
+  text-align: left;
+}
+
 .bnb .item-formula {
   -webkit-box-flex: 0;
   -ms-flex: 0 0 200px;
@@ -534,6 +544,20 @@
 
 .bnb .regen {
   font-size: 10px;
+}
+
+.item-content {
+  align-items: center;
+}
+
+.bolded {
+  font-weight: bold;
+}
+
+.large-text-overflow-hidden {
+  overflow: hidden;
+  white-space: nowrap;
+  justify-content: flex-start;
 }
 
 .xpBar:hover, .xpBar:focus {
