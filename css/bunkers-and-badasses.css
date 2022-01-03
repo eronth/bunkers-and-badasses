@@ -550,8 +550,19 @@
   align-items: center;
 }
 
+.reminder-text {
+  color: darkgray;
+  margin-top: 4px;
+  margin-bottom: 5px;
+  padding: 0;
+}
+
 .bolded {
   font-weight: bold;
+}
+
+.italicized {
+  font-style: italic;
 }
 
 .large-text-overflow-hidden {

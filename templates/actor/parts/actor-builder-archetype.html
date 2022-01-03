@@ -1,21 +1,29 @@
 <div class="flexcol">
   <!-- Archetype Locked/Unlocked -->
+  {{#showRequirementText}}
+  <div class="flexrow flex-group-center reminder-text italicized">
+      Your second archetype unlocks at level {{levelRequirement}}.
+  </div>
+  {{/showRequirementText}}
   <!-- Archetype Name and Level -->
   <div class="flexrow flex-group-center">
     <input 
-      class="flex-size-3"
-      name="data.archetypes.archetype{{archetypeNum}}.name" 
-      value="{{archetype.name}}"
-      type="text" data-type="Text"
+    class="flex-size-3"
+    name="data.archetypes.archetype{{archetypeNum}}.name"
+    placeholder="Archetype Name"
+    value="{{archetype.name}}"
+    type="text" data-type="Text"
     />
     <input 
-      class=""
-      name="data.archetypes.archetype{{archetypeNum}}.level" 
-      value="{{archetype.level}}"
-      type="text" data-type="Number"
+    class=""
+    name="data.archetypes.archetype{{archetypeNum}}.level"
+    placeholder="Level"
+    value="{{archetype.level}}"
+    type="text" data-type="Number"
     />
   </div>
   <!-- Archetype Stats -->
+  {{#showStats}}
   <div class="flexrow flex-group-center">
     <label>Acc</label>
     <input 
@@ -38,6 +46,7 @@
       value="{{archetype.baseStats.mst}}"
       type="text" data-type="Number" />
   </div>
+  {{/showStats}}
   <!-- Archetype Levels -->
   <ol class="items-list">
     <li class="item flexrow items-header">
@@ -45,16 +54,16 @@
       <div class="item-controls">
         <a 
           class="item-control item-create" 
-          title="Create item" data-type="archetypeLevel"
+          title="Create item" data-type="Archetype Level"
           data-archetype-number="{{archetypeNum}}">
-            <i class="fas fa-plus"></i> Add LVL
+            <i class="fas fa-plus"></i> Add Reward
           </a>
       </div>
     </li>
     {{#each archetypeLevels as |item id|}}
     <li class="item flexrow items-header" data-item-id="{{item._id}}">
       <div class="item-name flexrow">
-        <h4>hi {{item.data.archetypeNumber}} {{item.name}}</h4>
+        <h4>{{item.data.archetypeNumber}} {{item.name}}</h4>
       </div>
       <div class="item-controls">
         <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>

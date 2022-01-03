@@ -71,20 +71,7 @@
     </div>
 
   </header>
-  <div class="sheet-header xpBar flexcol flex-group-center">
-    <div class="flexrow xpBar" style='height:auto;'>
-      <div>
-        <label for="data.attributes.level.value" class="resource-label">Level</label>
-        <label for="data.attributes.level.value" class="resource-label">100</label>
-      </div>
-      <div class="resource-content flexrow flex-center flex-between">
-        <input type="text" name="data.attributes.level.value" value="{{data.attributes.level.value}}" data-type="Number"/>
-      </div>
-      <div>
-        <label for="data.attributes.level.value" class="resource-label">Level</label>
-      </div>
-    </div>
-  </div>
+  {{> "systems/bunkers-and-badasses/templates/actor/parts/actor-experience-bar.html" }}
   
   {{!-- Sheet Tab Navigation --}}
   <nav class="sheet-tabs tabs" data-group="primary">

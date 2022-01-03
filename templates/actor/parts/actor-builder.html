@@ -9,18 +9,24 @@
       <i class="fas fa-plus"></i> Gain XP
     </a>
     <a class="item-control item-edit" title="Edit Item">
-        <i class="fas fa-edit"></i>
+      <i class="fas fa-edit"></i>
     </a>
 </ol>
 <section class="grid grid-2col">
-  {{> "systems/bunkers-and-badasses/templates/actor/parts/actor-builder-archetype.html"
-    archetypeNum="1" 
-    archetype=data.archetypes.archetype1
-  }}
-  {{> "systems/bunkers-and-badasses/templates/actor/parts/actor-builder-archetype.html"
-    archetypeNum="2" 
-    archetype=data.archetypes.archetype2
-  }}
+  <div>
+    {{> "systems/bunkers-and-badasses/templates/actor/parts/actor-builder-archetype.html"
+      archetypeNum="1" 
+      archetype=data.archetypes.archetype1
+      showStats=true
+    }}
+  </div>
+  <div>
+    {{> "systems/bunkers-and-badasses/templates/actor/parts/actor-builder-archetype.html"
+      archetypeNum="2" 
+      archetype=data.archetypes.archetype2
+      showRequirementText=true levelRequirement="5"
+    }}
+  </div>
 </section>
 <!-- Archetype Feats -->
 <section>

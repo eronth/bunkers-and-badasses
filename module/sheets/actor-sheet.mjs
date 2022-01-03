@@ -42,6 +42,7 @@ export class BNBActorSheet extends ActorSheet {
     // Prepare character data and items.
     if (actorData.type == 'character') {
       this._prepareItems(context);
+      this._prepareExperience(context);
       this._prepareCharacterData(context);
     }
 
@@ -57,6 +58,65 @@ export class BNBActorSheet extends ActorSheet {
     context.effects = prepareActiveEffectCategories(this.actor.effects);
 
     return context;
+  }
+
+  _prepareExperience(context) {
+    // First, start with the book provided cutoffs.
+    const experiencePerSegmentCutoffs = {
+      1: 100, 2: 100, 3: 100,
+      4: 150, 5: 150,
+      6: 200, 7: 200, 8: 200,
+      9: 250, 10: 250,
+      11: 300, 12: 300, 13: 300,
+      14: 350, 15: 350,
+      16: 400, 17: 400, 18: 400,
+      19: 450, 20: 450,
+      21: 500, 22: 500, 23: 500,
+      24: 550, 25: 550,
+      26: 600, 27: 600, 28: 600,
+      29: 650, 30: 650
+    }
+    
+    // Next, use the cutoffs to determine individual exp required to reach each next level.
+    let experienceReqs = {};
+    let varForNextLevel = 0;
+    let totalExpRequiredSoFar = 0;
+    Object.entries(experiencePerSegmentCutoffs).forEach(entry => {
+      const [level, cutoff] = entry;
+      experienceReqs[level] = {toHitThisLevel: 0, toHitNextLevel: 0};
+      experienceReqs[level].toHitThisLevel = totalExpRequiredSoFar;
+      varForNextLevel = cutoff * 10;
+      experienceReqs[level].toHitNextLevel = varForNextLevel;
+      totalExpRequiredSoFar += varForNextLevel; // Increment this for the next loop.
+    });
+    
+    // Total up the experience gained for the character and set xp.total value.
+    let totalXpGained = 0;
+    (context.data.attributes.xp.gains).forEach(expBit => {
+      totalXpGained += expBit.value;
+    });
+    context.data.attributes.xp.total = totalXpGained;
+
+    // Loop through the thresholds. Find the one where we have enough XP to to be that level
+    // but not enough leftover to be higher.
+    Object.entries(experienceReqs).forEach(entry => {
+      const [level, req] = entry;
+      if (totalXpGained >= req.toHitThisLevel) {
+        let leftoverXP = totalXpGained - req.toHitThisLevel;
+        if (leftoverXP < req.toHitNextLevel) {
+          context.data.attributes.level = level;
+          context.data.attributes.xp.level = level; // I fucked up and tracked the level in two places.
+          // Track current experience in the current level... just in case.
+          context.data.attributes.xp.soFarInLevel = leftoverXP;
+          context.data.attributes.xp.currentSegment = 
+            Math.ceil((leftoverXP+1)/experiencePerSegmentCutoffs[level]);
+          context.data.attributes.xp.XpPerSegment = experiencePerSegmentCutoffs[level];
+        }
+      }
+    });
+
+    // Make it easier to access the experience data.
+    context.xp = context.data.attributes.xp;
   }
 
   /**
