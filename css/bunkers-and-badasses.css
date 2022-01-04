@@ -691,3 +691,52 @@
   cursor: pointer;
   background-color: #ffc;
 }
+
+.bnb .xpBar-max {
+  background: #4b4347;
+  height: 11px;
+  min-height: 11px;
+  margin: 1px;
+}
+.bnb .xpBar-max .xpBar-segment {
+  border: 1px solid #10020f;
+  height: 11px;
+  min-height: 11px;
+}
+.bnb .xpBar-max .xpBar-segment .xpBar-progress {
+  background-color: #82e4fb;
+  height: 9px;
+  min-height: 9px;
+}
+
+.bnb .xpBar .under-bar {
+  justify-content: space-between;
+}
+.bnb .xpBar .per-seg-text {
+  font-size: smaller;
+}
+.bnb .xpBar .per-seg-value {
+  font-size: smaller;
+  font-weight: bold;
+}
+.bnb .xpBar .under-bar .under-bar-left {
+  justify-content: flex-start;
+  text-align: left;
+  padding-left: 10px;
+}
+.bnb .xpBar .under-bar .under-bar-right {
+  justify-content: flex-end;
+  text-align: right;
+  font-size: x-small;
+  padding-right: 10px;
+}
+.bnb .xpBar .under-bar .under-bar-center {
+  justify-content: flex-end;
+  text-align: right;
+  font-size: smaller;
+  padding-right: 10px;
+}
+
+.bnb .xpBar-max .xpBar-segment:nth-child(n+2) {
+  border-left: 0;
+}

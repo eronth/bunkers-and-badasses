@@ -90,6 +90,8 @@ export class BNBActorSheet extends ActorSheet {
     let experienceReqs = {};
     let varForNextLevel = 0;
     let totalExpRequiredSoFar = 0;
+    let xpSegmentPercents = new Array(10).fill(0);
+
     Object.entries(experiencePerSegmentCutoffs).forEach(entry => {
       const [level, cutoff] = entry;
       experienceReqs[level] = {toHitThisLevel: 0, toHitNextLevel: 0};
@@ -126,6 +128,24 @@ export class BNBActorSheet extends ActorSheet {
 
     // Make it easier to access the experience data.
     context.xp = context.data.attributes.xp;
+
+    // Calculate the percentage completion of each xp segment
+    // for progress bar rendering via handlebars.
+    xpSegmentPercents.forEach((segment, index, xpSegmentPercents) => {
+      if ((index+1) < context.xp.currentSegment) {
+        xpSegmentPercents[index] = 100;
+      } else if ((index+1) > context.xp.currentSegment) {
+        xpSegmentPercents[index] = 0;
+      } else {
+        // We should only be here when the segment is the currently active one.
+        let xpInThisSegment = context.xp.soFarInLevel - (context.xp.XpPerSegment * (index)); // not index+1 because we need to remove the xp from before that, not including it.
+        // Modify to % value.
+        xpSegmentPercents[index] = 100 * xpInThisSegment / context.xp.XpPerSegment;
+        context.xp.soFarInSegment = xpInThisSegment;
+      }
+    });
+
+    context.xp.xpSegmentPercents = xpSegmentPercents;
   }
 
   _prepareHps(context) {

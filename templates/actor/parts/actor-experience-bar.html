@@ -1,22 +1,39 @@
 <div class="sheet-header xpBar flexcol flex-group-center">
-  <label for="xp.level">Level</label>
-  <label for="xp.level">{{xp.level}}</label>
-  <label for="xp.soFarInLevel">So Far In Level</label>
-  <label for="xp.soFarInLevel">{{xp.soFarInLevel}}</label>
-  <label for="xp.currentSegment">Current Segment</label>
-  <label for="xp.currentSegment">{{xp.currentSegment}}</label>
-  <lable for="xp.XpPerSegment">Xp Per Segment</label>
-  <label for="xp.XpPerSegment">{{xp.XpPerSegment}}</label>
-  <!-- <div class="flexrow xpBar" style='height:auto;'>
-    <div>
-      <label for="data.attributes.level.value" class="resource-label">Level</label>
-      <label for="data.attributes.level.value" class="resource-label">100</label>
+  <div class="flexcol">
+    <div class="flexrow">
+      {{!-- xpPerSeg section --}}
+      <div class="flexcol">
+        <div class="per-seg-text">xp ∕ seg</div>
+        <div class="per-seg-value">{{xp.XpPerSegment}}</div>
+      </div>
+
+      <div class="flexcol flex-size-11">
+        {{!-- The actual XP Bar --}}
+        <div class="flexrow xpBar-max">
+          {{#each xp.xpSegmentPercents as |xpSegment key|}}
+          <div id="xpBarProgress{{key}}" class="xpBar-segment" style="max-width:10%;min-width:10%">
+            <div id="xpBarProgress" class="xpBar-progress" style="max-width:{{xpSegment}}%;min-width:{{xpSegment}}%"></div>
+          </div>
+          {{/each}}
+        </div>
+        {{!-- Under the bar --}}
+        <div class="flexrow under-bar">
+          <div class="under-bar-left bolded">
+            <label>LV</label>
+            <label>{{xp.level}}</label>
+            <label>{{data.class.name}}</label>
+          </div>
+          <div class="under-bar-right">
+            <label>Current Segment XP: </label>
+            <label>{{xp.soFarInSegment}}</label>
+            <label>&emsp;Current Level XP: </label>
+            <label>{{xp.soFarInLevel}}</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- <div>ding!</div> -->
     </div>
-    <div class="resource-content flexrow flex-center flex-between">
-      <input type="text" name="data.attributes.level.value" value="{{data.attributes.level.value}}" data-type="Number"/>
-    </div>
-    <div>
-      <label for="data.attributes.level.value" class="resource-label">Level</label>
-    </div>
-  </div> -->
+    
+  </div>
 </div>
