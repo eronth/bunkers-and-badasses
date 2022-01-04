@@ -1,10 +1,10 @@
 <div class="dialog-fields">
   <label for="archetypeLevel">Archetype Level</label>
-  <input id="archetypeLevel" style='width:10px' type="text" data-dtype="Number">
-    {{rewards[index].Level}}
-  </input>
+  <input id="archetypeLevel" type="text" data-type="Number" value="{{level}}" />
   <label for="rewardText">Reward</label>
-  <input id="rewardText" style='width:10px' type="text">
-    {{rewards[index].Description}}
-  </input>
+  <input id="rewardText" type="text" placeholder="Reward" value="{{description}}" />
+</div>
+<div hidden>
+  <input id="archetypeNum" type="text" value="{{archetypeNum}}" />
+  <input id="rewardIndex" type="text" value="{{index}}" />
 </div>
