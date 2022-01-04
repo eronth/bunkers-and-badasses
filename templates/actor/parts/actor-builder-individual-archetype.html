@@ -13,14 +13,14 @@
       placeholder="Archetype Name"
       value="{{archetype.name}}"
       onclick="this.select()"
-      type="text" data-type="Text"
+      type="text" data-dtype="Text"
     />
     <input 
       class=""
       name="data.archetypes.archetype{{archetypeNum}}.level"
       onClick="this.select()"
       placeholder="Level" value="{{archetype.level}}"
-      type="number" data-type="Number"
+      type="number" data-dtype="Number"
     />
   </div>
   <!-- Archetype Stats -->
@@ -31,25 +31,25 @@
       name="data.archetypes.archetype{{archetypeNum}}.baseStats.acc" 
       value="{{archetype.baseStats.acc}}"
       onclick="this.select()"
-      type="number" data-type="Number" />
+      type="number" data-dtype="Number" />
     <label>Dmg</label>
     <input 
       name="data.archetypes.archetype{{archetypeNum}}.baseStats.dmg" 
       value="{{archetype.baseStats.dmg}}"
       onclick="this.select()"
-      type="number" data-type="Number" />
+      type="number" data-dtype="Number" />
     <label>Spd</label>
     <input 
       name="data.archetypes.archetype{{archetypeNum}}.baseStats.spd" 
       value="{{archetype.baseStats.spd}}"
       onclick="this.select()"
-      type="number" data-type="Number" />
+      type="number" data-dtype="Number" />
     <label>Mst</label>
     <input 
       name="data.archetypes.archetype{{archetypeNum}}.baseStats.mst" 
       value="{{archetype.baseStats.mst}}"
       onclick="this.select()"
-      type="number" data-type="Number" />
+      type="number" data-dtype="Number" />
   </div>
   {{/showStats}}
   <!-- Archetype Levels -->
@@ -59,7 +59,7 @@
       <div class="item-controls">
         <a 
           class="item-control archetype-reward-create" 
-          title="Create item" data-type="Archetype Level"
+          title="Create item" data-dtype="Archetype Level"
           data-archetype-number="{{archetypeNum}}">
             <i class="fas fa-plus"></i> Add Reward
           </a>
