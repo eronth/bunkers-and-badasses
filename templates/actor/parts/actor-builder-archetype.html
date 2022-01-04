@@ -8,18 +8,19 @@
   <!-- Archetype Name and Level -->
   <div class="flexrow flex-group-center">
     <input 
-    class="flex-size-3"
-    name="data.archetypes.archetype{{archetypeNum}}.name"
-    placeholder="Archetype Name"
-    value="{{archetype.name}}"
-    type="text" data-type="Text"
+      class="flex-size-3"
+      name="data.archetypes.archetype{{archetypeNum}}.name"
+      placeholder="Archetype Name"
+      value="{{archetype.name}}"
+      onclick="this.select()"
+      type="text" data-type="Text"
     />
     <input 
-    class=""
-    name="data.archetypes.archetype{{archetypeNum}}.level"
-    placeholder="Level"
-    value="{{archetype.level}}"
-    type="text" data-type="Number"
+      class=""
+      name="data.archetypes.archetype{{archetypeNum}}.level"
+      onClick="this.select()"
+      placeholder="Level" value="{{archetype.level}}"
+      type="number" data-type="Number"
     />
   </div>
   <!-- Archetype Stats -->
@@ -29,22 +30,26 @@
     <input 
       name="data.archetypes.archetype{{archetypeNum}}.baseStats.acc" 
       value="{{archetype.baseStats.acc}}"
-      type="text" data-type="Number" />
+      onclick="this.select()"
+      type="number" data-type="Number" />
     <label>Dmg</label>
     <input 
       name="data.archetypes.archetype{{archetypeNum}}.baseStats.dmg" 
       value="{{archetype.baseStats.dmg}}"
-      type="text" data-type="Number" />
+      onclick="this.select()"
+      type="number" data-type="Number" />
     <label>Spd</label>
     <input 
       name="data.archetypes.archetype{{archetypeNum}}.baseStats.spd" 
       value="{{archetype.baseStats.spd}}"
-      type="text" data-type="Number" />
+      onclick="this.select()"
+      type="number" data-type="Number" />
     <label>Mst</label>
     <input 
       name="data.archetypes.archetype{{archetypeNum}}.baseStats.mst" 
       value="{{archetype.baseStats.mst}}"
-      type="text" data-type="Number" />
+      onclick="this.select()"
+      type="number" data-type="Number" />
   </div>
   {{/showStats}}
   <!-- Archetype Levels -->

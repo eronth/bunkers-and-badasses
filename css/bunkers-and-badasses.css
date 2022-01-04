@@ -190,6 +190,10 @@
   flex: 0;
 }
 
+.flex-stretch {
+  align-items: stretch;
+}
+
 .flex-between {
   -webkit-box-pack: justify;
   -ms-flex-pack: justify;

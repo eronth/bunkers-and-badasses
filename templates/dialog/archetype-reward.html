@@ -1,10 +1,14 @@
-<div class="dialog-fields">
-  <label for="archetypeLevel">Archetype Level</label>
-  <input id="archetypeLevel" type="text" data-type="Number" value="{{level}}" />
-  <label for="rewardText">Reward</label>
-  <input id="rewardText" type="text" placeholder="Reward" value="{{description}}" />
-</div>
-<div hidden>
-  <input id="archetypeNum" type="text" value="{{archetypeNum}}" />
-  <input id="rewardIndex" type="text" value="{{index}}" />
+<div class="dialog-fields flexcol align-center">
+  <div class="flexrow align-left">
+    <label for="archetypeLevel">Archetype Level</label>
+    <input id="archetypeLevel" type="number" data-type="Number" value="{{level}}" onclick="this.select()" />
+  </div>
+  <div class="flexrow">
+    <label for="rewardText">Reward</label>
+    <input id="rewardText" class="flex-size-8" type="text" placeholder="Reward" value="{{description}}" />
+  </div>
+  <div hidden>
+    <input id="archetypeNum" type="text" value="{{archetypeNum}}" />
+    <input id="rewardIndex" type="text" value="{{index}}" />
+  </div>
 </div>
