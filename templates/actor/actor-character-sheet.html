@@ -44,7 +44,7 @@
         {{#each data.stats as |stat key|}}
         <div class="ability rollable flexrow flex-group-center">
           <label for="data.stats.{{key}}.value" class="resource-label rollable flexlarge align-left" data-roll="d20+@stats.{{key}}.mod" data-label="{{stat.label}}">{{stat.label}}</label>
-          <input type="text" disabled=true name="data.stats.{{key}}.value" value="{{stat.value}}" data-type="Number"/>
+          <input type="text" disabled=true name="data.stats.{{key}}.value" value="{{stat.value}}" data-dtype="Number"/>
           <div class="flexcol rollable">
             <label class="ability-mod">mod</label>
             <span class="ability-mod rollable"
