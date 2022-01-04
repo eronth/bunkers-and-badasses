@@ -13,7 +13,8 @@ export class BNBActorSheet extends ActorSheet {
       template: "systems/bunkers-and-badasses/templates/actor/actor-sheet.html",
       width: 600,
       height: 600,
-      tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "features" }]
+      tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "features" },
+      { navSelector: ".builder-tabs", contentSelector: ".builder-body", initial: "archetype" }]
     });
   }
 
@@ -239,6 +240,9 @@ export class BNBActorSheet extends ActorSheet {
     html.find('.archetype-reward-edit').click(this._onArchetypeRewardEdit.bind(this));
     html.find('.archetype-reward-delete').click(this._onArchetypeRewardDelete.bind(this));
 
+    // Handle checkbox changes.
+    html.find(".checkbox").click(this._onCheckboxClick.bind(this));
+
     // Display inventory details.
     html.find(".item-dropdown").mousedown(this._expandItemDropdown.bind(this))
 
@@ -458,6 +462,17 @@ export class BNBActorSheet extends ActorSheet {
     this.actor.update({"data.attributes.level.value": levelValue, "data.attributes.xp.gains": dialogGains});//{disabled: !effect.data.disabled});
   }
 
+  _onCheckboxClick(event) {
+    let target = $(event.currentTarget).attr("data-target")
+    // if (target == "item") {
+    //     target = $(event.currentTarget).attr("data-item-target")
+    //     let item = this.actor.items.get($(event.currentTarget).parents(".item").attr("data-item-id"))
+    //     return item.update({ [`${target}`]: !getProperty(item.data, target) })
+    // }
+    if (target)
+        return this.actor.update({[`${target}`] : !getProperty(this.actor.data, target)});
+  }
+  
   _expandItemDropdown(event) {
     let id = $(event.currentTarget).attr("data-item-id")
     let item = this.actor.items.get(id)

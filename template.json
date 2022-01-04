@@ -34,6 +34,9 @@
     "character": {
       "templates": ["base"],
       "attributes": {
+        "badassRank": {
+          "value": 0
+        },
         "level": {
           "value": 1
         },
@@ -112,6 +115,14 @@
           "spd": 0,
           "mst": 0
         }
+      },
+      "favored": {
+        "pistol": true,
+        "smg": false,
+        "rifle": false,
+        "shotgun": false,
+        "sniper": false,
+        "heavy": false
       },
       "info": {
         "background": "",

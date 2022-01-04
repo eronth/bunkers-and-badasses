@@ -1,0 +1,47 @@
+<section class="grid grid-2col">
+  <div>
+    {{> "systems/bunkers-and-badasses/templates/actor/parts/actor-builder-individual-archetype.html"
+      archetypeNum="1" 
+      archetype=data.archetypes.archetype1
+      archetypeFeats=archetype1Feats
+      showStats=true
+    }}
+  </div>
+  <div>
+    {{> "systems/bunkers-and-badasses/templates/actor/parts/actor-builder-individual-archetype.html"
+      archetypeNum="2"
+      archetype=data.archetypes.archetype2
+      archetypeFeats=archetype2Feats
+      levelRequirement="5"
+    }}
+  </div>
+</section>
+<!-- Archetype Feats -->
+<section>
+  <ol class="items-list">
+    <li class="item flexrow items-header">
+      <div class="item-name">Achetype Feats</div>
+      <div class="item-controls">
+        <a 
+          class="item-control item-create" 
+          title="Create item" data-type="Archetype Feat">
+            <i class="fas fa-plus"></i> Add Feat
+          </a>
+      </div>
+    </li>
+    {{#each archetypeFeats as |item id|}}
+    <div class="item-element-group" data-item-id="{{item._id}}">
+      <li class="flexrow items-header item-content item-dropdown" 
+      data-item-id="{{item._id}}"
+      >
+        <div class="item-name bolded flex-size-4">{{item.name}}</div>
+        <div class="item-text flex-size-7 large-text-overflow-hidden">{{item.data.description}}</div>
+        <div class="item-controls flex-size-1">
+          <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+          <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+        </div>
+      </li>
+    </div>
+    {{/each}}
+  </ol>
+</section>
