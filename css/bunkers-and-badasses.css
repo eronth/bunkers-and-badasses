@@ -362,6 +362,13 @@
   align-items: center;
 }
 
+.bnb .class-stats-section {
+  border: 1px solid #b5b3a4;
+  margin-left: 2px;
+  margin-right: 2px;
+  padding: 1px;
+}
+
 .bnb .align-center {
   align-items: center;
 }

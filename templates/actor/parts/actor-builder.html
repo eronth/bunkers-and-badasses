@@ -5,19 +5,31 @@
       <label>Favored Weapons</label>
     </div>
     <div class="flexrow favored-body">
-      <input type="checkbox" id="favorPistol" name="favorPistol" {{ checked data.favored.pistol }}/>
+      <input type="checkbox" id="favorPistol" 
+        name="data.favored.pistol" data-dtype="Boolean" 
+        {{ checked data.favored.pistol }} />
       <label for="favorPistol">Pistol</label>
-      <input type="checkbox" id="favorRifle" name="favorRifle" />
+      <input type="checkbox" id="favorRifle"
+        name="data.favored.rifle" data-dtype="Boolean" 
+        {{ checked data.favored.rifle }} />
       <label for="favorRifle">Combat Rifle</label>
-      <input type="checkbox" id="favorSniper" name="favorSniper" />
+      <input type="checkbox" id="favorSniper"
+        name="data.favored.sniper" data-dtype="Boolean"
+        {{ checked data.favored.sniper }} />
       <label for="favorSniper">Sniper</label>
     </div>
     <div class="flexrow favored-body">
-      <input type="checkbox" id="favorSMG" name="favorSMG" />
+      <input type="checkbox" id="favorSMG"
+        name="data.favored.smg" data-dtype="Boolean"
+        {{ checked data.favored.smg }} />
       <label for="favorSMG">SMG</label>
-      <input type="checkbox" id="favorShotgun" name="favorShotgun" />
+      <input type="checkbox" id="favorShotgun"
+        name="data.favored.shotgun" data-dtype="Boolean"
+        {{ checked data.favored.shotgun }} />
       <label for="favorShotgun">Shotgun</label>
-      <input type="checkbox" id="favorHeavy" name="favorHeavy" />
+      <input type="checkbox" id="favorHeavy"
+        name="data.favored.heavy" data-dtype="Boolean"
+        {{ checked data.favored.heavy }} />
       <label for="favorHeavy">Rocket Launcher</label>
     </div>
   </div>

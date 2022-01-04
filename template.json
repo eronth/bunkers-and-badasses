@@ -117,7 +117,7 @@
         }
       },
       "favored": {
-        "pistol": true,
+        "pistol": false,
         "smg": false,
         "rifle": false,
         "shotgun": false,

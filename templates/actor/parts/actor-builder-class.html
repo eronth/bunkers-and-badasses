@@ -2,40 +2,56 @@
   class name
   background
   background bonuses
-  favored gun(s)
-  stat modifiers
-  melee/hp dice
   skill trees
   action skill
 </div>
 <div class="flexcol">
   <div class="flexrow">
-    class name, 
+    <input 
+        name="data.class.name" 
+        value="{{data.class.name}}"
+        placeholder="Class Name"
+        onclick="this.select()"
+        type="text" data-type="Text" />
   </div>
-  <div class="flexrow flex-group-center">
-    <label>Acc</label>
-    <input 
-      name="data.class.baseStats.acc" 
-      value="{{data.class.baseStats.acc}}"
-      onclick="this.select()"
-      type="number" data-type="Number" />
-    <label>Dmg</label>
-    <input 
-      name="data.class.baseStats.dmg" 
-      value="{{data.class.baseStats.dmg}}"
-      onclick="this.select()"
-      type="number" data-type="Number" />
-    <label>Spd</label>
-    <input 
-      name="data.class.baseStats.spd" 
-      value="{{data.class.baseStats.spd}}"
-      onclick="this.select()"
-      type="number" data-type="Number" />
-    <label>Mst</label>
-    <input 
-      name="data.class.baseStats.mst" 
-      value="{{data.class.baseStats.mst}}"
-      onclick="this.select()"
-      type="number" data-type="Number" />
+  <div>background name, description, bonuses</div>
+  <div class="flexrow">
+    <div class="flexrow flex-group-center flex-size-2 class-stats-section">
+      <label>Acc</label>
+      <input 
+        name="data.class.baseStats.acc" 
+        value="{{data.class.baseStats.acc}}"
+        onclick="this.select()"
+        type="number" data-type="Number" />
+      <label>Dmg</label>
+      <input 
+        name="data.class.baseStats.dmg" 
+        value="{{data.class.baseStats.dmg}}"
+        onclick="this.select()"
+        type="number" data-type="Number" />
+      <label>Spd</label>
+      <input 
+        name="data.class.baseStats.spd" 
+        value="{{data.class.baseStats.spd}}"
+        onclick="this.select()"
+        type="number" data-type="Number" />
+      <label>Mst</label>
+      <input 
+        name="data.class.baseStats.mst" 
+        value="{{data.class.baseStats.mst}}"
+        onclick="this.select()"
+        type="number" data-type="Number" />
+    </div>
+    <div class="flexrow flex-group-center class-stats-section">
+      <label>Melee Die</label>
+      <input 
+        name="data.class.meleeDie" 
+        value="{{data.class.meleeDie}}"
+        placeholder="1d6"
+        onclick="this.select()"
+        type="text" data-type="Dice" />
+    </div>
   </div>
+  <div>action skill</div>
+  <div>skill tree, skill points</div>
 </div>
