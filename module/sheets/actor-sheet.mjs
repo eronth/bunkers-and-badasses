@@ -209,6 +209,13 @@ export class BNBActorSheet extends ActorSheet {
       8: [],
       9: []
     };
+    const skills = {
+      1: [],
+      2: [],
+      3: [],
+      4: [],
+      5: []
+    }
     const archetypeFeats = [];
     const classSkills = [];
 
@@ -224,11 +231,11 @@ export class BNBActorSheet extends ActorSheet {
         if (i.data.spellLevel != undefined) {
           spells[i.data.spellLevel].push(i); // Append to spells.
         }
-      } 
-      // else if (i.type === 'Archetype Level') {
-      //   archetypeLevels.push(i); // Append to archetype Levels.
-      // } 
-      else if (i.type === 'Archetype Feat') {
+      } else if (i.type === 'skill') {
+        if (i.data.tier != null) {
+          spells[i.data.tier].push(i); // Append to skill.
+        }
+      } else if (i.type === 'Archetype Feat') {
         archetypeFeats.push(i); // Append to archetype Feats.
       } else if (i.type === 'Class Skill') {
         classSkills.push(i); // Append to class Skills.
@@ -239,7 +246,7 @@ export class BNBActorSheet extends ActorSheet {
     context.gear = gear;
     context.features = features;
     context.spells = spells;
-    //context.archetypeLevels = archetypeLevels;
+    context.skills = skills;
     context.archetypeFeats = archetypeFeats;
     context.classSkills = classSkills;
    }

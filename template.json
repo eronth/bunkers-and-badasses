@@ -133,7 +133,7 @@
     }
   },
   "Item": {
-    "types": ["item", "feature", "spell",
+    "types": ["item", "feature", "skill", "spell",
       "Archetype Level", "Archetype Feat", "Class Skill"],
     "templates": {
       "base": {
@@ -145,6 +145,11 @@
       "quantity": 1,
       "weight": 0,
       "formula": "d20 + @str.mod + ceil(@lvl / 2)"
+    },
+    "skill": {
+      "templates": ["base"],
+      "tier": 1,
+      "skillLevel": 1
     },
     "spell": {
       "templates": ["base"],
