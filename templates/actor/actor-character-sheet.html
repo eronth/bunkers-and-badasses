@@ -16,56 +16,43 @@
       {{!-- "flex-group-center" is also defined in the _grid.scss file
       and it will add a small amount of padding, a border, and will
       center all of its child elements content and text. --}}
-      {{!-- HP Components --}}
-      <div class="abilities flexcol flex-group-center">
-        <div class="ability flexrow flex-group-center">
-          
-          {{#each data.hps as |hp key|}}
-          <div class="abilities flexcol" style='border-width: 1px; border-style: solid;'>
-            <div class="ability flexrow flex-group-center">
+      
+      {{!-- HP Components --}}    
+      <div class="healths flexrow" >
+      {{#each hps as |hp key|}}
+        <div class="health flexrow flex-group-center" >
 
-              <div class="abilities flexcol">
-                <div class="ability flexrow flex-group-center rollable hp">
-                  <label for="data.hps.{{key}}.value" class="resource-label rollable flexlarge align-left">{{hp.label}}</label>
-                
-                  <input type="text" class="flexlarge" name="data.hps.{{key}}.value" value="{{hp.value}} / {{hp.max}}" data-dtype="Number" disabled=true/>
-                </div>
-              </div>
-              <!-- <div>
-                <label for="data.hps.{{key}}.value" class="resource-label rollable flexlarge align-left hp">{{hp.label}}</label>
-              </div>
-              <div>
-                <input type="text" class="flexlarge hp" name="data.hps.{{key}}.value" value="{{hp.value}} / {{hp.max}}" data-dtype="Number" disabled=true/>
-              </div> -->
-              <div class="abilities flexcol">
-                <div class="ability flexrow flex-group-center rollable regen">
-                  <label for="data.hps.{{key}}.regen" class="resource-label align-center">Regen</label>
-                  <input style='width:10px' type="text" name="data.hps.{{key}}.regen" value="+{{hp.regen}}" data-dtype="Number" disabled=true/>
-                </div>
-              </div>
-
-            </div>
+          <div class="centerize flexrow flex-size-2">
+            <label for="data.hps.{{key}}.value" class="resource-label rollable flexlarge">{{hp.label}}</label>
+            <input 
+              class="flexlarge" 
+              value="{{hp.value}} / {{hp.max}}"
+              type="text" name="data.hps.{{key}}.value" data-dtype="Number"
+              disabled=true />
           </div>
-          {{/each}}
+          <div class="flexcol flex-group-center rollable regen">
+            <label for="data.hps.{{key}}.regen" class="resource-label align-center">Regen</label>
+            <input style='width:10px' type="text" name="data.hps.{{key}}.regen" value="+{{hp.regen}}" data-dtype="Number" disabled=true/>
+          </div>
 
         </div>
+        {{/each}}
       </div>
       
       {{!-- Stat Components --}}
-      <div class="abilities flexcol">
-        <div class="ability flexrow flex-group-center">
-          {{#each data.stats as |stat key|}}
-          <div>
-            <label for="data.stats.{{key}}.value" class="resource-label rollable flexlarge align-left" data-roll="d20+@stats.{{key}}.mod" data-label="{{stat.label}}">{{stat.label}}</label>
+      <div class="abilities flexrow">
+        {{#each data.stats as |stat key|}}
+        <div class="ability rollable flexrow flex-group-center">
+          <label for="data.stats.{{key}}.value" class="resource-label rollable flexlarge align-left" data-roll="d20+@stats.{{key}}.mod" data-label="{{stat.label}}">{{stat.label}}</label>
+          <input type="text" disabled=true name="data.stats.{{key}}.value" value="{{stat.value}}" data-type="Number"/>
+          <div class="flexcol rollable">
+            <label class="ability-mod">mod</label>
+            <span class="ability-mod rollable"
+              data-roll="d20+@stats.{{key}}.mod"
+              data-label="{{stat.label}}">({{numberFormat stat.mod decimals=0 sign=true}})</span>
           </div>
-          <div>
-            <input type="text" disabled=true name="data.stats.{{key}}.value" value="{{stat.value}}" data-type="Number"/>
-          </div>
-          <div>
-            <span class="ability-mod rollable" data-roll="d20+@stats.{{key}}.mod" data-label="{{stat.label}}">({{numberFormat stat.mod decimals=0 sign=true}})</span>
-          </div>
-          {{/each}}
         </div>
+        {{/each}}
       </div>
 
     </div>
@@ -76,7 +63,9 @@
   {{!-- Sheet Tab Navigation --}}
   <nav class="sheet-tabs tabs" data-group="primary">
     {{!-- Default tab is specified in actor-sheet.mjs --}}
-    <a class="item" data-tab="features">Features</a>
+    <a class="item" data-tab="Bio">Bio</a>
+    <a class="item" data-tab="play">Combat/Play</a>
+    <a class="item" data-tab="loot">Loot</a>
     <a class="item" data-tab="description">Description</a>
     <a class="item" data-tab="items">Items</a>
     <a class="item" data-tab="spells">Spells</a>

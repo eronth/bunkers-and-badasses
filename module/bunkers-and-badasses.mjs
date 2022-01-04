@@ -13,7 +13,6 @@ import { BNB } from "./helpers/config.mjs";
 /* -------------------------------------------- */
 
 Hooks.once('init', async function() {
-
   // Add utility classes to the global game object so that they're more easily
   // accessible in global contexts.
   game.bnb = {
@@ -21,9 +20,19 @@ Hooks.once('init', async function() {
     BNBItem: BNBItem,
     rollItemMacro
   };
-
+  
   // Add custom constants for configuration.
   CONFIG.BNB = BNB;
+  
+  // System settings here?
+  game.settings.register('bunkers-and-badasses', 'usePlayerArmor', {
+    name: 'Show Armor on Player Sheet',
+    hint: 'Players will have access to an armor health pool.',
+    scope: 'world',
+    config: true,
+    default: false,
+    type: Boolean,
+  });
 
   /**
    * Set an initiative formula for the system

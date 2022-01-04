@@ -45,6 +45,7 @@ export class BNBActorSheet extends ActorSheet {
       this._prepareItems(context);
       this._prepareArchetypes(context);
       this._prepareExperience(context);
+      this._prepareHps(context);
       this._prepareCharacterData(context);
     }
 
@@ -62,6 +63,12 @@ export class BNBActorSheet extends ActorSheet {
     return context;
   }
 
+  _prepareArchetypes(context) {
+    // Not much transformation to do here. This is primarily to make the values accessible.
+    context.archetype1 = context.data.archetypes.archetype1;
+    context.archetype2 = context.data.archetypes.archetype2;
+  }
+  
   _prepareExperience(context) {
     // First, start with the book provided cutoffs.
     const experiencePerSegmentCutoffs = {
@@ -121,10 +128,26 @@ export class BNBActorSheet extends ActorSheet {
     context.xp = context.data.attributes.xp;
   }
 
-  _prepareArchetypes(context) {
-    // Not much transformation to do here. This is primarily to make the values accessible.
-    context.archetype1 = context.data.archetypes.archetype1;
-    context.archetype2 = context.data.archetypes.archetype2;
+  _prepareHps(context) {
+    // Get the HPs from the actor data.
+    let useArmor = game.settings.get('bunkers-and-badasses', 'usePlayerArmor');
+    let usedHps = {};
+    // Object.entries(experiencePerSegmentCutoffs).forEach(entry => {
+    //   const [level, cutoff] = entry;
+    //   experienceReqs[level] = {toHitThisLevel: 0, toHitNextLevel: 0};
+    //   experienceReqs[level].toHitThisLevel = totalExpRequiredSoFar;
+    //   varForNextLevel = cutoff * 10;
+    //   experienceReqs[level].toHitNextLevel = varForNextLevel;
+    //   totalExpRequiredSoFar += varForNextLevel; // Increment this for the next loop.
+    // });
+    Object.entries(context.data.hps).forEach(entry => {
+      const [hpType, hpData] = entry;
+      if (hpType !== "armor" || (hpType === "armor" && useArmor)) {
+        usedHps[hpType] = hpData;
+      }
+    });
+
+    context.hps = usedHps;
   }
 
   /**
@@ -472,7 +495,7 @@ export class BNBActorSheet extends ActorSheet {
     if (target)
         return this.actor.update({[`${target}`] : !getProperty(this.actor.data, target)});
   }
-  
+
   _expandItemDropdown(event) {
     let id = $(event.currentTarget).attr("data-item-id")
     let item = this.actor.items.get(id)
