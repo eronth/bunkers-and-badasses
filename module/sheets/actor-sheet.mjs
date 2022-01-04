@@ -42,6 +42,7 @@ export class BNBActorSheet extends ActorSheet {
     // Prepare character data and items.
     if (actorData.type == 'character') {
       this._prepareItems(context);
+      this._prepareArchetypes(context);
       this._prepareExperience(context);
       this._prepareCharacterData(context);
     }
@@ -119,6 +120,12 @@ export class BNBActorSheet extends ActorSheet {
     context.xp = context.data.attributes.xp;
   }
 
+  _prepareArchetypes(context) {
+    // Not much transformation to do here. This is primarily to make the values accessible.
+    context.archetype1 = context.data.archetypes.archetype1;
+    context.archetype2 = context.data.archetypes.archetype2;
+  }
+
   /**
    * Organize and classify Items for Character sheets.
    *
@@ -166,7 +173,6 @@ export class BNBActorSheet extends ActorSheet {
       8: [],
       9: []
     };
-    const archetypeLevels = [];
     const archetypeFeats = [];
     const classSkills = [];
 
@@ -182,9 +188,11 @@ export class BNBActorSheet extends ActorSheet {
         if (i.data.spellLevel != undefined) {
           spells[i.data.spellLevel].push(i); // Append to spells.
         }
-      } else if (i.type === 'Archetype Level') {
-        archetypeLevels.push(i); // Append to archetype Levels.
-      } else if (i.type === 'Archetype Feat') {
+      } 
+      // else if (i.type === 'Archetype Level') {
+      //   archetypeLevels.push(i); // Append to archetype Levels.
+      // } 
+      else if (i.type === 'Archetype Feat') {
         archetypeFeats.push(i); // Append to archetype Feats.
       } else if (i.type === 'Class Skill') {
         classSkills.push(i); // Append to class Skills.
@@ -195,7 +203,7 @@ export class BNBActorSheet extends ActorSheet {
     context.gear = gear;
     context.features = features;
     context.spells = spells;
-    context.archetypeLevels = archetypeLevels;
+    //context.archetypeLevels = archetypeLevels;
     context.archetypeFeats = archetypeFeats;
     context.classSkills = classSkills;
    }
@@ -205,27 +213,19 @@ export class BNBActorSheet extends ActorSheet {
   /** @override */
   activateListeners(html) {
     super.activateListeners(html);
-
-    // Render the item sheet for viewing/editing prior to the editable check.
+    
+    // Everything below here is only needed if the sheet is editable
+    if (!this.isEditable) return;
+    // -------------------------------------------------------------
+    
+    // Handle Items.
+    html.find('.item-create').click(this._onItemCreate.bind(this));
     html.find('.item-edit').click(ev => {
       ev.stopPropagation();
       const li = $(ev.currentTarget).parents(".item-element-group");
       const item = this.actor.items.get(li.data("itemId"));
       item.sheet.render(true);
     });
-
-    // -------------------------------------------------------------
-    // Everything below here is only needed if the sheet is editable
-    if (!this.isEditable) return;
-
-    // Display inventory details.
-    html.find(".item-dropdown").mousedown(this._expandItemDropdown.bind(this))
-
-    // Add Inventory Item
-    html.find('.xp-gain').click(this._onXpGain.bind(this));
-    html.find('.item-create').click(this._onItemCreate.bind(this));
-
-    // Delete Inventory Item
     html.find('.item-delete').click(ev => {
       ev.stopPropagation();
       const li = $(ev.currentTarget).parents(".item-element-group");
@@ -233,6 +233,17 @@ export class BNBActorSheet extends ActorSheet {
       item.delete();
       li.slideUp(200, () => this.render(false));
     });
+
+    // Handle Archetype Rewards.
+    html.find('.archetype-reward-create').click(this._onArchetypeRewardCreate.bind(this));
+    html.find('.archetype-reward-edit').click(this._onArchetypeRewardEdit.bind(this));
+    html.find('.archetype-reward-delete').click(this._onArchetypeRewardDelete.bind(this));
+
+    // Display inventory details.
+    html.find(".item-dropdown").mousedown(this._expandItemDropdown.bind(this))
+
+    // Handle experience
+    html.find('.xp-gain').click(this._onXpGain.bind(this));
 
     // Active Effect management
     html.find(".effect-control").click(ev => onManageActiveEffect(ev, this.actor));
@@ -249,6 +260,104 @@ export class BNBActorSheet extends ActorSheet {
         li.addEventListener("dragstart", handler, false);
       });
     }
+  }
+
+  _onArchetypeRewardCreate(event) {
+    var archetypeNum = event.currentTarget.dataset.archetypeNumber;
+    var archetypeRewards = this.actor.data.data.archetypes["archetype" + archetypeNum].rewards;
+
+    // Figure out the current archetype highest level.
+    var highestLevel = 1;
+    archetypeRewards.forEach(archetypeReward => {
+      if (archetypeReward.Level > highestLevel) {
+        highestLevel = archetypeReward.Level;
+      }
+    });
+
+    archetypeRewards.push({ Level: highestLevel+1, Description: "" });
+
+    var archetypeRewardsLabel = "data.archetypes.archetype"+archetypeNum+".rewards";
+    
+    // Square brackets needed to get the right value.
+    this.actor.update({[archetypeRewardsLabel]: archetypeRewards});
+  }
+
+  _onArchetypeRewardEdit(event) {
+    // var archetypeNum = event.currentTarget.dataset.archetypeNumber;
+    // var rewardLevel = event.currentTarget.dataset.rewardLevel;
+    // var archetype = this.actor.data.data.archetypes["archetype" + archetypeNum];
+    // var archetypeRewards = archetype.rewards;
+    
+    // var rewardIndex = archetypeRewards.findIndex(reward => reward.Level == rewardLevel);
+
+    // let htmlContent = await renderTemplate("systems/bunkers-and-badasses/templates/dialog/archetype-reward.html", {
+    //   rewards: archetypeRewards,
+    //   index: rewardIndex,
+    // });
+
+    // if (this.rewardDiag && !this.rewardDiag?.rendered) {
+    //   // consider destroying the old one.
+    // }
+    
+    // this.rewardDiag = new Dialog({
+    //   title: archetype.name + " Reward",
+    //   Id: "archetype-reward-dialog",
+    //   content: htmlContent,
+    //   buttons: {
+    //     "Update" : {
+    //       label : "Update",
+    //       callback : async (html) => { 
+    //         alert("archetype reward updated"); 
+    //         this._updateArchetypeRewardCallback(html);
+    //       }
+    //     }
+    //   }
+    // }).render(true);
+    
+    // var hi = "HI";
+  }
+  
+  _updateArchetypeRewardCallback(html) {
+    var hi = "HI";
+    // var levelValue = parseInt(html.find("#level")[0].value);
+
+    // var dialogGains = [];
+
+    // var gains = html.find("#xp-gain-list");
+    // var gainkids = gains.children();
+    // Array.from(gainkids).forEach((child, key) => {
+    //   var xp, desc;
+    //   child.childNodes.forEach((childNode, cnkey) => {
+    //     if (childNode.id) {
+    //       if (childNode.id === "xp-gain-"+(key+1)+"-value") {
+    //         xp = parseInt(childNode.value);
+    //       } else if (childNode.id === "xp-gain-"+(key+1)+"-description") {
+    //         desc = childNode.value;
+    //       }
+    //     }
+    //   }, this);
+    //   dialogGains.push({id: dialogGains.length+1, value: xp, description: desc});
+    // }, this);
+
+
+    // //this.actor.data.data.attributes.level.value = levelValue;
+    // // this.actor.data.data.attributes.xp.gains.length = 0;
+    // // this.actor.data.data.attributes.xp.gains.push(...dialogGains);
+
+    // this.actor.update({"data.attributes.level.value": levelValue, "data.attributes.xp.gains": dialogGains});
+  }
+
+  _onArchetypeRewardDelete(event) {
+    var rewardLevel = event.currentTarget.dataset.rewardLevel;
+    var archetypeNum = event.currentTarget.dataset.archetypeNumber;
+    var archetypeRewards = this.actor.data.data.archetypes["archetype" + archetypeNum].rewards;
+    
+    let filteredArray = archetypeRewards.filter(r => r.Level != rewardLevel);
+    
+    var archetypeRewardsLabel = "data.archetypes.archetype"+archetypeNum+".rewards";
+    
+    // Square brackets needed to get the right value.
+    this.actor.update({[archetypeRewardsLabel]: filteredArray});
   }
 
   /**
@@ -281,8 +390,9 @@ export class BNBActorSheet extends ActorSheet {
   async _onXpGain(event) {
     if(this.diag?.rendered)
       return;
-
+    
     event.preventDefault();
+
     this.createXpGainDialog();
   }
 

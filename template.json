@@ -85,11 +85,13 @@
             "dmg": 0,
             "spd": 0,
             "mst": 0
-          }
+          },
+          "rewards": []
         },
         "archetype2": {
           "name": "",
-          "level": 0
+          "level": 0,
+          "rewards": []
         }
       },
       "class": {
