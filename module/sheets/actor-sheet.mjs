@@ -132,14 +132,6 @@ export class BNBActorSheet extends ActorSheet {
     // Get the HPs from the actor data.
     let useArmor = game.settings.get('bunkers-and-badasses', 'usePlayerArmor');
     let usedHps = {};
-    // Object.entries(experiencePerSegmentCutoffs).forEach(entry => {
-    //   const [level, cutoff] = entry;
-    //   experienceReqs[level] = {toHitThisLevel: 0, toHitNextLevel: 0};
-    //   experienceReqs[level].toHitThisLevel = totalExpRequiredSoFar;
-    //   varForNextLevel = cutoff * 10;
-    //   experienceReqs[level].toHitNextLevel = varForNextLevel;
-    //   totalExpRequiredSoFar += varForNextLevel; // Increment this for the next loop.
-    // });
     Object.entries(context.data.hps).forEach(entry => {
       const [hpType, hpData] = entry;
       if (hpType !== "armor" || (hpType === "armor" && useArmor)) {
