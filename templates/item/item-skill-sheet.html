@@ -1,0 +1,29 @@
+<form class="{{cssClass}}" autocomplete="off">
+  <header class="sheet-header">
+    <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
+    <div class="header-fields">
+      <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Name"/></h1>
+    </div>
+  </header>
+
+  {{!-- Sheet Body --}}
+  <section class="item-body">
+    {{!-- Skill Details --}}
+    <div class="flexcol">
+      {{!-- As you add new fields, add them in here! --}}
+      <div class="flexrow centerize">
+        <label class="item-label">Tier</label>
+        <input type="text" name="data.tier" value="{{data.tier}}" data-dtype="Number" />
+        <label class="item-label">Skill Level</label>
+        <input type="text" name="data.skillLevel" value="{{data.skillLevel}}" data-dtype="Number"/>
+      </div>
+      <div class="description flexcol">
+        <label class="item-label">Description</label>
+        <textarea type="text" 
+                  rows="5"
+                  name="data.description"
+                  placeholder="Description of skill's effects.">{{data.description}}</textarea>
+      </div>
+    </div>
+  </section>
+</form>

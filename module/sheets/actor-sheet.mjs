@@ -184,6 +184,19 @@ export class BNBActorSheet extends ActorSheet {
     for (let [k, v] of Object.entries(context.data.hps)) {
       v.label = game.i18n.localize(CONFIG.BNB.hps[k]) ?? k;
     }
+
+    var archetypeStats = context.data.archetypes.archetype1.baseStats;
+    var classStats = context.data.class.baseStats;
+    
+    // Handle stat values and totals. Values are class+archetype. Totals are *everything*.
+    context.data.stats.acc.value = archetypeStats.acc + classStats.acc + context.data.stats.acc.bonus;
+    context.data.stats.acc.mod = Math.floor(context.data.stats.acc.value / 2);
+    context.data.stats.dmg.value = archetypeStats.dmg + classStats.dmg + context.data.stats.dmg.bonus;
+    context.data.stats.dmg.mod = Math.floor(context.data.stats.dmg.value / 2);
+    context.data.stats.spd.value = archetypeStats.spd + classStats.spd + context.data.stats.spd.bonus;
+    context.data.stats.spd.mod = Math.floor(context.data.stats.spd.value / 2);
+    context.data.stats.mst.value = archetypeStats.mst + classStats.mst + context.data.stats.mst.bonus;
+    context.data.stats.mst.mod = Math.floor(context.data.stats.mst.value / 2);
   }
 
   /**
@@ -214,7 +227,8 @@ export class BNBActorSheet extends ActorSheet {
       2: [],
       3: [],
       4: [],
-      5: []
+      5: [],
+      6: []
     }
     const archetypeFeats = [];
     const classSkills = [];
@@ -233,7 +247,7 @@ export class BNBActorSheet extends ActorSheet {
         }
       } else if (i.type === 'skill') {
         if (i.data.tier != null) {
-          spells[i.data.tier].push(i); // Append to skill.
+          skills[i.data.tier].push(i); // Append to skill.
         }
       } else if (i.type === 'Archetype Feat') {
         archetypeFeats.push(i); // Append to archetype Feats.
@@ -397,7 +411,7 @@ export class BNBActorSheet extends ActorSheet {
     event.preventDefault();
     const header = event.currentTarget;
     // Get the type of item to create.
-    const type = header.dataset.type;
+    const type = header.dataset.dtype;
     // Grab any data associated with this control.
     const data = duplicate(header.dataset);
     // Initialize a default name.

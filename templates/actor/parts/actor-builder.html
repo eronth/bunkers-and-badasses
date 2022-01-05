@@ -37,21 +37,23 @@
   {{!-- Gain XP/Health Segment --}}
   <div class="flexcol">
     <div class="flexrow align-center"> 
-      <label>Badass Rank</label>
+      <label class="flex-size-2"><i class="fas fa-skull"></i> Badass Rank</label>
       <input 
-      name="data.attributes.badassRank" 
-      value="{{data.attributes.badassRank}}"
-      onclick="this.select()"
-      type="number" data-dtype="Number" />
+        name="data.attributes.badassRank" 
+        value="{{data.attributes.badassRank}}"
+        onclick="this.select()"
+        type="number" data-dtype="Number" />
     </div>
-    <button class="btn btn-primary item-control xp-gain">
-      <i class="fas fa-plus"></i> Gain XP
-    </button>
+    <div class="flexrow">
+      <button class="btn btn-primary item-control btn-manage health-gain">
+        Manage Health
+      </button>
+      <button class="btn btn-primary item-control btn-manage xp-gain">
+        Manage XP
+      </button>
+    </div>
   </div>
 </div>
-<!-- <a class="item-control item-edit" title="Edit Item">
-  <i class="fas fa-edit"></i>
-</a> -->
 
 
 {{!-- Builder Tab Navigation --}}
@@ -73,24 +75,4 @@
   </div>
   
 </section>
-  <!-- archetype1
-</section>
-archetype1 level
-archetype1 starting stats
-each bonus (plus an adder)
-
-archetype2
-archetype2 level
-each bonus (plus an adder)
-
-archetype feats
-
-class starting stats
-class skills taken
-
-enter experience gained
-enter melee die
-enter health gained
-
-badass rank  -->
 

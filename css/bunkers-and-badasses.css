@@ -379,8 +379,9 @@
   font-size: smaller;
 }
 
-.bnb .centerize {
+.centerize {
   justify-content: center;
+  align-content: center;
   align-items: center;
 }
 
@@ -412,6 +413,9 @@
   margin-left: 2px;
   margin-right: 2px;
   padding: 1px;
+}
+.bnb .class-stats-section .stat {
+  border: 1px solid #b5b3a4;
 }
 
 .bnb .align-center {
@@ -458,6 +462,17 @@
 
 .bnb .resource-label {
   font-weight: bold;
+}
+
+ .item-body {
+  justify-content: center;
+  align-items: center;
+}
+
+.item-body .item-label {
+  justify-content: center;
+  align-items: center;
+  font-weight: bold
 }
 
 .bnb .items-header {
@@ -739,4 +754,13 @@
 
 .bnb .xpBar-max .xpBar-segment:nth-child(n+2) {
   border-left: 0;
+}
+
+.bnb .class-background {
+  font-size: 13px;
+  align-items: center;
+}
+
+.bnb .btn-manage {
+  font-size: smaller;
 }

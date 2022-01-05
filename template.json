@@ -67,16 +67,20 @@
       },
       "stats": {
         "acc": {
-          "value": 0
+          "value": 0,
+          "bonus": 0
         },
         "dmg": {
-          "value": 0
+          "value": 0,
+          "bonus": 0
         },
         "spd": {
-          "value": 0
+          "value": 0,
+          "bonus": 0
         },
         "mst": {
-          "value": 0
+          "value": 0,
+          "bonus": 0
         }
       },
       "archetypes": {
@@ -99,9 +103,13 @@
       },
       "class": {
         "name": "",
+        "background": {
+          "name": "",
+          "description": "",
+          "bonuses": ""
+        },
         "actionSkill": {
           "name": "",
-          "effect": "",
           "notes": "",
           "uses": {
             "value": 0,
@@ -151,6 +159,11 @@
       "tier": 1,
       "skillLevel": 1
     },
+    "Class Skill": {
+      "templates": ["base"],
+      "tier": 1,
+      "skillLevel": 0
+    },
     "spell": {
       "templates": ["base"],
       "spellLevel": 1
@@ -169,10 +182,9 @@
       "archetype": "",
       "requirements": ""
     },
-    "Class Skill": {
+    "Action Skill": {
       "templates": ["base"],
-      "tier": 1,
-      "skillLevel": 0
+      "remainingUses": 0
     },
     "gun": {
       "templates": ["base"],
