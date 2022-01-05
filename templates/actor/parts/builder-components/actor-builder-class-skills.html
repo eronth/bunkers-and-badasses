@@ -1,0 +1,30 @@
+<div class="flexcol">
+  <ol class="items-list">
+    {{#each skills as |skills tier|}}
+      <li class="item flexrow items-header">
+        <div class="item-name flex-size-3">Tier {{tier}} Skills</div>
+        <div class="reward-text flex-size-5 large-text-overflow-hidden"></div>
+        <div class="reward-text flex-size-1">Skill Level</div>
+        <div class="item-controls flex-size-1">
+          <a class="item-control item-create" title="Create item" data-dtype="skill" data-tier="{{tier}}"><i class="fas fa-plus"></i> Add Tier {{tier}}</a>
+        </div>
+      </li>
+      {{#each skills as |item id|}}
+        <li class="item item-element-group flexrow" data-item-id="{{item._id}}">
+          <div class="item-name flex-size-3 flexrow">
+            <div class="item-image">
+              <a class="rollable" data-roll-type="item"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></a>
+            </div>
+            <h4 class="flex-size-2">{{item.name}}</h4>
+          </div>
+          <div class="reward-text flex-size-6 large-text-overflow-hidden">{{item.data.description}}</div>
+          <div class="reward-text flex-size-1">SL {{item.data.skillLevel}}</div>
+          <div class="item-controls flex-size-1">
+            <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+            <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+          </div>
+        </li>
+      {{/each}}
+    {{/each}}
+  </ol>
+</div>

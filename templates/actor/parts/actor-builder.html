@@ -61,17 +61,22 @@
   {{!-- Default tab is specified in actor-sheet.mjs --}}
   <a class="item" data-tab="archetype">Archetype</a>
   <a class="item" data-tab="class">Class</a>
+  <a class="item" data-tab="classSkills">Class Skills</a>
 </nav>
 
 {{!-- Builder Tabs Content --}}
 <section class="builder-body">
 
   <div class="tab archetype" data-group="builder" data-tab="archetype">
-    {{> "systems/bunkers-and-badasses/templates/actor/parts/actor-builder-archetypes.html" }}
+    {{> "systems/bunkers-and-badasses/templates/actor/parts/builder-components/actor-builder-archetypes.html" }}
   </div>
 
   <div class="tab class" data-group="builder" data-tab="class">
-    {{> "systems/bunkers-and-badasses/templates/actor/parts/actor-builder-class.html" }}
+    {{> "systems/bunkers-and-badasses/templates/actor/parts/builder-components/actor-builder-class.html" }}
+  </div>
+
+  <div class="tab class-skills" data-group="builder" data-tab="classSkills">
+    {{> "systems/bunkers-and-badasses/templates/actor/parts/builder-components/actor-builder-class-skills.html" }}
   </div>
   
 </section>

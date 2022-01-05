@@ -764,3 +764,11 @@
 .bnb .btn-manage {
   font-size: smaller;
 }
+
+.bnb .action-skill-header {
+  margin-top: 5px;
+}
+
+.bnb .action-skill-item {
+  border: 1px solid #c9c7b8;
+}

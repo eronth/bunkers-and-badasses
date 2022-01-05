@@ -109,7 +109,8 @@
           "bonuses": ""
         },
         "actionSkill": {
-          "name": "",
+          "name": "Action Skill",
+          "description": "",
           "notes": "",
           "uses": {
             "value": 0,
