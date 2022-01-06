@@ -65,10 +65,7 @@
     {{!-- Default tab is specified in actor-sheet.mjs --}}
     <a class="item" data-tab="bio">Bio</a>
     <a class="item" data-tab="play">Combat/Play</a>
-    <a class="item" data-tab="loot">Loot</a>
-    <a class="item" data-tab="description">Description</a>
-    <a class="item" data-tab="items">Items</a>
-    <a class="item" data-tab="spells">Spells</a>
+    <a class="item" data-tab="items">Loot</a>
     <a class="item" data-tab="builder">Builder</a>
     <a class="item" data-tab="effects">Effects</a>
   </nav>
@@ -112,11 +109,6 @@
     {{!-- Loot Tab --}}
     <div class="tab items" data-group="primary" data-tab="items">
        {{> "systems/bunkers-and-badasses/templates/actor/parts/actor-items.html"}}
-    </div>
-
-    {{!-- Owned Spells Tab --}}
-    <div class="tab spells" data-group="primary" data-tab="spells">
-      {{> "systems/bunkers-and-badasses/templates/actor/parts/actor-spells.html"}}
     </div>
 
     {{!-- Builder Tab --}}
