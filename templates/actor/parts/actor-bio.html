@@ -1,0 +1,66 @@
+<div class="flexcol">
+  {{!-- Character Info Section --}}
+  <div class="flexrow bio-header">
+    <label>Character Info</label>
+  </div>
+  <div class="flexrow bio-description">
+    <textarea class="bio-textarea" name="data.bio.characterInfo"
+      placeholder="Overview of your character and their personality."
+      type="text" rows="4">{{data.bio.characterInfo}}</textarea>
+  </div>
+  {{!-- Background/Appearance Section --}}
+  <div class="flexrow">
+    <div class="flexcol">
+      <div class="flexrow bio-header">
+        <label>Background</label>
+      </div>
+      <div class="flexrow bio-description">
+        <textarea class="bio-textarea" name="data.bio.background" 
+          placeholder="Background information, at least partially inspired by your class background."
+          type="text" rows="3">{{data.bio.background}}</textarea>
+      </div>
+    </div>
+    <div class="flexcol">
+      <div class="flexrow bio-header">
+        <label>Appearance</label>
+      </div>
+      <div class="flexrow bio-description">
+        <textarea class="bio-textarea" name="data.bio.appearance"
+          placeholder="Description of your character's visuals. Consider using the class Appearance section as inspiration."
+          type="text" rows="3">{{data.bio.appearance}}</textarea>
+      </div>
+    </div>
+  </div>
+  {{!-- Character Traits/Loyalties Section --}}
+  <div class="flexrow">
+    <div class="flexcol">
+      <div class="flexrow bio-header">
+        <label>Traits</label>
+      </div>
+      <div class="flexrow bio-description">
+        <textarea class="bio-textarea" name="data.bio.traits"
+          placeholder="The character's traits and quirks."
+          type="text" rows="3">{{data.bio.traits}}</textarea>
+      </div>
+    </div>
+    <div class="flexcol">
+      <div class="flexrow bio-header">
+        <label>Loyalties</label>
+      </div>
+      <div class="flexrow bio-description">
+        <textarea class="bio-textarea" name="data.bio.loyalties"
+          placeholder="The character's friends, enemies, leaders, followers, or other loyalties."
+          type="text" rows="3">{{data.bio.loyalties}}</textarea>
+      </div>
+    </div>
+  </div>
+  {{!-- Additional Notes Section --}}
+  <div class="flexrow bio-header">
+    <label>Additional Notes</label>
+  </div>
+  <div class="flexrow bio-description">
+    <textarea class="bio-textarea" name="data.bio.additionalNotes"
+      placeholder="Additional notes or details about your character."
+      type="text" rows="4">{{data.bio.additionalNotes}}</textarea>
+  </div>
+</div>

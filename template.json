@@ -23,12 +23,14 @@
             "regen": 5
           }
         },
-        "power": {
-          "value": 5,
-          "min": 0,
-          "max": 5
-        },
-        "biography": ""
+        "bio": {
+          "characterInfo": "",
+          "background": "",
+          "appearance": "",
+          "traits": "",
+          "loyalties": "",
+          "additionalNotes": ""
+        }
       }
     },
     "character": {
@@ -39,6 +41,10 @@
         },
         "level": {
           "value": 1
+        },
+        "hp": {
+          "gains": [],
+          "value": 0
         },
         "xp": {
           "gains": [],
