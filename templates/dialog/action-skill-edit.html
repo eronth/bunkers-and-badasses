@@ -1,0 +1,18 @@
+<div class="dialog-fields flexcol align-center">
+  <div class="flexrow align-left">
+    <label for="name">Action Skill</label>
+    <input id="name" type="text" data-dtype="Text" value="{{as.name}}" onclick="this.select()" />
+    <label for="name">Activations</label>
+    <input id="name" type="number" data-dtype="Number" value="{{as.uses.value}}" onclick="this.select()" />
+    <label> / </label>
+    <input id="name" type="number" data-dtype="Number" value="{{as.uses.max}}" onclick="this.select()" />
+  </div>
+  <div class="flexrow">
+    <label for="description">Description</label>
+    <input id="description" class="flex-size-8" type="text" data-dtype="Text" placeholder="Description" value="{{as.description}}" />
+  </div>
+  <div class="flexrow">
+    <label for="notes">Notes</label>
+    <input id="notes" class="flex-size-8" type="text" data-dtype="Text" placeholder="Extra Notes" value="{{as.notes}}" />
+  </div>
+</div>
