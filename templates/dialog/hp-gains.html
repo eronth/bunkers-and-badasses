@@ -1,0 +1,18 @@
+<script type="text/javascript"> function showMyModalSetTitle(myTitle, myBodyHtml) {
+  alert('html');
+}</script>
+<div class="dialog-fields flexcol">
+  <div class="flexrow">
+    {{#each hpGains as |gain id |}}
+    <li class="item flexrow">
+      <div class="item-name bolded flex-size-2">{{gain.value}}</div>
+      <div class="reward-text flex-size-7 large-text-overflow-hidden">{{gain.description}}</div>
+      <div class="item-controls-small">
+        <a class="item-control hp-gain-plus" onclick="context._onHpGainDelete" title="Edit HP"><i class="fas fa-plus"></i></a>
+        <a class="item-control hp-gain-plus" onclick="context._onHpGainDelete()" title="Edit HP"><i class="fas fa-plus"></i></a>
+        <a class="item-control hp-gain-delete" title="Delete HP"><i class="fas fa-trash"></i></a>
+      </div>
+    </li>
+    {{/each}}
+  </div>
+</div>

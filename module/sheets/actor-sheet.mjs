@@ -296,6 +296,16 @@ export class BNBActorSheet extends ActorSheet {
     html.find('.archetype-reward-edit').click(this._onArchetypeRewardEdit.bind(this));
     html.find('.archetype-reward-delete').click(this._onArchetypeRewardDelete.bind(this));
 
+    // Handle HP Gains.
+    //html.find('.hp-gain-create').click(this._onHpGaindCreate.bind(this));
+    html.find('.hp-gain-edit').click(this._onHpGainEdit.bind(this));
+    html.find('.hp-gain-delete').click(this._onHpGainDelete.bind(this));
+
+    // Handle XP Gains.
+    //html.find('.xp-gain-create').click(this._onXpGainCreate.bind(this));
+    html.find('.xp-gain-edit').click(this._onXpGainEdit.bind(this));
+    //html.find('.xp-gain-delete').click(this._onXpGainDelete.bind(this));
+
     // Handle checkbox changes.
     html.find(".checkbox").click(this._onCheckboxClick.bind(this));
 
@@ -400,6 +410,48 @@ export class BNBActorSheet extends ActorSheet {
     
     // Square brackets needed to get the right value.
     this.actor.update({["data.archetypes.archetype"+archetypeNum+".rewards"]: archetype.rewards});
+  }
+
+  async _onHpGainEdit(event) {
+    event.preventDefault();
+
+    let hp = this.actor.data.data.attributes.hp;
+
+    hp.gains.push({value: 2, description: "level fucking up"});
+
+    let htmlContent = await renderTemplate("systems/bunkers-and-badasses/templates/dialog/hp-gains.html", {
+      hpGains: hp.gains,
+      deleteOnclick: "context._onHpGainDelete()",
+      deletetTwclick: "this._onHpGainDelete",
+      thus: this
+    });
+
+    this.gainDialog = new Dialog({
+      title: "HP Gains",
+      Id: "hp-gains-dialog",
+      content: htmlContent,
+      buttons: {
+        "Update" : {
+          label : "Update",
+          callback : async (html) => {
+            alert('update');
+            //this._updateArchetypeRewardCallback(html);
+          }
+        }
+      }
+    }).render(true);
+
+    html.find('.hp-gain-delete').click(this._onHpGainDelete.bind(this));
+
+  }
+
+  _onHpGainDelete(event) {
+    alert('ondel');
+  }
+  
+
+  async _onXpGainEdit(event) {
+
   }
 
   /**
