@@ -714,6 +714,37 @@
   padding: 0 8px;
 }
 
+.bnb .item-effect {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 200px;
+  flex: 0 0 200px;
+  padding: 0 8px;
+  justify-content: flex-start;
+}
+
+.bnb .item-effect label {
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  justify-self: flex-start;
+  justify-content: flex-start;
+  -ms-flex-direction: row;
+  flex-direction: row;
+}
+
+.bnb .item-details {
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-box-flex: 5;
+  -ms-flex: 5;
+  flex: 5;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
 .bnb .effects .item .effect-source,
 .bnb .effects .item .effect-duration,
 .bnb .effects .item .effect-controls {
@@ -789,4 +820,32 @@
 
 .bnb .action-skill-item {
   border: 1px solid #c9c7b8;
+}
+
+.incendiary-color {
+  color: rgb(213, 59, 49);
+}
+.corrosive-color {
+  color: rgb(141, 157, 62);
+}
+.shock-color {
+  color: rgb(113, 148, 205);
+}
+.explosive-color {
+  color: rgb(234, 70, 134);
+}
+.radiation-color {
+  color: rgb(228, 170, 22);
+}
+.cryo-color {
+  color: rgb(18, 152, 185);
+}
+.incendiation-color {
+  color: rgb(167, 78, 101);
+}
+.corroshock-color {
+  color: rgb(73, 125, 135);
+}
+.crysplosive-color {
+  color: rgb(115, 105, 160);
 }

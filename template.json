@@ -42,6 +42,10 @@
         "level": {
           "value": 1
         },
+        "grenades": {
+          "value": 0,
+          "max": 3
+        },
         "hp": {
           "gains": [],
           "value": 0
@@ -148,12 +152,35 @@
     }
   },
   "Item": {
-    "types": ["item", "feature", "skill", "spell",
-      "Archetype Level", "Archetype Feat", "Class Skill"],
+    "types": ["item", "gun", "shield", "grenade", "relic", "potion",
+      "skill", "Archetype Level", "Archetype Feat", "Class Skill",
+      "spell", "feature"],
     "templates": {
       "base": {
-        "description": ""
-      }
+        "description": "",
+        "effect": "",
+        "level": 1,
+        "guild": "",
+        "rarity": 1,
+        "carried": true,
+        "equipped": false
+      },
+      "elemental": { 
+        "elements": {
+          "incendiary": false,
+          "shock": false,
+          "corrosive": false,
+          "explosive": false,
+          "radiation": false,
+          "cryo": false,
+          "mixed": {
+            "incendiation": false,
+            "corroshock": false,
+            "crysplosive": false
+          }
+        }
+      },
+      "redText": ""
     },
     "item": {
       "templates": ["base"],
@@ -161,6 +188,82 @@
       "weight": 0,
       "formula": "d20 + @str.mod + ceil(@lvl / 2)"
     },
+    "gun": {
+      "templates": ["base", "elemental"],
+      "carried": true,
+      "active": false,
+      "weilded": false,
+
+      "prefix": {
+        "name": "",
+        "effects": ""
+      },
+      "type": "",
+      "accuracy": {
+        "low": {
+          "hits": 0,
+          "crits": 0
+        },
+        "medium": {
+          "hits": 0,
+          "crits": 0
+        },
+        "high": {
+          "hits": 0,
+          "crits": 0
+        }
+      },
+      "damage": "",
+      "range": 0,
+      "bonusDmg": 0,
+      "bonusCritDmg": 0,
+
+      "statMods": {
+        "acc": 0,
+        "dmg": 0,
+        "spd": 0,
+        "mst": 0
+      },
+      "hitBonus": 0,
+      "isSplash": false,
+      "overheat": "",
+
+      "bonus": ""
+    },
+    "shield": {
+      "templates": ["base", "elemental"],
+      "isArmor": false,
+      "capacity": 0,
+      "recovery": {
+        "rechargeRate": "",
+        "forceRechargeRate": "",
+        "hpRegenRate": "",
+        "forceHpRegenRate": "",
+        "repairRate": "",
+        "forceRepairRate": ""
+      },
+      "resistanceAmount": "" 
+    },
+    "grenade": {
+      "templates": ["base", "elemental"],
+      "damage": "",
+      "gainHealth": false,
+      "gainShield": false,
+      "gainArmor": false,
+      "detonations": 1
+    },
+    "relic": {
+      "templates": ["base"],
+      "class": "Any",
+      "rarity": 1,
+      "classEffect": ""
+    },
+    "potion": {
+      "templates": ["base"],
+      "quantity": 1,
+      "cost": 0
+    },
+
     "skill": {
       "templates": ["base"],
       "tier": 1,
@@ -169,7 +272,7 @@
     "Class Skill": {
       "templates": ["base"],
       "tier": 1,
-      "skillLevel": 0
+      "skillLevel": 1
     },
     "spell": {
       "templates": ["base"],
@@ -193,13 +296,6 @@
       "templates": ["base"],
       "remainingUses": 0
     },
-    "gun": {
-      "templates": ["base"],
-      "carried": true,
-      "equipped": false,
-      "weilded": false
-    },
-    "remainder": "guns, potions, relics, grenades, shields, armors",
     "boost": {
       "value": 0,
       "stat": "",

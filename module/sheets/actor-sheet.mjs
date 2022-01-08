@@ -230,6 +230,12 @@ export class BNBActorSheet extends ActorSheet {
       5: [],
       6: []
     }
+    const guns = [];
+    const activeGuns = [];
+    const shields = [];
+    const grenades = [];
+    const relics = [];
+    const potions = [];
     const archetypeFeats = [];
     const classSkills = [];
 
@@ -253,6 +259,19 @@ export class BNBActorSheet extends ActorSheet {
         archetypeFeats.push(i); // Append to archetype Feats.
       } else if (i.type === 'Class Skill') {
         classSkills.push(i); // Append to class Skills.
+      } else if (i.type === 'gun') {
+        guns.push(i);
+        if (i.data.active) {
+          activeGuns.push(i);
+        }
+      } else if (i.type === 'shield') {
+        shields.push(i);
+      } else if (i.type === 'grenade') {
+        grenades.push(i);
+      } else if (i.type === 'relic') {
+        relics.push(i);
+      } else if (i.type === 'potion') {
+        potions.push(i);
       }
     }
 
@@ -263,6 +282,12 @@ export class BNBActorSheet extends ActorSheet {
     context.skills = skills;
     context.archetypeFeats = archetypeFeats;
     context.classSkills = classSkills;
+    context.guns = guns;
+    context.activeGuns = activeGuns;
+    context.shields = shields;
+    context.grenades = grenades;
+    context.relics = relics;
+    context.potions = potions;
    }
 
   /* -------------------------------------------- */
