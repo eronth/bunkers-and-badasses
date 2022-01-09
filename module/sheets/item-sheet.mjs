@@ -59,5 +59,67 @@ export class BNBItemSheet extends ItemSheet {
     if (!this.isEditable) return;
 
     // Roll handlers, click handlers, etc. would go here.
+    html.find('.rarity-option-dropdown').click(this._onRarityOptionDropdownClick.bind(this));
+    html.find('.rarity-option').click(this._onRarityOptionClick.bind(this));
+    // $("ul").on("click", ".init", function() {
+    //   $(this).closest("ul").children('li:not(.init)').toggle();
+    // });
+  
+    // var allOptions = $("ul").children('li:not(.init)');
+    // $("ul").on("click", "li:not(.init)", function() {
+    //     allOptions.removeClass('selected');
+    //     $(this).addClass('selected');
+    //     $("ul").children('.init').html($(this).html());
+  
+    //     $("#rarity-selection-tracker").attr("value", $(this).attr("value"));
+  
+    //     allOptions.toggle();
+    // });
   }
+
+  _onRarityOptionDropdownClick(event) {
+    $(event.currentTarget).closest("ul").children('li:not(.init)').toggle();
+  }
+
+  _onRarityOptionClick(event) {
+    var hello = "hi";
+    var allOptions = $("ul").children('li:not(.init)');
+    allOptions.removeClass('selected');
+
+    $(event.currentTarget).addClass('selected');
+    $("ul").children('.init').html($(event.currentTarget).html());
+  
+    let newRarity = $(event.currentTarget).attr("value")
+    // $("#rarity-selection-tracker").attr("value", $(this).attr("value"));
+  
+    //     allOptions.toggle();
+    // });
+    var newRarityObj = {"name": newRarity, "value": newRarity.toLowerCase(), "colorValue": this._getColorsForRarity(newRarity)};
+    this.item.update({"data.rarity": newRarityObj});
+  }
+
+  _getColorsForRarity(rarity) {
+    var rarity = rarity.toLowerCase();
+    switch(rarity) {
+      case "common":
+        return "#c9c7b8";
+        break;
+      case "uncommon":
+        return "#0ea11f";
+        break;
+      case "rare":
+        return "#00a0ff";
+        break;
+      case "epic":
+        return "#7000a4";
+        break;
+      case "legendary":
+        return "#ffa500";
+        break;
+      default:
+        return "#FFFFFF";
+        break;
+    }
+  }
+
 }

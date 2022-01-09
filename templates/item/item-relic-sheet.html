@@ -1,3 +1,62 @@
-<form class="{{cssClass}}" autocomplete="off">
-
+<form class="item-form-rarity {{cssClass}}"
+      style="--rarityColor: {{data.rarity.colorValue}}" autocomplete="off">
+  <div>
+    <header class="sheet-header">
+      <img class="profile-img item-rarity-border" 
+           style="--rarityColor: {{data.rarity.colorValue}}" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
+      <div class="header-fields flexrow">
+        <div class="flex-size-3">
+          <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Relic Type"/></h1>
+        </div>
+        <div class="item-body centerize">
+          {{> "systems/bunkers-and-badasses/templates/item/parts/rarity-dropdown.html" }}
+        </div>
+      </div>
+    </header>
+    <div class="flexcol item-sheet">
+      <div class="item-body flexrow">
+        <div class="item-body flexrow"><!-- Just a space taker. I'm sure there's better ways. --></div>
+        <div class="item-body flexrow">
+          <label>Class</label>
+          <input 
+            class="flexlarge" 
+            value="{{data.class}}"
+            type="text" name="data.class" data-dtype="String"
+            />
+        </div>
+      </div>
+      <div class="item-body flexrow">
+        <label>Effect</label>
+        <input 
+          class="flexlarge" 
+          value="{{data.effect}}"
+          type="text" name="data.effect" data-dtype="String"
+          />
+        <label>Class Effect</label>
+        <input 
+          class="flexlarge" 
+          value="{{data.classEffect}}"
+          type="text" name="data.classEffect" data-dtype="String"
+          />
+      </div>
+      <div class="item-body flexrow">
+        <label>Red Text</label>
+        <div class="flex-size-5 red-text">
+          <input 
+          class="red-text" 
+          value="{{data.redText}}"
+          placeholder="Red Text"
+          type="text" name="data.redText" data-dtype="String"
+          />
+        </div>
+      </div>
+      <div class="item-body flexrow">
+        <div class="flexrow red-text-description">
+          <textarea class="red-text-textarea" name="data.redTextEffect"
+            placeholder="Red Text effect, either provided by DM or estimated on usage."
+            type="text" rows="5">{{data.redTextEffect}}</textarea>
+        </div>
+      </div>
+    </div>
+  </div>
 </form>

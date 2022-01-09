@@ -161,9 +161,15 @@
         "effect": "",
         "level": 1,
         "guild": "",
-        "rarity": 1,
+        "rarity": {
+          "name": "Common",
+          "value": "common",
+          "colorValue": "#c9c7b8"
+        },
         "carried": true,
-        "equipped": false
+        "equipped": false,
+        "redText": "",
+        "redTextEffect": ""
       },
       "elemental": { 
         "elements": {
@@ -179,8 +185,7 @@
             "crysplosive": false
           }
         }
-      },
-      "redText": ""
+      }
     },
     "item": {
       "templates": ["base"],
@@ -255,7 +260,6 @@
     "relic": {
       "templates": ["base"],
       "class": "Any",
-      "rarity": 1,
       "classEffect": ""
     },
     "potion": {

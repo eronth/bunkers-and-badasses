@@ -302,6 +302,14 @@ export class BNBActorSheet extends ActorSheet {
     
     // Handle Items.
     html.find('.item-create').click(this._onItemCreate.bind(this));
+    html.find('.checkbox').click(this._onItemCheckbox.bind(this));
+    // html.find('.item-equip').click(ev => {
+    //   ev.stopPropagation();
+    //   const li = $(ev.currentTarget).parents(".item-element-group");
+    //   const item = this.actor.items.get(li.data("itemId"));
+    //   item.data.data.equipped = !item.data.data.equipped;
+    //   var hello="hello"
+    // });
     html.find('.item-edit').click(ev => {
       ev.stopPropagation();
       const li = $(ev.currentTarget).parents(".item-element-group");
@@ -357,6 +365,7 @@ export class BNBActorSheet extends ActorSheet {
     }
   }
 
+  
   _onArchetypeRewardCreate(event) {
     var archetypeNum = event.currentTarget.dataset.archetypeNumber;
     var archetypeRewards = this.actor.data.data.archetypes["archetype" + archetypeNum].rewards;
@@ -505,6 +514,16 @@ export class BNBActorSheet extends ActorSheet {
     // Finally, create the item!
     return await Item.create(itemData, {parent: this.actor});
   }
+  _onItemCheckbox(event) {
+    let target = $(event.currentTarget).attr("data-target")
+    if (target == "item") {
+        target = $(event.currentTarget).attr("data-item-target")
+        let item = this.actor.items.get($(event.currentTarget).parents(".item").attr("data-item-id"))
+        return item.update({ [`${target}`]: !getProperty(item.data, target) })
+    }
+    if (target)
+        return this.actor.update({[`${target}`] : !getProperty(this.actor.data, target)});
+}
 
   async _onXpGain(event) {
     if(this.diag?.rendered)
