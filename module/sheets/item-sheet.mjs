@@ -102,7 +102,7 @@ export class BNBItemSheet extends ItemSheet {
     var rarity = rarity.toLowerCase();
     switch(rarity) {
       case "common":
-        return "#c9c7b8";
+        return "#a5a49f";
         break;
       case "uncommon":
         return "#0ea11f";
