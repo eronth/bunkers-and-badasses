@@ -3,10 +3,19 @@
 .window-app {
   font-family: "Roboto", sans-serif;
 }
+.tabs .item.active {
+  text-shadow: 0 0 10px cyan;
+}
+.tabs .item:hover {
+  text-shadow: 0 0 10px cyan;
+}
+.item-control:hover {
+  text-shadow: 0 0 10px cyan;
+}
 
 .rollable:hover, .rollable:focus {
   color: #000;
-  text-shadow: 0 0 10px red;
+  text-shadow: 0 0 10px cyan;
   cursor: pointer;
 }
 
@@ -354,7 +363,7 @@
 
 .xpBar:hover, .xpBar:focus {
   color: #000;
-  text-shadow: 0 0 10px red;
+  text-shadow: 0 0 10px cyan;
   cursor: pointer;
   background-color: #ffc;
 }
@@ -545,6 +554,10 @@
 }
 .item-body-num input {
     text-align: center;
+}
+.item-body-num-50 input {
+  width: 50%;
+  text-align: center;
 }
 
 .bnb .items-header {

@@ -75,7 +75,7 @@
 {{!-- Grenades --}}
 <ol class="items-list">
   <li class="item flexrow items-header">
-    <div class="item-name">Potion</div>
+    <div class="item-name">Grenade</div>
     <div class="item-details">
       <div class="item-effect flex-size-5"><label>Effect</label></div>
     </div>
@@ -83,10 +83,10 @@
       <div class="item-equip flex-size-1"><label>Equip?</label></div>
     </div>
     <div class="item-controls">
-      <a class="item-control item-create" title="Create Item" data-dtype="potion"><i class="fas fa-plus"></i> Add Potion</a>
+      <a class="item-control item-create" title="Create Item" data-dtype="grenade"><i class="fas fa-plus"></i> Add Grenade</a>
     </div>
   </li>
-  {{#each potions as |item id|}}
+  {{#each grenades as |item id|}}
   {{log item}}
   <li class="item item-element-group loot-rarity-fade-border flexrow" 
       style="--rarityColor: {{item.data.rarity.colorValue}}"
@@ -149,7 +149,10 @@
                style="--rarityColor: {{item.data.rarity.colorValue}}" 
                src="{{item.img}}" title="{{item.data.class}} {{item.name}}" width="24" height="24"/></a>
       </div>
-      <h4 class="bolded">{{item.name}}</h4>
+      <div class="flexcol">
+        <div class="bolded font-rarity" style="--rarityColor: {{item.data.rarity.colorValue}}">{{item.data.rarity.name}}</div>
+        <h4 class="bolded">{{item.name}}</h4>
+      </div>
     </div>
     <div class="item-details">
       <div class="flexcol item-effect-stack-container">
@@ -210,6 +213,12 @@
           <div>{{#if item.data.effect}}<b>Effect</b>:{{/if}} {{item.data.effect}}</div>
         </label>
       </div>
+      <!-- <div class="item-detail">
+        <label>{{item.data.quantity}}</label>
+      </div>
+      <div class="item-detail">
+        <label>{{item.data.cost}}g</label>
+      </div> -->
     </div>
     <div class="item-equip-control">
       <a class="checkbox" title="Equip Item?" data-target="item" data-item-target="data.equipped">
