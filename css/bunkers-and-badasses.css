@@ -721,6 +721,18 @@
   border-right: 1px solid #c9c7b8;
   font-size: 12px;
 }
+.bnb .items-list .item-prop-left {
+  text-align: left;
+  border-left: 1px solid #c9c7b8;
+  border-right: 1px solid #c9c7b8;
+  font-size: 12px;
+}
+.bnb .items-list .item-prop-right {
+  text-align: right;
+  border-left: 1px solid #c9c7b8;
+  border-right: 1px solid #c9c7b8;
+  font-size: 12px;
+}
 .bnb .items-list .item-prop-stack {
   text-align: center;
   border-left: 1px solid #c9c7b8;
@@ -765,12 +777,24 @@
 
 .bnb .item-effect {
   -webkit-box-flex: 0;
-  -ms-flex: 0 0 200px;
-  flex: 0 0 200px;
-  padding: 0 8px;
+  -ms-flex: 0 0 100%;
+  flex: 0 0 100%;
+  padding: 0 4px;
   justify-content: flex-start;
+  align-content: flex-start;
 }
-
+.bnb .item-effect label {
+  display: flex;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  justify-self: flex-start;
+  justify-content: flex-start;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+}
+.bnb .item-effect-stack {
+  padding: 0 4px;
+}
 .bnb .item-effect-stack label {
   display: flex;
   -ms-flex-direction: row;
@@ -779,7 +803,6 @@
   justify-content: center;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-    
 }
 
 .bnb .item-details {
@@ -852,6 +875,11 @@
   font-style: italic;
 }
 
+.medium-text-overflow-hidden {
+  overflow: hidden;
+  white-space: nowrap;
+  justify-content: flex-start;
+}
 .large-text-overflow-hidden {
   overflow: hidden;
   white-space: nowrap;
