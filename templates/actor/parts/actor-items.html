@@ -3,7 +3,7 @@
     <div class="item-name">Name</div>
     <div class="item-formula">Roll Formula</div>
     <div class="item-controls">
-      <a class="item-control item-create" title="Create item" data-dtype="item"><i class="fas fa-plus"></i> Add item</a>
+      <a class="item-control item-create" title="Create Item" data-dtype="item"><i class="fas fa-plus"></i> Add item</a>
     </div>
   </li>
   {{#each gear as |item id|}}
@@ -25,7 +25,11 @@
 </ol>
 
 {{!-- Gold --}}
-
+<div>
+  <div><!-- Space Holder --></div>
+  <div>Loot Inventory</div>
+  <div>Gold</div>
+</div>
 {{!-- Guns --}}
 
 {{!-- Shields --}}
@@ -41,7 +45,7 @@
       <div class="item-regen flex-size-1"><label>Equip?</label></div>
     </div>
     <div class="item-controls">
-      <a class="item-control item-create" title="Create item" data-dtype="shield"><i class="fas fa-plus"></i> Add Shield</a>
+      <a class="item-control item-create" title="Create Item" data-dtype="shield"><i class="fas fa-plus"></i> Add Shield</a>
     </div>
   </li>
   {{#each shields as |item id|}}
@@ -80,7 +84,7 @@
       <div class="item-regen flex-size-1"><label>Equip?</label></div>
     </div>
     <div class="item-controls">
-      <a class="item-control item-create" title="Create item" data-dtype="grenade"><i class="fas fa-plus"></i> Add Grenade</a>
+      <a class="item-control item-create" title="Create Item" data-dtype="grenade"><i class="fas fa-plus"></i> Add Grenade</a>
     </div>
   </li>
   {{#each grenades as |item id|}}
@@ -118,7 +122,7 @@
       <div class="item-regen flex-size-1"><label>Equip?</label></div>
     </div>
     <div class="item-controls">
-      <a class="item-control item-create" title="Create item" data-dtype="relic"><i class="fas fa-plus"></i> Add Relic</a>
+      <a class="item-control item-create" title="Create Item" data-dtype="relic"><i class="fas fa-plus"></i> Add Relic</a>
     </div>
   </li>
   {{#each relics as |item id|}}
@@ -161,34 +165,47 @@
 <ol class="items-list">
   <li class="item flexrow items-header">
     <div class="item-name">Potion</div>
-    <div class="item-details flexrow flex-size-5">
-      <div class="item-effect"><label>Effect</label></div>
-      <div class="item-capacity flex-size-1"><label>Cost</label></div>
-      <div class="item-quantity"><label>Qty</label></div>
+    <div class="item-details">
+      <div class="item-effect flex-size-5"><label>Effect</label></div>
     </div>
     <div class="item-equip">
       <div class="item-regen flex-size-1"><label>Equip?</label></div>
     </div>
     <div class="item-controls">
-      <a class="item-control item-create" title="Create item" data-dtype="potion"><i class="fas fa-plus"></i> Add Potion</a>
+      <a class="item-control item-create" title="Create Item" data-dtype="potion"><i class="fas fa-plus"></i> Add Potion</a>
     </div>
   </li>
   {{#each potions as |item id|}}
   {{log item}}
-  <li class="item item-element-group flexrow" data-item-id="{{item._id}}">
+  <li class="item item-element-group loot-rarity-fade-border flexrow" 
+      style="--rarityColor: {{item.data.rarity.colorValue}}"
+      data-item-id="{{item._id}}">
     <div class="item-name rollable" data-roll-type="item">
       <div class="item-image">
-        <a class="rollable" data-roll-type="item"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></a>
+        <a class="rollable" data-roll-type="item">
+          <img class="item-rarity-outline" 
+               style="--rarityColor: {{item.data.rarity.colorValue}}" 
+               src="{{item.img}}" title="{{item.data.class}} {{item.name}}" width="24" height="24"/></a>
       </div>
-      <h4>{{item.name}}</h4>
+      <div class="flexcol " style="--rarityColor: {{item.data.rarity.colorValue}}" >
+        <div>{{item.data.rarity.name}}</div>
+        <h4 class="bolded">{{item.name}}</h4>
+      </div>
     </div>
-    <div class="item-details flexrow flex-size-5">
-      <div class="item-effect item-prop"><label>{{item.data.effect}}</label></div>
-      <div class="item-capacity flex-size-1"><label>{{item.data.cost}}</label></div>
-      <div class="item-quantity"><label>{{item.data.quantity}}</label></div>
+    <div class="item-details">
+      <div class="flexcol item-effect-stack-container">
+        <div class="item-effect-stack item-prop-stack">
+          <label>{{#if item.data.effect}}<b>Effect</b>:{{/if}} {{item.data.effect}}</label>
+        </div>
+        <div class="flexrow item-effect-stack item-prop-stack">
+          <label>{{#if item.data.classEffect}}<b>{{item.data.class}}</b>:{{/if}} {{item.data.classEffect}}</label>
+        </div>
+      </div>
     </div>
-    <div class="item-equip">
-      <div class="item-regen"><label>{{item.data.equipped}}</label></div>
+    <div class="item-equip-control">
+      <a class="checkbox" title="Equip Item?" data-target="item" data-item-target="data.equipped">
+      {{#if item.data.equipped}}<i class="far fa-check-square"></i>{{else}}<i class="far fa-square"></i></a>{{/if}}
+      </a>
     </div>
     <div class="item-controls">
       <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
