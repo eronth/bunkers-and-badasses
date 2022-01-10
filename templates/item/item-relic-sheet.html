@@ -39,24 +39,7 @@
           type="text" name="data.classEffect" data-dtype="String"
           />
       </div>
-      <div class="item-body flexrow">
-        <label>Red Text</label>
-        <div class="flex-size-5 red-text">
-          <input 
-          class="red-text" 
-          value="{{data.redText}}"
-          placeholder="Red Text"
-          type="text" name="data.redText" data-dtype="String"
-          />
-        </div>
-      </div>
-      <div class="item-body flexrow">
-        <div class="flexrow red-text-description">
-          <textarea class="red-text-textarea" name="data.redTextEffect"
-            placeholder="Red Text effect, either provided by DM or estimated on usage."
-            type="text" rows="5">{{data.redTextEffect}}</textarea>
-        </div>
-      </div>
+      {{> "systems/bunkers-and-badasses/templates/item/parts/red-text.html" }}
     </div>
   </div>
 </form>

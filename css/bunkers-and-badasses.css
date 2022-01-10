@@ -1009,4 +1009,5 @@ a#submit { z-index: 1; }
   color: darkred;
   font-weight: bold;
   font-style: italic;
+  width: 100%
 }
