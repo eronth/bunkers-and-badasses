@@ -524,7 +524,11 @@
   font-weight: bold;
 }
 
- .item-body {
+.item-header {
+  margin-bottom: 4px;
+}
+
+.item-body {
   justify-content: center;
   align-items: center;
 }
@@ -533,6 +537,14 @@
   justify-content: center;
   align-items: center;
   font-weight: bold
+}
+
+.item-body-num label {
+  text-align: right;
+  padding-right: 4px;
+}
+.item-body-num input {
+    text-align: center;
 }
 
 .bnb .items-header {
@@ -949,7 +961,7 @@ a#submit { z-index: 1; }
 
 .rarity .common {
   color: black;
-  background-color: #c9c7b8;
+  background-color: #a5a49f;
 }
 .rarity .uncommon {
   color: white;
@@ -968,28 +980,13 @@ a#submit { z-index: 1; }
   background-color: #ffa500;
 }
 
-
+.font-rarity {
+  color: var(--rarityColor);
+}
 .item-form-rarity {
   padding: 3px;
   border: 2px solid var(--rarityColor);
 }
-.item-form-uncommon {
-  padding: 3px;
-  border: 2px solid #0ea11f;
-}
-.item-form-rare {
-  padding: 3px;
-  border: 2px solid #00a0ff;
-}
-.item-form-epic {
-  padding: 3px;
-  border: 2px solid #7000a4;
-}
-.item-form-legendary {
-  padding: 3px;
-  border: 2px solid #ffa500;
-}
-
 .item-rarity-border {
   padding: 3px;
   border: 1px solid var(--rarityColor);
@@ -1009,5 +1006,24 @@ a#submit { z-index: 1; }
   color: darkred;
   font-weight: bold;
   font-style: italic;
-  width: 100%
+  width: 100%;
+  margin-top: 2px;
+  border-bottom-left-radius: 1px;
+  border-bottom-right-radius: 1px;
 }
+.red-text-description textarea {
+  margin-top: -1px;
+  border-color: rgb(122, 121, 113);
+  border-top-left-radius: 1px;
+  border-top-right-radius: 1px;
+}
+
+.fs4 {
+  flex: 4 4 40%;
+}
+
+.item-tag-group {
+  padding-left: 2px;
+  padding-right: 2px;
+}
+
