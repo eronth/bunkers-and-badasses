@@ -45,6 +45,9 @@ export class BNBItemSheet extends ItemSheet {
     // Add the actor's data to context.data for easier access, as well as flags.
     context.data = itemData.data;
     context.flags = itemData.flags;
+    context.elements = itemData.data.elements;
+
+    context.showRedTextMeaning = game.user.isGM;
 
     return context;
   }
@@ -61,6 +64,8 @@ export class BNBItemSheet extends ItemSheet {
     // Roll handlers, click handlers, etc. would go here.
     html.find('.rarity-option-dropdown').click(this._onRarityOptionDropdownClick.bind(this));
     html.find('.rarity-option').click(this._onRarityOptionClick.bind(this));
+    html.find('.damage-entry').click(this._onDamageEntryClick.bind(this));
+    html.find('.element-toggle').click(this._onElementToggleClick.bind(this));
     // $("ul").on("click", ".init", function() {
     //   $(this).closest("ul").children('li:not(.init)').toggle();
     // });
@@ -75,6 +80,9 @@ export class BNBItemSheet extends ItemSheet {
   
     //     allOptions.toggle();
     // });
+    Handlebars.registerHelper('toLowerCase', function(str) {
+      return str.toLowerCase();
+    });
   }
 
   _onRarityOptionDropdownClick(event) {
@@ -82,7 +90,6 @@ export class BNBItemSheet extends ItemSheet {
   }
 
   _onRarityOptionClick(event) {
-    var hello = "hi";
     var allOptions = $("ul").children('li:not(.init)');
     allOptions.removeClass('selected');
 
@@ -120,6 +127,45 @@ export class BNBItemSheet extends ItemSheet {
         return "#FFFFFF";
         break;
     }
+  }
+
+  async _onDamageEntryClick(event) {
+    event.preventDefault();
+
+    var hi = "hi";
+    // // var archetypeNum = event.currentTarget.dataset.archetypeNumber;
+    // // var rewardIndex = event.currentTarget.dataset.rewardIndex;
+    // // var archetype = this.actor.data.data.archetypes["archetype" + archetypeNum];
+
+    let htmlContent = 
+      await renderTemplate("systems/bunkers-and-badasses/templates/dialog/damage-entry.html", {
+        elements: this.item.data.data.elements,
+      });
+      //   // level: archetype.rewards[rewardIndex]["Level"],
+      //   // description: archetype.rewards[rewardIndex]["Description"],
+      //   // index: rewardIndex, archetypeNum: archetypeNum
+
+    this.elemDiag = new Dialog({
+      title: "Damage and Elements",
+      Id: "damage-entry-dialog",
+      content: htmlContent,
+      buttons: {
+        "Update" : {
+          label : "Update",
+          callback : async (html) => { this._updateArchetypeRewardCallback(html);}
+        },
+        "Cancel" : {
+          label : "Cancel",
+          callback : async (html) => { /* do nothing */ }
+        }
+      }
+    }).render(true);
+  }
+
+  _onElementToggleClick(event) {
+    const targetKey = $(event.currentTarget).attr("data-item-target");
+    const currentValue = getProperty(this.item.data, targetKey);
+    return this.item.update({ [targetKey]: !currentValue });
   }
 
 }

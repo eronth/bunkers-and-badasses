@@ -11,10 +11,11 @@
       </div>
     </div>
   </header>
-
-  guild, level, type, damage, effects
+  
   <div class="flexcol item-sheet">
     <div class="item-body flexrow">
+      <div class="item-body item-body-num item-body-num-50 flexrow item-tag-group">
+      </div>
       <div class="item-body item-body-num flexrow item-tag-group">
         <label class="flex-size-2">Level</label>
         <input class="flex-size-1"
@@ -30,27 +31,18 @@
           />
       </div>
       <div class="item-body item-body-num item-body-num-50 flexrow item-tag-group">
-        <label class="flex-size-1">Damage</label>
-        <div class="flex-size-2">
-          <input class="flex-size-1"
-            value="{{data.damage}}" name="data.damage" placeholder="1d6"
-            type="text" data-dtype="String"
-            />
-          <div class="flex-size-1"></div>
-        </div>
       </div>
     </div>
+    {{> "systems/bunkers-and-badasses/templates/dialog/damage-entry.html"
+      device="grenade"
+      elements=data.elements
+    }}
     <div class="item-body flexrow">
-      <label>Effect</label>
-      <input class="flexlarge" 
-        value="{{data.effect}}" name="data.effect"
-        type="text"  data-dtype="String"
-        />
-      <!-- <label>Class Effect</label>
-      <input class="flexlarge" 
-        value="{{data.classEffect}}" name="data.classEffect"
-        type="text" data-dtype="String"
-        /> -->
-    </div>
-    {{> "systems/bunkers-and-badasses/templates/item/parts/red-text.html" }}
+    <label>Effect</label>
+    <input class="flex-size-4" 
+      value="{{data.effect}}" name="data.effect"
+      type="text"  data-dtype="String"
+      />
+  </div>
+  {{> "systems/bunkers-and-badasses/templates/item/parts/red-text.html" }}
 </form>

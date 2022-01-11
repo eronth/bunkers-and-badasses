@@ -517,12 +517,12 @@ export class BNBActorSheet extends ActorSheet {
   _onItemCheckbox(event) {
     let target = $(event.currentTarget).attr("data-target")
     if (target == "item") {
-        target = $(event.currentTarget).attr("data-item-target")
-        let item = this.actor.items.get($(event.currentTarget).parents(".item").attr("data-item-id"))
-        return item.update({ [`${target}`]: !getProperty(item.data, target) })
+      target = $(event.currentTarget).attr("data-item-target")
+      let item = this.actor.items.get($(event.currentTarget).parents(".item").attr("data-item-id"))
+      return item.update({ [`${target}`]: !getProperty(item.data, target) })
     }
     if (target)
-        return this.actor.update({[`${target}`] : !getProperty(this.actor.data, target)});
+      return this.actor.update({[`${target}`] : !getProperty(this.actor.data, target)});
 }
 
   async _onXpGain(event) {
