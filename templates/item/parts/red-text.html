@@ -13,3 +13,13 @@
       type="text" rows="5">{{data.redTextEffect}}</textarea>
   </div>
 </div>
+{{#if showRedTextMeaning}}
+<div class="bolded bm-alert">— Red Text notes - Only visible to BMs! —</div>
+<div class="item-body flexrow">
+  <div class="flexrow red-text-description">
+    <textarea class="red-text-textarea" name="data.redTextEffectBM"
+    placeholder="BM ONLY - Red Text Notes."
+    type="text" rows="5">{{data.redTextEffectBM}}</textarea>
+  </div>
+</div>
+{{/if}}

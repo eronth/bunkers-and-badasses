@@ -1,0 +1,32 @@
+<div class="element-container flexrow">
+  <div class="flexrow flex-size-3">
+    <a id="enable{{label}}"
+      class="checkbox element-toggle" 
+      title="Enable Element" data-target="item" data-item-target="data.elements.{{toLowerCase element.label}}.enabled"
+      >
+        {{#if element.enabled}}
+        <!-- <i class="far fa-check-square"></i> -->
+        <img id="enable{{label}}" class="element-toggle element-selector-icon" alt="{{element.label}}" 
+        src="systems/bunkers-and-badasses/assets/{{element.label}}.png" />
+        {{else}}
+        <!-- <i class="far fa-square"></i> -->
+        <img id="enable{{label}}" class="element-selector-icon-disabled" alt="{{element.label}}" 
+        src="systems/bunkers-and-badasses/assets/{{element.label}}.png" />
+        {{/if}}
+        <label for="enable{{label}}" class="element-label" 
+        style="--elementColor:{{#if element.enabled}}{{element.color}}{{else}}darkgrey{{/if}}"
+          >
+          {{element.label}} dmg:</label>
+    </a>
+  </div>
+  <div class="element-damage flex-group-center">
+    <input class="element-damage" type="text" type="String" 
+      name="data.elements.{{toLowerCase element.label}}.damage"
+      {{#if element.enabled}}
+      value="{{element.damage}}" placeholder="1d6"
+      {{else}}
+      value="" placeholder="" disabled
+      {{/if}}
+      >
+  </div>
+</div>

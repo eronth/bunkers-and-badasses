@@ -169,20 +169,70 @@
         "carried": true,
         "equipped": false,
         "redText": "",
-        "redTextEffect": ""
+        "redTextEffect": "",
+        "redTextEffectBM": ""
       },
       "elemental": { 
         "elements": {
-          "incendiary": false,
-          "shock": false,
-          "corrosive": false,
-          "explosive": false,
-          "radiation": false,
-          "cryo": false,
-          "mixed": {
-            "incendiation": false,
-            "corroshock": false,
-            "crysplosive": false
+          "kinetic": {
+            "enabled": true,
+            "damage": "",
+            "color": "rgb(76, 76, 76)",
+            "label": "Kinetic"
+          },
+          "incendiary": {
+            "enabled": false,
+            "damage": "",
+            "color": "rgb(213, 59, 49)",
+            "label": "Incendiary"
+          },
+          "shock": {
+            "enabled": false,
+            "damage": "",
+            "color": "rgb(113, 148, 205)",
+            "label": "Shock"
+          },
+          "corrosive": {
+            "enabled": false,
+            "damage": "",
+            "color": "rgb(141, 157, 62)",
+            "label": "Corrosive"
+          },
+          "explosive": {
+            "enabled": false,
+            "damage": "",
+            "color": "rgb(234, 70, 134)",
+            "label": "Explosive"
+          },
+          "radiation": {
+            "enabled": false,
+            "damage": "",
+            "color": "rgb(228, 170, 22)",
+            "label": "Radiation"
+          },
+          "cryo": {
+            "enabled": false,
+            "damage": "",
+            "color": "rgb(18, 152, 185)",
+            "label": "Cryo"
+          },
+          "incendiation": {
+            "enabled": false,
+            "damage": "",
+            "color": "rgb(167, 78, 101)",
+            "label": "Incendiation"
+          },
+          "corroshock": {
+            "enabled": false,
+            "damage": "",
+            "color": "rgb(73, 125, 135)",
+            "label": "Corroshock"
+          },
+          "crysplosive": {
+            "enabled": false,
+            "damage": "",
+            "color": "rgb(115, 105, 160)",
+            "label": "Crysplosive"
           }
         }
       }

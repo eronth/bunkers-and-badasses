@@ -19,6 +19,9 @@
     "systems/bunkers-and-badasses/templates/actor/parts/builder-components/actor-builder-class-skills.html",
     "systems/bunkers-and-badasses/templates/actor/parts/actor-effects.html",
     "systems/bunkers-and-badasses/templates/item/parts/rarity-dropdown.html",
+    "systems/bunkers-and-badasses/templates/item/parts/element-selector.html",
+    "systems/bunkers-and-badasses/templates/dialog/damage-entry.html",
+    "systems/bunkers-and-badasses/templates/dialog/element-entry-section.html",
     "systems/bunkers-and-badasses/templates/item/parts/red-text.html"
   ]);
 };
