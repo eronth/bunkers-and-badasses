@@ -336,6 +336,17 @@
   /* Example style for bnb (can be removed if not needed) */
 }
 
+.gold-input {
+  justify-content: center;
+  max-width: 70%;
+}
+.gold-input label{
+  max-width: 40%;
+}
+.gold-input input{
+  max-width: 50%;
+}
+
 .bnb .item-form {
   font-family: "Roboto", sans-serif;
 }
@@ -604,7 +615,9 @@
   width: 50%;
   text-align: center;
 }
-
+.max-width-50 {
+  max-width: 50%;
+}
 .bnb .items-header {
   height: 28px;
   margin: 2px 0;
