@@ -1217,6 +1217,15 @@ a#submit { z-index: 1; }
   border-bottom: 0;
 }
 
+.loot-inventory-header-container {
+  align-self: center;
+}
+.loot-inventory-header {
+  font-size: larger;
+  font-weight: bold;
+  justify-content: center;
+}
+
 .red-text input {
   color: darkred;
   font-weight: bold;

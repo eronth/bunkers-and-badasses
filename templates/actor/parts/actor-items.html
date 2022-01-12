@@ -26,9 +26,17 @@
 
 {{!-- Gold --}}
 <div class="flexrow">
-  <div><!-- Space Holder --></div>
-  <div>Loot Inventory</div>
-  <div>Gold</div>
+  <div class="flex-size-1"><!-- Space Holder --></div>
+  <div class="flex-size-2 loot-inventory-header-container">
+    <label class="loot-inventory-header">Loot Inventory</label>
+  </div>
+  <div class="flexrow flex-size-1 centerize gold-input">
+    <label for="gold-input" class="flex-size-2">Gold: </label>
+    <input id="gold-input" value="{{data.gold}}" name="data.gold"
+           onclick="this.select()" type="number" data-dtype="Number"
+          />
+
+  </div>
 </div>
 {{!-- Guns --}}
 
