@@ -17,15 +17,15 @@
       <div class="item-body item-body-num item-body-num-50 flexrow item-tag-group">
       </div>
       <div class="item-body item-body-num flexrow item-tag-group">
-        <label class="flex-size-2">Level</label>
-        <input class="flex-size-1"
+        <label for="level-input-{{item.id}}" class="flex-size-2">Level</label>
+        <input id="level-input-{{item.id}}" class="flex-size-1"
           value="{{data.level}}" name="data.level"
           type="number" data-dtype="Number"
           />
       </div>
       <div class="item-body flexrow">
-        <label>Guild</label>
-        <input class="flexlarge" 
+        <label for="guild-input-{{item.id}}">Guild</label>
+        <input id="guild-input-{{item.id}}" class="flexlarge" 
           value="{{data.guild}}" name="data.guild"
           type="text" data-dtype="String"
           />
@@ -39,8 +39,8 @@
       elements=data.elements
     }}
     <div class="item-body flexrow">
-    <label>Effect</label>
-    <input class="flex-size-4" 
+    <label for="effect-input-{{item.id}}">Effect</label>
+    <input id="effect-input-{{item.id}}" class="flex-size-4" 
       value="{{data.effect}}" name="data.effect"
       type="text"  data-dtype="String"
       />

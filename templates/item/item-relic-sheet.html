@@ -16,21 +16,21 @@
     <div class="item-body flexrow">
       <div class="item-body flexrow"><!-- Just a space taker. I'm sure there's better ways. --></div>
       <div class="item-body flexrow">
-        <label>Class</label>
-        <input class="flexlarge" 
+        <label for="class-input-{{item.id}}">Class</label>
+        <input id="class-input-{{item.id}}" class="flexlarge" 
           value="{{data.class}}" name="data.class"
           type="text" data-dtype="String"
           />
       </div>
     </div>
     <div class="item-body flexrow">
-      <label>Effect</label>
-      <input class="flexlarge" 
+      <label for="effect-input-{{item.id}}">Effect</label>
+      <input id="effect-input-{{item.id}}" class="flexlarge" 
         value="{{data.effect}}" name="data.effect"
         type="text"  data-dtype="String"
         />
-      <label>Class Effect</label>
-      <input class="flexlarge" 
+      <label for="class-effect-input-{{item.id}}">Class Effect</label>
+      <input id="class-effect-input-{{item.id}}" class="flexlarge" 
         value="{{data.classEffect}}" name="data.classEffect"
         type="text" data-dtype="String"
         />

@@ -13,13 +13,15 @@
 .item-control:hover {
   text-shadow: 0 0 10px cyan;
 }
-.entity-name:hover {
+.entity-name:hover,
+.entity-name a:hover {
   text-shadow: 0 0 10px cyan;
 }
 .bh:hover,
 .bh a:hover {
   text-shadow: 0 0 10px cyan;
 }
+
 .rollable:hover, .rollable:focus {
   color: #000;
   text-shadow: 0 0 10px cyan;
@@ -1177,7 +1179,7 @@ a#submit { z-index: 1; }
   font-weight: bold;
   font-style: italic;
   width: 100%;
-  margin-top: 3px;
+  margin-top: 5px;
   border-bottom-left-radius: 1px;
   border-bottom-right-radius: 1px;
 }

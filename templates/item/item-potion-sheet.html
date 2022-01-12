@@ -15,22 +15,22 @@
   <div class="flexcol item-sheet">
     <div class="item-body flexrow">
       <div class="item-body flexrow item-tag-group flex-size-5">
-        <label class="flex-size-2">Effect</label>
-        <input class="flex-size-10"
+        <label for="effect-input-{{item.id}}" class="flex-size-2">Effect</label>
+        <input id="effect-input-{{item.id}}" class="flex-size-10"
           value="{{data.effect}}" name="data.effect" placeholder="Potion's Effect"
           type="text" data-dtype="String"
           />
       </div>
       <div class="item-body item-body-num flexrow item-tag-group">
-        <label class="flex-size-2">Quantity</label>
-        <input class="flex-size-1"
+        <label for="effect-input-{{item.id}}" class="flex-size-2">Quantity</label>
+        <input id="effect-input-{{item.id}}" class="flex-size-1"
           value="{{data.quantity}}" name="data.quantity"
           type="number" data-dtype="Number"
           />
       </div>
       <div class="item-body item-body-num flexrow item-tag-group">
-        <label class="flex-size-2">Cost</label>
-        <input class="flex-size-1"
+        <label for="cost-input-{{item.id}}" class="flex-size-2">Cost</label>
+        <input id="cost-input-{{item.id}}" class="flex-size-1"
           value="{{data.cost}}" name="data.cost"
           type="number" data-dtype="Number"
           />

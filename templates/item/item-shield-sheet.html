@@ -17,16 +17,16 @@
       <div class="shield-stats-container shield-stats-container-left flexrow flex-size-4">
         {{!-- Level --}}
         <div class="item-body item-body-num flexrow flex-size-4 item-tag-group">
-          <label class="flex-size-1">Level</label>
-          <input class="flex-size-1"
+          <label for="level-input-{{item.id}}" class="flex-size-1">Level</label>
+          <input id="level-input-{{item.id}}" class="flex-size-1"
           value="{{data.level}}" name="data.level"
           type="number" data-dtype="Number"
           />
         </div>
         {{!-- Guild --}}
         <div class="item-body item-body-space flexrow flex-size-7">
-          <label>Guild</label>
-          <input class="flexlarge" 
+          <label for="guild-input-{{item.id}}">Guild</label>
+          <input id="guild-input-{{item.id}}" class="flexlarge" 
           value="{{data.guild}}" name="data.guild"
           type="text" data-dtype="String"
           />
@@ -49,16 +49,16 @@
         </div>
         {{!-- Capacity --}}
         <div class="item-body item-body-num flexrow">
-          <label>Capacity</label>
-          <input class="flexlarge" 
+          <label for="capacity-input-{{item.id}}">Capacity</label>
+          <input id="capacity-input-{{item.id}}" class="flexlarge" 
           value="{{data.capacity}}" name="data.capacity"
           type="number" data-dtype="Number"
           />
         </div>
         {{!-- Recharge --}}
         <div class="item-body item-body-num flexrow">
-          <label>{{#if data.isArmor}}Repair{{else}}Recharge{{/if}}</label>
-          <input class="flexlarge" 
+          <label for="recharge-input-{{item.id}}">{{#if data.isArmor}}Repair{{else}}Recharge{{/if}}</label>
+          <input id="recharge-input-{{item.id}}" class="flexlarge" 
           type="text" data-dtype="String"
           {{#if data.isArmor}}
           value="{{data.recovery.repairRate}}" name="data.recovery.repairRate"
@@ -75,8 +75,8 @@
       elements=data.elements
     }}
     <div class="item-body flexrow">
-    <label>Effect</label>
-    <input class="flex-size-4" 
+    <label for="effect-input-{{item.id}}">Effect</label>
+    <input id="effect-input-{{item.id}}" class="flex-size-4" 
       value="{{data.effect}}" name="data.effect"
       type="text"  data-dtype="String"
       />
