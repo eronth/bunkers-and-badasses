@@ -1,3 +1,91 @@
-<form class="{{cssClass}}" autocomplete="off">
+<form class="item-form-rarity {{cssClass}}" style="--rarityColor: {{data.rarity.colorValue}}" autocomplete="off">
+  <header class="sheet-header">
+    <img class="profile-img item-rarity-border" 
+          style="--rarityColor: {{data.rarity.colorValue}}" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
+    <div class="header-fields flexrow">
+      <div class="flex-size-3">
+        <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Relic Type"/></h1>
+      </div>
+      <div class="item-body centerize">
+        {{> "systems/bunkers-and-badasses/templates/item/parts/rarity-dropdown.html" }}
+      </div>
+    </div>
+  </header>
 
+  <div class="flexcol item-sheet">
+    <div class="flexrow">
+      <div class="shield-stats-container shield-stats-container-left flexrow flex-size-4">
+        {{!-- Level --}}
+        <div class="item-body item-body-num flexrow flex-size-4 item-tag-group">
+          <label class="flex-size-1">Level</label>
+          <input class="flex-size-1"
+          value="{{data.level}}" name="data.level"
+          type="number" data-dtype="Number"
+          />
+        </div>
+        {{!-- Guild --}}
+        <div class="item-body item-body-space flexrow flex-size-7">
+          <label>Guild</label>
+          <input class="flexlarge" 
+          value="{{data.guild}}" name="data.guild"
+          type="text" data-dtype="String"
+          />
+        </div>
+      </div>
+      <div class="shield-stats-container shield-stats-container-right flexrow flex-size-7">
+        {{!-- Armor? --}}
+        <div class="item-body item-body-num item-body-num-50 item-tag-group flexcol flex-right">
+          <a id="enable-armor"
+            class="checkbox armor-toggle bh" 
+            title="Toggle Armor" data-target="item" data-item-target="data.isArmor"
+            >
+            {{#if data.isArmor}}
+            <i class="far fa-check-square"></i>
+            {{else}}
+            <i class="far fa-square"></i>
+            {{/if}}
+            <label class="pointer-cursor"> is armor?</label>
+          </a>
+        </div>
+        {{!-- Capacity --}}
+        <div class="item-body item-body-num flexrow">
+          <label>Capacity</label>
+          <input class="flexlarge" 
+          value="{{data.capacity}}" name="data.capacity"
+          type="number" data-dtype="Number"
+          />
+        </div>
+        {{!-- Recharge --}}
+        <div class="item-body item-body-num flexrow">
+          <label>{{#if data.isArmor}}Repair{{else}}Recharge{{/if}}</label>
+          <input class="flexlarge" 
+          type="text" data-dtype="String"
+          {{#if data.isArmor}}
+          value="{{data.recovery.repairRate}}" name="data.recovery.repairRate"
+          {{else}}
+          value="{{data.recovery.rechargeRate}}" name="data.recovery.rechargeRate"
+          {{/if}}
+          />
+        </div>
+      </div>
+    </div>
+    {{> "systems/bunkers-and-badasses/templates/dialog/damage-entry.html"
+      device="shield"
+      bonus="resistance" bonusTag="resist"
+      elements=data.elements
+    }}
+    <div class="item-body flexrow">
+    <label>Effect</label>
+    <input class="flex-size-4" 
+      value="{{data.effect}}" name="data.effect"
+      type="text"  data-dtype="String"
+      />
+  </div>
+
+  {{> "systems/bunkers-and-badasses/templates/item/parts/red-text.html" }}
 </form>
+
+
+
+
+ resistance, nova, regen

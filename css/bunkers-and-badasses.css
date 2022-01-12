@@ -3,6 +3,7 @@
 .window-app {
   font-family: "Roboto", sans-serif;
 }
+
 .tabs .item.active {
   text-shadow: 0 0 10px cyan;
 }
@@ -12,7 +13,13 @@
 .item-control:hover {
   text-shadow: 0 0 10px cyan;
 }
-
+.entity-name:hover {
+  text-shadow: 0 0 10px cyan;
+}
+.bh:hover,
+.bh a:hover {
+  text-shadow: 0 0 10px cyan;
+}
 .rollable:hover, .rollable:focus {
   color: #000;
   text-shadow: 0 0 10px cyan;
@@ -25,8 +32,12 @@
 
 .elem-reminder-text {
   color: gray;
-  font-size: smaller;
+  font-size: x-small;
   font-style: italic;
+}
+
+.elem-initial {
+  align-self: flex-end;
 }
 
 
@@ -555,6 +566,8 @@
 .item-body {
   justify-content: center;
   align-items: center;
+  margin-left: 2px;
+  margin-right: 2px;
 }
 
 .item-body label {
@@ -562,7 +575,13 @@
   align-items: center;
   font-weight: bold
 }
-
+.flex-right {
+  align-items: flex-end;
+  align-self: center;
+}
+.item-body-space label {
+  padding-right: 4px;
+}
 .item-body-num label {
   text-align: right;
   padding-right: 4px;
@@ -886,7 +905,9 @@
   align-items: center;
 }
 
-
+.pointer-cursor {
+  cursor: pointer;
+}
 
 .reminder-text {
   color: darkgray;
@@ -972,6 +993,17 @@
 .crysplosive-color {
   color: rgb(115, 105, 160);
 }
+.shield-stats-container{
+  border: 1px solid darkgrey;
+  margin-top: 2px;
+  padding: 2px;
+}
+.shield-stats-container-left {
+  margin-right: 1px;
+}
+.shield-stats-container-right {
+  margin-left: 1px;
+}
 .elements-container {
   border: 1px solid darkgrey;
   margin-top: 2px;
@@ -984,6 +1016,7 @@
 .element-label {
   font-size: smaller;
   color: var(--elementColor);
+  cursor: pointer;
 }
 .element-toggle {
   align-items: center;
@@ -1144,7 +1177,7 @@ a#submit { z-index: 1; }
   font-weight: bold;
   font-style: italic;
   width: 100%;
-  margin-top: 2px;
+  margin-top: 3px;
   border-bottom-left-radius: 1px;
   border-bottom-right-radius: 1px;
 }
