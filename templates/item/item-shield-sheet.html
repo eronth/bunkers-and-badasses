@@ -35,7 +35,7 @@
       <div class="shield-stats-container shield-stats-container-right flexrow flex-size-7">
         {{!-- Armor? --}}
         <div class="item-body item-body-num item-body-num-50 item-tag-group flexcol flex-right">
-          <a id="enable-armor"
+          <a id="enable-armor-{{item.id}}"
             class="checkbox armor-toggle bh" 
             title="Toggle Armor" data-target="item" data-item-target="data.isArmor"
             >
@@ -71,7 +71,7 @@
     </div>
     {{> "systems/bunkers-and-badasses/templates/dialog/damage-entry.html"
       device="shield"
-      bonus="resistance" bonusTag="resist"
+      bonus="resistance" bonusTag="res"
       elements=data.elements
     }}
     <div class="item-body flexrow">

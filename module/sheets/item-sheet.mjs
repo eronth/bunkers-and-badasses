@@ -65,7 +65,7 @@ export class BNBItemSheet extends ItemSheet {
     html.find('.rarity-option-dropdown').click(this._onRarityOptionDropdownClick.bind(this));
     html.find('.rarity-option').click(this._onRarityOptionClick.bind(this));
     html.find('.damage-entry').click(this._onDamageEntryClick.bind(this));
-    html.find('.element-toggle').click(this._onElementToggleClick.bind(this));
+    html.find('.checkbox').click(this._onCheckboxToggleClick.bind(this));
     // $("ul").on("click", ".init", function() {
     //   $(this).closest("ul").children('li:not(.init)').toggle();
     // });
@@ -162,7 +162,7 @@ export class BNBItemSheet extends ItemSheet {
     }).render(true);
   }
 
-  _onElementToggleClick(event) {
+  _onCheckboxToggleClick(event) {
     const targetKey = $(event.currentTarget).attr("data-item-target");
     const currentValue = getProperty(this.item.data, targetKey);
     return this.item.update({ [targetKey]: !currentValue });
