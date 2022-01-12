@@ -265,8 +265,41 @@ export class BNBActorSheet extends ActorSheet {
           activeGuns.push(i);
         }
       } else if (i.type === 'shield') {
+        let shieldResistString = "";
+        Object.entries(i.data.elements).forEach(e => {
+          const element = e[1];
+          if(element.enabled) {
+            shieldResistString += `<img id="resist${element.label}" alt="${element.label}" 
+              class="element-resist-icon" src="systems/bunkers-and-badasses/assets/elements/${element.label}.png" />`;
+          }
+        });
+        i.data.resistHtml = shieldResistString;
         shields.push(i);
       } else if (i.type === 'grenade') {
+        let grenadeDmgString = "";
+        let elemIcon = "";
+        const finalPlus = `<label class="element-damage-plus"> + </label>`;
+        Object.entries(i.data.elements).forEach(e => {
+          const element = e[1];
+          if(element.enabled) {
+            elemIcon = (e[0] === "kinetic") ? ""
+            : `<img id="gDmg${element.label}" alt="${element.label}" 
+              class="element-damage-icon" src="systems/bunkers-and-badasses/assets/elements/${element.label}.png" />`;
+
+            grenadeDmgString += 
+            `<label class="element-label" style="--elementColor:${element.color}">
+              ${element.damage} ${elemIcon}
+            </label> ${finalPlus}`;
+          }
+        });
+
+        // We need to remove the last plus label, it doesn't belong.
+        grenadeDmgString = grenadeDmgString.slice(0, finalPlus.length * -1); 
+
+        // Add the "damage" text.
+        grenadeDmgString += `<label class="element-damage-damage">Damage</label>`;
+
+        i.data.dmgHtml = grenadeDmgString;
         grenades.push(i);
       } else if (i.type === 'relic') {
         relics.push(i);

@@ -35,6 +35,7 @@
     },
     "character": {
       "templates": ["base"],
+      "gold": 0,
       "attributes": {
         "badassRank": {
           "value": 0
@@ -296,8 +297,7 @@
         "forceHpRegenRate": "",
         "repairRate": "",
         "forceRepairRate": ""
-      },
-      "resistanceAmount": "" 
+      }
     },
     "grenade": {
       "templates": ["base", "elemental"],

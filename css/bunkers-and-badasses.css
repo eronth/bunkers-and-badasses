@@ -452,6 +452,15 @@
 .bnb .healths .health:nth-child(n+2) {
   margin-left: -1px;
 }
+.health-icon {
+  border: 0;
+  height: 12px;
+}
+.loot-health {
+  display: inline-flex;
+  font-size: x-small;
+  display: -webkit-inline-box;
+}
 
 .bnb .abilities {
   justify-content: center;
@@ -785,7 +794,6 @@
 .bnb .items-list .item-prop-stack {
   text-align: center;
   border-left: 1px solid #c9c7b8;
-  border-right: 1px solid #c9c7b8;
   font-size: 12px;
   align-self: flex-start;
 }
@@ -865,6 +873,7 @@
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
+  border-right: 1px solid #c9c7b8;
 }
 
 .bnb .item .item-equip label{
@@ -1016,6 +1025,9 @@
   margin-right: 5px;
 }
 .element-label {
+  color: var(--elementColor);
+}
+.element-label-smaller {
   font-size: smaller;
   color: var(--elementColor);
   cursor: pointer;
@@ -1047,6 +1059,37 @@
   border: 0;
   width: 13px;
   height: 13px;
+}
+.element-resist-icon {
+  border: 0;
+  height: 12px;
+}
+.loot-element-damage {
+  font-size: smaller;
+}
+.element-damage-icon {
+  border: 0;
+  height: 12px;
+  padding-left: 2px;
+}
+.element-damage-plus {
+  padding-left: 2px;
+  padding-right: 2px;
+}
+.element-damage-damage {
+  padding-left: 3px;
+}
+.resist-label {
+  padding-left: 5px;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow-x: hidden;
+}
+.resist-label label{
+  padding-left: 5px;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow-x: hidden;
 }
 .elemental ul { 
   height: 48px;
