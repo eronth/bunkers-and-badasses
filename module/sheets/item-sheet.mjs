@@ -138,7 +138,7 @@ export class BNBItemSheet extends ItemSheet {
     // // var archetype = this.actor.data.data.archetypes["archetype" + archetypeNum];
 
     let htmlContent = 
-      await renderTemplate("systems/bunkers-and-badasses/templates/dialog/damage-entry.html", {
+      await renderTemplate("systems/bunkers-and-badasses/templates/item/parts/damage-entry.html", {
         elements: this.item.data.data.elements,
       });
       //   // level: archetype.rewards[rewardIndex]["Level"],
