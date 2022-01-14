@@ -176,7 +176,7 @@
       "elemental": { 
         "elements": {
           "kinetic": {
-            "enabled": true,
+            "enabled": false,
             "damage": "",
             "color": "rgb(76, 76, 76)",
             "label": "Kinetic"
@@ -254,13 +254,16 @@
         "name": "",
         "effects": ""
       },
-      "type": "",
+      "type": {
+        "value": "pistol",
+        "Name": "Pistol"
+      },
       "accuracy": {
         "low": {
           "hits": 0,
           "crits": 0
         },
-        "medium": {
+        "mid": {
           "hits": 0,
           "crits": 0
         },
@@ -271,7 +274,6 @@
       },
       "damage": "",
       "range": 0,
-      "bonusDmg": 0,
       "bonusCritDmg": 0,
 
       "statMods": {

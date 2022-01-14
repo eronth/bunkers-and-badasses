@@ -64,6 +64,8 @@ export class BNBItemSheet extends ItemSheet {
     // Roll handlers, click handlers, etc. would go here.
     html.find('.rarity-option-dropdown').click(this._onRarityOptionDropdownClick.bind(this));
     html.find('.rarity-option').click(this._onRarityOptionClick.bind(this));
+    html.find('.gun-type-option-dropdown').click(this._onTypeOptionDropdownClick.bind(this));
+    html.find('.type-option').click(this._onTypeOptionClick.bind(this));
     html.find('.damage-entry').click(this._onDamageEntryClick.bind(this));
     html.find('.checkbox').click(this._onCheckboxToggleClick.bind(this));
     // $("ul").on("click", ".init", function() {
@@ -90,11 +92,11 @@ export class BNBItemSheet extends ItemSheet {
   }
 
   _onRarityOptionClick(event) {
-    var allOptions = $("ul").children('li:not(.init)');
+    var allOptions = $("ul").children('.rarity-option');
     allOptions.removeClass('selected');
 
     $(event.currentTarget).addClass('selected');
-    $("ul").children('.init').html($(event.currentTarget).html());
+    $("ul").children('.rarity-init').html($(event.currentTarget).html());
   
     let newRarity = $(event.currentTarget).attr("value")
     // $("#rarity-selection-tracker").attr("value", $(this).attr("value"));
@@ -103,6 +105,22 @@ export class BNBItemSheet extends ItemSheet {
     // });
     var newRarityObj = {"name": newRarity, "value": newRarity.toLowerCase(), "colorValue": this._getColorsForRarity(newRarity)};
     this.item.update({"data.rarity": newRarityObj});
+  }
+
+  _onTypeOptionDropdownClick(event) {
+    $(event.currentTarget).closest("ul").children('li:not(.init)').toggle();
+  }
+
+  _onTypeOptionClick(event) {
+    const allOptions = $("ul").children('.type-option');
+    allOptions.removeClass('selected');
+
+    $(event.currentTarget).addClass('selected');
+    $("ul").children('.type-init').html($(event.currentTarget).html());
+    const fullName = event.currentTarget.innerHTML;
+  
+    const newType = $(event.currentTarget).attr("value")
+    this.item.update({"data.type": { name: fullName, value: newType } });
   }
 
   _getColorsForRarity(rarity) {

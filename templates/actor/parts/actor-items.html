@@ -14,7 +14,62 @@
   </div>
 </div>
 {{!-- Guns --}}
-
+<ol class="items-list">
+  <li class="item flexrow items-header">
+    <div class="item-name">Guns</div>
+    <div class="item-details">
+      <div class="item-effect flex-size-5"><label>Description</label></div>
+    </div>
+    <div class="item-equip">
+      <div class="item-equip flex-size-1"><label>Equip?</label></div>
+    </div>
+    <div class="item-controls">
+      <a class="item-control item-create" title="Create Item" data-dtype="gun"><i class="fas fa-plus"></i> Add Gun</a>
+    </div>
+  </li>
+  {{#each guns as |item id|}}
+  <li class="item item-element-group loot-rarity-fade-border flexrow" 
+    style="--rarityColor: {{item.data.rarity.colorValue}}"
+    data-item-id="{{item._id}}">
+    <div class="item-name rollable" data-roll-type="item">
+      <div class="item-image">
+        <a class="rollable" data-roll-type="item">
+        <img class="item-rarity-outline" 
+          style="--rarityColor: {{item.data.rarity.colorValue}}" 
+          src="{{item.img}}" title="{{item.data.class}} {{item.name}}" width="24" height="24"/></a>
+      </div>
+      <div class="flexcol">
+        <div class="bolded font-rarity" style="--rarityColor: {{item.data.rarity.colorValue}}">{{item.data.rarity.name}}</div>
+        <h4 class="bolded">{{item.data.prefix.name}} {{item.name}}</h4>
+      </div>
+    </div>
+    <div class="item-details">
+      <!-- <div class="flexcol item-effec-stack-container">
+        <div class="item-effect item-prop-stack">
+          <label class="item-effect">
+            <div>{{#if item.data.effect}}<b>Effect</b>:{{/if}} {{item.data.effect}}</div>
+          </label>
+        </div>
+        <div class="item-effect item-prop-stack">
+          <label class="loot-element-damage item-effect item-prop-stack loot-element-damage">
+            {{{item.data.dmgHtml}}}
+          </label>
+        </div>
+      </div> -->
+    </div>
+    <div class="item-equip-control">
+      <a class="checkbox" title="Equip Item?" data-target="item" data-item-target="data.equipped">
+        {{#if item.data.equipped}}<i class="far fa-check-square"></i>{{else}}<i class="far fa-square"></i></a>{{/if}}
+      </a>
+    </div>
+    <div class="item-controls">
+      <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+      <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+    </div>
+  </li>
+  {{log item}}
+  {{/each}}
+</ol>
 {{!-- Shields --}}
 <ol class="items-list">
   <li class="item flexrow items-header">
@@ -93,7 +148,7 @@
   <li class="item flexrow items-header">
     <div class="item-name">Grenade</div>
     <div class="item-details">
-      <div class="item-effect flex-size-5"><label>Effect</label></div>
+      <div class="item-effect flex-size-5"><label>Description</label></div>
     </div>
     <div class="item-equip">
       <div class="item-equip flex-size-1"><label>Equip?</label></div>
@@ -257,5 +312,3 @@
 </ol>
 {{!-- Additional Items --}}
 additional items
-
-&&&&&&& >>>>>>>> badass tokens, badass roll, gain xp, take damage, traumas taken

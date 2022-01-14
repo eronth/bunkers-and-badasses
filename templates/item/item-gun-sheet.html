@@ -13,29 +13,184 @@
   </header>
 
   <div class="flexcol item-sheet">
-    <!-- <div class="item-body flexrow">
-      <div class="item-body flexrow item-tag-group flex-size-5">
-        <label for="effect-input-{{item.id}}" class="flex-size-2">Effect</label>
-        <input id="effect-input-{{item.id}}" class="flex-size-10"
-          value="{{data.effect}}" name="data.effect" placeholder="Potion's Effect"
-          type="text" data-dtype="String"
-          />
+
+    <div class="flexrow">
+      <div class="flexcol acc-hits-container">
+        <div class="flexrow">
+          <label class="bolded">Acc</label>
+          <label class="crit-hit hit">Hits</label>
+          <label class="crit-hit crit">Crits</label>
+        </div>
+        <div class="flexrow">
+          <label class="gun-acc-text">2-7</label>
+          <div class="crit-hit hit">
+            <input class="flex-size-1 crit-hit hit"
+            onfocus="this.select()"
+            value="{{data.accuracy.low.hits}}" name="data.accuracy.low.hits"
+            type="number" data-dtype="Number" />
+          </div>
+          <div class="crit-hit crit">
+            <input class="flex-size-1 crit-hit crit"
+            onfocus="this.select()"
+            value="{{data.accuracy.low.crits}}" name="data.accuracy.low.crits"
+            type="number" data-dtype="Number" />
+          </div>
+        </div>
+        <div class="flexrow">
+          <label class="gun-acc-text">8-15</label>
+          <div class="crit-hit hit">
+            <input class="flex-size-1 crit-hit hit"
+            onfocus="this.select()"
+            value="{{data.accuracy.mid.hits}}" name="data.accuracy.mid.hits"
+            type="number" data-dtype="Number" />
+          </div>
+          <div class="crit-hit crit">
+            <input class="flex-size-1 crit-hit crit"
+            onfocus="this.select()"
+            value="{{data.accuracy.mid.crits}}" name="data.accuracy.mid.crits"
+            type="number" data-dtype="Number" />
+          </div>
+        </div>
+        <div class="flexrow">
+          <label class="gun-acc-text">16-20</label>
+          <div class="crit-hit hit">
+            <input class="flex-size-1 crit-hit hit"
+            onfocus="this.select()"
+            value="{{data.accuracy.high.hits}}" name="data.accuracy.high.hits"
+            type="number" data-dtype="Number" />
+          </div>
+          <div class="crit-hit crit">
+            <input class="flex-size-1 crit-hit crit"
+            onfocus="this.select()"
+            value="{{data.accuracy.high.crits}}" name="data.accuracy.high.crits"
+            type="number" data-dtype="Number" />
+          </div>
+        </div>
       </div>
-      <div class="item-body item-body-num flexrow item-tag-group">
-        <label for="effect-input-{{item.id}}" class="flex-size-2">Quantity</label>
-        <input id="effect-input-{{item.id}}" class="flex-size-1"
-          value="{{data.quantity}}" name="data.quantity"
-          type="number" data-dtype="Number"
-          />
+
+
+      <div class="flex-size-2 flexcol ">
+        <div class="flexrow gun-center-container bolded">
+          <div class="centerize"> 
+            <label for="level-input-{{item.id}}" class="flex-size-1">Level</label>
+            <input id="level-input-{{item.id}}" class="flex-size-1"
+            onfocus="this.select()"
+            value="{{data.level}}" name="data.level"
+            type="number" data-dtype="Number"
+            />
+          </div>
+          <div class="centerize">
+            <label for="range-value flex-size-3 bolded">Range</label>
+            <input id="range-value" class="gun-center-entry"
+            onfocus="this.select()"
+            value="{{data.range}}" name="data.range"
+            type="number" data-dtype="Number" />
+          </div>
+          <div class="centerize">
+            <label for="bonus-crit flex-size-4 bolded">Bonus Crit Dmg</label>
+            <input id="bonus-crit" class="gun-center-entry"
+            onfocus="this.select()"
+            value="{{data.bonusCritDmg}}" name="data.bonusCritDmg"
+            type="number" data-dtype="Number" />
+          </div>
+        </div>
+        <div class="flexrow gun-center-contain">
+          <div class="item-body flexrow">
+            <label for="prefix-input-{{item.id}}">Prefix</label>
+            <input id="prefix-input-{{item.id}}" class="flexlarge"
+              onfocus="this.select()"
+              value="{{data.prefix.name}}" name="data.prefix.name"
+              type="text" data-dtype="String"
+              />
+          </div>
+          <div class="item-body flexrow flex-size-2">
+            <label for="prefix-bonus-input-{{item.id}}">Bonus</label>
+            <input id="prefix-bonus-input-{{item.id}}" class="flexlarge"
+              onfocus="this.select()"
+              value="{{data.prefix.effects}}" placeholder="Prefix Bonus" name="data.prefix.effects"
+              type="text" data-dtype="String"
+              />
+          </div>
+        </div>
+        <div class="flexrow gun-center-contain">
+          <div class="item-body flexrow">
+            <label for="guild-input-{{item.id}}">Guild</label>
+            <input id="guild-input-{{item.id}}" class="flexlarge"
+            onfocus="this.select()"
+              value="{{data.guild}}" name="data.guild"
+              type="text" data-dtype="String"
+              />
+          </div>
+          <div class="item-body flexrow flex-size-2">
+            <label for="guild-bonus-input-{{item.id}}">Bonus</label>
+            <input id="guild-bonus-input-{{item.id}}" class="flexlarge" 
+            onfocus="this.select()"
+              value="{{data.guildBonus}}" placeholder="Guild Bonus" name="data.guildBonus"
+              type="text" data-dtype="String"
+              />
+          </div>
+        </div>
+        <div class="flexrow gun-center-container">
+          <div class="flexrow centerize">
+            <label for="gun-type" class="bolded">Gun Type:</label>
+            {{> "systems/bunkers-and-badasses/templates/item/parts/gun-type-dropdown.html" }}
+          </div>
+        </div>
+        <div class="flexrow gun-center-contain">
+          <label for="gun-info" class="bolded">Gun Info</label>
+          <input id="gun-info" class="flex-size-3"
+          onfocus="this.select()"
+            value="{{data.effect}}" name="data.effect"
+            type="text" data-dtype="String" />
+        </div>
       </div>
-      <div class="item-body item-body-num flexrow item-tag-group">
-        <label for="cost-input-{{item.id}}" class="flex-size-2">Cost</label>
-        <input id="cost-input-{{item.id}}" class="flex-size-1"
-          value="{{data.cost}}" name="data.cost"
-          type="number" data-dtype="Number"
-          />
-      </div>
-    </div> -->
+    </div>
+    {{!-- Elemental selection section --}}
+    <div class="item-body flexrow">
+      {{> "systems/bunkers-and-badasses/templates/item/parts/damage-entry.html"
+        device="gun"
+        bonus="damage" bonusTag="dmg"
+        elements=data.elements
+      }}
+    </div>
+    <div class="flexcol stat-mod-mod-header">
+      <label class="stat-mod-mod-title">Gun Stat Mod Bonuses/Penalties</label>
+      <label class="stat-mod-mod-reminder-text">Aka Stat Mod Mods.</label>
+    </div>
+    <div class="item-body flexrow">
+      <div class="flexrow">
+        <div class="flexrow flex-group-center flex-size-2 gun-char-stats-section">
+          <label class="flex-size-2">Acc Mod</label>
+          +<input 
+          name="data.class.baseStats.acc" 
+          value="{{data.class.baseStats.acc}}"
+          onclick="this.select()"
+          onfocus="this.select()"
+          type="number" data-dtype="Number" />
+          <label class="flex-size-2">Dmg Mod</label>
+          +<input 
+          name="data.class.baseStats.dmg" 
+          value="{{data.class.baseStats.dmg}}"
+          onclick="this.select()"
+          onfocus="this.select()"
+          type="number" data-dtype="Number" />
+          <label class="flex-size-2">Spd Mod</label>
+          +<input 
+          name="data.class.baseStats.spd" 
+          value="{{data.class.baseStats.spd}}"
+            onclick="this.select()"
+            onfocus="this.select()"
+            type="number" data-dtype="Number" />
+            <label class="flex-size-2">Mst Mod</label>
+            +<input 
+            name="data.class.baseStats.mst" 
+            value="{{data.class.baseStats.mst}}"
+            onclick="this.select()"
+            onfocus="this.select()"
+            type="number" data-dtype="Number" />
+          </div>
+        </div>
+    </div>
     {{> "systems/bunkers-and-badasses/templates/item/parts/red-text.html" }}
   </div>
 </form>

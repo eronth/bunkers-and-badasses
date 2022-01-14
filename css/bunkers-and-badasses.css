@@ -32,11 +32,7 @@
   cursor: pointer;
 }
 
-.elem-reminder-text {
-  color: gray;
-  font-size: x-small;
-  font-style: italic;
-}
+
 
 .elem-initial {
   align-self: flex-end;
@@ -534,6 +530,15 @@
 .bnb .class-stats-section .stat {
   border: 1px solid #b5b3a4;
 }
+.gun-char-stats-section {
+  border: 1px solid #b5b3a4;
+  border-top: 0;
+  padding: 2px;
+  margin-top: 1px;
+}
+.gun-char-stats-section .stat {
+  border: 1px solid #b5b3a4;
+}
 
 .bnb .align-center {
   align-items: center;
@@ -698,6 +703,58 @@
 .nowrap {
   flex-wrap: nowrap;
 }
+
+.acc-hits-container {
+  border: 1px solid #b5b3a4;
+  margin: 2px;
+  padding: 2px;
+}
+.gun-acc-text {
+  font-size: smaller;
+  align-self: center;
+}
+
+.crit-hit {
+  text-align-last: center;
+  font-weight: bold;
+}
+.crit-hit .hit {
+  color: darkblue;
+  padding: 0;
+  margin: 0;
+}
+.crit-hit .crit {
+  color: darkred;
+  padding: 0;
+  margin: 0;
+}
+.crit-hit input {
+  width: 20px;
+}
+.crit-hit .hit input{
+  color: darkblue;
+}
+.crit-hit .crit input{
+  color: darkred;
+}
+
+.gun-center-contain,
+.gun-center-container {
+  text-align-last: center;
+  align-items: center;
+}
+.gun-center-contain,
+.gun-center-container label{
+  font-size: smaller;
+}
+.gun-center-container input{
+  width: 20px;
+  max-width: 20px;
+}
+.gun-center-entry {
+
+}
+
 
 .bnb .items-list .item-equip-control {
   display: -webkit-box;
@@ -939,6 +996,26 @@
   margin-bottom: 5px;
   padding: 0;
 }
+.stat-mod-mod-reminder-text,
+.elem-reminder-text {
+  color: gray;
+  font-size: x-small;
+  font-style: italic;
+}
+.stat-mod-mod-header {
+  border: 1px solid #b5b3a4;
+  border-bottom: 0;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+.stat-mod-mod-title {
+  margin-top: 5px;
+  font-weight: bold;
+  align-self: center;
+}
+.stat-mod-mod-reminder-text {
+  align-self: center;
+}
 
 .bolded {
   font-weight: bold;
@@ -1141,6 +1218,44 @@
   -webkit-columns: 2;
   -moz-columns: 2;
 }
+
+.gun-type ul { 
+  height: 20px;
+  width: 130px;
+  max-width: 130px;
+  border: 1px rgb(122, 121, 113) solid;
+  border-radius: 3px;
+  background: rgba(0, 0, 0, 0.05);
+  list-style-type: none;
+  padding: 0;
+}
+.gun-type ul li {
+  cursor: pointer;
+  border: 1px rgb(122, 121, 113) solid;
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+.gun-type ul li:not(.init) {
+  float: left;
+  width: 130px;
+  padding: 3px 7px;
+  margin-top: -1px;
+  display: none;
+}
+.gun-type li.init { 
+  cursor: pointer;
+  padding: 1px 7px;
+  height: 20px;
+}
+.gun-type ul li:not(.init):hover, ul li.selected:not(.init) {
+  text-decoration: underline;
+}
+.gun-type .gtb {
+  color: white;
+  background-color: #a5a49f;
+}
+
 
 
 .rarity ul { 
