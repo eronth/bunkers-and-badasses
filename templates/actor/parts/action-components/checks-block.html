@@ -1,0 +1,64 @@
+<div class="flexrow check-container-container">
+  <div class="flex-size-3 flexcol check-container-left">
+    <div class="check-segment-header-left">Checks</div>
+    <div class="flexrow">
+      <div>
+        {{> "systems/bunkers-and-badasses/templates/actor/parts/action-components/check.html" 
+          checkName="Interact"
+          check=data.checks.interact
+        }}
+      </div>
+      <div>
+        {{> "systems/bunkers-and-badasses/templates/actor/parts/action-components/check.html"
+          checkName="Talk"
+          check=data.checks.talk
+        }}
+      </div>
+      <div>
+        {{> "systems/bunkers-and-badasses/templates/actor/parts/action-components/check.html"
+          checkName="Sneak"
+          check=data.checks.sneak
+        }}
+      </div>
+    </div>
+    <div class="flexrow">
+      <div>
+        {{> "systems/bunkers-and-badasses/templates/actor/parts/action-components/check.html"
+          checkName="Insight"
+          check=data.checks.insight
+        }}
+      </div>
+      <div>
+        {{> "systems/bunkers-and-badasses/templates/actor/parts/action-components/check.html"
+          checkName="Traverse"
+          check=data.checks.traverse
+        }}
+      </div>
+      <div>
+        {{> "systems/bunkers-and-badasses/templates/actor/parts/action-components/check.html"
+          checkName="Search"
+          check=data.checks.search
+        }}
+      </div>
+    </div>
+  </div>
+  <div class="flex-size-1 flexcol check-container-right">
+    <div class="check-segment-header-right">Combat Values</div>
+    <div class="flexrow">
+      <div>
+        {{> "systems/bunkers-and-badasses/templates/actor/parts/action-components/check.html"
+          checkName="Init"
+          check=data.checks.initiative
+        }}
+      </div>
+    </div>
+    <div class="flexrow">
+      <div>
+        {{> "systems/bunkers-and-badasses/templates/actor/parts/action-components/check.html"
+          checkName="Move"
+          check=data.checks.movement
+        }}
+      </div>
+    </div>
+  </div>
+</div>

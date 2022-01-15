@@ -1,0 +1,38 @@
+<div class="flexrow check-container">
+  <label class="check-text rollable">{{^if check.nonRolled}}<i class="fa fa-dice-d20"> {{/if}}</i> {{checkName}}</label>
+  {{#if check.usesBadassRank}}
+  <input class="" value="{{data.attributes.badassRank}}"
+    type="number" data-dtype="Number"
+    disabled />
+  <Label class="check-text-operation">+</Label>
+  {{/if}}
+  {{#if check.base}}
+  <input class="" value="{{check.base}}"
+    type="number" data-dtype="Number"
+    disabled />
+  <Label class="check-text-operation">+</Label>
+  {{/if}}
+  <input class="" value="{{check.value}}"
+    type="number" data-dtype="Number"
+    disabled />
+  <Label class="check-text-operation">+</Label>
+  <input class="" value="{{check.bonus}}" name="data.checks.{{toLowerCase checkName}}.bonus"
+    onclick="this.select()"
+    type="number" data-dtype="Number" />
+  <Label class="check-text-operation">=</Label>
+  {{#if check.nonRolled}}
+  <input class="" value="{{check.total}} sq"
+    type="text" data-dtype="String"
+    disabled />
+  {{else}}
+    {{#if check.usesBadassRank}}
+    <input class="" value="+{{check.total}}"
+      type="text" data-dtype="String"
+      disabled />
+    {{else}}
+    <input class="" value="{{check.total}}"
+      type="number" data-dtype="Number"
+      disabled />
+    {{/if}}
+  {{/if}}
+</div>

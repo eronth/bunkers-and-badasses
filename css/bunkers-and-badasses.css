@@ -395,8 +395,6 @@
 .xpBar:hover, .xpBar:focus {
   color: #000;
   text-shadow: 0 0 10px cyan;
-  cursor: pointer;
-  background-color: #ffc;
 }
 
 .bnb .xpBar-max {
@@ -1065,6 +1063,44 @@
 
 .bnb .action-skill-item {
   border: 1px solid #c9c7b8;
+}
+
+.bnb .check-text {
+  font-size: smaller;
+  font-weight: bold;
+}
+.bnb .check-text-stat {
+  font-size: x-small;
+}
+.bnb .check-container-container {
+  border: 1px solid #c9c7b8;
+}
+.bnb .check-container {
+  align-items: center;
+  margin-left: 4px;
+  margin-right: 4px;
+  margin-top: 2px;
+}
+.bnb .check-container-right {
+  border-left: 1px solid #c9c7b8;
+}
+.bnb .check-segment-header,
+.bnb .check-segment-header-right,
+.bnb .check-segment-header-left {
+  font-size: larger;
+  font-weight: bold;
+  text-align: center;
+}
+.bnb .check-text-operation {
+  font-size: x-small;
+  max-width: fit-content;
+  padding-left: 1px;
+  padding-right: 1px;
+}
+.bnb .check-container input {
+  text-align: center;
+  font-size: smaller;
+  max-width: 7px;
 }
 
 .incendiary-color {

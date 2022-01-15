@@ -170,11 +170,6 @@ export class BNBActorSheet extends ActorSheet {
    * @return {undefined}
    */
   _prepareCharacterData(context) {
-    // Handle ability scores.
-    for (let [k, v] of Object.entries(context.data.abilities)) {
-      v.label = game.i18n.localize(CONFIG.BNB.abilities[k]) ?? k;
-    }
-
     // Handle stat scores.
     for (let [k, v] of Object.entries(context.data.stats)) {
       v.label = game.i18n.localize(CONFIG.BNB.stats[k]) ?? k;
@@ -197,6 +192,14 @@ export class BNBActorSheet extends ActorSheet {
     context.data.stats.spd.mod = Math.floor(context.data.stats.spd.value / 2);
     context.data.stats.mst.value = archetypeStats.mst + classStats.mst + context.data.stats.mst.bonus;
     context.data.stats.mst.mod = Math.floor(context.data.stats.mst.value / 2);
+
+    // Prepare data for various check rolls.
+    Object.entries(context.data.checks).forEach(entry => {
+      const [check, checkData] = entry;
+      checkData.value = context.data.stats[checkData.stat].value;
+      checkData.total = (checkData.useBadassRank ? context.data.attributes.badassRank.value : 0) +
+        (checkData.base ?? 0) + checkData.value + checkData.bonus;
+    });
   }
 
   /**

@@ -37,9 +37,8 @@
       "templates": ["base"],
       "gold": 0,
       "attributes": {
-        "badassRank": {
-          "value": 0
-        },
+        "badassRank": 1,
+        "badassTokens": 0,
         "level": {
           "value": 1
         },
@@ -56,26 +55,6 @@
           "value": 0
         }
       },
-      "abilities": {
-        "str": {
-          "value": 10
-        },
-        "dex": {
-          "value": 10
-        },
-        "con": {
-          "value": 10
-        },
-        "int": {
-          "value": 10
-        },
-        "wis": {
-          "value": 10
-        },
-        "cha": {
-          "value": 10
-        }
-      },
       "stats": {
         "acc": {
           "value": 0,
@@ -90,6 +69,51 @@
           "bonus": 0
         },
         "mst": {
+          "value": 0,
+          "bonus": 0
+        }
+      },
+      "checks": {
+        "interact": {
+          "stat": "acc",
+          "value": 0,
+          "bonus": 0
+        },
+        "talk": {
+          "stat": "spd",
+          "value": 0,
+          "bonus": 0
+        },
+        "insight": {
+          "stat": "acc",
+          "value": 0,
+          "bonus": 0
+        },
+        "sneak": {
+          "stat": "mst",
+          "value": 0,
+          "bonus": 0
+        },
+        "search": {
+          "stat": "mst",
+          "value": 0,
+          "bonus": 0
+        },
+        "traverse": {
+          "stat": "spd",
+          "value": 0,
+          "bonus": 0
+        },
+        "initiative": {
+          "stat": "spd",
+          "usesBadassRank": true,
+          "value": 0,
+          "bonus": 0
+        },
+        "movement": {
+          "stat": "spd",
+          "nonRolled": true,
+          "base": 3,
           "value": 0,
           "bonus": 0
         }
@@ -259,7 +283,8 @@
       },
       "type": {
         "value": "pistol",
-        "name": "Pistol"
+        "name": "Pistol",
+        "shortName": "Pistol"
       },
       "accuracy": {
         "low": {
