@@ -1,5 +1,7 @@
 <div class="flexrow check-container">
-  <label class="check-text rollable">{{^if check.nonRolled}}<i class="fa fa-dice-d20"> {{/if}}</i> {{checkName}}</label>
+  <label class="check-text check-text-header rollable">{{^if check.nonRolled}}<i class="fa fa-dice-d20"> {{/if}}</i> {{checkName}}</label>
+</div>
+<div class="flexrow check-container cc2">
   {{#if check.usesBadassRank}}
   <input class="" value="{{data.attributes.badassRank}}"
     type="number" data-dtype="Number"

@@ -1,6 +1,15 @@
 {{!-- Header and Gold --}}
 <div class="flexrow">
-  <div class="flex-size-1"><!-- Space Holder --></div>
+  <div class="flexrow flex-size-1 centerize grenade-input">
+    <label for="grenade-input" class="grenade-input-label flex-size-2">Grenade Count: </label>
+    <input id="grenade-input" class="grenade-input" value="{{data.attributes.grenades.value}}" name="data.attributes.grenades.value"
+    onclick="this.select()" type="number" data-dtype="Number"
+    />
+    <label for="grenade-input" class="grenade-input-label flex-size-2">Max Grenades: </label>
+    <input id="grenade-input" class="grenade-input" value="{{data.attributes.grenades.max}}" name="data.attributes.grenades.max"
+    onclick="this.select()" type="number" data-dtype="Number"
+    />
+  </div>
   <div class="flex-size-2 loot-inventory-header-container">
     <label class="loot-inventory-header flexrow">Loot Inventory</label>
   </div>

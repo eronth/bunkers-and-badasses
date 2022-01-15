@@ -332,7 +332,21 @@
   /* Example style for bnb (can be removed if not needed) */
 }
 
+.grenade-input {
+  justify-content: center;
+  max-width: 70%;
+  font-size: smaller;
+}
+.grenade-input label{
+  max-width: 40%;
+}
+.grenade-input input{
+  max-width: 20px;
+  text-align: center;
+}
+
 .gold-input {
+  font-size: smaller;
   justify-content: center;
   max-width: 70%;
 }
@@ -341,6 +355,7 @@
 }
 .gold-input input{
   max-width: 50%;
+  text-align: center;
 }
 
 .bnb .item-form {
@@ -1066,8 +1081,11 @@
 }
 
 .bnb .check-text {
-  font-size: smaller;
   font-weight: bold;
+}
+.bnb .check-text-header {
+  text-align: center;
+  padding-top: 4px;
 }
 .bnb .check-text-stat {
   font-size: x-small;
@@ -1081,6 +1099,9 @@
   margin-right: 4px;
   margin-top: 2px;
 }
+.bnb .cc2{
+  justify-content: center;
+}
 .bnb .check-container-right {
   border-left: 1px solid #c9c7b8;
 }
@@ -1092,7 +1113,7 @@
   text-align: center;
 }
 .bnb .check-text-operation {
-  font-size: x-small;
+  font-size: smaller;
   max-width: fit-content;
   padding-left: 1px;
   padding-right: 1px;
