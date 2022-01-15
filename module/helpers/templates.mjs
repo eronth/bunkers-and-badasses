@@ -8,6 +8,7 @@
 
     // Actor partials.
     "systems/bunkers-and-badasses/templates/actor/parts/actor-experience-bar.html",
+    "systems/bunkers-and-badasses/templates/actor/parts/actor-action.html",
     "systems/bunkers-and-badasses/templates/actor/parts/actor-bio.html",
     "systems/bunkers-and-badasses/templates/actor/parts/actor-features.html",
     "systems/bunkers-and-badasses/templates/actor/parts/actor-items.html",
