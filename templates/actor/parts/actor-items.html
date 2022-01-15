@@ -39,23 +39,29 @@
           src="{{item.img}}" title="{{item.data.class}} {{item.name}}" width="24" height="24"/></a>
       </div>
       <div class="flexcol">
-        <div class="bolded font-rarity" style="--rarityColor: {{item.data.rarity.colorValue}}">{{item.data.rarity.name}}</div>
+        <div class="bolded font-rarity" style="--rarityColor: {{item.data.rarity.colorValue}}">
+          {{item.data.rarity.name}} {{item.data.type.name}}</div>
         <h4 class="bolded">{{item.data.prefix.name}} {{item.name}}</h4>
       </div>
     </div>
     <div class="item-details">
-      <!-- <div class="flexcol item-effec-stack-container">
+      <div class="flexcol item-effec-stack-container">
         <div class="item-effect item-prop-stack">
+          Pistol, hits, damage
+          <!-- 
           <label class="item-effect">
             <div>{{#if item.data.effect}}<b>Effect</b>:{{/if}} {{item.data.effect}}</div>
-          </label>
+          </label> -->
         </div>
         <div class="item-effect item-prop-stack">
+          range, crits, bonuses
+          <!-- 
           <label class="loot-element-damage item-effect item-prop-stack loot-element-damage">
             {{{item.data.dmgHtml}}}
           </label>
+        -->
         </div>
-      </div> -->
+      </div>
     </div>
     <div class="item-equip-control">
       <a class="checkbox" title="Equip Item?" data-target="item" data-item-target="data.equipped">
