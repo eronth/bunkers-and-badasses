@@ -13,7 +13,7 @@ export class BNBActorSheet extends ActorSheet {
       template: "systems/bunkers-and-badasses/templates/actor/actor-sheet.html",
       width: 600,
       height: 600,
-      tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "features" },
+      tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "action" },
       { navSelector: ".builder-tabs", contentSelector: ".builder-body", initial: "archetype" }]
     });
   }

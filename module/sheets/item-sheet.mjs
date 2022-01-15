@@ -10,7 +10,7 @@ export class BNBItemSheet extends ItemSheet {
       classes: ["bunkers-and-badasses", "sheet", "item"],
       width: 520,
       height: 480,
-      tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "action" }]
+      tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description" }]
     });
   }
 
