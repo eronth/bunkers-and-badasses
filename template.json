@@ -160,18 +160,7 @@
       "base": {
         "description": "",
         "effect": "",
-        "level": 1,
-        "guild": "",
-        "rarity": {
-          "name": "Common",
-          "value": "common",
-          "colorValue": "#a5a49f"
-        },
-        "carried": true,
-        "equipped": false,
-        "redText": "",
-        "redTextEffect": "",
-        "redTextEffectBM": ""
+        "level": 1
       },
       "elemental": { 
         "elements": {
@@ -236,6 +225,20 @@
             "label": "Crysplosive"
           }
         }
+      },
+      "loot": {
+        "isLoot": true,
+        "guild": "",
+        "rarity": {
+          "name": "Common",
+          "value": "common",
+          "colorValue": "#a5a49f"
+        },
+        "carried": true,
+        "equipped": false,
+        "redText": "",
+        "redTextEffect": "",
+        "redTextEffectBM": ""
       }
     },
     "item": {
@@ -245,7 +248,7 @@
       "formula": "d20 + @str.mod + ceil(@lvl / 2)"
     },
     "gun": {
-      "templates": ["base", "elemental"],
+      "templates": ["base", "loot", "elemental"],
       "carried": true,
       "active": false,
       "weilded": false,
@@ -256,7 +259,7 @@
       },
       "type": {
         "value": "pistol",
-        "Name": "Pistol"
+        "name": "Pistol"
       },
       "accuracy": {
         "low": {
@@ -289,7 +292,7 @@
       "bonus": ""
     },
     "shield": {
-      "templates": ["base", "elemental"],
+      "templates": ["base", "loot", "elemental"],
       "isArmor": false,
       "capacity": 0,
       "recovery": {
@@ -302,7 +305,7 @@
       }
     },
     "grenade": {
-      "templates": ["base", "elemental"],
+      "templates": ["base", "loot", "elemental"],
       "damage": "",
       "gainHealth": false,
       "gainShield": false,
@@ -310,12 +313,12 @@
       "detonations": 1
     },
     "relic": {
-      "templates": ["base"],
+      "templates": ["base", "loot"],
       "class": "Any",
       "classEffect": ""
     },
     "potion": {
-      "templates": ["base"],
+      "templates": ["base", "loot"],
       "quantity": 1,
       "cost": 0
     },
