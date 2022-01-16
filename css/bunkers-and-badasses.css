@@ -1007,6 +1007,7 @@
 .bnb .hp-title {
   font-weight: bold;
   align-self: center;
+  padding-left: 2px;
 }
 .bnb .hp-buttons {
   margin-left: 2px;
@@ -1023,6 +1024,18 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+}
+
+.badass-container {
+  align-content: center;
+  align-items: center;
+}
+.badass-container label {
+  font-weight: bold;
+}
+.badass-container input {
+  max-width: 30px;
+  text-align: center;
 }
 
 

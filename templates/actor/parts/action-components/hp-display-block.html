@@ -1,23 +1,25 @@
 <div class="flexcol hp-container">
-  <label class="hp-title">{{hpTitle key}}</label>
-  <div class="hp-values">
-    <div class="flexrow flex-group-center" >
-      <div class="flexcol">
-        {{hp.value}}
-        <label>current</label>
-      </div>
-      <div class="flexcol">
-        {{hp.max}}
-        <label>max</label>
-      </div>
-      <div class="flexcol">
-        {{hp.regen}}
-        <label>{{hpToRecoveryTitle key}}</label>
+  <div class="flexrow">
+    <label class="hp-title">{{hpTitle key}}</label>
+    <div class="flex-size-3 hp-values">
+      <div class="flexrow flex-group-center" >
+        <div class="flexcol">
+          {{hp.value}}
+          <label>current</label>
+        </div>
+        <div class="flexcol">
+          {{hp.max}}
+          <label>max</label>
+        </div>
+        <div class="flexcol">
+          {{hp.regen}}
+          <label>{{hpToRecoveryTitle key}}</label>
+        </div>
       </div>
     </div>
+  </div>
     <div class="flexrow hp-buttons">
-      <button class="btn btn-primary hp-set-btn">Set {{hpTitle key}}</button>
-      <button class="btn btn-primary hp-quick-regen-btn">Quick {{hpToRecoveryTitle key true}} ({{hp.regen}})</button>
-    </div>
+    <button class="btn btn-primary hp-set-btn">Set {{hpTitle key}}</button>
+    <button class="btn btn-primary hp-quick-regen-btn">Quick {{hpToRecoveryTitle key true}} ({{hp.regen}})</button>
   </div>
 </div>

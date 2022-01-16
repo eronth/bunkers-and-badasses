@@ -18,7 +18,20 @@
       </div>
     </div>
     <div class="flexcol">
-      <div>badass rank, (tokens)</div>
+      <div class="flexrow badass-container">
+        <div>
+          <label>Badass Rank</label>
+          <input class="" value="{{data.attributes.badassRank}}"
+            type="number" data-dtype="Number"
+            disabled />
+        </div>
+        <div>
+          <label>Badass Tokens</label>
+          <input class="" value="{{data.attributes.badassTokens}}"
+            type="number" data-dtype="Number"
+            disabled />
+        </div>
+      </div>
       <div>Badass Roll</div>
       <div>attacks!</div>
       <div>melee</div>
