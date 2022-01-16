@@ -17,6 +17,7 @@
     "systems/bunkers-and-badasses/templates/actor/parts/actor-action.html",
     "systems/bunkers-and-badasses/templates/actor/parts/action-components/checks-block.html",
     "systems/bunkers-and-badasses/templates/actor/parts/action-components/check.html",
+    "systems/bunkers-and-badasses/templates/actor/parts/action-components/hp-display-block.html",
 
     "systems/bunkers-and-badasses/templates/actor/parts/actor-builder.html",
     "systems/bunkers-and-badasses/templates/actor/parts/builder-components/actor-builder-archetypes.html",

@@ -82,9 +82,6 @@ export class BNBItemSheet extends ItemSheet {
   
     //     allOptions.toggle();
     // });
-    Handlebars.registerHelper('toLowerCase', function(str) {
-      return str.toLowerCase();
-    });
   }
 
   _onRarityOptionDropdownClick(event) {

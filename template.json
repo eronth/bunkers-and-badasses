@@ -4,23 +4,23 @@
     "templates": {
       "base": {
         "hps": {
+          "shield": {
+            "value": 0,
+            "min": 0,
+            "max": 0,
+            "regen": 0
+          },
+          "armor": {
+            "value": 0,
+            "min": 0,
+            "max": 0,
+            "regen": 0
+          },
           "flesh": {
             "value": 10,
             "min": 0,
             "max": 10,
             "regen": 0
-          },
-          "armor": {
-            "value": 3,
-            "min": 0,
-            "max": 3,
-            "regen": 1
-          },
-          "shield": {
-            "value": 10,
-            "min": 0,
-            "max": 15,
-            "regen": 5
           }
         },
         "bio": {
@@ -283,8 +283,7 @@
       },
       "type": {
         "value": "pistol",
-        "name": "Pistol",
-        "shortName": "Pistol"
+        "name": "Pistol"
       },
       "accuracy": {
         "low": {

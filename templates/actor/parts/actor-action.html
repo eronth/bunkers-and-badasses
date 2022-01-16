@@ -2,18 +2,32 @@
   <div class="flexrow">
     <div class="flex-size-5 flexcol">
       {{> "systems/bunkers-and-badasses/templates/actor/parts/action-components/checks-block.html" }}
+    </div>    
+  </div>
+  <div class="flexrow">
+    <div class="flexcol healths-container">
+      {{#each hps as |hpVal key|}}
+      {{> "systems/bunkers-and-badasses/templates/actor/parts/action-components/hp-display-block.html" 
+        hp=hpVal
+        key=key
+      }}
+      {{/each}}
+      <div class="flexrow hp-buttons hps-buttons">
+        <button class="btn btn-primary hp-damage-btn">Take Damage</button>
+        <button class="btn btn-primary hp-regen-btn">Recovery</button>
+      </div>
     </div>
-    <!-- <div class="flex-size-2 flexcol">
-      <div>initiatie</div>
-      <div>movement</div>
+    <div class="flexcol">
       <div>badass rank, (tokens)</div>
-    </div> -->
-
+      <div>Badass Roll</div>
+      <div>attacks!</div>
+      <div>melee</div>
+      <div>gun</div>
+      <div>grenade</div>
+    </div>
   </div>
 
-  hp type,                      |  attacks
-  current, max, regen           |  melee
-  hptype, current, max, regen   |  gun, GRENADE NEXT LINE
+
 
   Action skill, used, uses
   action skill text

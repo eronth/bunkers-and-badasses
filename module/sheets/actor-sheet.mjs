@@ -150,6 +150,19 @@ export class BNBActorSheet extends ActorSheet {
 
   _prepareHps(context) {
     // Get the HPs from the actor data.
+    Object.entries(context.items).forEach(entry => {
+      const [itemId, itemData] = entry;
+      if (itemData.type === "shield" && itemData.data.equipped) {
+        if (itemData.data.isArmor) {
+          context.data.hps.armor.max = itemData.data.capacity;
+          context.data.hps.armor.regen = itemData.data.recovery.repairRate;
+        } else {
+          context.data.hps.shield.max = itemData.data.capacity;
+          context.data.hps.shield.regen = itemData.data.recovery.rechargeRate;
+        }
+      }
+    });
+
     let useArmor = game.settings.get('bunkers-and-badasses', 'usePlayerArmor');
     let usedHps = {};
     Object.entries(context.data.hps).forEach(entry => {
@@ -158,6 +171,8 @@ export class BNBActorSheet extends ActorSheet {
         usedHps[hpType] = hpData;
       }
     });
+
+
 
     context.hps = usedHps;
   }
@@ -180,26 +195,8 @@ export class BNBActorSheet extends ActorSheet {
       v.label = game.i18n.localize(CONFIG.BNB.hps[k]) ?? k;
     }
 
-    var archetypeStats = context.data.archetypes.archetype1.baseStats;
-    var classStats = context.data.class.baseStats;
-    
-    // Handle stat values and totals. Values are class+archetype. Totals are *everything*.
-    context.data.stats.acc.value = archetypeStats.acc + classStats.acc + context.data.stats.acc.bonus;
-    context.data.stats.acc.mod = Math.floor(context.data.stats.acc.value / 2);
-    context.data.stats.dmg.value = archetypeStats.dmg + classStats.dmg + context.data.stats.dmg.bonus;
-    context.data.stats.dmg.mod = Math.floor(context.data.stats.dmg.value / 2);
-    context.data.stats.spd.value = archetypeStats.spd + classStats.spd + context.data.stats.spd.bonus;
-    context.data.stats.spd.mod = Math.floor(context.data.stats.spd.value / 2);
-    context.data.stats.mst.value = archetypeStats.mst + classStats.mst + context.data.stats.mst.bonus;
-    context.data.stats.mst.mod = Math.floor(context.data.stats.mst.value / 2);
 
-    // Prepare data for various check rolls.
-    Object.entries(context.data.checks).forEach(entry => {
-      const [check, checkData] = entry;
-      checkData.value = context.data.stats[checkData.stat].value;
-      checkData.total = (checkData.useBadassRank ? context.data.attributes.badassRank.value : 0) +
-        (checkData.base ?? 0) + checkData.value + checkData.bonus;
-    });
+
   }
 
   /**

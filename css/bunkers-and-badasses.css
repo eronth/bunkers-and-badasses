@@ -987,13 +987,44 @@
   border: none;
 }
 
-.bnb .hp {
+.bnb .header-hp {
   font-size: 12px;
 }
-
-.bnb .regen {
+.bnb .header-regen {
   font-size: 10px;
 }
+.bnb .healths-container {
+  margin-top: 4px;
+  border: 1px solid #c9c7b8;
+}
+.bnb .hp-container {
+  margin: 2px;
+  border: 1px solid #c9c7b8;
+}
+.bnb .hp-values label {
+  font-size: x-small;
+}
+.bnb .hp-title {
+  font-weight: bold;
+  align-self: center;
+}
+.bnb .hp-buttons {
+  margin-left: 2px;
+  margin-right: 2px;
+  margin-bottom: 3px;
+}
+.bnb .hps-buttons {
+  margin-top: 2px;
+}
+.bnb .hp-set-btn,
+.bnb .hp-quick-regen-btn {
+  max-height: 25px;
+  font-size: smaller;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
 
 .item-content {
   align-items: center;
@@ -1099,11 +1130,21 @@
   margin-right: 4px;
   margin-top: 2px;
 }
+.bnb .check-num-label {
+  font-size: xx-small;
+  text-align: center;
+  padding-top: 2px;
+}
 .bnb .cc2{
   justify-content: center;
+  align-items: center;
 }
 .bnb .check-container-right {
   border-left: 1px solid #c9c7b8;
+  flex: 4;
+}
+.bnb .check-container-left {
+  flex: 9;
 }
 .bnb .check-segment-header,
 .bnb .check-segment-header-right,
@@ -1117,11 +1158,12 @@
   max-width: fit-content;
   padding-left: 1px;
   padding-right: 1px;
+  padding-bottom: 14px;
 }
 .bnb .check-container input {
   text-align: center;
   font-size: smaller;
-  max-width: 7px;
+  max-width: 40px;
 }
 
 .incendiary-color {

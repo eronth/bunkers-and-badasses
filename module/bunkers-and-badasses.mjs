@@ -76,6 +76,50 @@ Handlebars.registerHelper('toLowerCase', function(str) {
   return str.toLowerCase();
 });
 
+Handlebars.registerHelper('toUpperCase', function(str) {
+  return str.toUpperCase();
+});
+
+Handlebars.registerHelper('capitalize', function(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+});
+
+Handlebars.registerHelper('hpTitle', function(str) {
+  if (str === "flesh")
+    str = "health";
+  return str.charAt(0).toUpperCase() + str.slice(1);
+});
+
+Handlebars.registerHelper('hpToRecoveryTitle', function(str, doCapitalize) {
+  if (str === "flesh")
+    str = "regen";
+  else if (str === "shield")
+    str = "recharge";
+  else if (str === "armor")
+    str = "repair";
+
+  if (doCapitalize)
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  else
+    return str;
+});
+
+Handlebars.registerHelper('shortName', function(str) {
+  str = str.toLowerCase();
+  if (str === 'submachine gun')
+    return 'SMG';
+  else if (str === 'combat rifle')
+    return 'Rifle';
+  else if (str === 'sniper rifle')
+    return 'Sniper';
+  else if (str === 'rocket launcher')
+    return 'RL';
+  else
+    return str;
+});
+
+
+
 /* -------------------------------------------- */
 /*  Ready Hook                                  */
 /* -------------------------------------------- */

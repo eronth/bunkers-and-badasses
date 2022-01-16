@@ -48,20 +48,26 @@ export class BNBActor extends Actor {
     // Make modifications to data here. For example:
     const data = actorData.data;
 
-    // Loop through ability scores, and add their modifiers to our sheet output.
-    for (let [key, ability] of Object.entries(data.abilities)) {
-      // Calculate the modifier using d20 rules.
-      ability.mod = Math.floor((ability.value - 10) / 2);
-    }
+    var archetypeStats = data.archetypes.archetype1.baseStats;
+    var classStats = data.class.baseStats;
 
-    // Loop through stat scores, and add their modifiers to our sheet output.
-    for (let [key, stat] of Object.entries(data.stats)) {
-      // Calculate stats based on archetype, class, and allocated points.
-      stat.total = stat.value //+ data.archetype.stats[key].value + data.class.stats[key].value;
+    // Handle stat values and totals. Values are class+archetype. Totals are *everything*.
+    data.stats.acc.value = archetypeStats.acc + classStats.acc + data.stats.acc.bonus;
+    data.stats.acc.mod = Math.floor(data.stats.acc.value / 2);
+    data.stats.dmg.value = archetypeStats.dmg + classStats.dmg + data.stats.dmg.bonus;
+    data.stats.dmg.mod = Math.floor(data.stats.dmg.value / 2);
+    data.stats.spd.value = archetypeStats.spd + classStats.spd + data.stats.spd.bonus;
+    data.stats.spd.mod = Math.floor(data.stats.spd.value / 2);
+    data.stats.mst.value = archetypeStats.mst + classStats.mst + data.stats.mst.bonus;
+    data.stats.mst.mod = Math.floor(data.stats.mst.value / 2);
 
-      // Calculate the modifier from the stat total.
-      stat.mod = Math.floor(stat.total / 2);
-    }
+    // Prepare data for various check rolls.
+    Object.entries(data.checks).forEach(entry => {
+      const [check, checkData] = entry;
+      checkData.value = data.stats[checkData.stat].value;
+      checkData.total = (checkData.useBadassRank ? data.attributes.badassRank.value : 0) +
+        (checkData.base ?? 0) + checkData.value + checkData.bonus;
+    });
   }
 
   /**
