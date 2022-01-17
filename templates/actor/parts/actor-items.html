@@ -61,7 +61,7 @@
               src="systems/bunkers-and-badasses/assets/weapons/hits.png" />
             <label class="gun-row-hits">{{data.accuracy.low.hits}} {{data.accuracy.mid.hits}} {{data.accuracy.high.hits}}</label>
             {{{data.dmgHtml}}}
-            <label class="gun-detail-header">Range:</label>
+            <label class="gun-detail-header">  Range:</label>
             <label>{{data.range}} sq</label>
           </div>
         </div>
@@ -70,14 +70,18 @@
             <img id="crits" alt="Crits" class="critshits-icon" 
               src="systems/bunkers-and-badasses/assets/weapons/crits.png" />
             <label class="gun-row-crits">{{data.accuracy.low.crits}} {{data.accuracy.mid.crits}} {{data.accuracy.high.crits}}</label>
-            <!--
-            <label class="gun-detail-header">Effects:</label>
-            <label class="large-text-overflow-hidden">
-              {{data.prefix.effects}} {{data.guildBonus}} {{data.effect}}
-            </label>
-            -->
           </div>
         </div>
+        <!--
+          <div class="item-effect item-prop-stack">
+            <div class="gun-row">
+              <label class="gun-detail-header">Effects:</label>
+              <label class="large-text-overflow-hidden">
+                {{data.prefix.effects}}, {{data.guildBonus}}, {{data.effect}}
+              </label>
+            </div>
+          </div>
+        -->
       </div>
     </div>
     <div class="item-equip-control">
