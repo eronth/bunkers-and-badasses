@@ -273,8 +273,6 @@
     },
     "gun": {
       "templates": ["base", "loot", "elemental"],
-      "carried": true,
-      "active": false,
       "weilded": false,
 
       "prefix": {
