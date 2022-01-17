@@ -261,6 +261,30 @@ export class BNBActorSheet extends ActorSheet {
       } else if (i.type === 'Class Skill') {
         classSkills.push(i); // Append to class Skills.
       } else if (i.type === 'gun') {
+        let elemIcon = "";
+        let gunDmgString = "";
+        const finalPlus = `<label class="element-damage-plus"> + </label>`;
+        Object.entries(i.data.elements).forEach(e => {
+          const element = e[1];
+          if(element.enabled) {
+            elemIcon = (e[0] === "kinetic") ? ""
+            : `<img id="gunDmg${element.label}" alt="${element.label}" 
+              class="element-damage-icon" src="systems/bunkers-and-badasses/assets/elements/${element.label}.png" />`;
+
+              gunDmgString += 
+            `<label class="element-label" style="--elementColor:${element.color}">
+              ${element.damage} ${elemIcon}
+            </label> ${finalPlus}`;
+          }
+        });
+        
+        // We need to remove the last plus label, it doesn't belong.
+        gunDmgString = gunDmgString.slice(0, finalPlus.length * -1);
+
+        // Add the "damage" text.
+        gunDmgString += `<label class="element-damage-damage">Damage</label>`;
+        
+        i.data.dmgHtml = gunDmgString;
         guns.push(i);
         if (i.data.equipped) {
           equippedGuns.push(i);

@@ -1377,6 +1377,26 @@ input[type="time"]:focus {
 
 .bnb .gun-row {
   display: flex;
+  font-size: smaller;
+}
+.bnb .gun-row .gun-detail-header {
+  font-weight: bold;
+}
+.bnb .gun-row .critshits-icon {
+  border: 0;
+  height: 12px;
+  padding-right: 2px;
+}
+.bnb .gun-row label {
+  padding: 0px 2px;
+}
+.bnb .gun-row-crits {
+  color: darkred;
+  font-weight: bold;
+}
+.bnb .gun-row-hits {
+  color: darkblue;
+  font-weight: bold;  
 }
 .gun-type ul { 
   height: 20px;

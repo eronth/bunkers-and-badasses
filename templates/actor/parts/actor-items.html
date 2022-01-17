@@ -57,24 +57,26 @@
       <div class="flexcol item-effec-stack-container">
         <div class="item-effect item-prop-stack">
           <div class="gun-row">
-            <label>Hits {{data.accuracy.low.hits}} {{data.accuracy.mid.hits}} {{data.accuracy.high.hits}}</label>
-            <label>damage</label>
+            <img id="hits" alt="Hits" class="critshits-icon" 
+              src="systems/bunkers-and-badasses/assets/weapons/hits.png" />
+            <label class="gun-row-hits">{{data.accuracy.low.hits}} {{data.accuracy.mid.hits}} {{data.accuracy.high.hits}}</label>
+            {{{data.dmgHtml}}}
+            <label class="gun-detail-header">Range:</label>
+            <label>{{data.range}} sq</label>
           </div>
-          <!-- 
-          <label class="item-effect">
-            <div>{{#if item.data.effect}}<b>Effect</b>:{{/if}} {{item.data.effect}}</div>
-          </label> -->
         </div>
         <div class="item-effect item-prop-stack">
           <div class="gun-row">
-            <label>Crits {{data.accuracy.low.crits}} {{data.accuracy.mid.crits}} {{data.accuracy.high.crits}}</label>
-            range, bonuses
+            <img id="crits" alt="Crits" class="critshits-icon" 
+              src="systems/bunkers-and-badasses/assets/weapons/crits.png" />
+            <label class="gun-row-crits">{{data.accuracy.low.crits}} {{data.accuracy.mid.crits}} {{data.accuracy.high.crits}}</label>
+            <!--
+            <label class="gun-detail-header">Effects:</label>
+            <label class="large-text-overflow-hidden">
+              {{data.prefix.effects}} {{data.guildBonus}} {{data.effect}}
+            </label>
+            -->
           </div>
-          <!-- 
-          <label class="loot-element-damage item-effect item-prop-stack loot-element-damage">
-            {{{item.data.dmgHtml}}}
-          </label>
-        -->
         </div>
       </div>
     </div>
