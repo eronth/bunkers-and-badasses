@@ -21,7 +21,6 @@
 .bh a:hover {
   text-shadow: 0 0 10px cyan;
 }
-
 .rollable:hover, .rollable:focus {
   color: #000;
   text-shadow: 0 0 10px cyan;
@@ -30,6 +29,17 @@
 .element-toggle:hover {
   text-shadow: 0 0 10px cyan;
   cursor: pointer;
+}
+button:hover {
+  box-shadow: 0 0 5px cyan;
+}
+textarea:focus,
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="password"]:focus,
+input[type="date"]:focus,
+input[type="time"]:focus {
+  box-shadow: 0 0 5px cyan;
 }
 
 
@@ -1030,14 +1040,48 @@
   align-content: center;
   align-items: center;
 }
+.badass-entity-container {
+  max-height: 30px;;
+}
 .badass-container label {
   font-weight: bold;
+  width: 115px;
+  align-self: center
 }
 .badass-container input {
   max-width: 30px;
   text-align: center;
 }
+.badass-btn-container { }
+.attacks-container { }
+.attacks-container .attack-header label {
+  font-weight: bold;
+  text-align: center;
+}
+.attacks-container .attack-details-line {
+  overflow: hidden;
+  white-space: nowrap;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  width: 300px;
+}
+.attack-block,
+.attack-block h4,
+.attack-block label,
+.attack-block div {
+  pointer-events: fill;
+  cursor: pointer;
+}
+.attack-block:hover {
+  text-shadow: 0 0 10px cyan;
+  box-shadow: 0 0 5px cyan;
+  
+}
 
+.attacks-container .attack-details-line h4 {
+  margin: 0;
+  padding: 0;
+}
 
 .item-content {
   align-items: center;
@@ -1331,6 +1375,9 @@
   -moz-columns: 2;
 }
 
+.bnb .gun-row {
+  display: flex;
+}
 .gun-type ul { 
   height: 20px;
   width: 130px;
@@ -1430,8 +1477,6 @@ a#submit { z-index: 1; }
   color: white;
   background-color: #ffa500;
 }
-
-
 
 
 
