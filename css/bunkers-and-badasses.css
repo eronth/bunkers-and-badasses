@@ -1004,8 +1004,9 @@ input[type="time"]:focus {
   font-size: 10px;
 }
 .bnb .healths-container {
-  margin-top: 4px;
   border: 1px solid #c9c7b8;
+  margin-top: 3px;
+  margin-bottom: 2px;
 }
 .bnb .hp-container {
   margin: 2px;
@@ -1020,9 +1021,7 @@ input[type="time"]:focus {
   padding-left: 2px;
 }
 .bnb .hp-buttons {
-  margin-left: 2px;
-  margin-right: 2px;
-  margin-bottom: 3px;
+  margin: 0 2px 3px;
 }
 .bnb .hps-buttons {
   margin-top: 2px;
@@ -1038,11 +1037,24 @@ input[type="time"]:focus {
 
 .badass-container {
   align-content: center;
-  align-items: center;
+  margin: 3px 0 0 3px;
+  border: 1px solid #c9c7b8;
+  border-bottom: 0;
+  border-left: 0;
+  max-height: 32px;
 }
 .badass-entity-container {
-  max-height: 30px;;
+  max-height: 30px;
 }
+.badass-container-inner-left,
+.badass-container-inner-right {
+  padding: 2px;
+}
+.badass-container-inner-left{
+  border-bottom: 1px solid #c9c7b8;
+  border-left: 1px solid #c9c7b8;
+}
+.badass-container-inner-right { }
 .badass-container label {
   font-weight: bold;
   width: 115px;
@@ -1052,11 +1064,35 @@ input[type="time"]:focus {
   max-width: 30px;
   text-align: center;
 }
-.badass-btn-container { }
-.attacks-container { }
-.attacks-container .attack-header label {
+.attack-badass-shared-container {
+  max-height: 45px;
+}
+.attack-badass-shared-container .badass-btn-container { 
+  margin: 0 0 2px 1px;
+  border-bottom: 1px solid #0e0ec9;
+  padding: 0 3px 3px;
+}
+.attack-badass-shared-container .badass-btn-container .badass-btn-inner-container {
+  border: 1px solid #f029c5;
+  border-top: 0;
+  padding: 2px;
+}
+.attack-badass-shared-container .attack-header {
+  margin: 2px 1px 0 3px;
+  border: 1px solid #c9c7b8;
+  border-bottom: 0;
+  padding: 3px 3px 0;
+}
+.attacks-container {
+  margin: 0 2px 2px 3px;
+  border: 1px solid #c9c7b8;
+  border-top: 0;
+  padding: 0 2px 2px;
+}
+.attack-badass-shared-container .attack-header label {
   font-weight: bold;
   text-align: center;
+  align-self: center;
 }
 .attacks-container .attack-details-line {
   overflow: hidden;
@@ -1075,12 +1111,20 @@ input[type="time"]:focus {
 .attack-block:hover {
   text-shadow: 0 0 10px cyan;
   box-shadow: 0 0 5px cyan;
-  
+}
+.attacks-container .gun-icon {
+  height: 15px;
+  border: 0;
+  margin-right: 4px;
 }
 
 .attacks-container .attack-details-line h4 {
+  font-weight: bold;
   margin: 0;
-  padding: 0;
+  padding-left: 0px;
+  padding-right: 8px;
+  padding-bottom: 0px;
+  padding-top: 0px;
 }
 
 .item-content {
@@ -1164,6 +1208,22 @@ input[type="time"]:focus {
   margin-left: 3px;
 }
 
+.bnb .action .action-skill-buttons {
+  justify-content: center;
+}
+.bnb .action .action-skill-buttons .secondary-text {
+  font-size: smaller; 
+}
+.bnb .action .action-skill {
+  align-items: center;
+  max-width: 250px;
+}
+.bnb .action .action-skill button {
+  
+}
+.bnb .action .action-skill label {
+
+}
 .bnb .action-skill-item {
   border: 1px solid #c9c7b8;
 }
@@ -1497,8 +1557,6 @@ a#submit { z-index: 1; }
   color: white;
   background-color: #ffa500;
 }
-
-
 
 .font-rarity {
   color: var(--rarityColor);

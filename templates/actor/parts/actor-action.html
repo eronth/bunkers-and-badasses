@@ -1,10 +1,11 @@
-<div class="flexcol flex-size-1">
+<div class="flexcol action flex-size-1">
   <div class="flexrow">
     <div class="flex-size-5 flexcol">
       {{> "systems/bunkers-and-badasses/templates/actor/parts/action-components/checks-block.html" }}
     </div>    
   </div>
   <div class="flexrow">
+    {{!-- Health/Armor/Shield Region --}}
     <div class="flexcol healths-container">
       {{#each hps as |hpVal key|}}
       {{> "systems/bunkers-and-badasses/templates/actor/parts/action-components/hp-display-block.html" 
@@ -18,27 +19,40 @@
       </div>
     </div>
     <div class="flexcol">
+      {{!-- Badass Region --}}
       <div class="flexcol badass-container">
         <div class="flexrow badass-entity-container">
-          <div class="flexrow">
+          <div class="flexrow badass-container-inner-left">
             <label><i class="fas fa-skull"></i>&nbsp;Badass&nbsp;Rank</label>
             <input class="" value="{{data.attributes.badassRank}}"
               type="number" data-dtype="Number"
               disabled />
           </div>
-          <div class="flexrow">
+          <div class="flexrow badass-container-inner-right">
             <label>Badass Tokens</label>
             <input class="" value="{{data.attributes.badassTokens}}"
               type="number" data-dtype="Number"
               disabled />
           </div>
         </div>
-        <div class="badass-btn-container">
-          <button class="btn btn-primary btn-badass-roll"><i class="fa fa-dice-d20"></i> Badass Roll</button>
+      </div>
+      {{!-- Attack/Badass Shared Region --}}
+      <div class="flexrow attack-badass-shared-container">
+        <div class="attack-header-outer-container">
+          <div class="flexrow attack-header-container">
+            <div class="attack-header-inner-container"
+            <label class="">Attacks!</label>
+          </div>
+        </div>
+        <div class="badass-btn-outer-container">
+          <div class="badass-btn-container">
+            <div class="badass-btn-inner-container">
+              <button class="btn btn-primary btn-badass-roll"><i class="fa fa-dice-d20"></i> Badass Roll</button>
+            </div>
+          </div>
         </div>
       </div>
       <div class="flex-size-2 attacks-container">
-        <div class="flexrow attack-header"><label class="attack-header">Attacks!</label></div>
         {{!-- Melee Attack --}}
         <li class="item item-element-group loot-rarity-fade-border flexrow" 
           style="--rarityColor: darkred"
@@ -49,8 +63,8 @@
             </div>
             <div class="flexcol item-effec-stack-container">
               <div class="item-effect flexrow item-prop-stack attack-details-line">
-                <h4 class="bolded">Melee</h4>
-                <label class="flex-size-3">{{{data.dmgHtml}}}</label>
+                <h4 class="attack-header">Melee Attack</h4>
+                <label class="flex-size-3">{{data.class.meleeDice}} Damage</label>
               </div>
               <div class="item-effect flexrow item-prop-stack attack-details-line">
                 <label>
@@ -62,7 +76,43 @@
         </li>
         {{!- Gun Attack --}}
         {{#each equippedGuns as |item id|}}
-        <div>gun</div>
+        <li class="item item-element-group loot-rarity-fade-border flexrow" 
+          style="--rarityColor: {{item.data.rarity.colorValue}}"
+          data-item-id="{{item._id}}">
+          <div class="item-details attack-block item-attack-roll">
+            <div class="item-controls">
+              <a class="item-control item-attack" title="Roll Attack"><i class="fa fa-dice-d20"></i></a>
+            </div>
+            <div class="flexcol item-effec-stack-container">
+              <div class="item-effect flexrow item-prop-stack attack-details-line">
+                <h4 class="attack-header">{{data.prefix.name}} {{item.name}}</h4>
+                <label>
+                  <img id="hits" alt="Hits" class="gun-icon" 
+                    src="systems/bunkers-and-badasses/assets/weapons/{{data.type.value}}.webp" />
+                  {{shortName data.type.name}}
+                </label>
+              </div>
+              <div class="item-effect item-prop-stack">
+                <div class="gun-row">
+                  <img id="hits" alt="Hits" class="critshits-icon" 
+                    src="systems/bunkers-and-badasses/assets/weapons/hits.png" />
+                  <label class="gun-row-hits">{{data.accuracy.low.hits}} {{data.accuracy.mid.hits}} {{data.accuracy.high.hits}}</label>
+                  {{{data.dmgHtml}}}
+                  <label class="gun-detail-header">  Range:</label>
+                  <label>{{data.range}} sq</label>
+                </div>
+              </div>
+              <div class="item-effect item-prop-stack">
+                <div class="gun-row">
+                  <img id="crits" alt="Crits" class="critshits-icon" 
+                    src="systems/bunkers-and-badasses/assets/weapons/crits.png" />
+                  <label class="gun-row-crits">{{data.accuracy.low.crits}} {{data.accuracy.mid.crits}} {{data.accuracy.high.crits}}</label>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </li>
         {{/each}}
         {{!-- Grenade Attack --}}
         {{#each equippedGrenades as |item id|}}
@@ -75,8 +125,9 @@
             </div>
             <div class="flexcol item-effec-stack-container">
               <div class="item-effect flexrow item-prop-stack attack-details-line">
-                <h4 class="bolded">{{item.name}}</h4>
+                <h4 class="attack-header">{{item.name}}</h4>
                 <label class="flex-size-3">{{{data.dmgHtml}}}</label>
+                <label>Grenades: {{../data.attributes.grenades.value}} / {{../data.attributes.grenades.max}}</label>
               </div>
               <div class="item-effect flexrow item-prop-stack attack-details-line">
                 <label>
@@ -91,13 +142,22 @@
     </div>
   </div>
   <div>
-    Action skill, used, uses
-    action skill text
+    <div class="flexrow action-skill-buttons">
+      <button class="btn btn-primary show-action-skill">
+        <label>Show {{data.class.actionSkill.name}}</label>
+      </button>
+      <button class="btn btn-primary action-skill">
+        <label>Activate {{data.class.actionSkill.name}}</label>
+        <label class="secondary-text">Free Activation (1/combat)</label>
+      </button>
+      <button class="btn btn-primary use-action-skill">
+        <label>Activate {{data.class.actionSkill.name}}</label>
+        <label class="secondary-text">Activations {{data.class.actionSkill.uses.value}} / {{data.class.actionSkill.uses.max}}</label>
+      </button>
+    </div>
+    <label>{{data.class.actionSkill.description}}</label>
   
-    equipped items in
-    class skills
-  
-    traits??
+    {{> "systems/bunkers-and-badasses/templates/actor/parts/builder-components/actor-builder-class-skills.html" }}
 
   </div>
 
