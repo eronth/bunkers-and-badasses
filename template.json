@@ -160,6 +160,7 @@
           "mst": 0
         }
       },
+      "meleeDice": "",
       "favored": {
         "pistol": false,
         "smg": false,
