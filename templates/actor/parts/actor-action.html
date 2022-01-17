@@ -18,37 +18,69 @@
       </div>
     </div>
     <div class="flexcol">
-      <div class="flexrow badass-container">
-        <div>
-          <label>Badass Rank</label>
-          <input class="" value="{{data.attributes.badassRank}}"
-            type="number" data-dtype="Number"
-            disabled />
+      <div class="flexcol badass-container">
+        <div class="flexrow badass-entity-container">
+          <div class="flexrow">
+            <label><i class="fas fa-skull"></i>&nbsp;Badass&nbsp;Rank</label>
+            <input class="" value="{{data.attributes.badassRank}}"
+              type="number" data-dtype="Number"
+              disabled />
+          </div>
+          <div class="flexrow">
+            <label>Badass Tokens</label>
+            <input class="" value="{{data.attributes.badassTokens}}"
+              type="number" data-dtype="Number"
+              disabled />
+          </div>
         </div>
-        <div>
-          <label>Badass Tokens</label>
-          <input class="" value="{{data.attributes.badassTokens}}"
-            type="number" data-dtype="Number"
-            disabled />
+        <div class="badass-btn-container">
+          <button class="btn btn-primary btn-badass-roll"><i class="fa fa-dice-d20"></i> Badass Roll</button>
         </div>
       </div>
-      <div>Badass Roll</div>
-      <div>attacks!</div>
-      <div>melee</div>
-      <div>gun</div>
-      <div>grenade</div>
+      <div class="flex-size-2 attacks-container">
+        <div class="flexrow attack-header"><label class="attack-header">Attacks!</label></div>
+        {{!-- Melee Attack --}}
+        <div>melee</div>
+        {{!- Gun Attack --}}
+        <div>gun</div>
+        {{!-- Grenade Attack --}}
+        {{#each equippedGrenades as |item id|}}
+        <li class="item item-element-group loot-rarity-fade-border flexrow" 
+          style="--rarityColor: {{item.data.rarity.colorValue}}"
+          data-item-id="{{item._id}}">
+          <div class="item-details attack-block item-attack-roll">
+            <div class="item-controls">
+              <a class="item-control item-attack" title="Roll Attack"><i class="fa fa-dice-d20"></i></a>
+            </div>
+            <div class="flexcol item-effec-stack-container">
+              <div class="item-effect flexrow item-prop-stack attack-details-line">
+                <h4 class="bolded">{{item.name}}</h4>
+                <label class="flex-size-3">{{{item.data.dmgHtml}}}</label>
+              </div>
+              <div class="item-effect flexrow item-prop-stack attack-details-line">
+                <label>
+                  <div>{{#if item.data.effect}}<b>Effect</b>:{{/if}} {{item.data.effect}}</div>
+                </label>
+              </div>
+            </div>
+          </div>
+        </li>
+        {{/each}}
+      </div>
     </div>
+  </div>
+  <div>
+    Action skill, used, uses
+    action skill text
+  
+    equipped items in
+    class skills
+  
+    traits??
+
   </div>
 
 
-
-  Action skill, used, uses
-  action skill text
-
-  equipped items in
-  class skills
-
-  traits??
 
 
 </div>
