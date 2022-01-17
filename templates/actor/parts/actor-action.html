@@ -40,9 +40,30 @@
       <div class="flex-size-2 attacks-container">
         <div class="flexrow attack-header"><label class="attack-header">Attacks!</label></div>
         {{!-- Melee Attack --}}
-        <div>melee</div>
+        <li class="item item-element-group loot-rarity-fade-border flexrow" 
+          style="--rarityColor: darkred"
+          data-item-id="melee">
+          <div class="item-details attack-block item-attack-roll">
+            <div class="item-controls">
+              <a class="item-control item-attack" title="Roll Attack"><i class="fa fa-dice-d20"></i></a>
+            </div>
+            <div class="flexcol item-effec-stack-container">
+              <div class="item-effect flexrow item-prop-stack attack-details-line">
+                <h4 class="bolded">Melee</h4>
+                <label class="flex-size-3">{{{data.dmgHtml}}}</label>
+              </div>
+              <div class="item-effect flexrow item-prop-stack attack-details-line">
+                <label>
+                  <div>{{#if data.effect}}<b>Effect</b>:{{/if}} {{data.effect}}</div>
+                </label>
+              </div>
+            </div>
+          </div>
+        </li>
         {{!- Gun Attack --}}
+        {{#each equippedGuns as |item id|}}
         <div>gun</div>
+        {{/each}}
         {{!-- Grenade Attack --}}
         {{#each equippedGrenades as |item id|}}
         <li class="item item-element-group loot-rarity-fade-border flexrow" 
