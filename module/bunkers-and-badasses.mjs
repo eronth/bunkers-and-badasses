@@ -105,14 +105,14 @@ Handlebars.registerHelper('hpToRecoveryTitle', function(str, doCapitalize) {
 });
 
 Handlebars.registerHelper('shortName', function(str) {
-  str = str.toLowerCase();
-  if (str === 'submachine gun')
+  let check = str.toLowerCase();
+  if (check === 'submachine gun')
     return 'SMG';
-  else if (str === 'combat rifle')
+  else if (check === 'combat rifle')
     return 'Rifle';
-  else if (str === 'sniper rifle')
+  else if (check === 'sniper rifle')
     return 'Sniper';
-  else if (str === 'rocket launcher')
+  else if (check === 'rocket launcher')
     return 'RL';
   else
     return str;
