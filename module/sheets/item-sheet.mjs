@@ -68,20 +68,6 @@ export class BNBItemSheet extends ItemSheet {
     html.find('.type-option').click(this._onTypeOptionClick.bind(this));
     html.find('.damage-entry').click(this._onDamageEntryClick.bind(this));
     html.find('.checkbox').click(this._onCheckboxToggleClick.bind(this));
-    // $("ul").on("click", ".init", function() {
-    //   $(this).closest("ul").children('li:not(.init)').toggle();
-    // });
-  
-    // var allOptions = $("ul").children('li:not(.init)');
-    // $("ul").on("click", "li:not(.init)", function() {
-    //     allOptions.removeClass('selected');
-    //     $(this).addClass('selected');
-    //     $("ul").children('.init').html($(this).html());
-  
-    //     $("#rarity-selection-tracker").attr("value", $(this).attr("value"));
-  
-    //     allOptions.toggle();
-    // });
   }
 
   _onRarityOptionDropdownClick(event) {
