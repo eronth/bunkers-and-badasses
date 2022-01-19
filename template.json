@@ -39,6 +39,7 @@
       "attributes": {
         "badassRank": 1,
         "badassTokens": 0,
+        "badassRollsEnabled": false,
         "level": {
           "value": 1
         },

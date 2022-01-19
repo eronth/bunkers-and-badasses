@@ -172,8 +172,6 @@ export class BNBActorSheet extends ActorSheet {
       }
     });
 
-
-
     context.hps = usedHps;
   }
 
@@ -194,9 +192,6 @@ export class BNBActorSheet extends ActorSheet {
     for (let [k, v] of Object.entries(context.data.hps)) {
       v.label = game.i18n.localize(CONFIG.BNB.hps[k]) ?? k;
     }
-
-
-
   }
 
   /**
@@ -350,7 +345,7 @@ export class BNBActorSheet extends ActorSheet {
     context.equippedGrenades = equippedGrenades;
     context.relics = relics;
     context.potions = potions;
-   }
+  }
 
   /* -------------------------------------------- */
 
@@ -733,7 +728,7 @@ export class BNBActorSheet extends ActorSheet {
    * @param {Event} event   The originating click event
    * @private
    */
-  _onRoll(event) {
+  async _onRoll(event) {
     event.preventDefault();
     const element = event.currentTarget;
     const dataset = element.dataset;
@@ -744,9 +739,13 @@ export class BNBActorSheet extends ActorSheet {
         const itemId = element.closest('.item').dataset.itemId;
         const item = this.actor.items.get(itemId);
         if (item) return item.roll();
+      } else if (dataset.rollType == 'check') {
+        return this._checkRoll(dataset);
+      } else if (dataset.rollType == 'health-gain') {
+
       }
     }
-
+    
     // Handle rolls that supply the formula directly.
     if (dataset.roll) {
       let label = dataset.label ? `[ability] ${dataset.label}` : '';
@@ -758,6 +757,45 @@ export class BNBActorSheet extends ActorSheet {
       });
       return roll;
     }
+  }
+  
+  _checkRoll(dataset) {
+    // Prep data to access.
+    const actorData = this.actor.data.data;
+    const check = actorData.checks[dataset.checkType.toLowerCase()];
+    if (check.nonRolled) return;
+    
+    // Prepare and roll the check.
+    const roll = new Roll(`1d20 ${check.usesBadassRank ? ' + @badassRank[badass rank]' : ''} + @mod[${check.stat} mod] + @miscBonus[misc bonus]`, {
+      badassRank: actorData.attributes.badassRank,
+      mod: check.value,
+      miscBonus: check.bonus
+    });
+    const rollResult = roll.roll();
+
+    // Prep chat values.
+    const rollModes = CONFIG.Dice.rollModes;
+    // TODO: Create a roll class override for this.
+    // const renderedRoll = await rollResult.render({
+    //   template: 'systems/bunkers-and-badasses/templates/chat/check-roll.html',
+    //   checkType: dataset.checkType,
+    //   actorName: this.actor.name,
+    // });
+    const flavorText = `${this.actor.name} makes a <b>${dataset.checkType}</b> (${check.stat}) check.`;
+    const messageData = {
+      user: game.user._id,
+      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+      flavor: flavorText,
+      type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+      roll: rollResult,
+      rollMode: CONFIG.Dice.rollModes.roll,
+      // whisper: game.users.entities.filter(u => u.isGM).map(u => u._id)
+      speaker: ChatMessage.getSpeaker(),
+      // content: renderedRoll
+    }
+
+    // Send the roll to chat!
+    return rollResult.toMessage(messageData);
   }
 
 }

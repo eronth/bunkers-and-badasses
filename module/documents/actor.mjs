@@ -51,15 +51,17 @@ export class BNBActor extends Actor {
     var archetypeStats = data.archetypes.archetype1.baseStats;
     var classStats = data.class.baseStats;
 
+
     // Handle stat values and totals. Values are class+archetype. Totals are *everything*.
+    const divisor = data.attributes.badassRollsEnabled ? 1 : 2;
     data.stats.acc.value = archetypeStats.acc + classStats.acc + data.stats.acc.bonus;
-    data.stats.acc.mod = Math.floor(data.stats.acc.value / 2);
+    data.stats.acc.mod = Math.floor(data.stats.acc.value / divisor)  + (data.stats.acc.modBonus ?? 0);
     data.stats.dmg.value = archetypeStats.dmg + classStats.dmg + data.stats.dmg.bonus;
-    data.stats.dmg.mod = Math.floor(data.stats.dmg.value / 2);
+    data.stats.dmg.mod = Math.floor(data.stats.dmg.value / divisor)  + (data.stats.dmg.modBonus ?? 0);
     data.stats.spd.value = archetypeStats.spd + classStats.spd + data.stats.spd.bonus;
-    data.stats.spd.mod = Math.floor(data.stats.spd.value / 2);
+    data.stats.spd.mod = Math.floor(data.stats.spd.value / divisor)  + (data.stats.spd.modBonus ?? 0);
     data.stats.mst.value = archetypeStats.mst + classStats.mst + data.stats.mst.bonus;
-    data.stats.mst.mod = Math.floor(data.stats.mst.value / 2);
+    data.stats.mst.mod = Math.floor(data.stats.mst.value / divisor)  + (data.stats.mst.modBonus ?? 0);
 
     // Prepare data for various check rolls.
     Object.entries(data.checks).forEach(entry => {

@@ -1,5 +1,8 @@
 <div class="flexrow check-container">
-  <label class="check-text check-text-header rollable">{{^if check.nonRolled}}<i class="fa fa-dice-d20"></i> {{/if}}{{checkName}}</label>
+  <label class="check-text check-text-header {{^if check.nonRolled}}rollable{{/if}}"
+  data-roll-type="check" data-check-type="{{checkName}}" data-roll-mod="{{check.stat}}">
+    {{^if check.nonRolled}}<i class="fa fa-dice-d20"></i> {{/if}}{{checkName}}
+  </label>
 </div>
 <div class="flexrow check-container cc2">
   

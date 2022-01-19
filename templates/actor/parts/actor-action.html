@@ -1,9 +1,11 @@
 <div class="flexcol action flex-size-1">
+  {{!-- Checks --}}
   <div class="flexrow">
     <div class="flex-size-5 flexcol">
       {{> "systems/bunkers-and-badasses/templates/actor/parts/action-components/checks-block.html" }}
     </div>    
   </div>
+  {{!-- HP/Attack/Badass --}}
   <div class="flexrow">
     {{!-- Health/Armor/Shield Region --}}
     <div class="flexcol healths-container">
@@ -18,6 +20,7 @@
         <button class="btn btn-primary hp-regen-btn">Recovery</button>
       </div>
     </div>
+    {{!-- Attack then Badass region --}}
     <div class="flexcol">
       {{!-- Badass Region --}}
       <div class="flexcol badass-container">
@@ -34,14 +37,21 @@
               type="number" data-dtype="Number"
               disabled />
           </div>
+          <div class="flexcol badass-check">
+            <label>Badass?</label>
+            <a class="checkbox" title="Become Badass?" data-target="data.attributes.badassRollsEnabled" data-item-target="data.equipped">
+              {{#if data.attributes.badassRollsEnabled}}<i class="far fa-check-square"></i>{{else}}<i class="far fa-square"></i></a>{{/if}}
+            </a>
+          </div>
         </div>
       </div>
       {{!-- Attack/Badass Shared Region --}}
       <div class="flexrow attack-badass-shared-container">
-        <div class="attack-header-outer-container">
+        <div class="flexrow attack-header-outer-container">
           <div class="flexrow attack-header-container">
-            <div class="attack-header-inner-container"
-            <label class="">Attacks!</label>
+            <div class="attack-header-inner-container">
+              <label class="">Attacks!</label>
+            </div>
           </div>
         </div>
         <div class="badass-btn-outer-container">

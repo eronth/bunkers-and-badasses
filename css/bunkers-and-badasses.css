@@ -1040,56 +1040,76 @@ input[type="time"]:focus {
   margin: 3px 0 0 3px;
   border: 1px solid #c9c7b8;
   border-bottom: 0;
-  border-left: 0;
   max-height: 32px;
 }
 .badass-entity-container {
+  font-size: smaller;
   max-height: 30px;
+  padding: 2px;
+  padding-top: 0;
 }
 .badass-container-inner-left,
 .badass-container-inner-right {
   padding: 2px;
+  flex: 2;
 }
-.badass-container-inner-left{
-  border-bottom: 1px solid #c9c7b8;
-  border-left: 1px solid #c9c7b8;
-}
+.badass-container-inner-left { }
 .badass-container-inner-right { }
-.badass-container label {
+.badass-container label,
+.badass-container a {
   font-weight: bold;
-  width: 115px;
-  align-self: center
+  align-self: center;
 }
 .badass-container input {
   max-width: 30px;
   text-align: center;
 }
+.badass-container .badass-check label {
+  font-size: smaller;
+}
+
 .attack-badass-shared-container {
   max-height: 45px;
+  max-height: 565px;
+}
+.attack-badass-shared-container .attack-header-outer-container {
+  margin-left: 3px;
+  margin-right: -2px;
+  border-top: 1px solid #c9c7b8;
+  padding-right: 3px;
+}
+.attack-badass-shared-container .badass-btn-outer-container {
+  margin-left: -2px;
+  border-bottom: 1px solid #c9c7b8;
+  padding-left: 3px;
+}
+.attack-badass-shared-container .attack-header-container { 
+  margin-top: 2px;
+  margin-bottom: 0;
+  border: 1px solid #c9c7b8;
+  border-bottom: 0;
+  padding: 2px;
 }
 .attack-badass-shared-container .badass-btn-container { 
-  margin: 0 0 2px 1px;
-  border-bottom: 1px solid #0e0ec9;
-  padding: 0 3px 3px;
-}
-.attack-badass-shared-container .badass-btn-container .badass-btn-inner-container {
-  border: 1px solid #f029c5;
+  margin-bottom: 2px;
+  border: 1px solid #c9c7b8;
   border-top: 0;
   padding: 2px;
 }
-.attack-badass-shared-container .attack-header {
-  margin: 2px 1px 0 3px;
-  border: 1px solid #c9c7b8;
-  border-bottom: 0;
-  padding: 3px 3px 0;
+.attack-badass-shared-container .attack-header-inner-container {
+  text-align: center;
+  align-self: center;
+}
+.attack-badass-shared-container .badass-btn-inner-container {
+
 }
 .attacks-container {
-  margin: 0 2px 2px 3px;
+  margin: 0 0 2px 3px;
   border: 1px solid #c9c7b8;
   border-top: 0;
-  padding: 0 2px 2px;
+  padding: 3px 2px 2px;
 }
-.attack-badass-shared-container .attack-header label {
+.attack-badass-shared-container .attack-header-container label {
   font-weight: bold;
   text-align: center;
   align-self: center;
@@ -1614,3 +1634,19 @@ a#submit { z-index: 1; }
   padding-right: 2px;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+.total-focus {
+  font-size: large;
+  font-weight: bold;
+}
