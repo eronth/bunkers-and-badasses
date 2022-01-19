@@ -1455,12 +1455,19 @@ input[type="time"]:focus {
   -moz-columns: 2;
 }
 
-.bnb .gun-row {
+.bnb .gun-row,
+.bnb .damage-row {
   display: flex;
   font-size: smaller;
 }
+.bnb .hits-and-crits {
+  padding-right: 4px;
+}
 .bnb .gun-row .gun-detail-header {
   font-weight: bold;
+}
+.bnb .gun-header-line label{
+  justify-content: flex-end;
 }
 .bnb .gun-row .critshits-icon {
   border: 0;
@@ -1477,6 +1484,10 @@ input[type="time"]:focus {
 .bnb .gun-row-hits {
   color: darkblue;
   font-weight: bold;  
+}
+.bnb .gun-row .post-crithit-details {
+  align-items: center;
+  padding: 5px;
 }
 .gun-type ul { 
   height: 20px;

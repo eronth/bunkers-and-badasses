@@ -74,12 +74,12 @@
             <div class="flexcol item-effec-stack-container">
               <div class="item-effect flexrow item-prop-stack attack-details-line">
                 <h4 class="attack-header">Melee Attack</h4>
-                <label class="flex-size-3">{{data.class.meleeDice}} Damage</label>
-              </div>
-              <div class="item-effect flexrow item-prop-stack attack-details-line">
                 <label>
                   <div>{{#if data.effect}}<b>Effect</b>:{{/if}} {{data.effect}}</div>
                 </label>
+              </div>
+              <div class="item-effect flexrow item-prop-stack attack-details-line damage-row">
+                <label class="flex-size-3 element-label" style="--elementColor:rgb(76, 76, 76)">{{data.class.meleeDice}} Damage</label>
               </div>
             </div>
           </div>
@@ -94,7 +94,7 @@
               <a class="item-control item-attack" title="Roll Attack"><i class="fa fa-dice-d20"></i></a>
             </div>
             <div class="flexcol item-effec-stack-container">
-              <div class="item-effect flexrow item-prop-stack attack-details-line">
+              <div class="item-effect flexrow item-prop-stack attack-details-line gun-header-line">
                 <h4 class="attack-header">{{data.prefix.name}} {{item.name}}</h4>
                 <label>
                   <img id="hits" alt="Hits" class="gun-icon" 
@@ -103,20 +103,30 @@
                 </label>
               </div>
               <div class="item-effect item-prop-stack">
-                <div class="gun-row">
-                  <img id="hits" alt="Hits" class="critshits-icon" 
-                    src="systems/bunkers-and-badasses/assets/weapons/hits.png" />
-                  <label class="gun-row-hits">{{data.accuracy.low.hits}} {{data.accuracy.mid.hits}} {{data.accuracy.high.hits}}</label>
-                  {{{data.dmgHtml}}}
-                  <label class="gun-detail-header">  Range:</label>
-                  <label>{{data.range}} sq</label>
-                </div>
-              </div>
-              <div class="item-effect item-prop-stack">
-                <div class="gun-row">
-                  <img id="crits" alt="Crits" class="critshits-icon" 
-                    src="systems/bunkers-and-badasses/assets/weapons/crits.png" />
-                  <label class="gun-row-crits">{{data.accuracy.low.crits}} {{data.accuracy.mid.crits}} {{data.accuracy.high.crits}}</label>
+                <div class="flexrow gun-row hits-and-crits">
+                  <div class="flexcol">
+                    <div class="flexrow">
+                      <label class="gun-row-hits">
+                        <img id="hits" alt="Hits" class="critshits-icon" src="systems/bunkers-and-badasses/assets/weapons/hits.png" />
+                        {{data.accuracy.low.hits}} {{data.accuracy.mid.hits}} {{data.accuracy.high.hits}}
+                      </label>
+                    </div>
+                    <div class="flexrow">
+                      <label class="gun-row-crits">
+                        <img id="crits" alt="Crits" class="critshits-icon" src="systems/bunkers-and-badasses/assets/weapons/crits.png" />
+                        {{data.accuracy.low.crits}} {{data.accuracy.mid.crits}} {{data.accuracy.high.crits}}
+                      </label>
+                    </div>
+                  </div>
+                  <div class="flexrow post-crithit-details">
+                    <label>
+                      {{{data.dmgHtml}}}
+                    </label>
+                  </div>
+                  <div class="flexrow post-crithit-details">
+                    <label class="gun-detail-header">Range:</label>
+                    <label>{{data.range}} sq</label>
+                  </div>
                 </div>
               </div>
             </div>
@@ -136,13 +146,14 @@
             <div class="flexcol item-effec-stack-container">
               <div class="item-effect flexrow item-prop-stack attack-details-line">
                 <h4 class="attack-header">{{item.name}}</h4>
-                <label class="flex-size-3">{{{data.dmgHtml}}}</label>
-                <label>Grenades: {{../data.attributes.grenades.value}} / {{../data.attributes.grenades.max}}</label>
-              </div>
-              <div class="item-effect flexrow item-prop-stack attack-details-line">
                 <label>
                   <div>{{#if data.effect}}<b>Effect</b>:{{/if}} {{data.effect}}</div>
                 </label>
+              </div>
+              <div class="item-effect flexrow item-prop-stack attack-details-line damage-row">
+                <label class="">{{{data.dmgHtml}}}</label>
+                <label class="gun-detail-header">Free Range: {{../data.stats.dmg.mod}}</label>
+                <label>Grenades: {{../data.attributes.grenades.value}} / {{../data.attributes.grenades.max}}</label>
               </div>
             </div>
           </div>
