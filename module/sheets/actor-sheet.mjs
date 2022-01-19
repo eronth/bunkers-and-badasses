@@ -663,11 +663,6 @@ export class BNBActorSheet extends ActorSheet {
       dialogGains.push({id: dialogGains.length+1, value: xp, description: desc});
     }, this);
 
-
-    //this.actor.data.data.attributes.level.value = levelValue;
-    // this.actor.data.data.attributes.xp.gains.length = 0;
-    // this.actor.data.data.attributes.xp.gains.push(...dialogGains);
-
     this.actor.update({"data.attributes.level.value": levelValue, "data.attributes.xp.gains": dialogGains});//{disabled: !effect.data.disabled});
   }
 
@@ -741,9 +736,22 @@ export class BNBActorSheet extends ActorSheet {
         if (item) return item.roll();
       } else if (dataset.rollType == 'check') {
         return this._checkRoll(dataset);
+      } else if (dataset.rollType == 'badass') {
+        return this._badassRoll(dataset);
       } else if (dataset.rollType == 'health-gain') {
-
+        return this._healthGainRoll(dataset);
+      } else if (dataset.rollType == 'health-regain') {
+        return this._healthRegainRoll(dataset);
+      } else if (dataset.rollType == 'melee-attack') {
+        return this._meleeAttackRoll(dataset);
+      } else if (dataset.rollType == 'gun-accuracy') {
+        return this._gunAccuracyRoll(dataset);
+      } /*else if (dataset.rollType == 'gun-damage') {
+        return this._gunDamageRoll(dataset);
+      }*/ else if (dataset.rollType == 'item-throw') {
+        return this._itemThrowRoll(dataset);
       }
+
     }
     
     // Handle rolls that supply the formula directly.
@@ -763,10 +771,16 @@ export class BNBActorSheet extends ActorSheet {
     // Prep data to access.
     const actorData = this.actor.data.data;
     const check = actorData.checks[dataset.checkType.toLowerCase()];
-    if (check.nonRolled) return;
+    if (check.nonRolled) return; // Special case for movement, since I (potentially foolishly) bundled it with checks.
+    if (dataset.checkType.toLowerCase() === 'initiative') {
+      return this.actor.rollInitiative({createCombatants: true});
+    }
     
+    const badassRollPiece = check.usesBadassRank ? '+ @badassRank[badass rank]' : ''
+    const modRollPiece = `+ @mod[${check.stat} ${actorData.attributes.badassRollsEnabled ? 'stat' : 'mod'}]`;
+    const miscRollPiece = `+ @miscBonus[misc bonus]`; 
     // Prepare and roll the check.
-    const roll = new Roll(`1d20 ${check.usesBadassRank ? ' + @badassRank[badass rank]' : ''} + @mod[${check.stat} mod] + @miscBonus[misc bonus]`, {
+    const roll = new Roll(`1d20 ${badassRollPiece} ${modRollPiece} ${miscRollPiece}`, {
       badassRank: actorData.attributes.badassRank,
       mod: check.value,
       miscBonus: check.bonus
@@ -796,6 +810,63 @@ export class BNBActorSheet extends ActorSheet {
 
     // Send the roll to chat!
     return rollResult.toMessage(messageData);
+  }
+
+  _badassRoll(dataset) {
+
+  }
+
+  _healthGainRoll(dataset) {
+
+  }
+  
+  _healthRegainRoll(dataset) {
+    // Prep data to access.
+    const actorData = this.actor.data.data;
+    const hp = actorData.hps[dataset.healthType.toLowerCase()];
+    const hpRegainAction = {
+      shield: "recharges",
+      armor: "repairs",
+      flesh: "regens"
+    }
+    
+    // Prepare and roll the check.
+    const roll = new Roll(`${hp.regen}`, {});
+    const rollResult = roll.roll();
+
+    // Prep chat values.
+    const flavorText = `${this.actor.name} ${hpRegainAction[dataset.healthType.toLowerCase()]} ${rollResult.total} <b>${hp.label}</b>.`;
+    const messageData = {
+      user: game.user._id,
+      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+      flavor: flavorText,
+      type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+      roll: rollResult,
+      rollMode: CONFIG.Dice.rollModes.roll,
+      // whisper: game.users.entities.filter(u => u.isGM).map(u => u._id)
+      speaker: ChatMessage.getSpeaker(),
+    }
+
+    // Update the appopriate values.
+    let newValue = hp.value + rollResult.total;
+    if (newValue > hp.max) newValue = hp.max;
+    const target = "data.hps." + dataset.healthType.toLowerCase() + ".value";
+    this.actor.update({[`${target}`] : newValue});
+
+    // Send the roll to chat!
+    return rollResult.toMessage(messageData);
+  }
+
+  _meleeAttackRoll(dataset) {
+
+  }
+
+  _gunAccuracyRoll(dataset) {
+
+  }
+
+  _itemThrowRoll(dataset) {
+
   }
 
 }

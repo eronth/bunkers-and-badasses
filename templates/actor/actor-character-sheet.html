@@ -23,11 +23,11 @@
         <div class="health flexrow flex-group-center" >
 
           <div class="centerize flexrow flex-size-2">
-            <label for="data.hps.{{key}}.value" class="resource-label rollable flexlarge">{{hp.label}}</label>
+            <label for="{{key}}-health-display" class="resource-label rollable flexlarge">{{hp.label}}</label>
             <input 
               class="flexlarge" 
               value="{{hp.value}} / {{hp.max}}"
-              type="text" name="data.hps.{{key}}.value" data-dtype="Number"
+              type="text" name="{{key}}-health-display" data-dtype="Number"
               disabled=true />
           </div>
           <div class="flexcol flex-group-center rollable regen">

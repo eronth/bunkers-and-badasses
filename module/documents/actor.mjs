@@ -66,7 +66,7 @@ export class BNBActor extends Actor {
     // Prepare data for various check rolls.
     Object.entries(data.checks).forEach(entry => {
       const [check, checkData] = entry;
-      checkData.value = data.stats[checkData.stat].value;
+      checkData.value = data.stats[checkData.stat].mod;
       checkData.total = (checkData.useBadassRank ? data.attributes.badassRank.value : 0) +
         (checkData.base ?? 0) + checkData.value + checkData.bonus;
     });

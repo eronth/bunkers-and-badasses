@@ -17,9 +17,9 @@
             "regen": 0
           },
           "flesh": {
-            "value": 10,
+            "value": 5,
             "min": 0,
-            "max": 10,
+            "max": 5,
             "regen": 0
           }
         },

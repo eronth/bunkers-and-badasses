@@ -4,22 +4,24 @@
     <div class="flex-size-3 hp-values">
       <div class="flexrow flex-group-center" >
         <div class="flexcol">
-          {{hp.value}}
+          <input class="" value="{{hp.value}}" name="data.hps.{{key}}.value"
+            onclick="this.select()"
+            type="number" data-dtype="Number" />
           <label>current</label>
         </div>
+        <label>/</label>
         <div class="flexcol">
-          {{hp.max}}
+          <input class="" value="{{hp.max}}"
+            type="number" data-dtype="Number"
+            disabled />
           <label>max</label>
         </div>
-        <div class="flexcol">
+        <div class="flexcol flex-size-2 rollable" data-roll-type="health-regain"
+          data-health-type="{{key}}">
           {{hp.regen}}
-          <label>{{hpToRecoveryTitle key}}</label>
+          <label class="rollable"><i class="fa fa-dice-d20"></i> {{hpToRecoveryTitle key}}</label>
         </div>
       </div>
     </div>
-  </div>
-    <div class="flexrow hp-buttons">
-    <button class="btn btn-primary hp-set-btn">Set {{hpTitle key}}</button>
-    <button class="btn btn-primary hp-quick-regen-btn">Quick {{hpToRecoveryTitle key true}} ({{hp.regen}})</button>
   </div>
 </div>

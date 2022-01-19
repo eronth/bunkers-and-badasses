@@ -1639,7 +1639,9 @@ a#submit { z-index: 1; }
 
 
 
-
+.hp-values {
+  align-self: center;
+}
 
 
 
