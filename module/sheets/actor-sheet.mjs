@@ -871,13 +871,6 @@ export class BNBActorSheet extends ActorSheet {
   }
 
   async _itemThrowRoll(dataset) {
-    return await this._makeCheck(dataset);
-  }
-
-  async _makeCheck(dataset) {
-    // Prep data to access.
-    const actorData = this.actor.data.data;
-
     const throwCheck = {
       stat: "acc",
       value: 1,
@@ -886,14 +879,27 @@ export class BNBActorSheet extends ActorSheet {
       usesBadassRank: false,
     }
 
+    return await this._makeCheck(dataset, {
+      checkEntity: throwCheck,
+      checkTitle: "Throw Item",
+    });
+  }
+
+  async _makeCheck(dataset, checkObjects) {
+    // Prep data to access.
+    const actorData = this.actor.data.data;
+    const checkEntity = checkObjects.checkEntity;
+    const checkTitle = checkObjects.checkTitle;
+    
+
     const dialogHtmlContent = await renderTemplate("systems/bunkers-and-badasses/templates/dialog/check-difficulty.html", {
       attributes: actorData.attributes,
-      check: throwCheck,
+      check: checkEntity,
       defaultDifficulty: 12
     });
 
     this.check = new Dialog({
-      title: "Throw Item",
+      title: checkTitle,
       Id: "check-difficulty",
       content: dialogHtmlContent,
       buttons: {
@@ -904,14 +910,14 @@ export class BNBActorSheet extends ActorSheet {
         "Roll" : {
           label : "Roll",
           callback : async (html) => {
-            return await this._rollCheck(html);
+            return await this._rollCheckDice(html);
           }
         }
       }
     }).render(true);
   }
 
-  async _rollCheck(html) {
+  async _rollCheckDice(html) {
     // Prep data to access.
     const actorData = this.actor.data.data;
     const accuracyStat = actorData.stats.acc;
