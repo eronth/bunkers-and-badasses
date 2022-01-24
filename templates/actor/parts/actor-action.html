@@ -67,7 +67,12 @@
               <button class="btn btn-primary action-skill-button">
                 <label>{{data.class.actionSkill.name}}</label>
               </button>
-              <label class="secondary-text">Uses {{data.class.actionSkill.uses.value}} / {{data.class.actionSkill.uses.max}}</label>
+              <div class="flexcol cc2">
+                <input class="" value="{{data.class.actionSkill.uses.value}} / {{data.class.actionSkill.uses.max}}"
+                  type="text" data-dtype="String"
+                  disabled />
+                <label class="check-num-label">uses</label>
+              </div>
             </div>
           </div>
         </div>
