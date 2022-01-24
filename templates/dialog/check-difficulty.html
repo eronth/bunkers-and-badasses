@@ -1,41 +1,50 @@
-<div class="flexrow check-dialog">
+<div class="flexcol check-dialog">
+  <div class="flexrow check-dialog">
 
-  <div class="flexcol flex-size-2 flex-group-center modifiers">
-    <div class="flexrow check-dialog-header">
-      <label>Roll Bonuses</label>
+    <div class="flexcol flex-size-2 flex-group-center modifiers">
+      <div class="flexrow check-dialog-header">
+        <label>Roll Bonuses</label>
+      </div>
+      <div class="flexrow check-dialog-body">
+        <div class="flexcol">
+          <input id="mod" class="" value="{{check.value}}"
+          type="number" data-dtype="Number"
+          disabled />
+          <label for="mod">{{check.stat}} mod</label>
+        </div>
+        <label class="math-sign">+</label>
+        <div class="flexcol">
+          <input id="misc" class="" value="{{check.bonus}}"
+          type="number" data-dtype="Number"
+          disabled />
+          <label for="misc">misc bonus</label>
+        </div>
+        <label class="math-sign">+</label>
+        <div class="flexcol">
+          <input id="extra" class="" value=""
+          type="number" data-dtype="Number" />
+          <label for="extra">extra bonus</label>
+        </div>
+      </div>
     </div>
-    <div class="flexrow check-dialog-body">
-      <div class="flexcol">
-        <input class="" value="{{check.value}}"
-        type="number" data-dtype="Number"
-        disabled />
-        <label>{{check.stat}} mod</label>
+
+    <div class="flexcol flex-group-center difficulty">
+      <div class="flexrow check-dialog-header">
+        <label for="difficulty">Difficulty</label>
       </div>
-      <label class="math-sign">+</label>
-      <div class="flexcol">
-        <input class="" value="{{check.bonus}}"
-        type="number" data-dtype="Number"
-        disabled />
-        <label>misc bonus</label>
-      </div>
-      <label class="math-sign">+</label>
-      <div class="flexcol">
-        <input id="extra" class="" value=""
+      <div class="flexcol check-dialog-body">
+        <input id="difficulty" class="" value="{{defaultDifficulty}}"
         type="number" data-dtype="Number" />
-        <label>extra bonus</label>
+        <label for="difficulty">difficulty value</label>
       </div>
     </div>
+
   </div>
 
-  <div class="flexcol flex-group-center difficulty">
-    <div class="flexrow check-dialog-header">
-      <label>Difficulty</label>
-    </div>
-    <div class="flexcol check-dialog-body">
-      <input id="difficulty" class="" value="{{defaultDifficulty}}"
-      type="number" data-dtype="Number" />
-      <label>difficulty value</label>
-    </div>
+  {{#if promptCheckType}}
+  <div class="flexrow check-type">
+    <label for="check-type">Check Type:</label>
+    <input id="check-type" class="flex-size-3" value="" placeholder='e.g. "Diplomacy"' type="text" data-dtype="String" />
   </div>
-
+  {{/if}}
 </div>

@@ -94,7 +94,12 @@
                 </label>
               </div>
               <div class="item-effect flexrow item-prop-stack attack-details-line damage-row">
-                <label class="flex-size-3 element-label" style="--elementColor:rgb(76, 76, 76)">{{data.class.meleeDice}} Damage</label>
+                <label class="gun-detail-header"><b>Range:</b>&nbsp;Adjacent</label>
+                <label class="">
+                  <label class="element-label" style="--elementColor:rgb(76, 76, 76)">{{data.class.meleeDice}}&nbsp;</label>
+                  <label class="element-damage-damage">Damage</label>
+                </label>
+                <label><i>Shwing!</i></label>
               </div>
             </div>
           </div>
@@ -166,8 +171,8 @@
                 </label>
               </div>
               <div class="item-effect flexrow item-prop-stack attack-details-line damage-row">
+                <label class="gun-detail-header"><b>Free Range:</b>&nbsp;{{../data.stats.dmg.modToUse}}</label>
                 <label class="">{{{data.dmgHtml}}}</label>
-                <label class="gun-detail-header">Free Range: {{../data.stats.dmg.mod}}</label>
                 <label>Grenades: {{../data.attributes.grenades.value}} / {{../data.attributes.grenades.max}}</label>
               </div>
             </div>
@@ -187,7 +192,7 @@
                 <label>Throw an item to or at a target.</label>
               </div>
               <div class="item-effect flexrow item-prop-stack attack-details-line damage-row">
-                <label class="gun-detail-header">Free Range: {{data.stats.dmg.mod}}</label>
+                <label class="gun-detail-header"><b>Free Range:</b>&nbsp;{{data.stats.dmg.modToUse}}</label>
               </div>
             </div>
           </div>

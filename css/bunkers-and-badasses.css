@@ -1685,6 +1685,11 @@ a#submit { z-index: 1; }
   border: 1px solid rgb(122, 121, 113);
   border-left: 0;
 }
+.check-dialog .check-type {
+  text-align: center;
+  align-items: center;
+  font-weight: bold;
+}
 
 .success-text {
   color: darkgreen;

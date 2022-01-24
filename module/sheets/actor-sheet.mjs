@@ -769,7 +769,7 @@ export class BNBActorSheet extends ActorSheet {
     }
   }
   
-  _checkRoll(dataset) {
+  async _checkRoll(dataset) {
     // Prep data to access.
     const actorData = this.actor.data.data;
     const check = actorData.checks[dataset.checkType.toLowerCase()];
@@ -777,41 +777,12 @@ export class BNBActorSheet extends ActorSheet {
     if (dataset.checkType.toLowerCase() === 'initiative') {
       return this.actor.rollInitiative({createCombatants: true});
     }
-    
-    const badassRollPiece = check.usesBadassRank ? '+ @badassRank[badass rank]' : ''
-    const modRollPiece = `+ @mod[${check.stat} ${actorData.attributes.badassRollsEnabled ? 'stat' : 'mod'}]`;
-    const miscRollPiece = `+ @miscBonus[misc bonus]`; 
-    // Prepare and roll the check.
-    const roll = new Roll(`1d20 ${badassRollPiece} ${modRollPiece} ${miscRollPiece}`, {
-      badassRank: actorData.attributes.badassRank,
-      mod: check.value,
-      miscBonus: check.bonus
+
+    return await this._makeCheck(dataset, {
+      checkTitle: `${actorData[check.stat].label} Check`,
+      checkItem: check,
+      promptCheckType: true
     });
-    const rollResult = roll.roll();
-
-    // Prep chat values.
-    const rollModes = CONFIG.Dice.rollModes;
-    // TODO: Create a roll class override for this.
-    // const renderedRoll = await rollResult.render({
-    //   template: 'systems/bunkers-and-badasses/templates/chat/check-roll.html',
-    //   checkType: dataset.checkType,
-    //   actorName: this.actor.name,
-    // });
-    const flavorText = `${this.actor.name} makes a <b>${dataset.checkType}</b> (${check.stat}) check.`;
-    const messageData = {
-      user: game.user._id,
-      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-      flavor: flavorText,
-      type: CONST.CHAT_MESSAGE_TYPES.ROLL,
-      roll: rollResult,
-      rollMode: CONFIG.Dice.rollModes.roll,
-      // whisper: game.users.entities.filter(u => u.isGM).map(u => u._id)
-      speaker: ChatMessage.getSpeaker(),
-      // content: renderedRoll
-    }
-
-    // Send the roll to chat!
-    return rollResult.toMessage(messageData);
   }
 
   _badassRoll(dataset) {
@@ -868,34 +839,43 @@ export class BNBActorSheet extends ActorSheet {
   }
 
   _grenadeThrowRoll(dataset) {
+
   }
 
   async _itemThrowRoll(dataset) {
+    // Prep data to access.
+    const actorData = this.actor.data.data;
+
     const throwCheck = {
       stat: "acc",
-      value: 1,
-      bonus: 2,
-      total: 3,
+      value: actorData.stats.acc.modToUse,
+      bonus: actorData.stats.acc.bonus,
       usesBadassRank: false,
     }
+    throwCheck.total = throwCheck.value + throwCheck.bonus;
 
     return await this._makeCheck(dataset, {
-      checkEntity: throwCheck,
-      checkTitle: "Throw Item",
+      checkItem: throwCheck,
+      checkTitle: "Item Throw Check",
+      defaultDifficulty: 12
     });
   }
 
   async _makeCheck(dataset, checkObjects) {
     // Prep data to access.
     const actorData = this.actor.data.data;
-    const checkEntity = checkObjects.checkEntity;
+
+    const checkItem = checkObjects.checkItem;
     const checkTitle = checkObjects.checkTitle;
+    const defaultDifficulty = checkObjects.defaultDifficulty;
+    const promptCheckType = checkObjects.promptCheckType;
     
 
     const dialogHtmlContent = await renderTemplate("systems/bunkers-and-badasses/templates/dialog/check-difficulty.html", {
       attributes: actorData.attributes,
-      check: checkEntity,
-      defaultDifficulty: 12
+      check: checkItem,
+      promptCheckType: promptCheckType ?? false,
+      defaultDifficulty: defaultDifficulty,
     });
 
     this.check = new Dialog({
@@ -910,17 +890,16 @@ export class BNBActorSheet extends ActorSheet {
         "Roll" : {
           label : "Roll",
           callback : async (html) => {
-            return await this._rollCheckDice(html);
+            return await this._rollCheckDice(html, checkItem);
           }
         }
       }
     }).render(true);
   }
 
-  async _rollCheckDice(html) {
+  async _rollCheckDice(html, checkItem) {
     // Prep data to access.
     const actorData = this.actor.data.data;
-    const accuracyStat = actorData.stats.acc;
 
     // Pull data from html.
     const extraBonusValue = parseInt(html.find("#extra")[0].value);
@@ -928,15 +907,20 @@ export class BNBActorSheet extends ActorSheet {
     const difficultyEntered = !isNaN(difficultyValue);
 
     // Prepare and roll the check.
-    const rollStatMod = ` + @accuracy[acc ${actorData.attributes.badassRollsEnabled ? 'stat' : 'mod'}]`;
-    const rollMiscMod = '';
+    // const modRollPiece = `+ @mod[${check.stat} ${actorData.attributes.badassRollsEnabled ? 'stat' : 'mod'}]`;
+    // const miscRollPiece = `+ @miscBonus[misc bonus]`; 
+    const badassMod = checkItem.usesBadassRank ? ' + @badassRank[badass rank]' : ''
+    const rollStatMod = ` + @statMod[acc ${actorData.attributes.badassRollsEnabled ? 'stat' : 'mod'}]`;
+    const rollMiscMod = ` + @miscBonus[misc bonus]`;
     const rollBonusMod = (isNaN(extraBonusValue) || extraBonusValue == 0 ? '' : ` + @extraBonus[extra bonus]`);
     const rollDifficulty = ((difficultyValue != null && !isNaN(difficulty)) ?
       `cs>=${difficultyValue}` :
       ``);
 
-    const roll = new Roll(`1d20${rollStatMod}${rollMiscMod}${rollBonusMod}${rollDifficulty}`, {
-      accuracy: accuracyStat.value,
+    const roll = new Roll(`1d20${badassMod}${rollStatMod}${rollMiscMod}${rollBonusMod}${rollDifficulty}`, {
+      badassRank: actorData.attributes.badassRank,
+      statMod: checkItem.value,
+      miscBonus: checkItem.bonus,
       extraBonus: extraBonusValue,
     });
     const rollResult = roll.roll();
@@ -947,11 +931,11 @@ export class BNBActorSheet extends ActorSheet {
       difficultyEntered: difficultyEntered });
   }
 
-  async _displayCheckRollResultToChat(objs) {
+  async _displayCheckRollResultToChat(rollObjs) {
     // Pull values from objs.
-    const rollResult = objs.rollResult;
-    const difficultyValue = objs.difficultyValue;
-    const difficultyEntered = objs.difficultyEntered;
+    const rollResult = rollObjs.rollResult;
+    const difficultyValue = rollObjs.difficultyValue;
+    const difficultyEntered = rollObjs.difficultyEntered;
 
     const chatHtmlContent = await renderTemplate("systems/bunkers-and-badasses/templates/chat/check-roll.html", {
       diceRoll: `Rolled ${rollResult.formula}.`,
