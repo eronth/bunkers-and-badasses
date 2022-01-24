@@ -5,7 +5,31 @@
       {{> "systems/bunkers-and-badasses/templates/actor/parts/action-components/checks-block.html" }}
     </div>    
   </div>
-  {{!-- HP/Attack/Badass --}}
+  {{!-- Badass Region --}}
+      <div class="flexcol badass-container">
+        <div class="flexrow badass-entity-container">
+          <div class="flexrow badass-container-inner-left">
+            <label><i class="fas fa-skull"></i>&nbsp;Badass&nbsp;Rank</label>
+            <input class="" value="{{data.attributes.badassRank}}"
+              type="number" data-dtype="Number"
+              disabled />
+          </div>
+          <div class="flexrow badass-container-inner-right">
+            <label>Badass&nbsp;Tokens</label>
+            <input class="" value="{{data.attributes.badassTokens}}"
+              type="number" data-dtype="Number"
+              disabled />
+          </div>
+          <button class="btn btn-primary btn-badass-roll"><i class="fa fa-dice-d20"></i> Badass Roll</button>
+          <div class="flexcol badass-check">
+            <label>Badass?</label>
+            <a class="checkbox" title="Become Badass?" data-target="data.attributes.badassRollsEnabled" data-item-target="data.equipped">
+              {{#if data.attributes.badassRollsEnabled}}<i class="far fa-check-square"></i>{{else}}<i class="far fa-square"></i></a>{{/if}}
+            </a>
+          </div>
+        </div>
+      </div>
+  {{!-- HP/Attack/Action Skill --}}
   <div class="flexrow">
     {{!-- Health/Armor/Shield Region --}}
     <div class="flexcol healths-container">
@@ -20,44 +44,25 @@
         <button class="btn btn-primary hp-regen-btn">Recovery</button>
       </div>
     </div>
-    {{!-- Attack then Badass region --}}
+    {{!-- Attack and Action Skill region --}}
     <div class="flexcol">
-      {{!-- Badass Region --}}
-      <div class="flexcol badass-container">
-        <div class="flexrow badass-entity-container">
-          <div class="flexrow badass-container-inner-left">
-            <label><i class="fas fa-skull"></i>&nbsp;Badass&nbsp;Rank</label>
-            <input class="" value="{{data.attributes.badassRank}}"
-              type="number" data-dtype="Number"
-              disabled />
-          </div>
-          <div class="flexrow badass-container-inner-right">
-            <label>Badass Tokens</label>
-            <input class="" value="{{data.attributes.badassTokens}}"
-              type="number" data-dtype="Number"
-              disabled />
-          </div>
-          <div class="flexcol badass-check">
-            <label>Badass?</label>
-            <a class="checkbox" title="Become Badass?" data-target="data.attributes.badassRollsEnabled" data-item-target="data.equipped">
-              {{#if data.attributes.badassRollsEnabled}}<i class="far fa-check-square"></i>{{else}}<i class="far fa-square"></i></a>{{/if}}
-            </a>
-          </div>
-        </div>
-      </div>
-      {{!-- Attack/Badass Shared Region --}}
-      <div class="flexrow attack-badass-shared-container">
-        <div class="flexrow attack-header-outer-container">
+      
+      {{!-- Attack/Action Skill Shared Region --}}
+      <div class="flexrow attack-as-shared-container">
+        <div class="flexrow flex-size-1 attack-header-outer-container">
           <div class="flexrow attack-header-container">
             <div class="attack-header-inner-container">
               <label class="">Attacks!</label>
             </div>
           </div>
         </div>
-        <div class="badass-btn-outer-container">
-          <div class="badass-btn-container">
-            <div class="badass-btn-inner-container">
-              <button class="btn btn-primary btn-badass-roll"><i class="fa fa-dice-d20"></i> Badass Roll</button>
+        <div class="flex-size-2 as-btn-outer-container">
+          <div class="as-btn-container">
+            <div class="flexrow as-btn-inner-container action-skill">
+              <button class="btn btn-primary action-skill-button">
+                <label>{{data.class.actionSkill.name}}</label>
+              </button>
+              <label class="secondary-text">Uses {{data.class.actionSkill.uses.value}} / {{data.class.actionSkill.uses.max}}</label>
             </div>
           </div>
         </div>
@@ -159,27 +164,29 @@
           </div>
         </li>
         {{/each}}
+        {{!-- Throw Action --}}
+        <li class="item item-element-group loot-rarity-fade-border flexrow rollable" style="--rarityColor: darkred"
+          data-roll-type="item-throw">
+          <div class="item-details attack-block item-attack-roll">
+            <div class="item-controls">
+              <a class="item-control item-attack" title="Roll Attack"><i class="fa fa-dice-d20"></i></a>
+            </div>
+            <div class="flexcol item-effec-stack-container">
+              <div class="item-effect flexrow item-prop-stack attack-details-line">
+                <h4 class="attack-header">Throw Item</h4>
+                <label>Throw an item to or at a target.</label>
+              </div>
+              <div class="item-effect flexrow item-prop-stack attack-details-line damage-row">
+                <label class="gun-detail-header">Free Range: {{data.stats.dmg.mod}}</label>
+              </div>
+            </div>
+          </div>
+        </li>
       </div>
     </div>
   </div>
-  <div>
-    <div class="flexrow action-skill-buttons">
-      <button class="btn btn-primary show-action-skill">
-        <label>Show {{data.class.actionSkill.name}}</label>
-      </button>
-      <button class="btn btn-primary action-skill">
-        <label>Activate {{data.class.actionSkill.name}}</label>
-        <label class="secondary-text">Free Activation (1/combat)</label>
-      </button>
-      <button class="btn btn-primary use-action-skill">
-        <label>Activate {{data.class.actionSkill.name}}</label>
-        <label class="secondary-text">Activations {{data.class.actionSkill.uses.value}} / {{data.class.actionSkill.uses.max}}</label>
-      </button>
-    </div>
-    <label>{{data.class.actionSkill.description}}</label>
-  
+  <div>  
     {{> "systems/bunkers-and-badasses/templates/actor/parts/builder-components/actor-builder-class-skills.html" }}
-
   </div>
 
 

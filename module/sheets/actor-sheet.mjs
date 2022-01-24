@@ -748,7 +748,9 @@ export class BNBActorSheet extends ActorSheet {
         return this._gunAccuracyRoll(dataset);
       } /*else if (dataset.rollType == 'gun-damage') {
         return this._gunDamageRoll(dataset);
-      }*/ else if (dataset.rollType == 'item-throw') {
+      }*/ else if (dataset.rollType == 'grenade-throw') {
+        return this._grenadeThrowRoll(dataset);
+      } else if (dataset.rollType == 'item-throw') {
         return this._itemThrowRoll(dataset);
       }
 
@@ -862,10 +864,87 @@ export class BNBActorSheet extends ActorSheet {
   }
 
   _gunAccuracyRoll(dataset) {
-
+    
   }
 
-  _itemThrowRoll(dataset) {
+  _grenadeThrowRoll(dataset) {
+  }
+
+  async _itemThrowRoll(dataset) {
+    // Prep data to access.
+    const actorData = this.actor.data.data;
+    const accuracyStat = actorData.stats.acc;
+
+    const throwCheck = {
+      stat: "acc",
+      value: 1,
+      bonus: 2,
+      total: 3,
+      usesBadassRank: false,
+    }
+
+    const htmlContent = await renderTemplate("systems/bunkers-and-badasses/templates/dialog/check-difficulty.html", {
+      attributes: actorData.attributes,
+      check: throwCheck,
+      defaultDifficulty: 12
+    });
+
+    this.check = new Dialog({
+      title: "Throw Item",
+      Id: "check-difficulty",
+      content: htmlContent,
+      buttons: {
+        "Cancel" : {
+          label : "Cancel",
+          callback : async (html) => {}
+        },
+        "Roll" : {
+          label : "Roll",
+          callback : async (html) => {
+            // Pull data from html.
+            const extraBonusValue = parseInt(html.find("#extra")[0].value);
+            const difficultyValue = parseInt(html.find("#difficulty")[0].value);            
+            
+            // Prepare and roll the check.
+            const rollStatMod = ` + @accuracy[acc ${actorData.attributes.badassRollsEnabled ? 'stat' : 'mod'}]`;
+            const rollMiscMod = '';
+            const rollBonusMod = (extraBonusValue == 0 ? '' : ` + @extraBonus[extra bonus]`);
+            const rollDifficulty = ((difficultyValue != null && !isNan(difficulty)) ?
+              `cs>=${difficultyValue}` :
+              ``);
+
+            const roll = new Roll(`1d20${rollStatMod}${rollMiscMod}${rollBonusMod}${rollDifficulty}`, {
+              accuracy: accuracyStat.value,
+              extraBonus: extraBonusValue,
+            });
+            const rollResult = roll.roll();
+        
+            // // Prep chat values.
+            // const flavorText = `${this.actor.name} ${hpRegainAction[dataset.healthType.toLowerCase()]} ${rollResult.total} <b>${hp.label}</b>.`;
+            // const messageData = {
+            //   user: game.user._id,
+            //   speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+            //   flavor: flavorText,
+            //   type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+            //   roll: rollResult,
+            //   rollMode: CONFIG.Dice.rollModes.roll,
+            //   // whisper: game.users.entities.filter(u => u.isGM).map(u => u._id)
+            //   speaker: ChatMessage.getSpeaker(),
+            // }
+        
+            // // Update the appopriate values.
+            // let newValue = hp.value + rollResult.total;
+            // if (newValue > hp.max) newValue = hp.max;
+            // const target = "data.hps." + dataset.healthType.toLowerCase() + ".value";
+            // this.actor.update({[`${target}`] : newValue});
+        
+            // // Send the roll to chat!
+            // return rollResult.toMessage(messageData);
+          }
+        }
+      }
+    }).render(true);
+    
 
   }
 

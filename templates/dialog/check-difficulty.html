@@ -1,0 +1,41 @@
+<div class="flexrow check-dialog">
+
+  <div class="flexcol flex-size-2 flex-group-center modifiers">
+    <div class="flexrow check-dialog-header">
+      <label>Roll Bonuses</label>
+    </div>
+    <div class="flexrow check-dialog-body">
+      <div class="flexcol">
+        <input class="" value="{{check.value}}"
+        type="number" data-dtype="Number"
+        disabled />
+        <label>{{check.stat}} mod</label>
+      </div>
+      <label class="math-sign">+</label>
+      <div class="flexcol">
+        <input class="" value="{{check.bonus}}"
+        type="number" data-dtype="Number"
+        disabled />
+        <label>misc bonus</label>
+      </div>
+      <label class="math-sign">+</label>
+      <div class="flexcol">
+        <input id="extra" class="" value=""
+        type="number" data-dtype="Number" />
+        <label>extra bonus</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="flexcol flex-group-center difficulty">
+    <div class="flexrow check-dialog-header">
+      <label>Difficulty</label>
+    </div>
+    <div class="flexcol check-dialog-body">
+      <input id="difficulty" class="" value="{{defaultDifficulty}}"
+      type="number" data-dtype="Number" />
+      <label>difficulty value</label>
+    </div>
+  </div>
+
+</div>

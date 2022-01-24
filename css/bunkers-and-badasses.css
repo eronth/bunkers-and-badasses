@@ -1037,14 +1037,11 @@ input[type="time"]:focus {
 
 .badass-container {
   align-content: center;
-  margin: 3px 0 0 3px;
+  margin-top: 3px;
   border: 1px solid #c9c7b8;
-  border-bottom: 0;
-  max-height: 32px;
 }
 .badass-entity-container {
   font-size: smaller;
-  max-height: 30px;
   padding: 2px;
   padding-top: 0;
 }
@@ -1052,9 +1049,8 @@ input[type="time"]:focus {
 .badass-container-inner-right {
   padding: 2px;
   flex: 2;
+  align-items: center
 }
-.badass-container-inner-left { }
-.badass-container-inner-right { }
 .badass-container label,
 .badass-container a {
   font-weight: bold;
@@ -1068,39 +1064,39 @@ input[type="time"]:focus {
   font-size: smaller;
 }
 
-.attack-badass-shared-container {
+.attack-as-shared-container {
   max-height: 45px;
   max-height: 565px;
 }
-.attack-badass-shared-container .attack-header-outer-container {
+.attack-as-shared-container .attack-header-outer-container {
   margin-left: 3px;
   margin-right: -2px;
   border-top: 1px solid #c9c7b8;
   padding-right: 3px;
 }
-.attack-badass-shared-container .badass-btn-outer-container {
+.attack-as-shared-container .as-btn-outer-container {
   margin-left: -2px;
   border-bottom: 1px solid #c9c7b8;
   padding-left: 3px;
 }
-.attack-badass-shared-container .attack-header-container { 
+.attack-as-shared-container .attack-header-container { 
   margin-top: 2px;
   margin-bottom: 0;
   border: 1px solid #c9c7b8;
   border-bottom: 0;
   padding: 2px;
 }
-.attack-badass-shared-container .badass-btn-container { 
+.attack-as-shared-container .as-btn-container { 
   margin-bottom: 2px;
   border: 1px solid #c9c7b8;
   border-top: 0;
   padding: 2px;
 }
-.attack-badass-shared-container .attack-header-inner-container {
+.attack-as-shared-container .attack-header-inner-container {
   text-align: center;
   align-self: center;
 }
-.attack-badass-shared-container .badass-btn-inner-container {
+.attack-as-shared-container .as-btn-inner-container {
 
 }
 .attacks-container {
@@ -1109,7 +1105,7 @@ input[type="time"]:focus {
   border-top: 0;
   padding: 3px 2px 2px;
 }
-.attack-badass-shared-container .attack-header-container label {
+.attack-as-shared-container .attack-header-container label {
   font-weight: bold;
   text-align: center;
   align-self: center;
@@ -1228,10 +1224,10 @@ input[type="time"]:focus {
   margin-left: 3px;
 }
 
-.bnb .action .action-skill-buttons {
+.bnb .action-skill {
   justify-content: center;
 }
-.bnb .action .action-skill-buttons .secondary-text {
+.bnb .action-skill .secondary-text {
   font-size: smaller; 
 }
 .bnb .action .action-skill {
@@ -1662,4 +1658,30 @@ a#submit { z-index: 1; }
 .total-focus {
   font-size: large;
   font-weight: bold;
+}
+
+.check-dialog {
+  padding-bottom: 8px;
+ }
+.check-dialog .check-dialog-header {}
+.check-dialog .check-dialog-header label {
+  font-weight: bold;
+  font-size: larger;
+}
+.check-dialog .check-dialog-body { }
+.check-dialog .check-dialog-body .math-sign {
+  padding: 4px 2px 0 2px;
+}
+.check-dialog .check-dialog-body label {
+  font-size: smaller;
+}
+.check-dialog .check-dialog-body input {
+  width: 65px;
+}
+.check-dialog .modifiers {
+  border: 1px solid rgb(122, 121, 113);
+}
+.check-dialog .difficulty {
+  border: 1px solid rgb(122, 121, 113);
+  border-left: 0;
 }
