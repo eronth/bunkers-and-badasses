@@ -94,12 +94,12 @@
                 </label>
               </div>
               <div class="item-effect flexrow item-prop-stack attack-details-line damage-row">
-                <label class="gun-detail-header"><b>Range:</b>&nbsp;Adjacent</label>
-                <label class="">
+                <label><i>Shwing!</i></label>
+                <label class="flex-size-2">
                   <label class="element-label" style="--elementColor:rgb(76, 76, 76)">{{data.class.meleeDice}}&nbsp;</label>
                   <label class="element-damage-damage">Damage</label>
                 </label>
-                <label><i>Shwing!</i></label>
+                <label class="gun-detail-header"><b>Range:</b>&nbsp;Adjacent</label>
               </div>
             </div>
           </div>
@@ -138,7 +138,7 @@
                       </label>
                     </div>
                   </div>
-                  <div class="flexrow post-crithit-details">
+                  <div class="flexrow flex-size-2 post-crithit-details">
                     <label>
                       {{{data.dmgHtml}}}
                     </label>
@@ -156,9 +156,9 @@
         {{/each}}
         {{!-- Grenade Attack --}}
         {{#each equippedGrenades as |item id|}}
-        <li class="item item-element-group loot-rarity-fade-border flexrow" 
+        <li class="item item-element-group loot-rarity-fade-border flexrow rollable" 
           style="--rarityColor: {{item.data.rarity.colorValue}}"
-          data-item-id="{{item._id}}">
+          data-item-id="{{item._id}}" data-roll-type="grenade-throw">
           <div class="item-details attack-block item-attack-roll">
             <div class="item-controls">
               <a class="item-control item-attack" title="Roll Attack"><i class="fa fa-dice-d20"></i></a>
@@ -171,9 +171,9 @@
                 </label>
               </div>
               <div class="item-effect flexrow item-prop-stack attack-details-line damage-row">
+                <label>Count: {{../data.attributes.grenades.value}} / {{../data.attributes.grenades.max}}</label>
+                <label class="flex-size-2">{{{data.dmgHtml}}}</label>
                 <label class="gun-detail-header"><b>Free Range:</b>&nbsp;{{../data.stats.dmg.modToUse}}</label>
-                <label class="">{{{data.dmgHtml}}}</label>
-                <label>Grenades: {{../data.attributes.grenades.value}} / {{../data.attributes.grenades.max}}</label>
               </div>
             </div>
           </div>
@@ -192,6 +192,8 @@
                 <label>Throw an item to or at a target.</label>
               </div>
               <div class="item-effect flexrow item-prop-stack attack-details-line damage-row">
+                <label><!--Placeholder--></label>
+                <label class="flex-size-2"><!--Placeholder--></label>
                 <label class="gun-detail-header"><b>Free Range:</b>&nbsp;{{data.stats.dmg.modToUse}}</label>
               </div>
             </div>

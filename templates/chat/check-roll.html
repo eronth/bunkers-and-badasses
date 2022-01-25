@@ -1,4 +1,5 @@
-<div>
+<div class="chat-roll-result"
+data-actor-id="{{actorId}}" data-item-id="{{itemId}}" >
   <div>{{diceRoll}}</div>
   <div>Result: {{result}} = {{total}}</div>
   {{#if success}}
@@ -6,5 +7,15 @@
   {{/if}}
   {{#if failure}}
   <div class="failure-text">Failure!</div>
+  {{/if}}
+  {{#if redText}}
+  {{/if}}
+  {{#if showDamageButton}}
+  <div class="chat-damage-buttons">
+    <button data-action="damage"
+    data-actor-id="{{actorId}}" data-item-id="{{itemId}}" >
+      Roll Damage
+    </button>
+  </div>
   {{/if}}
 </div>

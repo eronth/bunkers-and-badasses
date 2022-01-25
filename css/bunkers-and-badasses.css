@@ -1299,6 +1299,9 @@ input[type="time"]:focus {
   max-width: 40px;
 }
 
+.kinetic-color {
+  color: rgb(76, 76, 76);
+}
 .incendiary-color {
   color: rgb(213, 59, 49);
 }
@@ -1700,4 +1703,18 @@ a#submit { z-index: 1; }
   color: darkred;
   font-weight: bold;
   font-size: larger;
+}
+
+.damage-results-container {
+  text-align: center
+}
+.damage-results-container .result-header {
+  font-weight: bold;
+  font-size: larger;
+}
+.damage-results-container .result-label {
+  font-size: xx-large;
+}
+.damage-results-container .element-damage-icon {
+  height: 22px;
 }

@@ -178,3 +178,12 @@ function rollItemMacro(itemName) {
   // Trigger the item roll
   return item.roll();
 }
+
+
+/* -------------------------------------------- */
+/*  Chat Hooks                                  */
+/* -------------------------------------------- */
+Hooks.on('renderChatMessage', (app, html, data) => {
+})
+  Hooks.on('renderChatLog', (app, html, data) => BNBItem.addChatListeners(html));
+  Hooks.on('renderChatPopout', (app, html, data) => BNBItem.addChatListeners(html));

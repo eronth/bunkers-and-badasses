@@ -1,0 +1,17 @@
+<div class="flexcol damage-results-container">
+
+  <div class="result-header">
+    <label>Damage</label>
+  </div>
+  <div class="flexrow">
+    {{#each results as |result key|}}
+    <div class="flexcol result">
+      <label class="roll-label {{toLowerCase key}}-color">
+        {{result.formula}}
+      </label>
+      <label class="result-label {{toLowerCase key}}-color">{{result.total}} <img id="damage-{{key}}" alt="{{key}}" 
+        class="element-damage-icon" src="systems/bunkers-and-badasses/assets/elements/{{key}}.png" /></label>
+    </div>
+    {{/each}}
+  </div>
+</div>

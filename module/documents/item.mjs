@@ -62,4 +62,81 @@ export class BNBItem extends Item {
       return roll;
     }
   }
+
+
+  /**
+   * Apply listeners to chat messages.
+   * @param {HTML} html  Rendered chat message.
+   */
+  static addChatListeners(html) {
+    html.on('click', '.chat-damage-buttons button', this._onChatCardDamage.bind(this));
+    //html.on('click', '.item-name', this._onChatCardToggleContent.bind(this));
+  }
+
+  static async _onChatCardDamage(event) {
+    event.preventDefault();
+
+    const dataSet = event.currentTarget.dataset;
+    const actor = game.actors.get(dataSet.actorId);
+    if (actor === null) return;
+    const actorData = actor.data.data;
+    const item = actor.items.get(dataSet.itemId);
+    const itemData = item.data.data;
+
+    let rollFormula = '';
+    Object.entries(itemData.elements).forEach(([key, elementData]) => {
+      if(elementData.enabled) {
+        rollFormula+=`${elementData.damage}[${elementData.label}] +`;
+      }
+    });
+    rollFormula = rollFormula.slice(0, -1);
+
+    
+    // Prepare and roll the damage.
+    const roll = new Roll(rollFormula, {
+      actor: actor,
+    });
+    const rollResult = roll.roll();
+    
+    // Convert roll to a results object for sheet display.
+    const rollResults = {};
+    rollResult.terms.forEach((term, key) => {
+      if (term instanceof DiceTerm) {
+        rollResults[term.options.flavor] = {
+          formula: term.expression,
+          total: term.total
+        };
+      }
+    });
+    // Object.entries(itemData.elements).forEach(([key, elementData]) => {
+    //   if(elementData.enabled) {
+    //     let roll = new Roll(`${elementData.damage}`);//[${elementData.label}]`);
+    //     rollResults[elementData.label] = roll.roll();
+    //   }
+    // });
+
+    const chatHtmlContent = await renderTemplate("systems/bunkers-and-badasses/templates/chat/damage-results.html", {
+      results: rollResults
+    });
+
+
+    // Prep chat values.
+    const flavorText = `${item.name} goes <i>"Boom!"</i>`;
+    const messageData = {
+      user: game.user._id,
+      speaker: ChatMessage.getSpeaker({ actor: actor }),
+      flavor: flavorText,
+      type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+      roll: rollResult,
+      rollMode: CONFIG.Dice.rollModes.roll,
+      content: chatHtmlContent,
+      // whisper: game.users.entities.filter(u => u.isGM).map(u => u._id)
+      speaker: ChatMessage.getSpeaker(),
+    }
+
+
+    return ChatMessage.create(messageData);
+    var one = this;
+    var hello = "hello";
+  }
 }
