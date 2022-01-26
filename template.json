@@ -189,9 +189,9 @@
     }
   },
   "Item": {
-    "types": ["item", "gun", "shield", "grenade", "relic", "potion",
+    "types": ["gun", "shield", "grenade", "relic", "potion",
       "skill", "Archetype Level", "Archetype Feat", "Class Skill",
-      "spell", "feature"],
+      "item" ],
     "templates": {
       "base": {
         "description": "",
@@ -356,7 +356,6 @@
       "quantity": 1,
       "cost": 0
     },
-
     "skill": {
       "templates": ["base"],
       "tier": 1,
@@ -367,18 +366,11 @@
       "tier": 1,
       "skillLevel": 1
     },
-    "spell": {
-      "templates": ["base"],
-      "spellLevel": 1
-    },
     "Archetype Level": {
       "templates": ["base"],
       "archetypeNumber": 0,
       "level": 1,
       "bonus": ""
-    },
-    "feature": {
-      "templates": ["base"]
     },
     "Archetype Feat": {
       "templates": ["base"],
@@ -388,13 +380,6 @@
     "Action Skill": {
       "templates": ["base"],
       "remainingUses": 0
-    },
-    "boost": {
-      "value": 0,
-      "stat": "",
-      "check": "",
-      "conditional": "",
-      "active": true
     }
   }
 }
