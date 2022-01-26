@@ -1,0 +1,52 @@
+<div class="flexcol attack-dialog">
+  <div class="flexrow attack-dialog">
+
+    <div class="flexcol flex-size-2 flex-group-center modifiers">
+      <div class="flexrow attack-dialog-header">
+        <label>{{type}} Attack Roll Bonuses</label>
+      </div>
+      <div class="flexrow attack-dialog-body">
+        <div class="flexcol">
+          <input id="mod" class="" value="{{attack.value}}"
+          type="number" data-dtype="Number"
+          disabled />
+          <label for="mod">{{attack.stat}} mod</label>
+        </div>
+        <label class="math-sign">+</label>
+        <div class="flexcol">
+          <input id="misc" class="" value="{{attack.bonus}}"
+          type="number" data-dtype="Number"
+          disabled />
+          <label for="misc">misc bonus</label>
+        </div>
+        <label class="math-sign">+</label>
+        <div class="flexcol">
+          <input id="extra" class="" value=""
+          type="number" data-dtype="Number" />
+          <label for="extra">extra bonus</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="flexcol flex-group-center difficulty">
+      <div class="flexrow attack-dialog-header">
+        <label for="difficulty">Difficulty</label>
+      </div>
+      <div class="flexcol attack-dialog-body">
+        <input id="difficulty" class="" value="{{defaultDifficulty}}"
+        type="number" data-dtype="Number" />
+        <label for="difficulty">difficulty value</label>
+      </div>
+    </div> -->
+
+  </div>
+
+  {{#if showFavored}}
+  <div class="flexrow attack-type">
+    <label for="favored-checkbox">Favored Weapon?:</label>
+    <input id="favored-checkbox" 
+    value="{{favored}}" 
+    type="checkbox" data-dtype="Boolean" />
+  </div>
+  {{/if}}
+</div>

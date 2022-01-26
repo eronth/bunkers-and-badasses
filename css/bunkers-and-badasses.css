@@ -1268,7 +1268,7 @@ input[type="time"]:focus {
   text-align: center;
   padding-top: 2px;
 }
-.bnb .cc2{
+.bnb .cc2 {
   justify-content: center;
   align-items: center;
 }
@@ -1663,24 +1663,38 @@ a#submit { z-index: 1; }
   font-weight: bold;
 }
 
+.attack-dialog,
 .check-dialog {
   padding-bottom: 8px;
- }
-.check-dialog .check-dialog-header {}
+}
+
+.attack-dialog .attack-dialog-header,
+.check-dialog .check-dialog-header { }
+
+.attack-dialog .attack-dialog-header label,
 .check-dialog .check-dialog-header label {
   font-weight: bold;
   font-size: larger;
 }
+.attack-dialog .attack-dialog-body,
 .check-dialog .check-dialog-body { }
+
+.attack-dialog .attack-dialog-body .math-sign,
 .check-dialog .check-dialog-body .math-sign {
   padding: 4px 2px 0 2px;
 }
+
+.attack-dialog .attack-dialog-body label,
 .check-dialog .check-dialog-body label {
   font-size: smaller;
 }
+
+.attack-dialog .attack-dialog-body input,
 .check-dialog .check-dialog-body input {
   width: 65px;
 }
+
+.attack-dialog .modifiers,
 .check-dialog .modifiers {
   border: 1px solid rgb(122, 121, 113);
 }
@@ -1688,21 +1702,35 @@ a#submit { z-index: 1; }
   border: 1px solid rgb(122, 121, 113);
   border-left: 0;
 }
+
 .check-dialog .check-type {
   text-align: center;
   align-items: center;
   font-weight: bold;
 }
 
+.chat-roll-result .hit-bonus {
+  text-align: center;
+  font-size: smaller;
+  padding-bottom: 2px;
+}
+
+.chat-roll-result .red-text {
+  color: darkred;
+  font-weight: bold;
+  font-style: italic;
+}
 .success-text {
   color: darkgreen;
   font-weight: bold;
   font-size: larger;
+  text-align: center;
 }
 .failure-text {
   color: darkred;
   font-weight: bold;
   font-size: larger;
+  text-align: center;
 }
 
 .damage-results-container {

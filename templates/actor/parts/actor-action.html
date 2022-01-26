@@ -79,9 +79,9 @@
       </div>
       <div class="flex-size-2 attacks-container">
         {{!-- Melee Attack --}}
-        <li class="item item-element-group loot-rarity-fade-border flexrow" 
+        <li class="item item-element-group loot-rarity-fade-border flexrow rollable" 
           style="--rarityColor: darkred"
-          data-item-id="melee">
+          data-roll-type="melee-attack">
           <div class="item-details attack-block item-attack-roll">
             <div class="item-controls">
               <a class="item-control item-attack" title="Roll Attack"><i class="fa fa-dice-d20"></i></a>
@@ -106,9 +106,9 @@
         </li>
         {{!- Gun Attack --}}
         {{#each equippedGuns as |item id|}}
-        <li class="item item-element-group loot-rarity-fade-border flexrow" 
+        <li class="item item-element-group loot-rarity-fade-border flexrow rollable" 
           style="--rarityColor: {{item.data.rarity.colorValue}}"
-          data-item-id="{{item._id}}">
+          data-item-id="{{item._id}}" data-roll-type="gun-attack">
           <div class="item-details attack-block item-attack-roll">
             <div class="item-controls">
               <a class="item-control item-attack" title="Roll Attack"><i class="fa fa-dice-d20"></i></a>

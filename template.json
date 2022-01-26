@@ -117,6 +117,16 @@
           "base": 3,
           "value": 0,
           "bonus": 0
+        },
+        "melee": {
+          "stat": "acc",
+          "value": 0,
+          "bonus": 0
+        },
+        "shooting": {
+          "stat": "acc",
+          "value": 0,
+          "bonus": 0
         }
       },
       "archetypes": {
@@ -139,6 +149,7 @@
       },
       "class": {
         "name": "",
+        "meleeDice": "",
         "background": {
           "name": "",
           "description": "",
@@ -161,7 +172,6 @@
           "mst": 0
         }
       },
-      "meleeDice": "",
       "favored": {
         "pistol": false,
         "smg": false,

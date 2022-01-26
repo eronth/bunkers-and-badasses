@@ -185,5 +185,11 @@ function rollItemMacro(itemName) {
 /* -------------------------------------------- */
 Hooks.on('renderChatMessage', (app, html, data) => {
 })
-  Hooks.on('renderChatLog', (app, html, data) => BNBItem.addChatListeners(html));
-  Hooks.on('renderChatPopout', (app, html, data) => BNBItem.addChatListeners(html));
+Hooks.on('renderChatLog', (app, html, data) => {
+  BNBItem.addChatListeners(html);
+  BNBActor.addChatListeners(html);
+});
+Hooks.on('renderChatPopout', (app, html, data) => {
+  BNBItem.addChatListeners(html);
+  BNBActor.addChatListeners(html);
+});

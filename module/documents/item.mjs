@@ -136,7 +136,5 @@ export class BNBItem extends Item {
 
 
     return ChatMessage.create(messageData);
-    var one = this;
-    var hello = "hello";
   }
 }

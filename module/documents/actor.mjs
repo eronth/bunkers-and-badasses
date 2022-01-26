@@ -137,4 +137,64 @@ export class BNBActor extends Actor {
 
     // Process additional NPC data here.
   }
+
+  /**
+   * Apply listeners to chat messages.
+   * @param {HTML} html  Rendered chat message.
+   */
+  static addChatListeners(html) {
+    html.on('click', '.chat-melee-damage-buttons button', this._onChatMeleeCardDamage.bind(this));
+    //html.on('click', '.item-name', this._onChatCardToggleContent.bind(this));
+  }
+
+  static async _onChatMeleeCardDamage(event) {
+    event.preventDefault();
+
+    const dataSet = event.currentTarget.dataset;
+    const actor = game.actors.get(dataSet.actorId);
+    if (actor === null) return;
+    const actorData = actor.data.data;
+
+    const isPlusOneDice = dataSet.plusOneDice === 'true';
+    const isDoubleDamage = dataSet.doubleDamage === 'true';
+    const isCrit = dataSet.crit === 'true';
+
+    // Prepare and roll the damage.
+    const rollPlusOneDice = isPlusOneDice ? ` + ${actorData.class.meleeDice}` : '';
+    const rollDoubleDamage = isDoubleDamage ? '2*' : '';
+    const rollCrit = isCrit ? ' + 1d12' : '';
+    const rollFormula = `${rollDoubleDamage}(${actorData.class.meleeDice}${rollPlusOneDice}${rollCrit} + @dmgMod)[Kinetic]`;
+    const roll = new Roll(rollFormula, {
+      actor: actor,
+      dmgMod: actorData.stats.dmg.modToUse,
+    });
+    const rollResult = roll.roll();    
+    
+    // Convert roll to a results object for sheet display.
+    const rollResults = {};
+    rollResults.Kinetic = {
+      formula: rollResult._formula,
+      total: rollResult.total
+    };
+
+    const chatHtmlContent = await renderTemplate("systems/bunkers-and-badasses/templates/chat/damage-results.html", {
+      results: rollResults
+    });
+
+    // Prep chat values.
+    const flavorText = `${actor.name} deals a blow.`;
+    const messageData = {
+      user: game.user._id,
+      speaker: ChatMessage.getSpeaker({ actor: actor }),
+      flavor: flavorText,
+      type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+      roll: rollResult,
+      rollMode: CONFIG.Dice.rollModes.roll,
+      content: chatHtmlContent,
+      // whisper: game.users.entities.filter(u => u.isGM).map(u => u._id)
+      speaker: ChatMessage.getSpeaker(),
+    }
+    
+    return ChatMessage.create(messageData);
+  };
 }

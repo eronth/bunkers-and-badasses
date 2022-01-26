@@ -1,20 +1,21 @@
 <div class="chat-roll-result"
-data-actor-id="{{actorId}}" data-item-id="{{itemId}}" >
+data-actor-id="{{actorId}}" >
   <div>{{diceRoll}}</div>
   <div>Result: {{result}} = {{total}}</div>
   {{#if success}}
-  <div class="success-text">Success!</div>
+  <div class="success-text">Hit!</div>
+  <div class="hit-bonus">{{bonusFromAcc}}</div>
   {{/if}}
   {{#if failure}}
   <div class="failure-text">Failure!</div>
   {{/if}}
-  {{#if redText}}
-  <div class="red-text">{{redText}}</div>
-  {{/if}}
   {{#if showDamageButton}}
-  <div class="chat-damage-buttons">
+  <div class="chat-melee-damage-buttons">
     <button data-action="damage"
-    data-actor-id="{{actorId}}" data-item-id="{{itemId}}" >
+    data-actor-id="{{actorId}}"
+    data-plus-one-dice={{isPlusOneDice}}
+    data-double-damage={{isDoubleDamage}}
+    data-crit={{isCrit}} >
       Roll Damage
     </button>
   </div>
