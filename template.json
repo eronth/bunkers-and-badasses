@@ -3,24 +3,26 @@
     "types": ["character", "npc"],
     "templates": {
       "base": {
-        "hps": {
-          "shield": {
-            "value": 0,
-            "min": 0,
-            "max": 0,
-            "regen": 0
-          },
-          "armor": {
-            "value": 0,
-            "min": 0,
-            "max": 0,
-            "regen": 0
-          },
-          "flesh": {
-            "value": 5,
-            "min": 0,
-            "max": 5,
-            "regen": 0
+        "attributes": {
+          "hps": {
+            "shield": {
+              "value": 0,
+              "min": 0,
+              "max": 0,
+              "regen": 0
+            },
+            "armor": {
+              "value": 0,
+              "min": 0,
+              "max": 0,
+              "regen": 0
+            },
+            "flesh": {
+              "value": 0,
+              "min": 0,
+              "max": 0,
+              "regen": 0
+            }
           }
         },
         "bio": {
@@ -47,9 +49,10 @@
           "value": 0,
           "max": 3
         },
-        "hp": {
-          "gains": [],
-          "value": 0
+        "hps": {
+          "flesh": {
+            "gains": []
+          }
         },
         "xp": {
           "gains": [],

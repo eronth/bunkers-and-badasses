@@ -1,27 +1,41 @@
-<div class="flexrow">
+<div class="flexrow builder-common-container">
 
-  {{!-- Gain XP/Health Segment --}}
-  <div class="flexcol">
-    <div class="flexrow align-center">
-      <button class="btn btn-primary item-control btn-manage hp-gain-edit">
-        Roll and Add Health
-      </button>
-      <input id="xp-change-amount"
-        placeholder="XP Increase"
-        onclick="this.select()"
-        type="number" data-dtype="Number" />
-      <button class="btn btn-primary item-control btn-manage xp-gain">
-        Add XP
-      </button>
-      <label class=""><i class="fas fa-skull"></i> Badass Rank</label>
-      <input id="badass-rank"
-        placeholder="Badass Rank"
-        name="data.attributes.badassRank" 
-        value="{{data.attributes.badassRank}}"
-        onclick="this.select()"
-        type="number" data-dtype="Number" />
-    </div>
-  </div>
+  <!-- gain xp, set xp, set level
+    gain max health, set max health, 
+    set badass rank, roll melee dice -->
+
+  {{!-- XP Segment --}}
+  <label for="current-xp-amount" class="current-xp-label">XP</label>
+  <input id="current-xp-amount" class="current-xp-input"
+  placeholder="Current XP" name="data.attributes.xp.value"
+  value="{{data.attributes.xp.value}}"
+  onfocus="this.select()" type="number" data-dtype="Number" />
+  <button class="btn btn-primary item-control btn-manage xp-gain"
+  data-attribute-name="XP" data-data-path="attributes.xp" >
+    <i class="fas fa-plus"></i> XP
+  </button>
+  <!-- <button class="btn btn-primary item-control btn-manage set-level">
+    Set Lvl
+  </button> -->
+  
+  {{!-- Health Segment --}}
+  <label for="current-hp-amount" class="current-hp-label">Max Health</label>
+  <input id="current-hp-amount" class="current-hp-input"
+  placeholder="Max hp" name="data.attributes.hps.flesh.max"
+  value="{{data.attributes.hps.flesh.max}}"
+  onfocus="this.select()" type="number" data-dtype="Number" />
+  <button class="btn btn-primary item-control btn-manage hp-gain"
+  data-attribute-name="HP" data-data-path="attributes.hps.flesh" >
+    <i class="fas fa-plus"></i> Max Health
+  </button>
+
+  {{!-- Badass Rank --}}
+  <label for="badass-rank" class="badass-rank-label"><i class="fas fa-skull"></i> Badass Rank</label>
+  <input id="badass-rank" class="badass-rank-input"
+  placeholder="Badass Rank" name="data.attributes.badassRank" 
+  value="{{data.attributes.badassRank}}"
+  onfocus="this.select()" type="number" data-dtype="Number" />
+
 </div>
 
 

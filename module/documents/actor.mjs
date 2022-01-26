@@ -45,6 +45,18 @@ export class BNBActor extends Actor {
   _prepareCharacterData(actorData) {
     if (actorData.type !== 'character') return;
 
+    const initTokenData = {
+      "token.bar2": { "attribute": "attributes.hps.shield" },
+      "token.bar1": { "attribute": "attributes.hps.flesh" },
+      "token.displayName": CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
+      "token.displayBars": CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
+      "token.disposition": CONST.TOKEN_DISPOSITIONS.NEUTRAL,
+      "token.name": actorData.name,
+      "token.vision": true,
+      "token.actorLink": true,
+    }
+    this.data.update(initTokenData);
+
     // Make modifications to data here. For example:
     const data = actorData.data;
 
@@ -194,7 +206,7 @@ export class BNBActor extends Actor {
       // whisper: game.users.entities.filter(u => u.isGM).map(u => u._id)
       speaker: ChatMessage.getSpeaker(),
     }
-    
+
     return ChatMessage.create(messageData);
   };
 }

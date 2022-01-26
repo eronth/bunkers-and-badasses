@@ -544,6 +544,13 @@ input[type="time"]:focus {
   padding: 10px;
 }
 
+.bnb .class-stats-section .melee-dice-header {
+  font-weight: bold;
+}
+.bnb .class-stats-section .melee-dice-roll:hover {
+  text-shadow: 0 0 10px cyan;
+  cursor: pointer;
+}
 .bnb .class-stats-section {
   border: 1px solid #b5b3a4;
   margin-left: 2px;
@@ -579,6 +586,12 @@ input[type="time"]:focus {
   flex: 0;
 }
 
+.bnb .sheet-body,
+.bnb .sheet-body .tab,
+.bnb .sheet-body .tab .editor {
+  height: 100%;
+}
+
 .bnb .builder-tabs {
   -webkit-box-flex: 0;
   -ms-flex: 0;
@@ -590,17 +603,40 @@ input[type="time"]:focus {
   border-top: 1px solid #b5b3a4;
   border-bottom: 1px solid #b5b3a4;
 }
+.bnb .builder-common-container {
 
-.bnb .sheet-body,
-.bnb .sheet-body .tab,
-.bnb .sheet-body .tab .editor {
-  height: 100%;
 }
+.bnb .builder-common-container .current-xp-label,
+.bnb .builder-common-container .current-hp-label,
+.bnb .builder-common-container .badass-rank-label {
+  font-weight: bold;
+  text-align: center;
+  align-self: center;
+  justify-self: center;
+}
+.bnb .builder-common-container .badass-rank-label {
+  min-width: 100px;
+  margin-left: 4px;
+  margin-right: 2px;
+}
+.bnb .builder-common-container .current-xp-input, 
+.bnb .builder-common-container .current-hp-input,
+.bnb .builder-common-container .badass-rank-input {
+  align-self: center;
+  text-align: center;
+  max-width: 35px;
+}
+.bnb .builder-common-container .current-xp-input {
+  max-width: 60px; 
+}
+.bnb .builder-common-container .btn-manage {
+  font-size: smaller;
+}
+
 
 .bnb .tox .tox-editor-container {
   background: #fff;
 }
-
 .bnb .tox .tox-edit-area {
   padding: 0 8px;
 }
@@ -1202,10 +1238,6 @@ input[type="time"]:focus {
   align-items: center;
 }
 
-.bnb .btn-manage {
-  font-size: smaller;
-}
-
 .bnb .action-skill-header {
   margin-top: 5px;
 }
@@ -1660,6 +1692,15 @@ a#submit { z-index: 1; }
 
 .total-focus {
   font-size: large;
+  font-weight: bold;
+}
+
+
+.attribute-gain-dialog .attribute-gain {
+  text-align: center;
+  align-items: center;
+}
+.attribute-gain-dialog .attribute-gain label {
   font-weight: bold;
 }
 
