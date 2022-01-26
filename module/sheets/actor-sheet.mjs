@@ -670,7 +670,7 @@ export class BNBActorSheet extends ActorSheet {
         return this._meleeAndHPDiceRoll(dataset);
       } else if (dataset.rollType == 'check') {
         return this._checkRoll(dataset);
-      } else if (dataset.rollType == 'badass') {
+      } else if (dataset.rollType == 'badass-move') {
         return this._badassRoll(dataset);
       } else if (dataset.rollType == 'health-regain') {
         return this._healthRegainRoll(dataset);
@@ -740,7 +740,43 @@ export class BNBActorSheet extends ActorSheet {
   }
 
   async _badassRoll(dataset) {
+    // Prep data to access.
+    const actorData = this.actor.data.data;
 
+    const roll = new Roll(`1d20`, {
+      badassRank: actorData.attributes.badassRank // TODO not currently using in the roll
+    });
+    const rollResult = roll.roll();
+
+    let badassTotal = rollResult.total;
+    if (badassTotal == 2 || badassTotal == 3) {
+      badassTotal = 1;
+    } else if (badassTotal == 19 || badassTotal == 18) {
+      badassTotal = 20;
+    }
+    badassTotal += actorData.attributes.badassRank;
+
+    const chatHtmlContent = await renderTemplate("systems/bunkers-and-badasses/templates/chat/badass-result.html", {
+      actorId: this.actor.id,
+      badassTotal: badassTotal
+    });
+
+    // Prep chat values.
+    const flavorText = `${this.actor.name} attempts a <i class="fas fa-skull"></i> <b>Badass Move</b>.`;
+    const messageData = {
+      user: game.user._id,
+      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+      flavor: flavorText,
+      type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+      roll: rollResult,
+      rollMode: CONFIG.Dice.rollModes.roll,
+      content: chatHtmlContent,
+      // whisper: game.users.entities.filter(u => u.isGM).map(u => u._id)
+      speaker: ChatMessage.getSpeaker(),
+    }
+
+    // Send the roll to chat!
+    return ChatMessage.create(messageData);
   }
   
   async _healthRegainRoll(dataset) {
@@ -811,39 +847,7 @@ export class BNBActorSheet extends ActorSheet {
   }
 
   async _gunAccuracyRoll(dataset) {
-    // Prep data to access.
-    const actorData = this.actor.data.data;
-
-    // const checkItem = checkObjects.checkItem;
-    // const checkTitle = checkObjects.checkTitle;
-    // const defaultDifficulty = checkObjects.defaultDifficulty;
-    // const promptCheckType = checkObjects.promptCheckType;
     
-
-    // const dialogHtmlContent = await renderTemplate("systems/bunkers-and-badasses/templates/dialog/check-difficulty.html", {
-    //   attributes: actorData.attributes,
-    //   check: checkItem,
-    //   promptCheckType: promptCheckType ?? false,
-    //   defaultDifficulty: defaultDifficulty,
-    // });
-
-    // this.check = new Dialog({
-    //   title: checkTitle,
-    //   Id: "check-difficulty",
-    //   content: dialogHtmlContent,
-    //   buttons: {
-    //     "Cancel" : {
-    //       label : "Cancel",
-    //       callback : async (html) => {}
-    //     },
-    //     "Roll" : {
-    //       label : "Roll",
-    //       callback : async (html) => {
-    //         return await this._rollCheckDice(dataset, html, checkItem, displayResultOverride);
-    //       }
-    //     }
-    //   }
-    // }).render(true);
   }
 
   async _grenadeThrowRoll(dataset) {

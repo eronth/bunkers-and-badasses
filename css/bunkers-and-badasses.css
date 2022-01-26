@@ -1787,3 +1787,14 @@ a#submit { z-index: 1; }
 .damage-results-container .element-damage-icon {
   height: 22px;
 }
+
+.badass-results-container {
+  text-align: center
+}
+.badass-results-container .result-header {
+  font-weight: bold;
+  font-size: larger;
+}
+.badass-results-container .result-label {
+  font-size: xx-large;
+}

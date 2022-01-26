@@ -20,13 +20,12 @@
           </div>
           <div class="flexrow badass-container-inner-right">
             <label>Badass&nbsp;Tokens</label>
-            <input class="" value="{{data.attributes.badassTokens}}"
-              type="number" data-dtype="Number"
-              disabled />
+            <input class="" name="data.attributes.badassTokens" value="{{data.attributes.badassTokens}}"
+              type="number" data-dtype="Number" />
           </div>
         </div>
         <div class="flexrow badass-entity-container">
-          <button class="btn btn-primary btn-badass-roll"><i class="fa fa-dice-d20"></i> Badass Roll</button>
+          <button class="btn btn-primary btn-badass-roll rollable" data-roll-type="badass-move"><i class="fa fa-dice-d20"></i> Badass Roll</button>
           <div class="flexcol badass-check">
             <label>Badass?</label>
             <a class="checkbox" title="Become Badass?" data-target="data.attributes.badassRollsEnabled" data-item-target="data.equipped">
