@@ -372,6 +372,9 @@ export class BNBActorSheet extends ActorSheet {
     html.find('.archetype-reward-create').click(this._onArchetypeRewardCreate.bind(this));
     html.find('.archetype-reward-edit').click(this._onArchetypeRewardEdit.bind(this));
     html.find('.archetype-reward-delete').click(this._onArchetypeRewardDelete.bind(this));
+    
+    // Handle action skill.
+    html.find('.action-skill-edit').click(this._onActionSkillEdit.bind(this));
 
     // Handle HP Gains.
     html.find('.hp-gain').click(this._onHpGain.bind(this));
@@ -408,7 +411,6 @@ export class BNBActorSheet extends ActorSheet {
     }
   }
 
-  
   _onArchetypeRewardCreate(event) {
     let archetypeNum = event.currentTarget.dataset.archetypeNumber;
     let archetypeRewards = this.actor.data.data.archetypes["archetype" + archetypeNum].rewards;
@@ -515,6 +517,7 @@ export class BNBActorSheet extends ActorSheet {
     // Finally, create the item!
     return await Item.create(itemData, {parent: this.actor});
   }
+
   _onItemCheckbox(event) {
     let target = $(event.currentTarget).attr("data-target")
     if (target == "item") {
@@ -524,6 +527,50 @@ export class BNBActorSheet extends ActorSheet {
     }
     if (target)
       return this.actor.update({[`${target}`] : !getProperty(this.actor.data, target)});
+  }
+
+  async _onActionSkillEdit(event) {
+    // Prep data to access.
+    const actorData = this.actor.data.data;
+    const dataset = event.currentTarget.dataset;
+    const actionSkill = actorData.class.actionSkill;
+
+    const dialogHtmlContent = await renderTemplate("systems/bunkers-and-badasses/templates/dialog/action-skill-edit.html", {
+      actionSkill: actionSkill
+    });
+
+    this.actionSkill = new Dialog({
+      title: `Update Action Skill`,
+      Id: `update-action-skill-dialog`,
+      content: dialogHtmlContent,
+      buttons: {
+        "Cancel" : {
+          label : "Cancel",
+          callback : async (html) => {}
+        },
+        "Roll" : {
+          label : `Update Action Skill`,
+          callback : async (html) => {
+            return await this._updateActionSkill(dataset, html);
+          }
+        }
+      }
+    }).render(true);
+  }
+
+  async _updateActionSkill(dataset, html) {
+    // Pull data from html.
+    const actionSkill = {
+      name: html.find("#as-name")[0].value,
+      description: html.find("#as-description")[0].value,
+      notes: html.find("#as-notes")[0].value,
+      uses: {
+        value: html.find("#as-uses-value")[0].value,
+        max: html.find("#as-uses-max")[0].value,
+        min: 0
+      }
+    };
+    return await this.actor.update({"data.class.actionSkill": actionSkill});
   }
 
   async _onHpGain(event) {

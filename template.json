@@ -189,6 +189,49 @@
         "appearance": ""
       },
       "notes": ""
+    },
+    "npc": {
+      "templates": ["base"],
+      "npcType": "",
+      "badassRank": 1,
+      "movements": {
+        "default": 0,
+        "secondary": 0,
+        "tertiary": 0
+      },
+      "traits": "",
+      "weapon": "",
+      "special": "",
+      "actions": {
+        "base": {
+          "action1": {
+            "name": "",
+            "description": ""
+          },
+          "action2": {
+            "name": "",
+            "description": ""
+          },
+          "action3": {
+            "name": "",
+            "description": ""
+          }
+        },
+        "mayhem": {
+          "action1": {
+            "name": "",
+            "description": ""
+          },
+          "action2": {
+            "name": "",
+            "description": ""
+          },
+          "action3": {
+            "name": "",
+            "description": ""
+          }
+        }
+      }
     }
   },
   "Item": {

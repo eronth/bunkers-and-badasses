@@ -412,6 +412,28 @@ input[type="time"]:focus {
   margin: 5px 0;
   border-bottom: 0;
 }
+.bnb .npc .sheet-header h1.char-name {
+  height: 50px;
+  -webkit-box-flex: 4;
+  -ms-flex: 4;
+  flex: 4;
+}
+.bnb .npc .sheet-header h5 {}
+.bnb .npc .sheet-header h5.char-type {
+  height: 50px;
+  margin: 0;
+  padding: 0;
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+.bnb .npc .sheet-header h5.char-type input {
+  height: 48px;
+  margin: 8px 0;
+  text-align: right;
+  font-size: large;
+}
+
 
 .bnb .sheet-header .xpBar {
   margin-bottom: 0px;
@@ -1750,6 +1772,20 @@ a#submit { z-index: 1; }
   font-weight: bold;
 }
 
+.action-skill-dialog .name-section,
+.action-skill-dialog .uses-section {
+  margin: 0 2px;
+}
+.action-skill-dialog label {
+  font-weight: bold;
+  align-self: center;
+}
+.action-skill-dialog input {}
+.action-skill-dialog .uses-input input {
+  width: 30px;
+  text-align: center
+}
+
 .chat-roll-result .hit-bonus {
   text-align: center;
   font-size: smaller;
@@ -1798,3 +1834,4 @@ a#submit { z-index: 1; }
 .badass-results-container .result-label {
   font-size: xx-large;
 }
+

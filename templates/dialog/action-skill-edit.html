@@ -1,18 +1,28 @@
-<div class="dialog-fields flexcol align-center">
-  <div class="flexrow align-left">
-    <label for="name">Action Skill</label>
-    <input id="name" type="text" data-dtype="Text" value="{{as.name}}" onclick="this.select()" />
-    <label for="name">Activations</label>
-    <input id="name" type="number" data-dtype="Number" value="{{as.uses.value}}" onclick="this.select()" />
-    <label> / </label>
-    <input id="name" type="number" data-dtype="Number" value="{{as.uses.max}}" onclick="this.select()" />
+<div class="action-skill-dialog flexcol">
+  <div class="flexrow">
+    <div class="flexrow name-section">
+      <label for="as-name" class="">Action Skill</label>
+      <input id="as-name" class="" type="text" data-dtype="Text" value="{{actionSkill.name}}" onclick="this.select()" />
+    </div>
+    <div class="flexrow uses-section">
+      <label for="as-uses-value">Activations</label>
+      <div class="uses-input">
+        <input id="as-uses-value" class="uses-num" type="number" data-dtype="Number"
+        value="{{actionSkill.uses.value}}" onclick="this.select()" />
+        <label> / </label>
+        <input id="as-uses-max" class="uses-num" type="number" data-dtype="Number"
+        value="{{actionSkill.uses.max}}" onclick="this.select()" />
+      </div>
+    </div>
   </div>
   <div class="flexrow">
-    <label for="description">Description</label>
-    <input id="description" class="flex-size-8" type="text" data-dtype="Text" placeholder="Description" value="{{as.description}}" />
+    <label for="as-description">Description</label>
+    <input id="as-description" class="flex-size-3" type="text" data-dtype="Text"
+    value="{{actionSkill.description}}" placeholder="Description" />
   </div>
   <div class="flexrow">
-    <label for="notes">Notes</label>
-    <input id="notes" class="flex-size-8" type="text" data-dtype="Text" placeholder="Extra Notes" value="{{as.notes}}" />
+    <label for="as-notes">Notes</label>
+    <input id="as-notes" class="flex-size-3" type="text" data-dtype="Text"
+    value="{{actionSkill.notes}}" placeholder="Extra Notes" />
   </div>
 </div>
