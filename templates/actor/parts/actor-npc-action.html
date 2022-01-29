@@ -1,13 +1,15 @@
 <div class="flexcol">
-  <div class="flexrow">
-    <label class="npc-action-label">Weapon:</label>
+  <div class="weapon">
+    <label class="npc-action-label rollable" data-roll-type="npc-attack"><i class="fa fa-dice-d20"></i> Weapon:</label>
     <input class="flexlarge" value="{{data.weapon}}" name="data.weapon" 
       type="text" data-dtype="String" />
   </div>
   <label class="npc-action-label">Special:</label>
-  <textarea class="bio-textarea" name="data.special"
+  <div class="npc-special-text">
+    <textarea class="" name="data.special"
     data-dtype="String" type="text" rows="3">{{data.special}}</textarea>
-  <hr style="height:2px;border-width:0;color:gray;background-color:gray">
+  </div>
+  <hr style="height:1px;border-width:0;color:gray;background-color:gray">
   <label class="npc-action-header">Actions</label>
   <div>
     {{> "systems/bunkers-and-badasses/templates/actor/parts/action-components/npc-action.html"

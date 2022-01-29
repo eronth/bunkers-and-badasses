@@ -455,8 +455,27 @@ input[type="time"]:focus {
 .bnb .npc .npc-action-header {
   background-color: #B3B4B5;
 }
+.bnb .npc-attribute label {
+  font-weight: bold;
+}
+.bnb .npc-attribute input {
+  width: 50%;
+  text-align: center;
+  align-self: center;
+  justify-self: center;
+}
 .bnb .npc .bg-icon {
   color: #B3B4B5;
+}
+.bnb .npc .npc-special-text textarea {
+  border: 1px solid rgb(122, 121, 113);
+}
+.bnb .npc .weapon {
+  display: flex;
+  align-items: center;
+}
+.bnb .npc .weapon label {
+  margin-right: 5px;
 }
 .bnb .npc .npc-action-header {
   width: 50%;

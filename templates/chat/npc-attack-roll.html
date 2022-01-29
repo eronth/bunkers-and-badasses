@@ -1,0 +1,16 @@
+<div class="chat-roll-result"
+data-actor-id="{{actorId}}" >
+  <div>{{diceRoll}}</div>
+  <div>Result: {{result}} = {{total}}</div>
+  {{#if success}}
+    {{#if isCrit}}
+      <div class="success-text">Crit Hit!</div>
+    {{else}}
+      <div class="success-text">Hit!</div>
+    {{/if}}
+  <div class="hit-bonus">{{bonusResult}}</div>
+  {{/if}}
+  {{#if failure}}
+  <div class="failure-text">Failure!</div>
+  {{/if}}
+</div>
