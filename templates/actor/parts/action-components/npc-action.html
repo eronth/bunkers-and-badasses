@@ -1,0 +1,14 @@
+<div class="npc-action action-container">
+  <div class="action-header">
+    <label class="action-dice rollable" data-roll-type="npc-action" data-path="{{dataLocation}}"><i class="fa fa-dice-d20"></i></label>
+    <input class="" placeholder="Action Name"
+      value="{{value.name}}" name="{{dataLocation}}.name" 
+      type="text" data-dtype="String" />
+  </div>
+  <div class="action-body">
+    <textarea class="" name="{{dataLocation}}.description" 
+      placeholder="NPC action description."
+      type="text" rows="3">{{value.description}}</textarea>
+  </div>
+</div>
+
