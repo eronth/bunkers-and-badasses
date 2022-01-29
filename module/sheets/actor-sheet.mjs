@@ -729,7 +729,9 @@ export class BNBActorSheet extends ActorSheet {
         return this._grenadeThrowRoll(dataset);
       } else if (dataset.rollType == 'item-throw') {
         return this._itemThrowRoll(dataset);
-      } 
+      } else if (dataset.rollType == 'npc-action') {
+        return this._npcActionRoll(dataset);
+      }
 
     }
     
@@ -749,6 +751,26 @@ export class BNBActorSheet extends ActorSheet {
   /* -------------------------------------------- */
   /*  Various roll starters                       */
   /* -------------------------------------------- */
+  async _npcActionRoll(dataset) {
+    const actorData = this.actor.data.data;
+    const actionObject = this._deepFind(actorData, dataset.path.replace('data.', ''));
+
+    // Prep chat values.
+    const flavorText = `${this.actor.name} uses <i>${actionObject.name}</i>.`;
+    const messageData = {
+      user: game.user._id,
+      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+      flavor: flavorText,
+      content: actionObject.description,
+      type: CONST.CHAT_MESSAGE_TYPES.IC,
+      // whisper: game.users.entities.filter(u => u.isGM).map(u => u._id)
+      speaker: ChatMessage.getSpeaker(),
+    }
+
+    // Send the roll to chat!
+    return ChatMessage.create(messageData);
+  }
+
   async _meleeAndHPDiceRoll(dataset) {
     const actorData = this.actor.data.data;
 
