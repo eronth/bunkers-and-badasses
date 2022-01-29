@@ -20,6 +20,7 @@
     "systems/bunkers-and-badasses/templates/actor/parts/action-components/hp-display-block.html",
 
     "systems/bunkers-and-badasses/templates/actor/parts/actor-npc-action.html",
+    "systems/bunkers-and-badasses/templates/actor/parts/action-components/npc-action.html",
 
     "systems/bunkers-and-badasses/templates/actor/parts/actor-builder.html",
     "systems/bunkers-and-badasses/templates/actor/parts/builder-components/actor-builder-archetypes.html",
