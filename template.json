@@ -240,9 +240,8 @@
     }
   },
   "Item": {
-    "types": ["gun", "shield", "grenade", "relic", "potion",
-      "skill", "Archetype Level", "Archetype Feat",
-      "item" ],
+    "types": [ "gun", "shield", "grenade", "relic", "potion", "key item",
+      "skill", "Archetype Level", "Archetype Feat" ],
     "templates": {
       "base": {
         "description": "",
@@ -328,11 +327,8 @@
         "redTextEffectBM": ""
       }
     },
-    "item": {
-      "templates": ["base"],
-      "quantity": 1,
-      "weight": 0,
-      "formula": "d20 + @str.mod + ceil(@lvl / 2)"
+    "key item": {
+      "templates": ["base", "loot"]
     },
     "gun": {
       "templates": ["base", "loot", "elemental"],
