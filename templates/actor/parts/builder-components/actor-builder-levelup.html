@@ -1,8 +1,60 @@
-<div class="flexcol">
+<div class="flexrow builder-common-container">
   {{!-- Xp Control Segment --}}
 
   {{!-- Health Control Segment --}}
 
   {{!-- Badass Rank Segment --}}
-  
+  <div class="flexcol flex-size-3">
+
+    <div class="flexrow">
+      {{!-- XP Segment --}}
+      <div>
+
+        <label for="current-xp-amount" class="current-xp-label">XP</label>
+        <input id="current-xp-amount" class="current-xp-input"
+        placeholder="Current XP" name="data.attributes.xp.value"
+        value="{{data.attributes.xp.value}}"
+        onfocus="this.select()" type="number" data-dtype="Number" />
+      </div>
+      <button class="btn btn-primary item-control btn-manage xp-gain"
+      data-attribute-name="XP" data-data-path="attributes.xp" >
+        <i class="fas fa-plus"></i> XP
+      </button>
+      <button class="btn btn-primary item-control btn-manage set-level">
+        Set Lvl
+      </button>
+    </div>
+
+    <div class="flexrow">
+      {{!-- Health Segment --}}
+      <div>
+        <label for="current-hp-amount" class="current-hp-label">Max Health</label>
+        <input id="current-hp-amount" class="current-hp-input"
+        placeholder="Max Health" name="data.attributes.hps.flesh.max"
+        value="{{data.attributes.hps.flesh.max}}"
+        onfocus="this.select()" type="number" data-dtype="Number" />
+      </div>
+      <div>
+        <label for="regen-amount" class="current-hp-label">Regen</label>
+        <input id="regen-amount" class="current-hp-input"
+        placeholder="Regen" name="data.attributes.hps.flesh.regen"
+        value="{{data.attributes.hps.flesh.regen}}"
+        onfocus="this.select()" type="text" data-dtype="String" />
+      </div>
+      <button class="btn btn-primary item-control btn-manage hp-gain"
+      data-attribute-name="HP" data-data-path="attributes.hps.flesh" >
+        <i class="fas fa-plus"></i> Max Health
+      </button>
+    </div>
+      
+  </div>
+
+  <div class="flexcol">
+    {{!-- Badass Rank --}}
+    <label for="badass-rank" class="badass-rank-label"><i class="fas fa-skull"></i> Badass Rank</label>
+    <input id="badass-rank" class="badass-rank-input"
+    placeholder="Badass Rank" name="data.attributes.badassRank" 
+    value="{{data.attributes.badassRank}}"
+    onfocus="this.select()" type="number" data-dtype="Number" />
+  </div>
 </div>

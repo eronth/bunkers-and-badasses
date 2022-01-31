@@ -14,7 +14,7 @@ export class BNBActorSheet extends ActorSheet {
       width: 600,
       height: 600,
       tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "action" },
-      { navSelector: ".builder-tabs", contentSelector: ".builder-body", initial: "archetype" }]
+      { navSelector: ".builder-tabs", contentSelector: ".builder-body", initial: "levelUp" }]
     });
   }
 
