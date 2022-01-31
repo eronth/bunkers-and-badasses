@@ -215,12 +215,8 @@ export class BNBActorSheet extends ActorSheet {
     const gear = [];
     const features = [];
     const skills = {
-      1: [],
-      2: [],
-      3: [],
-      4: [],
-      5: [],
-      6: []
+      1: [], 2: [], 3: [],
+      4: [], 5: [], 6: []
     }
     const guns = [];
     const equippedGuns = [];
