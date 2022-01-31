@@ -335,12 +335,6 @@ input[type="time"]:focus {
 }
 
 /* Styles limited to bnb sheets */
-.bnb {
-  /* ----------------------------------------- */
-  /*  Items Lists                              */
-  /* ----------------------------------------- */
-  /* Example style for bnb (can be removed if not needed) */
-}
 
 .grenade-input {
   justify-content: center;
@@ -418,7 +412,6 @@ input[type="time"]:focus {
   -ms-flex: 4;
   flex: 4;
 }
-.bnb .npc .sheet-header h5 {}
 .bnb .npc .sheet-header h5.char-type {
   height: 50px;
   margin: 0;
@@ -506,8 +499,6 @@ input[type="time"]:focus {
 
 .bnb .npc .npc-action-label {
   font-weight: bold;
-}
-.bnb .npc .npc-action-label label {
 }
 .bnb .npc .action-container {
   margin-bottom: 2px;
@@ -747,9 +738,6 @@ input[type="time"]:focus {
   border-top: 1px solid #b5b3a4;
   border-bottom: 1px solid #b5b3a4;
 }
-.bnb .builder-common-container {
-
-}
 .bnb .builder-common-container .current-xp-label,
 .bnb .builder-common-container .current-hp-label,
 .bnb .builder-common-container .badass-rank-label {
@@ -957,10 +945,6 @@ input[type="time"]:focus {
   width: 20px;
   max-width: 20px;
 }
-.gun-center-entry {
-
-}
-
 
 .bnb .items-list .item-equip-control {
   display: -webkit-box;
@@ -1280,9 +1264,6 @@ input[type="time"]:focus {
   text-align: center;
   align-self: center;
 }
-.attack-as-shared-container .as-btn-inner-container {
-
-}
 .attacks-container {
   margin: 0 0 2px 3px;
   border: 1px solid #c9c7b8;
@@ -1413,12 +1394,6 @@ input[type="time"]:focus {
 .bnb .action .action-skill {
   align-items: center;
   max-width: 250px;
-}
-.bnb .action .action-skill button {
-  
-}
-.bnb .action .action-skill label {
-
 }
 .bnb .action-skill-item {
   border: 1px solid #c9c7b8;
@@ -1856,17 +1831,11 @@ a#submit { z-index: 1; }
 .check-dialog {
   padding-bottom: 8px;
 }
-
-.attack-dialog .attack-dialog-header,
-.check-dialog .check-dialog-header { }
-
 .attack-dialog .attack-dialog-header label,
 .check-dialog .check-dialog-header label {
   font-weight: bold;
   font-size: larger;
 }
-.attack-dialog .attack-dialog-body,
-.check-dialog .check-dialog-body { }
 
 .attack-dialog .attack-dialog-body .math-sign,
 .check-dialog .check-dialog-body .math-sign {
@@ -1906,7 +1875,6 @@ a#submit { z-index: 1; }
   font-weight: bold;
   align-self: center;
 }
-.action-skill-dialog input {}
 .action-skill-dialog .uses-input input {
   width: 30px;
   text-align: center
