@@ -39,6 +39,7 @@
 {{!-- Builder Tab Navigation --}}
 <nav class="builder-tabs tabs" data-group="builder">
   {{!-- Default tab is specified in actor-sheet.mjs --}}
+  <a class="item" data-tab="lvlUp">Level Up</a>
   <a class="item" data-tab="archetype">Archetype</a>
   <a class="item" data-tab="class">Class</a>
   <a class="item" data-tab="classSkills">Class Skills</a>
@@ -46,6 +47,9 @@
 
 {{!-- Builder Tabs Content --}}
 <section class="builder-body">
+  <div class="tab lvlUp" data-group="builder" data-tab="lvlUp">
+    {{> "systems/bunkers-and-badasses/templates/actor/parts/builder-components/actor-builder-levelup.html" }}
+  </div>
 
   <div class="tab archetype" data-group="builder" data-tab="archetype">
     {{> "systems/bunkers-and-badasses/templates/actor/parts/builder-components/actor-builder-archetypes.html" }}

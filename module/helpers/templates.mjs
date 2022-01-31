@@ -24,6 +24,7 @@
     "systems/bunkers-and-badasses/templates/actor/parts/action-components/npc-action.html",
 
     "systems/bunkers-and-badasses/templates/actor/parts/actor-builder.html",
+    "systems/bunkers-and-badasses/templates/actor/parts/builder-components/actor-builder-levelup.html",
     "systems/bunkers-and-badasses/templates/actor/parts/builder-components/actor-builder-archetypes.html",
     "systems/bunkers-and-badasses/templates/actor/parts/builder-components/actor-builder-individual-archetype.html",
     "systems/bunkers-and-badasses/templates/actor/parts/builder-components/actor-builder-class.html",
