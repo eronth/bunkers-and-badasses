@@ -230,7 +230,6 @@ export class BNBActorSheet extends ActorSheet {
     const relics = [];
     const potions = [];
     const archetypeFeats = [];
-    const classSkills = [];
 
     // Iterate through items, allocating to containers
     for (let i of context.items) {
@@ -246,8 +245,6 @@ export class BNBActorSheet extends ActorSheet {
         }
       } else if (i.type === 'Archetype Feat') {
         archetypeFeats.push(i); // Append to archetype Feats.
-      } else if (i.type === 'Class Skill') {
-        classSkills.push(i); // Append to class Skills.
       } else if (i.type === 'gun') {
         let elemIcon = "";
         let gunDmgString = "";
@@ -329,7 +326,6 @@ export class BNBActorSheet extends ActorSheet {
     context.features = features;
     context.skills = skills;
     context.archetypeFeats = archetypeFeats;
-    context.classSkills = classSkills;
     context.guns = guns;
     context.equippedGuns = equippedGuns;
     context.shields = shields;

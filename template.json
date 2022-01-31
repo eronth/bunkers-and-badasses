@@ -241,7 +241,7 @@
   },
   "Item": {
     "types": ["gun", "shield", "grenade", "relic", "potion",
-      "skill", "Archetype Level", "Archetype Feat", "Class Skill",
+      "skill", "Archetype Level", "Archetype Feat",
       "item" ],
     "templates": {
       "base": {
@@ -408,11 +408,6 @@
       "cost": 0
     },
     "skill": {
-      "templates": ["base"],
-      "tier": 1,
-      "skillLevel": 1
-    },
-    "Class Skill": {
       "templates": ["base"],
       "tier": 1,
       "skillLevel": 1
