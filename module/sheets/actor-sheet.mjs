@@ -52,6 +52,7 @@ export class BNBActorSheet extends ActorSheet {
     // Prepare NPC data and items.
     if (actorData.type == 'npc') {
       this._prepareItems(context);
+      this._prepareNpcHps(context);
     }
 
     // Add roll data for TinyMCE editors.
@@ -177,6 +178,10 @@ export class BNBActorSheet extends ActorSheet {
     });
 
     context.hps = usedHps;
+  }
+
+  _prepareNpcHps(context) {
+    context.hps = context.data.attributes.hps;
   }
 
   /**
