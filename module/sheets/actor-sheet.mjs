@@ -40,13 +40,13 @@ export class BNBActorSheet extends ActorSheet {
     context.data = actorData.data;
     context.flags = actorData.flags;
 
-    // Prepare character data and items.
-    if (actorData.type == 'character') {
+    // Prepare Vault Hunter data and items.
+    if (actorData.type == 'vault hunter') {
       this._prepareItems(context);
       this._prepareArchetypes(context);
       this._prepareExperience(context);
       this._prepareHps(context);
-      this._prepareCharacterData(context);
+      this._prepareVaultHunterData(context);
     }
 
     // Prepare NPC data and items.
@@ -102,12 +102,12 @@ export class BNBActorSheet extends ActorSheet {
       totalExpRequiredSoFar += varForNextLevel; // Increment this for the next loop.
     });
     
-    // Total up the experience gained for the character and set xp.total value.
+    // Total up the experience gained for the vault hunter and set xp.total value.
     let totalXpGained = 0;
     (context.data.attributes.xp.gains).forEach(expBit => {
       totalXpGained += expBit.value;
     });
-    // TODO temporary override until I figure out a cleaner way to manage XP gains.
+    // TODO temporary override until I figure out a cleaner way to manage XP gains popup.
     totalXpGained = context.data.attributes.xp.value; 
     context.data.attributes.xp.total = totalXpGained;
 
@@ -185,13 +185,13 @@ export class BNBActorSheet extends ActorSheet {
   }
 
   /**
-   * Organize and classify Items for Character sheets.
+   * Organize and classify Items for Vault Hunter sheets.
    *
    * @param {Object} actorData The actor to prepare.
    *
    * @return {undefined}
    */
-  _prepareCharacterData(context) {
+  _prepareVaultHunterData(context) {
     // Handle stat scores.
     for (let [k, v] of Object.entries(context.data.stats)) {
       v.label = game.i18n.localize(CONFIG.BNB.stats[k]) ?? k;
@@ -204,7 +204,7 @@ export class BNBActorSheet extends ActorSheet {
   }
 
   /**
-   * Organize and classify Items for Character sheets.
+   * Organize and classify Items for Vault Hunter and NPC sheets.
    *
    * @param {Object} actorData The actor to prepare.
    *

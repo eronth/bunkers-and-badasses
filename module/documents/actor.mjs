@@ -33,17 +33,17 @@ export class BNBActor extends Actor {
     const data = actorData.data;
     const flags = actorData.flags.bnb || {};
 
-    // Make separate methods for each Actor type (character, npc, etc.) to keep
+    // Make separate methods for each Actor type (vault hunter, npc, etc.) to keep
     // things organized.
-    this._prepareCharacterData(actorData);
+    this._prepareVaultHunterData(actorData);
     this._prepareNpcData(actorData);
   }
 
   /**
-   * Prepare Character type specific data
+   * Prepare Vault Hunter type specific data
    */
-  _prepareCharacterData(actorData) {
-    if (actorData.type !== 'character') return;
+  _prepareVaultHunterData(actorData) {
+    if (actorData.type !== 'vault hunter') return;
 
     const initTokenData = {
       "token.bar2": { "attribute": "attributes.hps.shield" },
@@ -115,18 +115,18 @@ export class BNBActor extends Actor {
   getRollData() {
     const data = super.getRollData();
 
-    // Prepare character roll data.
-    this._getCharacterRollData(data);
+    // Prepare vault hunter roll data.
+    this._getVaultHunterRollData(data);
     this._getNpcRollData(data);
 
     return data;
   }
 
   /**
-   * Prepare character roll data.
+   * Prepare vault hunter roll data.
    */
-  _getCharacterRollData(data) {
-    if (this.data.type !== 'character') return;
+  _getVaultHunterRollData(data) {
+    if (this.data.type !== 'vault hunter') return;
 
     // Copy the ability scores to the top level, so that rolls can use
     // formulas like `@str.mod + 4`.

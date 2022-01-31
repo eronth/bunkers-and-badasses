@@ -1,6 +1,6 @@
 {
   "Actor": {
-    "types": ["character", "npc"],
+    "types": ["npc", "vault hunter"],
     "templates": {
       "base": {
         "attributes": {
@@ -35,7 +35,7 @@
         }
       }
     },
-    "character": {
+    "vault hunter": {
       "templates": ["base"],
       "gold": 0,
       "attributes": {
