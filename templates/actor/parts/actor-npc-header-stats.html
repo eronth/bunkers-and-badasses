@@ -1,0 +1,62 @@
+{{!-- The grid classes are defined in scss/global/_grid.scss. To use,
+  use both the "grid" and "grid-Ncol" class where "N" can be any number
+  from 1 to 12 and will create that number of columns.  --}}
+<div class="resources grid grid-7col">
+
+  {{!-- "flex-group-center" is also defined in the _grid.scss file
+  and it will add a small amount of padding, a border, and will
+  center all of its child elements content and text. --}}
+  <div class="resource flex-group-center">
+    <div class="npc-attribute flexcol">
+      <div class="bg-icon"><i class="fas fa-skull"></i></div>
+      <label for="badassRank" class="npc-attribute-label">Badass Rank</label>
+      <input id="badassRank" type="number" name="data.badassRank" value="{{data.badassRank}}" data-dtype="Number"/>
+    </div>
+  </div>
+
+  <div class="resource flex-group-center" style="grid-column: span 2;">
+    <div class="npc-attribute flexcol">
+      <div class="bg-icon"><i class="fas fa-arrows-alt"></i></div>
+      <label for="" class="npc-attribute-label">Movement</label>
+      {{#each data.movements as |movement key|}}
+      <div class="flexrow" style="padding-top: 1px; padding-bottom: 1px;">
+        <input type="text" name="data.movements.{{key}}.type" onfocus="this.select()"
+        value="{{movement.type}}" placeholder="Type" data-dtype="String"/>
+        <input style="max-width: 20px" type="number" name="data.movements.{{key}}.distance" onfocus="this.select()"
+        value="{{movement.distance}}" data-dtype="Number"/>
+        <label style="font-weight: normal; align-self: center; padding-left: 2px;"> squares</label>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+
+  <div class="resource flex-group-center healths-container" style="grid-column: span 4;">
+    <div class="flexrow">
+      <div>
+        {{> "systems/bunkers-and-badasses/templates/actor/parts/action-components/hp-display-block.html" 
+          hp=hps.shield
+          key="shield"
+        }}
+      </div>
+      <div>
+        {{> "systems/bunkers-and-badasses/templates/actor/parts/action-components/hp-display-block.html" 
+          hp=hps.armor
+          key="armor"
+        }}
+      </div>
+    </div>
+    <div class="flexrow">
+      <div>
+      {{> "systems/bunkers-and-badasses/templates/actor/parts/action-components/hp-display-block.html" 
+        hp=hps.flesh
+        key="flesh"
+      }}
+      </div>
+      <div class="traits">
+        <input name="data.traits" value="{{data.traits}}" placeholder="Traits" 
+        onfocus="this.select()" type="text" data-dtype="String"/>
+      </div>
+    </div>
+  </div>
+
+</div>
