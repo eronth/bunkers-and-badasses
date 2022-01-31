@@ -8,18 +8,15 @@
   <!-- Archetype Name and Level -->
   <div class="flexrow flex-group-center">
     <input 
-      class="flex-size-3"
-      name="data.archetypes.archetype{{archetypeNum}}.name"
-      placeholder="Archetype Name"
-      value="{{archetype.name}}"
-      onclick="this.select()"
+      class="flex-size-3" name="data.archetypes.archetype{{archetypeNum}}.name"
+      value="{{archetype.name}}" placeholder="Archetype Name"
+      onfocus="this.select()"
       type="text" data-dtype="Text"
     />
     <input 
-      class=""
-      name="data.archetypes.archetype{{archetypeNum}}.level"
-      onclick="this.select()"
+      class="" name="data.archetypes.archetype{{archetypeNum}}.level"
       placeholder="Level" value="{{archetype.level}}"
+      onfocus="this.select()"
       type="number" data-dtype="Number"
     />
   </div>
@@ -30,25 +27,25 @@
     <input 
       name="data.archetypes.archetype{{archetypeNum}}.baseStats.acc" 
       value="{{archetype.baseStats.acc}}"
-      onclick="this.select()"
+      onfocus="this.select()"
       type="number" data-dtype="Number" />
     <label>Dmg</label>
     <input 
       name="data.archetypes.archetype{{archetypeNum}}.baseStats.dmg" 
       value="{{archetype.baseStats.dmg}}"
-      onclick="this.select()"
+      onfocus="this.select()"
       type="number" data-dtype="Number" />
     <label>Spd</label>
     <input 
       name="data.archetypes.archetype{{archetypeNum}}.baseStats.spd" 
       value="{{archetype.baseStats.spd}}"
-      onclick="this.select()"
+      onfocus="this.select()"
       type="number" data-dtype="Number" />
     <label>Mst</label>
     <input 
       name="data.archetypes.archetype{{archetypeNum}}.baseStats.mst" 
       value="{{archetype.baseStats.mst}}"
-      onclick="this.select()"
+      onfocus="this.select()"
       type="number" data-dtype="Number" />
   </div>
   {{/showStats}}

@@ -2,16 +2,16 @@
   <div class="flexrow">
     <div class="flexrow name-section">
       <label for="as-name" class="">Action Skill</label>
-      <input id="as-name" class="" type="text" data-dtype="Text" value="{{actionSkill.name}}" onclick="this.select()" />
+      <input id="as-name" class="" type="text" data-dtype="Text" value="{{actionSkill.name}}" onfocus="this.select()" />
     </div>
     <div class="flexrow uses-section">
       <label for="as-uses-value">Activations</label>
       <div class="uses-input">
         <input id="as-uses-value" class="uses-num" type="number" data-dtype="Number"
-        value="{{actionSkill.uses.value}}" onclick="this.select()" />
+        value="{{actionSkill.uses.value}}" onfocus="this.select()" />
         <label> / </label>
         <input id="as-uses-max" class="uses-num" type="number" data-dtype="Number"
-        value="{{actionSkill.uses.max}}" onclick="this.select()" />
+        value="{{actionSkill.uses.max}}" onfocus="this.select()" />
       </div>
     </div>
   </div>

@@ -38,40 +38,32 @@
     <div class="flexcol class-background">
       <div class="flexrow class-background">
         <label>Class</label>
-        <input class="flex-size-2"
-        name="data.class.name" 
-        value="{{data.class.name}}"
-        placeholder="Class Name"
-        onclick="this.select()"
+        <input class="flex-size-2" name="data.class.name" 
+        value="{{data.class.name}}" placeholder="Class Name"
+        onfocus="this.select()"
         type="text" data-dtype="Text" />
       </div>
       <div class="flexrow class-background">
         <label>Backround</label>
-        <input class="flex-size-2"
-        name="data.class.background.name" 
-        value="{{data.class.background.name}}"
-        placeholder="Background Name"
-        onclick="this.select()"
+        <input class="flex-size-2" name="data.class.background.name" 
+        value="{{data.class.background.name}}" placeholder="Background Name"
+        onfocus="this.select()"
         type="text" data-dtype="Text" />
       </div>
       <div class="flexrow class-background">
         <label>Bonuses</label>
-        <input class="flex-size-2"
-        name="data.class.background.bonuses" 
-        value="{{data.class.background.bonuses}}"
-        placeholder="Background Bonuses"
-        onclick="this.select()"
+        <input class="flex-size-2" name="data.class.background.bonuses" 
+        value="{{data.class.background.bonuses}}" placeholder="Background Bonuses"
+        onfocus="this.select()"
         type="text" data-dtype="Text" />
       </div>
     </div>
   </div>
   <div class="flexrow class-background">
     <label>Background Description</label>
-    <input class="flex-size-8"
-    name="data.class.background.description" 
-    value="{{data.class.background.description}}"
-    placeholder="Background Description"
-    onclick="this.select()"
+    <input class="flex-size-8" name="data.class.background.description" 
+    value="{{data.class.background.description}}" placeholder="Background Description"
+    onfocus="this.select()"
     type="text" data-dtype="Text" />
   </div>
   <div class="flexrow">
@@ -80,26 +72,26 @@
       +<input 
       name="data.class.baseStats.acc" 
       value="{{data.class.baseStats.acc}}"
-      onclick="this.select()"
+      onfocus="this.select()"
       type="number" data-dtype="Number" />
       <label>Dmg</label>
       +<input 
       name="data.class.baseStats.dmg" 
       value="{{data.class.baseStats.dmg}}"
-      onclick="this.select()"
+      onfocus="this.select()"
       type="number" data-dtype="Number" />
       <label>Spd</label>
       +<input 
       name="data.class.baseStats.spd" 
       value="{{data.class.baseStats.spd}}"
-        onclick="this.select()"
-        type="number" data-dtype="Number" />
-        <label>Mst</label>
-        +<input 
-        name="data.class.baseStats.mst" 
-        value="{{data.class.baseStats.mst}}"
-        onclick="this.select()"
-        type="number" data-dtype="Number" />
+      onfocus="this.select()"
+      type="number" data-dtype="Number" />
+      <label>Mst</label>
+      +<input 
+      name="data.class.baseStats.mst" 
+      value="{{data.class.baseStats.mst}}"
+      onfocus="this.select()"
+      type="number" data-dtype="Number" />
       </div>
       <div class="flexrow flex-group-center class-stats-section">
         <label class="melee-dice-header rollable" data-roll-type="melee-dice-roll"><i class="fa fa-dice-d20"></i> Melee Dice</label>
@@ -107,7 +99,7 @@
         name="data.class.meleeDice" 
         value="{{data.class.meleeDice}}"
         placeholder="1d6"
-        onclick="this.select()"
+        onfocus="this.select()"
         type="text" data-dtype="Dice" />
       </div>
     </div>
