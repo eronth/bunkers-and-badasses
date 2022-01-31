@@ -48,9 +48,6 @@ export class BNBActor extends Actor {
     const initTokenData = {
       "token.bar2": { "attribute": "attributes.hps.shield" },
       "token.bar1": { "attribute": "attributes.hps.flesh" },
-      "token.displayName": CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
-      "token.displayBars": CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
-      "token.disposition": CONST.TOKEN_DISPOSITIONS.NEUTRAL,
       "token.name": actorData.name,
       "token.vision": true,
       "token.actorLink": true,
@@ -87,9 +84,29 @@ export class BNBActor extends Actor {
   _prepareNpcData(actorData) {
     if (actorData.type !== 'npc') return;
 
-    // Make modifications to data here. For example:
-    const data = actorData.data;
-    data.xp = (data.cr * data.cr) * 100;
+    const hps = actorData.data.attributes.hps;
+
+    const initTokenData = {
+      "token.bar2": { "attribute": "attributes.hps.shield" },
+      "token.bar1": { "attribute": "attributes.hps.flesh" },
+      "token.bar3": { "attribute": "attributes.hps.armor" },
+    }
+    // TODO this is kinda bad, so the logic should revisited later.
+    // This tries to evaluate which health should be used for the healthbars.
+    // Flesh, if used, is bar1. Then armor, then shield.
+    if (!this._isHpValuePopulated(hps.flesh)) {
+      if (this._isHpValuePopulated(hps.shield) && this._isHpValuePopulated(hps.armor)) {
+        initTokenData["token.bar1"] = { "attribute": "attributes.hps.armor" };
+        initTokenData["token.bar2"] = { "attribute": "attributes.hps.shield" };
+      }
+    } else if (!this._isHpValuePopulated(hps.shield) && this._isHpValuePopulated(hps.armor)) {
+      initTokenData["token.bar2"] = { "attribute": "attributes.hps.armor" };
+    }
+    this.data.update(initTokenData);
+  }
+
+  _isHpValuePopulated(hpData) {
+    return (hpData.value != null && hpData.value !== 0) || (hpData.max != null && hpData.max !== 0);
   }
 
   /**
