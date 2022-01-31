@@ -14,13 +14,13 @@
         <div class="flexrow badass-entity-container">
           <div class="flexrow badass-container-inner-left">
             <label><i class="fas fa-skull"></i>&nbsp;Badass&nbsp;Rank</label>
-            <input class="" value="{{data.attributes.badassRank}}"
+            <input class="" value="{{data.attributes.badass.rank}}"
               type="number" data-dtype="Number"
               disabled />
           </div>
           <div class="flexrow badass-container-inner-right">
             <label>Badass&nbsp;Tokens</label>
-            <input class="" name="data.attributes.badassTokens" value="{{data.attributes.badassTokens}}"
+            <input class="" name="data.attributes.badass.tokens" value="{{data.attributes.badass.tokens}}"
               type="number" data-dtype="Number" />
           </div>
         </div>
@@ -28,8 +28,8 @@
           <button class="btn btn-primary btn-badass-roll rollable" data-roll-type="badass-move"><i class="fa fa-dice-d20"></i> Badass Roll</button>
           <div class="flexcol badass-check">
             <label>Badass?</label>
-            <a class="checkbox" title="Become Badass?" data-target="data.attributes.badassRollsEnabled" data-item-target="data.equipped">
-              {{#if data.attributes.badassRollsEnabled}}<i class="far fa-check-square"></i>{{else}}<i class="far fa-square"></i></a>{{/if}}
+            <a class="checkbox" title="Become Badass?" data-target="data.attributes.badass.rollsEnabled" data-item-target="data.equipped">
+              {{#if data.attributes.badass.rollsEnabled}}<i class="far fa-check-square"></i>{{else}}<i class="far fa-square"></i></a>{{/if}}
             </a>
           </div>
         </div>

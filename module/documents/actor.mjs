@@ -66,14 +66,14 @@ export class BNBActor extends Actor {
       const [key, statData] = entry;
       statData.value = archetypeStats[key] + classStats[key] + statData.bonus;
       statData.mod = Math.floor(statData.value / 2)  + (statData.modBonus ?? 0);
-      statData.modToUse = data.attributes.badassRollsEnabled ? statData.value : statData.mod;
+      statData.modToUse = data.attributes.badass.rollsEnabled ? statData.value : statData.mod;
     });
 
     // Prepare data for various check rolls.
     Object.entries(data.checks).forEach(entry => {
       const [check, checkData] = entry;
       checkData.value = data.stats[checkData.stat].modToUse;
-      checkData.total = (checkData.useBadassRank ? data.attributes.badassRank.value : 0) +
+      checkData.total = (checkData.useBadassRank ? data.attributes.badass.rank.value : 0) +
         (checkData.base ?? 0) + checkData.value + checkData.bonus;
     });
   }

@@ -839,7 +839,7 @@ export class BNBActorSheet extends ActorSheet {
     const actorData = this.actor.data.data;
 
     const roll = new Roll(`1d20`, {
-      badassRank: actorData.attributes.badassRank // TODO not currently using in the roll
+      badassRank: actorData.attributes.badass.rank // TODO not currently using in the roll
     });
     const rollResult = roll.roll();
 
@@ -849,7 +849,7 @@ export class BNBActorSheet extends ActorSheet {
     } else if (badassTotal == 19 || badassTotal == 18) {
       badassTotal = 20;
     }
-    badassTotal += actorData.attributes.badassRank;
+    badassTotal += actorData.attributes.badass.rank;
 
     const chatHtmlContent = await renderTemplate("systems/bunkers-and-badasses/templates/chat/badass-result.html", {
       actorId: this.actor.id,
@@ -1051,7 +1051,7 @@ export class BNBActorSheet extends ActorSheet {
     const extraBonusValue = parseInt(html.find("#extra")[0].value);
 
     // Prepare and roll the check.
-    const rollStatMod = ` + @statMod[acc ${actorData.attributes.badassRollsEnabled ? 'stat' : 'mod'}]`;
+    const rollStatMod = ` + @statMod[acc ${actorData.attributes.badass.rollsEnabled ? 'stat' : 'mod'}]`;
     const rollMiscMod = ` + @miscBonus[misc bonus]`;
     const rollBonusMod = isNaN(extraBonusValue) ? '' : ` + ${extraBonusValue}`;
     const roll = new Roll(`1d20${rollStatMod}${rollMiscMod}${rollBonusMod}`, {
@@ -1063,7 +1063,6 @@ export class BNBActorSheet extends ActorSheet {
 
     // Display the result.
     return await this._displayMeleeRollResultToChat(dataset, { rollResult: rollResult });
-
   }
 
   async _rollCheckDice(dataset, html, checkItem, displayResultOverride) {
@@ -1077,7 +1076,7 @@ export class BNBActorSheet extends ActorSheet {
 
     // Prepare and roll the check.
     const badassMod = checkItem.usesBadassRank ? ' + @badassRank[badass rank]' : ''
-    const rollStatMod = ` + @statMod[acc ${actorData.attributes.badassRollsEnabled ? 'stat' : 'mod'}]`;
+    const rollStatMod = ` + @statMod[acc ${actorData.attributes.badass.rollsEnabled ? 'stat' : 'mod'}]`;
     const rollMiscMod = ` + @miscBonus[misc bonus]`;
     const rollBonusMod = (isNaN(extraBonusValue) || extraBonusValue == 0 ? '' : ` + @extraBonus[extra bonus]`);
     const rollDifficulty = ((difficultyValue != null && !isNaN(difficulty)) ?
@@ -1085,7 +1084,7 @@ export class BNBActorSheet extends ActorSheet {
       ``);
 
     const roll = new Roll(`1d20${badassMod}${rollStatMod}${rollMiscMod}${rollBonusMod}${rollDifficulty}`, {
-      badassRank: actorData.attributes.badassRank,
+      badassRank: actorData.attributes.badass.rank,
       statMod: checkItem.value,
       miscBonus: checkItem.bonus,
       extraBonus: extraBonusValue,

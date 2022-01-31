@@ -39,9 +39,11 @@
       "templates": ["base"],
       "gold": 0,
       "attributes": {
-        "badassRank": 1,
-        "badassTokens": 0,
-        "badassRollsEnabled": false,
+        "badass": {
+          "rank": 1,
+          "tokens": 0,
+          "rollsEnabled": false
+        },
         "level": {
           "value": 1
         },
