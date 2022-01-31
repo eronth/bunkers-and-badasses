@@ -11,7 +11,6 @@
     "systems/bunkers-and-badasses/templates/actor/parts/actor-bio.html",
     "systems/bunkers-and-badasses/templates/actor/parts/actor-features.html",
     "systems/bunkers-and-badasses/templates/actor/parts/actor-items.html",
-    "systems/bunkers-and-badasses/templates/actor/parts/actor-spells.html",
     "systems/bunkers-and-badasses/templates/actor/parts/actor-effects.html",
 
     "systems/bunkers-and-badasses/templates/actor/parts/actor-vault-hunter-action.html",
