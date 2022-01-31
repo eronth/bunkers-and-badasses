@@ -620,6 +620,13 @@ input[type="time"]:focus {
   border: 0;
   height: 12px;
 }
+.bnb .healths .health .regen label {
+  font-size: x-small;
+}
+.bnb .healths .health .regen input {
+  font-size: smaller;
+  width: 35px;
+}
 .loot-health {
   display: inline-flex;
   font-size: x-small;
@@ -636,6 +643,9 @@ input[type="time"]:focus {
   float: left;
   padding-left: 5px;
   padding-right: 5px;
+}
+.bnb .hover-pointer {
+  cursor: pointer;
 }
 .bnb .abilities .ability:nth-child(n+2) {
   margin-left: -1px;
