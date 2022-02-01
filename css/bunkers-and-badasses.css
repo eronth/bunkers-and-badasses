@@ -1203,9 +1203,14 @@ input[type="time"]:focus {
   justify-content: center;
 }
 
+.bnb .builder-common-container .badass-rank-container {
+  text-align: center;
+}
+
 .badass-container {
   align-content: center;
   margin-top: 3px;
+  margin-bottom: 3px;
   border: 1px solid #c9c7b8;
 }
 .badass-entity-container {

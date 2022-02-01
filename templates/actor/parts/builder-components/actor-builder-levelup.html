@@ -9,20 +9,23 @@
     <div class="flexrow">
       {{!-- XP Segment --}}
       <div>
-
         <label for="current-xp-amount" class="current-xp-label">XP</label>
         <input id="current-xp-amount" class="current-xp-input"
         placeholder="Current XP" name="data.attributes.xp.value"
         value="{{data.attributes.xp.value}}"
         onfocus="this.select()" type="number" data-dtype="Number" />
       </div>
-      <button class="btn btn-primary item-control btn-manage xp-gain"
-      data-attribute-name="XP" data-data-path="attributes.xp" >
-        <i class="fas fa-plus"></i> XP
-      </button>
-      <button class="btn btn-primary item-control btn-manage set-level">
-        Set Lvl
-      </button>
+      <div>
+        <button class="btn btn-primary item-control btn-manage xp-gain"
+        data-attribute-name="XP" data-data-path="attributes.xp" >
+          <i class="fas fa-plus"></i> XP
+        </button>
+      </div>
+      <div>
+        <button class="btn btn-primary item-control btn-manage set-level">
+          Set Lvl
+        </button>
+      </div>
     </div>
 
     <div class="flexrow">
@@ -41,20 +44,26 @@
         value="{{data.attributes.hps.flesh.regen}}"
         onfocus="this.select()" type="text" data-dtype="String" />
       </div>
-      <button class="btn btn-primary item-control btn-manage hp-gain"
-      data-attribute-name="HP" data-data-path="attributes.hps.flesh" >
-        <i class="fas fa-plus"></i> Max Health
-      </button>
+      <div>    
+        <button class="btn btn-primary item-control btn-manage hp-gain"
+        data-attribute-name="HP" data-data-path="attributes.hps.flesh" >
+          <i class="fas fa-plus"></i> Max Health
+        </button>
+      </div>
     </div>
       
   </div>
 
-  <div class="flexcol">
+  <div class="flexcol badass-rank-container">
     {{!-- Badass Rank --}}
-    <label for="badass-rank" class="badass-rank-label"><i class="fas fa-skull"></i> Badass Rank</label>
-    <input id="badass-rank" class="badass-rank-input"
-    placeholder="Badass Rank" name="data.attributes.badass.rank" 
-    value="{{data.attributes.badass.rank}}"
-    onfocus="this.select()" type="number" data-dtype="Number" />
+    <div>
+      <label for="badass-rank" class="badass-rank-label"><i class="fas fa-skull"></i> Badass Rank</label>
+    </div>
+    <div>  
+      <input id="badass-rank" class="badass-rank-input"
+      placeholder="Badass Rank" name="data.attributes.badass.rank" 
+      value="{{data.attributes.badass.rank}}"
+      onfocus="this.select()" type="number" data-dtype="Number" />
+    </div>
   </div>
 </div>
