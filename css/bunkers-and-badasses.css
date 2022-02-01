@@ -1397,6 +1397,16 @@ input[type="time"]:focus {
 }
 .bnb .action-skill-item {
   border: 1px solid #c9c7b8;
+
+}
+.bnb .action-skill .uses-container {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.bnb .action-skill .uses-container input {
+  width: 35px;
+  font-size: smaller;
 }
 
 .bnb .check-text {
