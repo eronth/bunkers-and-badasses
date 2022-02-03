@@ -39,14 +39,19 @@
         <div class="flexrow as-btn-inner-container action-skill">
           <div></div>
           <div class="flex-size-2">
-            <button class="btn btn-primary action-skill-button">
+            <button class="btn btn-primary action-skill-button action-skill-use">
               <label>{{data.class.actionSkill.name}}</label>
             </button>
           </div>
           <div class="flexcol uses-container cc2">
-            <input class="" value="{{data.class.actionSkill.uses.value}} / {{data.class.actionSkill.uses.max}}"
+            <div class="flexrow">
+              <input class="" name="data.class.actionSkill.uses.value" value="{{data.class.actionSkill.uses.value}}"
+              type="text" data-dtype="String" />
+              <label> / </label>
+              <input class="" name="data.class.actionSkill.uses.max" value="{{data.class.actionSkill.uses.max}}"
               type="text" data-dtype="String"
               disabled />
+            </div>
             <label class="check-num-label">uses</label>
           </div>
         </div>
@@ -67,7 +72,7 @@
         </div>
       </div>
     </div>
-    {{!-- Attack and Action Skill region --}}
+    {{!-- Attack region --}}
     <div class="flexcol">
       
       {{!-- Attack Region --}}

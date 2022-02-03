@@ -1410,8 +1410,11 @@ input[type="time"]:focus {
   text-align: center;
 }
 .bnb .action-skill .uses-container input {
-  width: 35px;
+  width: 20px;
   font-size: smaller;
+}
+.bnb .action-skill .uses-container label {
+  align-self: center;
 }
 
 .bnb .check-text {

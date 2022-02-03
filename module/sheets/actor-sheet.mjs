@@ -581,13 +581,30 @@ export class BNBActorSheet extends ActorSheet {
   }
 
   async _onActionSkillUse() {
-    
+    // Prep data
+    const actorData = this.actor.data.data;
+
+    // Prep chat values.
+    const flavorText = `${this.actor.name} uses ${actorData.class.actionSkill.name}.`;
+    const messageContent = actorData.class.actionSkill.description;
+    const messageData = {
+      user: game.user._id,
+      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+      flavor: flavorText,
+      type: CONST.CHAT_MESSAGE_TYPES.IC,
+      content: messageContent,
+      // whisper: game.users.entities.filter(u => u.isGM).map(u => u._id)
+      speaker: ChatMessage.getSpeaker(),
+    }
+
+    // Send the roll to chat!
+    return ChatMessage.create(messageData);
   }
 
   async _onTakeDamage() {
 
   }
-  
+
   async _onHealHealth() {
 
   }
