@@ -353,15 +353,15 @@
   </li>
   {{#each keyItems as |item id|}}
   {{log item}}
-  <!-- <li class="item item-element-group loot-rarity-fade-border flexrow" 
-      style="--rarityColor: {{item.data.rarity.colorValue}}"
-      data-item-id="{{item._id}}">
-    <div class="item-name rollable" data-roll-type="item">
-      <div class="item-image">
-        <a class="rollable" data-roll-type="item">
-          <img class="item-rarity-outline" 
-               style="--rarityColor: {{item.data.rarity.colorValue}}" 
-               src="{{item.img}}" title="{{item.data.class}} {{item.name}}" width="24" height="24"/></a>
+  <li class="item item-element-group loot-rarity-fade-border flexrow" 
+  style="--rarityColor: {{item.data.rarity.colorValue}}"
+  data-item-id="{{item._id}}">
+  <div class="item-name rollable" data-roll-type="item">
+    <div class="item-image">
+      <a class="rollable" data-roll-type="item">
+        <img class="item-rarity-outline" 
+        style="--rarityColor: {{item.data.rarity.colorValue}}" 
+        src="{{item.img}}" title="{{item.data.class}} {{item.name}}" width="24" height="24"/></a>
       </div>
       <div class="flexcol">
         <div class="bolded font-rarity" style="--rarityColor: {{item.data.rarity.colorValue}}">{{item.data.rarity.name}}</div>
@@ -371,15 +371,9 @@
     <div class="item-details">
       <div class="item-effect item-prop-left">
         <label class="item-effect">
-          <div>{{#if item.data.effect}}<b>Effect</b>:{{/if}} {{item.data.effect}}</div>
+          <div>{{#if item.data.effect}}<b>Description</b>:{{/if}} {{item.data.description}}</div>
         </label>
       </div>
-      <!- <div class="item-detail">
-        <label>{{item.data.quantity}}</label>
-      </div>
-      <div class="item-detail">
-        <label>{{item.data.cost}}g</label>
-      </div> ->
     </div>
     <div class="item-equip-control">
       <a class="checkbox" title="Equip Item?" data-target="item" data-item-target="data.equipped">
@@ -390,7 +384,6 @@
       <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
       <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
     </div>
-  </li> -->
+  </li>
   {{/each}}
 </ol>
-additional items

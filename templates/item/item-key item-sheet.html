@@ -1,0 +1,30 @@
+<form class="item-form-rarity {{cssClass}}" style="--rarityColor: {{data.rarity.colorValue}}" autocomplete="off">
+  <header class="sheet-header">
+    <img class="profile-img item-rarity-border" 
+          style="--rarityColor: {{data.rarity.colorValue}}" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
+    <div class="header-fields flexrow">
+      <div class="flex-size-3">
+        <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Relic Type"/></h1>
+      </div>
+      <div class="item-body centerize">
+        {{> "systems/bunkers-and-badasses/templates/item/parts/rarity-dropdown.html" }}
+      </div>
+    </div>
+  </header>
+  
+  <div class="flexcol item-sheet">
+    <div class="item-body-large-field flexcol">
+      
+      <div class="flexrow">
+        <label>Description</label>
+      </div>
+      <div class="flexrow">
+        <textarea class="key-item-textarea" name="data.description" 
+          placeholder="Give item details here."
+          type="text" rows="5">{{data.description}}</textarea>
+      </div>
+      
+    </div>
+    {{> "systems/bunkers-and-badasses/templates/item/parts/red-text.html" }}
+  </div>
+</form>

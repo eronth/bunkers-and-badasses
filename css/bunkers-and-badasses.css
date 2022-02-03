@@ -784,17 +784,28 @@ input[type="time"]:focus {
   margin-bottom: 4px;
 }
 
-.item-body {
-  justify-content: center;
-  align-items: center;
+.item-body,
+.item-sheet .item-body-large-field {
   margin-left: 2px;
   margin-right: 2px;
 }
-
+.item-body {
+  justify-content: center;
+  align-items: center;
+}
+.item-sheet .item-body-large-field {
+  margin-top: 4px;
+}
 .item-body label {
   justify-content: center;
   align-items: center;
   font-weight: bold
+}
+.item-sheet .item-body-large-field label {
+  font-weight: bold;
+}
+.item-sheet .item-body-large-field textarea {
+  border-color: rgb(122, 121, 113);
 }
 .flex-right {
   align-items: flex-end;

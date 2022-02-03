@@ -222,7 +222,6 @@ export class BNBActorSheet extends ActorSheet {
    */
   _prepareItems(context) {
     // Initialize containers.
-    const gear = [];
     const features = [];
     const skills = {
       1: [], 2: [], 3: [],
@@ -236,13 +235,14 @@ export class BNBActorSheet extends ActorSheet {
     const relics = [];
     const potions = [];
     const archetypeFeats = [];
+    const keyItems = [];
 
     // Iterate through items, allocating to containers
     for (let i of context.items) {
       i.img = i.img || DEFAULT_TOKEN;
       
-      if (i.type === 'item') {
-        gear.push(i); // Append to gear.
+      if (i.type === 'key item') {
+        keyItems.push(i); // Append to key item.
       } else if (i.type === 'feature') {
         features.push(i); // Append to features.
       } else if (i.type === 'skill') {
@@ -328,7 +328,7 @@ export class BNBActorSheet extends ActorSheet {
     }
 
     // Assign and return
-    context.gear = gear;
+    context.keyItems = keyItems;
     context.features = features;
     context.skills = skills;
     context.archetypeFeats = archetypeFeats;
