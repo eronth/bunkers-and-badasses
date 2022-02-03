@@ -72,35 +72,10 @@ export class BNBActorSheet extends ActorSheet {
   
   _prepareExperience(context) {
     // First, start with the book provided cutoffs.
-    const experiencePerSegmentCutoffs = {
-      1: 100, 2: 100, 3: 100,
-      4: 150, 5: 150,
-      6: 200, 7: 200, 8: 200,
-      9: 250, 10: 250,
-      11: 300, 12: 300, 13: 300,
-      14: 350, 15: 350,
-      16: 400, 17: 400, 18: 400,
-      19: 450, 20: 450,
-      21: 500, 22: 500, 23: 500,
-      24: 550, 25: 550,
-      26: 600, 27: 600, 28: 600,
-      29: 650, 30: 650
-    }
+    const experiencePerSegmentCutoffs = this._getExperiencePerSegmentCutoffsList();
     
     // Next, use the cutoffs to determine individual exp required to reach each next level.
-    let experienceReqs = {};
-    let varForNextLevel = 0;
-    let totalExpRequiredSoFar = 0;
-    const xpSegmentPercents = new Array(10).fill(0);
-
-    Object.entries(experiencePerSegmentCutoffs).forEach(entry => {
-      const [level, cutoff] = entry;
-      experienceReqs[level] = {toHitThisLevel: 0, toHitNextLevel: 0};
-      experienceReqs[level].toHitThisLevel = totalExpRequiredSoFar;
-      varForNextLevel = cutoff * 10;
-      experienceReqs[level].toHitNextLevel = varForNextLevel;
-      totalExpRequiredSoFar += varForNextLevel; // Increment this for the next loop.
-    });
+    const experienceReqs = this._generateExperienceRequirements();
     
     // Total up the experience gained for the vault hunter and set xp.total value.
     let totalXpGained = 0;
@@ -116,7 +91,7 @@ export class BNBActorSheet extends ActorSheet {
     Object.entries(experienceReqs).forEach(entry => {
       const [level, req] = entry;
       if (totalXpGained >= req.toHitThisLevel) {
-        let leftoverXP = totalXpGained - req.toHitThisLevel;
+        const leftoverXP = totalXpGained - req.toHitThisLevel;
         if (leftoverXP < req.toHitNextLevel || level == '30') {
           context.data.attributes.level = level;
           context.data.attributes.xp.level = level; // I fucked up and tracked the level in two places.
@@ -134,6 +109,7 @@ export class BNBActorSheet extends ActorSheet {
 
     // Calculate the percentage completion of each xp segment
     // for progress bar rendering via handlebars.
+    const xpSegmentPercents = new Array(10).fill(0);
     xpSegmentPercents.forEach((segment, index, xpSegmentPercents) => {
       if (context.data.attributes.xp.level == '30') {
         xpSegmentPercents[index] = 100;
@@ -143,7 +119,7 @@ export class BNBActorSheet extends ActorSheet {
         xpSegmentPercents[index] = 0;
       } else {
         // We should only be here when the segment is the currently active one.
-        let xpInThisSegment = context.xp.soFarInLevel - (context.xp.XpPerSegment * (index)); // not index+1 because we need to remove the xp from before that, not including it.
+        const xpInThisSegment = context.xp.soFarInLevel - (context.xp.XpPerSegment * (index)); // not index+1 because we need to remove the xp from before that, not including it.
         // Modify to % value.
         xpSegmentPercents[index] = 100 * xpInThisSegment / context.xp.XpPerSegment;
         context.xp.soFarInSegment = xpInThisSegment;
@@ -151,6 +127,40 @@ export class BNBActorSheet extends ActorSheet {
     });
 
     context.xp.xpSegmentPercents = xpSegmentPercents;
+  }
+
+  _getExperiencePerSegmentCutoffsList() {
+    return {
+      1: 100, 2: 100, 3: 100,
+      4: 150, 5: 150,
+      6: 200, 7: 200, 8: 200,
+      9: 250, 10: 250,
+      11: 300, 12: 300, 13: 300,
+      14: 350, 15: 350,
+      16: 400, 17: 400, 18: 400,
+      19: 450, 20: 450,
+      21: 500, 22: 500, 23: 500,
+      24: 550, 25: 550,
+      26: 600, 27: 600, 28: 600,
+      29: 650, 30: 650
+    };
+  }
+
+  _generateExperienceRequirements() {
+    const experiencePerSegmentCutoffs = this._getExperiencePerSegmentCutoffsList();
+
+    const experienceReqs = {};
+    let totalExpRequiredSoFar = 0;
+
+    Object.entries(experiencePerSegmentCutoffs).forEach(entry => {
+      const [level, cutoff] = entry;
+      experienceReqs[level] = { toHitThisLevel: 0, toHitNextLevel: 0 };
+      experienceReqs[level].toHitThisLevel = totalExpRequiredSoFar;
+      experienceReqs[level].toHitNextLevel = cutoff * 10;
+      totalExpRequiredSoFar += cutoff * 10; // Increment this for the next loop.
+    });
+
+    return {...experienceReqs};
   }
 
   _prepareHps(context) {
@@ -372,18 +382,18 @@ export class BNBActorSheet extends ActorSheet {
     
     // Handle action skill.
     html.find('.action-skill-edit').click(this._onActionSkillEdit.bind(this));
+    html.find('.action-skill-use').click(this._onActionSkillUse.bind(this));
+
+    // Handle combat health adjustments.
+    html.find('.take-damage').click(this._onTakeDamage.bind(this));
+    html.find('.heal-health').click(this._onHealHealth.bind(this));
 
     // Handle HP Gains.
     html.find('.hp-gain').click(this._onHpGain.bind(this));
-    // html.find('.hp-gain-create').click(this._onHpGaindCreate.bind(this));
-    // html.find('.hp-gain-edit').click(this._onHpGainEdit.bind(this));
-    // html.find('.hp-gain-delete').click(this._onHpGainDelete.bind(this));
 
     // Handle XP Gains.
     html.find('.xp-gain').click(this._onXpGain.bind(this));
-    // html.find('.xp-gain-create').click(this._onXpGainCreate.bind(this));
-    // html.find('.xp-gain-edit').click(this._onXpGainEdit.bind(this));
-    // html.find('.xp-gain-delete').click(this._onXpGainDelete.bind(this));
+    html.find('.set-level').click(this._onSetLevel.bind(this));
 
     // Handle checkbox changes.
     html.find(".checkbox").click(this._onCheckboxClick.bind(this));
@@ -570,6 +580,18 @@ export class BNBActorSheet extends ActorSheet {
     return await this.actor.update({"data.class.actionSkill": actionSkill});
   }
 
+  async _onActionSkillUse() {
+    
+  }
+
+  async _onTakeDamage() {
+
+  }
+  
+  async _onHealHealth() {
+
+  }
+
   async _onHpGain(event) {
     return await this._attributeGainDialog(event);
   }
@@ -615,7 +637,6 @@ export class BNBActorSheet extends ActorSheet {
     // Update actor data.
     const attribute = this._deepFind(actorData, dataset.dataPath);
     attribute.gains.push({ value: gainAmount, reason: "Add Clicked" });
-    //actorData.attributes.xp.total += gainAmount;
     attribute.value += gainAmount;
     if (attribute.max != null) {
       attribute.max += gainAmount; 
@@ -625,6 +646,56 @@ export class BNBActorSheet extends ActorSheet {
     await this.actor.update({[attributeLabel]: attribute});
 
     return 
+  }
+
+  async _onSetLevel(event) {
+    // Prep data to access.
+    const dataset = event.currentTarget.dataset;
+
+    const dialogHtmlContent = 
+    await renderTemplate("systems/bunkers-and-badasses/templates/dialog/set-level.html", { });
+
+    this.gain = new Dialog({
+      title: `Set Level`,
+      Id: `set-level-dialog`,
+      content: dialogHtmlContent,
+      buttons: {
+        "Cancel" : {
+          label : "Cancel",
+          callback : async (html) => {}
+        },
+        "Roll" : {
+          label : `Set Level`,
+          callback : async (html) => {
+            return await this._setLevel(dataset, html);
+          }
+        }
+      }
+    }).render(true);
+  }
+
+  async _setLevel(dataset, html) {
+    // Prep data to access.
+    const actorData = this.actor.data.data;
+
+    // First, start with the book provided cutoffs.
+    const experiencePerSegmentCutoffs = this._getExperiencePerSegmentCutoffsList();
+    
+    // Next, use the cutoffs to determine individual exp required to reach each next level.
+    const experienceReqs = this._generateExperienceRequirements();
+
+    // Pull data from html.
+    const newLevel = parseInt(html.find("#set-level-input")[0].value);
+    if (isNaN(newLevel)) { return; }
+
+    const newXp = { };
+    
+    // TODO rewrite most of the XP stuff to be less... messy.
+    newXp.value = experienceReqs[newLevel].toHitThisLevel;
+    newXp.total = experienceReqs[newLevel].toHitThisLevel;
+
+    this.actor.update({"data.attributes.xp.value": newXp.value});
+    this.actor.update({"data.attributes.xp.total": newXp.total});
   }
 
   _deepFind(obj, path) {

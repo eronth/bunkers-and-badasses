@@ -1833,11 +1833,12 @@ a#submit { z-index: 1; }
   font-weight: bold;
 }
 
-
+.set-level-dialog .set-level,
 .attribute-gain-dialog .attribute-gain {
   text-align: center;
   align-items: center;
 }
+.set-level-dialog .set-level label,
 .attribute-gain-dialog .attribute-gain label {
   font-weight: bold;
 }
