@@ -1199,11 +1199,11 @@ input[type="time"]:focus {
   padding-left: 2px;
   padding-bottom: 6px;
 }
-.bnb .hp-buttons {
+.bnb .damage-buttons {
   margin: 0 2px 3px;
-}
-.bnb .hps-buttons {
   margin-top: 2px;
+  width: 70%;
+  align-self: center;
 }
 .bnb .hp-set-btn,
 .bnb .hp-quick-regen-btn {

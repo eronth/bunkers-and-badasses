@@ -45,6 +45,7 @@ export class BNBActor extends Actor {
   _prepareVaultHunterData(actorData) {
     if (actorData.type !== 'vault hunter') return;
 
+    // Establish the default values for the actor's token.
     const initTokenData = {
       "token.bar2": { "attribute": "attributes.hps.shield" },
       "token.bar1": { "attribute": "attributes.hps.flesh" },
@@ -54,12 +55,10 @@ export class BNBActor extends Actor {
     }
     this.data.update(initTokenData);
 
-    // Make modifications to data here. For example:
+    // Pull basic data into easy-to-access variables.
     const data = actorData.data;
-
     const archetypeStats = data.archetypes.archetype1.baseStats;
     const classStats = data.class.baseStats;
-
 
     // Handle stat values and totals. Values are class+archetype. Totals are *everything*.
     Object.entries(data.stats).forEach(entry => {

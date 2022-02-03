@@ -386,7 +386,6 @@ export class BNBActorSheet extends ActorSheet {
 
     // Handle combat health adjustments.
     html.find('.take-damage').click(this._onTakeDamage.bind(this));
-    html.find('.heal-health').click(this._onHealHealth.bind(this));
 
     // Handle HP Gains.
     html.find('.hp-gain').click(this._onHpGain.bind(this));
@@ -602,11 +601,7 @@ export class BNBActorSheet extends ActorSheet {
   }
 
   async _onTakeDamage() {
-
-  }
-
-  async _onHealHealth() {
-
+    
   }
 
   async _onHpGain(event) {
