@@ -601,7 +601,70 @@ export class BNBActorSheet extends ActorSheet {
   }
 
   async _onTakeDamage() {
-    
+    const takeDamageDialogContent = await renderTemplate("systems/bunkers-and-badasses/templates/dialog/take-damage.html", {
+
+    });
+
+    this.takeDamageDialog = new Dialog({
+      title: `Take Damage`,
+      Id: `take-damage-dialog`,
+      content: takeDamageDialogContent,
+      buttons: {
+        "Cancel" : {
+          label : "Cancel",
+          callback : async (html) => {}
+        },
+        "Take Damage" : {
+          label : `Take Damage`,
+          callback : async (html) => {
+            return await this._takeDamage(html);
+          }
+        }
+      }
+    }).render(true);
+  }
+
+  async _takeDamage(html) {
+    // Prep data to access.
+    const actorData = this.actor.data.data;
+
+    // Pull data from html.
+    const damage = html.find("#damage-value")[0].value;
+    const damageType = html.find("#damage-type")[0].value;
+
+    if (isNaN(damage) || damage <= 0) { return; }
+
+    let shieldDamageTaken = 0;
+    let armorDamageTaken = 0;
+    let fleshDamageTaken = 0;
+
+    // Update the actor.
+    for (let damageToDeal = damage; damageToDeal > 0; damageToDeal--) {
+      if (actorData.attributes.hps.shield.value < shieldDamageTaken) {
+        shieldDamageTaken++;
+        // if shock and damage still over.
+      } else if (actorData.attributes.hps.armor.value < armorDamageTaken) {
+        armorDamageTaken++;
+        // if corrosive and damage still over.
+      } else if (actorData.attributes.hps.flesh.value < fleshDamageTaken) {
+        fleshDamageTaken++;
+        // if fire and damage still over.
+      }
+    }
+
+    if (shieldDamageTaken > actorData.attributes.hps.shield.value) {
+      shieldDamageTaken = actorData.attributes.hps.shield.value;
+    }
+    if (armorDamageTaken > actorData.attributes.hps.armor.value) {
+      armorDamageTaken = actorData.attributes.hps.armor.value;
+    }
+    if (fleshDamageTaken > actorData.attributes.hps.flesh.value) {
+      fleshDamageTaken = actorData.attributes.hps.flesh.value;
+    }
+
+    // Square brackets needed to get the right value.
+    const attributeLabel = `data.attributes.hps`;
+    return await this.actor.update({[attributeLabel]: actorData.attributes.hps});
   }
 
   async _onHpGain(event) {
@@ -611,7 +674,7 @@ export class BNBActorSheet extends ActorSheet {
     return await this._attributeGainDialog(event);
   }
   async _attributeGainDialog(event) {
-    // Prep data to access.
+    // Prep data.
     const actorData = this.actor.data.data;
     const dataset = event.currentTarget.dataset;
 
@@ -619,7 +682,7 @@ export class BNBActorSheet extends ActorSheet {
       attributeName: dataset.attributeName,
     });
 
-    this.gain = new Dialog({
+    this.gainDialog = new Dialog({
       title: `Gain ${dataset.attributeName}`,
       Id: `gain-attribute-${dataset.attributeName}-dialog`,
       content: dialogHtmlContent,
@@ -646,7 +709,7 @@ export class BNBActorSheet extends ActorSheet {
     const gainAmount = parseInt(html.find("#attribute-gain-input")[0].value);
     if (isNaN(gainAmount)) { return; }
 
-    // Update actor data.
+    // Update the actor.
     const attribute = this._deepFind(actorData, dataset.dataPath);
     attribute.gains.push({ value: gainAmount, reason: "Add Clicked" });
     attribute.value += gainAmount;
@@ -655,9 +718,7 @@ export class BNBActorSheet extends ActorSheet {
     }
     // Square brackets needed to get the right value.
     const attributeLabel = `data.${dataset.dataPath}`;
-    await this.actor.update({[attributeLabel]: attribute});
-
-    return 
+    return await this.actor.update({[attributeLabel]: attribute});
   }
 
   async _onSetLevel(event) {
@@ -1364,22 +1425,32 @@ export class BNBActorSheet extends ActorSheet {
       speaker: ChatMessage.getSpeaker(),
     }
 
+    game.socket.emit('show-bm-red-text', {
+      test: "a value",
+      tv2: "more test"
+    });
+
+    // utilitiesManager.runAsGm({
+    //   test: "test 1",
+    //   tv2: "test 2"
+    // });
+
     // Send the roll to chat!
-    const chatMessage = ChatMessage.create(messageData);
+    return await ChatMessage.create(messageData);
 
-    if (itemData.redTextEffectBM != null && itemData.redTextEffectBM != "") {
-      const testmap = game.users.entities.filter(u => u.isGM).map(u => u._id);
-      const secretMessageData = {
-        user: game.users.entities.filter(u => u.isGM).map(u => u._id)[0],
-        flavor: `Secret BM only notes for ${this.actor.name}'s ${item.name}`,
-        content: itemData.redTextEffectBM,
-        whisper: game.users.entities.filter(u => u.isGM).map(u => u._id),
-        speaker: ChatMessage.getSpeaker(),
-      };
-      ChatMessage.create(secretMessageData);
-    }
+    // if (itemData.redTextEffectBM != null && itemData.redTextEffectBM != "") {
+    //   const testmap = game.users.entities.filter(u => u.isGM).map(u => u._id);
+    //   const secretMessageData = {
+    //     user: game.users.entities.filter(u => u.isGM).map(u => u._id)[0],
+    //     flavor: `Secret BM only notes for ${this.actor.name}'s ${item.name}`,
+    //     content: itemData.redTextEffectBM,
+    //     whisper: game.users.entities.filter(u => u.isGM).map(u => u._id),
+    //     speaker: ChatMessage.getSpeaker(),
+    //   };
+    //   ChatMessage.create(secretMessageData);
+    // }
 
-    return chatMessage;
+    // return chatMessage;
   }
 
 }

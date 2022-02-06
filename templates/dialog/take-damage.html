@@ -1,0 +1,50 @@
+<div class="flexcol damage-dialog">
+  <div class="flexrow damage-dialog">
+
+    <div class="flexcol flex-size-2 flex-group-center modifiers">
+      <div class="flexrow damage-dialog-header">
+        <label>Damage Taken</label>
+      </div>
+      <div class="flexrow damage-dialog-body">
+        <label>Damage</label>
+        <input type="text" id="damage-taken" value="0" />
+      </div>
+      <div class="flexrow damage-dialog-elements">
+        <label>Type</label>
+        {{> "systems/bunkers-and-badasses/templates/dialog/parts/element-radio-button.html"
+          element="Kinetic"
+          checked=true
+        }}
+        {{> "systems/bunkers-and-badasses/templates/dialog/parts/element-radio-button.html"
+          element="Incendiary"
+        }}
+        {{> "systems/bunkers-and-badasses/templates/dialog/parts/element-radio-button.html"
+          element="Shock"
+        }}
+        {{> "systems/bunkers-and-badasses/templates/dialog/parts/element-radio-button.html"
+          element="Corrosive"
+        }}
+
+        {{> "systems/bunkers-and-badasses/templates/dialog/parts/element-radio-button.html"
+          element="Explosive"
+        }}
+        {{> "systems/bunkers-and-badasses/templates/dialog/parts/element-radio-button.html"
+          element="Cryo"
+        }}
+        {{> "systems/bunkers-and-badasses/templates/dialog/parts/element-radio-button.html"
+          element="Radiation"
+        }}
+
+        {{> "systems/bunkers-and-badasses/templates/dialog/parts/element-radio-button.html"
+        element="Incendiation"
+        }}
+        {{> "systems/bunkers-and-badasses/templates/dialog/parts/element-radio-button.html"
+          element="Corroshock"
+        }}
+        {{> "systems/bunkers-and-badasses/templates/dialog/parts/element-radio-button.html"
+          element="Crysplosive"
+        }}
+      </div>
+    </div>
+  </div>
+</div>

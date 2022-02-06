@@ -35,6 +35,8 @@
     "systems/bunkers-and-badasses/templates/item/parts/damage-entry.html",
     "systems/bunkers-and-badasses/templates/item/parts/element-entry-section.html",
     "systems/bunkers-and-badasses/templates/item/parts/gun-type-dropdown.html",
-    "systems/bunkers-and-badasses/templates/item/parts/red-text.html"
+    "systems/bunkers-and-badasses/templates/item/parts/red-text.html",
+
+    "systems/bunkers-and-badasses/templates/dialog/parts/element-radio-button.html"
   ]);
 };

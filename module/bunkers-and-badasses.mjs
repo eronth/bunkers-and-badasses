@@ -53,6 +53,23 @@ Hooks.once('init', async function() {
   Items.unregisterSheet("core", ItemSheet);
   Items.registerSheet("bunkers-and-badasses", BNBItemSheet, { makeDefault: true });
 
+  game.socket.on('show-bm-red-text', async data => {
+    var test = data;
+    const flavorText = `MESSAGE`;
+    const messageData = {
+      user: game.user._id,
+      //speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+      flavor: flavorText,
+      type: CONST.CHAT_MESSAGE_TYPES.IC,
+      content: "just some basic text",
+      // whisper: game.users.entities.filter(u => u.isGM).map(u => u._id)
+      //speaker: ChatMessage.getSpeaker(),
+    }
+
+    // Send the roll to chat!
+    return await ChatMessage.create(messageData);
+  });
+
   // Preload Handlebars templates.
   return preloadHandlebarsTemplates();
 });
@@ -127,6 +144,24 @@ Handlebars.registerHelper('shortName', function(str) {
 Hooks.once("ready", async function() {
   // Wait to register hotbar drop hook on ready so that modules could register earlier if they want to
   Hooks.on("hotbarDrop", (bar, data, slot) => createItemMacro(data, slot));
+  game.socket.on('show-bm-red-text', async data => {
+    var test = data;
+    
+    const flavorText = `MESSAGE`;
+    const messageData = {
+      user: game.user._id,
+      //speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+      flavor: flavorText,
+      type: CONST.CHAT_MESSAGE_TYPES.IC,
+      content: "just some basic text",
+      // whisper: game.users.entities.filter(u => u.isGM).map(u => u._id)
+      //speaker: ChatMessage.getSpeaker(),
+    }
+    
+    // Send the roll to chat!
+    return await ChatMessage.create(messageData);
+  });
+  
 });
 
 /* -------------------------------------------- */

@@ -1910,6 +1910,25 @@ a#submit { z-index: 1; }
   text-align: center
 }
 
+.damage-dialog .damage-dialog-header label {
+  font-weight: bold;
+  font-size: larger;
+}
+.damage-dialog .damage-dialog-elements label,
+.damage-dialog .damage-dialog-body label {
+  font-weight: bold;
+  align-self: center;
+}
+.damage-dialog .damage-dialog-body {
+  padding-top: 3px;
+}
+.damage-dialog .damage-dialog-elements {
+  padding: 2px;
+}
+.damage-dialog .element-radio-choice {
+  padding: 2px;
+}
+
 .chat-roll-result .hit-bonus {
   text-align: center;
   font-size: smaller;
