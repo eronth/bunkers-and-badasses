@@ -168,7 +168,7 @@
         {{#each equippedGrenades as |item id|}}
         <li class="item item-element-group loot-rarity-fade-border flexrow rollable" 
           style="--rarityColor: {{item.data.rarity.colorValue}}"
-          data-item-id="{{item._id}}" data-roll-type="grenade-throw">
+          data-item-id="{{item._id}}" data-roll-type="grenade-throw" data-check-type="Throw" data-roll-mod="acc" data-roll-type="throw">
           <div class="item-details attack-block item-attack-roll">
             <div class="item-controls">
               <a class="item-control item-attack" title="Roll Attack"><i class="fa fa-dice-d20"></i></a>
@@ -191,7 +191,7 @@
         {{/each}}
         {{!-- Throw Action --}}
         <li class="item item-element-group loot-rarity-fade-border flexrow rollable" style="--rarityColor: darkred"
-          data-roll-type="item-throw">
+          data-roll-type="item-throw" data-check-type="Throw" data-roll-mod="acc" data-roll-type="throw">
           <div class="item-details attack-block item-attack-roll">
             <div class="item-controls">
               <a class="item-control item-attack" title="Roll Attack"><i class="fa fa-dice-d20"></i></a>
