@@ -25,10 +25,17 @@
         <label class="math-sign">+</label>
         {{/if}}
         <div class="flexcol">
-          <input id="misc" class="" value="{{attack.bonus}}"
+          <input id="misc" class="" value="{{attack.misc}}"
           type="number" data-dtype="Number"
           disabled />
           <label for="misc">misc bonus</label>
+        </div>
+        <label class="math-sign">+</label>
+        <div class="flexcol">
+          <input id="misc" class="" value="{{attack.effects}}"
+          type="number" data-dtype="Number"
+          disabled />
+          <label for="misc">effects</label>
         </div>
         <label class="math-sign">+</label>
         <div class="flexcol">
