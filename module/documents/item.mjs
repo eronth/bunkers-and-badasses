@@ -120,21 +120,14 @@ export class BNBItem extends Item {
         };
       }
     });
-    // Object.entries(itemData.elements).forEach(([key, elementData]) => {
-    //   if(elementData.enabled) {
-    //     let roll = new Roll(`${elementData.damage}`);//[${elementData.label}]`);
-    //     rollResults[elementData.label] = roll.roll();
-    //   }
-    // });
 
     const templateLocation = 'systems/bunkers-and-badasses/templates/chat/damage-results.html';
     const chatHtmlContent = await renderTemplate(templateLocation, {
       results: rollResults
     });
 
-
     // Prep chat values.
-    const flavorText = `${item.name} goes <i>"Boom!"</i>`;
+    const flavorText = `<b>${item.name}</b> goes <i>"${dataSet.flavor}"</i>`;
     const messageData = {
       user: game.user._id,
       speaker: ChatMessage.getSpeaker({ actor: actor }),
