@@ -1124,7 +1124,7 @@ export class BNBActorSheet extends ActorSheet {
     const dialogHtmlContent = await renderTemplate(templateLocation, {
       type: "Gun",
       attack: attackValues,
-      showGearBonus: true,
+      showGearMod: true,
       gearAcc: itemData.statMods.acc,
       showFavored: true,
       favored: isFavoredWeaponType
@@ -1282,7 +1282,7 @@ export class BNBActorSheet extends ActorSheet {
     const rollGearMod = ` + @gearAcc[gear acc]`;
     const rollMiscMod = ` + @miscBonus[misc bonus]`;
     const rollBonusMod = isNaN(extraBonusValue) ? '' : ` + ${extraBonusValue}`;
-    const roll = new Roll(`1d20${rollStatMod}${rollMiscMod}${rollBonusMod}`, {
+    const roll = new Roll(`1d20${rollStatMod}${rollGearMod}${rollMiscMod}${rollBonusMod}`, {
       statMod: actorData.stats.acc.modToUse,
       gearAcc: itemStats.acc,
       misc: actorData.stats.acc.bonus,
