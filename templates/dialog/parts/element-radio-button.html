@@ -1,6 +1,8 @@
-<div class="element-radio-choice flexrow">
-  <input type="radio" id="{{element}}-radio" name="{{selection}}-element" value="{{element}}" {{#if checked}}checked{{/if}}>
-  <label for="{{element}}-radio">
+<div for="{{element}}-radio" class="element-radio-choice flexrow">
+  <input type="radio" id="{{element}}-radio" name="{{selection}}-element" 
+  value="{{element}}" alt="{{element}}" data-element="{{element}}"
+  {{#if checked}}checked{{/if}} >
+  <label for="{{element}}-radio" alt="{{element}}">
     <img class="element-toggle element-selector-icon" alt="{{element}}" 
     src="systems/bunkers-and-badasses/assets/elements/{{element}}.png" />
   </label>

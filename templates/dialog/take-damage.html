@@ -7,42 +7,53 @@
       </div>
       <div class="flexrow damage-dialog-body">
         <label>Damage</label>
-        <input type="text" id="damage-taken" value="0" />
+        <input type="number" id="damage-value" value="0" 
+        onfocus="this.select()" />
       </div>
       <div class="flexrow damage-dialog-elements">
         <label>Type</label>
         {{> "systems/bunkers-and-badasses/templates/dialog/parts/element-radio-button.html"
           element="Kinetic"
           checked=true
+          selection="damage-type"
         }}
         {{> "systems/bunkers-and-badasses/templates/dialog/parts/element-radio-button.html"
           element="Incendiary"
+          selection="damage-type"
         }}
         {{> "systems/bunkers-and-badasses/templates/dialog/parts/element-radio-button.html"
           element="Shock"
+          selection="damage-type"
         }}
         {{> "systems/bunkers-and-badasses/templates/dialog/parts/element-radio-button.html"
           element="Corrosive"
+          selection="damage-type"
         }}
 
         {{> "systems/bunkers-and-badasses/templates/dialog/parts/element-radio-button.html"
           element="Explosive"
+          selection="damage-type"
         }}
         {{> "systems/bunkers-and-badasses/templates/dialog/parts/element-radio-button.html"
           element="Cryo"
+          selection="damage-type"
         }}
         {{> "systems/bunkers-and-badasses/templates/dialog/parts/element-radio-button.html"
           element="Radiation"
+          selection="damage-type"
         }}
 
         {{> "systems/bunkers-and-badasses/templates/dialog/parts/element-radio-button.html"
-        element="Incendiation"
+          element="Incendiation"
+          selection="damage-type"
         }}
         {{> "systems/bunkers-and-badasses/templates/dialog/parts/element-radio-button.html"
           element="Corroshock"
+          selection="damage-type"
         }}
         {{> "systems/bunkers-and-badasses/templates/dialog/parts/element-radio-button.html"
           element="Crysplosive"
+          selection="damage-type"
         }}
       </div>
     </div>

@@ -205,7 +205,8 @@ export class BNBActor extends Actor {
       total: rollResult.total
     };
 
-    const chatHtmlContent = await renderTemplate("systems/bunkers-and-badasses/templates/chat/damage-results.html", {
+    const templateLocation = 'systems/bunkers-and-badasses/templates/chat/damage-results.html';
+    const chatHtmlContent = await renderTemplate(templateLocation, {
       results: rollResults
     });
 
