@@ -195,7 +195,7 @@ export class BNBActor extends Actor {
       actor: actor,
       dmgMod: actorData.stats.dmg.modToUse,
     });
-    const rollResult = roll.roll();    
+    const rollResult = await roll.roll();    
     
     // Convert roll to a results object for sheet display.
     const rollResults = {};

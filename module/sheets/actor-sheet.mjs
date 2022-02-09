@@ -872,7 +872,7 @@ export class BNBActorSheet extends ActorSheet {
       if (dataset.rollType == 'item') {
         const itemId = element.closest('.item').dataset.itemId;
         const item = this.actor.items.get(itemId);
-        if (item) return item.roll();
+        if (item) return await item.roll();
       } else if (dataset.rollType == 'melee-dice-roll') {
         return this._meleeAndHPDiceRoll(dataset);
       } else if (dataset.rollType == 'check') {
@@ -965,7 +965,7 @@ export class BNBActorSheet extends ActorSheet {
     const roll = new Roll(`${actorData.class.meleeDice}[Melee Dice] + @mstMod[MST mod]`, {
       mstMod: actorData.stats.mst.mod,
     });
-    const rollResult = roll.roll();
+    const rollResult = await roll.roll();
 
     const flavorText = `${this.actor.name} rolls their Melee Dice.`;
     return rollResult.toMessage({
@@ -1003,7 +1003,7 @@ export class BNBActorSheet extends ActorSheet {
     const roll = new Roll(`1d20`, {
       badassRank: actorData.attributes.badass.rank // TODO not currently using in the roll
     });
-    const rollResult = roll.roll();
+    const rollResult = await roll.roll();
 
     let badassTotal = rollResult.total;
     if (badassTotal == 2 || badassTotal == 3) {
@@ -1049,7 +1049,7 @@ export class BNBActorSheet extends ActorSheet {
     
     // Prepare and roll the check.
     const roll = new Roll(`${hp.regen}`, {});
-    const rollResult = roll.roll();
+    const rollResult = await roll.roll();
 
     // Prep chat values.
     const flavorText = `${this.actor.name} ${hpRegainAction[dataset.healthType.toLowerCase()]} ${rollResult.total} <b>${hp.label}</b>.`;
@@ -1241,7 +1241,7 @@ export class BNBActorSheet extends ActorSheet {
       bonus: bonusValue,
       targetSpd: targetSpeedValue
     });
-    const rollResult = roll.roll();
+    const rollResult = await roll.roll();
 
     // Display the result.
     return await this._displayNpcAttackRollResultToChat(dataset, { rollResult: rollResult });
@@ -1263,7 +1263,7 @@ export class BNBActorSheet extends ActorSheet {
       misc: actorData.checks.melee.bonus,
       extra: extraBonusValue
     });
-    const rollResult = roll.roll();
+    const rollResult = await roll.roll();
 
     // Display the result.
     return await this._displayMeleeRollResultToChat(dataset, { rollResult: rollResult });
@@ -1289,7 +1289,7 @@ export class BNBActorSheet extends ActorSheet {
       extra: extraBonusValue,
       showGearMod: true
     });
-    const rollResult = roll.roll();
+    const rollResult = await roll.roll();
 
     // Display the result.
     return await this._displayGunRollResultToChat(dataset, { rollResult: rollResult });

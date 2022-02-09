@@ -53,7 +53,7 @@ export class BNBItem extends Item {
       const rollData = this.getRollData();
 
       // Invoke the roll and submit it to chat.
-      const roll = new Roll(rollData.item.formula, rollData).roll();
+      const roll = await new Roll(rollData.item.formula, rollData).roll();
       roll.toMessage({
         speaker: speaker,
         rollMode: rollMode,
@@ -108,7 +108,7 @@ export class BNBItem extends Item {
     const roll = new Roll(rollFormula, {
       actor: actor,
     });
-    const rollResult = roll.roll();
+    const rollResult = await roll.roll();
     
     // Convert roll to a results object for sheet display.
     const rollResults = {};

@@ -57,7 +57,7 @@ Hooks.once('init', async function() {
     const item = data.item;
     const itemData = item.data.data;
     
-    const user = game.users.get(game.user._id);
+    const user = game.users.get(game.user.id);
     if (user.isGM) 
     {
       const secretMessageData = {
@@ -185,7 +185,7 @@ async function createItemMacro(data, slot) {
  * @param {string} itemName
  * @return {Promise}
  */
-function rollItemMacro(itemName) {
+async function rollItemMacro(itemName) {
   const speaker = ChatMessage.getSpeaker();
   let actor;
   if (speaker.token) actor = game.actors.tokens[speaker.token];
@@ -194,7 +194,7 @@ function rollItemMacro(itemName) {
   if (!item) return ui.notifications.warn(`Your controlled Actor does not have an item named ${itemName}`);
 
   // Trigger the item roll
-  return item.roll();
+  return await item.roll();
 }
 
 
