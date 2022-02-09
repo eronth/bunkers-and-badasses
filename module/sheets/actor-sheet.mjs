@@ -1301,7 +1301,12 @@ export class BNBActorSheet extends ActorSheet {
 
     // Pull data from html.
     const extraBonusValue = parseInt(html.find("#extra")[0].value);
-    const difficultyValue = parseInt(html.find("#difficulty")[0].value);            
+    const difficultyValue = parseInt(html.find("#difficulty")[0].value);
+    const checkTypeElement = html.find("#check-type")
+    let checkType;
+    if (checkTypeElement) {
+      checkType = checkTypeElement[0].value;
+    } 
     const difficultyEntered = !isNaN(difficultyValue);
 
     // Prepare and roll the check.
@@ -1319,17 +1324,21 @@ export class BNBActorSheet extends ActorSheet {
       miscBonus: checkItem.bonus,
       extraBonus: extraBonusValue,
     });
-    const rollResult = roll.roll();
+    const rollResult = await roll.roll();
 
     // Display the result.
     if (displayResultOverride && typeof displayResultOverride === 'function') {
       return await displayResultOverride.call(this, dataset, {
+        checkStat: "acc",
+        checkType: checkType,
         rollResult: rollResult,
         difficultyValue: difficultyValue,
         difficultyEntered: difficultyEntered
       });
     } else {
-      return await this._displayCheckRollResultToChat(dataset, { 
+      return await this._displayCheckRollResultToChat(dataset, {
+        checkStat: checkItem.stat,
+        checkSubType: checkType,
         rollResult: rollResult, 
         difficultyValue: difficultyValue, 
         difficultyEntered: difficultyEntered 
@@ -1511,6 +1520,9 @@ export class BNBActorSheet extends ActorSheet {
 
   async _displayCheckRollResultToChat(dataset, rollObjs) {
     // Pull values from objs.
+    const checkSuperType = dataset.checkType;
+    const checkSubType = rollObjs.checkSubType;
+    const checkStat = rollObjs.checkStat;
     const rollResult = rollObjs.rollResult;
     const difficultyValue = rollObjs.difficultyValue;
     const difficultyEntered = rollObjs.difficultyEntered;
@@ -1526,7 +1538,8 @@ export class BNBActorSheet extends ActorSheet {
     });
 
     // Prep chat values.
-    const flavorText = `${this.actor.name} attempts to throw an item.`;
+    const checkSubTypeText = (checkSubType != null && checkSubType != "") ? ` (${checkSubType})` : '';
+    const flavorText = (dataset.rollType === 'throw') ? `${this.actor.name} attempts to throw an item.` : `${this.actor.name} attempts a ${checkSuperType}${checkSubTypeText} check.`;
     const messageData = {
       user: game.user.id,
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
@@ -1600,7 +1613,7 @@ export class BNBActorSheet extends ActorSheet {
           user: user,
           flavor: `Secret BM only notes for ${this.actor.name}'s <b>${item.name}</b>`,
           content: itemData.redTextEffectBM,
-          whisper: game.users.entities.filter(u => u.isGM).map(u => u.id),
+          whisper: game.users.filter(u => u.isGM).map(u => u.id),
           speaker: ChatMessage.getSpeaker(),
         };
         return ChatMessage.create(secretMessageData);

@@ -58,13 +58,13 @@ Hooks.once('init', async function() {
     const itemData = item.data.data;
     
     const user = game.users.get(game.user.id);
-    if (user.isGM) 
-    {
+      if (user.isGM) 
+      {
       const secretMessageData = {
         user: user,
         flavor: `Secret BM only notes for ${this.actor.name}'s <b>${item.name}</b>`,
         content: itemData.redTextEffectBM,
-        whisper: game.users.entities.filter(u => u.isGM).map(u => u.id),
+        whisper: game.users.filter(u => u.isGM).map(u => u.id),
         speaker: ChatMessage.getSpeaker(),
       };
       return ChatMessage.create(secretMessageData);
