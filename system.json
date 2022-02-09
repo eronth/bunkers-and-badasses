@@ -32,7 +32,7 @@
     }
   ],
   "socket": true,
-  "initiative": "1d20 + @attributes.badass.rank + @checks.initiative.value + @checks.initiative.bonus",
+  "initiative": "1d20 + @attributes.badass.rank + @checks.initiative.value + @checks.initiative.misc + @bonus.checks.initiative",
   "gridDistance": 1,
   "gridUnits": "sq",
   "primaryTokenAttribute": "attributes.hps.flesh",

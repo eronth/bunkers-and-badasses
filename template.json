@@ -64,74 +64,74 @@
       "stats": {
         "acc": {
           "value": 0,
-          "bonus": 0
+          "misc": 0
         },
         "dmg": {
           "value": 0,
-          "bonus": 0
+          "misc": 0
         },
         "spd": {
           "value": 0,
-          "bonus": 0
+          "misc": 0
         },
         "mst": {
           "value": 0,
-          "bonus": 0
+          "misc": 0
         }
       },
       "checks": {
         "interact": {
           "stat": "acc",
           "value": 0,
-          "bonus": 0
+          "misc": 0
         },
         "talk": {
           "stat": "spd",
           "value": 0,
-          "bonus": 0
+          "misc": 0
         },
         "insight": {
           "stat": "acc",
           "value": 0,
-          "bonus": 0
+          "misc": 0
         },
         "sneak": {
           "stat": "mst",
           "value": 0,
-          "bonus": 0
+          "misc": 0
         },
         "search": {
           "stat": "mst",
           "value": 0,
-          "bonus": 0
+          "misc": 0
         },
         "traverse": {
           "stat": "spd",
           "value": 0,
-          "bonus": 0
+          "misc": 0
         },
         "initiative": {
           "stat": "spd",
           "usesBadassRank": true,
           "value": 0,
-          "bonus": 0
+          "misc": 0
         },
         "movement": {
           "stat": "spd",
           "nonRolled": true,
           "base": 3,
           "value": 0,
-          "bonus": 0
+          "misc": 0
         },
         "melee": {
           "stat": "acc",
           "value": 0,
-          "bonus": 0
+          "misc": 0
         },
         "shooting": {
           "stat": "acc",
           "value": 0,
-          "bonus": 0
+          "misc": 0
         }
       },
       "archetypes": {
@@ -189,6 +189,58 @@
         "background": "",
         "traits": {},
         "appearance": ""
+      },
+      "bonus": {
+        "stats": {
+          "acc": {
+            "value": 0,
+            "mod": 0
+          },
+          "dmg": {
+            "value": 0,
+            "mod": 0
+          },
+          "spd": {
+            "value": 0,
+            "mod": 0
+          },
+          "mst": {
+            "value": 0,
+            "mod": 0
+          }
+        },
+        "checks": {
+          "interact": 0,
+          "talk": 0,
+          "insight": 0,
+          "sneak": 0,
+          "search": 0,
+          "traverse": 0,
+          "initiative": 0,
+          "movement": 0,
+          "throw": 0
+        },
+        "healths": {
+          "flesh": {
+            "max": 0
+          },
+          "shield": {
+            "max": 0
+          },
+          "armor": {
+            "max": 0
+          }
+        },
+        "combat": {
+          "melee": {
+            "acc": 0,
+            "dmg": 0
+          },
+          "shooting": {
+            "acc": 0,
+            "dmg": 0
+          }
+        }
       },
       "notes": ""
     },
