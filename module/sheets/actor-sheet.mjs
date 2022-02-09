@@ -1458,11 +1458,11 @@ export class BNBActorSheet extends ActorSheet {
     // Determine the hits and crits counts.
     let hitsAndCrits = {};
     if (rollResult.total >= 16) {
-      hitsAndCrits = itemData.accuracy.high;
+      hitsAndCrits = {...itemData.accuracy.high};
     } else if (rollResult.total >= 8) {
-      hitsAndCrits = itemData.accuracy.mid;
+      hitsAndCrits = {...itemData.accuracy.mid};
     } else if (rollResult.total >= 2) {
-      hitsAndCrits = itemData.accuracy.low;
+      hitsAndCrits = {...itemData.accuracy.low};
     } else {
       hitsAndCrits = { hits: 0, crits: 0 };
     }
@@ -1501,10 +1501,12 @@ export class BNBActorSheet extends ActorSheet {
       speaker: ChatMessage.getSpeaker(),
     }
 
+    // Send the roll to chat!
+    await ChatMessage.create(messageData);
+    
     this._handleRedText(item);
 
-    // Send the roll to chat!
-    return await ChatMessage.create(messageData);
+    return 
   }
 
   async _displayCheckRollResultToChat(dataset, rollObjs) {
@@ -1577,11 +1579,13 @@ export class BNBActorSheet extends ActorSheet {
       // whisper: game.users.entities.filter(u => u.isGM).map(u => u._id)
       speaker: ChatMessage.getSpeaker(),
     }
+    
+    // Send the roll to chat!
+    await ChatMessage.create(messageData);
 
     this._handleRedText(item);
 
-    // Send the roll to chat!
-    return await ChatMessage.create(messageData);
+    return 
   }
 
   // Special red text for items.
@@ -1604,7 +1608,7 @@ export class BNBActorSheet extends ActorSheet {
       else
       {
         game.socket.emit('show-bm-red-text', {
-          itemData: itemData
+          item: item
         });
       }
     }

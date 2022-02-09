@@ -54,6 +54,9 @@ Hooks.once('init', async function() {
   Items.registerSheet("bunkers-and-badasses", BNBItemSheet, { makeDefault: true });
 
   game.socket.on('show-bm-red-text', async data => {
+    const item = data.item;
+    const itemData = item.data.data;
+    
     const user = game.users.get(game.user._id);
     if (user.isGM) 
     {

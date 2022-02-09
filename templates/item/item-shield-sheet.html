@@ -35,6 +35,7 @@
       <div class="shield-stats-container shield-stats-container-right flexrow flex-size-7">
         {{!-- Armor? --}}
         <div class="item-body item-body-num item-body-num-50 item-tag-group flexcol flex-right">
+          {{#if usePlayerArmor}}
           <a id="enable-armor-{{item.id}}"
             class="checkbox armor-toggle bh" 
             title="Toggle Armor" data-target="item" data-item-target="data.isArmor"
@@ -46,6 +47,7 @@
             {{/if}}
             <label class="pointer-cursor"> is armor?</label>
           </a>
+          {{/if}}
         </div>
         {{!-- Capacity --}}
         <div class="item-body item-body-num flexrow">

@@ -42,6 +42,8 @@ export class BNBItemSheet extends ItemSheet {
       context.rollData = actor.getRollData();
     }
 
+    context.usePlayerArmor = game.settings.get('bunkers-and-badasses', 'usePlayerArmor');
+
     // Add the actor's data to context.data for easier access, as well as flags.
     context.data = itemData.data;
     context.flags = itemData.flags;
