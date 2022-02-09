@@ -21,6 +21,9 @@ data-actor-id="{{actorId}}" >
   {{#if failure}}
   <div class="failure-text">Failure!</div>
   {{/if}}
+  {{#if redText}}
+  <div class="red-text">{{redText}}</div>
+  {{/if}}
   {{#if showDamageButton}}
   <div class="chat-damage-buttons">
     <button data-action="damage"

@@ -1501,15 +1501,7 @@ export class BNBActorSheet extends ActorSheet {
       speaker: ChatMessage.getSpeaker(),
     }
 
-    game.socket.emit('show-bm-red-text', {
-      test: "a value",
-      tv2: "more test"
-    });
-
-    // utilitiesManager.runAsGm({
-    //   test: "test 1",
-    //   tv2: "test 2"
-    // });
+    this._handleRedText(item);
 
     // Send the roll to chat!
     return await ChatMessage.create(messageData);
@@ -1586,32 +1578,36 @@ export class BNBActorSheet extends ActorSheet {
       speaker: ChatMessage.getSpeaker(),
     }
 
-    game.socket.emit('show-bm-red-text', {
-      test: "a value",
-      tv2: "more test"
-    });
-
-    // utilitiesManager.runAsGm({
-    //   test: "test 1",
-    //   tv2: "test 2"
-    // });
+    this._handleRedText(item);
 
     // Send the roll to chat!
     return await ChatMessage.create(messageData);
+  }
 
-    // if (itemData.redTextEffectBM != null && itemData.redTextEffectBM != "") {
-    //   const testmap = game.users.entities.filter(u => u.isGM).map(u => u._id);
-    //   const secretMessageData = {
-    //     user: game.users.entities.filter(u => u.isGM).map(u => u._id)[0],
-    //     flavor: `Secret BM only notes for ${this.actor.name}'s ${item.name}`,
-    //     content: itemData.redTextEffectBM,
-    //     whisper: game.users.entities.filter(u => u.isGM).map(u => u._id),
-    //     speaker: ChatMessage.getSpeaker(),
-    //   };
-    //   ChatMessage.create(secretMessageData);
-    // }
-
-    // return chatMessage;
+  // Special red text for items.
+  _handleRedText(item) {
+    const itemData = item.data.data;
+    if (itemData.redTextEffectBM != null && itemData.redTextEffectBM != '')
+    {
+      const user = game.users.get(game.user._id);
+      if (user.isGM) 
+      {
+        const secretMessageData = {
+          user: user,
+          flavor: `Secret BM only notes for ${this.actor.name}'s <b>${item.name}</b>`,
+          content: itemData.redTextEffectBM,
+          whisper: game.users.entities.filter(u => u.isGM).map(u => u._id),
+          speaker: ChatMessage.getSpeaker(),
+        };
+        return ChatMessage.create(secretMessageData);
+      }
+      else
+      {
+        game.socket.emit('show-bm-red-text', {
+          itemData: itemData
+        });
+      }
+    }
   }
 
 }

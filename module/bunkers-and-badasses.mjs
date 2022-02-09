@@ -54,20 +54,18 @@ Hooks.once('init', async function() {
   Items.registerSheet("bunkers-and-badasses", BNBItemSheet, { makeDefault: true });
 
   game.socket.on('show-bm-red-text', async data => {
-    var test = data;
-    const flavorText = `MESSAGE`;
-    const messageData = {
-      user: game.user._id,
-      //speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-      flavor: flavorText,
-      type: CONST.CHAT_MESSAGE_TYPES.IC,
-      content: "just some basic text",
-      // whisper: game.users.entities.filter(u => u.isGM).map(u => u._id)
-      //speaker: ChatMessage.getSpeaker(),
+    const user = game.users.get(game.user._id);
+    if (user.isGM) 
+    {
+      const secretMessageData = {
+        user: user,
+        flavor: `Secret BM only notes for ${this.actor.name}'s <b>${item.name}</b>`,
+        content: itemData.redTextEffectBM,
+        whisper: game.users.entities.filter(u => u.isGM).map(u => u._id),
+        speaker: ChatMessage.getSpeaker(),
+      };
+      return ChatMessage.create(secretMessageData);
     }
-
-    // Send the roll to chat!
-    return await ChatMessage.create(messageData);
   });
 
   // Preload Handlebars templates.
@@ -143,25 +141,7 @@ Handlebars.registerHelper('shortName', function(str) {
 
 Hooks.once("ready", async function() {
   // Wait to register hotbar drop hook on ready so that modules could register earlier if they want to
-  Hooks.on("hotbarDrop", (bar, data, slot) => createItemMacro(data, slot));
-  game.socket.on('show-bm-red-text', async data => {
-    var test = data;
-    
-    const flavorText = `MESSAGE`;
-    const messageData = {
-      user: game.user._id,
-      //speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-      flavor: flavorText,
-      type: CONST.CHAT_MESSAGE_TYPES.IC,
-      content: "just some basic text",
-      // whisper: game.users.entities.filter(u => u.isGM).map(u => u._id)
-      //speaker: ChatMessage.getSpeaker(),
-    }
-    
-    // Send the roll to chat!
-    return await ChatMessage.create(messageData);
-  });
-  
+  Hooks.on("hotbarDrop", (bar, data, slot) => createItemMacro(data, slot));  
 });
 
 /* -------------------------------------------- */
