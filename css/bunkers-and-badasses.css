@@ -1961,6 +1961,27 @@ a#submit { z-index: 1; }
   font-size: larger;
   text-align: center;
 }
+.chat-roll-result .gun-crithits {
+  text-align: center;
+  font-size: smaller;
+  padding-bottom: 2px;
+}
+.chat-roll-result .gun-crithits .container {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+.chat-roll-result .gun-crithits .container img {
+  border: 0;
+}
+.chat-roll-result .gun-crithits .container .hits-number,
+.chat-roll-result .gun-crithits .container .crits-number {
+  font-size: x-large;
+  position: absolute;
+  top: 47%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 
 .damage-results-container {
   text-align: center

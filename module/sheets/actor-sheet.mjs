@@ -1459,7 +1459,7 @@ export class BNBActorSheet extends ActorSheet {
     if (rollResult.total >= 16) {
       hitsAndCrits = itemData.accuracy.high;
     } else if (rollResult.total >= 8) {
-      hitsAndCrits = itemData.accuracy.medium;
+      hitsAndCrits = itemData.accuracy.mid;
     } else if (rollResult.total >= 2) {
       hitsAndCrits = itemData.accuracy.low;
     } else {

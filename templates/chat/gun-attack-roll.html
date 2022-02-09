@@ -5,17 +5,17 @@ data-actor-id="{{actorId}}" >
   {{#if success}}
   <div class="success-text">{{#if critHit}}Crit {{/if}}Hit!</div>
   <div class="hit-bonus">{{bonusCritsText}}</div>
-  <div class="flexrow">
-    <label>
-      {{hits}}
+  <div class="flexrow gun-crithits">
+    <div class="container">
       <img id="hits" alt="Hits" class="critshits-icon" 
       src="systems/bunkers-and-badasses/assets/weapons/hits.png" />
-    </label>
-    <label>
-      {{crits}}
+      <div class="hits-number">{{hits}}</div>
+    </div>
+    <div class="container">
       <img id="crits" alt="Crits" class="critshits-icon" 
       src="systems/bunkers-and-badasses/assets/weapons/crits.png" />
-    </label>
+      <div class="crits-number">{{crits}}</div>
+    </div>
   </div>
   {{/if}}
   {{#if failure}}
