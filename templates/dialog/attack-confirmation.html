@@ -6,13 +6,24 @@
         <label>{{type}} Attack Roll Bonuses</label>
       </div>
       <div class="flexrow attack-dialog-body">
+        {{^if showFavored}}
         <div class="flexcol">
           <input id="mod" class="" value="{{attack.value}}"
           type="number" data-dtype="Number"
           disabled />
-          <label for="mod">{{attack.stat}} mod</label>
+          <label for="mod">{{attack.stat}} {{#if badassRollsEnabled}}stat{{else}}mod{{/if}}</label>
         </div>
         <label class="math-sign">+</label>
+        {{/if}}
+        {{#if showGearMod}}
+        <div class="flexcol">
+          <input id="misc" class="" value="{{gearAcc}}"
+          type="number" data-dtype="Number"
+          disabled />
+          <label for="misc">gear bonus</label>
+        </div>
+        <label class="math-sign">+</label>
+        {{/if}}
         <div class="flexcol">
           <input id="misc" class="" value="{{attack.bonus}}"
           type="number" data-dtype="Number"
@@ -28,25 +39,16 @@
       </div>
     </div>
 
-    <!-- <div class="flexcol flex-group-center difficulty">
-      <div class="flexrow attack-dialog-header">
-        <label for="difficulty">Difficulty</label>
-      </div>
-      <div class="flexcol attack-dialog-body">
-        <input id="difficulty" class="" value="{{defaultDifficulty}}"
-        type="number" data-dtype="Number" />
-        <label for="difficulty">difficulty value</label>
-      </div>
-    </div> -->
-
   </div>
 
   {{#if showFavored}}
-  <div class="flexrow attack-type">
-    <label for="favored-checkbox">Favored Weapon?:</label>
+  <div class="flexrow attack-dialog-favored">
+    <label for="favored-checkbox">Favored Weapon Type?</label>
     <input id="favored-checkbox" 
     value="{{favored}}" 
-    type="checkbox" data-dtype="Boolean" />
+    type="checkbox" data-dtype="Boolean" {{#if favored}}checked{{/if}} />
+    (+ acc {{#if badassRollsEnabled}}stat{{else}}mod{{/if}})
   </div>
   {{/if}}
+  
 </div>

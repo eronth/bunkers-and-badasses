@@ -1882,6 +1882,15 @@ a#submit { z-index: 1; }
   width: 65px;
 }
 
+.attack-dialog .attack-dialog-favored {
+  text-align: center;
+  align-items: center;
+  align-self: center;
+}
+.attack-dialog .attack-dialog-favored label {
+  font-weight: bold;
+}
+
 .attack-dialog .modifiers,
 .check-dialog .modifiers {
   border: 1px solid rgb(122, 121, 113);

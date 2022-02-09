@@ -418,8 +418,8 @@ export class BNBActorSheet extends ActorSheet {
   }
 
   _onArchetypeRewardCreate(event) {
-    let archetypeNum = event.currentTarget.dataset.archetypeNumber;
-    let archetypeRewards = this.actor.data.data.archetypes["archetype" + archetypeNum].rewards;
+    const archetypeNum = event.currentTarget.dataset.archetypeNumber;
+    const archetypeRewards = this.actor.data.data.archetypes["archetype" + archetypeNum].rewards;
 
     // Figure out the current archetype highest level.
     let highestLevel = 0;
@@ -439,11 +439,12 @@ export class BNBActorSheet extends ActorSheet {
   async _onArchetypeRewardEdit(event) {
     event.preventDefault();
 
-    var archetypeNum = event.currentTarget.dataset.archetypeNumber;
-    var rewardIndex = event.currentTarget.dataset.rewardIndex;
-    var archetype = this.actor.data.data.archetypes["archetype" + archetypeNum];
+    const archetypeNum = event.currentTarget.dataset.archetypeNumber;
+    const rewardIndex = event.currentTarget.dataset.rewardIndex;
+    const archetype = this.actor.data.data.archetypes["archetype" + archetypeNum];
 
-    let htmlContent = await renderTemplate("systems/bunkers-and-badasses/templates/dialog/archetype-reward.html", {
+    const templateLocation = 'systems/bunkers-and-badasses/templates/dialog/archetype-reward.html';
+    const htmlContent = await renderTemplate(templateLocation, {
       level: archetype.rewards[rewardIndex]["Level"],
       description: archetype.rewards[rewardIndex]["Description"],
       index: rewardIndex, archetypeNum: archetypeNum
@@ -466,13 +467,13 @@ export class BNBActorSheet extends ActorSheet {
   
   async _updateArchetypeRewardCallback(html) {
     // Pull data from html.
-    let levelValue = parseInt(html.find("#archetypeLevel")[0].value);
-    let descriptionValue = html.find("#rewardText")[0].value;
+    const levelValue = parseInt(html.find("#archetypeLevel")[0].value);
+    const descriptionValue = html.find("#rewardText")[0].value;
 
-    let archetypeNum = parseInt(html.find("#archetypeNum")[0].value);
+    const archetypeNum = parseInt(html.find("#archetypeNum")[0].value);
     let archetype = this.actor.data.data.archetypes["archetype" + archetypeNum];
 
-    let rewardIndex = parseInt(html.find("#rewardIndex")[0].value);
+    const rewardIndex = parseInt(html.find("#rewardIndex")[0].value);
 
     // Prep data with updated values.
     archetype.rewards[rewardIndex]["Level"] = levelValue;
@@ -486,9 +487,9 @@ export class BNBActorSheet extends ActorSheet {
 
   _onArchetypeRewardDelete(event) {
     // Pull data from event.
-    var archetypeNum = event.currentTarget.dataset.archetypeNumber;
-    var rewardIndex = event.currentTarget.dataset.rewardIndex;
-    var archetype = this.actor.data.data.archetypes["archetype" + archetypeNum];
+    const archetypeNum = event.currentTarget.dataset.archetypeNumber;
+    const rewardIndex = event.currentTarget.dataset.rewardIndex;
+    const archetype = this.actor.data.data.archetypes["archetype" + archetypeNum];
     
     // Prep data for saving.
     archetype.rewards.splice(rewardIndex, 1);
@@ -541,7 +542,8 @@ export class BNBActorSheet extends ActorSheet {
     const dataset = event.currentTarget.dataset;
     const actionSkill = actorData.class.actionSkill;
 
-    const dialogHtmlContent = await renderTemplate("systems/bunkers-and-badasses/templates/dialog/action-skill-edit.html", {
+    const templateLocation = 'systems/bunkers-and-badasses/templates/dialog/action-skill-edit.html';
+    const dialogHtmlContent = await renderTemplate(templateLocation, {
       actionSkill: actionSkill
     });
 
@@ -601,9 +603,9 @@ export class BNBActorSheet extends ActorSheet {
   }
 
   async _onTakeDamage() {
-    const takeDamageDialogContent = await renderTemplate("systems/bunkers-and-badasses/templates/dialog/take-damage.html", {
-
-    });
+    
+    const templateLocation = "systems/bunkers-and-badasses/templates/dialog/take-damage.html";
+    const takeDamageDialogContent = await renderTemplate(templateLocation, { });
 
     this.takeDamageDialog = new Dialog({
       title: `Take Damage`,
@@ -627,31 +629,41 @@ export class BNBActorSheet extends ActorSheet {
   async _takeDamage(html) {
     // Prep data to access.
     const actorData = this.actor.data.data;
+    const hps = actorData.attributes.hps;
 
     // Pull data from html.
-    const damage = html.find("#damage-value")[0].value;
-    const damageType = html.find("#damage-type")[0].value;
+    const damageAmount = html.find("#damage-value")[0].value;
+    const damageType = $("input[type=radio][name=damage-type-element]:checked")[0].dataset.element.toLowerCase();
 
-    if (isNaN(damage) || damage <= 0) { return; }
+    if (isNaN(damageAmount) || damageAmount <= 0) { return; }
 
+    // Track the amount of damage done to each health type.
     let shieldDamageTaken = 0;
     let armorDamageTaken = 0;
     let fleshDamageTaken = 0;
 
     // Update the actor.
-    for (let damageToDeal = damage; damageToDeal > 0; damageToDeal--) {
-      if (actorData.attributes.hps.shield.value < shieldDamageTaken) {
+    for (let damageToDeal = damageAmount; damageToDeal > 0; damageToDeal--) {
+      if (actorData.attributes.hps.shield.value > shieldDamageTaken && 
+        (damageType !== "radiation" && damageType !== "incendiation")) {
         shieldDamageTaken++;
-        // if shock and damage still over.
-      } else if (actorData.attributes.hps.armor.value < armorDamageTaken) {
+        if (damageType === 'shock' || damageType === 'corroshock') {
+          shieldDamageTaken++;
+        }
+      } else if (actorData.attributes.hps.armor.value > armorDamageTaken) {
         armorDamageTaken++;
-        // if corrosive and damage still over.
-      } else if (actorData.attributes.hps.flesh.value < fleshDamageTaken) {
+        if (damageType === 'corrosive' || damageType === 'corroshock') {
+          armorDamageTaken++;
+        }
+      } else if (actorData.attributes.hps.flesh.value > fleshDamageTaken) {
         fleshDamageTaken++;
-        // if fire and damage still over.
+        if (damageType === 'incendiary' || damageType === 'incendiation') {
+          fleshDamageTaken++;
+        }
       }
     }
 
+    // Don't overshoot! Going forward this will help with displaying the damage to chat.
     if (shieldDamageTaken > actorData.attributes.hps.shield.value) {
       shieldDamageTaken = actorData.attributes.hps.shield.value;
     }
@@ -662,9 +674,15 @@ export class BNBActorSheet extends ActorSheet {
       fleshDamageTaken = actorData.attributes.hps.flesh.value;
     }
 
+    // TODO Display the damage to chat.
+
+    hps.shield.value -= shieldDamageTaken;
+    hps.armor.value -= armorDamageTaken;
+    hps.flesh.value -= fleshDamageTaken;
+
     // Square brackets needed to get the right value.
     const attributeLabel = `data.attributes.hps`;
-    return await this.actor.update({[attributeLabel]: actorData.attributes.hps});
+    return await this.actor.update({[attributeLabel]: hps});
   }
 
   async _onHpGain(event) {
@@ -678,7 +696,8 @@ export class BNBActorSheet extends ActorSheet {
     const actorData = this.actor.data.data;
     const dataset = event.currentTarget.dataset;
 
-    const dialogHtmlContent = await renderTemplate("systems/bunkers-and-badasses/templates/dialog/gain-attribute.html", {
+    const templateLocation = 'systems/bunkers-and-badasses/templates/dialog/gain-attribute.html';
+    const dialogHtmlContent = await renderTemplate(templateLocation, {
       attributeName: dataset.attributeName,
     });
 
@@ -725,8 +744,8 @@ export class BNBActorSheet extends ActorSheet {
     // Prep data to access.
     const dataset = event.currentTarget.dataset;
 
-    const dialogHtmlContent = 
-    await renderTemplate("systems/bunkers-and-badasses/templates/dialog/set-level.html", { });
+    const templateLocation = 'systems/bunkers-and-badasses/templates/dialog/set-level.html';
+    const dialogHtmlContent = await renderTemplate(templateLocation, { });
 
     this.gain = new Dialog({
       title: `Set Level`,
@@ -898,9 +917,8 @@ export class BNBActorSheet extends ActorSheet {
     // Prep data to access.
     const actorData = this.actor.data.data;    
 
-    const dialogHtmlContent = 
-      await renderTemplate("systems/bunkers-and-badasses/templates/dialog/npc-attack-confirmation.html",
-      { });
+    const templateLocation = 'systems/bunkers-and-badasses/templates/dialog/npc-attack-confirmation.html';
+    const dialogHtmlContent = await renderTemplate(templateLocation, { });
 
     this.attack = new Dialog({
       title: "Attack",
@@ -995,7 +1013,8 @@ export class BNBActorSheet extends ActorSheet {
     }
     badassTotal += actorData.attributes.badass.rank;
 
-    const chatHtmlContent = await renderTemplate("systems/bunkers-and-badasses/templates/chat/badass-result.html", {
+    const templateLocation = 'systems/bunkers-and-badasses/templates/chat/badass-result.html';
+    const chatHtmlContent = await renderTemplate(templateLocation, {
       actorId: this.actor.id,
       badassTotal: badassTotal
     });
@@ -1057,9 +1076,10 @@ export class BNBActorSheet extends ActorSheet {
 
   async _meleeAttackRoll(dataset) {
     // Prep data to access.
-    const actorData = this.actor.data.data;    
+    const actorData = this.actor.data.data;
 
-    const dialogHtmlContent = await renderTemplate("systems/bunkers-and-badasses/templates/dialog/attack-confirmation.html", {
+    const templateLocation = 'systems/bunkers-and-badasses/templates/dialog/attack-confirmation.html';
+    const dialogHtmlContent = await renderTemplate(templateLocation, {
       type: "Melee",
       attack: actorData.checks.melee,
       showFavored: false,
@@ -1086,7 +1106,47 @@ export class BNBActorSheet extends ActorSheet {
   }
 
   async _gunAccuracyRoll(dataset) {
+    // Prep data to access.
+    const actorData = this.actor.data.data;
+    const item = this.actor.items.get(dataset.itemId);
+    const itemData = item.data.data;
+
+    const attackValues = {
+      bonus: actorData.acc.bonus,
+      stat: "acc",
+      total: actorData.acc.modToUse,
+      value: actorData.acc.value,
+      badassRollsEnabled: actorData.attributes.badass.rollsEnabled,
+    };
     
+    const isFavoredWeaponType = actorData.favored[itemData.type.value];
+    const templateLocation = "systems/bunkers-and-badasses/templates/dialog/attack-confirmation.html";
+    const dialogHtmlContent = await renderTemplate(templateLocation, {
+      type: "Gun",
+      attack: attackValues,
+      showGearBonus: true,
+      gearAcc: itemData.statMods.acc,
+      showFavored: true,
+      favored: isFavoredWeaponType
+    });
+
+    this.attack = new Dialog({
+      title: "Gun Attack",
+      Id: "melee-attack-prompt",
+      content: dialogHtmlContent,
+      buttons: {
+        "Cancel" : {
+          label : "Cancel",
+          callback : async (html) => {}
+        },
+        "Roll" : {
+          label : "Roll",
+          callback : async (html) => {
+            return await this._rollGunAttackDice(dataset, html, itemData.statMods);
+          }
+        }
+      }
+    }).render(true);
   }
 
   async _grenadeThrowRoll(dataset) {
@@ -1136,8 +1196,8 @@ export class BNBActorSheet extends ActorSheet {
     const defaultDifficulty = checkObjects.defaultDifficulty;
     const promptCheckType = checkObjects.promptCheckType;
     
-
-    const dialogHtmlContent = await renderTemplate("systems/bunkers-and-badasses/templates/dialog/check-difficulty.html", {
+    const templateLocation = 'systems/bunkers-and-badasses/templates/dialog/check-difficulty.html';
+    const dialogHtmlContent = await renderTemplate(templateLocation, {
       attributes: actorData.attributes,
       check: checkItem,
       promptCheckType: promptCheckType ?? false,
@@ -1209,6 +1269,32 @@ export class BNBActorSheet extends ActorSheet {
     return await this._displayMeleeRollResultToChat(dataset, { rollResult: rollResult });
   }
 
+  async _rollGunAttackDice(dataset, html, itemStats) {
+    // Prep data to access.
+    const actorData = this.actor.data.data;
+
+    // Pull data from html.
+    const extraBonusValue = parseInt(html.find("#extra")[0].value);
+    const isFavored = html.find("#favored-checkbox")[0].checked;
+
+    // Prepare and roll the check.
+    const rollStatMod = isFavored ? ` + @statMod[acc ${actorData.attributes.badass.rollsEnabled ? 'stat' : 'mod'}]` : '';
+    const rollGearMod = ` + @gearAcc[gear acc]`;
+    const rollMiscMod = ` + @miscBonus[misc bonus]`;
+    const rollBonusMod = isNaN(extraBonusValue) ? '' : ` + ${extraBonusValue}`;
+    const roll = new Roll(`1d20${rollStatMod}${rollMiscMod}${rollBonusMod}`, {
+      statMod: actorData.stats.acc.modToUse,
+      gearAcc: itemStats.acc,
+      misc: actorData.stats.acc.bonus,
+      extra: extraBonusValue,
+      showGearMod: true
+    });
+    const rollResult = roll.roll();
+
+    // Display the result.
+    return await this._displayGunRollResultToChat(dataset, { rollResult: rollResult });
+  }
+
   async _rollCheckDice(dataset, html, checkItem, displayResultOverride) {
     // Prep data to access.
     const actorData = this.actor.data.data;
@@ -1273,7 +1359,8 @@ export class BNBActorSheet extends ActorSheet {
      "Double damage" 
      : (bonusDamage > 0 ? `Deal +${bonusDamage} damage` : '');
 
-    const chatHtmlContent = await renderTemplate("systems/bunkers-and-badasses/templates/chat/npc-attack-roll.html", {
+    const templateLocation = 'systems/bunkers-and-badasses/templates/chat/npc-attack-roll.html';
+    const chatHtmlContent = await renderTemplate(templateLocation, {
       actorId: this.actor.id,
       diceRoll: `Rolled ${rollResult.formula}.`,
       result: rollResult.result,
@@ -1324,7 +1411,8 @@ export class BNBActorSheet extends ActorSheet {
       isCrit = true;
     }
 
-    const chatHtmlContent = await renderTemplate("systems/bunkers-and-badasses/templates/chat/melee-attack-roll.html", {
+    const templateLocation = 'systems/bunkers-and-badasses/templates/chat/melee-attack-roll.html';
+    const chatHtmlContent = await renderTemplate(templateLocation, {
       actorId: this.actor.id,
       diceRoll: `Rolled ${rollResult.formula}.`,
       result: rollResult.result,
@@ -1356,13 +1444,84 @@ export class BNBActorSheet extends ActorSheet {
     const chatMessage = ChatMessage.create(messageData);
   }
 
+  async _displayGunRollResultToChat(dataset, rollObjs) {
+    const item = this.actor.items.get(dataset.itemId);
+    const itemData = item.data.data;
+
+    // Pull values from objs.
+    const rollResult = rollObjs.rollResult;
+
+    const isCrit = (rollResult.dice[0].results[0].result === 20);
+    const isFail = (rollResult.dice[0].results[0].result === 1);
+
+    // Determine the hits and crits counts.
+    let hitsAndCrits = {};
+    if (rollResult.total >= 16) {
+      hitsAndCrits = itemData.accuracy.high;
+    } else if (rollResult.total >= 8) {
+      hitsAndCrits = itemData.accuracy.medium;
+    } else if (rollResult.total >= 2) {
+      hitsAndCrits = itemData.accuracy.low;
+    } else {
+      hitsAndCrits = { hits: 0, crits: 0 };
+    }
+
+    // Account for the bonus crit from a nat 20.
+    if (isCrit) {
+      hitsAndCrits.crits += 1;
+    }
+
+    // Generate message for chat.
+    const templateLocation = 'systems/bunkers-and-badasses/templates/chat/gun-attack-roll.html';
+    const chatHtmlContent = await renderTemplate(templateLocation, {
+      actorId: this.actor.id,
+      itemId: item.id,
+      diceRoll: `Rolled ${rollResult.formula}.`,
+      result: rollResult.result,
+      total: rollResult.total,
+      redText: itemData.redText,
+      hits: hitsAndCrits.hits, crits: hitsAndCrits.crits,
+      bonusCritsText: isCrit ? "+1 Crit (already added)" : "",
+      critHit: isCrit,   success: !isFail,   failure: isFail,
+      showDamageButton: !isFail
+    });
+
+    // Prep chat values.
+    const flavorText = `${this.actor.name} attempts to to shoot with <b>${item.name}</b>.`;
+    const messageData = {
+      user: game.user._id,
+      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+      flavor: flavorText,
+      type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+      roll: rollResult,
+      rollMode: CONFIG.Dice.rollModes.roll,
+      content: chatHtmlContent,
+      // whisper: game.users.entities.filter(u => u.isGM).map(u => u._id)
+      speaker: ChatMessage.getSpeaker(),
+    }
+
+    game.socket.emit('show-bm-red-text', {
+      test: "a value",
+      tv2: "more test"
+    });
+
+    // utilitiesManager.runAsGm({
+    //   test: "test 1",
+    //   tv2: "test 2"
+    // });
+
+    // Send the roll to chat!
+    return await ChatMessage.create(messageData);
+  }
+
   async _displayCheckRollResultToChat(dataset, rollObjs) {
     // Pull values from objs.
     const rollResult = rollObjs.rollResult;
     const difficultyValue = rollObjs.difficultyValue;
     const difficultyEntered = rollObjs.difficultyEntered;
 
-    const chatHtmlContent = await renderTemplate("systems/bunkers-and-badasses/templates/chat/check-roll.html", {
+    const templateLocation = 'systems/bunkers-and-badasses/templates/chat/check-roll.html';
+    const chatHtmlContent = await renderTemplate(templateLocation, {
       diceRoll: `Rolled ${rollResult.formula}.`,
       result: rollResult.result,
       total: rollResult.total,
@@ -1398,7 +1557,8 @@ export class BNBActorSheet extends ActorSheet {
     const difficultyValue = rollObjs.difficultyValue;
     const difficultyEntered = rollObjs.difficultyEntered;
 
-    const chatHtmlContent = await renderTemplate("systems/bunkers-and-badasses/templates/chat/check-roll.html", {
+    const templateLocation = 'systems/bunkers-and-badasses/templates/chat/check-roll.html';
+    const chatHtmlContent = await renderTemplate(templateLocation, {
       actorId: this.actor.id,
       itemId: item.id,
       diceRoll: `Rolled ${rollResult.formula}.`,
