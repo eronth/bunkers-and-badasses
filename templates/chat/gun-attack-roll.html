@@ -22,12 +22,11 @@ data-actor-id="{{actorId}}" >
   <div class="failure-text">Failure!</div>
   {{/if}}
   {{#if showDamageButton}}
-  <div class="chat-gun-damage-buttons">
+  <div class="chat-damage-buttons">
     <button data-action="damage"
     data-actor-id="{{actorId}}"
-    data-plus-one-dice={{isPlusOneDice}}
-    data-double-damage={{isDoubleDamage}}
-    data-crit={{isCrit}} >
+    data-item-id="{{itemId}}" 
+    data-hits={{hits}} data-crits={{crits}} >
       Roll Damage
     </button>
   </div>

@@ -83,13 +83,25 @@ export class BNBItem extends Item {
     const item = actor.items.get(dataSet.itemId);
     const itemData = item.data.data;
 
+    const hits = dataSet.hits;
+    const crits = dataSet.crits;
+
     let rollFormula = '';
     Object.entries(itemData.elements).forEach(([key, elementData]) => {
       if(elementData.enabled) {
-        rollFormula+=`${elementData.damage}[${elementData.label}] +`;
+        if (isNaN(hits)) {
+          rollFormula+=`(${elementData.damage})[${elementData.label}] +`;
+        } else {
+          for (let i = 0; i < hits; i++) {
+            rollFormula+=`(${elementData.damage})[${elementData.label}] +`;
+          }
+        }
       }
     });
     rollFormula = rollFormula.slice(0, -1);
+    if (!isNaN(crits)) {
+      rollFormula += `+ ${crits}d12[Crit]`
+    }
 
     
     // Prepare and roll the damage.
@@ -101,7 +113,7 @@ export class BNBItem extends Item {
     // Convert roll to a results object for sheet display.
     const rollResults = {};
     rollResult.terms.forEach((term, key) => {
-      if (term instanceof DiceTerm) {
+      if (term instanceof DiceTerm || term instanceof NumericTerm) {
         rollResults[term.options.flavor] = {
           formula: term.expression,
           total: term.total

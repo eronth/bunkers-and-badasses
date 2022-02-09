@@ -1332,7 +1332,8 @@ export class BNBActorSheet extends ActorSheet {
       return await this._displayCheckRollResultToChat(dataset, { 
         rollResult: rollResult, 
         difficultyValue: difficultyValue, 
-        difficultyEntered: difficultyEntered });
+        difficultyEntered: difficultyEntered 
+      });
     }
   }
 
