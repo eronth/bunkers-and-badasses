@@ -75,7 +75,7 @@ export class BNBItemSheet extends ItemSheet {
   }
 
   _onRarityOptionClick(event) {
-    var allOptions = $("ul").children('.rarity-option');
+    let allOptions = $("ul").children('.rarity-option');
     allOptions.removeClass('selected');
 
     $(event.currentTarget).addClass('selected');
@@ -86,7 +86,7 @@ export class BNBItemSheet extends ItemSheet {
   
     //     allOptions.toggle();
     // });
-    var newRarityObj = {"name": newRarity, "value": newRarity.toLowerCase(), "colorValue": this._getColorsForRarity(newRarity)};
+    let newRarityObj = {"name": newRarity, "value": newRarity.toLowerCase(), "colorValue": this._getColorsForRarity(newRarity)};
     this.item.update({"data.rarity": newRarityObj});
   }
 
@@ -107,8 +107,8 @@ export class BNBItemSheet extends ItemSheet {
   }
 
   _getColorsForRarity(rarity) {
-    var rarity = rarity.toLowerCase();
-    switch(rarity) {
+    const rarityLC = rarity.toLowerCase();
+    switch(rarityLC) {
       case "common":
         return "#a5a49f";
         break;
@@ -133,18 +133,10 @@ export class BNBItemSheet extends ItemSheet {
   async _onDamageEntryClick(event) {
     event.preventDefault();
 
-    var hi = "hi";
-    // // var archetypeNum = event.currentTarget.dataset.archetypeNumber;
-    // // var rewardIndex = event.currentTarget.dataset.rewardIndex;
-    // // var archetype = this.actor.data.data.archetypes["archetype" + archetypeNum];
-
-    let htmlContent = 
-      await renderTemplate("systems/bunkers-and-badasses/templates/item/parts/damage-entry.html", {
+    const templateLocation = 'systems/bunkers-and-badasses/templates/item/parts/damage-entry.html';
+    let htmlContent = await renderTemplate(templateLocation, {
         elements: this.item.data.data.elements,
       });
-      //   // level: archetype.rewards[rewardIndex]["Level"],
-      //   // description: archetype.rewards[rewardIndex]["Description"],
-      //   // index: rewardIndex, archetypeNum: archetypeNum
 
     this.elemDiag = new Dialog({
       title: "Damage and Elements",
