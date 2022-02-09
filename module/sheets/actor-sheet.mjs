@@ -589,12 +589,12 @@ export class BNBActorSheet extends ActorSheet {
     const flavorText = `${this.actor.name} uses ${actorData.class.actionSkill.name}.`;
     const messageContent = actorData.class.actionSkill.description;
     const messageData = {
-      user: game.user._id,
+      user: game.user.id,
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
       flavor: flavorText,
       type: CONST.CHAT_MESSAGE_TYPES.IC,
       content: messageContent,
-      // whisper: game.users.entities.filter(u => u.isGM).map(u => u._id)
+      // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
       speaker: ChatMessage.getSpeaker(),
     }
 
@@ -946,12 +946,12 @@ export class BNBActorSheet extends ActorSheet {
     // Prep chat values.
     const flavorText = `${this.actor.name} uses <i>${actionObject.name}</i>.`;
     const messageData = {
-      user: game.user._id,
+      user: game.user.id,
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
       flavor: flavorText,
       content: actionObject.description,
       type: CONST.CHAT_MESSAGE_TYPES.IC,
-      // whisper: game.users.entities.filter(u => u.isGM).map(u => u._id)
+      // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
       speaker: ChatMessage.getSpeaker(),
     }
 
@@ -969,13 +969,13 @@ export class BNBActorSheet extends ActorSheet {
 
     const flavorText = `${this.actor.name} rolls their Melee Dice.`;
     return rollResult.toMessage({
-      user: game.user._id,
+      user: game.user.id,
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
       flavor: flavorText,
       type: CONST.CHAT_MESSAGE_TYPES.ROLL,
       roll: rollResult,
       rollMode: CONFIG.Dice.rollModes.roll,
-      // whisper: game.users.entities.filter(u => u.isGM).map(u => u._id)
+      // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
       speaker: ChatMessage.getSpeaker(),
     });
   }
@@ -1022,14 +1022,14 @@ export class BNBActorSheet extends ActorSheet {
     // Prep chat values.
     const flavorText = `${this.actor.name} attempts a <i class="fas fa-skull"></i> <b>Badass Move</b>.`;
     const messageData = {
-      user: game.user._id,
+      user: game.user.id,
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
       flavor: flavorText,
       type: CONST.CHAT_MESSAGE_TYPES.ROLL,
       roll: rollResult,
       rollMode: CONFIG.Dice.rollModes.roll,
       content: chatHtmlContent,
-      // whisper: game.users.entities.filter(u => u.isGM).map(u => u._id)
+      // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
       speaker: ChatMessage.getSpeaker(),
     }
 
@@ -1054,13 +1054,13 @@ export class BNBActorSheet extends ActorSheet {
     // Prep chat values.
     const flavorText = `${this.actor.name} ${hpRegainAction[dataset.healthType.toLowerCase()]} ${rollResult.total} <b>${hp.label}</b>.`;
     const messageData = {
-      user: game.user._id,
+      user: game.user.id,
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
       flavor: flavorText,
       type: CONST.CHAT_MESSAGE_TYPES.ROLL,
       roll: rollResult,
       rollMode: CONFIG.Dice.rollModes.roll,
-      // whisper: game.users.entities.filter(u => u.isGM).map(u => u._id)
+      // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
       speaker: ChatMessage.getSpeaker(),
     }
 
@@ -1375,14 +1375,14 @@ export class BNBActorSheet extends ActorSheet {
     // Prep chat values.
     const flavorText = `${this.actor.name} makes an attack.`;
     const messageData = {
-      user: game.user._id,
+      user: game.user.id,
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
       flavor: flavorText,
       type: CONST.CHAT_MESSAGE_TYPES.ROLL,
       roll: rollResult,
       rollMode: CONFIG.Dice.rollModes.roll,
       content: chatHtmlContent,
-      // whisper: game.users.entities.filter(u => u.isGM).map(u => u._id)
+      // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
       speaker: ChatMessage.getSpeaker(),
     }
 
@@ -1430,14 +1430,14 @@ export class BNBActorSheet extends ActorSheet {
     // Prep chat values.
     const flavorText = `${this.actor.name} attempts to strike a target.`;
     const messageData = {
-      user: game.user._id,
+      user: game.user.id,
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
       flavor: flavorText,
       type: CONST.CHAT_MESSAGE_TYPES.ROLL,
       roll: rollResult,
       rollMode: CONFIG.Dice.rollModes.roll,
       content: chatHtmlContent,
-      // whisper: game.users.entities.filter(u => u.isGM).map(u => u._id)
+      // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
       speaker: ChatMessage.getSpeaker(),
     }
 
@@ -1490,14 +1490,14 @@ export class BNBActorSheet extends ActorSheet {
     // Prep chat values.
     const flavorText = `${this.actor.name} attempts to to shoot with <b>${item.name}</b>.`;
     const messageData = {
-      user: game.user._id,
+      user: game.user.id,
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
       flavor: flavorText,
       type: CONST.CHAT_MESSAGE_TYPES.ROLL,
       roll: rollResult,
       rollMode: CONFIG.Dice.rollModes.roll,
       content: chatHtmlContent,
-      // whisper: game.users.entities.filter(u => u.isGM).map(u => u._id)
+      // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
       speaker: ChatMessage.getSpeaker(),
     }
 
@@ -1528,14 +1528,14 @@ export class BNBActorSheet extends ActorSheet {
     // Prep chat values.
     const flavorText = `${this.actor.name} attempts to throw an item.`;
     const messageData = {
-      user: game.user._id,
+      user: game.user.id,
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
       flavor: flavorText,
       type: CONST.CHAT_MESSAGE_TYPES.ROLL,
       roll: rollResult,
       rollMode: CONFIG.Dice.rollModes.roll,
       content: chatHtmlContent,
-      // whisper: game.users.entities.filter(u => u.isGM).map(u => u._id)
+      // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
       speaker: ChatMessage.getSpeaker(),
     }
 
@@ -1569,14 +1569,14 @@ export class BNBActorSheet extends ActorSheet {
     // Prep chat values.
     const flavorText = `${this.actor.name} attempts to throw a grenade.`;
     const messageData = {
-      user: game.user._id,
+      user: game.user.id,
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
       flavor: flavorText,
       type: CONST.CHAT_MESSAGE_TYPES.ROLL,
       roll: rollResult,
       rollMode: CONFIG.Dice.rollModes.roll,
       content: chatHtmlContent,
-      // whisper: game.users.entities.filter(u => u.isGM).map(u => u._id)
+      // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
       speaker: ChatMessage.getSpeaker(),
     }
     
@@ -1593,14 +1593,14 @@ export class BNBActorSheet extends ActorSheet {
     const itemData = item.data.data;
     if (itemData.redTextEffectBM != null && itemData.redTextEffectBM != '')
     {
-      const user = game.users.get(game.user._id);
+      const user = game.users.get(game.user.id);
       if (user.isGM) 
       {
         const secretMessageData = {
           user: user,
           flavor: `Secret BM only notes for ${this.actor.name}'s <b>${item.name}</b>`,
           content: itemData.redTextEffectBM,
-          whisper: game.users.entities.filter(u => u.isGM).map(u => u._id),
+          whisper: game.users.entities.filter(u => u.isGM).map(u => u.id),
           speaker: ChatMessage.getSpeaker(),
         };
         return ChatMessage.create(secretMessageData);

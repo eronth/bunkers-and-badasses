@@ -129,14 +129,14 @@ export class BNBItem extends Item {
     // Prep chat values.
     const flavorText = `<b>${item.name}</b> goes <i>"${dataSet.flavor}"</i>`;
     const messageData = {
-      user: game.user._id,
+      user: game.user.id,
       speaker: ChatMessage.getSpeaker({ actor: actor }),
       flavor: flavorText,
       type: CONST.CHAT_MESSAGE_TYPES.ROLL,
       roll: rollResult,
       rollMode: CONFIG.Dice.rollModes.roll,
       content: chatHtmlContent,
-      // whisper: game.users.entities.filter(u => u.isGM).map(u => u._id)
+      // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
       speaker: ChatMessage.getSpeaker(),
     }
 

@@ -64,7 +64,7 @@ Hooks.once('init', async function() {
         user: user,
         flavor: `Secret BM only notes for ${this.actor.name}'s <b>${item.name}</b>`,
         content: itemData.redTextEffectBM,
-        whisper: game.users.entities.filter(u => u.isGM).map(u => u._id),
+        whisper: game.users.entities.filter(u => u.isGM).map(u => u.id),
         speaker: ChatMessage.getSpeaker(),
       };
       return ChatMessage.create(secretMessageData);
