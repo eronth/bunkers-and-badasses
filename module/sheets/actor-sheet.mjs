@@ -1151,10 +1151,12 @@ export class BNBActorSheet extends ActorSheet {
     const throwCheck = {
       stat: "acc",
       value: actorData.stats.acc.modToUse,
-      bonus: actorData.stats.acc.bonus,
-      usesBadassRank: false,
-    }
-    throwCheck.total = throwCheck.value + throwCheck.bonus;
+      misc: 0,
+      effects: actorData.bonus.checks.throw,
+      total: 0,
+      usesBadassRank: false
+    };
+    throwCheck.total = throwCheck.value + throwCheck.misc + throwCheck.effects;
 
     return await this._makeCheck(dataset, {
       checkItem: throwCheck,
@@ -1170,10 +1172,12 @@ export class BNBActorSheet extends ActorSheet {
     const throwCheck = {
       stat: "acc",
       value: actorData.stats.acc.modToUse,
-      bonus: actorData.stats.acc.bonus,
-      usesBadassRank: false,
-    }
-    throwCheck.total = throwCheck.value + throwCheck.bonus;
+      misc: 0,
+      effects: actorData.bonus.checks.throw,
+      total: 0,
+      usesBadassRank: false
+    };
+    throwCheck.total = throwCheck.value + throwCheck.misc + throwCheck.effects;
 
     return await this._makeCheck(dataset, {
       checkItem: throwCheck,
@@ -1303,7 +1307,7 @@ export class BNBActorSheet extends ActorSheet {
     const difficultyValue = parseInt(html.find("#difficulty")[0].value);
     const checkTypeElement = html.find("#check-type")
     let checkType;
-    if (checkTypeElement) {
+    if (checkTypeElement && checkTypeElement.length > 0) {
       checkType = checkTypeElement[0].value;
     } 
     const difficultyEntered = !isNaN(difficultyValue);
@@ -1313,11 +1317,11 @@ export class BNBActorSheet extends ActorSheet {
     const rollStatMod = ` + @statMod[acc ${actorData.attributes.badass.rollsEnabled ? 'stat' : 'mod'}]`;
     const rollMiscBonus = ` + @miscBonus[misc bonus]`;
     const rollEffectBonus = ` + @effectBonus[effect bonus]`;
-    const rollBonusMod = (isNaN(extraBonusValue) || extraBonusValue == 0 ? '' : ` + @extraBonus[extra bonus]`);
+    const rollExtraMod = (isNaN(extraBonusValue) || extraBonusValue == 0 ? '' : ` + @extraBonus[extra bonus]`);
     const rollDifficulty = ((difficultyValue != null && !isNaN(difficulty)) ?
       `cs>=${difficultyValue}` : ``);
 
-    const roll = new Roll(`1d20${badassMod}${rollStatMod}${rollMiscBonus}${rollBonusMod}${rollEffectBonus}${rollDifficulty}`, {
+    const roll = new Roll(`1d20${badassMod}${rollStatMod}${rollMiscBonus}${rollEffectBonus}${rollExtraMod}${rollDifficulty}`, {
       badassRank: actorData.attributes.badass.rank,
       statMod: checkItem.value,
       miscBonus: checkItem.bonus,
