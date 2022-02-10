@@ -1251,11 +1251,13 @@ export class BNBActorSheet extends ActorSheet {
 
     // Prepare and roll the check.
     const rollStatMod = ` + @statMod[acc ${actorData.attributes.badass.rollsEnabled ? 'stat' : 'mod'}]`;
-    const rollMiscMod = ` + @miscBonus[misc bonus]`;
-    const rollBonusMod = isNaN(extraBonusValue) ? '' : ` + ${extraBonusValue}`;
-    const roll = new Roll(`1d20${rollStatMod}${rollMiscMod}${rollBonusMod}`, {
+    const rollMiscBonus = ` + @misc[misc bonus]`;
+    const rollEffectsBonus = ` + @effects[effects bonus]`;
+    const rollExtraBonus = isNaN(extraBonusValue) ? '' : ` + ${extraBonusValue}`;
+    const roll = new Roll(`1d20${rollStatMod}${rollMiscBonus}${rollEffectsBonus}${rollExtraBonus}`, {
       acc: actorData.checks.melee.value,
       misc: actorData.checks.melee.bonus,
+      effects: actorData.bonus.combat.melee.acc,
       extra: extraBonusValue
     });
     const rollResult = await roll.roll();
@@ -1274,13 +1276,15 @@ export class BNBActorSheet extends ActorSheet {
 
     // Prepare and roll the check.
     const rollStatMod = isFavored ? ` + @statMod[acc ${actorData.attributes.badass.rollsEnabled ? 'stat' : 'mod'}]` : '';
-    const rollGearMod = ` + @gearAcc[gear acc]`;
-    const rollMiscMod = ` + @miscBonus[misc bonus]`;
-    const rollBonusMod = isNaN(extraBonusValue) ? '' : ` + ${extraBonusValue}`;
-    const roll = new Roll(`1d20${rollStatMod}${rollGearMod}${rollMiscMod}${rollBonusMod}`, {
+    const rollGearBonus = ` + @gearAcc[gear acc]`;
+    const rollMiscBonus = ` + @misc[misc bonus]`;
+    const rollEffectsBonus = ` + @effects[effects bonus]`;
+    const rollExtraBonus = isNaN(extraBonusValue) ? '' : ` + ${extraBonusValue}`;
+    const roll = new Roll(`1d20${rollStatMod}${rollGearBonus}${rollMiscBonus}${rollEffectsBonus}${rollExtraBonus}`, {
       statMod: actorData.stats.acc.modToUse,
       gearAcc: itemStats.acc,
-      misc: actorData.stats.acc.bonus,
+      misc: actorData.stats.acc.misc,
+      effects: actorData.bonus.combat.shooting.acc,
       extra: extraBonusValue,
       showGearMod: true
     });
