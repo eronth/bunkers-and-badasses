@@ -1879,7 +1879,7 @@ a#submit { z-index: 1; }
 
 .attack-dialog .attack-dialog-body input,
 .check-dialog .check-dialog-body input {
-  width: 65px;
+  width: 60px;
 }
 
 .attack-dialog .attack-dialog-favored {

@@ -1,7 +1,7 @@
 <div class="flexcol check-dialog">
   <div class="flexrow check-dialog">
 
-    <div class="flexcol flex-size-2 flex-group-center modifiers">
+    <div class="flexcol flex-size-3 flex-group-center modifiers">
       <div class="flexrow check-dialog-header">
         <label>Roll Bonuses</label>
       </div>
@@ -17,13 +17,20 @@
           <input id="misc" class="" value="{{check.misc}}"
           type="number" data-dtype="Number"
           disabled />
-          <label for="misc">misc bonus</label>
+          <label for="misc">misc</label>
+        </div>
+        <label class="math-sign">+</label>
+        <div class="flexcol">
+          <input id="misc" class="" value="{{check.effects}}"
+          type="number" data-dtype="Number"
+          disabled />
+          <label for="misc">effects</label>
         </div>
         <label class="math-sign">+</label>
         <div class="flexcol">
           <input id="extra" class="" value=""
           type="number" data-dtype="Number" />
-          <label for="extra">extra bonus</label>
+          <label for="extra">extra</label>
         </div>
       </div>
     </div>

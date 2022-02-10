@@ -43,7 +43,7 @@
       <div class="abilities flexrow hover-pointer">
         {{#each data.stats as |stat key|}}
         <div class="ability rollable flexrow flex-group-center hover-pointer"
-        data-roll="d20+@stats.{{key}}.modToUse" data-label="{{stat.label}}" >
+        data-roll="d20 + @stats.{{key}}.modToUse" data-label="{{stat.label}}" >
           <label for="data.stats.{{key}}.value" class="resource-label flexlarge align-left hover-pointer">
             <i class="fa fa-dice-d20"></i> {{toUpperCase key}}
           </label>

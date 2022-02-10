@@ -894,19 +894,19 @@ export class BNBActorSheet extends ActorSheet {
       } else if (dataset.rollType == 'npc-action') {
         return this._npcActionRoll(dataset);
       }
-
     }
     
     // Handle rolls that supply the formula directly.
     if (dataset.roll) {
-      let label = dataset.label ? `[ability] ${dataset.label}` : '';
-      let roll = new Roll(dataset.roll, this.actor.getRollData()).roll();
-      roll.toMessage({
+      const label = dataset.label ? `[ability] ${dataset.label}` : '';
+      const baseFormula = dataset.roll;
+      const rollResult = await new Roll(baseFormula, this.actor.getRollData()).roll();
+      rollResult.toMessage({
         speaker: ChatMessage.getSpeaker({ actor: this.actor }),
         flavor: label,
         rollMode: game.settings.get('core', 'rollMode'),
       });
-      return roll;
+      return rollResult;
     }
   }
   
@@ -1111,13 +1111,8 @@ export class BNBActorSheet extends ActorSheet {
     const item = this.actor.items.get(dataset.itemId);
     const itemData = item.data.data;
 
-    const attackValues = {
-      bonus: actorData.acc.bonus,
-      stat: "acc",
-      total: actorData.acc.modToUse,
-      value: actorData.acc.value,
-      badassRollsEnabled: actorData.attributes.badass.rollsEnabled,
-    };
+    const attackValues = {...actorData.checks.shooting};
+    attackValues.badassRollsEnabled = actorData.attributes.badass.rollsEnabled;
     
     const isFavoredWeaponType = actorData.favored[itemData.type.value];
     const templateLocation = "systems/bunkers-and-badasses/templates/dialog/attack-confirmation.html";
@@ -1312,16 +1307,17 @@ export class BNBActorSheet extends ActorSheet {
     // Prepare and roll the check.
     const badassMod = checkItem.usesBadassRank ? ' + @badassRank[badass rank]' : ''
     const rollStatMod = ` + @statMod[acc ${actorData.attributes.badass.rollsEnabled ? 'stat' : 'mod'}]`;
-    const rollMiscMod = ` + @miscBonus[misc bonus]`;
+    const rollMiscBonus = ` + @miscBonus[misc bonus]`;
+    const rollEffectBonus = ` + @effectBonus[effect bonus]`;
     const rollBonusMod = (isNaN(extraBonusValue) || extraBonusValue == 0 ? '' : ` + @extraBonus[extra bonus]`);
     const rollDifficulty = ((difficultyValue != null && !isNaN(difficulty)) ?
-      `cs>=${difficultyValue}` :
-      ``);
+      `cs>=${difficultyValue}` : ``);
 
-    const roll = new Roll(`1d20${badassMod}${rollStatMod}${rollMiscMod}${rollBonusMod}${rollDifficulty}`, {
+    const roll = new Roll(`1d20${badassMod}${rollStatMod}${rollMiscBonus}${rollBonusMod}${rollEffectBonus}${rollDifficulty}`, {
       badassRank: actorData.attributes.badass.rank,
       statMod: checkItem.value,
       miscBonus: checkItem.bonus,
+      effectBonus: checkItem.effects,
       extraBonus: extraBonusValue,
     });
     const rollResult = await roll.roll();

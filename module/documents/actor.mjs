@@ -63,8 +63,9 @@ export class BNBActor extends Actor {
     // Handle stat values and totals. Values are class+archetype. Totals are *everything*.
     Object.entries(data.stats).forEach(entry => {
       const [key, statData] = entry;
-      statData.value = archetypeStats[key] + classStats[key] + statData.bonus;
-      statData.mod = Math.floor(statData.value / 2)  + (statData.modBonus ?? 0);
+      statData.effects = data.bonus.stats[key] ?? { value: 0, mod: 0 };
+      statData.value = archetypeStats[key] + classStats[key] + statData.misc + statData.effects.value;
+      statData.mod = Math.floor(statData.value / 2)  + (statData.modBonus ?? 0) + statData.effects.mod;
       statData.modToUse = data.attributes.badass.rollsEnabled ? statData.value : statData.mod;
     });
 
@@ -72,8 +73,18 @@ export class BNBActor extends Actor {
     Object.entries(data.checks).forEach(entry => {
       const [check, checkData] = entry;
       checkData.value = data.stats[checkData.stat].modToUse;
-      checkData.total = (checkData.useBadassRank ? data.attributes.badass.rank.value : 0) +
-        (checkData.base ?? 0) + checkData.value + checkData.bonus;
+      
+      // Determine effect bonus (shooting and melee are treated slightly different.)
+      if (data.bonus.checks[check] != null) {
+        checkData.effects = data.bonus.checks[check];
+      } else if (data.bonus.combat[check] != null) {
+        checkData.effects = data.bonus.combat[check].acc;
+      } else {
+        checkData.effects = 0;
+      }
+      
+      checkData.total = (checkData.usesBadassRank ? data.attributes.badass.rank : 0) +
+        (checkData.base ?? 0) + checkData.value + checkData.misc + checkData.effects;
     });
   }
 
