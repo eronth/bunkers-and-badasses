@@ -220,6 +220,7 @@
           "movement": 0,
           "throw": 0
         },
+        "badass": 0,
         "healths": {
           "flesh": {
             "max": 0

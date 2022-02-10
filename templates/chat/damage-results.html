@@ -13,5 +13,16 @@
         class="element-damage-icon" src="systems/bunkers-and-badasses/assets/elements/{{key}}.png" /></label>
     </div>
     {{/each}}
+    {{#if showAdditionalDamage}}
+    <div class="flexcol result">
+      <label class="roll-label kinetic-color">
+        Additional Damage
+      </label>
+      <label class="result-label {{toLowerCase uniformElement}}-color">+{{additionalDamage}}
+        <!-- <img id="damage-{{key}}" alt="{{key}}" 
+        class="element-damage-icon" src="systems/bunkers-and-badasses/assets/elements/{{key}}.png" /> -->
+      </label>
+    </div>
+    {{/if}}
   </div>
 </div>

@@ -121,9 +121,16 @@ export class BNBItem extends Item {
       }
     });
 
+    const additionalDamage = 
+      (actorData.favored[itemData.type.value] ? actorData.stats.dmg.modToUse : 0) +
+      itemData.statMods.dmg +
+      actorData.bonus.combat.shooting.dmg;
     const templateLocation = 'systems/bunkers-and-badasses/templates/chat/damage-results.html';
     const chatHtmlContent = await renderTemplate(templateLocation, {
-      results: rollResults
+      results: rollResults,
+      showAdditionalDamage: additionalDamage != 0,
+      additionalDamage: additionalDamage,
+      uniformElement: "Kinetic" // TODO use this to color code stuff if only one element type was used
     });
 
     // Prep chat values.
