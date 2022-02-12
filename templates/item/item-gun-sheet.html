@@ -97,7 +97,7 @@
         <div class="flexrow gun-center-contain">
           <div class="item-body flexrow">
             <label for="prefix-input-{{item.id}}">Prefix</label>
-            <input id="prefix-input-{{item.id}}" class="flexlarge"
+            <input id="prefix-input-{{item.id}}" class="flex-size-2"
               onfocus="this.select()"
               value="{{data.prefix.name}}" name="data.prefix.name"
               type="text" data-dtype="String"
@@ -105,7 +105,7 @@
           </div>
           <div class="item-body flexrow flex-size-2">
             <label for="prefix-bonus-input-{{item.id}}">Bonus</label>
-            <input id="prefix-bonus-input-{{item.id}}" class="flexlarge"
+            <input id="prefix-bonus-input-{{item.id}}" class="flex-size-4"
               onfocus="this.select()"
               value="{{data.prefix.effects}}" placeholder="Prefix Bonus" name="data.prefix.effects"
               type="text" data-dtype="String"
@@ -115,7 +115,7 @@
         <div class="flexrow gun-center-contain">
           <div class="item-body flexrow">
             <label for="guild-input-{{item.id}}">Guild</label>
-            <input id="guild-input-{{item.id}}" class="flexlarge"
+            <input id="guild-input-{{item.id}}" class="flex-size-2"
             onfocus="this.select()"
               value="{{data.guild}}" name="data.guild"
               type="text" data-dtype="String"
@@ -123,7 +123,7 @@
           </div>
           <div class="item-body flexrow flex-size-2">
             <label for="guild-bonus-input-{{item.id}}">Bonus</label>
-            <input id="guild-bonus-input-{{item.id}}" class="flexlarge" 
+            <input id="guild-bonus-input-{{item.id}}" class="flex-size-4" 
             onfocus="this.select()"
               value="{{data.guildBonus}}" placeholder="Guild Bonus" name="data.guildBonus"
               type="text" data-dtype="String"
@@ -187,6 +187,11 @@
         </div>
       </div>
     </div>
+    <!-- <input 
+      name="data.special.overrideType" 
+      value="{{data.special.overrideType}}"
+      onfocus="this.select()"
+      type="text" data-dtype="String" /> -->
     {{> "systems/bunkers-and-badasses/templates/item/parts/red-text.html" }}
   </div>
 </form>
