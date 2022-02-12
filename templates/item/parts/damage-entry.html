@@ -1,4 +1,16 @@
 <div class="flexcol elements-container">
+  {{#if isSolarFlare}}
+  <div class="flexrow">
+    <div class="flex-size-1"></div>
+    <div>
+      {{> "systems/bunkers-and-badasses/templates/item/parts/element-entry-section.html"
+        element=elements.plasma
+        bonusTag=bonusTag
+      }}
+    </div>
+    <div class="flex-size-1"></div>
+  </div>
+  {{else}}
   <div class="flexrow">
     <div class="flex-size-2 elem-reminder-text">Click an element to enable/disable. Enter {{device}} <b>{{bonus}}</b> for each element as needed.</div>
     <div class="elem-initial">
@@ -68,4 +80,5 @@
       }}
     </div>
   </div>
+  {{/if}}
 </div>
