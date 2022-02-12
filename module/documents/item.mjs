@@ -114,11 +114,18 @@ export class BNBItem extends Item {
     const rollResults = {};
     rollResult.terms.forEach((term, key) => {
       if (term instanceof DiceTerm || term instanceof NumericTerm) {
-        rollResults[term.options.flavor] = {
-          formula: term.expression,
-          total: term.total
-        };
+        if (rollResults[term.options.flavor] == null) {
+          rollResults[term.options.flavor] = {
+            formula: "Rolled",
+            total: 0,
+          };
+        }
+        rollResults[term.options.flavor].formula += ` ${term.expression} +`;
+        rollResults[term.options.flavor].total += term.total;
       }
+    });
+    Object.entries(rollResults).forEach((entry, key) => {
+      entry[1].formula = entry[1].formula.slice(0, -1);
     });
 
     const additionalDamage = 
