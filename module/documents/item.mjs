@@ -125,7 +125,7 @@ export class BNBItem extends Item {
       (actorData.favored[itemData.type.value] ? actorData.stats.dmg.modToUse : 0) +
       itemData.statMods.dmg +
       ( // SPECIAL special logic for a unique legendary.
-        (itemData.special != null && itemData.special.overrideType != null && itemData.special.overrideType.toLowerCase() === 'mwsg') 
+        (itemData.special != null && itemData.special.overrideType != null && itemData.special.overrideType.toLowerCase() === 'mwbg') 
         ? (actorData.stats.mst.modToUse + itemData.statMods.mst) : 0
       ) +
       actorData.bonus.combat.shooting.dmg;
