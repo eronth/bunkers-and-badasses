@@ -953,8 +953,8 @@ input[type="time"]:focus {
   font-size: smaller;
 }
 .gun-center-container input{
-  width: 20px;
-  max-width: 20px;
+  width: 25px;
+  max-width: 25px;
 }
 
 .bnb .items-list .item-equip-control {
@@ -1726,7 +1726,7 @@ input[type="time"]:focus {
   border: 1px rgb(122, 121, 113) solid;
   position: relative;
 
-  z-index: 2;
+  z-index: 3;
   text-align: center;
 }
 .rarity ul li:not(.init) {
