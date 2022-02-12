@@ -1281,8 +1281,12 @@ export class BNBActorSheet extends ActorSheet {
     // Prepare and roll the check.
     const rollStatMod = isFavored ? ` + @statMod[acc ${actorData.attributes.badass.rollsEnabled ? 'stat' : 'mod'}]` : '';
     const rollGearAccBonus = ` + @gearAcc[gear acc]`;
+    
+    // SPECIAL special logic for a unique legendary.
     const rollMstMod = (itemOverrideType.toLowerCase() === 'mwbg') ? ` + @mstMod[mst ${actorData.attributes.badass.rollsEnabled ? 'stat' : 'mod'}]` : '';
     const rollGearMstBonus = (itemOverrideType.toLowerCase() === 'mwbg') ? ` + @gearMst[gear mst]` : '';
+    // /SPECIAL special logic for a unique legendary.
+
     const rollMiscBonus = ` + @misc[misc bonus]`;
     const rollEffectsBonus = ` + @effects[effects bonus]`;
     const rollExtraBonus = isNaN(extraBonusValue) ? '' : ` + ${extraBonusValue}`;
