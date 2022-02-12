@@ -12,15 +12,9 @@
   "styles": ["css/bunkers-and-badasses.css"],
   "packs": [
     {
-      "name": "monsters",
-      "label": "My Monsters",
-      "path": "packs/monsters.db",
-      "entity": "Actor"
-    },
-    {
-      "name": "items",
-      "label": "My Items",
-      "path": "packs/items.db",
+      "name": "loot",
+      "label": "Unique Loot",
+      "path": "packs/loot.db",
       "entity": "Item"
     }
   ],
@@ -38,6 +32,6 @@
   "primaryTokenAttribute": "attributes.hps.flesh",
   "secondaryTokenAttribute": "attributes.hps.shield",
   "url": "https://github.com/eronth/bunkers-and-badasses",
-  "manifest": "https://your/hosted/system/repo/system.json",
-  "download": "https://your/packaged/download/archive.zip"
+  "manifest": "https://raw.githubusercontent.com/eronth/bunkers-and-badasses/main/system.json",
+  "download": "https://github.com/eronth/bunkers-and-badasses/archive/refs/heads/main.zip"
 }
