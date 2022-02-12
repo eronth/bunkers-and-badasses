@@ -129,11 +129,11 @@ export class BNBItem extends Item {
     });
 
     const additionalDamage = 
-      (actorData.favored[itemData.type.value] ? actorData.stats.dmg.modToUse : 0) +
-      itemData.statMods.dmg +
+      (actorData.favored[itemData.type?.value] ? actorData.stats.dmg.modToUse : 0) +
+      (itemData.statMods?.dmg ?? 0) +
       ( // SPECIAL special logic for a unique legendary.
-        (itemData.special != null && itemData.special.overrideType != null && itemData.special.overrideType.toLowerCase() === 'mwbg') 
-        ? (actorData.stats.mst.modToUse + itemData.statMods.mst) : 0
+        (itemData.special?.overrideType?.toLowerCase() === 'mwbg') 
+        ? (actorData.stats.mst.modToUse + (itemData.statMods?.mst ?? 0)) : 0
       ) +
       actorData.bonus.combat.shooting.dmg;
     const templateLocation = 'systems/bunkers-and-badasses/templates/chat/damage-results.html';

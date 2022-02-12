@@ -49,13 +49,12 @@ export class BNBItemSheet extends ItemSheet {
     context.flags = itemData.flags;
     context.elements = itemData.data.elements;
 
-    if (itemData.data.special != null && itemData.data.special.overrideType != null) {
-      if (itemData.data.special.overrideType.toLowerCase() === "mwbg") {
-        context.isMasterworkBladegun = true;
-      } else if (itemData.data.special.overrideType.toLowerCase() === "solarflare") {
-        context.isSolarFlare = true;
-      }
-    }
+    // Special handling for uniques.
+    if (itemData.data.special?.overrideType?.toLowerCase() === "mwbg") {
+      context.isMasterworkBladegun = true;
+    } else if (itemData.data.special?.overrideType?.toLowerCase() === "solarflare") {
+      context.isSolarFlare = true;
+    }  
 
     context.showRedTextMeaning = game.user.isGM;
 
