@@ -60,7 +60,7 @@ export class BNBActorSheet extends ActorSheet {
 
     // Prepare active effects
     context.effects = prepareActiveEffectCategories(this.actor.effects);
-
+    
     return context;
   }
 
@@ -1137,7 +1137,7 @@ export class BNBActorSheet extends ActorSheet {
         "Roll" : {
           label : "Roll",
           callback : async (html) => {
-            return await this._rollGunAttackDice(dataset, html, itemData.statMods);
+            return await this._rollGunAttackDice(dataset, html, itemData.statMods, itemData.special.overrideType);
           }
         }
       }
@@ -1270,7 +1270,7 @@ export class BNBActorSheet extends ActorSheet {
     return await this._displayMeleeRollResultToChat(dataset, { rollResult: rollResult });
   }
 
-  async _rollGunAttackDice(dataset, html, itemStats) {
+  async _rollGunAttackDice(dataset, html, itemStats, itemOverrideType) {
     // Prep data to access.
     const actorData = this.actor.data.data;
 
@@ -1280,13 +1280,17 @@ export class BNBActorSheet extends ActorSheet {
 
     // Prepare and roll the check.
     const rollStatMod = isFavored ? ` + @statMod[acc ${actorData.attributes.badass.rollsEnabled ? 'stat' : 'mod'}]` : '';
-    const rollGearBonus = ` + @gearAcc[gear acc]`;
+    const rollGearAccBonus = ` + @gearAcc[gear acc]`;
+    const rollMstMod = (itemOverrideType.toLowerCase() === 'mwbg') ? ` + @mstMod[mst ${actorData.attributes.badass.rollsEnabled ? 'stat' : 'mod'}]` : '';
+    const rollGearMstBonus = (itemOverrideType.toLowerCase() === 'mwbg') ? ` + @gearMst[gear mst]` : '';
     const rollMiscBonus = ` + @misc[misc bonus]`;
     const rollEffectsBonus = ` + @effects[effects bonus]`;
     const rollExtraBonus = isNaN(extraBonusValue) ? '' : ` + ${extraBonusValue}`;
-    const roll = new Roll(`1d20${rollStatMod}${rollGearBonus}${rollMiscBonus}${rollEffectsBonus}${rollExtraBonus}`, {
+    const roll = new Roll(`1d20${rollStatMod}${rollGearAccBonus}${rollMstMod}${rollGearMstBonus}${rollMiscBonus}${rollEffectsBonus}${rollExtraBonus}`, {
       statMod: actorData.stats.acc.modToUse,
       gearAcc: itemStats.acc,
+      mstMod: actorData.stats.acc.modToUse,
+      gearMst: itemStats.mst,
       misc: actorData.stats.acc.misc,
       effects: actorData.bonus.combat.shooting.acc,
       extra: extraBonusValue,
