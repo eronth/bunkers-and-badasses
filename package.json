@@ -11,7 +11,7 @@
   "browserslist": [
     "last 3 versions"
   ],
-  "author": "John Doe",
+  "author": "Nic Pereira",
   "license": "MIT",
   "private": true,
   "dependencies": {
