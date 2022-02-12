@@ -1293,7 +1293,7 @@ export class BNBActorSheet extends ActorSheet {
     const roll = new Roll(`1d20${rollStatMod}${rollGearAccBonus}${rollMstMod}${rollGearMstBonus}${rollMiscBonus}${rollEffectsBonus}${rollExtraBonus}`, {
       statMod: actorData.stats.acc.modToUse,
       gearAcc: itemStats.acc,
-      mstMod: actorData.stats.acc.modToUse,
+      mstMod: actorData.stats.mst.modToUse,
       gearMst: itemStats.mst,
       misc: actorData.stats.acc.misc,
       effects: actorData.bonus.combat.shooting.acc,
