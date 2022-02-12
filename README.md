@@ -10,4 +10,9 @@ Known Issues:
 * Miscellaneous HTML/CSS issues.
 
 Eventual Updates:
-* 
+* Track XP/Max HP/Max Shield bonuses as individual updates to make review easier.
+* Improve roll formulas to be more flexible for users.
+* Better support for various level up benefits.
+* Add Mayhem counter
+* Add Boss Bars.
+* Redsign skills page.
