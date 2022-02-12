@@ -301,7 +301,10 @@
       "base": {
         "description": "",
         "effect": "",
-        "level": 1
+        "level": 1,
+        "special": {
+          "overrideType": ""
+        }
       },
       "elemental": { 
         "elements": {
