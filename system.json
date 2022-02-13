@@ -32,6 +32,6 @@
   "primaryTokenAttribute": "attributes.hps.flesh",
   "secondaryTokenAttribute": "attributes.hps.shield",
   "url": "https://github.com/eronth/bunkers-and-badasses",
-  "manifest": "https://raw.githubusercontent.com/eronth/bunkers-and-badasses/main/system.json",
-  "download": "https://github.com/eronth/bunkers-and-badasses/archive/refs/heads/main.zip"
+  "manifest": "https://github.com/eronth/bunkers-and-badasses/releases/download/v0.0.1/system.json",
+  "download": "https://github.com/eronth/bunkers-and-badasses/archive/refs/tags/v0.0.1.zip"
 }
