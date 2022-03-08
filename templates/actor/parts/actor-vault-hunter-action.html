@@ -83,8 +83,66 @@
             </div>
           </div>
         </div>
-        <div class="flex-size-2 as-btn-outer-container">
+        <div class="flexrow flex-size-2 as-btn-outer-container">
           <!-- Placeholder -->
+
+          {{!-- Melee Stats --}}
+          <div class="flexcol">
+            <label>Melee</label>
+            <div class="flexrow">
+              <div class="flexcol cc2">
+                <input class="" value="{{data.checks.melee.misc}}" name="data.checks.melee.misc"
+                onfocus="this.select()"
+                type="number" data-dtype="Number" />
+                <label class="check-num-label">misc</label>
+              </div>
+              <div class="flexcol cc2">
+                <input class="" value="{{data.checks.melee.damage}}" name="data.checks.melee.damage"
+                onfocus="this.select()"
+                type="number" data-dtype="Number" />
+                <label class="check-num-label">damage</label>
+              </div>
+            </div>
+          </div>
+
+          {{!-- Shooting Stats --}}
+          <div class="flexcol">
+            <label>Shooting</label>
+            <div class="flexrow">
+              <div class="flexcol cc2">
+                <input class="" value="{{data.checks.shooting.misc}}" name="data.checks.shooting.misc"
+                onfocus="this.select()"
+                type="number" data-dtype="Number" />
+                <label class="check-num-label">misc</label>
+              </div>
+              <div class="flexcol cc2">
+                <input class="" value="{{data.checks.shooting.damage}}" name="data.checks.shooting.damage"
+                onfocus="this.select()"
+                type="number" data-dtype="Number" />
+                <label class="check-num-label">damage</label>
+              </div>
+            </div>
+          </div>
+
+          {{!-- Throw Stats --}}
+          <!-- <div class="flexcol">
+            <label>Shooting</label>
+            <div class="flexrow">
+              <div class="flexcol cc2">
+                <input class="" value="{{data.checks.shooting.misc}}" name="data.checks.shooting.misc"
+                onfocus="this.select()"
+                type="number" data-dtype="Number" />
+                <label class="check-num-label">misc</label>
+              </div>
+              <div class="flexcol cc2">
+                <input class="" value="{{data.checks.shooting.damage}}" name="data.checks.shooting.damage"
+                onfocus="this.select()"
+                type="number" data-dtype="Number" />
+                <label class="check-num-label">damage</label>
+              </div>
+            </div>
+          </div> -->
+            
         </div>
       </div>
       <div class="flex-size-2 attacks-container">
