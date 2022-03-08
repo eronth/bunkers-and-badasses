@@ -165,22 +165,50 @@ export class BNBActorSheet extends ActorSheet {
   }
 
   _prepareHps(context) {
+    const contextHps = context.data.attributes.hps;
+    const actorHPs = this.actor.data.data.attributes.hps;
+    const effectsHPs = this.actor.data.data.bonus.healths;
+
+    // Clean slate for HPs totals.
+    contextHps.flesh.maxTotal = contextHps.armor.maxTotal = contextHps.shield.maxTotal = 0;
+    contextHps.flesh.combinedRegen = contextHps.armor.combinedRegen = contextHps.shield.combinedRegen = "";
+
     // Get the HPs from the actor data.
     Object.entries(context.items).forEach(entry => {
       const [itemId, itemData] = entry;
       if (itemData.type === "shield" && itemData.data.equipped) {
         if (itemData.data.isArmor) {
-          context.data.attributes.hps.armor.max = itemData.data.capacity;
-          context.data.attributes.hps.armor.regen = itemData.data.recovery.repairRate;
+          contextHps.armor.maxTotal += itemData.data.capacity;
+          if (contextHps.armor.combinedRegencombinedRegen) {
+            contextHps.armor.combinedRegen += ' + ';
+          }
+          contextHps.armor.combinedRegen += itemData.data.recovery.repairRate;
         } else {
-          context.data.attributes.hps.shield.max = itemData.data.capacity;
-          context.data.attributes.hps.shield.regen = itemData.data.recovery.rechargeRate;
+          contextHps.shield.maxTotal += itemData.data.capacity;
+          if (contextHps.shield.combinedRegen) {
+            contextHps.shield.combinedRegen += ' + ';
+          }
+          contextHps.shield.combinedRegen += itemData.data.recovery.rechargeRate;
         }
       }
     });
 
-    let useArmor = game.settings.get('bunkers-and-badasses', 'usePlayerArmor');
-    let usedHps = {};
+    // Add bonuses from Builder Tab and effects.
+    Object.entries(contextHps).forEach(entry => {
+      const [hpType, hpData] = entry;
+      hpData.maxTotal += (actorHPs[hpType].max ?? 0) + (effectsHPs[hpType].max ?? 0);
+      if (actorHPs[hpType].regen) {
+        if (hpData.combinedRegen) { hpData.combinedRegen += ' + '; }
+        hpData.combinedRegen += actorHPs[hpType].regen;
+      }
+      if (effectsHPs[hpType].regen) {
+        if (hpData.combinedRegen) { hpData.combinedRegen += ' + '; }
+        hpData.combinedRegen += effectsHPs[hpType].regen;
+      }
+    });
+
+    const useArmor = game.settings.get('bunkers-and-badasses', 'usePlayerArmor');
+    const usedHps = {};
     Object.entries(context.data.attributes.hps).forEach(entry => {
       const [hpType, hpData] = entry;
       if (hpType !== "armor" || (hpType === "armor" && useArmor)) {
@@ -731,6 +759,9 @@ export class BNBActorSheet extends ActorSheet {
 
     // Update the actor.
     const attribute = this._deepFind(actorData, dataset.dataPath);
+    if (!attribute.gains) {
+      attribute.gains = [];
+    }
     attribute.gains.push({ value: gainAmount, reason: "Add Clicked" });
     attribute.value += gainAmount;
     if (attribute.max != null) {
@@ -1053,7 +1084,7 @@ export class BNBActorSheet extends ActorSheet {
     
     // Prepare and roll the check.
     const roll = new Roll(
-      `${hp.regen}`,
+      `${hp.combinedRegen}`,
       RollBuilder._createDiceRollData({actor: this.actor})
     );
     const rollResult = await roll.roll();
@@ -1073,7 +1104,7 @@ export class BNBActorSheet extends ActorSheet {
 
     // Update the appopriate values.
     let newValue = hp.value + rollResult.total;
-    if (newValue > hp.max) newValue = hp.max;
+    if (newValue > hp.maxTotal) newValue = hp.maxTotal;
     const target = "data.attributes.hps." + dataset.healthType.toLowerCase() + ".value";
     this.actor.update({[`${target}`] : newValue});
 

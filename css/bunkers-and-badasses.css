@@ -653,6 +653,7 @@ input[type="time"]:focus {
 }
 
 .bnb .favored-section {
+  margin: 2px;
   border: 1px solid #b5b3a4;
 }
 
@@ -738,13 +739,25 @@ input[type="time"]:focus {
   border-top: 1px solid #b5b3a4;
   border-bottom: 1px solid #b5b3a4;
 }
-.bnb .builder-common-container .current-xp-label,
-.bnb .builder-common-container .current-hp-label,
+.bnb .builder-common-container .bonus-hp-regen-container {
+  justify-content: space-around;
+}
+
+.bnb .builder-common-container .bonus-max-xp-label,
+.bnb .builder-common-container .bonus-max-hp-label,
+.bnb .builder-common-container .bonus-hp-regen-label,
 .bnb .builder-common-container .badass-rank-label {
   font-weight: bold;
   text-align: center;
   align-self: center;
   justify-self: center;
+}
+.bnb .builder-common-container .bonus-hp-regen-label {
+  max-width: 30px;
+}
+.bnb .builder-common-container .max-healths-update-container {
+  border: 1px solid #b5b3a4;
+  padding: 3px;
 }
 .bnb .builder-common-container .badass-rank-label {
   min-width: 100px;
@@ -752,11 +765,17 @@ input[type="time"]:focus {
   margin-right: 2px;
 }
 .bnb .builder-common-container .current-xp-input, 
-.bnb .builder-common-container .current-hp-input,
+.bnb .builder-common-container .bonus-max-hp-input,
+.bnb .builder-common-container .bonus-hp-regen-input,
 .bnb .builder-common-container .badass-rank-input {
   align-self: center;
   text-align: center;
   max-width: 55px;
+}
+.bnb .builder-common-container .max-healths-update-container .header label {
+  font-weight: bold;
+  font-size: larger;
+  text-align: center;
 }
 .bnb .builder-common-container .current-xp-input {
   max-width: 60px; 

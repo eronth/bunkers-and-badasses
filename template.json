@@ -223,13 +223,16 @@
         "badass": 0,
         "healths": {
           "flesh": {
-            "max": 0
+            "max": 0,
+            "regen": ""
           },
           "shield": {
-            "max": 0
+            "max": 0,
+            "regen": ""
           },
           "armor": {
-            "max": 0
+            "max": 0,
+            "regen": ""
           }
         },
         "combat": {
