@@ -4,6 +4,41 @@
  */
 export class BNBActor extends Actor {
 
+  async _preCreate(data, options, user) {
+    if ( this.type === 'vault hunter' ) {
+      
+      // Establish the default values for the actor's token.
+      const initTokenData = {
+        bar2: { attribute: 'attributes.hps.shield' },
+        bar1: { attribute: 'attributes.hps.flesh' },
+        vision: true,
+        actorLink: true,
+      }
+      this.data.update(initTokenData);
+    } else if ( this.type === 'npc' ) {
+      const actorData = this.data;
+      const hps = actorData.data.attributes.hps;
+
+      const initTokenData = {
+        "token.bar2": { "attribute": "attributes.hps.shield" },
+        "token.bar1": { "attribute": "attributes.hps.flesh" },
+        "token.bar3": { "attribute": "attributes.hps.armor" },
+      }
+      // TODO this is kinda bad, so the logic should revisited later.
+      // This tries to evaluate which health should be used for the healthbars.
+      // Flesh, if used, is bar1. Then armor, then shield.
+      if (!this._isHpValuePopulated(hps.flesh)) {
+        if (this._isHpValuePopulated(hps.shield) && this._isHpValuePopulated(hps.armor)) {
+          initTokenData["token.bar1"] = { "attribute": "attributes.hps.armor" };
+          initTokenData["token.bar2"] = { "attribute": "attributes.hps.shield" };
+        }
+      } else if (!this._isHpValuePopulated(hps.shield) && this._isHpValuePopulated(hps.armor)) {
+        initTokenData["token.bar2"] = { "attribute": "attributes.hps.armor" };
+      }
+      this.data.update(initTokenData);
+    }
+  }
+
   /** @override */
   prepareData() {
     // Prepare data for the actor. Calling the super version of this executes
@@ -11,12 +46,15 @@ export class BNBActor extends Actor {
     // prepareBaseData(), prepareEmbeddedDocuments() (including active effects),
     // prepareDerivedData().
     super.prepareData();
+    var hello = "hello";
   }
 
   /** @override */
   prepareBaseData() {
     // Data modifications in this step occur before processing embedded
     // documents or derived data.
+    super.prepareBaseData();
+    var hello = "hello";
   }
 
   /**
@@ -29,6 +67,7 @@ export class BNBActor extends Actor {
    * is queried and has a roll executed directly from it).
    */
   prepareDerivedData() {
+    super.prepareDerivedData();
     const actorData = this.data;
     const data = actorData.data;
     const flags = actorData.flags.bnb || {};
@@ -44,16 +83,6 @@ export class BNBActor extends Actor {
    */
   _prepareVaultHunterData(actorData) {
     if (actorData.type !== 'vault hunter') return;
-
-    // Establish the default values for the actor's token.
-    const initTokenData = {
-      "token.bar2": { "attribute": "attributes.hps.shield" },
-      "token.bar1": { "attribute": "attributes.hps.flesh" },
-      "token.name": actorData.name,
-      "token.vision": true,
-      "token.actorLink": true,
-    }
-    this.data.update(initTokenData);
 
     // Pull basic data into easy-to-access variables.
     const data = actorData.data;
@@ -94,25 +123,7 @@ export class BNBActor extends Actor {
   _prepareNpcData(actorData) {
     if (actorData.type !== 'npc') return;
 
-    const hps = actorData.data.attributes.hps;
-
-    const initTokenData = {
-      "token.bar2": { "attribute": "attributes.hps.shield" },
-      "token.bar1": { "attribute": "attributes.hps.flesh" },
-      "token.bar3": { "attribute": "attributes.hps.armor" },
-    }
-    // TODO this is kinda bad, so the logic should revisited later.
-    // This tries to evaluate which health should be used for the healthbars.
-    // Flesh, if used, is bar1. Then armor, then shield.
-    if (!this._isHpValuePopulated(hps.flesh)) {
-      if (this._isHpValuePopulated(hps.shield) && this._isHpValuePopulated(hps.armor)) {
-        initTokenData["token.bar1"] = { "attribute": "attributes.hps.armor" };
-        initTokenData["token.bar2"] = { "attribute": "attributes.hps.shield" };
-      }
-    } else if (!this._isHpValuePopulated(hps.shield) && this._isHpValuePopulated(hps.armor)) {
-      initTokenData["token.bar2"] = { "attribute": "attributes.hps.armor" };
-    }
-    this.data.update(initTokenData);
+    // const hps = actorData.data.attributes.hps;
   }
 
   _isHpValuePopulated(hpData) {
