@@ -159,6 +159,6 @@ export class BNBItem extends Item {
     }
 
 
-    return ChatMessage.create(messageData);
+    return rollResult.toMessage(messageData);
   }
 }
