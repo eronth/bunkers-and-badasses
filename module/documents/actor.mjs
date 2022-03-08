@@ -111,6 +111,7 @@ export class BNBActor extends Actor {
         checkData.effects = data.bonus.checks[check];
       } else if (data.bonus.combat[check] != null) {
         checkData.effects = data.bonus.combat[check].acc;
+        checkData.effects += data.bonus.combat.attack.acc;
       } else {
         checkData.effects = 0;
       }
