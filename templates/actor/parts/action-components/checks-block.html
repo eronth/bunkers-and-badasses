@@ -6,18 +6,21 @@
         {{> "systems/bunkers-and-badasses/templates/actor/parts/action-components/check.html" 
           checkName="Interact"
           check=data.checks.interact
+          isBadass=data.attributes.badass.rollsEnabled
         }}
       </div>
       <div>
         {{> "systems/bunkers-and-badasses/templates/actor/parts/action-components/check.html"
           checkName="Talk"
           check=data.checks.talk
+          isBadass=data.attributes.badass.rollsEnabled
         }}
       </div>
       <div>
         {{> "systems/bunkers-and-badasses/templates/actor/parts/action-components/check.html"
           checkName="Sneak"
           check=data.checks.sneak
+          isBadass=data.attributes.badass.rollsEnabled
         }}
       </div>
     </div>
@@ -26,18 +29,21 @@
         {{> "systems/bunkers-and-badasses/templates/actor/parts/action-components/check.html"
           checkName="Insight"
           check=data.checks.insight
+          isBadass=data.attributes.badass.rollsEnabled
         }}
       </div>
       <div>
         {{> "systems/bunkers-and-badasses/templates/actor/parts/action-components/check.html"
           checkName="Traverse"
           check=data.checks.traverse
+          isBadass=data.attributes.badass.rollsEnabled
         }}
       </div>
       <div>
         {{> "systems/bunkers-and-badasses/templates/actor/parts/action-components/check.html"
           checkName="Search"
           check=data.checks.search
+          isBadass=data.attributes.badass.rollsEnabled
         }}
       </div>
     </div>
@@ -49,6 +55,7 @@
         {{> "systems/bunkers-and-badasses/templates/actor/parts/action-components/check.html"
           checkName="Initiative"
           check=data.checks.initiative
+          isBadass=data.attributes.badass.rollsEnabled
           customPrefix="+"
         }}
       </div>
@@ -58,6 +65,7 @@
         {{> "systems/bunkers-and-badasses/templates/actor/parts/action-components/check.html"
           checkName="Movement"
           check=data.checks.movement
+          isBadass=data.attributes.badass.rollsEnabled
           nonRolled=data.checks.movement.nonRolled
           customUnit="sq"
         }}

@@ -90,6 +90,7 @@
             {{> "systems/bunkers-and-badasses/templates/actor/parts/action-components/check.html" 
               checkName="Melee"
               check=data.checks.melee
+              isBadass=data.attributes.badass.rollsEnabled
               nonRolled=true
               hideStat=true
             }}
@@ -98,6 +99,7 @@
             {{> "systems/bunkers-and-badasses/templates/actor/parts/action-components/check.html" 
               checkName="Shooting"
               check=data.checks.shooting
+              isBadass=data.attributes.badass.rollsEnabled
               nonRolled=true
               hideStat=true
             }}
@@ -106,6 +108,7 @@
             {{> "systems/bunkers-and-badasses/templates/actor/parts/action-components/check.html" 
               checkName="Throw"
               check=data.checks.throw
+              isBadass=data.attributes.badass.rollsEnabled
               nonRolled=true
               hideStat=true
             }}
