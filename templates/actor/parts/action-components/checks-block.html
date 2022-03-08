@@ -49,6 +49,7 @@
         {{> "systems/bunkers-and-badasses/templates/actor/parts/action-components/check.html"
           checkName="Initiative"
           check=data.checks.initiative
+          customPrefix="+"
         }}
       </div>
     </div>
@@ -57,6 +58,8 @@
         {{> "systems/bunkers-and-badasses/templates/actor/parts/action-components/check.html"
           checkName="Movement"
           check=data.checks.movement
+          nonRolled=data.checks.movement.nonRolled
+          customUnit="sq"
         }}
       </div>
     </div>

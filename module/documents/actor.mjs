@@ -84,6 +84,9 @@ export class BNBActor extends Actor {
   _prepareVaultHunterData(actorData) {
     if (actorData.type !== 'vault hunter') return;
 
+    // Run a quick update to make sure data from previous versions matches current expected version..
+    this._updateVaultHunterDataVersions(actorData);
+
     // Pull basic data into easy-to-access variables.
     const data = actorData.data;
     const archetypeStats = data.archetypes.archetype1.baseStats;
@@ -99,6 +102,9 @@ export class BNBActor extends Actor {
     });
 
     // Prepare data for various check rolls.
+    if (data.checks.shoot) {
+      delete data.checks.shoot
+    }
     Object.entries(data.checks).forEach(entry => {
       const [check, checkData] = entry;
       checkData.value = data.stats[checkData.stat].modToUse;
@@ -117,6 +123,20 @@ export class BNBActor extends Actor {
     });
   }
 
+  _updateVaultHunterDataVersions(actorData) {
+    if (!actorData?.data?.checks?.throw) {
+      actorData.data.checks.throw = {
+        stat: "acc",
+        value: 0,
+        misc: 0
+      };
+      // Square brackets needed to get the right value.
+      const archetypeRewardsLabel = "data.checks.throw";
+      this.update({[archetypeRewardsLabel]: actorData.data.checks.throw});
+    }
+    
+  }
+  
   /**
    * Prepare NPC type specific data.
    */

@@ -1,17 +1,24 @@
 <div class="flexrow check-container">
-  <label class="check-text check-text-header {{^if check.nonRolled}}rollable{{/if}}"
+  <label class="flex-size-2 check-text check-text-header {{^if nonRolled}}rollable{{/if}}"
   data-roll-type="check" data-check-type="{{checkName}}" data-roll-mod="{{check.stat}}">
-    {{^if check.nonRolled}}<i class="fa fa-dice-d20"></i> {{/if}}{{checkName}}
+    {{^if nonRolled}}<i class="fa fa-dice-d20"></i> {{/if}}{{checkName}}
   </label>
+  <div class="flexcol cc2">
+    <input style="font-weight: bold; font-size: small;"
+      class="total" value="{{customPrefix}}{{check.total}} {{customUnit}}"
+      type="text" data-dtype="String"
+      disabled />
+    <!-- <Label class="check-num-label">total</Label> -->
+  </div>
 </div>
 <div class="flexrow check-container cc2">
   
   {{#if check.usesBadassRank}}
     <div class="flexcol cc2">
-    <input class="" value="{{data.attributes.badass.rank}}"
-      type="number" data-dtype="Number"
-      disabled />
-    <label class="check-num-label">badass&nbsp;rank</label>
+      <input class="" value="{{data.attributes.badass.rank}}"
+        type="number" data-dtype="Number"
+        disabled />
+      <label class="check-num-label">badass&nbsp;rank</label>
     </div>
 
     <Label class="check-text-operation">+</Label>
@@ -27,14 +34,16 @@
   <Label class="check-text-operation">+</Label>
   {{/if}}
   
+  {{^if hideStat}}
   <div class="flexcol cc2">
     <input class="" value="{{check.value}}"
       type="number" data-dtype="Number"
       disabled />
     <Label class="check-num-label">{{check.stat}}&nbsp;mod</Label>
   </div>
-
+  
   <Label class="check-text-operation">+</Label>
+  {{/if}}
   
   <div class="flexcol cc2">
     <input class="" value="{{check.misc}}" name="data.checks.{{toLowerCase checkName}}.misc"
@@ -43,24 +52,12 @@
     <label class="check-num-label">misc</label>
   </div>
     
-  <Label class="check-text-operation">=</Label>
+  <Label class="check-text-operation">+</Label>
   
   <div class="flexcol cc2">
-    {{#if check.nonRolled}}
-    <input class="" value="{{check.total}} sq"
+    <input class="" value="{{check.effects}}"
       type="text" data-dtype="String"
       disabled />
-    {{else}}
-      {{#if check.usesBadassRank}}
-      <input class="" value="+{{check.total}}"
-        type="text" data-dtype="String"
-        disabled />
-      {{else}}
-      <input class="" value="{{check.total}}"
-        type="number" data-dtype="Number"
-        disabled />
-      {{/if}}
-    {{/if}}
-    <Label class="check-num-label">total</Label>
+    <Label class="check-num-label">effects</Label>
   </div>
 </div>
