@@ -1,3 +1,5 @@
+import { RollBuilder } from "../helpers/roll-builder.mjs";
+
 /**
  * Extend the base Actor document by defining a custom roll data structure which is ideal for the Simple system.
  * @extends {Actor}
@@ -212,12 +214,8 @@ export class BNBActor extends Actor {
     const rollPlusOneDice = isPlusOneDice ? ` + ${actorData.class.meleeDice}` : '';
     const rollDoubleDamage = isDoubleDamage ? '2*' : '';
     const rollCrit = isCrit ? ' + 1d12' : '';
-    const rollFormula = `${rollDoubleDamage}(${actorData.class.meleeDice}${rollPlusOneDice}${rollCrit} + @dmgMod + @effects)[Kinetic]`;
-    const roll = new Roll(rollFormula, {
-      actor: actor,
-      dmgMod: actorData.stats.dmg.modToUse,
-      effects: actorData.bonus.combat.melee.dmg,
-    });
+    const rollFormula = `${rollDoubleDamage}(${actorData.class.meleeDice}${rollPlusOneDice}${rollCrit} + @dmg[DMG ${actorData.attributes.badass.rollsEnabled ? 'Stat' : 'Mod'}] + @meleedamageeffects[Bonus])[Kinetic]`;
+    const roll = new Roll(rollFormula, RollBuilder._createDiceRollData(actor));
     const rollResult = await roll.roll();    
     
     // Convert roll to a results object for sheet display.
@@ -240,7 +238,7 @@ export class BNBActor extends Actor {
       flavor: flavorText,
       type: CONST.CHAT_MESSAGE_TYPES.ROLL,
       roll: rollResult,
-      rollMode: CONFIG.Dice.rollModes.roll,
+      rollMode: CONFIG.Dice.rollModes.publicroll,
       content: chatHtmlContent,
       // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
       speaker: ChatMessage.getSpeaker(),
@@ -248,4 +246,6 @@ export class BNBActor extends Actor {
 
     return ChatMessage.create(messageData);
   };
+  
+  
 }
