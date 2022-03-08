@@ -102,9 +102,6 @@ export class BNBActor extends Actor {
     });
 
     // Prepare data for various check rolls.
-    if (data.checks.shoot) {
-      delete data.checks.shoot
-    }
     Object.entries(data.checks).forEach(entry => {
       const [check, checkData] = entry;
       checkData.value = data.stats[checkData.stat].modToUse;
