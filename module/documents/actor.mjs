@@ -48,7 +48,6 @@ export class BNBActor extends Actor {
     // prepareBaseData(), prepareEmbeddedDocuments() (including active effects),
     // prepareDerivedData().
     super.prepareData();
-    var hello = "hello";
   }
 
   /** @override */
@@ -56,7 +55,6 @@ export class BNBActor extends Actor {
     // Data modifications in this step occur before processing embedded
     // documents or derived data.
     super.prepareBaseData();
-    var hello = "hello";
   }
 
   /**
