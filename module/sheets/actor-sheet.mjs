@@ -1032,7 +1032,7 @@ export class BNBActorSheet extends ActorSheet {
     }
 
     // Send the roll to chat!
-    return ChatMessage.create(messageData);
+    return rollResult.toMessage(messageData);
   }
   
   async _healthRegainRoll(dataset) {
@@ -1396,7 +1396,7 @@ export class BNBActorSheet extends ActorSheet {
     }
 
     // Send the roll to chat!
-    return ChatMessage.create(messageData);
+    return rollResult.toMessage(messageData);
   }
 
   async _displayMeleeRollResultToChat(dataset, rollObjs) {
@@ -1451,7 +1451,7 @@ export class BNBActorSheet extends ActorSheet {
     }
 
     // Send the roll to chat!
-    const chatMessage = ChatMessage.create(messageData);
+    const chatMessage = rollResult.toMessage(messageData);
   }
 
   async _displayGunRollResultToChat(dataset, rollObjs) {
@@ -1511,7 +1511,7 @@ export class BNBActorSheet extends ActorSheet {
     }
 
     // Send the roll to chat!
-    await ChatMessage.create(messageData);
+    await rollResult.toMessage(messageData);
     
     this._handleRedText(item);
 
@@ -1553,7 +1553,7 @@ export class BNBActorSheet extends ActorSheet {
     }
 
     // Send the roll to chat!
-    return ChatMessage.create(messageData);
+    return rollResult.toMessage(messageData);
   }
 
   async _displayGrenadeRollResultToChat(dataset, rollObjs) {
@@ -1594,7 +1594,7 @@ export class BNBActorSheet extends ActorSheet {
     }
     
     // Send the roll to chat!
-    await ChatMessage.create(messageData);
+    await rollResult.toMessage(messageData);
 
     this._handleRedText(item);
 

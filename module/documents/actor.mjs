@@ -244,7 +244,7 @@ export class BNBActor extends Actor {
       speaker: ChatMessage.getSpeaker(),
     }
 
-    return ChatMessage.create(messageData);
+    return rollResult.toMessage(messageData);
   };
   
   
