@@ -90,7 +90,8 @@ export class RollBuilder {
       melee: checks?.melee?.total,
       meleetotal: checks?.melee?.total,
       meleemisc: checks?.melee?.misc,
-      meleeeffects: combatBonus?.melee?.acc,
+      meleeonlyeffects: combatBonus?.melee?.acc,
+      meleeeffects: combatBonus?.melee?.acc + combatBonus?.attack?.acc,
       meleedice: vh_class?.meleeDice,
       meleedamage: attributes?.meleeDamage?.total,
       meleedamagetotal: attributes?.meleeDamage?.total,
@@ -108,8 +109,11 @@ export class RollBuilder {
       shootmisc: checks?.shooting?.misc,
       shootingmisc: checks?.shooting?.misc,
       
-      shootffects: combatBonus?.shooting?.acc,
-      shootingeffects: combatBonus?.shooting?.acc,
+      shootonlyeffects: combatBonus?.shooting?.acc,
+      shootingonlyeffects: combatBonus?.shooting?.acc,
+
+      shooteffects: combatBonus?.shooting?.acc + combatBonus?.attack?.acc,
+      shootingeffects: combatBonus?.shooting?.acc + combatBonus?.attack?.acc,
       
       shootbonusdmg: combatBonus?.shooting?.dmg,
       shootingbonusdmg: combatBonus?.shooting?.dmg,

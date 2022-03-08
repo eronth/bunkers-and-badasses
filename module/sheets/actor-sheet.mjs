@@ -1238,6 +1238,7 @@ export class BNBActorSheet extends ActorSheet {
       attributes: actorData.attributes,
       check: checkItem,
       promptCheckType: promptCheckType ?? false,
+      isBadass: actorData.attributes.badass.rollsEnabled,
       defaultDifficulty: defaultDifficulty,
     });
 
