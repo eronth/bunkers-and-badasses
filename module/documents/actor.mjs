@@ -215,7 +215,10 @@ export class BNBActor extends Actor {
     const rollDoubleDamage = isDoubleDamage ? '2*' : '';
     const rollCrit = isCrit ? ' + 1d12' : '';
     const rollFormula = `${rollDoubleDamage}(${actorData.class.meleeDice}${rollPlusOneDice}${rollCrit} + @dmg[DMG ${actorData.attributes.badass.rollsEnabled ? 'Stat' : 'Mod'}] + @meleedamageeffects[Bonus])[Kinetic]`;
-    const roll = new Roll(rollFormula, RollBuilder._createDiceRollData(actor));
+    const roll = new Roll(
+      rollFormula,
+      RollBuilder._createDiceRollData({actor: actor})
+    );
     const rollResult = await roll.roll();    
     
     // Convert roll to a results object for sheet display.

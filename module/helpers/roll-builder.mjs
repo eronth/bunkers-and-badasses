@@ -1,5 +1,7 @@
 export class RollBuilder {
-  static _createDiceRollData(actor, dataOverride) {
+  static _createDiceRollData(foundryObjs, dataOverride) {
+    const actor = foundryObjs.actor;
+    const item = foundryObjs.item;
 
     const level = actor.data.data.attributes.level;
     const vh_class = actor.data.data.class;

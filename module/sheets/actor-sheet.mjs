@@ -964,7 +964,10 @@ export class BNBActorSheet extends ActorSheet {
     const actorData = this.actor.data.data;
 
     const rollFormula = `${actorData.class.meleeDice}[Melee Dice] + @mstmod[MST mod]`;
-    const roll = new Roll(rollFormula, RollBuilder._createDiceRollData(this.actor));
+    const roll = new Roll(
+      rollFormula,
+      RollBuilder._createDiceRollData({actor: this.actor})
+    );
     const rollResult = await roll.roll();
 
     const flavorText = `${this.actor.name} rolls their Melee Dice.`;
@@ -1000,7 +1003,10 @@ export class BNBActorSheet extends ActorSheet {
     // Prep data to access.
     const actorData = this.actor.data.data;
 
-    const roll = new Roll(`1d20 + @badassrank[Badass Rank]`, RollBuilder._createDiceRollData(this.actor));
+    const roll = new Roll(
+      `1d20 + @badassrank[Badass Rank]`,
+      RollBuilder._createDiceRollData({actor: this.actor})
+    );
     const rollResult = await roll.roll();
 
     let badassTotal = rollResult.total;
@@ -1046,7 +1052,10 @@ export class BNBActorSheet extends ActorSheet {
     }
     
     // Prepare and roll the check.
-    const roll = new Roll(`${hp.regen}`, RollBuilder._createDiceRollData(this.actor));
+    const roll = new Roll(
+      `${hp.regen}`,
+      RollBuilder._createDiceRollData({actor: this.actor})
+    );
     const rollResult = await roll.roll();
 
     // Prep chat values.
@@ -1258,7 +1267,13 @@ export class BNBActorSheet extends ActorSheet {
     const rollEffectsBonus = ` + @meleeeffects[Effects]`;
     const rollExtraBonus = isNaN(extraBonusValue) ? '' : ` + ${extraBonusValue}[Extra bonus]`;
     const rollFormula = `1d20${rollStatMod}${rollMiscBonus}${rollEffectsBonus}${rollExtraBonus}`;
-    const roll = new Roll( rollFormula, RollBuilder._createDiceRollData(this.actor, { extra: extraBonusValue }) );
+    const roll = new Roll(
+      rollFormula,
+      RollBuilder._createDiceRollData(
+        { actor: this.actor },
+        { extra: extraBonusValue }
+      )
+    );
     const rollResult = await roll.roll();
 
     // Display the result.
@@ -1286,13 +1301,19 @@ export class BNBActorSheet extends ActorSheet {
     const rollEffectsBonus = ` + @shootingeffects[Effects]`;
     const rollExtraBonus = isNaN(extraBonusValue) ? '' : ` + ${extraBonusValue}`;
     const rollFormula = `1d20${rollStatMod}${rollGearAccBonus}${rollMstMod}${rollGearMstBonus}${rollMiscBonus}${rollEffectsBonus}${rollExtraBonus}`;
-    const roll = new Roll( rollFormula, RollBuilder._createDiceRollData(this.actor, {
-      gearacc: itemStats.acc,
-      geardmg: itemStats.dmg,
-      gearspd: itemStats.spd,
-      gearmst: itemStats.mst,
-      extrabonusvalue: extraBonusValue,
-    }));
+    const roll = new Roll(
+      rollFormula,
+      RollBuilder._createDiceRollData(
+        { actor: this.actor },
+        {
+          gearacc: itemStats.acc,
+          geardmg: itemStats.dmg,
+          gearspd: itemStats.spd,
+          gearmst: itemStats.mst,
+          extrabonusvalue: extraBonusValue 
+        }
+      )
+    );
     const rollResult = await roll.roll();
 
     // Display the result.
@@ -1323,7 +1344,13 @@ export class BNBActorSheet extends ActorSheet {
     const rollExtraMod = (isNaN(extraBonusValue) || extraBonusValue == 0 ? '' : ` + @extrabonusvalue[Extra Bonus]`);
     const rollDifficulty = ((difficultyValue != null && !isNaN(difficulty)) ? `cs>=${difficultyValue}` : ``);
     const rollFormula = `1d20${badassMod}${rollStatMod}${rollMiscBonus}${rollEffectBonus}${rollExtraMod}${rollDifficulty}`;
-    const roll = new Roll( rollFormula, RollBuilder._createDiceRollData(this.actor, { extrabonusvalue: extraBonusValue }) );
+    const roll = new Roll(
+      rollFormula,
+      RollBuilder._createDiceRollData(
+        { actor: this.actor },
+        { extrabonusvalue: extraBonusValue }
+      )
+    );
     const rollResult = await roll.roll();
 
     // Display the result.
