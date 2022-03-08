@@ -1046,7 +1046,7 @@ export class BNBActorSheet extends ActorSheet {
     }
     
     // Prepare and roll the check.
-    const roll = new Roll(`${hp.regen}`, RollBuilder._createDiceRollData(actor));
+    const roll = new Roll(`${hp.regen}`, RollBuilder._createDiceRollData(this.actor));
     const rollResult = await roll.roll();
 
     // Prep chat values.
