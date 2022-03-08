@@ -1,7 +1,7 @@
 <div class="flexrow check-container">
   <label class="flex-size-2 check-text check-text-header {{^if nonRolled}}rollable{{/if}}"
   data-roll-type="check" data-check-type="{{checkName}}" data-roll-mod="{{check.stat}}">
-    {{^if nonRolled}}<i class="fa fa-dice-d20"></i> {{/if}}{{checkName}}
+    {{^if nonRolled}}<i class="fa fa-dice-d20"></i> {{/if}}{{displayName}}
   </label>
   <div class="flexcol cc2">
     <input style="font-weight: bold; font-size: 15px;"
