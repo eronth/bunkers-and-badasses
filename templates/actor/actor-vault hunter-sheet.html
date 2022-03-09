@@ -26,13 +26,13 @@
             <label for="{{key}}-health-display" class="resource-label rollable flexlarge">{{hp.label}}</label>
             <input 
               class="flexlarge" 
-              value="{{hp.value}} / {{hp.max}}"
+              value="{{hp.value}} / {{hp.maxTotal}}"
               type="text" name="{{key}}-health-display" data-dtype="Number"
               disabled=true />
           </div>
           <div class="flexcol flex-group-center rollable regen">
             <label for="{{key-regen}}" class="resource-label align-center">Regen</label>
-            <input id="{{key-regen}}" type="text" name="" value="+{{hp.regen}}" data-dtype="Number" disabled=true/>
+            <input id="{{key-regen}}" type="text" name="" value="+{{hp.combinedRegen}}" data-dtype="Number" disabled=true/>
           </div>
 
         </div>
