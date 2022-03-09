@@ -756,6 +756,7 @@ input[type="time"]:focus {
   max-width: 30px;
 }
 .bnb .builder-common-container .max-healths-update-container {
+  margin: 2px;
   border: 1px solid #b5b3a4;
   padding: 3px;
 }
@@ -1233,8 +1234,21 @@ input[type="time"]:focus {
   justify-content: center;
 }
 
+
+.bnb .builder-common-container .xp-manage-container,
 .bnb .builder-common-container .badass-rank-container {
   text-align: center;
+  align-items: center;
+  margin: 2px;
+  margin-top: 1px;
+  border: 1px solid #b5b3a4;
+  padding: 3px;
+}
+.bnb .builder-common-container .xp-manage-container {
+  margin-right: 1px;
+}
+.bnb .builder-common-container .badass-rank-container {
+  margin-left: 1px;
 }
 
 .badass-container {
@@ -1254,6 +1268,7 @@ input[type="time"]:focus {
   flex: 2;
   align-items: center
 }
+.xp-manage-container label,
 .badass-container label,
 .badass-container a {
   font-weight: bold;

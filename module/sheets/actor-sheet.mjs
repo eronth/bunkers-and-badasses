@@ -39,7 +39,8 @@ export class BNBActorSheet extends ActorSheet {
 
     // Add the actor's data to context.data for easier access, as well as flags.
     context.data = actorData.data;
-    context.flags = actorData.flags;
+    context.flags = {...actorData.flags};
+    context.flags.useArmor = game.settings.get('bunkers-and-badasses', 'usePlayerArmor');
 
     // Prepare Vault Hunter data and items.
     if (actorData.type == 'vault hunter') {
@@ -207,11 +208,10 @@ export class BNBActorSheet extends ActorSheet {
       }
     });
 
-    const useArmor = game.settings.get('bunkers-and-badasses', 'usePlayerArmor');
     const usedHps = {};
     Object.entries(context.data.attributes.hps).forEach(entry => {
       const [hpType, hpData] = entry;
-      if (hpType !== "armor" || (hpType === "armor" && useArmor)) {
+      if (hpType !== "armor" || (hpType === "armor" && context.flags.useArmor)) {
         usedHps[hpType] = hpData;
       }
     });

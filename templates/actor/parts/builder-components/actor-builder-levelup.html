@@ -32,31 +32,49 @@
     <label for="favorHeavy">Rocket Launcher</label>
   </div>
 </div>
+
+<div class="flexrow builder-common-container">
+
+  <div class="flexrow flex-size-3 xp-manage-container">
+    {{!-- XP Segment --}}
+    <div>
+      <label for="current-xp-amount" class="current-xp-label">XP</label>
+      <input id="current-xp-amount" class="current-xp-input"
+      placeholder="Current XP" name="data.attributes.xp.value"
+      value="{{data.attributes.xp.value}}"
+      onfocus="this.select()" type="number" data-dtype="Number" />
+    </div>
+    <div>
+      <button class="btn btn-primary item-control btn-manage xp-gain"
+      data-attribute-name="XP" data-data-path="attributes.xp" >
+        <i class="fas fa-plus"></i> XP
+      </button>
+    </div>
+    <div>
+      <button class="btn btn-primary item-control btn-manage set-level">
+        Set Lvl
+      </button>
+    </div>
+  </div>
+
+  <div class="flexrow flex-size-2 badass-rank-container">
+    {{!-- Badass Rank --}}
+    <div>
+      <label for="badass-rank" class="badass-rank-label"><i class="fas fa-skull"></i> Badass Rank</label>
+    </div>
+    <div>  
+      <input id="badass-rank" class="badass-rank-input"
+      placeholder="Badass Rank" name="data.attributes.badass.rank" 
+      value="{{data.attributes.badass.rank}}"
+      onfocus="this.select()" type="number" data-dtype="Number" />
+    </div>
+  </div>
+</div>
   
 <div class="flexrow builder-common-container">
   <div class="flexcol flex-size-3">
 
-    <div class="flexrow">
-      {{!-- XP Segment --}}
-      <div>
-        <label for="current-xp-amount" class="current-xp-label">XP</label>
-        <input id="current-xp-amount" class="current-xp-input"
-        placeholder="Current XP" name="data.attributes.xp.value"
-        value="{{data.attributes.xp.value}}"
-        onfocus="this.select()" type="number" data-dtype="Number" />
-      </div>
-      <div>
-        <button class="btn btn-primary item-control btn-manage xp-gain"
-        data-attribute-name="XP" data-data-path="attributes.xp" >
-          <i class="fas fa-plus"></i> XP
-        </button>
-      </div>
-      <div>
-        <button class="btn btn-primary item-control btn-manage set-level">
-          Set Lvl
-        </button>
-      </div>
-    </div>
+    
 
     <div class="flex-size-3 max-healths-update-container">
       <div class="flexrow header">
@@ -88,6 +106,7 @@
       </div>
       
       {{!-- Armor Segment --}}
+      {{#if flags.useArmor}}
       <div class="flexrow">
         <div class="flexrow">
           <label for="max-hp-amount" class="bonus-max-hp-label">Max Armor</label>
@@ -110,6 +129,7 @@
           </button>
         </div>
       </div>
+      {{/if}}
 
       {{!-- Health Segment --}}
       <div class="flexrow">
@@ -139,16 +159,7 @@
     
   </div>
 
-  <div class="flexcol badass-rank-container">
-    {{!-- Badass Rank --}}
-    <div>
-      <label for="badass-rank" class="badass-rank-label"><i class="fas fa-skull"></i> Badass Rank</label>
-    </div>
-    <div>  
-      <input id="badass-rank" class="badass-rank-input"
-      placeholder="Badass Rank" name="data.attributes.badass.rank" 
-      value="{{data.attributes.badass.rank}}"
-      onfocus="this.select()" type="number" data-dtype="Number" />
-    </div>
+  <div>
+
   </div>
 </div>
