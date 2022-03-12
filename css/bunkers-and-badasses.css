@@ -1412,9 +1412,24 @@ input[type="time"]:focus {
   justify-content: flex-start;
 }
 
+.bnb .class-background-container {
+  margin: 2px;
+  border: 1px solid #b5b3a4;
+  padding: 3px;
+}
 .bnb .class-background {
   font-size: 13px;
   align-items: center;
+}
+.bnb .class-background2 {
+  align-items: stretch;
+}
+.bnb .class-background2 label{
+  font-size: 13px;
+}
+.bnb .class-background2 textarea {
+  border: 0;
+  border: 1px solid #7a7971;
 }
 
 .bnb .action-skill-header {
