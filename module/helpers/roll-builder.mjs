@@ -98,6 +98,8 @@ export class RollBuilder {
       meleedamagebase: attributes?.meleeDamage?.value,
       meleedamagebonus: attributes?.meleeDamage?.bonus,
       meleedamageeffects: combatBonus?.melee?.dmg,
+      meleecritdmgeffecs: combatBonus?.melee?.critdmg,
+      meleecritdamageeffecs: combatBonus?.melee?.critdmg,
 
 
       shoot: checks?.shooting?.total,
@@ -119,6 +121,11 @@ export class RollBuilder {
       shootingbonusdmg: combatBonus?.shooting?.dmg,
       shootbonusdamage: combatBonus?.shooting?.dmg,
       shootingbonusdamage: combatBonus?.shooting?.dmg,
+
+      shootcritdmgeffecs: combatBonus?.shooting?.critdmg,
+      shootcritdamageeffecs: combatBonus?.shooting?.critdmg,
+      shootingcritdmgeffecs: combatBonus?.shooting?.critdmg,
+      shootingcritdamageeffecs: combatBonus?.shooting?.critdmg,
 
 
       throw: checks?.throw?.total,
