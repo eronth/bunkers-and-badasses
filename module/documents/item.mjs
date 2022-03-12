@@ -99,8 +99,16 @@ export class BNBItem extends Item {
       }
     });
     rollFormula = rollFormula.slice(0, -1);
+    // if (actorData?.bonus?.shooting?.dmg) {
+    //   rollFormula += `+ @shootdmgeffects[Dmg Effects]`
+    // } else {
+    //   rollFormula = rollFormula.slice(0, -1);
+    // }
     if (!isNaN(crits)) {
       rollFormula += `+ ${crits}d12[Crit]`
+      // if (actorData?.bonus?.shooting?.dmg) {
+      //   rollFormula += `+ @shootcritdmgeffects[Crit Effects]`
+      // }
     }
 
     
