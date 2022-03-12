@@ -233,7 +233,7 @@ export class BNBActor extends Actor {
     const critEffectDamage = (actorData?.bonus?.combat?.melee?.critdmg ?? 0) + (actorData?.bonus?.combat?.attack?.critdmg ?? 0);
     const rollCrit = (isCrit ? ' + 1d12[Crit]' : '') 
       + ((isCrit && critEffectDamage > 0) 
-        ? ` + (${critEffectDamage})[Crit Effects]` 
+        ? ` + ${critEffectDamage}[Crit Effects]` 
         : '');
     const rollFormula = `${rollDoubleDamage}`
      + `(`
