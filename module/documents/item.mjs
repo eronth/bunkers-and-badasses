@@ -143,8 +143,10 @@ export class BNBItem extends Item {
         (itemData.special?.overrideType?.toLowerCase() === 'mwbg') 
         ? (actorData.stats.mst.modToUse + (itemData.statMods?.mst ?? 0)) : 0
       ) +
-      (actorData?.bonus?.combat?.shooting?.dmg ?? 0) +
-      ((!isNaN(crits) && crits > 0) ? (actorData?.bonus?.combat?.shooting?.critdmg ?? 0) : 0);
+      (actorData?.bonus?.combat?.shooting?.dmg ?? 0) + (actorData?.bonus?.combat?.attack?.dmg ?? 0)
+      ((!isNaN(crits) && crits > 0) 
+        ? (actorData?.bonus?.combat?.shooting?.critdmg ?? 0) + (actorData?.bonus?.combat?.attack?.critdmg ?? 0)
+        : 0);
     const templateLocation = 'systems/bunkers-and-badasses/templates/chat/damage-results.html';
     const chatHtmlContent = await renderTemplate(templateLocation, {
       results: rollResults,
