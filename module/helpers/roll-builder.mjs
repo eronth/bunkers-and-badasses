@@ -97,9 +97,10 @@ export class RollBuilder {
       meleedamagetotal: attributes?.meleeDamage?.total,
       meleedamagebase: attributes?.meleeDamage?.value,
       meleedamagebonus: attributes?.meleeDamage?.bonus,
+      meleedmgeffects: combatBonus?.melee?.dmg,
       meleedamageeffects: combatBonus?.melee?.dmg,
-      meleecritdmgeffecs: combatBonus?.melee?.critdmg,
-      meleecritdamageeffecs: combatBonus?.melee?.critdmg,
+      meleecritdmgeffects: combatBonus?.melee?.critdmg,
+      meleecritdamageeffects: combatBonus?.melee?.critdmg,
 
 
       shoot: checks?.shooting?.total,
@@ -117,15 +118,15 @@ export class RollBuilder {
       shooteffects: combatBonus?.shooting?.acc + combatBonus?.attack?.acc,
       shootingeffects: combatBonus?.shooting?.acc + combatBonus?.attack?.acc,
       
-      shootbonusdmg: combatBonus?.shooting?.dmg,
-      shootingbonusdmg: combatBonus?.shooting?.dmg,
-      shootbonusdamage: combatBonus?.shooting?.dmg,
-      shootingbonusdamage: combatBonus?.shooting?.dmg,
+      shootdmgeffects: combatBonus?.shooting?.dmg,
+      shootingdmgeffects: combatBonus?.shooting?.dmg,
+      shootdamageeffects: combatBonus?.shooting?.dmg,
+      shootingdamageeffects: combatBonus?.shooting?.dmg,
 
-      shootcritdmgeffecs: combatBonus?.shooting?.critdmg,
-      shootcritdamageeffecs: combatBonus?.shooting?.critdmg,
-      shootingcritdmgeffecs: combatBonus?.shooting?.critdmg,
-      shootingcritdamageeffecs: combatBonus?.shooting?.critdmg,
+      shootcritdmgeffects: combatBonus?.shooting?.critdmg,
+      shootcritdamageeffects: combatBonus?.shooting?.critdmg,
+      shootingcritdmgeffects: combatBonus?.shooting?.critdmg,
+      shootingcritdamageeffects: combatBonus?.shooting?.critdmg,
 
 
       throw: checks?.throw?.total,
