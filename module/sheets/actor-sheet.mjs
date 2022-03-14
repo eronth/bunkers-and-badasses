@@ -1,4 +1,5 @@
 import {onManageActiveEffect, prepareActiveEffectCategories} from "../helpers/effects.mjs";
+import { RollBuilder } from "../helpers/roll-builder.mjs";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -38,7 +39,8 @@ export class BNBActorSheet extends ActorSheet {
 
     // Add the actor's data to context.data for easier access, as well as flags.
     context.data = actorData.data;
-    context.flags = actorData.flags;
+    context.flags = {...actorData.flags};
+    context.flags.useArmor = game.settings.get('bunkers-and-badasses', 'usePlayerArmor');
 
     // Prepare Vault Hunter data and items.
     if (actorData.type == 'vault hunter') {
@@ -164,25 +166,52 @@ export class BNBActorSheet extends ActorSheet {
   }
 
   _prepareHps(context) {
+    const contextHps = context.data.attributes.hps;
+    const actorHPs = this.actor.data.data.attributes.hps;
+    const effectsHPs = this.actor.data.data.bonus.healths;
+
+    // Clean slate for HPs totals.
+    contextHps.flesh.maxTotal = contextHps.armor.maxTotal = contextHps.shield.maxTotal = 0;
+    contextHps.flesh.combinedRegen = contextHps.armor.combinedRegen = contextHps.shield.combinedRegen = "";
+
     // Get the HPs from the actor data.
     Object.entries(context.items).forEach(entry => {
       const [itemId, itemData] = entry;
       if (itemData.type === "shield" && itemData.data.equipped) {
         if (itemData.data.isArmor) {
-          context.data.attributes.hps.armor.max = itemData.data.capacity;
-          context.data.attributes.hps.armor.regen = itemData.data.recovery.repairRate;
+          contextHps.armor.maxTotal += itemData.data.capacity;
+          if (contextHps.armor.combinedRegencombinedRegen) {
+            contextHps.armor.combinedRegen += ' + ';
+          }
+          contextHps.armor.combinedRegen += itemData.data.recovery.repairRate;
         } else {
-          context.data.attributes.hps.shield.max = itemData.data.capacity;
-          context.data.attributes.hps.shield.regen = itemData.data.recovery.rechargeRate;
+          contextHps.shield.maxTotal += itemData.data.capacity;
+          if (contextHps.shield.combinedRegen) {
+            contextHps.shield.combinedRegen += ' + ';
+          }
+          contextHps.shield.combinedRegen += itemData.data.recovery.rechargeRate;
         }
       }
     });
 
-    let useArmor = game.settings.get('bunkers-and-badasses', 'usePlayerArmor');
-    let usedHps = {};
+    // Add bonuses from Builder Tab and effects.
+    Object.entries(contextHps).forEach(entry => {
+      const [hpType, hpData] = entry;
+      hpData.maxTotal += (actorHPs[hpType].max ?? 0) + (effectsHPs[hpType].max ?? 0);
+      if (actorHPs[hpType].regen) {
+        if (hpData.combinedRegen) { hpData.combinedRegen += ' + '; }
+        hpData.combinedRegen += actorHPs[hpType].regen;
+      }
+      if (effectsHPs[hpType].regen) {
+        if (hpData.combinedRegen) { hpData.combinedRegen += ' + '; }
+        hpData.combinedRegen += effectsHPs[hpType].regen;
+      }
+    });
+
+    const usedHps = {};
     Object.entries(context.data.attributes.hps).forEach(entry => {
       const [hpType, hpData] = entry;
-      if (hpType !== "armor" || (hpType === "armor" && useArmor)) {
+      if (hpType !== "armor" || (hpType === "armor" && context.flags.useArmor)) {
         usedHps[hpType] = hpData;
       }
     });
@@ -730,6 +759,9 @@ export class BNBActorSheet extends ActorSheet {
 
     // Update the actor.
     const attribute = this._deepFind(actorData, dataset.dataPath);
+    if (!attribute.gains) {
+      attribute.gains = [];
+    }
     attribute.gains.push({ value: gainAmount, reason: "Add Clicked" });
     attribute.value += gainAmount;
     if (attribute.max != null) {
@@ -962,9 +994,11 @@ export class BNBActorSheet extends ActorSheet {
   async _meleeAndHPDiceRoll(dataset) {
     const actorData = this.actor.data.data;
 
-    const roll = new Roll(`${actorData.class.meleeDice}[Melee Dice] + @mstMod[MST mod]`, {
-      mstMod: actorData.stats.mst.mod,
-    });
+    const rollFormula = `${actorData.class.meleeDice}[Melee Dice] + @mstmod[MST mod]`;
+    const roll = new Roll(
+      rollFormula,
+      RollBuilder._createDiceRollData({actor: this.actor})
+    );
     const rollResult = await roll.roll();
 
     const flavorText = `${this.actor.name} rolls their Melee Dice.`;
@@ -974,7 +1008,7 @@ export class BNBActorSheet extends ActorSheet {
       flavor: flavorText,
       type: CONST.CHAT_MESSAGE_TYPES.ROLL,
       roll: rollResult,
-      rollMode: CONFIG.Dice.rollModes.roll,
+      rollMode: CONFIG.Dice.rollModes.publicroll,
       // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
       speaker: ChatMessage.getSpeaker(),
     });
@@ -1000,9 +1034,10 @@ export class BNBActorSheet extends ActorSheet {
     // Prep data to access.
     const actorData = this.actor.data.data;
 
-    const roll = new Roll(`1d20`, {
-      badassRank: actorData.attributes.badass.rank // TODO not currently using in the roll
-    });
+    const roll = new Roll(
+      `1d20 + @badassrank[Badass Rank]`,
+      RollBuilder._createDiceRollData({actor: this.actor})
+    );
     const rollResult = await roll.roll();
 
     let badassTotal = rollResult.total;
@@ -1027,14 +1062,14 @@ export class BNBActorSheet extends ActorSheet {
       flavor: flavorText,
       type: CONST.CHAT_MESSAGE_TYPES.ROLL,
       roll: rollResult,
-      rollMode: CONFIG.Dice.rollModes.roll,
+      rollMode: CONFIG.Dice.rollModes.publicroll,
       content: chatHtmlContent,
       // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
       speaker: ChatMessage.getSpeaker(),
     }
 
     // Send the roll to chat!
-    return ChatMessage.create(messageData);
+    return rollResult.toMessage(messageData);
   }
   
   async _healthRegainRoll(dataset) {
@@ -1048,7 +1083,10 @@ export class BNBActorSheet extends ActorSheet {
     }
     
     // Prepare and roll the check.
-    const roll = new Roll(`${hp.regen}`, {});
+    const roll = new Roll(
+      `${hp.combinedRegen}`,
+      RollBuilder._createDiceRollData({actor: this.actor})
+    );
     const rollResult = await roll.roll();
 
     // Prep chat values.
@@ -1059,14 +1097,14 @@ export class BNBActorSheet extends ActorSheet {
       flavor: flavorText,
       type: CONST.CHAT_MESSAGE_TYPES.ROLL,
       roll: rollResult,
-      rollMode: CONFIG.Dice.rollModes.roll,
+      rollMode: CONFIG.Dice.rollModes.publicroll,
       // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
       speaker: ChatMessage.getSpeaker(),
     }
 
     // Update the appopriate values.
     let newValue = hp.value + rollResult.total;
-    if (newValue > hp.max) newValue = hp.max;
+    if (newValue > hp.maxTotal) newValue = hp.maxTotal;
     const target = "data.attributes.hps." + dataset.healthType.toLowerCase() + ".value";
     this.actor.update({[`${target}`] : newValue});
 
@@ -1200,6 +1238,7 @@ export class BNBActorSheet extends ActorSheet {
       attributes: actorData.attributes,
       check: checkItem,
       promptCheckType: promptCheckType ?? false,
+      isBadass: actorData.attributes.badass.rollsEnabled,
       defaultDifficulty: defaultDifficulty,
     });
 
@@ -1236,7 +1275,8 @@ export class BNBActorSheet extends ActorSheet {
     // Prepare and roll the check.
     const rollBonusMod = isNaN(bonusValue) ? '' : ` + @extraBonus[bonus]`;
     const rollTargetSpd = isNaN(targetSpeedValue) ? '' : ` - @targetSpd[target spd mod]`;
-    const roll = new Roll(`1d20${rollBonusMod}${rollTargetSpd}`, {
+    const rollFormula = `1d20${rollBonusMod}${rollTargetSpd}`;
+    const roll = new Roll(rollFormula, {
       bonus: bonusValue,
       targetSpd: targetSpeedValue
     });
@@ -1254,16 +1294,18 @@ export class BNBActorSheet extends ActorSheet {
     const extraBonusValue = parseInt(html.find("#extra")[0].value);
 
     // Prepare and roll the check.
-    const rollStatMod = ` + @statMod[acc ${actorData.attributes.badass.rollsEnabled ? 'stat' : 'mod'}]`;
-    const rollMiscBonus = ` + @misc[misc bonus]`;
-    const rollEffectsBonus = ` + @effects[effects bonus]`;
-    const rollExtraBonus = isNaN(extraBonusValue) ? '' : ` + ${extraBonusValue}`;
-    const roll = new Roll(`1d20${rollStatMod}${rollMiscBonus}${rollEffectsBonus}${rollExtraBonus}`, {
-      acc: actorData.checks.melee.value,
-      misc: actorData.checks.melee.bonus,
-      effects: actorData.bonus.combat.melee.acc,
-      extra: extraBonusValue
-    });
+    const rollStatMod = ` + @acc[ACC ${actorData.attributes.badass.rollsEnabled ? 'Stat' : 'Mod'}]`;
+    const rollMiscBonus = ` + @meleemisc[Misc]`;
+    const rollEffectsBonus = ` + @meleeeffects[Effects]`;
+    const rollExtraBonus = isNaN(extraBonusValue) ? '' : ` + ${extraBonusValue}[Extra bonus]`;
+    const rollFormula = `1d20${rollStatMod}${rollMiscBonus}${rollEffectsBonus}${rollExtraBonus}`;
+    const roll = new Roll(
+      rollFormula,
+      RollBuilder._createDiceRollData(
+        { actor: this.actor },
+        { extra: extraBonusValue }
+      )
+    );
     const rollResult = await roll.roll();
 
     // Display the result.
@@ -1279,27 +1321,31 @@ export class BNBActorSheet extends ActorSheet {
     const isFavored = html.find("#favored-checkbox")[0].checked;
 
     // Prepare and roll the check.
-    const rollStatMod = isFavored ? ` + @statMod[acc ${actorData.attributes.badass.rollsEnabled ? 'stat' : 'mod'}]` : '';
-    const rollGearAccBonus = ` + @gearAcc[gear acc]`;
+    const rollStatMod = isFavored ? ` + @acc[ACC ${actorData.attributes.badass.rollsEnabled ? 'Stat' : 'Mod'}]` : '';
+    const rollGearAccBonus = ` + @gearacc[Gear ACC]`;
     
     // SPECIAL special logic for a unique legendary.
-    const rollMstMod = (itemOverrideType.toLowerCase() === 'mwbg') ? ` + @mstMod[mst ${actorData.attributes.badass.rollsEnabled ? 'stat' : 'mod'}]` : '';
-    const rollGearMstBonus = (itemOverrideType.toLowerCase() === 'mwbg') ? ` + @gearMst[gear mst]` : '';
+    const rollMstMod = (itemOverrideType.toLowerCase() === 'mwbg') ? ` + @mst[MST ${actorData.attributes.badass.rollsEnabled ? 'Stat' : 'Mod'}]` : '';
+    const rollGearMstBonus = (itemOverrideType.toLowerCase() === 'mwbg') ? ` + @gearmst[Gear MST]` : '';
     // /SPECIAL special logic for a unique legendary.
 
-    const rollMiscBonus = ` + @misc[misc bonus]`;
-    const rollEffectsBonus = ` + @effects[effects bonus]`;
+    const rollMiscBonus = ` + @shootingmisc[Misc]`;
+    const rollEffectsBonus = ` + @shootingeffects[Effects]`;
     const rollExtraBonus = isNaN(extraBonusValue) ? '' : ` + ${extraBonusValue}`;
-    const roll = new Roll(`1d20${rollStatMod}${rollGearAccBonus}${rollMstMod}${rollGearMstBonus}${rollMiscBonus}${rollEffectsBonus}${rollExtraBonus}`, {
-      statMod: actorData.stats.acc.modToUse,
-      gearAcc: itemStats.acc,
-      mstMod: actorData.stats.mst.modToUse,
-      gearMst: itemStats.mst,
-      misc: actorData.stats.acc.misc,
-      effects: actorData.bonus.combat.shooting.acc,
-      extra: extraBonusValue,
-      showGearMod: true
-    });
+    const rollFormula = `1d20${rollStatMod}${rollGearAccBonus}${rollMstMod}${rollGearMstBonus}${rollMiscBonus}${rollEffectsBonus}${rollExtraBonus}`;
+    const roll = new Roll(
+      rollFormula,
+      RollBuilder._createDiceRollData(
+        { actor: this.actor },
+        {
+          gearacc: itemStats.acc,
+          geardmg: itemStats.dmg,
+          gearspd: itemStats.spd,
+          gearmst: itemStats.mst,
+          extrabonusvalue: extraBonusValue 
+        }
+      )
+    );
     const rollResult = await roll.roll();
 
     // Display the result.
@@ -1309,6 +1355,8 @@ export class BNBActorSheet extends ActorSheet {
   async _rollCheckDice(dataset, html, checkItem, displayResultOverride) {
     // Prep data to access.
     const actorData = this.actor.data.data;
+    const checkName = dataset.checkType;
+    const checkStat = checkItem.stat;
 
     // Pull data from html.
     const extraBonusValue = parseInt(html.find("#extra")[0].value);
@@ -1321,21 +1369,20 @@ export class BNBActorSheet extends ActorSheet {
     const difficultyEntered = !isNaN(difficultyValue);
 
     // Prepare and roll the check.
-    const badassMod = checkItem.usesBadassRank ? ' + @badassRank[badass rank]' : ''
-    const rollStatMod = ` + @statMod[acc ${actorData.attributes.badass.rollsEnabled ? 'stat' : 'mod'}]`;
-    const rollMiscBonus = ` + @miscBonus[misc bonus]`;
-    const rollEffectBonus = ` + @effectBonus[effect bonus]`;
-    const rollExtraMod = (isNaN(extraBonusValue) || extraBonusValue == 0 ? '' : ` + @extraBonus[extra bonus]`);
-    const rollDifficulty = ((difficultyValue != null && !isNaN(difficulty)) ?
-      `cs>=${difficultyValue}` : ``);
-
-    const roll = new Roll(`1d20${badassMod}${rollStatMod}${rollMiscBonus}${rollEffectBonus}${rollExtraMod}${rollDifficulty}`, {
-      badassRank: actorData.attributes.badass.rank,
-      statMod: checkItem.value,
-      miscBonus: checkItem.bonus,
-      effectBonus: checkItem.effects,
-      extraBonus: extraBonusValue,
-    });
+    const badassMod = checkItem.usesBadassRank ? ' + @badassrank[Badass Rank]' : ''
+    const rollStatMod = ` + @${checkStat.toLowerCase()}[${checkStat.toUpperCase()} ${actorData.attributes.badass.rollsEnabled ? 'Stat' : 'Mod'}]`;
+    const rollMiscBonus = ` + @${checkName.toLowerCase()}misc[Misc]`;
+    const rollEffectBonus = ` + @${checkName.toLowerCase()}effects[Effects]`;
+    const rollExtraMod = (isNaN(extraBonusValue) || extraBonusValue == 0 ? '' : ` + @extrabonusvalue[Extra Bonus]`);
+    const rollDifficulty = ((difficultyValue != null && !isNaN(difficulty)) ? `cs>=${difficultyValue}` : ``);
+    const rollFormula = `1d20${badassMod}${rollStatMod}${rollMiscBonus}${rollEffectBonus}${rollExtraMod}${rollDifficulty}`;
+    const roll = new Roll(
+      rollFormula,
+      RollBuilder._createDiceRollData(
+        { actor: this.actor },
+        { extrabonusvalue: extraBonusValue }
+      )
+    );
     const rollResult = await roll.roll();
 
     // Display the result.
@@ -1401,14 +1448,14 @@ export class BNBActorSheet extends ActorSheet {
       flavor: flavorText,
       type: CONST.CHAT_MESSAGE_TYPES.ROLL,
       roll: rollResult,
-      rollMode: CONFIG.Dice.rollModes.roll,
+      rollMode: CONFIG.Dice.rollModes.publicroll,
       content: chatHtmlContent,
       // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
       speaker: ChatMessage.getSpeaker(),
     }
 
     // Send the roll to chat!
-    return ChatMessage.create(messageData);
+    return rollResult.toMessage(messageData);
   }
 
   async _displayMeleeRollResultToChat(dataset, rollObjs) {
@@ -1456,14 +1503,14 @@ export class BNBActorSheet extends ActorSheet {
       flavor: flavorText,
       type: CONST.CHAT_MESSAGE_TYPES.ROLL,
       roll: rollResult,
-      rollMode: CONFIG.Dice.rollModes.roll,
+      rollMode: CONFIG.Dice.rollModes.publicroll,
       content: chatHtmlContent,
       // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
       speaker: ChatMessage.getSpeaker(),
     }
 
     // Send the roll to chat!
-    const chatMessage = ChatMessage.create(messageData);
+    const chatMessage = rollResult.toMessage(messageData);
   }
 
   async _displayGunRollResultToChat(dataset, rollObjs) {
@@ -1516,14 +1563,14 @@ export class BNBActorSheet extends ActorSheet {
       flavor: flavorText,
       type: CONST.CHAT_MESSAGE_TYPES.ROLL,
       roll: rollResult,
-      rollMode: CONFIG.Dice.rollModes.roll,
+      rollMode: CONFIG.Dice.rollModes.publicroll,
       content: chatHtmlContent,
       // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
       speaker: ChatMessage.getSpeaker(),
     }
 
     // Send the roll to chat!
-    await ChatMessage.create(messageData);
+    await rollResult.toMessage(messageData);
     
     this._handleRedText(item);
 
@@ -1558,14 +1605,14 @@ export class BNBActorSheet extends ActorSheet {
       flavor: flavorText,
       type: CONST.CHAT_MESSAGE_TYPES.ROLL,
       roll: rollResult,
-      rollMode: CONFIG.Dice.rollModes.roll,
+      rollMode: CONFIG.Dice.rollModes.publicroll,
       content: chatHtmlContent,
       // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
       speaker: ChatMessage.getSpeaker(),
     }
 
     // Send the roll to chat!
-    return ChatMessage.create(messageData);
+    return rollResult.toMessage(messageData);
   }
 
   async _displayGrenadeRollResultToChat(dataset, rollObjs) {
@@ -1599,14 +1646,14 @@ export class BNBActorSheet extends ActorSheet {
       flavor: flavorText,
       type: CONST.CHAT_MESSAGE_TYPES.ROLL,
       roll: rollResult,
-      rollMode: CONFIG.Dice.rollModes.roll,
+      rollMode: CONFIG.Dice.rollModes.publicroll,
       content: chatHtmlContent,
       // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
       speaker: ChatMessage.getSpeaker(),
     }
     
     // Send the roll to chat!
-    await ChatMessage.create(messageData);
+    await rollResult.toMessage(messageData);
 
     this._handleRedText(item);
 

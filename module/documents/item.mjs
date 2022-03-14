@@ -99,8 +99,16 @@ export class BNBItem extends Item {
       }
     });
     rollFormula = rollFormula.slice(0, -1);
+    // if (actorData?.bonus?.shooting?.dmg) {
+    //   rollFormula += `+ @shootdmgeffects[Dmg Effects]`
+    // } else {
+    //   rollFormula = rollFormula.slice(0, -1);
+    // }
     if (!isNaN(crits)) {
       rollFormula += `+ ${crits}d12[Crit]`
+      // if (actorData?.bonus?.shooting?.dmg) {
+      //   rollFormula += `+ @shootcritdmgeffects[Crit Effects]`
+      // }
     }
 
     
@@ -135,7 +143,10 @@ export class BNBItem extends Item {
         (itemData.special?.overrideType?.toLowerCase() === 'mwbg') 
         ? (actorData.stats.mst.modToUse + (itemData.statMods?.mst ?? 0)) : 0
       ) +
-      actorData.bonus.combat.shooting.dmg;
+      (actorData?.bonus?.combat?.shooting?.dmg ?? 0) + (actorData?.bonus?.combat?.attack?.dmg ?? 0)
+      ((!isNaN(crits) && crits > 0) 
+        ? (actorData?.bonus?.combat?.shooting?.critdmg ?? 0) + (actorData?.bonus?.combat?.attack?.critdmg ?? 0)
+        : 0);
     const templateLocation = 'systems/bunkers-and-badasses/templates/chat/damage-results.html';
     const chatHtmlContent = await renderTemplate(templateLocation, {
       results: rollResults,
@@ -152,13 +163,13 @@ export class BNBItem extends Item {
       flavor: flavorText,
       type: CONST.CHAT_MESSAGE_TYPES.ROLL,
       roll: rollResult,
-      rollMode: CONFIG.Dice.rollModes.roll,
+      rollMode: CONFIG.Dice.rollModes.publicroll,
       content: chatHtmlContent,
       // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
       speaker: ChatMessage.getSpeaker(),
     }
 
 
-    return ChatMessage.create(messageData);
+    return rollResult.toMessage(messageData);
   }
 }

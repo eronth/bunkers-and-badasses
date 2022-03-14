@@ -1,8 +1,45 @@
+import { RollBuilder } from "../helpers/roll-builder.mjs";
+
 /**
  * Extend the base Actor document by defining a custom roll data structure which is ideal for the Simple system.
  * @extends {Actor}
  */
 export class BNBActor extends Actor {
+
+  async _preCreate(data, options, user) {
+    if ( this.type === 'vault hunter' ) {
+      
+      // Establish the default values for the actor's token.
+      const initTokenData = {
+        bar2: { attribute: 'attributes.hps.shield' },
+        bar1: { attribute: 'attributes.hps.flesh' },
+        vision: true,
+        actorLink: true,
+      }
+      this.data.update(initTokenData);
+    } else if ( this.type === 'npc' ) {
+      const actorData = this.data;
+      const hps = actorData.data.attributes.hps;
+
+      const initTokenData = {
+        "token.bar2": { "attribute": "attributes.hps.shield" },
+        "token.bar1": { "attribute": "attributes.hps.flesh" },
+        "token.bar3": { "attribute": "attributes.hps.armor" },
+      }
+      // TODO this is kinda bad, so the logic should revisited later.
+      // This tries to evaluate which health should be used for the healthbars.
+      // Flesh, if used, is bar1. Then armor, then shield.
+      if (!this._isHpValuePopulated(hps.flesh)) {
+        if (this._isHpValuePopulated(hps.shield) && this._isHpValuePopulated(hps.armor)) {
+          initTokenData["token.bar1"] = { "attribute": "attributes.hps.armor" };
+          initTokenData["token.bar2"] = { "attribute": "attributes.hps.shield" };
+        }
+      } else if (!this._isHpValuePopulated(hps.shield) && this._isHpValuePopulated(hps.armor)) {
+        initTokenData["token.bar2"] = { "attribute": "attributes.hps.armor" };
+      }
+      this.data.update(initTokenData);
+    }
+  }
 
   /** @override */
   prepareData() {
@@ -17,6 +54,7 @@ export class BNBActor extends Actor {
   prepareBaseData() {
     // Data modifications in this step occur before processing embedded
     // documents or derived data.
+    super.prepareBaseData();
   }
 
   /**
@@ -29,6 +67,7 @@ export class BNBActor extends Actor {
    * is queried and has a roll executed directly from it).
    */
   prepareDerivedData() {
+    super.prepareDerivedData();
     const actorData = this.data;
     const data = actorData.data;
     const flags = actorData.flags.bnb || {};
@@ -45,15 +84,8 @@ export class BNBActor extends Actor {
   _prepareVaultHunterData(actorData) {
     if (actorData.type !== 'vault hunter') return;
 
-    // Establish the default values for the actor's token.
-    const initTokenData = {
-      "token.bar2": { "attribute": "attributes.hps.shield" },
-      "token.bar1": { "attribute": "attributes.hps.flesh" },
-      "token.name": actorData.name,
-      "token.vision": true,
-      "token.actorLink": true,
-    }
-    this.data.update(initTokenData);
+    // Run a quick update to make sure data from previous versions matches current expected version..
+    this._updateVaultHunterDataVersions(actorData);
 
     // Pull basic data into easy-to-access variables.
     const data = actorData.data;
@@ -79,6 +111,7 @@ export class BNBActor extends Actor {
         checkData.effects = data.bonus.checks[check];
       } else if (data.bonus.combat[check] != null) {
         checkData.effects = data.bonus.combat[check].acc;
+        checkData.effects += data.bonus.combat.attack.acc;
       } else {
         checkData.effects = 0;
       }
@@ -88,31 +121,27 @@ export class BNBActor extends Actor {
     });
   }
 
+  _updateVaultHunterDataVersions(actorData) {
+    if (!actorData?.data?.checks?.throw) {
+      actorData.data.checks.throw = {
+        stat: "acc",
+        value: 0,
+        misc: 0
+      };
+      // Square brackets needed to get the right value.
+      const archetypeRewardsLabel = "data.checks.throw";
+      this.update({[archetypeRewardsLabel]: actorData.data.checks.throw});
+    }
+    
+  }
+  
   /**
    * Prepare NPC type specific data.
    */
   _prepareNpcData(actorData) {
     if (actorData.type !== 'npc') return;
 
-    const hps = actorData.data.attributes.hps;
-
-    const initTokenData = {
-      "token.bar2": { "attribute": "attributes.hps.shield" },
-      "token.bar1": { "attribute": "attributes.hps.flesh" },
-      "token.bar3": { "attribute": "attributes.hps.armor" },
-    }
-    // TODO this is kinda bad, so the logic should revisited later.
-    // This tries to evaluate which health should be used for the healthbars.
-    // Flesh, if used, is bar1. Then armor, then shield.
-    if (!this._isHpValuePopulated(hps.flesh)) {
-      if (this._isHpValuePopulated(hps.shield) && this._isHpValuePopulated(hps.armor)) {
-        initTokenData["token.bar1"] = { "attribute": "attributes.hps.armor" };
-        initTokenData["token.bar2"] = { "attribute": "attributes.hps.shield" };
-      }
-    } else if (!this._isHpValuePopulated(hps.shield) && this._isHpValuePopulated(hps.armor)) {
-      initTokenData["token.bar2"] = { "attribute": "attributes.hps.armor" };
-    }
-    this.data.update(initTokenData);
+    // const hps = actorData.data.attributes.hps;
   }
 
   _isHpValuePopulated(hpData) {
@@ -200,13 +229,21 @@ export class BNBActor extends Actor {
     // Prepare and roll the damage.
     const rollPlusOneDice = isPlusOneDice ? ` + ${actorData.class.meleeDice}` : '';
     const rollDoubleDamage = isDoubleDamage ? '2*' : '';
-    const rollCrit = isCrit ? ' + 1d12' : '';
-    const rollFormula = `${rollDoubleDamage}(${actorData.class.meleeDice}${rollPlusOneDice}${rollCrit} + @dmgMod + @effects)[Kinetic]`;
-    const roll = new Roll(rollFormula, {
-      actor: actor,
-      dmgMod: actorData.stats.dmg.modToUse,
-      effects: actorData.bonus.combat.melee.dmg,
-    });
+    const effectDamage = (actorData?.bonus?.combat?.melee?.dmg ?? 0) + (actorData?.bonus?.combat?.attack?.dmg ?? 0);
+    const critEffectDamage = (actorData?.bonus?.combat?.melee?.critdmg ?? 0) + (actorData?.bonus?.combat?.attack?.critdmg ?? 0);
+    const rollCrit = (isCrit ? ' + 1d12[Crit]' : '') 
+      + ((isCrit && critEffectDamage > 0) 
+        ? ` + ${critEffectDamage}[Crit Effects]` 
+        : '');
+    const rollFormula = `${rollDoubleDamage}`
+     + `(`
+       + `${actorData.class.meleeDice}${rollPlusOneDice}${rollCrit} + @dmg[DMG ${actorData.attributes.badass.rollsEnabled ? 'Stat' : 'Mod'}] `
+       + ((effectDamage > 0) ? `+ ${effectDamage}[Melee Dmg Effects]` : '')
+     + `)[Kinetic]`;
+    const roll = new Roll(
+      rollFormula,
+      RollBuilder._createDiceRollData({actor: actor})
+    );
     const rollResult = await roll.roll();    
     
     // Convert roll to a results object for sheet display.
@@ -229,12 +266,14 @@ export class BNBActor extends Actor {
       flavor: flavorText,
       type: CONST.CHAT_MESSAGE_TYPES.ROLL,
       roll: rollResult,
-      rollMode: CONFIG.Dice.rollModes.roll,
+      rollMode: CONFIG.Dice.rollModes.publicroll,
       content: chatHtmlContent,
       // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
       speaker: ChatMessage.getSpeaker(),
     }
 
-    return ChatMessage.create(messageData);
+    return rollResult.toMessage(messageData);
   };
+  
+  
 }

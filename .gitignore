@@ -8,3 +8,6 @@ npm-debug.log
 
 # Foundry
 *.lock
+
+# Update Textfile
+updates.txt

@@ -10,19 +10,19 @@
         </div>
         <label>/</label>
         <div class="flexcol">
-          <input id="max-{{key}}-hp-value}}" class="" value="{{hp.max}}" 
+          <input id="max-{{key}}-hp-value}}" class="" value="{{hp.maxTotal}}" 
             onfocus="this.select()" type="number" data-dtype="Number"
             {{#if disableMax}}
             disabled
             {{else}}
-            name="data.attributes.hps.{{key}}.max"
+            name="data.attributes.hps.{{key}}.maxTotal"
             {{/if}} />
           <label for="max-{{key}}-hp-value">max</label>
         </div>
         {{#if showRegen}}
         <div class="flexcol flex-size-2 rollable" data-roll-type="health-regain"
           data-health-type="{{key}}">
-          {{hp.regen}}
+          {{hp.combinedRegen}}
           <label class="rollable"><i class="fa fa-dice-d20"></i> {{hpToRecoveryTitle key}}</label>
         </div>
         {{/if}}

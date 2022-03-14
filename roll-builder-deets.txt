@@ -1,0 +1,69 @@
+You can add simple @tags to your dice formulas to add various stats to them.
+These formulas work best when used on the Level Up tab.
+
+@Acc/@Accuracy - Adds your accuracy mod to the dice unless you've checked the "badass?" box, upon which it'll add your accuracy stat instead.
+@AccStat/@AccuracyMod - Adds your accuracy stat to the dice roll.
+@AccMod/@AccuracyMod - Adds your accuracy mod to the dice roll.
+
+@Dmg/@Damage - Adds your damage mod to the dice unless you've checked the "badass?" box, upon which it'll add your damage stat instead.
+@DmgStat/@DamageMod - Adds your damage stat to the dice roll.
+@DmgMod/@DamageMod - Adds your damage mod to the dice roll.
+
+@Mst/@Mastery - Adds your mastery mod to the dice unless you've checked the "badass?" box, upon which it'll add your mastery stat instead.
+@MstStat/@MasteryMod - Adds your mastery stat to the dice roll.
+@MstMod/@MasteryMod - Adds your mastery mod to the dice roll.
+
+@Spd/@Speed - Adds your speed mod to the dice unless you've checked the "badass?" box, upon which it'll add your speed stat instead.
+@SpdStat/@SpeedMod - Adds your speed stat to the dice roll.
+@SpdMod/@SpeedMod - Adds your speed mod to the dice roll.
+
+@Interact/@InteractTotal - Adds the total value for your interact check.
+@InteractMisc - Adds the misc bonus for your interact check.
+@InteractEffects - Adds the bonus from Effects for your interact check.
+
+@Insight/@InsightTotal - Adds the total value for your insight check.
+@InsightMisc - Adds the misc bonus for your insight check.
+@InsightEffects - Adds the bonus from Effects for your insight check.
+
+@Talk/@TalkTotal - Adds the total value for your talk check.
+@TalkMisc - Adds the misc bonus for your talk check.
+@TalkEffects - Adds the bonus from Effects for your talk check.
+
+@Traverse/@TraverseTotal - Adds the total value for your traverse check.
+@TraverseMisc - Adds the misc bonus for your traverse check.
+@TraverseEffects - Adds the bonus from Effects for your traverse check.
+
+@Search/@SearchTotal - Adds the total value for your search check.
+@SearchMisc - Adds the misc bonus for your search check.
+@SearchEffects - Adds the bonus from Effects for your search check.
+
+@Sneak/@SneakTotal - Adds the total value for your sneak check.
+@SneakMisc - Adds the misc bonus for your sneak check.
+@SneakEffects - Adds the bonus from Effects for your sneak check.
+
+@Initiative/@InitiativeTotal - Adds the total value for your initiative check.
+@InitiativeMisc - Adds the misc bonus for your initiative check.
+@InitiativeEffects - Adds the bonus from Effects for your initiative check.
+
+@Movement/@MovementTotal - Adds the total value for your movement.
+@MovementMisc - Adds the misc bonus for your movement.
+@MovementEffects - Adds the bonus from Effects for your movement.
+
+@Throw/@ThrowTotal - Adds the total value for your throw check.
+@ThrowMisc - Adds the misc bonus for your throw check.
+@ThrowEffects - Adds the bonus from Effects for your throw check.
+
+@Melee/@MeleeTotal - Adds the total value for your melee check.
+@MeleeMisc - Adds the misc bonus for your melee check.
+@MeleeEffects - Adds the bonus from Effects for your melee and attacks.
+@MeleeOnlyEffects - Adds the bonus from Effects for only your melee checks.
+
+@Shoot/@Shooting/@ShootTotal/@ShootingTotal - Adds the total value for your shooting check.
+@ShootMisc/@ShootingMisc - Adds the misc bonus for your shooting check.
+@ShootEffects/@ShootingEffects - Adds the bonus from Effects for your shooting and attacks.
+@ShootOnlyEffects/@ShootingOnlyEffects - Adds the bonus from Effects for only your shooting checks.
+
+
+
+@Lv/@Lvl/@Level - Adds your current level.
+@BadassLv/@BadassLvl/@BadassLevel/@BadassRank - Adds your current badass rank.

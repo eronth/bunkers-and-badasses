@@ -83,8 +83,40 @@
             </div>
           </div>
         </div>
-        <div class="flex-size-2 as-btn-outer-container">
+
+        <div class="flexrow flex-size-4 as-btn-outer-container">
           <!-- Placeholder -->
+          <div>
+            {{> "systems/bunkers-and-badasses/templates/actor/parts/action-components/check.html"
+              displayName="Melee"
+              checkName="Melee"
+              check=data.checks.melee
+              isBadass=data.attributes.badass.rollsEnabled
+              nonRolled=true
+              hideStat=true
+            }}
+          </div>
+          <div>
+            {{> "systems/bunkers-and-badasses/templates/actor/parts/action-components/check.html"
+              displayName="Shoot"
+              checkName="Shooting"
+              check=data.checks.shooting
+              isBadass=data.attributes.badass.rollsEnabled
+              nonRolled=true
+              hideStat=true
+            }}
+          </div>
+          <div>
+            {{> "systems/bunkers-and-badasses/templates/actor/parts/action-components/check.html"
+              displayName="Throw"
+              checkName="Throw"
+              check=data.checks.throw
+              isBadass=data.attributes.badass.rollsEnabled
+              nonRolled=true
+              hideStat=true
+            }}
+          </div>
+            
         </div>
       </div>
       <div class="flex-size-2 attacks-container">

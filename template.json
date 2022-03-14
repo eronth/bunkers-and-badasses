@@ -132,6 +132,11 @@
           "stat": "acc",
           "value": 0,
           "misc": 0
+        },
+        "throw": {
+          "stat": "acc",
+          "value": 0,
+          "misc": 0
         }
       },
       "archetypes": {
@@ -223,23 +228,38 @@
         "badass": 0,
         "healths": {
           "flesh": {
-            "max": 0
+            "max": 0,
+            "regen": ""
           },
           "shield": {
-            "max": 0
+            "max": 0,
+            "regen": ""
           },
           "armor": {
-            "max": 0
+            "max": 0,
+            "regen": ""
           }
         },
         "combat": {
           "melee": {
             "acc": 0,
-            "dmg": 0
+            "dmg": 0,
+            "critdmg": 0
           },
           "shooting": {
             "acc": 0,
-            "dmg": 0
+            "dmg": 0,
+            "critdmg": 0
+          },
+          "attack": {
+            "acc": 0,
+            "dmg": 0,
+            "critdmg": 0
+          },
+          "grenades": {
+            "acc": 0,
+            "dmg": 0,
+            "critdmg": 0
           }
         }
       },
