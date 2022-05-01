@@ -1,8 +1,8 @@
 {
   "name": "bunkers-and-badasses",
-  "title": "Bunkers 🙵 Badasses",
+  "title": "Bunkers & Badasses",
   "description": "Badasses, loot, and mayhem. This system is for running the tabletop adaptation of Borderlands' 'Bunkers & Badasses' by Nerdvana.",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "minimumCoreVersion": "9",
   "compatibleCoreVersion": "9",
   "templateVersion": 2,
