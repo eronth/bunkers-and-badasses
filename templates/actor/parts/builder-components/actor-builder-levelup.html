@@ -31,6 +31,24 @@
     {{ checked data.favored.heavy }} />
     <label for="favorHeavy">Rocket Launcher</label>
   </div>
+  <div class="flexrow flex-group-center favored-header">
+    <label>Favored Elements</label>
+  </div>
+  <div class="flexrow favored-body">
+    {{> "systems/bunkers-and-badasses/templates/actor/parts/builder-components/favored-element-component.html"
+      elements=(toArray 
+        (toFavoredElementObject "Incendiary" data.favored.incendiary)
+        (toFavoredElementObject "Shock" data.favored.shock)
+        (toFavoredElementObject "Corrosive" data.favored.corrosive)
+        (toFavoredElementObject "Explosive" data.favored.explosive)
+        (toFavoredElementObject "Radiation" data.favored.radiation)
+        (toFavoredElementObject "Cryo" data.favored.cryo)
+        (toFavoredElementObject "Incendiation" data.favored.incendiation)
+        (toFavoredElementObject "Corroshock" data.favored.corroshock)
+        (toFavoredElementObject "Crysplosive" data.favored.crysplosive)
+      )
+    }}
+  </div>
 </div>
 
 <div class="flexrow builder-common-container">
