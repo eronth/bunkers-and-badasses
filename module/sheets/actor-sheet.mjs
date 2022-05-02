@@ -1153,6 +1153,16 @@ export class BNBActorSheet extends ActorSheet {
     attackValues.badassRollsEnabled = actorData.attributes.badass.rollsEnabled;
     
     const isFavoredWeaponType = actorData.favored[itemData.type.value];
+    const elementTypes = 
+      [ "kinetic", "incendiary", "shock", "corrosive",
+        "explosive", "radiation", "cryo",
+        "incendiation", "corroshock", "crysplosive"];
+    let isFavoredElementType = false;
+    elementTypes.forEach(elementType => {
+      if (actorData.favored[elementType] && itemData.elements[elementType]?.enabled) {
+        isFavoredElementType = true;
+      }
+    });
     const templateLocation = "systems/bunkers-and-badasses/templates/dialog/attack-confirmation.html";
     const dialogHtmlContent = await renderTemplate(templateLocation, {
       type: "Gun",
@@ -1160,7 +1170,7 @@ export class BNBActorSheet extends ActorSheet {
       showGearMod: true,
       gearAcc: itemData.statMods.acc,
       showFavored: true,
-      favored: isFavoredWeaponType
+      favored: isFavoredWeaponType || isFavoredElementType,
     });
 
     this.attack = new Dialog({
@@ -1684,6 +1694,10 @@ export class BNBActorSheet extends ActorSheet {
         });
       }
     }
+  }
+
+  isNullOrEmpty(value) {
+    return value == null || value == '';
   }
 
 }
