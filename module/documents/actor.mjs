@@ -237,7 +237,7 @@ export class BNBActor extends Actor {
         : '');
     const rollFormula = `${rollDoubleDamage}`
      + `(`
-       + `${actorData.class.meleeDice}${rollPlusOneDice}${rollCrit} + @dmg[DMG ${actorData.attributes.badass.rollsEnabled ? 'Stat' : 'Mod'}] `
+       + `${actorData.class?.meleeDice ?? '0d0'}${rollPlusOneDice}${rollCrit} + @dmg[DMG ${actorData.attributes.badass.rollsEnabled ? 'Stat' : 'Mod'}] `
        + ((effectDamage > 0) ? `+ ${effectDamage}[Melee Dmg Effects]` : '')
      + `)[Kinetic]`;
     const roll = new Roll(
