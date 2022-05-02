@@ -1217,6 +1217,7 @@ input[type="time"]:focus {
   font-weight: bold;
   align-self: center;
   padding-left: 2px;
+  padding-right: 6px;
   padding-bottom: 6px;
 }
 .bnb .damage-buttons {
