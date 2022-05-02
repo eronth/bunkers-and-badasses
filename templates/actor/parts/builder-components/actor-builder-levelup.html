@@ -37,6 +37,7 @@
   <div class="flexrow favored-body">
     {{> "systems/bunkers-and-badasses/templates/actor/parts/builder-components/favored-element-component.html"
       elements=(toArray 
+        (toFavoredElementObject "Kinetic" data.favored.kinetic)
         (toFavoredElementObject "Incendiary" data.favored.incendiary)
         (toFavoredElementObject "Shock" data.favored.shock)
         (toFavoredElementObject "Corrosive" data.favored.corrosive)

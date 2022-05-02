@@ -1613,6 +1613,10 @@ input[type="time"]:focus {
   width: 13px;
   height: 13px;
 }
+.element-selector-icon-medium {
+  border: 0;
+  height: 20px;
+}
 .element-selector-icon-disabled {
   filter: grayscale(100%);
   border: 0;
