@@ -170,8 +170,37 @@ export class BNBActorSheet extends ActorSheet {
     const actorHPs = this.actor.data.data.attributes.hps;
     const effectsHPs = this.actor.data.data.bonus.healths;
 
+
+    ////////////  Update HP From Previous Versions  ////////////
+    // This moves the "max" value to be treated as a "base" stat value.
+    let updateHappened = false;
+
+    if (actorHPs.flesh.base == null) {
+      actorHPs.flesh.base = actorHPs.flesh.max;
+      actorHPs.flesh.max = 0;
+      updateHappened = true;
+    }
+    if (actorHPs.shield.base == null) {
+      actorHPs.shield.base = actorHPs.shield.max;
+      actorHPs.shield.max = 0;
+      updateHappened = true;
+    }
+    if (actorHPs.armor.base == null) {
+      actorHPs.armor.base = actorHPs.armor.max;
+      actorHPs.armor.max = 0;
+      updateHappened = true;
+    }
+
+    if (updateHappened) {
+      // Square brackets needed to get the right value.
+      const attributeLabel = `data.attributes.hps`;
+      this.actor.update({[attributeLabel]: actorHPs});
+    }
+    ////////////  Update HP From Previous Versions  ////////////
+    
+    
     // Clean slate for HPs totals.
-    contextHps.flesh.maxTotal = contextHps.armor.maxTotal = contextHps.shield.maxTotal = 0;
+    contextHps.flesh.max = contextHps.armor.max = contextHps.shield.max = 0;
     contextHps.flesh.combinedRegen = contextHps.armor.combinedRegen = contextHps.shield.combinedRegen = "";
 
     // Get the HPs from the actor data.
@@ -179,13 +208,13 @@ export class BNBActorSheet extends ActorSheet {
       const [itemId, itemData] = entry;
       if (itemData.type === "shield" && itemData.data.equipped) {
         if (itemData.data.isArmor) {
-          contextHps.armor.maxTotal += itemData.data.capacity;
+          contextHps.armor.max += itemData.data.capacity ?? 0;
           if (contextHps.armor.combinedRegencombinedRegen) {
             contextHps.armor.combinedRegen += ' + ';
           }
           contextHps.armor.combinedRegen += itemData.data.recovery.repairRate;
         } else {
-          contextHps.shield.maxTotal += itemData.data.capacity;
+          contextHps.shield.max += itemData.data.capacity ?? 0;
           if (contextHps.shield.combinedRegen) {
             contextHps.shield.combinedRegen += ' + ';
           }
@@ -197,7 +226,7 @@ export class BNBActorSheet extends ActorSheet {
     // Add bonuses from Builder Tab and effects.
     Object.entries(contextHps).forEach(entry => {
       const [hpType, hpData] = entry;
-      hpData.maxTotal += (actorHPs[hpType].max ?? 0) + (effectsHPs[hpType].max ?? 0);
+      hpData.max += (actorHPs[hpType].base ?? 0) + (effectsHPs[hpType].max ?? 0);
       if (actorHPs[hpType].regen) {
         if (hpData.combinedRegen) { hpData.combinedRegen += ' + '; }
         hpData.combinedRegen += actorHPs[hpType].regen;
@@ -208,6 +237,7 @@ export class BNBActorSheet extends ActorSheet {
       }
     });
 
+    // Gather HPs that are actually used for the context's needs.
     const usedHps = {};
     Object.entries(context.data.attributes.hps).forEach(entry => {
       const [hpType, hpData] = entry;
@@ -715,12 +745,12 @@ export class BNBActorSheet extends ActorSheet {
   }
 
   async _onHpGain(event) {
-    return await this._attributeGainDialog(event);
+    return await this._attributeGainDialog(event, "base");
   }
   async _onXpGain(event) {
-    return await this._attributeGainDialog(event);
+    return await this._attributeGainDialog(event, "max");
   }
-  async _attributeGainDialog(event) {
+  async _attributeGainDialog(event, stat) {
     // Prep data.
     const actorData = this.actor.data.data;
     const dataset = event.currentTarget.dataset;
@@ -742,7 +772,7 @@ export class BNBActorSheet extends ActorSheet {
         "Roll" : {
           label : `Gain ${dataset.attributeName}`,
           callback : async (html) => {
-            return await this._gainAttribute(dataset, html);
+            return await this._gainAttribute(dataset, html, stat);
           }
         }
       }
@@ -764,8 +794,8 @@ export class BNBActorSheet extends ActorSheet {
     }
     attribute.gains.push({ value: gainAmount, reason: "Add Clicked" });
     attribute.value += gainAmount;
-    if (attribute.max != null) {
-      attribute.max += gainAmount; 
+    if (attribute[stat] != null) {
+      attribute[stat] += gainAmount; 
     }
     // Square brackets needed to get the right value.
     const attributeLabel = `data.${dataset.dataPath}`;
@@ -1104,7 +1134,7 @@ export class BNBActorSheet extends ActorSheet {
 
     // Update the appopriate values.
     let newValue = hp.value + rollResult.total;
-    if (newValue > hp.maxTotal) newValue = hp.maxTotal;
+    if (newValue > hp.max) newValue = hp.max;
     const target = "data.attributes.hps." + dataset.healthType.toLowerCase() + ".value";
     this.actor.update({[`${target}`] : newValue});
 
