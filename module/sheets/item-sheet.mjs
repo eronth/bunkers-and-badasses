@@ -43,6 +43,8 @@ export class BNBItemSheet extends ItemSheet {
     }
 
     context.usePlayerArmor = game.settings.get('bunkers-and-badasses', 'usePlayerArmor');
+    context.usePlayerBone = game.settings.get('bunkers-and-badasses', 'usePlayerBone');
+    context.usePlayerEridian = game.settings.get('bunkers-and-badasses', 'usePlayerEridian');
 
     // Add the actor's data to context.data for easier access, as well as flags.
     context.data = itemData.data;
