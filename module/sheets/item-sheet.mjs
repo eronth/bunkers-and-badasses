@@ -90,9 +90,8 @@ export class BNBItemSheet extends ItemSheet {
     $(event.currentTarget).addClass('selected');
     $("ul").children('.rarity-init').html($(event.currentTarget).html());
   
-    let newRarity = $(event.currentTarget).attr("value")
+    let newRarity = $(event.currentTarget).attr("value");
     // $("#rarity-selection-tracker").attr("value", $(this).attr("value"));
-  
     //     allOptions.toggle();
     // });
     let newRarityObj = {"name": newRarity, "value": newRarity.toLowerCase(), "colorValue": this._getColorsForRarity(newRarity)};
