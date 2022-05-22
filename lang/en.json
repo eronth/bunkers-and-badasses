@@ -31,6 +31,9 @@
   "BNB.FleshHealth": "Health",
   "BNB.ArmorHealth": "Armor",
   "BNB.ShieldHealth": "Shield",
+  "BNB.BoneHealth": "Bone",
+  "BNB.EridianHealth": "Eridian",
+
   
 
   "BNB.Add": "Add"
