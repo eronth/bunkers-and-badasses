@@ -88,7 +88,7 @@ export class BNBItemSheet extends ItemSheet {
     allOptions.removeClass('selected');
 
     $(event.currentTarget).addClass('selected');
-    $("ul").children('.rarity-init').html($(event.currentTarget).html());
+    $("ul").children(`.rarity-init-${this.item.id}`).html($(event.currentTarget).html());
   
     let newRarity = $(event.currentTarget).attr("value");
     // $("#rarity-selection-tracker").attr("value", $(this).attr("value"));
