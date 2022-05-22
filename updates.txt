@@ -1,0 +1,6 @@
+Updates
+* Added capability to pick favored elements for your vault hunter.
+
+Bugfixes
+* Fixed HP attributes not playing nice with foundry resource bars and BarBrawl bars
+* Added default BarBrawl values.
