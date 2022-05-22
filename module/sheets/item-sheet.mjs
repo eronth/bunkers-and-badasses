@@ -88,11 +88,10 @@ export class BNBItemSheet extends ItemSheet {
     allOptions.removeClass('selected');
 
     $(event.currentTarget).addClass('selected');
-    $("ul").children('.rarity-init').html($(event.currentTarget).html());
+    $("ul").children(`.rarity-init-${this.item.id}`).html($(event.currentTarget).html());
   
-    let newRarity = $(event.currentTarget).attr("value")
+    let newRarity = $(event.currentTarget).attr("value");
     // $("#rarity-selection-tracker").attr("value", $(this).attr("value"));
-  
     //     allOptions.toggle();
     // });
     let newRarityObj = {"name": newRarity, "value": newRarity.toLowerCase(), "colorValue": this._getColorsForRarity(newRarity)};
@@ -108,10 +107,10 @@ export class BNBItemSheet extends ItemSheet {
     allOptions.removeClass('selected');
 
     $(event.currentTarget).addClass('selected');
-    $("ul").children('.type-init').html($(event.currentTarget).html());
+    $("ul").children(`.type-init-${this.item.id}`).html($(event.currentTarget).html());
     const fullName = event.currentTarget.innerHTML;
   
-    const newType = $(event.currentTarget).attr("value")
+    const newType = $(event.currentTarget).attr("value");
     this.item.update({"data.type": { name: fullName, value: newType } });
   }
 
