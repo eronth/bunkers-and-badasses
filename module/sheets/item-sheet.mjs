@@ -110,7 +110,7 @@ export class BNBItemSheet extends ItemSheet {
     $("ul").children(`.type-init-${this.item.id}`).html($(event.currentTarget).html());
     const fullName = event.currentTarget.innerHTML;
   
-    const newType = $(event.currentTarget).attr("value")
+    const newType = $(event.currentTarget).attr("value");
     this.item.update({"data.type": { name: fullName, value: newType } });
   }
 
