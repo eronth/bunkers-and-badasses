@@ -24,10 +24,46 @@ Hooks.once('init', async function() {
   // Add custom constants for configuration.
   CONFIG.BNB = BNB;
   
-  // System settings here?
+  // System settings here
   game.settings.register('bunkers-and-badasses', 'usePlayerArmor', {
-    name: 'Show Armor on Player Sheet',
-    hint: 'Players will have access to an armor health pool.',
+    name: 'Show Armor Health on Vault Hunter Sheet',
+    hint: 'Vault Hunters will have access to an "armor" health pool and shields can be marked as "armor" type.',
+    scope: 'world',
+    config: true,
+    default: false,
+    type: Boolean,
+  });
+
+  game.settings.register('bunkers-and-badasses', 'usePlayerBone', {
+    name: 'Show Bone Health on Vault Hunter Sheet',
+    hint: 'Vault Hunters will have access to a "bone" health pool and shields can be marked as "bone" type.',
+    scope: 'world',
+    config: true,
+    default: false,
+    type: Boolean,
+  });
+
+  game.settings.register('bunkers-and-badasses', 'usePlayerEridian', {
+    name: 'Show Eridian Health on Vault Hunter Sheet',
+    hint: 'Vault Hunters will have access to a "eridian" health pool and shields can be marked as "eridian" type.',
+    scope: 'world',
+    config: true,
+    default: false,
+    type: Boolean,
+  });
+
+  game.settings.register('bunkers-and-badasses', 'useNpcBone', {
+    name: 'Show Bone Health on NPC Sheet',
+    hint: 'NPCs will have access to a "bone" health pool type.',
+    scope: 'world',
+    config: true,
+    default: false,
+    type: Boolean,
+  });
+
+  game.settings.register('bunkers-and-badasses', 'useNpcEridian', {
+    name: 'Show Eridian on NPC Sheet',
+    hint: 'NPCs will have access to a "Eridian" health pool type.',
     scope: 'world',
     config: true,
     default: false,
@@ -124,6 +160,10 @@ Handlebars.registerHelper('hpToRecoveryTitle', function(str, doCapitalize) {
     str = "recharge";
   else if (str === "armor")
     str = "repair";
+  else if (str === "bone")
+    str = "regrow";
+  else if (str === "eridian")
+    str = "reinvigorate";
 
   if (doCapitalize)
     return str.charAt(0).toUpperCase() + str.slice(1);
