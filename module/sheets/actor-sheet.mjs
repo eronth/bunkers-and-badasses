@@ -176,22 +176,23 @@ export class BNBActorSheet extends ActorSheet {
 
     ////////////  Update HP From Previous Versions  ////////////
     // This moves the "max" value to be treated as a "base" stat value.
-    let updateHappened = false;
+    let healthUpdateHappened = false;
+    let bonusHealthUpdateHappened = false;
 
     if (actorHPs.flesh.base == null) {
       actorHPs.flesh.base = actorHPs.flesh.max;
       actorHPs.flesh.max = 0;
-      updateHappened = true;
+      healthUpdateHappened = true;
     }
     if (actorHPs.shield.base == null) {
       actorHPs.shield.base = actorHPs.shield.max;
       actorHPs.shield.max = 0;
-      updateHappened = true;
+      healthUpdateHappened = true;
     }
     if (actorHPs.armor.base == null) {
       actorHPs.armor.base = actorHPs.armor.max;
       actorHPs.armor.max = 0;
-      updateHappened = true;
+      healthUpdateHappened = true;
     }
     
     // This adds previously missing HP attributes to the actor.
@@ -199,17 +200,32 @@ export class BNBActorSheet extends ActorSheet {
       actorHPs.bone = {
         "value": 0, "base": 0, "min": 0, "max": 0, "regen": 0
       }
+      healthUpdateHappened = true;
+    }
+    if (effectsHPs.bone == null) {
+      effectsHPs.bone = { max: 0, regen: '' };
+      bonusHealthUpdateHappened = true;
     }
     if (actorHPs.eridian == null) {
       actorHPs.eridian = {
         "value": 0, "base": 0, "min": 0, "max": 0, "regen": 0
       }
+      healthUpdateHappened = true;
+    }
+    if (effectsHPs.eridian == null) {
+      effectsHPs.eridian = { max: 0, regen: '' };
+      bonusHealthUpdateHappened = true;
     }
 
-    if (updateHappened) {
+    if (healthUpdateHappened) {
       // Square brackets needed to get the right value.
       const attributeLabel = `data.attributes.hps`;
       this.actor.update({[attributeLabel]: actorHPs});
+    }
+    if (bonusHealthUpdateHappened) {
+      // Square brackets needed to get the right value.
+      const attributeLabel = `data.bonus.healths`;
+      this.actor.update({[attributeLabel]: effectsHPs});
     }
     ////////////  Update HP From Previous Versions  ////////////
     

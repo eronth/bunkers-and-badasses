@@ -255,6 +255,14 @@
           "armor": {
             "max": 0,
             "regen": ""
+          },
+          "bone": {
+            "max": 0,
+            "regen": ""
+          },
+          "eridian": {
+            "max": 0,
+            "regen": ""
           }
         },
         "combat": {
