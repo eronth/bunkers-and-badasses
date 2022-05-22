@@ -98,6 +98,15 @@ Handlebars.registerHelper('toUpperCase', function(str) {
   return str.toUpperCase();
 });
 
+Handlebars.registerHelper('toArray', (...values) => {
+  // Omit the Handlebars options object.
+  return values.slice(0, values.length - 1);
+});
+
+Handlebars.registerHelper('toFavoredElementObject', function(...values) {
+  return {label: values[0], favored: values[1]};
+});
+
 Handlebars.registerHelper('capitalize', function(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 });

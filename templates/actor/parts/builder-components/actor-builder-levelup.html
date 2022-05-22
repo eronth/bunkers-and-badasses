@@ -31,6 +31,25 @@
     {{ checked data.favored.heavy }} />
     <label for="favorHeavy">Rocket Launcher</label>
   </div>
+  <div class="flexrow flex-group-center favored-header">
+    <label>Favored Elements</label>
+  </div>
+  <div class="flexrow favored-body">
+    {{> "systems/bunkers-and-badasses/templates/actor/parts/builder-components/favored-element-component.html"
+      elements=(toArray 
+        (toFavoredElementObject "Kinetic" data.favored.kinetic)
+        (toFavoredElementObject "Incendiary" data.favored.incendiary)
+        (toFavoredElementObject "Shock" data.favored.shock)
+        (toFavoredElementObject "Corrosive" data.favored.corrosive)
+        (toFavoredElementObject "Explosive" data.favored.explosive)
+        (toFavoredElementObject "Radiation" data.favored.radiation)
+        (toFavoredElementObject "Cryo" data.favored.cryo)
+        (toFavoredElementObject "Incendiation" data.favored.incendiation)
+        (toFavoredElementObject "Corroshock" data.favored.corroshock)
+        (toFavoredElementObject "Crysplosive" data.favored.crysplosive)
+      )
+    }}
+  </div>
 </div>
 
 <div class="flexrow builder-common-container">
@@ -84,15 +103,15 @@
       {{!-- Shield Segment --}}
       <div class="flexrow">
         <div class="flexrow">
-          <label for="shield-hp-amount" class="bonus-max-hp-label">Max Shield</label>
-          <input id="shield-hp-amount" class="bonus-max-hp-input"
-          placeholder="Max Health" name="data.attributes.hps.shield.max"
-          value="{{data.attributes.hps.shield.max}}"
+          <label for="base-shield-hp-amount" class="bonus-max-hp-label">Base Shield</label>
+          <input id="base-shield-hp-amount" class="bonus-max-hp-input"
+          placeholder="Base Shield" name="data.attributes.hps.shield.base"
+          value="{{data.attributes.hps.shield.base}}"
           onfocus="this.select()" type="number" data-dtype="Number" />
         </div>
         <div class="flexrow bonus-hp-regen-container">
-          <label for="regen-amount" class="bonus-hp-regen-label">Recharge</label>
-          <input id="regen-amount" class="bonus-hp-regen-input"
+          <label for="recharge-amount" class="bonus-hp-regen-label">Recharge</label>
+          <input id="recharge-amount" class="bonus-hp-regen-input"
           placeholder="Recharge" name="data.attributes.hps.shield.regen"
           value="{{data.attributes.hps.shield.regen}}"
           onfocus="this.select()" type="text" data-dtype="String" />
@@ -100,7 +119,7 @@
         <div>    
           <button class="btn btn-primary item-control btn-manage hp-gain"
           data-attribute-name="Max Shield" data-data-path="attributes.hps.shield" >
-            <i class="fas fa-plus"></i> Bonus Max Shield
+            <i class="fas fa-plus"></i> Increase Base Shield
           </button>
         </div>
       </div>
@@ -109,15 +128,15 @@
       {{#if flags.useArmor}}
       <div class="flexrow">
         <div class="flexrow">
-          <label for="max-hp-amount" class="bonus-max-hp-label">Max Armor</label>
-          <input id="max-hp-amount" class="bonus-max-hp-input"
-          placeholder="Max Health" name="data.attributes.hps.armor.max"
-          value="{{data.attributes.hps.armor.max}}"
+          <label for="base-armor-hp-amount" class="bonus-max-hp-label">Base Armor</label>
+          <input id="base-armor-hp-amount" class="bonus-max-hp-input"
+          placeholder="Base Armor" name="data.attributes.hps.armor.base"
+          value="{{data.attributes.hps.armor.base}}"
           onfocus="this.select()" type="number" data-dtype="Number" />
         </div>
         <div class="flexrow bonus-hp-regen-container">
-          <label for="regen-amount" class="bonus-hp-regen-label">Repair</label>
-          <input id="regen-amount" class="bonus-hp-regen-input"
+          <label for="repair-amount" class="bonus-hp-regen-label">Repair</label>
+          <input id="repair-amount" class="bonus-hp-regen-input"
           placeholder="Repair" name="data.attributes.hps.armor.regen"
           value="{{data.attributes.hps.armor.regen}}"
           onfocus="this.select()" type="text" data-dtype="String" />
@@ -125,19 +144,19 @@
         <div>    
           <button class="btn btn-primary item-control btn-manage hp-gain"
           data-attribute-name="Max Armor" data-data-path="attributes.hps.armor" >
-            <i class="fas fa-plus"></i> Bonus Max Armor
+            <i class="fas fa-plus"></i> Increase Base Armor
           </button>
         </div>
       </div>
       {{/if}}
 
-      {{!-- Health Segment --}}
+      {{!-- Flesh Health Segment --}}
       <div class="flexrow">
         <div class="flexrow">
-          <label for="max-hp-amount" class="bonus-max-hp-label">Max Health</label>
-          <input id="max-hp-amount" class="bonus-max-hp-input"
-          placeholder="Max Health" name="data.attributes.hps.flesh.max"
-          value="{{data.attributes.hps.flesh.max}}"
+          <label for="base-flesh-hp-amount" class="bonus-max-hp-label">Base Health</label>
+          <input id="base-flesh-hp-amount" class="bonus-max-hp-input"
+          placeholder="Base Max Health" name="data.attributes.hps.flesh.base"
+          value="{{data.attributes.hps.flesh.base}}"
           onfocus="this.select()" type="number" data-dtype="Number" />
         </div>
         <div class="flexrow bonus-hp-regen-container">
@@ -150,7 +169,7 @@
         <div>    
           <button class="btn btn-primary item-control btn-manage hp-gain"
           data-attribute-name="Max HP" data-data-path="attributes.hps.flesh" >
-            <i class="fas fa-plus"></i> Max Health
+            <i class="fas fa-plus"></i> Increase Base Health
           </button>
         </div>
       </div>

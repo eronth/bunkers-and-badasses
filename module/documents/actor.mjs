@@ -7,38 +7,87 @@ import { RollBuilder } from "../helpers/roll-builder.mjs";
 export class BNBActor extends Actor {
 
   async _preCreate(data, options, user) {
-    if ( this.type === 'vault hunter' ) {
-      
-      // Establish the default values for the actor's token.
-      const initTokenData = {
-        bar2: { attribute: 'attributes.hps.shield' },
-        bar1: { attribute: 'attributes.hps.flesh' },
-        vision: true,
-        actorLink: true,
-      }
-      this.data.update(initTokenData);
-    } else if ( this.type === 'npc' ) {
-      const actorData = this.data;
-      const hps = actorData.data.attributes.hps;
+    // Default health values for actor.
+    const initTokenBars = {
+      bar2: { attribute: 'attributes.hps.shield' },
+      bar1: { attribute: 'attributes.hps.flesh' }
+    };
 
-      const initTokenData = {
-        "token.bar2": { "attribute": "attributes.hps.shield" },
-        "token.bar1": { "attribute": "attributes.hps.flesh" },
-        "token.bar3": { "attribute": "attributes.hps.armor" },
-      }
-      // TODO this is kinda bad, so the logic should revisited later.
-      // This tries to evaluate which health should be used for the healthbars.
-      // Flesh, if used, is bar1. Then armor, then shield.
-      if (!this._isHpValuePopulated(hps.flesh)) {
-        if (this._isHpValuePopulated(hps.shield) && this._isHpValuePopulated(hps.armor)) {
-          initTokenData["token.bar1"] = { "attribute": "attributes.hps.armor" };
-          initTokenData["token.bar2"] = { "attribute": "attributes.hps.shield" };
-        }
-      } else if (!this._isHpValuePopulated(hps.shield) && this._isHpValuePopulated(hps.armor)) {
-        initTokenData["token.bar2"] = { "attribute": "attributes.hps.armor" };
-      }
-      this.data.update(initTokenData);
+    // Values for flags.
+    const initTokenFlags = {
+      // Values to use for barbrawl's benefit.
+      barbrawl: this.preCreateBarbrawlHealthBars(data, options, user, initTokenBars)
     }
+
+    // Assemble the initial token data.
+    const initTokenData = {
+      token: {
+        ...initTokenBars,
+        dimSight: 15,
+        vision: (this.type === 'vault hunter'),
+        actorLink: (this.type === 'vault hunter'),
+        flags: {...initTokenFlags},
+      }
+    };
+
+    // Update actor's token.
+    this.data.update(initTokenData);
+  }
+
+  preCreateBarbrawlHealthBars(data, options, user, initTokenBars) {
+    const hiddenBarDefaults = {
+      'mincolor': '#ffffff', 'maxcolor': '#000000',
+      'position': 'bottom-inner',
+      'otherVisibility': CONST.TOKEN_DISPLAY_MODES.NONE,
+      'ownerVisibility': CONST.TOKEN_DISPLAY_MODES.NONE
+    };
+    const visibleBarDefaults = {
+      'position': 'top-inner',
+      'otherVisibility': CONST.TOKEN_DISPLAY_MODES.HOVER,
+      'ownerVisibility': CONST.TOKEN_DISPLAY_MODES.ALWAYS
+    };
+
+    const initTokenBarbrawlData = {
+      'resourceBars': {
+        'bar1': {
+          'id': 'bar1',
+          'order': 0,
+          'attribute': initTokenBars.bar1.attribute,
+          ...hiddenBarDefaults
+        },
+        'bar2': {
+          'id': 'bar2',
+          'order': 1,
+          'attribute': initTokenBars.bar2.attribute,
+          ...hiddenBarDefaults
+        },
+        'barShield': {
+          'id': 'barShield',
+          'order': 2,
+          'maxcolor': '#24e7eb',
+          'mincolor': '#79d1d2',
+          'attribute': 'attributes.hps.shield',
+          ...visibleBarDefaults
+        },
+        'barArmor': {
+          'id': 'barArmor',
+          'order': 3,
+          'maxcolor': '#ffdd00',
+          'mincolor': '#e1cc47',
+          'attribute': 'attributes.hps.armor',
+          ...visibleBarDefaults
+        },
+        'barFlesh': {
+          'id': 'barFlesh',
+          'order': 4,
+          'maxcolor': '#d23232',
+          'mincolor': '#a20b0b',
+          'attribute': 'attributes.hps.flesh',
+          ...visibleBarDefaults
+        }
+      }
+    }
+    return initTokenBarbrawlData;
   }
 
   /** @override */
@@ -237,7 +286,7 @@ export class BNBActor extends Actor {
         : '');
     const rollFormula = `${rollDoubleDamage}`
      + `(`
-       + `${actorData.class.meleeDice}${rollPlusOneDice}${rollCrit} + @dmg[DMG ${actorData.attributes.badass.rollsEnabled ? 'Stat' : 'Mod'}] `
+       + `${actorData.class?.meleeDice ?? '0d0'}${rollPlusOneDice}${rollCrit} + @dmg[DMG ${actorData.attributes.badass.rollsEnabled ? 'Stat' : 'Mod'}] `
        + ((effectDamage > 0) ? `+ ${effectDamage}[Melee Dmg Effects]` : '')
      + `)[Kinetic]`;
     const roll = new Roll(
@@ -248,7 +297,7 @@ export class BNBActor extends Actor {
     
     // Convert roll to a results object for sheet display.
     const rollResults = {};
-    rollResults.Kinetic = {
+    rollResults["kinetic"] = {
       formula: rollResult._formula,
       total: rollResult.total
     };

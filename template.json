@@ -9,18 +9,21 @@
               "value": 0,
               "min": 0,
               "max": 0,
+              "base": 0,
               "regen": 0
             },
             "armor": {
               "value": 0,
               "min": 0,
               "max": 0,
+              "base": 0,
               "regen": 0
             },
             "flesh": {
               "value": 0,
               "min": 0,
               "max": 0,
+              "base": 0,
               "regen": 0
             }
           }

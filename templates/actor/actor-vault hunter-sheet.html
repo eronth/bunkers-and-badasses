@@ -1,5 +1,7 @@
 <form class="{{cssClass}} {{actor.type}} flexcol" autocomplete="off">
 
+  <button hidden></button> <!-- This is a hack to consume button presses on enter. -->
+
   {{!-- Sheet Header --}}
   <header class="sheet-header">
     {{!-- Icon --}}
@@ -26,7 +28,7 @@
             <label for="{{key}}-health-display" class="resource-label rollable flexlarge">{{hp.label}}</label>
             <input 
               class="flexlarge" 
-              value="{{hp.value}} / {{hp.maxTotal}}"
+              value="{{hp.value}} / {{hp.max}}"
               type="text" name="{{key}}-health-display" data-dtype="Number"
               disabled=true />
           </div>
