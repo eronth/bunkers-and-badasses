@@ -107,7 +107,7 @@ export class BNBItemSheet extends ItemSheet {
     allOptions.removeClass('selected');
 
     $(event.currentTarget).addClass('selected');
-    $("ul").children('.type-init').html($(event.currentTarget).html());
+    $("ul").children(`.type-init-${this.item.id}`).html($(event.currentTarget).html());
     const fullName = event.currentTarget.innerHTML;
   
     const newType = $(event.currentTarget).attr("value")
