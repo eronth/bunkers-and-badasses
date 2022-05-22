@@ -166,7 +166,6 @@ export class BNBActorSheet extends ActorSheet {
   }
 
   _prepareHps(context) {
-    const contextHps = context.data.attributes.hps;
     const actorHPs = this.actor.data.data.attributes.hps;
     const effectsHPs = this.actor.data.data.bonus.healths;
 
@@ -200,31 +199,31 @@ export class BNBActorSheet extends ActorSheet {
     
     
     // Clean slate for HPs totals.
-    contextHps.flesh.max = contextHps.armor.max = contextHps.shield.max = 0;
-    contextHps.flesh.combinedRegen = contextHps.armor.combinedRegen = contextHps.shield.combinedRegen = "";
+    actorHPs.flesh.max = actorHPs.armor.max = actorHPs.shield.max = 0;
+    actorHPs.flesh.combinedRegen = actorHPs.armor.combinedRegen = actorHPs.shield.combinedRegen = "";
 
     // Get the HPs from the actor data.
     Object.entries(context.items).forEach(entry => {
       const [itemId, itemData] = entry;
       if (itemData.type === "shield" && itemData.data.equipped) {
         if (itemData.data.isArmor) {
-          contextHps.armor.max += itemData.data.capacity ?? 0;
-          if (contextHps.armor.combinedRegencombinedRegen) {
-            contextHps.armor.combinedRegen += ' + ';
+          actorHPs.armor.max += itemData.data.capacity ?? 0;
+          if (actorHPs.armor.combinedRegencombinedRegen) {
+            actorHPs.armor.combinedRegen += ' + ';
           }
-          contextHps.armor.combinedRegen += itemData.data.recovery.repairRate;
+          actorHPs.armor.combinedRegen += itemData.data.recovery.repairRate;
         } else {
-          contextHps.shield.max += itemData.data.capacity ?? 0;
-          if (contextHps.shield.combinedRegen) {
-            contextHps.shield.combinedRegen += ' + ';
+          actorHPs.shield.max += itemData.data.capacity ?? 0;
+          if (actorHPs.shield.combinedRegen) {
+            actorHPs.shield.combinedRegen += ' + ';
           }
-          contextHps.shield.combinedRegen += itemData.data.recovery.rechargeRate;
+          actorHPs.shield.combinedRegen += itemData.data.recovery.rechargeRate;
         }
       }
     });
 
     // Add bonuses from Builder Tab and effects.
-    Object.entries(contextHps).forEach(entry => {
+    Object.entries(actorHPs).forEach(entry => {
       const [hpType, hpData] = entry;
       hpData.max += (actorHPs[hpType].base ?? 0) + (effectsHPs[hpType].max ?? 0);
       if (actorHPs[hpType].regen) {
@@ -239,7 +238,7 @@ export class BNBActorSheet extends ActorSheet {
 
     // Gather HPs that are actually used for the context's needs.
     const usedHps = {};
-    Object.entries(context.data.attributes.hps).forEach(entry => {
+    Object.entries(actorHPs).forEach(entry => {
       const [hpType, hpData] = entry;
       if (hpType !== "armor" || (hpType === "armor" && context.flags.useArmor)) {
         usedHps[hpType] = hpData;
@@ -247,6 +246,10 @@ export class BNBActorSheet extends ActorSheet {
     });
 
     context.hps = usedHps;
+
+    // Square brackets needed to get the right value.
+    const attributeLabel = `data.attributes.hps`;
+    this.actor.update({[attributeLabel]: actorHPs});
   }
 
   _prepareNpcHps(context) {
