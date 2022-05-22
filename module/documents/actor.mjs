@@ -84,6 +84,23 @@ export class BNBActor extends Actor {
           'mincolor': '#a20b0b',
           'attribute': 'attributes.hps.flesh',
           ...visibleBarDefaults
+        },
+        'barBone': {
+          'id': 'barBone',
+          'order': 5,
+          'maxcolor': '#333333',
+          'mincolor': '#bbbbbb',
+          'attribute': 'attributes.hps.bone',
+          ...visibleBarDefaults
+        },
+        'barEridian': {
+          'id': 'barEridian',
+          'order': 6,
+          'maxcolor': '#ff00ff',
+          'mincolor': '#bb00bb',
+          'attribute': 'attributes.hps.eridian',
+          ...visibleBarDefaults,
+          'position': 'top-outer'
         }
       }
     }
