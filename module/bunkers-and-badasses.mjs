@@ -196,6 +196,22 @@ Hooks.once("ready", async function() {
   Hooks.on("hotbarDrop", (bar, data, slot) => createItemMacro(data, slot));  
 });
 
+// Hooks.on("preCreateToken", function (document, data) {
+//   document.data.update({
+//       "flags.barbrawl.resourceBars": {
+//           "bar1": {
+//               id: "bar1",
+//               mincolor: "#FF0000",
+//               maxcolor: "#80FF00",
+//               position: "bottom-inner",
+//               attribute: "attributes.hps.flesh",
+//               visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
+//           }
+//       }
+//   });
+// });
+
+
 /* -------------------------------------------- */
 /*  Hotbar Macros                               */
 /* -------------------------------------------- */
