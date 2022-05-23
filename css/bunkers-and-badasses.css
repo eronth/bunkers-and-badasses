@@ -1726,6 +1726,9 @@ input[type="time"]:focus {
   align-items: center;
   padding: 5px;
 }
+
+
+.health-type ul,
 .gun-type ul { 
   height: 20px;
   width: 130px;
@@ -1736,6 +1739,7 @@ input[type="time"]:focus {
   list-style-type: none;
   padding: 0;
 }
+.health-type ul li,
 .gun-type ul li {
   cursor: pointer;
   border: 1px rgb(122, 121, 113) solid;
@@ -1743,6 +1747,7 @@ input[type="time"]:focus {
   z-index: 2;
   text-align: center;
 }
+.health-type ul li:not(.init),
 .gun-type ul li:not(.init) {
   float: left;
   width: 130px;
@@ -1750,19 +1755,21 @@ input[type="time"]:focus {
   margin-top: -1px;
   display: none;
 }
+.health-type li.init,
 .gun-type li.init { 
   cursor: pointer;
   padding: 1px 7px;
   height: 20px;
 }
+.health-type ul li:not(.init):hover, ul li.selected:not(.init),
 .gun-type ul li:not(.init):hover, ul li.selected:not(.init) {
   text-decoration: underline;
 }
+.health-type .health-type-option,
 .gun-type .gtb {
   color: white;
   background-color: #a5a49f;
 }
-
 
 
 .rarity ul { 
@@ -1779,7 +1786,6 @@ input[type="time"]:focus {
   cursor: pointer;
   border: 1px rgb(122, 121, 113) solid;
   position: relative;
-
   z-index: 3;
   text-align: center;
 }
