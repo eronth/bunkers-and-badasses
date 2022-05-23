@@ -1,0 +1,16 @@
+<div class="health-type centerize flexrow">
+  <ul class="health-type health-type-list health-type-option-dropdown">
+    <li class="init health-type-init-{{itemId}}">{{capitalize (hpTitle healthType)}}</li>
+    {{#if usePlayerEridian}}
+    <li class="health-type-option" value="eridian">Eridian</li>
+    {{/if}}
+    <li class="health-type-option" value="shield">Shield</li>
+    {{#if usePlayerArmor}}
+    <li class="health-type-option" value="armor">Armor</li>
+    {{/if}}
+    <li class="health-type-option" value="flesh">Health</li>
+    {{#if usePlayerBone}}
+    <li class="health-type-option" value="bone">Bone</li>
+    {{/if}}
+  </ul>
+</div>
