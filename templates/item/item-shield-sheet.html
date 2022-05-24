@@ -51,14 +51,12 @@
         </div>
         {{!-- Recharge --}}
         <div class="item-body item-body-num flexrow">
-          <label for="recharge-input-{{item.id}}">{{#if data.isArmor}}Repair{{else}}Recharge{{/if}}</label>
+          <label for="recharge-input-{{item.id}}">
+            {{hpToRecoveryTitle data.healthType true}}
+          </label>
           <input id="recharge-input-{{item.id}}" class="flexlarge" 
           type="text" data-dtype="String"
-          {{#if data.isArmor}}
-          value="{{data.recovery.repairRate}}" name="data.recovery.repairRate"
-          {{else}}
-          value="{{data.recovery.rechargeRate}}" name="data.recovery.rechargeRate"
-          {{/if}}
+          value="{{data.recoveryRate}}" name="data.recoveryRate"
           />
         </div>
       </div>
