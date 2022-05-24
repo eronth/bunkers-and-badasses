@@ -35,20 +35,11 @@
       </div>
       <div class="shield-stats-container shield-stats-container-right flexrow flex-size-12">
         {{!-- Health Type? --}}
-        <div class="item-body item-body-num item-body-num-50 item-tag-group flexcol flex-right">
-          {{#if usePlayerArmor}}
-          <a id="enable-armor-{{item.id}}"
-            class="checkbox armor-toggle bh" 
-            title="Toggle Armor" data-target="item" data-item-target="data.isArmor"
-            >
-            {{#if data.isArmor}}
-            <i class="far fa-check-square"></i>
-            {{else}}
-            <i class="far fa-square"></i>
-            {{/if}}
-            <label class="pointer-cursor"> is armor?</label>
-          </a>
-          {{/if}}
+        <div class="item-body item-body-num flexrow">
+          <label>Protection Type</label>
+          {{> "systems/bunkers-and-badasses/templates/item/parts/health-type-dropdown.html"
+            itemId=item.id 
+            healthType=data.healthType }}
         </div>
         {{!-- Capacity --}}
         <div class="item-body item-body-num flexrow">
