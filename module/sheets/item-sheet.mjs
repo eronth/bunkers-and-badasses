@@ -97,7 +97,7 @@ export class BNBItemSheet extends ItemSheet {
     html.find('.gun-type-option-dropdown').click(this._onGunTypeOptionDropdownClick.bind(this));
     html.find('.type-option').click(this._onGunTypeOptionClick.bind(this));
     html.find('.health-type-option-dropdown').click(this._onHealthTypeOptionDropdownClick.bind(this));
-    //html.find('.health-type-option').click(this._onHealthTypeOptionClick.bind(this));
+    html.find('.health-type-option').click(this._onHealthTypeOptionClick.bind(this));
     html.find('.damage-entry').click(this._onDamageEntryClick.bind(this));
     html.find('.checkbox').click(this._onCheckboxToggleClick.bind(this));
   }
@@ -133,12 +133,23 @@ export class BNBItemSheet extends ItemSheet {
     $("ul").children(`.type-init-${this.item.id}`).html($(event.currentTarget).html());
     const fullName = event.currentTarget.innerHTML;
   
-    const newType = $(event.currentTarget).attr("value");
-    this.item.update({"data.type": { name: fullName, value: newType } });
+    const newGunType = $(event.currentTarget).attr("value");
+    this.item.update({"data.type": { name: fullName, value: newGunType } });
   }
 
   _onHealthTypeOptionDropdownClick(event) {
     $(event.currentTarget).closest("ul").children('li:not(.init)').toggle();
+  }
+
+  _onHealthTypeOptionClick(event) {
+    const allOptions = $("ul").children('.health-type-option');
+    allOptions.removeClass('selected');
+
+    $(event.currentTarget).addClass('selected');
+    $("ul").children(`.health-type-init-${this.item.id}`).html($(event.currentTarget).html());
+
+    const newHealthType = $(event.currentTarget).attr("value");
+    this.item.update({"data.healthType": newHealthType});
   }
 
 
