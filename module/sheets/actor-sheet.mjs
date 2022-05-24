@@ -237,13 +237,13 @@ export class BNBActorSheet extends ActorSheet {
 
     // Get the HPs from the actor data.
     Object.entries(context.items).forEach(entry => {
-      const [itemId, itemData] = entry;
+      const [itemIndex, itemData] = entry;
       if (itemData.type === "shield" && itemData.data.equipped) {
-        actorHPs[item.data.healthType].max += itemData.data.capacity ?? 0;
-        if (actorHPs[item.data.healthType].combinedRegen) {
-          actorHPs[item.data.healthType].combinedRegen += ' + ';
+        actorHPs[itemData.data.healthType].max += itemData.data.capacity ?? 0;
+        if (actorHPs[itemData.data.healthType].combinedRegen) {
+          actorHPs[itemData.data.healthType].combinedRegen += ' + ';
         }
-        actorHPs[item.data.healthType].combinedRegen += itemData.data.recoveryRate;
+        actorHPs[itemData.data.healthType].combinedRegen += itemData.data.recoveryRate;
       }
     });
 
