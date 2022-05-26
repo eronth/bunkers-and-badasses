@@ -3,7 +3,6 @@
  
 Known Issues:
 * Posting items/action skill/class skills to chat just posts [Object object] instead of any useful data.
-* When two or more item sheets are open, changing the rarity of one changes the text of the others. This purely a visual bug, and does not actually update their rarity.
 * Unable to add seprate bonuses for `Throw Grenade` vs `Throw Item`.
 * No mayhem counter available.
 * Miscellaneous HTML/CSS issues.
