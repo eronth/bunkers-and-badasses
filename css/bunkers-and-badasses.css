@@ -1739,6 +1739,9 @@ input[type="time"]:focus {
   list-style-type: none;
   padding: 0;
 }
+.health-type ul {
+  width: 110px;
+}
 .health-type ul li,
 .gun-type ul li {
   cursor: pointer;
@@ -1754,6 +1757,9 @@ input[type="time"]:focus {
   padding: 3px 7px;
   margin-top: -1px;
   display: none;
+}
+.health-type ul li:not(.init) {
+  width: 110px;
 }
 .health-type li.init,
 .gun-type li.init { 
