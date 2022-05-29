@@ -46,8 +46,6 @@ export class BNBActorSheet extends ActorSheet {
       useEridian: game.settings.get('bunkers-and-badasses', 'usePlayerEridian')
     };
 
-    this._updateFromPreviousVersions(context);
-
     // Prepare Vault Hunter data and items.
     if (actorData.type == 'vault hunter') {
       this._updateVaultHunterFromPreviousVersions(context);
