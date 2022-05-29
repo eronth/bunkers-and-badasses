@@ -50,6 +50,7 @@ export class BNBActorSheet extends ActorSheet {
 
     // Prepare Vault Hunter data and items.
     if (actorData.type == 'vault hunter') {
+      this._updateVaultHunterFromPreviousVersions(context);
       this._prepareItems(context);
       this._prepareArchetypes(context);
       this._prepareExperience(context);
@@ -59,6 +60,7 @@ export class BNBActorSheet extends ActorSheet {
 
     // Prepare NPC data and items.
     if (actorData.type == 'npc') {
+      this._updateNPCFromPreviousVersions(context);
       this._prepareItems(context);
       this._prepareNpcHps(context);
     }
@@ -72,7 +74,7 @@ export class BNBActorSheet extends ActorSheet {
     return context;
   }
 
-  _updateFromPreviousVersions(context) {
+  _updateVaultHunterFromPreviousVersions(context) {
 
     ///////////////////////////////////
     //////// Update from 0.1.3 ////////
@@ -134,6 +136,10 @@ export class BNBActorSheet extends ActorSheet {
       this.actor.update({[attributeLabel]: effectsHPs});
     }
     ////////////  Update HP From Previous Versions  ////////////
+  }
+
+  _updateNPCFromPreviousVersions(context) {
+    // Currently no updates for NPCs.
   }
 
   _prepareArchetypes(context) {
@@ -238,7 +244,6 @@ export class BNBActorSheet extends ActorSheet {
   _prepareHps(context) {
     const actorHPs = this.actor.data.data.attributes.hps;
     const effectsHPs = this.actor.data.data.bonus.healths;
-    
     
     // Clean slate for HPs totals.
     actorHPs.flesh.max = actorHPs.armor.max = actorHPs.shield.max = actorHPs.bone.max = actorHPs.eridian.max = 0;
