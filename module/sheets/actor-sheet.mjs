@@ -46,6 +46,8 @@ export class BNBActorSheet extends ActorSheet {
       useEridian: game.settings.get('bunkers-and-badasses', 'usePlayerEridian')
     };
 
+    this._updateFromPreviousVersions(context);
+
     // Prepare Vault Hunter data and items.
     if (actorData.type == 'vault hunter') {
       this._prepareItems(context);
@@ -68,6 +70,70 @@ export class BNBActorSheet extends ActorSheet {
     context.effects = prepareActiveEffectCategories(this.actor.effects);
     
     return context;
+  }
+
+  _updateFromPreviousVersions(context) {
+
+    ///////////////////////////////////
+    //////// Update from 0.1.3 ////////
+    ///////////////////////////////////
+    const actorHPs = this?.actor?.data?.data?.attributes?.hps;
+    const effectsHPs = this?.actor?.data?.data?.bonus?.healths;
+
+    ////////////  Update HP From Previous Versions  ////////////
+    // This moves the "max" value to be treated as a "base" stat value.
+    let healthUpdateHappened = false;
+    let bonusHealthUpdateHappened = false;
+
+    if (actorHPs != null && actorHPs.flesh.base == null) {
+      actorHPs.flesh.base = actorHPs.flesh.max;
+      actorHPs.flesh.max = 0;
+      healthUpdateHappened = true;
+    }
+    if (actorHPs != null && actorHPs.shield.base == null) {
+      actorHPs.shield.base = actorHPs.shield.max;
+      actorHPs.shield.max = 0;
+      healthUpdateHappened = true;
+    }
+    if (actorHPs != null && actorHPs.armor.base == null) {
+      actorHPs.armor.base = actorHPs.armor.max;
+      actorHPs.armor.max = 0;
+      healthUpdateHappened = true;
+    }
+    
+    // This adds previously missing HP attributes to the actor.
+    if (actorHPs != null && actorHPs.bone == null) {
+      actorHPs.bone = {
+        "value": 0, "base": 0, "min": 0, "max": 0, "regen": 0
+      }
+      healthUpdateHappened = true;
+    }
+    if (effectsHPs != null && effectsHPs.bone == null) {
+      effectsHPs.bone = { max: 0, regen: '' };
+      bonusHealthUpdateHappened = true;
+    }
+    if (actorHPs != null && actorHPs.eridian == null) {
+      actorHPs.eridian = {
+        "value": 0, "base": 0, "min": 0, "max": 0, "regen": 0
+      }
+      healthUpdateHappened = true;
+    }
+    if (effectsHPs != null && effectsHPs.eridian == null) {
+      effectsHPs.eridian = { max: 0, regen: '' };
+      bonusHealthUpdateHappened = true;
+    }
+
+    if (healthUpdateHappened) {
+      // Square brackets needed to get the right value.
+      const attributeLabel = `data.attributes.hps`;
+      this.actor.update({[attributeLabel]: actorHPs});
+    }
+    if (bonusHealthUpdateHappened) {
+      // Square brackets needed to get the right value.
+      const attributeLabel = `data.bonus.healths`;
+      this.actor.update({[attributeLabel]: effectsHPs});
+    }
+    ////////////  Update HP From Previous Versions  ////////////
   }
 
   _prepareArchetypes(context) {
@@ -172,62 +238,6 @@ export class BNBActorSheet extends ActorSheet {
   _prepareHps(context) {
     const actorHPs = this.actor.data.data.attributes.hps;
     const effectsHPs = this.actor.data.data.bonus.healths;
-
-
-    ////////////  Update HP From Previous Versions  ////////////
-    // This moves the "max" value to be treated as a "base" stat value.
-    let healthUpdateHappened = false;
-    let bonusHealthUpdateHappened = false;
-
-    if (actorHPs.flesh.base == null) {
-      actorHPs.flesh.base = actorHPs.flesh.max;
-      actorHPs.flesh.max = 0;
-      healthUpdateHappened = true;
-    }
-    if (actorHPs.shield.base == null) {
-      actorHPs.shield.base = actorHPs.shield.max;
-      actorHPs.shield.max = 0;
-      healthUpdateHappened = true;
-    }
-    if (actorHPs.armor.base == null) {
-      actorHPs.armor.base = actorHPs.armor.max;
-      actorHPs.armor.max = 0;
-      healthUpdateHappened = true;
-    }
-    
-    // This adds previously missing HP attributes to the actor.
-    if (actorHPs.bone == null) {
-      actorHPs.bone = {
-        "value": 0, "base": 0, "min": 0, "max": 0, "regen": 0
-      }
-      healthUpdateHappened = true;
-    }
-    if (effectsHPs.bone == null) {
-      effectsHPs.bone = { max: 0, regen: '' };
-      bonusHealthUpdateHappened = true;
-    }
-    if (actorHPs.eridian == null) {
-      actorHPs.eridian = {
-        "value": 0, "base": 0, "min": 0, "max": 0, "regen": 0
-      }
-      healthUpdateHappened = true;
-    }
-    if (effectsHPs.eridian == null) {
-      effectsHPs.eridian = { max: 0, regen: '' };
-      bonusHealthUpdateHappened = true;
-    }
-
-    if (healthUpdateHappened) {
-      // Square brackets needed to get the right value.
-      const attributeLabel = `data.attributes.hps`;
-      this.actor.update({[attributeLabel]: actorHPs});
-    }
-    if (bonusHealthUpdateHappened) {
-      // Square brackets needed to get the right value.
-      const attributeLabel = `data.bonus.healths`;
-      this.actor.update({[attributeLabel]: effectsHPs});
-    }
-    ////////////  Update HP From Previous Versions  ////////////
     
     
     // Clean slate for HPs totals.
