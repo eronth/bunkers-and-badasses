@@ -26,7 +26,7 @@ Hooks.once('init', async function() {
   
   // System settings here
   game.settings.register('bunkers-and-badasses', 'usePlayerArmor', {
-    name: 'Show Armor Health on Vault Hunter Sheet',
+    name: 'Show Armor Health on VH Sheet',
     hint: 'Vault Hunters will have access to an "armor" health pool and shields can be marked as "armor" type.',
     scope: 'world',
     config: true,
@@ -35,7 +35,7 @@ Hooks.once('init', async function() {
   });
 
   game.settings.register('bunkers-and-badasses', 'usePlayerBone', {
-    name: 'Show Bone Health on Vault Hunter Sheet',
+    name: 'Show Bone Health on VH Sheet',
     hint: 'Vault Hunters will have access to a "bone" health pool and shields can be marked as "bone" type.',
     scope: 'world',
     config: true,
@@ -44,7 +44,7 @@ Hooks.once('init', async function() {
   });
 
   game.settings.register('bunkers-and-badasses', 'usePlayerEridian', {
-    name: 'Show Eridian Health on Vault Hunter Sheet',
+    name: 'Show Eridian Health on VH Sheet',
     hint: 'Vault Hunters will have access to a "eridian" health pool and shields can be marked as "eridian" type.',
     scope: 'world',
     config: true,
