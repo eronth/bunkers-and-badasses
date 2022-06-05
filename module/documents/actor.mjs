@@ -13,10 +13,26 @@ export class BNBActor extends Actor {
       bar1: { attribute: 'attributes.hps.flesh' }
     };
 
+    const gameFlags = {
+      useArmor: (data.type == 'npc'
+        ? true
+        : game.settings.get('bunkers-and-badasses', 'usePlayerArmor')),
+      useBone: (data.type == 'npc' 
+        ? game.settings.get('bunkers-and-badasses', 'useNpcBone')
+        : game.settings.get('bunkers-and-badasses', 'usePlayerBone')),
+      useEridian: (data.type == 'npc'
+        ? game.settings.get('bunkers-and-badasses', 'useNpcEridian')
+        : game.settings.get('bunkers-and-badasses', 'usePlayerEridian')),
+      useFlesh: true,
+      useShield: true
+    };
+
     // Values for flags.
     const initTokenFlags = {
       // Values to use for barbrawl's benefit.
-      barbrawl: this.preCreateBarbrawlHealthBars(data, options, user, initTokenBars)
+      barbrawl: (data.type == 'npc'
+        ? this.preCreateNPCBarbrawlHealthBars(data, gameFlags)
+        : this.preCreateVaultHunterBarbrawlHealthBars(data, gameFlags))
     }
 
     // Assemble the initial token data.
@@ -34,77 +50,73 @@ export class BNBActor extends Actor {
     this.data.update(initTokenData);
   }
 
-  preCreateBarbrawlHealthBars(data, options, user, initTokenBars) {
-    const hiddenBarDefaults = {
-      'mincolor': '#ffffff', 'maxcolor': '#000000',
-      'position': 'bottom-inner',
-      'otherVisibility': CONST.TOKEN_DISPLAY_MODES.NONE,
-      'ownerVisibility': CONST.TOKEN_DISPLAY_MODES.NONE
-    };
+  preCreateVaultHunterBarbrawlHealthBars(data, gameFlags) {
     const visibleBarDefaults = {
       'position': 'top-inner',
       'otherVisibility': CONST.TOKEN_DISPLAY_MODES.HOVER,
       'ownerVisibility': CONST.TOKEN_DISPLAY_MODES.ALWAYS
     };
 
-    const initTokenBarbrawlData = {
-      'resourceBars': {
-        'bar1': {
-          'id': 'bar1',
-          'order': 0,
-          'attribute': initTokenBars.bar1.attribute,
-          ...hiddenBarDefaults
-        },
-        'bar2': {
-          'id': 'bar2',
-          'order': 1,
-          'attribute': initTokenBars.bar2.attribute,
-          ...hiddenBarDefaults
-        },
-        'barShield': {
-          'id': 'barShield',
-          'order': 2,
-          'maxcolor': '#24e7eb',
-          'mincolor': '#79d1d2',
-          'attribute': 'attributes.hps.shield',
-          ...visibleBarDefaults
-        },
-        'barArmor': {
-          'id': 'barArmor',
-          'order': 3,
-          'maxcolor': '#ffdd00',
-          'mincolor': '#e1cc47',
-          'attribute': 'attributes.hps.armor',
-          ...visibleBarDefaults
-        },
-        'barFlesh': {
-          'id': 'barFlesh',
-          'order': 4,
-          'maxcolor': '#d23232',
-          'mincolor': '#a20b0b',
-          'attribute': 'attributes.hps.flesh',
-          ...visibleBarDefaults
-        },
-        'barBone': {
-          'id': 'barBone',
-          'order': 5,
-          'maxcolor': '#333333',
-          'mincolor': '#bbbbbb',
-          'attribute': 'attributes.hps.bone',
-          ...visibleBarDefaults
-        },
-        'barEridian': {
-          'id': 'barEridian',
-          'order': 6,
-          'maxcolor': '#ff00ff',
-          'mincolor': '#bb00bb',
-          'attribute': 'attributes.hps.eridian',
-          ...visibleBarDefaults,
-          'position': 'top-outer'
-        }
-      }
+    const initTokenBarbrawlBars = { };
+    if (gameFlags.useShield) {
+      initTokenBarbrawlBars['bar2'] = { // Shield
+        // 'barShield': {
+        // 'id': 'barShield',
+        'id': 'bar2',
+        'order': 0,
+        'maxcolor': '#24e7eb',
+        'mincolor': '#79d1d2',
+        'attribute': 'attributes.hps.shield',
+        ...visibleBarDefaults
+      };
     }
-    return initTokenBarbrawlData;
+    if (gameFlags.useArmor) {
+      initTokenBarbrawlBars['barArmor'] = {
+        'id': 'barArmor',
+        'order': 1,
+        'maxcolor': '#ffdd00',
+        'mincolor': '#e1cc47',
+        'attribute': 'attributes.hps.armor',
+        ...visibleBarDefaults
+      };
+    }
+    if (gameFlags.useFlesh) {
+      initTokenBarbrawlBars['bar1'] = { // Flesh
+        // 'barFlesh': {
+        //   'id': 'barFlesh',
+        'id': 'bar1',
+        'order': 2,
+        'maxcolor': '#d23232',
+        'mincolor': '#a20b0b',
+        'attribute': 'attributes.hps.flesh',
+        ...visibleBarDefaults
+      };
+    }
+    if (gameFlags.useBone) {
+      initTokenBarbrawlBars['barBone'] = {
+        'id': 'barBone',
+        'order': 3,
+        'maxcolor': '#333333',
+        'mincolor': '#bbbbbb',
+        'attribute': 'attributes.hps.bone',
+        ...visibleBarDefaults
+      };
+    }
+    if (gameFlags.useEridian) {
+      initTokenBarbrawlBars['barEridian'] = {
+        'id': 'barEridian',
+        'order': 4,
+        'maxcolor': '#ff00ff',
+        'mincolor': '#bb00bb',
+        'attribute': 'attributes.hps.eridian',
+        ...visibleBarDefaults,
+        'position': 'top-outer'
+      };
+    }
+    
+    return { 
+      resourceBars: {...initTokenBarbrawlBars} 
+    };
   }
 
   /** @override */
@@ -340,6 +352,4 @@ export class BNBActor extends Actor {
 
     return rollResult.toMessage(messageData);
   };
-  
-  
 }
