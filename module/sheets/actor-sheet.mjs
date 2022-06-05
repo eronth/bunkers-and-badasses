@@ -787,7 +787,7 @@ export class BNBActorSheet extends ActorSheet {
         }
 
         // After while loop, findalize values as needed.
-        if (damage > actorData.attributes.hps[healthType].value) {
+        if (damageTaken[healthType] > hps[healthType].value) {
           // Don't overshoot! Going forward this will help with displaying the damage to chat.
           damageTaken[healthType] = hps[healthType].value;
         }
