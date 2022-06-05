@@ -796,35 +796,6 @@ export class BNBActorSheet extends ActorSheet {
         hps[healthType].value -= damageTaken[healthType];
       }
     });
-    
-    // for (let damageToDeal = damageAmount; damageToDeal > 0; damageToDeal--) {
-    //   // if (actorData.attributes.hps.eridian.value > damageTaken['eridian']) {
-    //   //   const type = 'eridian';  
-    //   //   damageTaken[type]++;
-    //   // } else if (actorData.attributes.hps.shield.value > damageTaken['shield'] && 
-    //   //   (damageType !== "radiation" && damageType !== "incendiation")) {
-    //   //   const type = 'shield';
-    //   //   damageTaken['shield']++;
-    //   //   if (damageType === 'shock' || damageType === 'corroshock') {
-    //   //     damageTaken['shield']++;
-    //   //   }
-    //   // } else if (actorData.attributes.hps.armor.value > damageTaken['armor']) {
-    //   //   damageTaken['armor']++;
-    //   //   if (damageType === 'corrosive' || damageType === 'corroshock') {
-    //   //     damageTaken['armor']++;
-    //   //   }
-    //   // } else if (actorData.attributes.hps.flesh.value > damageTaken['flesh']) {
-    //   //   damageTaken['flesh']++;
-    //   //   if (damageType === 'incendiary' || damageType === 'incendiation') {
-    //   //     damageTaken['flesh']++;
-    //   //   }
-    //   // } else if (actorData.attributes.hps.bone.value > damageTaken['bone']) {
-    //   //   damageTaken['bone']++;
-    //   //   if (damageType === 'cryo' || damageType === 'crysplosive') {
-    //   //     damageTaken['bone']++;
-    //   //   }
-    //   // }
-    // }
 
     // TODO Display the damage to chat.
 
