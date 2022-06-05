@@ -56,14 +56,25 @@ export class BNBActor extends Actor {
       'otherVisibility': CONST.TOKEN_DISPLAY_MODES.HOVER,
       'ownerVisibility': CONST.TOKEN_DISPLAY_MODES.ALWAYS
     };
-
+    
+    let barbrawlOrder = 0;
     const initTokenBarbrawlBars = { };
+    if (gameFlags.useEridian) {
+      initTokenBarbrawlBars['barEridian'] = {
+        'id': 'barEridian',
+        'order': barbrawlOrder++,
+        'maxcolor': '#ff00ff',
+        'mincolor': '#bb00bb',
+        'attribute': 'attributes.hps.eridian',
+        ...visibleBarDefaults,
+      };
+    }
     if (gameFlags.useShield) {
       initTokenBarbrawlBars['bar2'] = { // Shield
         // 'barShield': {
         // 'id': 'barShield',
         'id': 'bar2',
-        'order': 0,
+        'order': barbrawlOrder++,
         'maxcolor': '#24e7eb',
         'mincolor': '#79d1d2',
         'attribute': 'attributes.hps.shield',
@@ -73,7 +84,7 @@ export class BNBActor extends Actor {
     if (gameFlags.useArmor) {
       initTokenBarbrawlBars['barArmor'] = {
         'id': 'barArmor',
-        'order': 1,
+        'order': barbrawlOrder++,
         'maxcolor': '#ffdd00',
         'mincolor': '#e1cc47',
         'attribute': 'attributes.hps.armor',
@@ -85,7 +96,7 @@ export class BNBActor extends Actor {
         // 'barFlesh': {
         //   'id': 'barFlesh',
         'id': 'bar1',
-        'order': 2,
+        'order': barbrawlOrder++,
         'maxcolor': '#d23232',
         'mincolor': '#a20b0b',
         'attribute': 'attributes.hps.flesh',
@@ -95,22 +106,11 @@ export class BNBActor extends Actor {
     if (gameFlags.useBone) {
       initTokenBarbrawlBars['barBone'] = {
         'id': 'barBone',
-        'order': 3,
+        'order': barbrawlOrder++,
         'maxcolor': '#333333',
         'mincolor': '#bbbbbb',
         'attribute': 'attributes.hps.bone',
         ...visibleBarDefaults
-      };
-    }
-    if (gameFlags.useEridian) {
-      initTokenBarbrawlBars['barEridian'] = {
-        'id': 'barEridian',
-        'order': 4,
-        'maxcolor': '#ff00ff',
-        'mincolor': '#bb00bb',
-        'attribute': 'attributes.hps.eridian',
-        ...visibleBarDefaults,
-        'position': 'top-outer'
       };
     }
     

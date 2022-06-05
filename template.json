@@ -5,6 +5,13 @@
       "base": {
         "attributes": {
           "hps": {
+            "eridian": {
+              "value": 0,
+              "min": 0,
+              "max": 0,
+              "base": 0,
+              "regen": 0
+            },
             "shield": {
               "value": 0,
               "min": 0,
@@ -27,13 +34,6 @@
               "regen": 0
             },
             "bone": {
-              "value": 0,
-              "min": 0,
-              "max": 0,
-              "base": 0,
-              "regen": 0
-            },
-            "eridian": {
               "value": 0,
               "min": 0,
               "max": 0,
