@@ -138,7 +138,7 @@
 
             <img id="enable{{label}}" alt="{{element.label}}" 
             class="health-icon" 
-            src="systems/bunkers-and-badasses/assets/SHA/{{item.data.healthType}}-light.png" />
+            src="systems/bunkers-and-badasses/assets/SHA/{{item.data.healthType}}-{{getBestHealthShade item.data.healthType}}.png" />
             <label> {{item.data.capacity}} {{capitalize (hpTitle item.data.healthType)}} - {{item.data.recoveryRate}} {{capitalize (hpToRecoveryTitle item.data.healthType)}}</label>
 
             <div class="resist-label"> 
