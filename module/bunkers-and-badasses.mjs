@@ -171,6 +171,21 @@ Handlebars.registerHelper('hpToRecoveryTitle', function(str, doCapitalize) {
     return str;
 });
 
+Handlebars.registerHelper('getBestHealthShade', function(str) {
+  if (str === "flesh")
+    str = "light";
+  else if (str === "shield")
+    str = "light";
+  else if (str === "armor")
+    str = "light";
+  else if (str === "bone")
+    str = "dark";
+  else if (str === "eridian")
+    str = "light";
+
+  return str;
+});
+
 Handlebars.registerHelper('shortName', function(str) {
   let check = str.toLowerCase();
   if (check === 'submachine gun')
