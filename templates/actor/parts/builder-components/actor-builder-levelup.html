@@ -99,6 +99,32 @@
       <div class="flexrow header">
         <label>Bonus HP Values</label>
       </div>
+
+      {{!-- Eridian Segment --}}
+      {{#if flags.useEridian}}
+      <div class="flexrow">
+        <div class="flexrow">
+          <label for="base-eridian-hp-amount" class="bonus-max-hp-label">Base Eridian</label>
+          <input id="base-eridian-hp-amount" class="bonus-max-hp-input"
+          placeholder="Base eridian" name="data.attributes.hps.eridian.base"
+          value="{{data.attributes.hps.eridian.base}}"
+          onfocus="this.select()" type="number" data-dtype="Number" />
+        </div>
+        <div class="flexrow bonus-hp-regen-container">
+          <label for="reinvigorate-amount" class="bonus-hp-regen-label">Reinvigorate</label>
+          <input id="reinvigorate-amount" class="bonus-hp-regen-input"
+          placeholder="Reinvigorate" name="data.attributes.hps.eridian.regen"
+          value="{{data.attributes.hps.eridian.regen}}"
+          onfocus="this.select()" type="text" data-dtype="String" />
+        </div>
+        <div>    
+          <button class="btn btn-primary item-control btn-manage hp-gain"
+          data-attribute-name="Max Eridian" data-data-path="attributes.hps.eridian" >
+            <i class="fas fa-plus"></i> Increase Base Eridian
+          </button>
+        </div>
+      </div>
+      {{/if}}
       
       {{!-- Shield Segment --}}
       <div class="flexrow">
@@ -174,11 +200,33 @@
         </div>
       </div>
 
+      {{!-- Bone Segment --}}
+      {{#if flags.useBone}}
+      <div class="flexrow">
+        <div class="flexrow">
+          <label for="base-bone-hp-amount" class="bonus-max-hp-label">Base Bone</label>
+          <input id="base-bone-hp-amount" class="bonus-max-hp-input"
+          placeholder="Base Bone" name="data.attributes.hps.bone.base"
+          value="{{data.attributes.hps.bone.base}}"
+          onfocus="this.select()" type="number" data-dtype="Number" />
+        </div>
+        <div class="flexrow bonus-hp-regen-container">
+          <label for="regrow-amount" class="bonus-hp-regen-label">Regrow</label>
+          <input id="regrow-amount" class="bonus-hp-regen-input"
+          placeholder="Regrow" name="data.attributes.hps.bone.regen"
+          value="{{data.attributes.hps.bone.regen}}"
+          onfocus="this.select()" type="text" data-dtype="String" />
+        </div>
+        <div>    
+          <button class="btn btn-primary item-control btn-manage hp-gain"
+          data-attribute-name="Max bone" data-data-path="attributes.hps.bone" >
+            <i class="fas fa-plus"></i> Increase Base Bone
+          </button>
+        </div>
+      </div>
+      {{/if}}
+
     </div>
     
-  </div>
-
-  <div>
-
   </div>
 </div>

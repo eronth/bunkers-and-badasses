@@ -135,17 +135,12 @@
         </div>
         <div class="flexrow item-effect-stack item-prop-stack">
           <div class="loot-health">
-            {{#if item.data.isArmor}}
+
             <img id="enable{{label}}" alt="{{element.label}}" 
             class="health-icon" 
-            src="systems/bunkers-and-badasses/assets/SHA/armor-light.png" />
-            <label> {{item.data.capacity}} Armor - {{item.data.recovery.repairRate}} Repair</label>
-            {{else}}
-            <img id="enable{{label}}" alt="{{element.label}}" 
-            class="health-icon" 
-            src="systems/bunkers-and-badasses/assets/SHA/shield-light.png" />
-            <label> {{item.data.capacity}} Shield - {{item.data.recovery.rechargeRate}} Recharge</label>
-            {{/if}}
+            src="systems/bunkers-and-badasses/assets/SHA/{{item.data.healthType}}-{{getBestHealthShade item.data.healthType}}.png" />
+            <label> {{item.data.capacity}} {{capitalize (hpTitle item.data.healthType)}} - {{item.data.recoveryRate}} {{capitalize (hpToRecoveryTitle item.data.healthType)}}</label>
+
             <div class="resist-label"> 
               <label class="resist-label">
                 {{#if item.data.resistHtml}}

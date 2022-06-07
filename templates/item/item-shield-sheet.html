@@ -17,7 +17,7 @@
     <div class="flexrow">
       <div class="shield-stats-container shield-stats-container-left flexrow flex-size-7">
         {{!-- Level --}}
-        <div class="item-body item-body-num flexrow flex-size-4 item-tag-group">
+        <div class="item-body item-body-num flexcol flex-size-4 item-tag-group">
           <label for="level-input-{{item.id}}" class="flex-size-1">Level</label>
           <input id="level-input-{{item.id}}" class="flex-size-1"
           value="{{data.level}}" name="data.level"
@@ -25,49 +25,38 @@
           />
         </div>
         {{!-- Guild --}}
-        <div class="item-body item-body-space flexrow flex-size-7">
+        <div class="item-body item-body-space flexcol flex-size-7">
           <label for="guild-input-{{item.id}}">Guild</label>
-          <input id="guild-input-{{item.id}}" class="flexlarge" 
+          <input id="guild-input-{{item.id}}" class="" 
           value="{{data.guild}}" name="data.guild"
           type="text" data-dtype="String"
           />
         </div>
       </div>
       <div class="shield-stats-container shield-stats-container-right flexrow flex-size-12">
-        {{!-- Armor? --}}
-        <div class="item-body item-body-num item-body-num-50 item-tag-group flexcol flex-right">
-          {{#if usePlayerArmor}}
-          <a id="enable-armor-{{item.id}}"
-            class="checkbox armor-toggle bh" 
-            title="Toggle Armor" data-target="item" data-item-target="data.isArmor"
-            >
-            {{#if data.isArmor}}
-            <i class="far fa-check-square"></i>
-            {{else}}
-            <i class="far fa-square"></i>
-            {{/if}}
-            <label class="pointer-cursor"> is armor?</label>
-          </a>
-          {{/if}}
+        {{!-- Health Type? --}}
+        <div class="item-body item-body-num flexcol">
+          <label>Protection Type</label>
+          {{> "systems/bunkers-and-badasses/templates/item/parts/health-type-dropdown.html"
+            itemId=item.id 
+            healthType=data.healthType }}
         </div>
         {{!-- Capacity --}}
-        <div class="item-body item-body-num flexrow">
+        <div class="item-body item-body-num flexcol">
           <label for="capacity-input-{{item.id}}">Capacity</label>
-          <input id="capacity-input-{{item.id}}" class="flexlarge" 
+          <input id="capacity-input-{{item.id}}" class="" 
           value="{{data.capacity}}" name="data.capacity"
           type="number" data-dtype="Number"
           />
         </div>
         {{!-- Recharge --}}
-        <div class="item-body item-body-num flexrow">
-          <label for="recharge-input-{{item.id}}">{{#if data.isArmor}}Repair{{else}}Recharge{{/if}}</label>
-          <input id="recharge-input-{{item.id}}" class="flexlarge" 
+        <div class="item-body item-body-num flexcol">
+          <label for="recharge-input-{{item.id}}">
+            {{hpToRecoveryTitle data.healthType true}}
+          </label>
+          <input id="recharge-input-{{item.id}}" class="" 
           type="text" data-dtype="String"
-          {{#if data.isArmor}}
-          value="{{data.recovery.repairRate}}" name="data.recovery.repairRate"
-          {{else}}
-          value="{{data.recovery.rechargeRate}}" name="data.recovery.rechargeRate"
-          {{/if}}
+          value="{{data.recoveryRate}}" name="data.recoveryRate"
           />
         </div>
       </div>

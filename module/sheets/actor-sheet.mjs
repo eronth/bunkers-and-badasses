@@ -39,20 +39,34 @@ export class BNBActorSheet extends ActorSheet {
 
     // Add the actor's data to context.data for easier access, as well as flags.
     context.data = actorData.data;
-    context.flags = {...actorData.flags};
-    context.flags.useArmor = game.settings.get('bunkers-and-badasses', 'usePlayerArmor');
+    context.flags = {
+      ...actorData.flags,
+      useArmor: (actorData.type == 'npc'
+        ? true
+        : game.settings.get('bunkers-and-badasses', 'usePlayerArmor')),
+      useBone: (actorData.type == 'npc' 
+        ? game.settings.get('bunkers-and-badasses', 'useNpcBone')
+        : game.settings.get('bunkers-and-badasses', 'usePlayerBone')),
+      useEridian: (actorData.type == 'npc'
+        ? game.settings.get('bunkers-and-badasses', 'useNpcEridian')
+        : game.settings.get('bunkers-and-badasses', 'usePlayerEridian')),
+      useFlesh: true,
+      useShield: true
+    };
 
     // Prepare Vault Hunter data and items.
     if (actorData.type == 'vault hunter') {
+      this._updateVaultHunterFromPreviousVersions(context);
       this._prepareItems(context);
       this._prepareArchetypes(context);
       this._prepareExperience(context);
-      this._prepareHps(context);
+      this._prepareVhHps(context);
       this._prepareVaultHunterData(context);
     }
 
     // Prepare NPC data and items.
     if (actorData.type == 'npc') {
+      this._updateNPCFromPreviousVersions(context);
       this._prepareItems(context);
       this._prepareNpcHps(context);
     }
@@ -64,6 +78,100 @@ export class BNBActorSheet extends ActorSheet {
     context.effects = prepareActiveEffectCategories(this.actor.effects);
     
     return context;
+  }
+
+  _updateVaultHunterFromPreviousVersions(context) {
+
+    ///////////////////////////////////
+    //////// Update from 0.1.3 ////////
+    ///////////////////////////////////
+    const actorHPs = this?.actor?.data?.data?.attributes?.hps;
+    const effectsHPs = this?.actor?.data?.data?.bonus?.healths;
+
+    ////////////  Update HP From Previous Versions  ////////////
+    // This moves the "max" value to be treated as a "base" stat value.
+    let healthUpdateHappened = false;
+    let bonusHealthUpdateHappened = false;
+
+    if (actorHPs != null && actorHPs.flesh.base == null) {
+      actorHPs.flesh.base = actorHPs.flesh.max;
+      actorHPs.flesh.max = 0;
+      healthUpdateHappened = true;
+    }
+    if (actorHPs != null && actorHPs.shield.base == null) {
+      actorHPs.shield.base = actorHPs.shield.max;
+      actorHPs.shield.max = 0;
+      healthUpdateHappened = true;
+    }
+    if (actorHPs != null && actorHPs.armor.base == null) {
+      actorHPs.armor.base = actorHPs.armor.max;
+      actorHPs.armor.max = 0;
+      healthUpdateHappened = true;
+    }
+    
+    // This adds previously missing HP attributes to the actor.
+    if (actorHPs != null && actorHPs.bone == null) {
+      actorHPs.bone = {
+        "value": 0, "base": 0, "min": 0, "max": 0, "regen": 0
+      }
+      healthUpdateHappened = true;
+    }
+    if (effectsHPs != null && effectsHPs.bone == null) {
+      effectsHPs.bone = { max: 0, regen: '' };
+      bonusHealthUpdateHappened = true;
+    }
+    if (actorHPs != null && actorHPs.eridian == null) {
+      actorHPs.eridian = {
+        "value": 0, "base": 0, "min": 0, "max": 0, "regen": 0
+      }
+      healthUpdateHappened = true;
+    }
+    if (effectsHPs != null && effectsHPs.eridian == null) {
+      effectsHPs.eridian = { max: 0, regen: '' };
+      bonusHealthUpdateHappened = true;
+    }
+
+    if (healthUpdateHappened) {
+      // Square brackets needed to get the right value.
+      const attributeLabel = `data.attributes.hps`;
+      this.actor.update({[attributeLabel]: actorHPs});
+    }
+    if (bonusHealthUpdateHappened) {
+      // Square brackets needed to get the right value.
+      const attributeLabel = `data.bonus.healths`;
+      this.actor.update({[attributeLabel]: effectsHPs});
+    }
+    ////////////  Update HP From Previous Versions  ////////////
+  }
+
+  _updateNPCFromPreviousVersions(context) {
+    ///////////////////////////////////
+    //////// Update from 0.1.3 ////////
+    ///////////////////////////////////
+    const actorHPs = this?.actor?.data?.data?.attributes?.hps;
+
+    ////////////  Update HP From Previous Versions  ////////////
+    let healthUpdateHappened = false;
+
+    if (actorHPs != null && actorHPs.bone == null) {
+      actorHPs.bone = {
+        "value": 0, "base": 0, "min": 0, "max": 0, "regen": 0
+      }
+      healthUpdateHappened = true;
+    }
+    if (actorHPs != null && actorHPs.eridian == null) {
+      actorHPs.eridian = {
+        "value": 0, "base": 0, "min": 0, "max": 0, "regen": 0
+      }
+      healthUpdateHappened = true;
+    }
+    
+    if (healthUpdateHappened) {
+      // Square brackets needed to get the right value.
+      const attributeLabel = `data.attributes.hps`;
+      this.actor.update({[attributeLabel]: actorHPs});
+    }
+    
   }
 
   _prepareArchetypes(context) {
@@ -165,60 +273,24 @@ export class BNBActorSheet extends ActorSheet {
     return {...experienceReqs};
   }
 
-  _prepareHps(context) {
+  _prepareVhHps(context) {
     const actorHPs = this.actor.data.data.attributes.hps;
     const effectsHPs = this.actor.data.data.bonus.healths;
-
-
-    ////////////  Update HP From Previous Versions  ////////////
-    // This moves the "max" value to be treated as a "base" stat value.
-    let updateHappened = false;
-
-    if (actorHPs.flesh.base == null) {
-      actorHPs.flesh.base = actorHPs.flesh.max;
-      actorHPs.flesh.max = 0;
-      updateHappened = true;
-    }
-    if (actorHPs.shield.base == null) {
-      actorHPs.shield.base = actorHPs.shield.max;
-      actorHPs.shield.max = 0;
-      updateHappened = true;
-    }
-    if (actorHPs.armor.base == null) {
-      actorHPs.armor.base = actorHPs.armor.max;
-      actorHPs.armor.max = 0;
-      updateHappened = true;
-    }
-
-    if (updateHappened) {
-      // Square brackets needed to get the right value.
-      const attributeLabel = `data.attributes.hps`;
-      this.actor.update({[attributeLabel]: actorHPs});
-    }
-    ////////////  Update HP From Previous Versions  ////////////
-    
     
     // Clean slate for HPs totals.
-    actorHPs.flesh.max = actorHPs.armor.max = actorHPs.shield.max = 0;
-    actorHPs.flesh.combinedRegen = actorHPs.armor.combinedRegen = actorHPs.shield.combinedRegen = "";
+    actorHPs.flesh.max = actorHPs.armor.max = actorHPs.shield.max = actorHPs.bone.max = actorHPs.eridian.max = 0;
+    actorHPs.flesh.combinedRegen = actorHPs.armor.combinedRegen = actorHPs.shield.combinedRegen 
+      = actorHPs.bone.combinedRegen = actorHPs.eridian.combinedRegen = "";
 
     // Get the HPs from the actor data.
     Object.entries(context.items).forEach(entry => {
-      const [itemId, itemData] = entry;
+      const [itemIndex, itemData] = entry;
       if (itemData.type === "shield" && itemData.data.equipped) {
-        if (itemData.data.isArmor) {
-          actorHPs.armor.max += itemData.data.capacity ?? 0;
-          if (actorHPs.armor.combinedRegencombinedRegen) {
-            actorHPs.armor.combinedRegen += ' + ';
-          }
-          actorHPs.armor.combinedRegen += itemData.data.recovery.repairRate;
-        } else {
-          actorHPs.shield.max += itemData.data.capacity ?? 0;
-          if (actorHPs.shield.combinedRegen) {
-            actorHPs.shield.combinedRegen += ' + ';
-          }
-          actorHPs.shield.combinedRegen += itemData.data.recovery.rechargeRate;
+        actorHPs[itemData.data.healthType].max += itemData.data.capacity ?? 0;
+        if (actorHPs[itemData.data.healthType].combinedRegen) {
+          actorHPs[itemData.data.healthType].combinedRegen += ' + ';
         }
+        actorHPs[itemData.data.healthType].combinedRegen += itemData.data.recoveryRate;
       }
     });
 
@@ -240,7 +312,13 @@ export class BNBActorSheet extends ActorSheet {
     const usedHps = {};
     Object.entries(actorHPs).forEach(entry => {
       const [hpType, hpData] = entry;
-      if (hpType !== "armor" || (hpType === "armor" && context.flags.useArmor)) {
+      if (hpType === "armor") {
+        if (context.flags.useArmor) { usedHps[hpType] = hpData; }
+      } else if (hpType === "bone") {
+        if (context.flags.useBone) { usedHps[hpType] = hpData; }
+      } else if (hpType === "eridian") {
+        if (context.flags.useEridian) { usedHps[hpType] = hpData; }
+      } else {
         usedHps[hpType] = hpData;
       }
     });
@@ -700,47 +778,60 @@ export class BNBActorSheet extends ActorSheet {
     if (isNaN(damageAmount) || damageAmount <= 0) { return; }
 
     // Track the amount of damage done to each health type.
-    let shieldDamageTaken = 0;
-    let armorDamageTaken = 0;
-    let fleshDamageTaken = 0;
+    const damageTaken = { };
+    const modifyDamage = {
+      eridian: {
+        x2: [],
+        ignore: []
+      },
+      shield: {
+        x2: ['shock', 'corroshock'],        
+        ignore: ['radiation', 'incendiation']
+      },
+      armor: {
+        x2: ['corrosive', 'corroshock'],
+        ignore: []
+      },
+      flesh: {
+        x2: ['incendiary', 'incendiation'],
+        ignore: []
+      },
+      bone: {
+        x2: ['cryo', 'crysplosive'],
+        ignore: []
+      },
+    }
 
-    // Update the actor.
-    for (let damageToDeal = damageAmount; damageToDeal > 0; damageToDeal--) {
-      if (actorData.attributes.hps.shield.value > shieldDamageTaken && 
-        (damageType !== "radiation" && damageType !== "incendiation")) {
-        shieldDamageTaken++;
-        if (damageType === 'shock' || damageType === 'corroshock') {
-          shieldDamageTaken++;
+    // Calculate how much damage is taken to each health type.
+    let damageToDeal = damageAmount;
+    Object.entries(hps).forEach(([healthType, hpValues]) => {
+      // Skip over healthbars that don't get hit by this damage type.
+      if (!modifyDamage[healthType].ignore.includes(damageType)) {
+
+        // Initialize a damage taken for a healthbar to 0 if it hasn't been initialized yet.
+        if (damageTaken[healthType] == null) { damageTaken[healthType] = 0; }
+
+        // Looping is not the most efficient way to do this, but it's the easiest for my frail mind (for now).
+        while (damageToDeal > 0 && hps[healthType].value > damageTaken[healthType]) {
+          damageTaken[healthType]++;
+          if (modifyDamage[healthType].x2.includes(damageType)) {
+            damageTaken[healthType]++; // Double damage for x2 damage types.
+          }
+          damageToDeal--;
         }
-      } else if (actorData.attributes.hps.armor.value > armorDamageTaken) {
-        armorDamageTaken++;
-        if (damageType === 'corrosive' || damageType === 'corroshock') {
-          armorDamageTaken++;
+
+        // After while loop, findalize values as needed.
+        if (damageTaken[healthType] > hps[healthType].value) {
+          // Don't overshoot! Going forward this will help with displaying the damage to chat.
+          damageTaken[healthType] = hps[healthType].value;
         }
-      } else if (actorData.attributes.hps.flesh.value > fleshDamageTaken) {
-        fleshDamageTaken++;
-        if (damageType === 'incendiary' || damageType === 'incendiation') {
-          fleshDamageTaken++;
-        }
+        
+        // Make the Health take the damage.
+        hps[healthType].value -= damageTaken[healthType];
       }
-    }
-
-    // Don't overshoot! Going forward this will help with displaying the damage to chat.
-    if (shieldDamageTaken > actorData.attributes.hps.shield.value) {
-      shieldDamageTaken = actorData.attributes.hps.shield.value;
-    }
-    if (armorDamageTaken > actorData.attributes.hps.armor.value) {
-      armorDamageTaken = actorData.attributes.hps.armor.value;
-    }
-    if (fleshDamageTaken > actorData.attributes.hps.flesh.value) {
-      fleshDamageTaken = actorData.attributes.hps.flesh.value;
-    }
+    });
 
     // TODO Display the damage to chat.
-
-    hps.shield.value -= shieldDamageTaken;
-    hps.armor.value -= armorDamageTaken;
-    hps.flesh.value -= fleshDamageTaken;
 
     // Square brackets needed to get the right value.
     const attributeLabel = `data.attributes.hps`;
@@ -1112,7 +1203,9 @@ export class BNBActorSheet extends ActorSheet {
     const hpRegainAction = {
       shield: "recharges",
       armor: "repairs",
-      flesh: "regens"
+      flesh: "regens",
+      bone: "regrows",
+      eridian: "reinvigorates"
     }
     
     // Prepare and roll the check.

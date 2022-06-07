@@ -5,6 +5,13 @@
       "base": {
         "attributes": {
           "hps": {
+            "eridian": {
+              "value": 0,
+              "min": 0,
+              "max": 0,
+              "base": 0,
+              "regen": 0
+            },
             "shield": {
               "value": 0,
               "min": 0,
@@ -20,6 +27,13 @@
               "regen": 0
             },
             "flesh": {
+              "value": 0,
+              "min": 0,
+              "max": 0,
+              "base": 0,
+              "regen": 0
+            },
+            "bone": {
               "value": 0,
               "min": 0,
               "max": 0,
@@ -241,6 +255,14 @@
           "armor": {
             "max": 0,
             "regen": ""
+          },
+          "bone": {
+            "max": 0,
+            "regen": ""
+          },
+          "eridian": {
+            "max": 0,
+            "regen": ""
           }
         },
         "combat": {
@@ -455,15 +477,24 @@
     },
     "shield": {
       "templates": ["base", "loot", "elemental"],
-      "isArmor": false,
+      "healthType": "shield",
       "capacity": 0,
+      "recoveryRate": "",
       "recovery": {
         "rechargeRate": "",
         "forceRechargeRate": "",
+
         "hpRegenRate": "",
         "forceHpRegenRate": "",
+
         "repairRate": "",
-        "forceRepairRate": ""
+        "forceRepairRate": "",
+
+        "regrowRate": "",
+        "forceRegrowRate": "",
+
+        "reinvigorateRate": "",
+        "forceReinvigorateRate": ""
       }
     },
     "grenade": {
@@ -472,6 +503,8 @@
       "gainHealth": false,
       "gainShield": false,
       "gainArmor": false,
+      "gainBone": false,
+      "gainEridian": false,
       "detonations": 1
     },
     "relic": {
