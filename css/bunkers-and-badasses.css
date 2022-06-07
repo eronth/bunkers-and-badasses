@@ -42,296 +42,8 @@ input[type="time"]:focus {
   box-shadow: 0 0 5px cyan;
 }
 
-
-
 .elem-initial {
   align-self: flex-end;
-}
-
-
-.grid,
-.grid-2col {
-  display: grid;
-  grid-column: span 2 / span 2;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
-  margin: 10px 0;
-  padding: 0;
-}
-
-.grid-3col {
-  grid-column: span 3 / span 3;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
-.grid-4col {
-  grid-column: span 4 / span 4;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-}
-
-.grid-5col {
-  grid-column: span 5 / span 5;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-}
-
-.grid-6col {
-  grid-column: span 6 / span 6;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-}
-
-.grid-7col {
-  grid-column: span 7 / span 7;
-  grid-template-columns: repeat(7, minmax(0, 1fr));
-}
-
-.grid-8col {
-  grid-column: span 8 / span 8;
-  grid-template-columns: repeat(8, minmax(0, 1fr));
-}
-
-.grid-9col {
-  grid-column: span 9 / span 9;
-  grid-template-columns: repeat(9, minmax(0, 1fr));
-}
-
-.grid-10col {
-  grid-column: span 10 / span 10;
-  grid-template-columns: repeat(10, minmax(0, 1fr));
-}
-
-.grid-11col {
-  grid-column: span 11 / span 11;
-  grid-template-columns: repeat(11, minmax(0, 1fr));
-}
-
-.grid-12col {
-  grid-column: span 12 / span 12;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-}
-
-.grid-start-2 {
-  grid-column-start: 2;
-}
-
-.grid-start-3 {
-  grid-column-start: 3;
-}
-
-.grid-start-4 {
-  grid-column-start: 4;
-}
-
-.grid-start-5 {
-  grid-column-start: 5;
-}
-
-.grid-start-6 {
-  grid-column-start: 6;
-}
-
-.grid-start-7 {
-  grid-column-start: 7;
-}
-
-.grid-start-8 {
-  grid-column-start: 8;
-}
-
-.grid-start-9 {
-  grid-column-start: 9;
-}
-
-.grid-start-10 {
-  grid-column-start: 10;
-}
-
-.grid-start-11 {
-  grid-column-start: 11;
-}
-
-.grid-start-12 {
-  grid-column-start: 12;
-}
-
-.grid-span-2 {
-  grid-column-end: span 2;
-}
-
-.grid-span-3 {
-  grid-column-end: span 3;
-}
-
-.grid-span-4 {
-  grid-column-end: span 4;
-}
-
-.grid-span-5 {
-  grid-column-end: span 5;
-}
-
-.grid-span-6 {
-  grid-column-end: span 6;
-}
-
-.grid-span-7 {
-  grid-column-end: span 7;
-}
-
-.grid-span-8 {
-  grid-column-end: span 8;
-}
-
-.grid-span-9 {
-  grid-column-end: span 9;
-}
-
-.grid-span-10 {
-  grid-column-end: span 10;
-}
-
-.grid-span-11 {
-  grid-column-end: span 11;
-}
-
-.grid-span-12 {
-  grid-column-end: span 12;
-}
-
-.flex-group-center,
-.flex-group-left,
-.flex-group-right {
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  text-align: center;
-}
-
-.flex-group-left {
-  -webkit-box-pack: start;
-  -ms-flex-pack: start;
-  justify-content: flex-start;
-  text-align: left;
-}
-
-.flex-group-right {
-  -webkit-box-pack: end;
-  -ms-flex-pack: end;
-  justify-content: flex-end;
-  text-align: right;
-}
-
-.flexshrink {
-  -webkit-box-flex: 0;
-  -ms-flex: 0;
-  flex: 0;
-}
-
-.flex-between {
-  -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-}
-
-.flexlarge {
-  -webkit-box-flex: 2;
-  -ms-flex: 2;
-  flex: 2;
-}
-
-.flex-size-1 {
-  -webkit-box-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-}
-
-.flex-size-2 {
-  -webkit-box-flex: 2;
-  -ms-flex: 2;
-  flex: 2;
-}
-
-.flex-size-3 {
-  -webkit-box-flex: 3;
-  -ms-flex: 3;
-  flex: 3;
-}
-
-.flex-size-4 {
-  -webkit-box-flex: 4;
-  -ms-flex: 4;
-  flex: 4;
-}
-
-.flex-size-5 {
-  -webkit-box-flex: 4;
-  -ms-flex: 4;
-  flex: 4;
-}
-
-.flex-size-6 {
-  -webkit-box-flex: 6;
-  -ms-flex: 6;
-  flex: 6;
-}
-
-.flex-size-7 {
-  -webkit-box-flex: 7;
-  -ms-flex: 7;
-  flex: 7;
-}
-
-.flex-size-8 {
-  -webkit-box-flex: 8;
-  -ms-flex: 8;
-  flex: 8;
-}
-
-.flex-size-9 {
-  -webkit-box-flex: 9;
-  -ms-flex: 9;
-  flex: 9;
-}
-
-.flex-size-10 {
-  -webkit-box-flex: 10;
-  -ms-flex: 10;
-  flex: 10;
-}
-
-.flex-size-11 {
-  -webkit-box-flex: 11;
-  -ms-flex: 11;
-  flex: 11;
-}
-
-.flex-size-12 {
-  -webkit-box-flex: 12;
-  -ms-flex: 12;
-  flex: 12;
-}
-
-.align-left {
-  -webkit-box-pack: start;
-  -ms-flex-pack: start;
-  justify-content: flex-start;
-  text-align: left;
-}
-
-.align-right {
-  -webkit-box-pack: end;
-  -ms-flex-pack: end;
-  justify-content: flex-end;
-  text-align: right;
-}
-
-.align-center {
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  text-align: center;
 }
 
 /* Styles limited to bnb sheets */
@@ -444,7 +156,6 @@ input[type="time"]:focus {
   padding-top: 24px;
   font-style: italic;
 }
-.bnb .npc .healths-container,
 .bnb .npc .npc-action-header {
   background-color: #c3c3c3;
   border-radius: 10px;
@@ -535,93 +246,6 @@ input[type="time"]:focus {
   padding-right: 5px;
   padding-left: 5px;
   font-size: large;
-}
-
-
-.bnb .sheet-header .xpBar {
-  margin-bottom: 0px;
-}
-
-.xpBar:hover, .xpBar:focus {
-  color: #000;
-  text-shadow: 0 0 10px cyan;
-}
-
-.bnb .xpBar-max {
-  background: #4b4347;
-  height: 11px;
-  min-height: 11px;
-  margin: 1px;
-}
-.bnb .xpBar-max .xpBar-segment {
-  border: 1px solid #10020f;
-  height: 11px;
-  min-height: 11px;
-}
-.bnb .xpBar-max .xpBar-segment .xpBar-progress {
-  background-color: #82e4fb;
-  height: 9px;
-  min-height: 9px;
-}
-
-.bnb .xpBar .under-bar {
-  justify-content: space-between;
-}
-.bnb .xpBar .per-seg-text {
-  font-size: smaller;
-}
-.bnb .xpBar .per-seg-value {
-  font-size: smaller;
-  font-weight: bold;
-}
-.bnb .xpBar .under-bar .under-bar-left {
-  justify-content: flex-start;
-  text-align: left;
-  padding-left: 10px;
-}
-.bnb .xpBar .under-bar .under-bar-right {
-  justify-content: flex-end;
-  text-align: right;
-  font-size: x-small;
-  padding-right: 10px;
-}
-.bnb .xpBar .under-bar .under-bar-center {
-  justify-content: flex-end;
-  text-align: right;
-  font-size: smaller;
-  padding-right: 10px;
-}
-
-.bnb .xpBar-max .xpBar-segment:nth-child(n+2) {
-  border-left: 0;
-}
-
-.bnb .healths {
-  justify-content: center;
-  align-items: center;
-}
-.bnb .healths .health {
-  border: 1px solid #b5b3a4;
-  float: left;
-}
-.bnb .healths .health:nth-child(n+2) {
-  margin-left: -1px;
-}
-.health-icon {
-  border: 0;
-  height: 12px;
-}
-.bnb .healths .health .regen label {
-  font-size: x-small;
-}
-.bnb .healths .health .regen input {
-  font-size: smaller;
-  width: 35px;
-}
-.loot-health {
-  display: inline-flex;
-  font-size: x-small;
-  display: -webkit-inline-box;
 }
 
 .bnb .abilities {
@@ -739,26 +363,13 @@ input[type="time"]:focus {
   border-top: 1px solid #b5b3a4;
   border-bottom: 1px solid #b5b3a4;
 }
-.bnb .builder-common-container .bonus-hp-regen-container {
-  justify-content: space-around;
-}
 
 .bnb .builder-common-container .bonus-max-xp-label,
-.bnb .builder-common-container .bonus-max-hp-label,
-.bnb .builder-common-container .bonus-hp-regen-label,
 .bnb .builder-common-container .badass-rank-label {
   font-weight: bold;
   text-align: center;
   align-self: center;
   justify-self: center;
-}
-.bnb .builder-common-container .bonus-hp-regen-label {
-  max-width: 30px;
-}
-.bnb .builder-common-container .max-healths-update-container {
-  margin: 2px;
-  border: 1px solid #b5b3a4;
-  padding: 3px;
 }
 .bnb .builder-common-container .badass-rank-label {
   min-width: 100px;
@@ -766,18 +377,12 @@ input[type="time"]:focus {
   margin-right: 2px;
 }
 .bnb .builder-common-container .current-xp-input, 
-.bnb .builder-common-container .bonus-max-hp-input,
-.bnb .builder-common-container .bonus-hp-regen-input,
 .bnb .builder-common-container .badass-rank-input {
   align-self: center;
   text-align: center;
   max-width: 55px;
 }
-.bnb .builder-common-container .max-healths-update-container .header label {
-  font-weight: bold;
-  font-size: larger;
-  text-align: center;
-}
+
 .bnb .builder-common-container .current-xp-input {
   max-width: 60px; 
 }
@@ -1195,46 +800,16 @@ input[type="time"]:focus {
   border: none;
 }
 
-.bnb .header-hp {
-  font-size: 12px;
-}
 .bnb .header-regen {
   font-size: 10px;
 }
-.bnb .healths-container {
-  border: 1px solid #c9c7b8;
-  margin-top: 3px;
-  margin-bottom: 2px;
-}
-.bnb .hp-container {
-  margin: 2px;
-  border: 1px solid #c9c7b8;
-}
-.bnb .hp-values label {
-  font-size: x-small;
-}
-.bnb .hp-title {
-  font-weight: bold;
-  align-self: center;
-  padding-left: 2px;
-  padding-right: 6px;
-  padding-bottom: 6px;
-}
+
 .bnb .damage-buttons {
   margin: 0 2px 3px;
   margin-top: 2px;
   width: 70%;
   align-self: center;
 }
-.bnb .hp-set-btn,
-.bnb .hp-quick-regen-btn {
-  max-height: 25px;
-  font-size: smaller;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
 
 .bnb .builder-common-container .xp-manage-container,
 .bnb .builder-common-container .badass-rank-container {
@@ -1893,20 +1468,6 @@ a#submit { z-index: 1; }
   padding-left: 2px;
   padding-right: 2px;
 }
-
-
-
-
-
-
-.hp-values {
-  align-self: center;
-}
-
-
-
-
-
 
 .total-focus {
   font-size: large;

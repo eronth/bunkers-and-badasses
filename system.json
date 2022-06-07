@@ -14,7 +14,7 @@
   },
   "scripts": [],
   "esmodules": ["module/bunkers-and-badasses.mjs"],
-  "styles": ["css/bunkers-and-badasses.css"],
+  "styles": ["css/bunkers-and-badasses.css", "css/generic.css", "css/header/xp-bar.css", "css/health.css"],
   "packs": [
     {
       "name": "loot",
