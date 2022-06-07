@@ -52,7 +52,7 @@ export class BNBActorSheet extends ActorSheet {
       this._prepareItems(context);
       this._prepareArchetypes(context);
       this._prepareExperience(context);
-      this._prepareHps(context);
+      this._prepareVhHps(context);
       this._prepareVaultHunterData(context);
     }
 
@@ -137,7 +137,33 @@ export class BNBActorSheet extends ActorSheet {
   }
 
   _updateNPCFromPreviousVersions(context) {
-    // Currently no updates for NPCs.
+    ///////////////////////////////////
+    //////// Update from 0.1.3 ////////
+    ///////////////////////////////////
+    const actorHPs = this?.actor?.data?.data?.attributes?.hps;
+
+    ////////////  Update HP From Previous Versions  ////////////
+    let healthUpdateHappened = false;
+
+    if (actorHPs != null && actorHPs.bone == null) {
+      actorHPs.bone = {
+        "value": 0, "base": 0, "min": 0, "max": 0, "regen": 0
+      }
+      healthUpdateHappened = true;
+    }
+    if (actorHPs != null && actorHPs.eridian == null) {
+      actorHPs.eridian = {
+        "value": 0, "base": 0, "min": 0, "max": 0, "regen": 0
+      }
+      healthUpdateHappened = true;
+    }
+    
+    if (healthUpdateHappened) {
+      // Square brackets needed to get the right value.
+      const attributeLabel = `data.attributes.hps`;
+      this.actor.update({[attributeLabel]: actorHPs});
+    }
+    
   }
 
   _prepareArchetypes(context) {
@@ -239,7 +265,7 @@ export class BNBActorSheet extends ActorSheet {
     return {...experienceReqs};
   }
 
-  _prepareHps(context) {
+  _prepareVhHps(context) {
     const actorHPs = this.actor.data.data.attributes.hps;
     const effectsHPs = this.actor.data.data.bonus.healths;
     
