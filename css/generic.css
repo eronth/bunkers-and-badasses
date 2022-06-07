@@ -1,3 +1,6 @@
+.font-xx-small {
+  font-size: xx-small;
+}
 .font-x-small {
   font-size: x-small;
 }
@@ -18,9 +21,6 @@
 }
 .font-xx-large {
     font-size: xx-large;
-}
-.font-xxx-large {
-    font-size: xxx-large;
 }
 
 
