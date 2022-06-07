@@ -62,7 +62,7 @@ Hooks.once('init', async function() {
   });
 
   game.settings.register('bunkers-and-badasses', 'useNpcEridian', {
-    name: 'Show Eridian on NPC Sheet',
+    name: 'Show Eridian Health on NPC Sheet',
     hint: 'NPCs will have access to a "Eridian" health pool type.',
     scope: 'world',
     config: true,

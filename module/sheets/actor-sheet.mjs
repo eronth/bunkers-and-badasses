@@ -41,9 +41,17 @@ export class BNBActorSheet extends ActorSheet {
     context.data = actorData.data;
     context.flags = {
       ...actorData.flags,
-      useArmor: game.settings.get('bunkers-and-badasses', 'usePlayerArmor'),
-      useBone: game.settings.get('bunkers-and-badasses', 'usePlayerBone'),
-      useEridian: game.settings.get('bunkers-and-badasses', 'usePlayerEridian')
+      useArmor: (actorData.type == 'npc'
+        ? true
+        : game.settings.get('bunkers-and-badasses', 'usePlayerArmor')),
+      useBone: (actorData.type == 'npc' 
+        ? game.settings.get('bunkers-and-badasses', 'useNpcBone')
+        : game.settings.get('bunkers-and-badasses', 'usePlayerBone')),
+      useEridian: (actorData.type == 'npc'
+        ? game.settings.get('bunkers-and-badasses', 'useNpcEridian')
+        : game.settings.get('bunkers-and-badasses', 'usePlayerEridian')),
+      useFlesh: true,
+      useShield: true
     };
 
     // Prepare Vault Hunter data and items.
