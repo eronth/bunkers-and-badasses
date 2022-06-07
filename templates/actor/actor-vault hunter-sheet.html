@@ -19,49 +19,17 @@
       and it will add a small amount of padding, a border, and will
       center all of its child elements content and text. --}}
       
-      {{!-- HP Components --}}    
-      <div class="healths flexrow" >
-      {{#each hps as |hp key|}}
-        <div class="health flexrow flex-group-center" >
-
-          <div class="centerize flexrow flex-size-2">
-            <label for="{{key}}-health-display" class="resource-label rollable flexlarge">{{hp.label}}</label>
-            <input 
-              class="flexlarge" 
-              value="{{hp.value}} / {{hp.max}}"
-              type="text" name="{{key}}-health-display" data-dtype="Number"
-              disabled=true />
-          </div>
-          <div class="flexcol flex-group-center rollable regen">
-            <label for="{{key-regen}}" class="resource-label align-center">Regen</label>
-            <input id="{{key-regen}}" type="text" name="" value="+{{hp.combinedRegen}}" data-dtype="Number" disabled=true/>
-          </div>
-
-        </div>
-        {{/each}}
-      </div>
+      {{!-- HP Components --}}
+      {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/header/healths-block.html"}}
+      
       
       {{!-- Stat Components --}}
-      <div class="abilities flexrow hover-pointer">
-        {{#each data.stats as |stat key|}}
-        <div class="ability rollable flexrow flex-group-center hover-pointer"
-        data-roll="d20 + @stats.{{key}}.modToUse" data-label="{{stat.label}}" >
-          <label for="data.stats.{{key}}.value" class="resource-label flexlarge align-left hover-pointer">
-            <i class="fa fa-dice-d20"></i> {{toUpperCase key}}
-          </label>
-          <input class="hover-pointer" type="text" disabled=true name="data.stats.{{key}}.value" value="{{stat.value}}" data-dtype="Number"/>
-          <div class="flexcol hover-pointer">
-            <label class="ability-mod hover-pointer">mod</label>
-            <span class="ability-mod hover-pointer">({{numberFormat stat.modToUse decimals=0 sign=true}})</span>
-          </div>
-        </div>
-        {{/each}}
-      </div>
+      {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/header/stats-block.html"}}
 
     </div>
 
   </header>
-  {{> "systems/bunkers-and-badasses/templates/actor/parts/actor-experience-bar.html" }}
+  {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/header/experience-bar.html" }}
   
   {{!-- Sheet Tab Navigation --}}
   <nav class="sheet-tabs tabs" data-group="primary">
