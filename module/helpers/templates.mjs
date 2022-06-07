@@ -12,22 +12,23 @@
     "systems/bunkers-and-badasses/templates/actor/parts/vh/header/healths-block.html",
     "systems/bunkers-and-badasses/templates/actor/parts/vh/header/stats-block.html",
     
+    /// Body Components
+    "systems/bunkers-and-badasses/templates/actor/parts/vh/action.html",
+    "systems/bunkers-and-badasses/templates/actor/parts/npc/action.html",
+    "systems/bunkers-and-badasses/templates/actor/parts/loot.html",
+    "systems/bunkers-and-badasses/templates/actor/parts/bio.html",
+    "systems/bunkers-and-badasses/templates/actor/parts/effects.html",
     
     
     /// Old (to be moved)
-    "systems/bunkers-and-badasses/templates/actor/parts/actor-bio.html",
     "systems/bunkers-and-badasses/templates/actor/parts/actor-features.html",
-    "systems/bunkers-and-badasses/templates/actor/parts/actor-loot.html",
-    "systems/bunkers-and-badasses/templates/actor/parts/actor-effects.html",
 
-    "systems/bunkers-and-badasses/templates/actor/parts/actor-vault-hunter-action.html",
     "systems/bunkers-and-badasses/templates/actor/parts/action-components/checks-block.html",
     "systems/bunkers-and-badasses/templates/actor/parts/action-components/check.html",
     "systems/bunkers-and-badasses/templates/actor/parts/action-components/hp-display-block.html",
 
     "systems/bunkers-and-badasses/templates/actor/parts/actor-npc-header-stats.html",
 
-    "systems/bunkers-and-badasses/templates/actor/parts/actor-npc-action.html",
     "systems/bunkers-and-badasses/templates/actor/parts/action-components/npc-action.html",
 
     "systems/bunkers-and-badasses/templates/actor/parts/actor-builder.html",
