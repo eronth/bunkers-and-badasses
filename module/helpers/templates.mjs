@@ -30,8 +30,10 @@
     "systems/bunkers-and-badasses/templates/actor/parts/vh/builder-subtabs/class-subtab.html",
     "systems/bunkers-and-badasses/templates/actor/parts/vh/builder-subtabs/class-skills-subtab.html",
     /// Builder subtab components
+    "systems/bunkers-and-badasses/templates/actor/parts/vh/builder-subtabs/builder-components/favored-weapon-component.html",
     "systems/bunkers-and-badasses/templates/actor/parts/vh/builder-subtabs/builder-components/favored-element-component.html",
     "systems/bunkers-and-badasses/templates/actor/parts/vh/builder-subtabs/builder-components/archetype-component.html",
+    "systems/bunkers-and-badasses/templates/actor/parts/vh/builder-subtabs/builder-components/base-hp-component.html",
     
     /// Old (to be moved or removed)
     "systems/bunkers-and-badasses/templates/actor/parts/actor-features.html",
