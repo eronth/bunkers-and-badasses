@@ -57,8 +57,7 @@
           hp=hps.bone
           key="bone"
         }}
-      {{/if}}
-      {{^if flags.useBone}}
+      {{else}}
         {{#if flags.useEridian}}
           <div>
             {{> "systems/bunkers-and-badasses/templates/actor/parts/action-components/hp-display-block.html" 
@@ -66,8 +65,7 @@
             key="eridian"
           }}
         </div>
-        {{/if}}
-        {{^if flags.useEridian}}
+        {{else}}
           <div class="traits">
             <input name="data.traits" value="{{data.traits}}" placeholder="Traits" 
             onfocus="this.select()" type="text" data-dtype="String"/>
@@ -90,8 +88,7 @@
           <input name="data.traits" value="{{data.traits}}" placeholder="Traits" 
           onfocus="this.select()" type="text" data-dtype="String"/>
         </div>
-      {{/if}}
-      {{^if flags.useBone}}
+      {{else}}
         {{#if flags.useEridian}}
           <div class="traits">
             <input name="data.traits" value="{{data.traits}}" placeholder="Traits" 
