@@ -14,12 +14,12 @@
     "systems/bunkers-and-badasses/templates/actor/parts/npc/header/stats.html",
     
     /// Body Components
-    "systems/bunkers-and-badasses/templates/actor/parts/vh/action.html",
-    "systems/bunkers-and-badasses/templates/actor/parts/npc/action.html",
-    "systems/bunkers-and-badasses/templates/actor/parts/loot.html",
-    "systems/bunkers-and-badasses/templates/actor/parts/vh/builder.html",
-    "systems/bunkers-and-badasses/templates/actor/parts/bio.html",
-    "systems/bunkers-and-badasses/templates/actor/parts/effects.html",
+    "systems/bunkers-and-badasses/templates/actor/parts/vh/action-tab.html",
+    "systems/bunkers-and-badasses/templates/actor/parts/npc/action-tab.html",
+    "systems/bunkers-and-badasses/templates/actor/parts/loot-tab.html",
+    "systems/bunkers-and-badasses/templates/actor/parts/vh/builder-tab.html",
+    "systems/bunkers-and-badasses/templates/actor/parts/bio-tab.html",
+    "systems/bunkers-and-badasses/templates/actor/parts/effects-tab.html",
     
     /// Action components
     "systems/bunkers-and-badasses/templates/actor/parts/vh/action-components/checks-block.html",
