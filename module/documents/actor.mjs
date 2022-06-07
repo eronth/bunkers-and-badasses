@@ -30,9 +30,7 @@ export class BNBActor extends Actor {
     // Values for flags.
     const initTokenFlags = {
       // Values to use for barbrawl's benefit.
-      barbrawl: (data.type == 'npc'
-        ? this.preCreateNPCBarbrawlHealthBars(data, gameFlags)
-        : this.preCreateVaultHunterBarbrawlHealthBars(data, gameFlags))
+      barbrawl: this.preCreateBarbrawlHealthBars(data, gameFlags)
     }
 
     // Assemble the initial token data.
@@ -50,7 +48,7 @@ export class BNBActor extends Actor {
     this.data.update(initTokenData);
   }
 
-  preCreateVaultHunterBarbrawlHealthBars(data, gameFlags) {
+  preCreateBarbrawlHealthBars(data, gameFlags) {
     const visibleBarDefaults = {
       'position': 'top-inner',
       'otherVisibility': CONST.TOKEN_DISPLAY_MODES.HOVER,
@@ -107,8 +105,8 @@ export class BNBActor extends Actor {
       initTokenBarbrawlBars['barBone'] = {
         'id': 'barBone',
         'order': barbrawlOrder++,
-        'maxcolor': '#333333',
-        'mincolor': '#bbbbbb',
+        'maxcolor': '#bbbbbb',
+        'mincolor': '#333333',
         'attribute': 'attributes.hps.bone',
         ...visibleBarDefaults
       };
