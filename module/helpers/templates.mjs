@@ -21,17 +21,18 @@
     "systems/bunkers-and-badasses/templates/actor/parts/bio.html",
     "systems/bunkers-and-badasses/templates/actor/parts/effects.html",
     
+    /// Action components
+    "systems/bunkers-and-badasses/templates/actor/parts/vh/action-components/checks-block.html",
+    "systems/bunkers-and-badasses/templates/actor/parts/vh/action-components/check.html",
+    "systems/bunkers-and-badasses/templates/actor/parts/vh/action-components/hp-display-block.html",
+    "systems/bunkers-and-badasses/templates/actor/parts/npc/action-components/action-block.html",
     /// Builder components
     
     /// Old (to be moved)
     "systems/bunkers-and-badasses/templates/actor/parts/actor-features.html",
 
-    "systems/bunkers-and-badasses/templates/actor/parts/action-components/checks-block.html",
-    "systems/bunkers-and-badasses/templates/actor/parts/action-components/check.html",
-    "systems/bunkers-and-badasses/templates/actor/parts/action-components/hp-display-block.html",
 
 
-    "systems/bunkers-and-badasses/templates/actor/parts/action-components/npc-action.html",
 
     "systems/bunkers-and-badasses/templates/actor/parts/builder-components/actor-builder-levelup.html",
     "systems/bunkers-and-badasses/templates/actor/parts/builder-components/favored-element-component.html",

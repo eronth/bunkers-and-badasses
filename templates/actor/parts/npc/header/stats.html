@@ -33,13 +33,13 @@
   <div class="resource flex-group-center healths-container" style="grid-column: span 4;">
     <div class="flexrow">
       <div>
-        {{> "systems/bunkers-and-badasses/templates/actor/parts/action-components/hp-display-block.html" 
+        {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/action-components/hp-display-block.html" 
           hp=hps.shield
           key="shield"
         }}
       </div>
       <div>
-        {{> "systems/bunkers-and-badasses/templates/actor/parts/action-components/hp-display-block.html" 
+        {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/action-components/hp-display-block.html" 
           hp=hps.armor
           key="armor"
         }}
@@ -47,20 +47,20 @@
     </div>
     <div class="flexrow">
       <div>
-      {{> "systems/bunkers-and-badasses/templates/actor/parts/action-components/hp-display-block.html" 
+      {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/action-components/hp-display-block.html" 
         hp=hps.flesh
         key="flesh"
       }}
       </div>
       {{#if flags.useBone}}
-        {{> "systems/bunkers-and-badasses/templates/actor/parts/action-components/hp-display-block.html" 
+        {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/action-components/hp-display-block.html" 
           hp=hps.bone
           key="bone"
         }}
       {{else}}
         {{#if flags.useEridian}}
           <div>
-            {{> "systems/bunkers-and-badasses/templates/actor/parts/action-components/hp-display-block.html" 
+            {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/action-components/hp-display-block.html" 
             hp=hps.eridian
             key="eridian"
           }}
@@ -78,7 +78,7 @@
       {{#if flags.useBone}}
         {{#if flags.useEridian}}
           <div>
-            {{> "systems/bunkers-and-badasses/templates/actor/parts/action-components/hp-display-block.html" 
+            {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/action-components/hp-display-block.html" 
               hp=hps.eridian
               key="eridian"
             }}
