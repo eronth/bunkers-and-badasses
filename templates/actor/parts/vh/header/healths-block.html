@@ -1,8 +1,8 @@
-<div class="healths flexrow" >
+<div class="healths-container flexrow" >
   {{#each hps as |hp key|}}
-    <div class="health flexrow flex-group-center" >
-      
-      <div class="centerize flexcol flex-size-2">
+    <div class="health-block flexrow flex-group-center" >
+
+      <div class="health centerize flexcol flex-size-2">
         <label for="{{key}}-health-display" class="resource-label rollable flexlarge">{{hp.label}}</label>
         <input 
           class="flexlarge font-small" 
