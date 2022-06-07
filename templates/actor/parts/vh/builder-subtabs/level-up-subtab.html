@@ -1,0 +1,63 @@
+<div class="flexrow builder-common-container">
+
+  <div class="flexrow flex-size-3 xp-manage-container">
+    {{!-- XP Segment --}}
+    <div>
+      <label for="current-xp-amount" class="current-xp-label">XP</label>
+      <input id="current-xp-amount" class="current-xp-input"
+      placeholder="Current XP" name="data.attributes.xp.value"
+      value="{{data.attributes.xp.value}}"
+      onfocus="this.select()" type="number" data-dtype="Number" />
+    </div>
+    <div>
+      <button class="btn btn-primary item-control btn-manage xp-gain"
+      data-attribute-name="XP" data-data-path="attributes.xp" >
+        <i class="fas fa-plus"></i> XP
+      </button>
+    </div>
+    <div>
+      <button class="btn btn-primary item-control btn-manage set-level">
+        Set Lvl
+      </button>
+    </div>
+  </div>
+
+  <div class="flexrow flex-size-2 badass-rank-container">
+    {{!-- Badass Rank --}}
+    <div>
+      <label for="badass-rank" class="badass-rank-label"><i class="fas fa-skull"></i> Badass Rank</label>
+    </div>
+    <div>  
+      <input id="badass-rank" class="badass-rank-input"
+      placeholder="Badass Rank" name="data.attributes.badass.rank" 
+      value="{{data.attributes.badass.rank}}"
+      onfocus="this.select()" type="number" data-dtype="Number" />
+    </div>
+  </div>
+
+</div>
+
+{{!-- Favored Segment --}}
+<div class="flexcol flex-size-2 favored-section">
+  {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/builder-subtabs/builder-components/favored-weapon-component.html"}}
+  
+  {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/builder-subtabs/builder-components/favored-element-component.html"
+    elements=(toArray 
+      (toFavoredElementObject "Kinetic" data.favored.kinetic)
+      (toFavoredElementObject "Incendiary" data.favored.incendiary)
+      (toFavoredElementObject "Shock" data.favored.shock)
+      (toFavoredElementObject "Corrosive" data.favored.corrosive)
+      (toFavoredElementObject "Explosive" data.favored.explosive)
+      (toFavoredElementObject "Radiation" data.favored.radiation)
+      (toFavoredElementObject "Cryo" data.favored.cryo)
+      (toFavoredElementObject "Incendiation" data.favored.incendiation)
+      (toFavoredElementObject "Corroshock" data.favored.corroshock)
+      (toFavoredElementObject "Crysplosive" data.favored.crysplosive)
+    )
+  }}
+  </div>
+</div>
+
+<div class="flexrow builder-common-container">
+  {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/builder-subtabs/builder-components/base-hp-component.html"}}
+</div>
