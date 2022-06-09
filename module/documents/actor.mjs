@@ -68,10 +68,8 @@ export class BNBActor extends Actor {
       };
     }
     if (gameFlags.useShield) {
-      initTokenBarbrawlBars['bar2'] = { // Shield
-        // 'barShield': {
-        // 'id': 'barShield',
-        'id': 'bar2',
+      initTokenBarbrawlBars['barShield'] = {
+        'id': 'barShield',
         'order': barbrawlOrder++,
         'maxcolor': '#24e7eb',
         'mincolor': '#79d1d2',
@@ -79,21 +77,19 @@ export class BNBActor extends Actor {
         ...visibleBarDefaults
       };
     }
-    if (gameFlags.useArmor) {
-      initTokenBarbrawlBars['barArmor'] = {
-        'id': 'barArmor',
-        'order': barbrawlOrder++,
-        'maxcolor': '#ffdd00',
-        'mincolor': '#e1cc47',
-        'attribute': 'attributes.hps.armor',
-        ...visibleBarDefaults
-      };
-    }
+    // if (gameFlags.useArmor) {
+    //   initTokenBarbrawlBars['barArmor'] = {
+    //     'id': 'barArmor',
+    //     'order': barbrawlOrder++,
+    //     'maxcolor': '#ffdd00',
+    //     'mincolor': '#e1cc47',
+    //     'attribute': 'attributes.hps.armor',
+    //     ...visibleBarDefaults
+    //   };
+    // }
     if (gameFlags.useFlesh) {
-      initTokenBarbrawlBars['bar1'] = { // Flesh
-        // 'barFlesh': {
-        //   'id': 'barFlesh',
-        'id': 'bar1',
+      initTokenBarbrawlBars['barFlesh'] = {
+        'id': 'barFlesh',
         'order': barbrawlOrder++,
         'maxcolor': '#d23232',
         'mincolor': '#a20b0b',
