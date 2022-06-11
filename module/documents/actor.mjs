@@ -77,16 +77,16 @@ export class BNBActor extends Actor {
         ...visibleBarDefaults
       };
     }
-    // if (gameFlags.useArmor) {
-    //   initTokenBarbrawlBars['barArmor'] = {
-    //     'id': 'barArmor',
-    //     'order': barbrawlOrder++,
-    //     'maxcolor': '#ffdd00',
-    //     'mincolor': '#e1cc47',
-    //     'attribute': 'attributes.hps.armor',
-    //     ...visibleBarDefaults
-    //   };
-    // }
+    if (gameFlags.useArmor) {
+      initTokenBarbrawlBars['barArmor'] = {
+        'id': 'barArmor',
+        'order': barbrawlOrder++,
+        'maxcolor': '#ffdd00',
+        'mincolor': '#e1cc47',
+        'attribute': 'attributes.hps.armor',
+        ...visibleBarDefaults
+      };
+    }
     if (gameFlags.useFlesh) {
       initTokenBarbrawlBars['barFlesh'] = {
         'id': 'barFlesh',

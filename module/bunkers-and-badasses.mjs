@@ -251,7 +251,7 @@ Hooks.on("preCreateToken", function (document, data) {
     delete tokenBars.bar1;
     delete tokenBars.bar2;
     
-    // setup initial stuff based on penor
+    // setup initial stuff based on the settings.
 
     changeMade = true;
   } else  {
