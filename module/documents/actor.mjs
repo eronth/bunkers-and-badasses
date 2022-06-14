@@ -66,17 +66,17 @@ export class BNBActor extends Actor {
         'attribute': 'attributes.hps.eridian',
         ...visibleBarDefaults,
       };
-    }
+    } else { barbrawlOrder++; } // keep the order numbers synchronized.
     if (gameFlags.useShield) {
-      initTokenBarbrawlBars['barShield'] = {
-        'id': 'barShield',
+      initTokenBarbrawlBars['bar2'] = { // Shield
+        'id': 'bar2',
         'order': barbrawlOrder++,
         'maxcolor': '#24e7eb',
         'mincolor': '#79d1d2',
         'attribute': 'attributes.hps.shield',
         ...visibleBarDefaults
       };
-    }
+    } else { barbrawlOrder++; } // keep the order numbers synchronized.
     if (gameFlags.useArmor) {
       initTokenBarbrawlBars['barArmor'] = {
         'id': 'barArmor',
@@ -86,17 +86,17 @@ export class BNBActor extends Actor {
         'attribute': 'attributes.hps.armor',
         ...visibleBarDefaults
       };
-    }
+    } else { barbrawlOrder++; } // keep the order numbers synchronized.
     if (gameFlags.useFlesh) {
-      initTokenBarbrawlBars['barFlesh'] = {
-        'id': 'barFlesh',
+      initTokenBarbrawlBars['bar1'] = { // Flesh
+        'id': 'bar1',
         'order': barbrawlOrder++,
         'maxcolor': '#d23232',
         'mincolor': '#a20b0b',
         'attribute': 'attributes.hps.flesh',
         ...visibleBarDefaults
       };
-    }
+    } else { barbrawlOrder++; } // keep the order numbers synchronized.
     if (gameFlags.useBone) {
       initTokenBarbrawlBars['barBone'] = {
         'id': 'barBone',
@@ -106,7 +106,7 @@ export class BNBActor extends Actor {
         'attribute': 'attributes.hps.bone',
         ...visibleBarDefaults
       };
-    }
+    } else { barbrawlOrder++; } // keep the order numbers synchronized.
     
     return { 
       resourceBars: {...initTokenBarbrawlBars} 

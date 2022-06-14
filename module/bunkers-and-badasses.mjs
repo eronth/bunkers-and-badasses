@@ -214,12 +214,14 @@ Hooks.once("ready", async function() {
 Hooks.on("preCreateToken", function (document, data) {
   const actor = document?.actor;
   const actorData = actor?.data?.data;
+  const tokenData = document.data;
+  const dataOfToken = data;
 
   // Get the Hps values from the actor
   const actorHps = actorData.attributes.hps;
-  const tokenBars = data?.flags?.barbrawl?.resourceBars;
+  const tokenBars = tokenData?.flags?.barbrawl?.resourceBars;
 
-  const hasTokenLoadedBefore = actorData?.attributes?.hasTokenLoadedBefore ?? true;
+  const hasTokenLoadedBefore = actorData?.attributes?.hasTokenLoadedBefore ?? false;
 
   // Get the settings values.
   const previousHpsSettings = actorData?.attributes?.previousHpsSettings ?? { 
@@ -242,80 +244,68 @@ Hooks.on("preCreateToken", function (document, data) {
     Flesh: true,
     Shield: true
   }
-
-  // I basically never need these.
   
   let changeMade = false;
   
-  if (!hasTokenLoadedBefore) {
-    delete tokenBars.bar1;
-    delete tokenBars.bar2;
-    
-    // setup initial stuff based on the settings.
+  // This needs to be cleaned up to avoid repeated values.
+  // if (!hasTokenLoadedBefore) {
+  //   delete tokenBars.bar1;
+  //   delete tokenBars.bar2;
+  //   const removeKey = 'flags.barbrawl.resourceBars.-=';
+  //   actor.data.update({ [removeKey+'bar1']: null });
+  //   actor.data.update({ [removeKey+'bar2']: null });
+  //   actor.data.token.update({ [removeKey+'bar1']: null });
+  //   actor.data.token.update({ [removeKey+'bar2']: null });
+  // }
+  
 
-    changeMade = true;
-  } else  {
-    for (const [settingName, settingValue] of Object.entries(currentHpsSettings)) {
-      const barId = `bar${settingName}`;
-      if (settingValue !== previousHpsSettings[settingName]) {
-        if (settingValue && !previousHpsSettings[settingName]) {
-          // turn the hp on
-          if (tokenBars[barId] == null) {
-            // if (actorHps[settingName.toLocaleLowerCase()].value > 0 
-            // || actorHps[settingName.toLocaleLowerCase()].max > 0) {
-              tokenBars[barId] = {...getBarbrawlBar(barId)};
-              changeMade = true;
-            //}
-          }
-        } else if (!settingValue && previousHpsSettings[settingName]) {
-          // turn the hp off
-          delete tokenBars[barId];
-          changeMade = true;
+  for (const [settingName, settingValue] of Object.entries(currentHpsSettings)) {
+    const barId = ((settingName === "Shield") 
+      ? 'bar2'
+      : ((settingName === "Flesh")
+        ? 'bar1'
+        : `bar${settingName}`));
+    // Only toggle on if the setting is different.
+    if ((settingValue !== previousHpsSettings[settingName]) || !hasTokenLoadedBefore) {
+
+      if (settingValue && (!previousHpsSettings[settingName] || !hasTokenLoadedBefore)) {
+
+        // turn the hp on only if it is not already on.
+        if (tokenBars[barId] == null) {
+          // if (actorHps[settingName.toLocaleLowerCase()].value > 0 
+          // || actorHps[settingName.toLocaleLowerCase()].max > 0) {
+            tokenBars[barId] = {...getBarbrawlBar(barId)};
+            const addBarKey = 'flags.barbrawl.resourceBars.'+barId;
+            actor.data.update({ [addBarKey]: tokenBars[barId] });
+            actor.data.token.update({ [addBarKey]: tokenBars[barId] });
+            changeMade = true;
+          //}
+
         }
+      } else if (!settingValue && (previousHpsSettings[settingName] || !hasTokenLoadedBefore)) {
+
+        // turn the hp off
+        delete tokenBars[barId];
+        const removeKey = 'flags.barbrawl.resourceBars.-='+barId;
+        actor.data.update({ [removeKey]: null });
+        actor.data.token.update({ [removeKey]: null });
+        changeMade = true;
+
       }
+
     }
   }
 
-  if (!hasTokenLoadedBefore) {
-    const tokenLoadKey = 'data.attribute.hasTokenLoadedBefore';
-    actor.update({[tokenLoadKey]: true});
-  }
+  // Always save settings changes.
+  const settingsKey = 'data.attributes.previousHpsSettings';
+  actor.update({[settingsKey]: currentHpsSettings});
 
-  // if (changeMade) {
-  //   // save settings changes
-  //   const settingsKey = 'data.attributes.previousHpsSettings';
-  //   actor.update({[settingsKey]: currentHpsSettings});
-
-  //   // save healthbar changes
-    //  actor.data.update({
-    //   token: {
-    //     ...actor.data.token,
-    //     flags: {
-    //       ...actor.data.token.flags,
-    //       barbrawl: {
-    //         ...actor.data.token.flags.barbrawl,
-    //         resourceBars: {
-    //           ...tokenBars
-    //         }
-    //       }
-    //     }
-    //   }
-    // });
-
-  //   // update token's healthbars too!
-  //   document.data.update({
-  //     "flags.barbrawl.resourceBars": {
-  //       "bar1": {
-  //           id: "bar1",
-  //           mincolor: "#FF0000",
-  //           maxcolor: "#80FF00",
-  //           position: "bottom-inner",
-  //           attribute: "attributes.hps.flesh",
-  //           visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
-  //       }
-  //     }
-  //   });
+  // Mark if the token has been loaded before, so we can track first ever load or not.
+  // if (!hasTokenLoadedBefore) {
+  //   const tokenLoadKey = 'data.attribute.hasTokenLoadedBefore';
+  //   actor.update({[tokenLoadKey]: true});
   // }
+
 });
 
 function getBarbrawlBar(barId) {
@@ -336,8 +326,8 @@ const tokenBarbrawlBars = {
     'attribute': 'attributes.hps.eridian',
     ...visibleBarDefaults,
   },
-  'barShield': {
-    'id': 'barShield',
+  'bar2': { // Shield
+    'id': 'bar2',
     'order': barbrawlOrder++,
     'maxcolor': '#24e7eb',
     'mincolor': '#79d1d2',
@@ -352,8 +342,8 @@ const tokenBarbrawlBars = {
     'attribute': 'attributes.hps.armor',
     ...visibleBarDefaults
   },
-  'barFlesh': {
-    'id': 'barFlesh',
+  'bar1': { // Flesh
+    'id': 'bar1',
     'order': barbrawlOrder++,
     'maxcolor': '#d23232',
     'mincolor': '#a20b0b',
