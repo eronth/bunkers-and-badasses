@@ -211,20 +211,153 @@ Hooks.once("ready", async function() {
   Hooks.on("hotbarDrop", (bar, data, slot) => createItemMacro(data, slot));  
 });
 
-// Hooks.on("preCreateToken", function (document, data) {
-//   document.data.update({
-//       "flags.barbrawl.resourceBars": {
-//           "bar1": {
-//               id: "bar1",
-//               mincolor: "#FF0000",
-//               maxcolor: "#80FF00",
-//               position: "bottom-inner",
-//               attribute: "attributes.hps.flesh",
-//               visibility: CONST.TOKEN_DISPLAY_MODES.OWNER
-//           }
-//       }
-//   });
-// });
+Hooks.on("preCreateToken", function (document, data) {
+  const actor = document?.actor;
+  const actorData = actor?.data?.data;
+  const tokenData = document.data;
+
+  // Get the Hps values from the actor
+  const actorHps = actorData.attributes.hps;
+  const tokenBars = tokenData?.flags?.barbrawl?.resourceBars;
+
+  const hasTokenLoadedBefore = actorData?.attributes?.hasTokenLoadedBefore ?? false;
+
+  // Get the settings values.
+  const previousHpsSettings = actorData?.attributes?.previousHpsSettings ?? { 
+    Flesh: true,
+    Shield: true,
+    Armor: ((actor.type == 'npc') ? true : false),
+    Eridian: false,
+    Bone: false
+  };
+  const currentHpsSettings = {
+    Armor: (actor.type == 'npc'
+      ? true
+      : game.settings.get('bunkers-and-badasses', 'usePlayerArmor')),
+    Bone: (actor.type == 'npc' 
+      ? game.settings.get('bunkers-and-badasses', 'useNpcBone')
+      : game.settings.get('bunkers-and-badasses', 'usePlayerBone')),
+    Eridian: (actor.type == 'npc'
+      ? game.settings.get('bunkers-and-badasses', 'useNpcEridian')
+      : game.settings.get('bunkers-and-badasses', 'usePlayerEridian')),
+    Flesh: true,
+    Shield: true
+  }
+  
+  // Currently delete doesn't clean these up. Oh well.
+  // if (!hasTokenLoadedBefore) {
+  //   delete tokenBars.bar1;
+  //   delete tokenBars.bar2;
+  //   const removeKey = 'flags.barbrawl.resourceBars.-=';
+  //   actor.data.update({ [removeKey+'bar1']: null });
+  //   actor.data.update({ [removeKey+'bar2']: null });
+  //   actor.data.token.update({ [removeKey+'bar1']: null });
+  //   actor.data.token.update({ [removeKey+'bar2']: null });
+  // }
+  
+
+  for (const [settingName, settingValue] of Object.entries(currentHpsSettings)) {
+    const barId = ((settingName === "Shield") 
+      ? 'bar2'
+      : ((settingName === "Flesh")
+        ? 'bar1'
+        : `bar${settingName}`));
+    // Only toggle on if the setting is different.
+    if ((settingValue !== previousHpsSettings[settingName]) || !hasTokenLoadedBefore) {
+
+      if (settingValue && (!previousHpsSettings[settingName] || !hasTokenLoadedBefore)) {
+
+        // turn the hp on only if it is not already on.
+        if (tokenBars[barId] == null) {
+          // if (actorHps[settingName.toLocaleLowerCase()].value > 0 
+          // || actorHps[settingName.toLocaleLowerCase()].max > 0) {
+            tokenBars[barId] = {...getBarbrawlBar(barId)};
+            const addBarKey = 'flags.barbrawl.resourceBars.'+barId;
+            document.data.update({ [addBarKey]: tokenBars[barId] });
+            actor.update({ [addBarKey]: tokenBars[barId] });
+            actor.data.token.update({ [addBarKey]: tokenBars[barId] });
+          //}
+
+        }
+      } else if (!settingValue && (previousHpsSettings[settingName] || !hasTokenLoadedBefore)) {
+
+        // turn the hp off
+        delete tokenBars[barId];
+        const removeKey = 'flags.barbrawl.resourceBars.-='+barId;
+        document.data.update({ [removeKey]: null });
+        actor.update({ [removeKey]: null });
+        actor.data.token.update({ [removeKey]: null });
+
+      }
+
+    }
+  }
+
+  // Always save settings changes.
+  const settingsKey = 'data.attributes.previousHpsSettings';
+  actor.update({[settingsKey]: currentHpsSettings});
+
+  // Mark if the token has been loaded before, so we can track first ever load or not.
+  if (!hasTokenLoadedBefore) {
+    const tokenLoadKey = 'data.attributes.hasTokenLoadedBefore';
+    actor.update({[tokenLoadKey]: true});
+  }
+
+});
+
+function getBarbrawlBar(barId) {
+  return tokenBarbrawlBars[barId];
+}
+let barbrawlOrder = 0;
+const visibleBarDefaults = {
+  'position': 'top-inner',
+  'otherVisibility': CONST.TOKEN_DISPLAY_MODES.HOVER,
+  'ownerVisibility': CONST.TOKEN_DISPLAY_MODES.ALWAYS
+};
+const tokenBarbrawlBars = {
+  'barEridian': {
+    'id': 'barEridian',
+    'order': barbrawlOrder++,
+    'maxcolor': '#ff00ff',
+    'mincolor': '#bb00bb',
+    'attribute': 'attributes.hps.eridian',
+    ...visibleBarDefaults,
+  },
+  'bar2': { // Shield
+    'id': 'bar2',
+    'order': barbrawlOrder++,
+    'maxcolor': '#24e7eb',
+    'mincolor': '#79d1d2',
+    'attribute': 'attributes.hps.shield',
+    ...visibleBarDefaults
+  },
+  'barArmor': {
+    'id': 'barArmor',
+    'order': barbrawlOrder++,
+    'maxcolor': '#ffdd00',
+    'mincolor': '#e1cc47',
+    'attribute': 'attributes.hps.armor',
+    ...visibleBarDefaults
+  },
+  'bar1': { // Flesh
+    'id': 'bar1',
+    'order': barbrawlOrder++,
+    'maxcolor': '#d23232',
+    'mincolor': '#a20b0b',
+    'attribute': 'attributes.hps.flesh',
+    ...visibleBarDefaults
+  },
+  'barBone': {
+    'id': 'barBone',
+    'order': barbrawlOrder++,
+    'maxcolor': '#bbbbbb',
+    'mincolor': '#333333',
+    'attribute': 'attributes.hps.bone',
+    ...visibleBarDefaults
+  }
+};
+
+
 
 
 /* -------------------------------------------- */
