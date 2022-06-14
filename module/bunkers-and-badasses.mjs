@@ -215,7 +215,6 @@ Hooks.on("preCreateToken", function (document, data) {
   const actor = document?.actor;
   const actorData = actor?.data?.data;
   const tokenData = document.data;
-  const dataOfToken = data;
 
   // Get the Hps values from the actor
   const actorHps = actorData.attributes.hps;
@@ -245,9 +244,7 @@ Hooks.on("preCreateToken", function (document, data) {
     Shield: true
   }
   
-  let changeMade = false;
-  
-  // This needs to be cleaned up to avoid repeated values.
+  // Currently delete doesn't clean these up. Oh well.
   // if (!hasTokenLoadedBefore) {
   //   delete tokenBars.bar1;
   //   delete tokenBars.bar2;
@@ -276,9 +273,9 @@ Hooks.on("preCreateToken", function (document, data) {
           // || actorHps[settingName.toLocaleLowerCase()].max > 0) {
             tokenBars[barId] = {...getBarbrawlBar(barId)};
             const addBarKey = 'flags.barbrawl.resourceBars.'+barId;
-            actor.data.update({ [addBarKey]: tokenBars[barId] });
+            document.data.update({ [addBarKey]: tokenBars[barId] });
+            actor.update({ [addBarKey]: tokenBars[barId] });
             actor.data.token.update({ [addBarKey]: tokenBars[barId] });
-            changeMade = true;
           //}
 
         }
@@ -287,9 +284,9 @@ Hooks.on("preCreateToken", function (document, data) {
         // turn the hp off
         delete tokenBars[barId];
         const removeKey = 'flags.barbrawl.resourceBars.-='+barId;
-        actor.data.update({ [removeKey]: null });
+        document.data.update({ [removeKey]: null });
+        actor.update({ [removeKey]: null });
         actor.data.token.update({ [removeKey]: null });
-        changeMade = true;
 
       }
 
@@ -301,10 +298,10 @@ Hooks.on("preCreateToken", function (document, data) {
   actor.update({[settingsKey]: currentHpsSettings});
 
   // Mark if the token has been loaded before, so we can track first ever load or not.
-  // if (!hasTokenLoadedBefore) {
-  //   const tokenLoadKey = 'data.attribute.hasTokenLoadedBefore';
-  //   actor.update({[tokenLoadKey]: true});
-  // }
+  if (!hasTokenLoadedBefore) {
+    const tokenLoadKey = 'data.attributes.hasTokenLoadedBefore';
+    actor.update({[tokenLoadKey]: true});
+  }
 
 });
 
