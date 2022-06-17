@@ -7,11 +7,11 @@
   "compatibleCoreVersion": "9",
   "templateVersion": 2,
   "author": "Nic Pereira",
-  "authors": {
+  "authors": [{
     "name": "Nic Pereira",
     "email": "BadassBunks@nicpereira.dev",
     "discord": "emf#0016"
-  },
+  }],
   "scripts": [],
   "esmodules": ["module/bunkers-and-badasses.mjs"],
   "styles": [
