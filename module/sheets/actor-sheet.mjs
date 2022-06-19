@@ -274,6 +274,7 @@ export class BNBActorSheet extends ActorSheet {
   }
 
   _prepareVhHps(context) {
+    const oldActorHPs = JSON.parse(JSON.stringify(oldActorHPs));
     const actorHPs = this.actor.data.data.attributes.hps;
     const effectsHPs = this.actor.data.data.bonus.healths;
     
@@ -281,7 +282,7 @@ export class BNBActorSheet extends ActorSheet {
     actorHPs.flesh.max = actorHPs.armor.max = actorHPs.shield.max = actorHPs.bone.max = actorHPs.eridian.max = 0;
     actorHPs.flesh.combinedRegen = actorHPs.armor.combinedRegen = actorHPs.shield.combinedRegen 
       = actorHPs.bone.combinedRegen = actorHPs.eridian.combinedRegen = "";
-
+    
     // Get the HPs from the actor data.
     Object.entries(context.items).forEach(entry => {
       const [itemIndex, itemData] = entry;
@@ -326,8 +327,11 @@ export class BNBActorSheet extends ActorSheet {
     context.hps = usedHps;
 
     // Square brackets needed to get the right value.
-    const attributeLabel = `data.attributes.hps`;
-    this.actor.update({[attributeLabel]: actorHPs});
+    const hpsHasChanges = JSON.stringify(actorHPs) !== JSON.stringify(oldActorHPs);
+    if (hpsHasChanges) {
+      const attributeLabel = `data.attributes.hps`;
+      this.actor.update({[attributeLabel]: actorHPs});
+    }
   }
 
   _prepareNpcHps(context) {
@@ -888,9 +892,9 @@ export class BNBActorSheet extends ActorSheet {
     }
     attribute.gains.push({ value: gainAmount, reason: "Add Clicked" });
     attribute.value += gainAmount;
-    if (attribute[stat] != null) {
-      attribute[stat] += gainAmount; 
-    }
+    // if (attribute[stat] != null) {
+    //   attribute[stat] += gainAmount; 
+    // }
     // Square brackets needed to get the right value.
     const attributeLabel = `data.${dataset.dataPath}`;
     return await this.actor.update({[attributeLabel]: attribute});
