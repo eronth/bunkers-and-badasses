@@ -274,8 +274,8 @@ export class BNBActorSheet extends ActorSheet {
   }
 
   _prepareVhHps(context) {
-    const oldActorHPs = JSON.parse(JSON.stringify(oldActorHPs));
     const actorHPs = this.actor.data.data.attributes.hps;
+    const oldActorHPs = JSON.parse(JSON.stringify(actorHPs));
     const effectsHPs = this.actor.data.data.bonus.healths;
     
     // Clean slate for HPs totals.
@@ -503,7 +503,7 @@ export class BNBActorSheet extends ActorSheet {
     //   const li = $(ev.currentTarget).parents(".item-element-group");
     //   const item = this.actor.items.get(li.data("itemId"));
     //   item.data.data.equipped = !item.data.data.equipped;
-    //   var hello="hello"
+    //   let hello="hello"
     // });
     html.find('.item-edit').click(ev => {
       ev.stopPropagation();
@@ -843,12 +843,12 @@ export class BNBActorSheet extends ActorSheet {
   }
 
   async _onHpGain(event) {
-    return await this._attributeGainDialog(event, "base");
+    return await this._attributeGainDialog(event, ['value', 'base']);
   }
   async _onXpGain(event) {
-    return await this._attributeGainDialog(event, "max");
+    return await this._attributeGainDialog(event, ['value']);
   }
-  async _attributeGainDialog(event, stat) {
+  async _attributeGainDialog(event, statsArray) {
     // Prep data.
     const actorData = this.actor.data.data;
     const dataset = event.currentTarget.dataset;
@@ -870,14 +870,14 @@ export class BNBActorSheet extends ActorSheet {
         "Roll" : {
           label : `Gain ${dataset.attributeName}`,
           callback : async (html) => {
-            return await this._gainAttribute(dataset, html, stat);
+            return await this._gainAttribute(dataset, html, statsArray);
           }
         }
       }
     }).render(true);
   }
 
-  async _gainAttribute(dataset, html) {
+  async _gainAttribute(dataset, html, statsArray) {
     // Prep data to access.
     const actorData = this.actor.data.data;
 
@@ -887,14 +887,18 @@ export class BNBActorSheet extends ActorSheet {
 
     // Update the actor.
     const attribute = this._deepFind(actorData, dataset.dataPath);
-    if (!attribute.gains) {
-      attribute.gains = [];
-    }
+    if (!attribute.gains) { attribute.gains = []; }
     attribute.gains.push({ value: gainAmount, reason: "Add Clicked" });
-    attribute.value += gainAmount;
-    // if (attribute[stat] != null) {
-    //   attribute[stat] += gainAmount; 
-    // }
+
+    // Loop the array of stats to update, and update them all.
+    for (const stat of statsArray) {
+      if (stat != null) {
+        // Initialize stat if not already.
+        if (!attribute[stat]) { attribute[stat] = 0; }
+        attribute[stat] += gainAmount;
+      }
+    }
+
     // Square brackets needed to get the right value.
     const attributeLabel = `data.${dataset.dataPath}`;
     return await this.actor.update({[attributeLabel]: attribute});
@@ -951,7 +955,7 @@ export class BNBActorSheet extends ActorSheet {
   }
 
   _deepFind(obj, path) {
-    var paths = path.split('.')
+    let paths = path.split('.')
       , current = obj
       , i;
   
