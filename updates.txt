@@ -5,5 +5,6 @@ Updates
 * Cleaned up several value displays to not cut off.
 
 Bugfixes
+* Fixed a bug where xp and health increase buttons were inconsistent and could lock character sheets.
 * Fixed a bug where health attributes did not handle 'max' values correctly.
 * Fixed a visual bug where swapping the rarity or gun-type of an item would appear to partially update other items.
