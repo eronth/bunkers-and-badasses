@@ -1,0 +1,14 @@
+.bnb .sheet-header .healths-container .health-block .health label {
+  font-weight: bold;
+}
+.bnb .sheet-header .healths-container .health-block .health input {
+  font-size: smaller;
+}
+.bnb .sheet-header .healths-container .health-block .regen label{
+  font-size: x-small;
+  font-weight: bold;
+}
+.bnb .sheet-header .healths-container .health-block .regen input{
+  font-size: smaller;
+  width: 35px;
+}

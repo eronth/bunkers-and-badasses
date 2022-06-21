@@ -2,19 +2,26 @@
   "name": "bunkers-and-badasses",
   "title": "Bunkers & Badasses",
   "description": "Badasses, loot, and mayhem. This system is for running the tabletop adaptation of Borderlands' 'Bunkers & Badasses' by Nerdvana.",
-  "version": "0.1.2",
+  "version": "0.1.4",
   "minimumCoreVersion": "9",
   "compatibleCoreVersion": "9",
   "templateVersion": 2,
   "author": "Nic Pereira",
-  "authors": {
+  "authors": [{
     "name": "Nic Pereira",
     "email": "BadassBunks@nicpereira.dev",
     "discord": "emf#0016"
-  },
+  }],
   "scripts": [],
   "esmodules": ["module/bunkers-and-badasses.mjs"],
-  "styles": ["css/bunkers-and-badasses.css"],
+  "styles": [
+    "css/bunkers-and-badasses.css",
+    "css/generic.css",
+    "css/health.css",
+    "css/dropdown.css",
+    "css/header/health.css",
+    "css/header/xp-bar.css"
+  ],
   "packs": [
     {
       "name": "loot",
@@ -37,6 +44,6 @@
   "primaryTokenAttribute": "attributes.hps.flesh",
   "secondaryTokenAttribute": "attributes.hps.shield",
   "url": "https://github.com/eronth/bunkers-and-badasses",
-  "manifest": "https://github.com/eronth/bunkers-and-badasses/releases/download/v0.1.2/system.json",
-  "download": "https://github.com/eronth/bunkers-and-badasses/archive/refs/tags/v0.1.2.zip"
+  "manifest": "https://github.com/eronth/bunkers-and-badasses/releases/download/v0.1.4/system.json",
+  "download": "https://github.com/eronth/bunkers-and-badasses/archive/refs/tags/v0.1.4.zip"
 }

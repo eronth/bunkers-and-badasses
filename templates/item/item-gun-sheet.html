@@ -4,10 +4,11 @@
           style="--rarityColor: {{data.rarity.colorValue}}" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
     <div class="header-fields flexrow">
       <div class="flex-size-3">
-        <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Relic Type"/></h1>
+        <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Gun Name"/></h1>
       </div>
       <div class="item-body centerize">
-        {{> "systems/bunkers-and-badasses/templates/item/parts/rarity-dropdown.html" }}
+        {{> "systems/bunkers-and-badasses/templates/item/parts/rarity-dropdown.html"
+          itemId=item.id }}
       </div>
     </div>
   </header>
@@ -133,7 +134,8 @@
         <div class="flexrow gun-center-container">
           <div class="flexrow centerize">
             <label for="gun-type" class="bolded">Gun Type:</label>
-            {{> "systems/bunkers-and-badasses/templates/item/parts/gun-type-dropdown.html" }}
+            {{> "systems/bunkers-and-badasses/templates/item/parts/gun-type-dropdown.html" 
+              itemId=item.id }}
           </div>
         </div>
         <div class="flexrow gun-center-contain">

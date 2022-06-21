@@ -33,13 +33,13 @@
   <div class="resource flex-group-center healths-container" style="grid-column: span 4;">
     <div class="flexrow">
       <div>
-        {{> "systems/bunkers-and-badasses/templates/actor/parts/action-components/hp-display-block.html" 
+        {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/action-components/hp-display-block.html" 
           hp=hps.shield
           key="shield"
         }}
       </div>
       <div>
-        {{> "systems/bunkers-and-badasses/templates/actor/parts/action-components/hp-display-block.html" 
+        {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/action-components/hp-display-block.html" 
           hp=hps.armor
           key="armor"
         }}
@@ -47,15 +47,55 @@
     </div>
     <div class="flexrow">
       <div>
-      {{> "systems/bunkers-and-badasses/templates/actor/parts/action-components/hp-display-block.html" 
+      {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/action-components/hp-display-block.html" 
         hp=hps.flesh
         key="flesh"
       }}
       </div>
-      <div class="traits">
-        <input name="data.traits" value="{{data.traits}}" placeholder="Traits" 
-        onfocus="this.select()" type="text" data-dtype="String"/>
-      </div>
+      {{#if flags.useBone}}
+        {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/action-components/hp-display-block.html" 
+          hp=hps.bone
+          key="bone"
+        }}
+      {{else}}
+        {{#if flags.useEridian}}
+          <div>
+            {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/action-components/hp-display-block.html" 
+            hp=hps.eridian
+            key="eridian"
+          }}
+        </div>
+        {{else}}
+          <div class="traits">
+            <input name="data.traits" value="{{data.traits}}" placeholder="Traits" 
+            onfocus="this.select()" type="text" data-dtype="String"/>
+          </div>
+        {{/if}}
+      {{/if}}
+    </div>
+
+    <div class="flexrow">
+      {{#if flags.useBone}}
+        {{#if flags.useEridian}}
+          <div>
+            {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/action-components/hp-display-block.html" 
+              hp=hps.eridian
+              key="eridian"
+            }}
+          </div>
+        {{/if}}
+        <div class="traits">
+          <input name="data.traits" value="{{data.traits}}" placeholder="Traits" 
+          onfocus="this.select()" type="text" data-dtype="String"/>
+        </div>
+      {{else}}
+        {{#if flags.useEridian}}
+          <div class="traits">
+            <input name="data.traits" value="{{data.traits}}" placeholder="Traits" 
+            onfocus="this.select()" type="text" data-dtype="String"/>
+          </div>
+        {{/if}}
+      {{/if}}
     </div>
   </div>
 

@@ -31,7 +31,13 @@
 
   data.bonus.healths.armor.max
   data.bonus.healths.armor.regen
-    
+
+  data.bonus.healths.bone.max
+  data.bonus.healths.bone.regen
+
+  data.bonus.healths.eridian.max
+  data.bonus.healths.eridian.regen
+
   data.bonus.combat.melee.acc
   data.bonus.combat.melee.dmg
   data.bonus.combat.melee.critdmg

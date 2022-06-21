@@ -1,0 +1,98 @@
+.hp-values {
+  align-self: center;
+}
+
+.bnb .builder-common-container .bonus-hp-regen-container {
+  justify-content: space-around;
+}
+
+.bnb .builder-common-container .bonus-max-hp-label,
+.bnb .builder-common-container .bonus-hp-regen-label{
+  font-weight: bold;
+  text-align: center;
+  align-self: center;
+  justify-self: center;
+}
+.bnb .builder-common-container .bonus-hp-regen-label {
+  max-width: 30px;
+}
+.bnb .builder-common-container .bonus-max-hp-input,
+.bnb .builder-common-container .bonus-hp-regen-input {
+  align-self: center;
+  text-align: center;
+  max-width: 55px;
+}
+
+.bnb .npc .healths-container {
+  background-color: #c3c3c3;
+  border-radius: 10px;
+}
+.bnb .healths-container {
+  border: 1px solid #c9c7b8;
+  margin-top: 3px;
+  margin-bottom: 2px;
+}
+.bnb .healths {
+ justify-content: center;
+  align-items: center;
+}
+.bnb .healths .health {
+  border: 1px solid #b5b3a4;
+  float: left;
+}
+.bnb .healths .health:nth-child(n+2) {
+  margin-left: -1px;
+}
+.health-icon {
+  border: 0;
+  height: 12px;
+}
+.bnb .healths .health .regen label {
+  font-size: x-small;
+}
+.bnb .healths .health .regen input {
+  font-size: smaller;
+  width: 35px;
+}
+.loot-health {
+  display: inline-flex;
+  font-size: x-small;
+  display: -webkit-inline-box;
+}
+.bnb .builder-common-container .max-healths-update-container {
+  margin: 2px;
+  border: 1px solid #b5b3a4;
+  padding: 3px;
+}
+.bnb .builder-common-container .max-healths-update-container .header label {
+  font-weight: bold;
+  font-size: larger;
+  text-align: center;
+}
+
+
+.bnb .header-hp {
+  font-size: 12px;
+}
+.bnb .hp-container {
+  margin: 2px;
+  border: 1px solid #c9c7b8;
+}
+.bnb .hp-values label {
+  font-size: x-small;
+}
+.bnb .hp-title {
+  font-weight: bold;
+  align-self: center;
+  padding-left: 2px;
+  padding-right: 6px;
+  padding-bottom: 6px;
+}
+.bnb .hp-set-btn,
+.bnb .hp-quick-regen-btn {
+  max-height: 25px;
+  font-size: smaller;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}

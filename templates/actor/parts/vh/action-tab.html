@@ -2,7 +2,7 @@
   {{!-- Checks --}}
   <div class="flexrow">
     <div class="flex-size-5 flexcol">
-      {{> "systems/bunkers-and-badasses/templates/actor/parts/action-components/checks-block.html" }}
+      {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/action-components/checks-block.html" }}
     </div>    
   </div>
   
@@ -56,10 +56,10 @@
           </div>
         </div>
       </div>
-      {{!-- Health/Armor/Shield Region --}}
+      {{!-- Bone/Health/Armor/Shield/Eridian Region --}}
       <div class="flexcol healths-container">
         {{#each hps as |hpVal key|}}
-        {{> "systems/bunkers-and-badasses/templates/actor/parts/action-components/hp-display-block.html" 
+        {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/action-components/hp-display-block.html" 
           hp=hpVal
           key=key
           showRegen=true
@@ -87,7 +87,7 @@
         <div class="flexrow flex-size-4 as-btn-outer-container">
           <!-- Placeholder -->
           <div>
-            {{> "systems/bunkers-and-badasses/templates/actor/parts/action-components/check.html"
+            {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/action-components/check.html"
               displayName="Melee"
               checkName="Melee"
               check=data.checks.melee
@@ -97,7 +97,7 @@
             }}
           </div>
           <div>
-            {{> "systems/bunkers-and-badasses/templates/actor/parts/action-components/check.html"
+            {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/action-components/check.html"
               displayName="Shoot"
               checkName="Shooting"
               check=data.checks.shooting
@@ -107,7 +107,7 @@
             }}
           </div>
           <div>
-            {{> "systems/bunkers-and-badasses/templates/actor/parts/action-components/check.html"
+            {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/action-components/check.html"
               displayName="Throw"
               checkName="Throw"
               check=data.checks.throw
