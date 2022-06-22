@@ -1,0 +1,83 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch Chrome against localhost",
+            "type": "pwa-chrome",
+            "request": "launch",
+            "url": "http://localhost:30000",
+            "webRoot": "${workspaceFolder}"
+        },
+        {
+            "name": "Run in browser",
+            "program": "${env:ProgramFiles}/FoundryVTT/resources/app/main.js",
+            "args": [ "--world=testWorld" ],
+            "request": "launch",
+            "skipFiles": [ "<node_internals>/**" ],
+            "type": "pwa-node",
+            "outputCapture": "std",
+            "preLaunchTask": "${defaultBuildTask}",
+            "serverReadyAction": {
+                "pattern": "listening on port ([0-9]+)",
+                "uriFormat": "http://localhost:%s",
+                "action": "openExternally"
+            }
+        },
+        {
+            "name": "Electron launcher",
+            "args": [
+                "--noupnp"
+            ],
+            "cwd": "${env:ProgramFiles}/Foundry Virtual Tabletop/resources/app",
+            "preLaunchTask": "${defaultBuildTask}",
+            "type": "pwa-node",
+            "request": "launch",
+            "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron",
+            "windows": {
+                "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron.cmd"
+            },
+            "runtimeArgs": [
+                ".",
+                "--remote-debugging-port=9223",
+                "--preserve-symlinks"
+            ],
+            "skipFiles": [
+                "<node_internals>/**/*.js",
+                "node_modules/**/*.js"
+            ],
+            "outputCapture": "std",
+            "postDebugTask": "watch: disable",
+            "sourceMaps": false,
+            "serverReadyAction": {
+                "pattern": "Created client session",
+                "action": "startDebugging",
+                "name": "FoundryVTT"
+            }
+        },
+        {
+            "name": "FoundryVTT",
+            "presentation": {
+                "hidden": true,
+            },
+            "type": "pwa-chrome",
+            "request": "attach",
+            "port": 9223,
+            "webRoot": "${env:ProgramFiles}/Foundry Virtual Tabletop/resources/app/public",
+            "pathMapping": {
+                "/systems": "${env:AppData}/../Local/Foundry Virtual Tabletop/Data/systems/*",
+                "/modules/barbrawl": "${workspaceRoot}/src",
+                "/modules/*": "${env:AppData}/../Local/Foundry Virtual Tabletop/Data/modules"
+            },
+            "skipFiles": [
+                "<node_internals>/**/*.js",
+                "node_modules/**/*.js"
+            ],
+            "timeout": 5000,
+            "preLaunchTask": "watch: enable",
+            "postDebugTask": "watch: disable"
+        }
+    ]
+}
