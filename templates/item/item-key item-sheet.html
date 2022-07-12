@@ -1,7 +1,7 @@
-<form class="item-form-rarity {{cssClass}}" style="--rarityColor: {{data.rarity.colorValue}}" autocomplete="off">
+<form class="item-form-rarity {{cssClass}}" style="--rarityColor: {{system.rarity.colorValue}}" autocomplete="off">
   <header class="sheet-header">
     <img class="profile-img item-rarity-border" 
-          style="--rarityColor: {{data.rarity.colorValue}}" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
+          style="--rarityColor: {{system.rarity.colorValue}}" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
     <div class="header-fields flexrow">
       <div class="flex-size-3">
         <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Relic Type"/></h1>
@@ -20,9 +20,9 @@
         <label>Description</label>
       </div>
       <div class="flexrow">
-        <textarea class="key-item-textarea" name="data.description" 
+        <textarea class="key-item-textarea" name="system.description" 
           placeholder="Give item details here."
-          type="text" rows="5">{{data.description}}</textarea>
+          type="text" rows="5">{{system.description}}</textarea>
       </div>
       
     </div>
