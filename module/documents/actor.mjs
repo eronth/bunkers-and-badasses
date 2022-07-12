@@ -140,8 +140,7 @@ export class BNBActor extends Actor {
    */
   prepareDerivedData() {
     super.prepareDerivedData();
-    const actorData = this.data;
-    const data = actorData.data;
+    const actorData = this;
     const flags = actorData.flags.bnb || {};
 
     // Make separate methods for each Actor type (vault hunter, npc, etc.) to keep
@@ -160,49 +159,49 @@ export class BNBActor extends Actor {
     this._updateVaultHunterDataVersions(actorData);
 
     // Pull basic data into easy-to-access variables.
-    const data = actorData.data;
-    const archetypeStats = data.archetypes.archetype1.baseStats;
-    const classStats = data.class.baseStats;
+    const actorSystem = actorData.system;
+    const archetypeStats = actorSystem.archetypes.archetype1.baseStats;
+    const classStats = actorSystem.class.baseStats;
 
     // Handle stat values and totals. Values are class+archetype. Totals are *everything*.
-    Object.entries(data.stats).forEach(entry => {
+    Object.entries(actorSystem.stats).forEach(entry => {
       const [key, statData] = entry;
-      statData.effects = data.bonus.stats[key] ?? { value: 0, mod: 0 };
+      statData.effects = actorSystem.bonus.stats[key] ?? { value: 0, mod: 0 };
       statData.value = archetypeStats[key] + classStats[key] + statData.misc + statData.effects.value;
       statData.mod = Math.floor(statData.value / 2)  + (statData.modBonus ?? 0) + statData.effects.mod;
-      statData.modToUse = data.attributes.badass.rollsEnabled ? statData.value : statData.mod;
+      statData.modToUse = actorSystem.attributes.badass.rollsEnabled ? statData.value : statData.mod;
     });
 
     // Prepare data for various check rolls.
-    Object.entries(data.checks).forEach(entry => {
+    Object.entries(actorSystem.checks).forEach(entry => {
       const [check, checkData] = entry;
-      checkData.value = data.stats[checkData.stat].modToUse;
+      checkData.value = actorSystem.stats[checkData.stat].modToUse;
       
       // Determine effect bonus (shooting and melee are treated slightly different.)
-      if (data.bonus.checks[check] != null) {
-        checkData.effects = data.bonus.checks[check];
-      } else if (data.bonus.combat[check] != null) {
-        checkData.effects = data.bonus.combat[check].acc;
-        checkData.effects += data.bonus.combat.attack.acc;
+      if (actorSystem.bonus.checks[check] != null) {
+        checkData.effects = actorSystem.bonus.checks[check];
+      } else if (actorSystem.bonus.combat[check] != null) {
+        checkData.effects = actorSystem.bonus.combat[check].acc;
+        checkData.effects += actorSystem.bonus.combat.attack.acc;
       } else {
         checkData.effects = 0;
       }
       
-      checkData.total = (checkData.usesBadassRank ? data.attributes.badass.rank : 0) +
+      checkData.total = (checkData.usesBadassRank ? actorSystem.attributes.badass.rank : 0) +
         (checkData.base ?? 0) + checkData.value + checkData.misc + checkData.effects;
     });
   }
 
   _updateVaultHunterDataVersions(actorData) {
-    if (!actorData?.data?.checks?.throw) {
-      actorData.data.checks.throw = {
+    if (!actorData?.system?.checks?.throw) {
+      actorData.system.checks.throw = {
         stat: "acc",
         value: 0,
         misc: 0
       };
       // Square brackets needed to get the right value.
-      const archetypeRewardsLabel = "data.checks.throw";
-      this.update({[archetypeRewardsLabel]: actorData.data.checks.throw});
+      const archetypeRewardsLabel = "system.checks.throw";
+      this.update({[archetypeRewardsLabel]: actorData.system.checks.throw});
     }
     
   }
@@ -213,7 +212,7 @@ export class BNBActor extends Actor {
   _prepareNpcData(actorData) {
     if (actorData.type !== 'npc') return;
 
-    // const hps = actorData.data.attributes.hps;
+    // const hps = actorData.system.attributes.hps;
   }
 
   _isHpValuePopulated(hpData) {
@@ -237,7 +236,7 @@ export class BNBActor extends Actor {
    * Prepare vault hunter roll data.
    */
   _getVaultHunterRollData(data) {
-    if (this.data.type !== 'vault hunter') return;
+    if (this.type !== 'vault hunter') return;
 
     // Copy the ability scores to the top level, so that rolls can use
     // formulas like `@str.mod + 4`.
@@ -273,7 +272,7 @@ export class BNBActor extends Actor {
    * Prepare NPC roll data.
    */
   _getNpcRollData(data) {
-    if (this.data.type !== 'npc') return;
+    if (this.type !== 'npc') return;
 
     // Process additional NPC data here.
   }
@@ -292,24 +291,24 @@ export class BNBActor extends Actor {
     const dataSet = event.currentTarget.dataset;
     const actor = game.actors.get(dataSet.actorId);
     if (actor === null) return;
-    const actorData = actor.data.data;
+    const actorSystem = actor.data.system;
 
     const isPlusOneDice = dataSet.plusOneDice === 'true';
     const isDoubleDamage = dataSet.doubleDamage === 'true';
     const isCrit = dataSet.crit === 'true';
 
     // Prepare and roll the damage.
-    const rollPlusOneDice = isPlusOneDice ? ` + ${actorData.class.meleeDice}` : '';
+    const rollPlusOneDice = isPlusOneDice ? ` + ${actorSystem.class.meleeDice}` : '';
     const rollDoubleDamage = isDoubleDamage ? '2*' : '';
-    const effectDamage = (actorData?.bonus?.combat?.melee?.dmg ?? 0) + (actorData?.bonus?.combat?.attack?.dmg ?? 0);
-    const critEffectDamage = (actorData?.bonus?.combat?.melee?.critdmg ?? 0) + (actorData?.bonus?.combat?.attack?.critdmg ?? 0);
+    const effectDamage = (actorSystem?.bonus?.combat?.melee?.dmg ?? 0) + (actorSystem?.bonus?.combat?.attack?.dmg ?? 0);
+    const critEffectDamage = (actorSystem?.bonus?.combat?.melee?.critdmg ?? 0) + (actorSystem?.bonus?.combat?.attack?.critdmg ?? 0);
     const rollCrit = (isCrit ? ' + 1d12[Crit]' : '') 
       + ((isCrit && critEffectDamage > 0) 
         ? ` + ${critEffectDamage}[Crit Effects]` 
         : '');
     const rollFormula = `${rollDoubleDamage}`
      + `(`
-       + `${actorData.class?.meleeDice ?? '0d0'}${rollPlusOneDice}${rollCrit} + @dmg[DMG ${actorData.attributes.badass.rollsEnabled ? 'Stat' : 'Mod'}] `
+       + `${actorSystem.class?.meleeDice ?? '0d0'}${rollPlusOneDice}${rollCrit} + @dmg[DMG ${actorSystem.attributes.badass.rollsEnabled ? 'Stat' : 'Mod'}] `
        + ((effectDamage > 0) ? `+ ${effectDamage}[Melee Dmg Effects]` : '')
      + `)[Kinetic]`;
     const roll = new Roll(

@@ -1,56 +1,56 @@
 {
-  data.bonus.stats.acc.value
-  data.bonus.stats.acc.mod
+  system.bonus.stats.acc.value
+  system.bonus.stats.acc.mod
 
-  data.bonus.stats.dmg.value
-  data.bonus.stats.dmg.mod
+  system.bonus.stats.dmg.value
+  system.bonus.stats.dmg.mod
 
-  data.bonus.stats.spd.value
-  data.bonus.stats.spd.mod
+  system.bonus.stats.spd.value
+  system.bonus.stats.spd.mod
 
-  data.bonus.stats.mst.value
-  data.bonus.stats.mst.mod
+  system.bonus.stats.mst.value
+  system.bonus.stats.mst.mod
 
-  data.bonus.checks.interact
-  data.bonus.checks.talk
-  data.bonus.checks.insight
-  data.bonus.checks.sneak
-  data.bonus.checks.search
-  data.bonus.checks.traverse
-  data.bonus.checks.initiative
-  data.bonus.checks.throw
-  data.bonus.checks.movement // Modifies movement, not movement checks.
+  system.bonus.checks.interact
+  system.bonus.checks.talk
+  system.bonus.checks.insight
+  system.bonus.checks.sneak
+  system.bonus.checks.search
+  system.bonus.checks.traverse
+  system.bonus.checks.initiative
+  system.bonus.checks.throw
+  system.bonus.checks.movement // Modifies movement, not movement checks.
 
-  data.bonus.badass // Modifies Badass Rank.
+  system.bonus.badass // Modifies Badass Rank.
 
-  data.bonus.healths.flesh.max // Modifies max health. You know, the non-shield, non-armor health.
-  data.bonus.healths.flesh.regen // Modifies health regen. You know, the non-shield, non-armor health.
+  system.bonus.healths.flesh.max // Modifies max health. You know, the non-shield, non-armor health.
+  system.bonus.healths.flesh.regen // Modifies health regen. You know, the non-shield, non-armor health.
 
-  data.bonus.healths.shield.max
-  data.bonus.healths.shield.regen
+  system.bonus.healths.shield.max
+  system.bonus.healths.shield.regen
 
-  data.bonus.healths.armor.max
-  data.bonus.healths.armor.regen
+  system.bonus.healths.armor.max
+  system.bonus.healths.armor.regen
 
-  data.bonus.healths.bone.max
-  data.bonus.healths.bone.regen
+  system.bonus.healths.bone.max
+  system.bonus.healths.bone.regen
 
-  data.bonus.healths.eridian.max
-  data.bonus.healths.eridian.regen
+  system.bonus.healths.eridian.max
+  system.bonus.healths.eridian.regen
 
-  data.bonus.combat.melee.acc
-  data.bonus.combat.melee.dmg
-  data.bonus.combat.melee.critdmg
+  system.bonus.combat.melee.acc
+  system.bonus.combat.melee.dmg
+  system.bonus.combat.melee.critdmg
 
-  data.bonus.combat.shooting.acc
-  data.bonus.combat.shooting.dmg
-  data.bonus.combat.shooting.critdmg
+  system.bonus.combat.shooting.acc
+  system.bonus.combat.shooting.dmg
+  system.bonus.combat.shooting.critdmg
 
-  data.bonus.combat.attack.acc
-  data.bonus.combat.attack.dmg
-  data.bonus.combat.attack.critdmg
+  system.bonus.combat.attack.acc
+  system.bonus.combat.attack.dmg
+  system.bonus.combat.attack.critdmg
 
-  data.bonus.combat.grenades.acc
-  data.bonus.combat.grenades.dmg
-  data.bonus.combat.grenades.critdmg
+  system.bonus.combat.grenades.acc
+  system.bonus.combat.grenades.dmg
+  system.bonus.combat.grenades.critdmg
 }

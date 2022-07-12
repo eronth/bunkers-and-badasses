@@ -91,7 +91,7 @@ Hooks.once('init', async function() {
 
   game.socket.on('show-bm-red-text', async data => {
     const item = data.item;
-    const itemData = item.data.data;
+    const itemSystem = item.data.system;
     
     const user = game.users.get(game.user.id);
       if (user.isGM) 
@@ -99,7 +99,7 @@ Hooks.once('init', async function() {
       const secretMessageData = {
         user: user,
         flavor: `Secret BM only notes for ${this.actor.name}'s <b>${item.name}</b>`,
-        content: itemData.redTextEffectBM,
+        content: itemSystem.redTextEffectBM,
         whisper: game.users.filter(u => u.isGM).map(u => u.id),
         speaker: ChatMessage.getSpeaker(),
       };
@@ -213,17 +213,17 @@ Hooks.once("ready", async function() {
 
 Hooks.on("preCreateToken", function (document, data) {
   const actor = document?.actor;
-  const actorData = actor?.data?.data;
+  const actorSystem = actor?.data?.system;
   const tokenData = document.data;
 
   // Get the Hps values from the actor
-  const actorHps = actorData.attributes.hps;
+  const actorHps = actorSystem.attributes.hps;
   const tokenBars = tokenData?.flags?.barbrawl?.resourceBars;
 
-  const hasTokenLoadedBefore = actorData?.attributes?.hasTokenLoadedBefore ?? false;
+  const hasTokenLoadedBefore = actorSystem?.attributes?.hasTokenLoadedBefore ?? false;
 
   // Get the settings values.
-  const previousHpsSettings = actorData?.attributes?.previousHpsSettings ?? { 
+  const previousHpsSettings = actorSystem?.attributes?.previousHpsSettings ?? { 
     Flesh: true,
     Shield: true,
     Armor: ((actor.type == 'npc') ? true : false),
@@ -294,12 +294,12 @@ Hooks.on("preCreateToken", function (document, data) {
   }
 
   // Always save settings changes.
-  const settingsKey = 'data.attributes.previousHpsSettings';
+  const settingsKey = 'system.attributes.previousHpsSettings';
   actor.update({[settingsKey]: currentHpsSettings});
 
   // Mark if the token has been loaded before, so we can track first ever load or not.
   if (!hasTokenLoadedBefore) {
-    const tokenLoadKey = 'data.attributes.hasTokenLoadedBefore';
+    const tokenLoadKey = 'system.attributes.hasTokenLoadedBefore';
     actor.update({[tokenLoadKey]: true});
   }
 
@@ -374,7 +374,7 @@ const tokenBarbrawlBars = {
 async function createItemMacro(data, slot) {
   if (data.type !== "Item") return;
   if (!("data" in data)) return ui.notifications.warn("You can only create macro buttons for owned Items");
-  const item = data.data;
+  const item = data["data"];
 
   // Create the macro command
   const command = `game.bnb.rollItemMacro("${item.name}");`;

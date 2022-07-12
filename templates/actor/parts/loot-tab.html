@@ -2,11 +2,11 @@
 <div class="flexrow">
   <div class="flexrow flex-size-1 centerize grenade-input">
     <label for="grenade-input" class="grenade-input-label flex-size-2">Grenades: Count </label>
-    <input id="grenade-input" class="grenade-input" value="{{data.attributes.grenades.value}}" name="data.attributes.grenades.value"
+    <input id="grenade-input" class="grenade-input" value="{{system.attributes.grenades.value}}" name="system.attributes.grenades.value"
     onfocus="this.select()" type="number" data-dtype="Number"
     />
     <label for="grenade-input" class="grenade-input-label flex-size-2"> Max </label>
-    <input id="grenade-input" class="grenade-input" value="{{data.attributes.grenades.max}}" name="data.attributes.grenades.max"
+    <input id="grenade-input" class="grenade-input" value="{{system.attributes.grenades.max}}" name="system.attributes.grenades.max"
     onfocus="this.select()" type="number" data-dtype="Number"
     />
   </div>
@@ -16,7 +16,7 @@
   <div class="flexrow flex-size-1 centerize gold-input">
     <div class="max-width-50">
       <label for="gold-input" class="gold-input-label flex-size-2">Gold: </label>
-      <input id="gold-input" class="gold-input" value="{{data.gold}}" name="data.gold"
+      <input id="gold-input" class="gold-input" value="{{system.gold}}" name="system.gold"
       onfocus="this.select()" type="number" data-dtype="Number"
       />
     </div>
@@ -59,17 +59,17 @@
           <div class="gun-row">
             <img id="hits" alt="Hits" class="critshits-icon" 
               src="systems/bunkers-and-badasses/assets/weapons/hits.png" />
-            <label class="gun-row-hits">{{data.accuracy.low.hits}} {{data.accuracy.mid.hits}} {{data.accuracy.high.hits}}</label>
-            {{{data.dmgHtml}}}
+            <label class="gun-row-hits">{{system.accuracy.low.hits}} {{system.accuracy.mid.hits}} {{system.accuracy.high.hits}}</label>
+            {{{system.dmgHtml}}}
             <label class="gun-detail-header">  Range:</label>
-            <label>{{data.range}} sq</label>
+            <label>{{system.range}} sq</label>
           </div>
         </div>
         <div class="item-effect item-prop-stack">
           <div class="gun-row">
             <img id="crits" alt="Crits" class="critshits-icon" 
               src="systems/bunkers-and-badasses/assets/weapons/crits.png" />
-            <label class="gun-row-crits">{{data.accuracy.low.crits}} {{data.accuracy.mid.crits}} {{data.accuracy.high.crits}}</label>
+            <label class="gun-row-crits">{{system.accuracy.low.crits}} {{system.accuracy.mid.crits}} {{system.accuracy.high.crits}}</label>
           </div>
         </div>
         <!--
@@ -77,7 +77,7 @@
             <div class="gun-row">
               <label class="gun-detail-header">Effects:</label>
               <label class="large-text-overflow-hidden">
-                {{data.prefix.effects}}, {{data.guildBonus}}, {{data.effect}}
+                {{system.prefix.effects}}, {{system.guildBonus}}, {{system.effect}}
               </label>
             </div>
           </div>
@@ -85,7 +85,7 @@
       </div>
     </div>
     <div class="item-equip-control">
-      <a class="checkbox" title="Equip Item?" data-target="item" data-item-target="data.equipped">
+      <a class="checkbox" title="Equip Item?" data-target="item" data-item-target="system.equipped">
         {{#if item.data.equipped}}<i class="far fa-check-square"></i>{{else}}<i class="far fa-square"></i></a>{{/if}}
       </a>
     </div>
