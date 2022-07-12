@@ -1,7 +1,7 @@
-<form class="item-form-rarity {{cssClass}}" style="--rarityColor: {{data.rarity.colorValue}}" autocomplete="off">
+<form class="item-form-rarity {{cssClass}}" style="--rarityColor: {{system.rarity.colorValue}}" autocomplete="off">
   <header class="sheet-header item-header">
     <img class="profile-img item-rarity-border" 
-          style="--rarityColor: {{data.rarity.colorValue}}" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
+          style="--rarityColor: {{system.rarity.colorValue}}" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
     <div class="header-fields flexrow">
       <div class="flex-size-3">
         <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Gun Name"/></h1>
@@ -27,13 +27,13 @@
           <div class="crit-hit hit">
             <input class="flex-size-1 crit-hit hit"
             onfocus="this.select()"
-            value="{{data.accuracy.low.hits}}" name="data.accuracy.low.hits"
+            value="{{system.accuracy.low.hits}}" name="system.accuracy.low.hits"
             type="number" data-dtype="Number" />
           </div>
           <div class="crit-hit crit">
             <input class="flex-size-1 crit-hit crit"
             onfocus="this.select()"
-            value="{{data.accuracy.low.crits}}" name="data.accuracy.low.crits"
+            value="{{system.accuracy.low.crits}}" name="system.accuracy.low.crits"
             type="number" data-dtype="Number" />
           </div>
         </div>
@@ -42,13 +42,13 @@
           <div class="crit-hit hit">
             <input class="flex-size-1 crit-hit hit"
             onfocus="this.select()"
-            value="{{data.accuracy.mid.hits}}" name="data.accuracy.mid.hits"
+            value="{{system.accuracy.mid.hits}}" name="system.accuracy.mid.hits"
             type="number" data-dtype="Number" />
           </div>
           <div class="crit-hit crit">
             <input class="flex-size-1 crit-hit crit"
             onfocus="this.select()"
-            value="{{data.accuracy.mid.crits}}" name="data.accuracy.mid.crits"
+            value="{{system.accuracy.mid.crits}}" name="system.accuracy.mid.crits"
             type="number" data-dtype="Number" />
           </div>
         </div>
@@ -57,13 +57,13 @@
           <div class="crit-hit hit">
             <input class="flex-size-1 crit-hit hit"
             onfocus="this.select()"
-            value="{{data.accuracy.high.hits}}" name="data.accuracy.high.hits"
+            value="{{system.accuracy.high.hits}}" name="system.accuracy.high.hits"
             type="number" data-dtype="Number" />
           </div>
           <div class="crit-hit crit">
             <input class="flex-size-1 crit-hit crit"
             onfocus="this.select()"
-            value="{{data.accuracy.high.crits}}" name="data.accuracy.high.crits"
+            value="{{system.accuracy.high.crits}}" name="system.accuracy.high.crits"
             type="number" data-dtype="Number" />
           </div>
         </div>
@@ -76,7 +76,7 @@
             <label for="level-input-{{item.id}}" class="flex-size-1">Level</label>
             <input id="level-input-{{item.id}}" class="flex-size-1"
             onfocus="this.select()"
-            value="{{data.level}}" name="data.level"
+            value="{{system.level}}" name="system.level"
             type="number" data-dtype="Number"
             />
           </div>
@@ -84,14 +84,14 @@
             <label for="range-value flex-size-3 bolded">Range</label>
             <input id="range-value" class="gun-center-entry"
             onfocus="this.select()"
-            value="{{data.range}}" name="data.range"
+            value="{{system.range}}" name="system.range"
             type="number" data-dtype="Number" />
           </div>
           <div class="centerize">
             <label for="bonus-crit flex-size-4 bolded">Bonus Crit Dmg</label>
             <input id="bonus-crit" class="gun-center-entry"
             onfocus="this.select()"
-            value="{{data.bonusCritDmg}}" name="data.bonusCritDmg"
+            value="{{system.bonusCritDmg}}" name="system.bonusCritDmg"
             type="number" data-dtype="Number" />
           </div>
         </div>
@@ -100,7 +100,7 @@
             <label for="prefix-input-{{item.id}}">Prefix</label>
             <input id="prefix-input-{{item.id}}" class="flex-size-2"
               onfocus="this.select()"
-              value="{{data.prefix.name}}" name="data.prefix.name"
+              value="{{system.prefix.name}}" name="system.prefix.name"
               type="text" data-dtype="String"
               />
           </div>
@@ -108,7 +108,7 @@
             <label for="prefix-bonus-input-{{item.id}}">Bonus</label>
             <input id="prefix-bonus-input-{{item.id}}" class="flex-size-4"
               onfocus="this.select()"
-              value="{{data.prefix.effects}}" placeholder="Prefix Bonus" name="data.prefix.effects"
+              value="{{system.prefix.effects}}" placeholder="Prefix Bonus" name="system.prefix.effects"
               type="text" data-dtype="String"
               />
           </div>
@@ -118,7 +118,7 @@
             <label for="guild-input-{{item.id}}">Guild</label>
             <input id="guild-input-{{item.id}}" class="flex-size-2"
             onfocus="this.select()"
-              value="{{data.guild}}" name="data.guild"
+              value="{{system.guild}}" name="system.guild"
               type="text" data-dtype="String"
               />
           </div>
@@ -126,7 +126,7 @@
             <label for="guild-bonus-input-{{item.id}}">Bonus</label>
             <input id="guild-bonus-input-{{item.id}}" class="flex-size-4" 
             onfocus="this.select()"
-              value="{{data.guildBonus}}" placeholder="Guild Bonus" name="data.guildBonus"
+              value="{{system.guildBonus}}" placeholder="Guild Bonus" name="system.guildBonus"
               type="text" data-dtype="String"
               />
           </div>
@@ -142,7 +142,7 @@
           <label for="gun-info" class="bolded">Gun Info</label>
           <input id="gun-info" class="flex-size-3"
           onfocus="this.select()"
-            value="{{data.effect}}" name="data.effect"
+            value="{{system.effect}}" name="system.effect"
             type="text" data-dtype="String" />
         </div>
       </div>
@@ -152,7 +152,7 @@
       {{> "systems/bunkers-and-badasses/templates/item/parts/damage-entry.html"
         device="gun"
         bonus="damage" bonusTag="dmg"
-        elements=data.elements
+        elements=system.elements
       }}
     </div>
     <div class="flexcol stat-mod-mod-header">
@@ -164,34 +164,34 @@
         <div class="flexrow flex-group-center flex-size-2 gun-char-stats-section">
           <label class="flex-size-2">Acc Mod</label>
           +<input 
-          name="data.statMods.acc" 
-          value="{{data.statMods.acc}}"
+          name="system.statMods.acc" 
+          value="{{system.statMods.acc}}"
           onfocus="this.select()"
           type="number" data-dtype="Number" />
           <label class="flex-size-2">Dmg Mod</label>
           +<input 
-          name="data.statMods.dmg" 
-          value="{{data.statMods.dmg}}"
+          name="system.statMods.dmg" 
+          value="{{system.statMods.dmg}}"
           onfocus="this.select()"
           type="number" data-dtype="Number" />
           <label class="flex-size-2">Spd Mod</label>
           +<input 
-          name="data.statMods.spd" 
-          value="{{data.statMods.spd}}"
+          name="system.statMods.spd" 
+          value="{{system.statMods.spd}}"
           onfocus="this.select()"
           type="number" data-dtype="Number" />
           <label class="flex-size-2">Mst Mod</label>
           +<input 
-          name="data.statMods.mst" 
-          value="{{data.statMods.mst}}"
+          name="system.statMods.mst" 
+          value="{{system.statMods.mst}}"
           onfocus="this.select()"
           type="number" data-dtype="Number" />
         </div>
       </div>
     </div>
     <!-- <input 
-      name="data.special.overrideType" 
-      value="{{data.special.overrideType}}"
+      name="system.special.overrideType" 
+      value="{{system.special.overrideType}}"
       onfocus="this.select()"
       type="text" data-dtype="String" /> -->
     {{> "systems/bunkers-and-badasses/templates/item/parts/red-text.html" }}
