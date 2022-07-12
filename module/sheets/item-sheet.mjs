@@ -207,7 +207,7 @@ export class BNBItemSheet extends ItemSheet {
 
   _onCheckboxToggleClick(event) {
     const targetKey = $(event.currentTarget).attr("data-item-target");
-    const currentValue = getProperty(this.item.data, targetKey);
+    const currentValue = getProperty(this.item, targetKey);
     return this.item.update({ [targetKey]: !currentValue });
   }
 
