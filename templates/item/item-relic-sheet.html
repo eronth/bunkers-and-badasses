@@ -1,7 +1,7 @@
-<form class="item-form-rarity {{cssClass}}" style="--rarityColor: {{data.rarity.colorValue}}" autocomplete="off">
+<form class="item-form-rarity {{cssClass}}" style="--rarityColor: {{system.rarity.colorValue}}" autocomplete="off">
   <header class="sheet-header">
     <img class="profile-img item-rarity-border" 
-          style="--rarityColor: {{data.rarity.colorValue}}" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
+          style="--rarityColor: {{system.rarity.colorValue}}" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
     <div class="header-fields flexrow">
       <div class="flex-size-3">
         <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Relic Type"/></h1>
@@ -19,7 +19,7 @@
       <div class="item-body flexrow">
         <label for="class-input-{{item.id}}">Class</label>
         <input id="class-input-{{item.id}}" class="flexlarge" 
-          value="{{data.class}}" name="data.class"
+          value="{{system.class}}" name="system.class"
           type="text" data-dtype="String"
           />
       </div>
@@ -27,12 +27,12 @@
     <div class="item-body flexrow">
       <label for="effect-input-{{item.id}}">Effect</label>
       <input id="effect-input-{{item.id}}" class="flexlarge" 
-        value="{{data.effect}}" name="data.effect"
+        value="{{system.effect}}" name="system.effect"
         type="text"  data-dtype="String"
         />
       <label for="class-effect-input-{{item.id}}">Class Effect</label>
       <input id="class-effect-input-{{item.id}}" class="flexlarge" 
-        value="{{data.classEffect}}" name="data.classEffect"
+        value="{{system.classEffect}}" name="system.classEffect"
         type="text" data-dtype="String"
         />
     </div>
