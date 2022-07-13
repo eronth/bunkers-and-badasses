@@ -85,8 +85,8 @@ export class BNBActorSheet extends ActorSheet {
     ///////////////////////////////////
     //////// Update from 0.1.3 ////////
     ///////////////////////////////////
-    const actorHPs = this?.actor?.data?.system?.attributes?.hps;
-    const effectsHPs = this?.actor?.data?.system?.bonus?.healths;
+    const actorHPs = this?.actor?.system?.attributes?.hps;
+    const effectsHPs = this?.actor?.system?.bonus?.healths;
 
     ////////////  Update HP From Previous Versions  ////////////
     // This moves the "max" value to be treated as a "base" stat value.
@@ -216,7 +216,7 @@ export class BNBActorSheet extends ActorSheet {
       }
     });
 
-    // Make it easier to access the experience data.
+    // Make it easier to access the experience values.
     const xpData = context.xp = actorSystem.attributes.xp;
 
     // Calculate the percentage completion of each xp segment
@@ -285,7 +285,7 @@ export class BNBActorSheet extends ActorSheet {
     actorHPs.flesh.combinedRegen = actorHPs.armor.combinedRegen = actorHPs.shield.combinedRegen 
       = actorHPs.bone.combinedRegen = actorHPs.eridian.combinedRegen = "";
     
-    // Get the HPs from the actor data.
+    // Get the HPs from the actor data
     Object.entries(context.items).forEach(entry => {
       const [itemIndex, itemData] = entry;
       if (itemData.type === "shield" && itemData.system.equipped) {
@@ -392,8 +392,8 @@ export class BNBActorSheet extends ActorSheet {
       } else if (i.type === 'feature') {
         features.push(i); // Append to features.
       } else if (i.type === 'skill') {
-        if (i.data.tier != null) {
-          skills[i.data.tier].push(i); // Append to skill.
+        if (i.system.tier != null) {
+          skills[i.system.tier].push(i); // Append to skill.
         }
       } else if (i.type === 'Archetype Feat') {
         archetypeFeats.push(i); // Append to archetype Feats.
@@ -401,7 +401,7 @@ export class BNBActorSheet extends ActorSheet {
         let elemIcon = "";
         let gunDmgString = "";
         const finalPlus = `<label class="element-damage-plus"> + </label>`;
-        Object.entries(i.data.elements).forEach(e => {
+        Object.entries(i.system.elements).forEach(e => {
           const element = e[1];
           if(element.enabled) {
             elemIcon = (e[0] === "kinetic") ? ""
@@ -421,27 +421,27 @@ export class BNBActorSheet extends ActorSheet {
         // Add the "damage" text.
         gunDmgString += `<label class="element-damage-damage">Damage</label>`;
         
-        i.data.dmgHtml = gunDmgString;
+        i.system.dmgHtml = gunDmgString;
         guns.push(i);
-        if (i.data.equipped) {
+        if (i.system.equipped) {
           equippedGuns.push(i);
         }
       } else if (i.type === 'shield') {
         let shieldResistString = "";
-        Object.entries(i.data.elements).forEach(e => {
+        Object.entries(i.system.elements).forEach(e => {
           const element = e[1];
           if(element.enabled) {
             shieldResistString += `<img id="resist${element.label}" alt="${element.label}" 
               class="element-resist-icon" src="systems/bunkers-and-badasses/assets/elements/${element.label}.png" />`;
           }
         });
-        i.data.resistHtml = shieldResistString;
+        i.system.resistHtml = shieldResistString;
         shields.push(i);
       } else if (i.type === 'grenade') {
         let grenadeDmgString = "";
         let elemIcon = "";
         const finalPlus = `<label class="element-damage-plus"> + </label>`;
-        Object.entries(i.data.elements).forEach(e => {
+        Object.entries(i.system.elements).forEach(e => {
           const element = e[1];
           if(element.enabled) {
             elemIcon = (e[0] === "kinetic") ? ""
@@ -461,9 +461,9 @@ export class BNBActorSheet extends ActorSheet {
         // Add the "damage" text.
         grenadeDmgString += `<label class="element-damage-damage">Damage</label>`;
 
-        i.data.dmgHtml = grenadeDmgString;
+        i.system.dmgHtml = grenadeDmgString;
         grenades.push(i);
-        if (i.data.equipped) {
+        if (i.system.equipped) {
           equippedGrenades.push(i);
         }
       } else if (i.type === 'relic') {
@@ -676,10 +676,10 @@ export class BNBActorSheet extends ActorSheet {
     if (target == "item") {
       target = $(event.currentTarget).attr("data-item-target")
       let item = this.actor.items.get($(event.currentTarget).parents(".item").attr("data-item-id"))
-      return item.update({ [`${target}`]: !getProperty(item.data, target) })
+      return item.update({ [`${target}`]: !getProperty(item.system, target) })
     }
     if (target)
-      return this.actor.update({[`${target}`] : !getProperty(this.actor.data, target)});
+      return this.actor.update({[`${target}`] : !getProperty(this.actor.system, target)});
   }
 
   async _onActionSkillEdit(event) {
@@ -973,20 +973,20 @@ export class BNBActorSheet extends ActorSheet {
 
   _onCheckboxClick(event) {
     let target = $(event.currentTarget).attr("data-target")
-    // if (target == "item") {
-    //     target = $(event.currentTarget).attr("data-item-target")
-    //     let item = this.actor.items.get($(event.currentTarget).parents(".item").attr("data-item-id"))
-    //     return item.update({ [`${target}`]: !getProperty(item.data, target) })
-    // }
+    if (target == "item") {
+        target = $(event.currentTarget).attr("data-item-target")
+        let item = this.actor.items.get($(event.currentTarget).parents(".item").attr("data-item-id"))
+        return item.update({ [`${target}`]: !getProperty(item, target) })
+    }
     if (target)
-        return this.actor.update({[`${target}`] : !getProperty(this.actor.data, target)});
+        return this.actor.update({[`${target}`] : !getProperty(this.actor.system, target)});
   }
 
   _expandItemDropdown(event) {
     let id = $(event.currentTarget).attr("data-item-id")
     let item = this.actor.items.get(id)
     if (item && event.button == 0)
-      this._createDropdown(event, { text: item.data.system.description });
+      this._createDropdown(event, { text: item.system.description });
     else if (item)
       item.sheet.render(true)
   }
@@ -996,8 +996,7 @@ export class BNBActorSheet extends ActorSheet {
     event.preventDefault()
     let li = $(event.currentTarget).parents(".item-element-group")
     // Toggle expansion for an item
-    if (li.hasClass("expanded")) // If expansion already shown - remove
-    {
+    if (li.hasClass("expanded")) { // If expansion already shown - remove
       let summary = li.children(".item-summary");
       summary.slideUp(200, () => summary.remove());
     } else {

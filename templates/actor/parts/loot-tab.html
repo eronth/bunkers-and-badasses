@@ -38,19 +38,19 @@
   </li>
   {{#each guns as |item id|}}
   <li class="item item-element-group loot-rarity-fade-border flexrow" 
-    style="--rarityColor: {{item.data.rarity.colorValue}}"
+    style="--rarityColor: {{item.system.rarity.colorValue}}"
     data-item-id="{{item._id}}">
     <div class="item-name rollable" data-roll-type="item">
       <div class="item-image">
         <a class="rollable" data-roll-type="item">
         <img class="item-rarity-outline" 
-          style="--rarityColor: {{item.data.rarity.colorValue}}" 
-          src="{{item.img}}" title="{{item.data.class}} {{item.name}}" width="24" height="24"/></a>
+          style="--rarityColor: {{item.system.rarity.colorValue}}" 
+          src="{{item.img}}" title="{{item.system.class}} {{item.name}}" width="24" height="24"/></a>
       </div>
       <div class="flexcol">
-        <div class="bolded font-rarity" style="--rarityColor: {{item.data.rarity.colorValue}}">
-          {{item.data.rarity.name}} {{shortName item.data.type.name}}</div>
-        <h4 class="bolded">{{item.data.prefix.name}} {{item.name}}</h4>
+        <div class="bolded font-rarity" style="--rarityColor: {{item.system.rarity.colorValue}}">
+          {{item.system.rarity.name}} {{shortName item.system.type.name}}</div>
+        <h4 class="bolded">{{item.system.prefix.name}} {{item.name}}</h4>
       </div>
     </div>
     <div class="item-details">
@@ -86,7 +86,7 @@
     </div>
     <div class="item-equip-control">
       <a class="checkbox" title="Equip Item?" data-target="item" data-item-target="system.equipped">
-        {{#if item.data.equipped}}<i class="far fa-check-square"></i>{{else}}<i class="far fa-square"></i></a>{{/if}}
+        {{#if item.system.equipped}}<i class="far fa-check-square"></i>{{else}}<i class="far fa-square"></i></a>{{/if}}
       </a>
     </div>
     <div class="item-controls">
@@ -114,37 +114,37 @@
   </li>
   {{#each shields as |item id|}}
   <li class="item item-element-group loot-rarity-fade-border flexrow" 
-      style="--rarityColor: {{item.data.rarity.colorValue}}"
+      style="--rarityColor: {{item.system.rarity.colorValue}}"
       data-item-id="{{item._id}}">
     <div class="item-name rollable" data-roll-type="item">
       <div class="item-image">
         <a class="rollable" data-roll-type="item">  
           <img class="item-rarity-outline" 
-               style="--rarityColor: {{item.data.rarity.colorValue}}" 
-               src="{{item.img}}" title="{{item.data.class}} {{item.name}}" width="24" height="24"/></a>
+               style="--rarityColor: {{item.system.rarity.colorValue}}" 
+               src="{{item.img}}" title="{{item.system.class}} {{item.name}}" width="24" height="24"/></a>
       </div>
       <div class="flexcol">
-        <div class="bolded font-rarity" style="--rarityColor: {{item.data.rarity.colorValue}}">{{item.data.rarity.name}}</div>
+        <div class="bolded font-rarity" style="--rarityColor: {{item.system.rarity.colorValue}}">{{item.system.rarity.name}}</div>
         <h4 class="bolded">{{item.name}}</h4>
       </div>
     </div>
     <div class="item-details">
       <div class="flexcol item-effect-stack-container">
         <div class="item-effect-stack item-prop-stack">
-          <label>{{#if item.data.effect}}<b>Effect</b>:{{/if}} {{item.data.effect}}</label>
+          <label>{{#if item.system.effect}}<b>Effect</b>:{{/if}} {{item.system.effect}}</label>
         </div>
         <div class="flexrow item-effect-stack item-prop-stack">
           <div class="loot-health">
 
             <img id="enable{{label}}" alt="{{element.label}}" 
             class="health-icon" 
-            src="systems/bunkers-and-badasses/assets/SHA/{{item.data.healthType}}-{{getBestHealthShade item.data.healthType}}.png" />
-            <label> {{item.data.capacity}} {{capitalize (hpTitle item.data.healthType)}} - {{item.data.recoveryRate}} {{capitalize (hpToRecoveryTitle item.data.healthType)}}</label>
+            src="systems/bunkers-and-badasses/assets/SHA/{{item.system.healthType}}-{{getBestHealthShade item.system.healthType}}.png" />
+            <label> {{item.system.capacity}} {{capitalize (hpTitle item.system.healthType)}} - {{item.system.recoveryRate}} {{capitalize (hpToRecoveryTitle item.system.healthType)}}</label>
 
             <div class="resist-label"> 
               <label class="resist-label">
-                {{#if item.data.resistHtml}}
-                Resists: {{{item.data.resistHtml}}}
+                {{#if item.system.resistHtml}}
+                Resists: {{{item.system.resistHtml}}}
                 {{/if}}
               </label>
             </div>
@@ -153,8 +153,8 @@
       </div>
     </div>
     <div class="item-equip-control">
-      <a class="checkbox" title="Equip Item?" data-target="item" data-item-target="data.equipped">
-      {{#if item.data.equipped}}<i class="far fa-check-square"></i>{{else}}<i class="far fa-square"></i></a>{{/if}}
+      <a class="checkbox" title="Equip Item?" data-target="item" data-item-target="system.equipped">
+      {{#if item.system.equipped}}<i class="far fa-check-square"></i>{{else}}<i class="far fa-square"></i></a>{{/if}}
       </a>
     </div>
     <div class="item-controls">
@@ -181,17 +181,17 @@
   </li>
   {{#each grenades as |item id|}}
   <li class="item item-element-group loot-rarity-fade-border flexrow" 
-    style="--rarityColor: {{item.data.rarity.colorValue}}"
+    style="--rarityColor: {{item.system.rarity.colorValue}}"
     data-item-id="{{item._id}}">
     <div class="item-name rollable" data-roll-type="item">
       <div class="item-image">
         <a class="rollable" data-roll-type="item">
         <img class="item-rarity-outline" 
-          style="--rarityColor: {{item.data.rarity.colorValue}}" 
-          src="{{item.img}}" title="{{item.data.class}} {{item.name}}" width="24" height="24"/></a>
+          style="--rarityColor: {{item.system.rarity.colorValue}}" 
+          src="{{item.img}}" title="{{item.system.class}} {{item.name}}" width="24" height="24"/></a>
       </div>
       <div class="flexcol">
-        <div class="bolded font-rarity" style="--rarityColor: {{item.data.rarity.colorValue}}">{{item.data.rarity.name}}</div>
+        <div class="bolded font-rarity" style="--rarityColor: {{item.system.rarity.colorValue}}">{{item.system.rarity.name}}</div>
         <h4 class="bolded">{{item.name}}</h4>
       </div>
     </div>
@@ -199,19 +199,19 @@
       <div class="flexcol item-effec-stack-container">
         <div class="item-effect item-prop-stack">
           <label class="item-effect">
-            <div>{{#if item.data.effect}}<b>Effect</b>:{{/if}} {{item.data.effect}}</div>
+            <div>{{#if item.system.effect}}<b>Effect</b>:{{/if}} {{item.system.effect}}</div>
           </label>
         </div>
         <div class="item-effect item-prop-stack">
           <label class="loot-element-damage item-effect item-prop-stack loot-element-damage">
-            {{{item.data.dmgHtml}}}
+            {{{item.system.dmgHtml}}}
           </label>
         </div>
       </div>
     </div>
     <div class="item-equip-control">
-      <a class="checkbox" title="Equip Item?" data-target="item" data-item-target="data.equipped">
-        {{#if item.data.equipped}}<i class="far fa-check-square"></i>{{else}}<i class="far fa-square"></i></a>{{/if}}
+      <a class="checkbox" title="Equip Item?" data-target="item" data-item-target="system.equipped">
+        {{#if item.system.equipped}}<i class="far fa-check-square"></i>{{else}}<i class="far fa-square"></i></a>{{/if}}
       </a>
     </div>
     <div class="item-controls">
@@ -240,33 +240,33 @@
   {{#each relics as |item id|}}
   {{log item}}
   <li class="item item-element-group loot-rarity-fade-border flexrow" 
-      style="--rarityColor: {{item.data.rarity.colorValue}}"
+      style="--rarityColor: {{item.system.rarity.colorValue}}"
       data-item-id="{{item._id}}">
     <div class="item-name rollable" data-roll-type="item">
       <div class="item-image">
         <a class="rollable" data-roll-type="item">
           <img class="item-rarity-outline" 
-               style="--rarityColor: {{item.data.rarity.colorValue}}" 
-               src="{{item.img}}" title="{{item.data.class}} {{item.name}}" width="24" height="24"/></a>
+               style="--rarityColor: {{item.system.rarity.colorValue}}" 
+               src="{{item.img}}" title="{{item.system.class}} {{item.name}}" width="24" height="24"/></a>
       </div>
       <div class="flexcol">
-        <div class="bolded font-rarity" style="--rarityColor: {{item.data.rarity.colorValue}}">{{item.data.rarity.name}}</div>
+        <div class="bolded font-rarity" style="--rarityColor: {{item.system.rarity.colorValue}}">{{item.system.rarity.name}}</div>
         <h4 class="bolded">{{item.name}}</h4>
       </div>
     </div>
     <div class="item-details">
       <div class="flexcol item-effect-stack-container">
         <div class="item-effect-stack item-prop-stack">
-          <label>{{#if item.data.effect}}<b>Effect</b>:{{/if}} {{item.data.effect}}</label>
+          <label>{{#if item.system.effect}}<b>Effect</b>:{{/if}} {{item.system.effect}}</label>
         </div>
         <div class="flexrow item-effect-stack item-prop-stack">
-          <label>{{#if item.data.classEffect}}<b>{{item.data.class}} Class</b>:{{/if}} {{item.data.classEffect}}</label>
+          <label>{{#if item.system.classEffect}}<b>{{item.system.class}} Class</b>:{{/if}} {{item.system.classEffect}}</label>
         </div>
       </div>
     </div>
     <div class="item-equip-control">
-      <a class="checkbox" title="Equip Item?" data-target="item" data-item-target="data.equipped">
-      {{#if item.data.equipped}}<i class="far fa-check-square"></i>{{else}}<i class="far fa-square"></i></a>{{/if}}
+      <a class="checkbox" title="Equip Item?" data-target="item" data-item-target="system.equipped">
+      {{#if item.system.equipped}}<i class="far fa-check-square"></i>{{else}}<i class="far fa-square"></i></a>{{/if}}
       </a>
     </div>
     <div class="item-controls">
@@ -293,36 +293,36 @@
   {{#each potions as |item id|}}
   {{log item}}
   <li class="item item-element-group loot-rarity-fade-border flexrow" 
-      style="--rarityColor: {{item.data.rarity.colorValue}}"
+      style="--rarityColor: {{item.system.rarity.colorValue}}"
       data-item-id="{{item._id}}">
     <div class="item-name rollable" data-roll-type="item">
       <div class="item-image">
         <a class="rollable" data-roll-type="item">
           <img class="item-rarity-outline" 
-               style="--rarityColor: {{item.data.rarity.colorValue}}" 
-               src="{{item.img}}" title="{{item.data.class}} {{item.name}}" width="24" height="24"/></a>
+               style="--rarityColor: {{item.system.rarity.colorValue}}" 
+               src="{{item.img}}" title="{{item.system.class}} {{item.name}}" width="24" height="24"/></a>
       </div>
       <div class="flexcol">
-        <div class="bolded font-rarity" style="--rarityColor: {{item.data.rarity.colorValue}}">{{item.data.rarity.name}}</div>
+        <div class="bolded font-rarity" style="--rarityColor: {{item.system.rarity.colorValue}}">{{item.system.rarity.name}}</div>
         <h4 class="bolded">{{item.name}}</h4>
       </div>
     </div>
     <div class="item-details">
       <div class="item-effect item-prop-left">
         <label class="item-effect">
-          <div>{{#if item.data.effect}}<b>Effect</b>:{{/if}} {{item.data.effect}}</div>
+          <div>{{#if item.system.effect}}<b>Effect</b>:{{/if}} {{item.system.effect}}</div>
         </label>
       </div>
       <!-- <div class="item-detail">
-        <label>{{item.data.quantity}}</label>
+        <label>{{item.system.quantity}}</label>
       </div>
       <div class="item-detail">
-        <label>{{item.data.cost}}g</label>
+        <label>{{item.system.cost}}g</label>
       </div> -->
     </div>
     <div class="item-equip-control">
-      <a class="checkbox" title="Equip Item?" data-target="item" data-item-target="data.equipped">
-      {{#if item.data.equipped}}<i class="far fa-check-square"></i>{{else}}<i class="far fa-square"></i></a>{{/if}}
+      <a class="checkbox" title="Equip Item?" data-target="item" data-item-target="system.equipped">
+      {{#if item.system.equipped}}<i class="far fa-check-square"></i>{{else}}<i class="far fa-square"></i></a>{{/if}}
       </a>
     </div>
     <div class="item-controls">
@@ -349,30 +349,30 @@
   {{#each keyItems as |item id|}}
   {{log item}}
   <li class="item item-element-group loot-rarity-fade-border flexrow" 
-  style="--rarityColor: {{item.data.rarity.colorValue}}"
+  style="--rarityColor: {{item.system.rarity.colorValue}}"
   data-item-id="{{item._id}}">
   <div class="item-name rollable" data-roll-type="item">
     <div class="item-image">
       <a class="rollable" data-roll-type="item">
         <img class="item-rarity-outline" 
-        style="--rarityColor: {{item.data.rarity.colorValue}}" 
-        src="{{item.img}}" title="{{item.data.class}} {{item.name}}" width="24" height="24"/></a>
+        style="--rarityColor: {{item.system.rarity.colorValue}}" 
+        src="{{item.img}}" title="{{item.system.class}} {{item.name}}" width="24" height="24"/></a>
       </div>
       <div class="flexcol">
-        <div class="bolded font-rarity" style="--rarityColor: {{item.data.rarity.colorValue}}">{{item.data.rarity.name}}</div>
+        <div class="bolded font-rarity" style="--rarityColor: {{item.system.rarity.colorValue}}">{{item.system.rarity.name}}</div>
         <h4 class="bolded">{{item.name}}</h4>
       </div>
     </div>
     <div class="item-details">
       <div class="item-effect item-prop-left">
         <label class="item-effect">
-          <div>{{#if item.data.effect}}<b>Description</b>:{{/if}} {{item.data.description}}</div>
+          <div>{{#if item.system.effect}}<b>Description</b>:{{/if}} {{item.system.description}}</div>
         </label>
       </div>
     </div>
     <div class="item-equip-control">
-      <a class="checkbox" title="Equip Item?" data-target="item" data-item-target="data.equipped">
-      {{#if item.data.equipped}}<i class="far fa-check-square"></i>{{else}}<i class="far fa-square"></i></a>{{/if}}
+      <a class="checkbox" title="Equip Item?" data-target="item" data-item-target="system.equipped">
+      {{#if item.system.equipped}}<i class="far fa-check-square"></i>{{else}}<i class="far fa-square"></i></a>{{/if}}
       </a>
     </div>
     <div class="item-controls">
