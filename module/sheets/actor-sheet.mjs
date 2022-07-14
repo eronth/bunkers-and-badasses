@@ -504,7 +504,7 @@ export class BNBActorSheet extends ActorSheet {
     //   ev.stopPropagation();
     //   const li = $(ev.currentTarget).parents(".item-element-group");
     //   const item = this.actor.items.get(li.data("itemId"));
-    //   item.data.system.equipped = !item.data.system.equipped;
+    //   item.system.equipped = !item.system.equipped;
     //   let hello="hello"
     // });
     html.find('.item-edit').click(ev => {

@@ -14,13 +14,13 @@
         <div class="flexrow badass-entity-container">
           <div class="flexrow badass-container-inner-left">
             <label><i class="fas fa-skull"></i>&nbsp;Badass&nbsp;Rank</label>
-            <input class="" value="{{data.attributes.badass.rank}}"
+            <input class="" value="{{system.attributes.badass.rank}}"
               type="number" data-dtype="Number"
               disabled />
           </div>
           <div class="flexrow badass-container-inner-right">
             <label>Badass&nbsp;Tokens</label>
-            <input class="" name="data.attributes.badass.tokens" value="{{data.attributes.badass.tokens}}"
+            <input class="" name="system.attributes.badass.tokens" value="{{system.attributes.badass.tokens}}"
               type="number" data-dtype="Number" />
           </div>
         </div>
@@ -28,8 +28,8 @@
           <button class="btn btn-primary btn-badass-roll rollable" data-roll-type="badass-move"><i class="fa fa-dice-d20"></i> Badass Roll</button>
           <div class="flexcol badass-check">
             <label>Badass?</label>
-            <a class="checkbox" title="Become Badass?" data-target="data.attributes.badass.rollsEnabled" data-item-target="data.equipped">
-              {{#if data.attributes.badass.rollsEnabled}}<i class="far fa-check-square"></i>{{else}}<i class="far fa-square"></i></a>{{/if}}
+            <a class="checkbox" title="Become Badass?" data-target="system.attributes.badass.rollsEnabled" data-item-target="system.equipped">
+              {{#if system.attributes.badass.rollsEnabled}}<i class="far fa-check-square"></i>{{else}}<i class="far fa-square"></i></a>{{/if}}
             </a>
           </div>
         </div>
@@ -40,15 +40,15 @@
           <div></div>
           <div class="flex-size-2">
             <button class="btn btn-primary action-skill-button action-skill-use">
-              <label>{{data.class.actionSkill.name}}</label>
+              <label>{{system.class.actionSkill.name}}</label>
             </button>
           </div>
           <div class="flexcol uses-container cc2">
             <div class="flexrow">
-              <input class="" name="data.class.actionSkill.uses.value" value="{{data.class.actionSkill.uses.value}}"
+              <input class="" name="system.class.actionSkill.uses.value" value="{{system.class.actionSkill.uses.value}}"
               type="text" data-dtype="String" />
               <label> / </label>
-              <input class="" name="data.class.actionSkill.uses.max" value="{{data.class.actionSkill.uses.max}}"
+              <input class="" name="system.class.actionSkill.uses.max" value="{{system.class.actionSkill.uses.max}}"
               type="text" data-dtype="String"
               disabled />
             </div>
@@ -90,8 +90,8 @@
             {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/action-components/check.html"
               displayName="Melee"
               checkName="Melee"
-              check=data.checks.melee
-              isBadass=data.attributes.badass.rollsEnabled
+              check=system.checks.melee
+              isBadass=system.attributes.badass.rollsEnabled
               nonRolled=true
               hideStat=true
             }}
@@ -100,8 +100,8 @@
             {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/action-components/check.html"
               displayName="Shoot"
               checkName="Shooting"
-              check=data.checks.shooting
-              isBadass=data.attributes.badass.rollsEnabled
+              check=system.checks.shooting
+              isBadass=system.attributes.badass.rollsEnabled
               nonRolled=true
               hideStat=true
             }}
@@ -110,8 +110,8 @@
             {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/action-components/check.html"
               displayName="Throw"
               checkName="Throw"
-              check=data.checks.throw
-              isBadass=data.attributes.badass.rollsEnabled
+              check=system.checks.throw
+              isBadass=system.attributes.badass.rollsEnabled
               nonRolled=true
               hideStat=true
             }}
@@ -132,13 +132,13 @@
               <div class="item-effect flexrow item-prop-stack attack-details-line">
                 <h4 class="attack-header">Melee Attack</h4>
                 <label>
-                  <div>{{#if data.effect}}<b>Effect</b>:{{/if}} {{data.effect}}</div>
+                  <div>{{#if system.effect}}<b>Effect</b>:{{/if}} {{system.effect}}</div>
                 </label>
               </div>
               <div class="item-effect flexrow item-prop-stack attack-details-line damage-row">
                 <label><i>Shwing!</i></label>
                 <label class="flex-size-2">
-                  <label class="element-label" style="--elementColor:rgb(76, 76, 76)">{{data.class.meleeDice}}&nbsp;</label>
+                  <label class="element-label" style="--elementColor:rgb(76, 76, 76)">{{system.class.meleeDice}}&nbsp;</label>
                   <label class="element-damage-damage">Damage</label>
                 </label>
                 <label class="gun-detail-header"><b>Range:</b>&nbsp;Adjacent</label>
@@ -149,7 +149,7 @@
         {{!- Gun Attack --}}
         {{#each equippedGuns as |item id|}}
         <li class="item item-element-group loot-rarity-fade-border flexrow rollable" 
-          style="--rarityColor: {{item.data.rarity.colorValue}}"
+          style="--rarityColor: {{item.system.rarity.colorValue}}"
           data-item-id="{{item._id}}" data-roll-type="gun-attack">
           <div class="item-details attack-block item-attack-roll">
             <div class="item-controls">
@@ -157,11 +157,11 @@
             </div>
             <div class="flexcol item-effec-stack-container">
               <div class="item-effect flexrow item-prop-stack attack-details-line gun-header-line">
-                <h4 class="attack-header">{{data.prefix.name}} {{item.name}}</h4>
+                <h4 class="attack-header">{{system.prefix.name}} {{item.name}}</h4>
                 <label>
                   <img id="hits" alt="Hits" class="gun-icon" 
-                    src="systems/bunkers-and-badasses/assets/weapons/{{data.type.value}}.webp" />
-                  {{shortName data.type.name}}
+                    src="systems/bunkers-and-badasses/assets/weapons/{{system.type.value}}.webp" />
+                  {{shortName system.type.name}}
                 </label>
               </div>
               <div class="item-effect item-prop-stack">
@@ -170,24 +170,24 @@
                     <div class="flexrow">
                       <label class="gun-row-hits">
                         <img id="hits" alt="Hits" class="critshits-icon" src="systems/bunkers-and-badasses/assets/weapons/hits.png" />
-                        {{data.accuracy.low.hits}} {{data.accuracy.mid.hits}} {{data.accuracy.high.hits}}
+                        {{system.accuracy.low.hits}} {{system.accuracy.mid.hits}} {{system.accuracy.high.hits}}
                       </label>
                     </div>
                     <div class="flexrow">
                       <label class="gun-row-crits">
                         <img id="crits" alt="Crits" class="critshits-icon" src="systems/bunkers-and-badasses/assets/weapons/crits.png" />
-                        {{data.accuracy.low.crits}} {{data.accuracy.mid.crits}} {{data.accuracy.high.crits}}
+                        {{system.accuracy.low.crits}} {{system.accuracy.mid.crits}} {{system.accuracy.high.crits}}
                       </label>
                     </div>
                   </div>
                   <div class="flexrow flex-size-2 post-crithit-details">
                     <label>
-                      {{{data.dmgHtml}}}
+                      {{{system.dmgHtml}}}
                     </label>
                   </div>
                   <div class="flexrow post-crithit-details">
                     <label class="gun-detail-header">Range:</label>
-                    <label>{{data.range}} sq</label>
+                    <label>{{system.range}} sq</label>
                   </div>
                 </div>
               </div>
@@ -199,7 +199,7 @@
         {{!-- Grenade Attack --}}
         {{#each equippedGrenades as |item id|}}
         <li class="item item-element-group loot-rarity-fade-border flexrow rollable" 
-          style="--rarityColor: {{item.data.rarity.colorValue}}"
+          style="--rarityColor: {{item.system.rarity.colorValue}}"
           data-item-id="{{item._id}}" data-roll-type="grenade-throw" data-check-type="Throw" data-roll-mod="acc" data-roll-type="throw">
           <div class="item-details attack-block item-attack-roll">
             <div class="item-controls">
@@ -209,13 +209,13 @@
               <div class="item-effect flexrow item-prop-stack attack-details-line">
                 <h4 class="attack-header">{{item.name}}</h4>
                 <label>
-                  <div>{{#if data.effect}}<b>Effect</b>:{{/if}} {{data.effect}}</div>
+                  <div>{{#if system.effect}}<b>Effect</b>:{{/if}} {{system.effect}}</div>
                 </label>
               </div>
               <div class="item-effect flexrow item-prop-stack attack-details-line damage-row">
-                <label>Count: {{../data.attributes.grenades.value}} / {{../data.attributes.grenades.max}}</label>
-                <label class="flex-size-2">{{{data.dmgHtml}}}</label>
-                <label class="gun-detail-header"><b>Free Range:</b>&nbsp;{{../data.stats.dmg.modToUse}}</label>
+                <label>Count: {{../system.attributes.grenades.value}} / {{../system.attributes.grenades.max}}</label>
+                <label class="flex-size-2">{{{system.dmgHtml}}}</label>
+                <label class="gun-detail-header"><b>Free Range:</b>&nbsp;{{../system.stats.dmg.modToUse}}</label>
               </div>
             </div>
           </div>
@@ -236,7 +236,7 @@
               <div class="item-effect flexrow item-prop-stack attack-details-line damage-row">
                 <label><!--Placeholder--></label>
                 <label class="flex-size-2"><!--Placeholder--></label>
-                <label class="gun-detail-header"><b>Free Range:</b>&nbsp;{{data.stats.dmg.modToUse}}</label>
+                <label class="gun-detail-header"><b>Free Range:</b>&nbsp;{{system.stats.dmg.modToUse}}</label>
               </div>
             </div>
           </div>
