@@ -91,7 +91,7 @@ Hooks.once('init', async function() {
 
   game.socket.on('show-bm-red-text', async data => {
     const item = data.item;
-    const itemSystem = item.data.system;
+    const itemSystem = item.system;
     
     const user = game.users.get(game.user.id);
       if (user.isGM) 

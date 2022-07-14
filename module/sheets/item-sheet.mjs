@@ -185,7 +185,7 @@ export class BNBItemSheet extends ItemSheet {
 
     const templateLocation = 'systems/bunkers-and-badasses/templates/item/parts/damage-entry.html';
     let htmlContent = await renderTemplate(templateLocation, {
-        elements: this.item.data.system.elements,
+        elements: this.item.system.elements,
       });
 
     this.elemDiag = new Dialog({
