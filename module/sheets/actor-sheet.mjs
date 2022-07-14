@@ -774,7 +774,7 @@ export class BNBActorSheet extends ActorSheet {
 
   async _takeDamage(html) {
     // Prep data to access.
-    const actorSystem = this.actor.data.system;
+    const actorSystem = this.actor.system;
     const hps = actorSystem.attributes.hps;
 
     // Pull data from html.
