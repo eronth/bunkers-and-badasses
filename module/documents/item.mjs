@@ -20,7 +20,7 @@ export class BNBItem extends Item {
     // If present, return the actor's roll data.
     if ( !this.actor ) return null;
     const rollData = this.actor.getRollData();
-    rollData.item = foundry.utils.deepClone(this.data.data);
+    rollData.item = foundry.utils.deepClone(this.data["data"]);
 
     return rollData;
   }
@@ -79,15 +79,15 @@ export class BNBItem extends Item {
     const dataSet = event.currentTarget.dataset;
     const actor = game.actors.get(dataSet.actorId);
     if (actor === null) return;
-    const actorData = actor.data.data;
+    const actorSystem = actor.data.system;
     const item = actor.items.get(dataSet.itemId);
-    const itemData = item.data.data;
+    const itemSystem = item.data.system;
 
     const hits = dataSet.hits;
     const crits = dataSet.crits;
 
     let rollFormula = '';
-    Object.entries(itemData.elements).forEach(([key, elementData]) => {
+    Object.entries(itemSystem.elements).forEach(([key, elementData]) => {
       if(elementData.enabled) {
         if (isNaN(hits)) {
           rollFormula+=`(${elementData.damage})[${elementData.label}] +`;
@@ -99,14 +99,14 @@ export class BNBItem extends Item {
       }
     });
     rollFormula = rollFormula.slice(0, -1);
-    // if (actorData?.bonus?.shooting?.dmg) {
+    // if (actorSystem?.bonus?.shooting?.dmg) {
     //   rollFormula += `+ @shootdmgeffects[Dmg Effects]`
     // } else {
     //   rollFormula = rollFormula.slice(0, -1);
     // }
     if (!isNaN(crits)) {
       rollFormula += `+ ${crits}d12[Crit]`
-      // if (actorData?.bonus?.shooting?.dmg) {
+      // if (actorSystem?.bonus?.shooting?.dmg) {
       //   rollFormula += `+ @shootcritdmgeffects[Crit Effects]`
       // }
     }
@@ -137,15 +137,15 @@ export class BNBItem extends Item {
     });
 
     const additionalDamage = 
-      (actorData.favored[itemData.type?.value] ? actorData.stats.dmg.modToUse : 0) +
-      (itemData.statMods?.dmg ?? 0) +
+      (actorSystem.favored[itemSystem.type?.value] ? actorSystem.stats.dmg.modToUse : 0) +
+      (itemSystem.statMods?.dmg ?? 0) +
       ( // SPECIAL special logic for a unique legendary.
-        (itemData.special?.overrideType?.toLowerCase() === 'mwbg') 
-        ? (actorData.stats.mst.modToUse + (itemData.statMods?.mst ?? 0)) : 0
+        (itemSystem.special?.overrideType?.toLowerCase() === 'mwbg') 
+        ? (actorSystem.stats.mst.modToUse + (itemSystem.statMods?.mst ?? 0)) : 0
       ) +
-      (actorData?.bonus?.combat?.shooting?.dmg ?? 0) + (actorData?.bonus?.combat?.attack?.dmg ?? 0) +
+      (actorSystem?.bonus?.combat?.shooting?.dmg ?? 0) + (actorSystem?.bonus?.combat?.attack?.dmg ?? 0) +
       ((!isNaN(crits) && crits > 0) 
-        ? (actorData?.bonus?.combat?.shooting?.critdmg ?? 0) + (actorData?.bonus?.combat?.attack?.critdmg ?? 0)
+        ? (actorSystem?.bonus?.combat?.shooting?.critdmg ?? 0) + (actorSystem?.bonus?.combat?.attack?.critdmg ?? 0)
         : 0);
     const templateLocation = 'systems/bunkers-and-badasses/templates/chat/damage-results.html';
     const chatHtmlContent = await renderTemplate(templateLocation, {
