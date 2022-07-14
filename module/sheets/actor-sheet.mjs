@@ -979,7 +979,7 @@ export class BNBActorSheet extends ActorSheet {
         return item.update({ [`${target}`]: !getProperty(item, target) })
     }
     if (target)
-        return this.actor.update({[`${target}`] : !getProperty(this.actor.system, target)});
+        return this.actor.update({[`${target}`] : !getProperty(this.actor, target)});
   }
 
   _expandItemDropdown(event) {
