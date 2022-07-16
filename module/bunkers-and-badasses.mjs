@@ -407,7 +407,7 @@ async function rollItemMacro(itemName) {
   if (!item) return ui.notifications.warn(`Your controlled Actor does not have an item named ${itemName}`);
 
   // Trigger the item roll
-  return await item.roll();
+  return await item.roll({async: true});
 }
 
 

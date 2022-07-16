@@ -1037,7 +1037,7 @@ export class BNBActorSheet extends ActorSheet {
       if (dataset.rollType == 'item') {
         const itemId = element.closest('.item').dataset.itemId;
         const item = this.actor.items.get(itemId);
-        if (item) return await item.roll();
+        if (item) return await item.roll({async: true});
       } else if (dataset.rollType == 'melee-dice-roll') {
         return this._meleeAndHPDiceRoll(dataset);
       } else if (dataset.rollType == 'check') {
@@ -1065,7 +1065,7 @@ export class BNBActorSheet extends ActorSheet {
     if (dataset.roll) {
       const label = dataset.label ? `[ability] ${dataset.label}` : '';
       const baseFormula = dataset.roll;
-      const rollResult = await new Roll(baseFormula, this.actor.getRollData()).roll();
+      const rollResult = await new Roll(baseFormula, this.actor.getRollData()).roll({async: true});
       rollResult.toMessage({
         speaker: ChatMessage.getSpeaker({ actor: this.actor }),
         flavor: label,
@@ -1132,7 +1132,6 @@ export class BNBActorSheet extends ActorSheet {
       rollFormula,
       RollBuilder._createDiceRollData({actor: this.actor})
     );
-    const rollResult = await roll.roll();
 
     const flavorText = `${this.actor.name} rolls their Melee Dice.`;
     return rollResult.toMessage({
@@ -1171,7 +1170,7 @@ export class BNBActorSheet extends ActorSheet {
       `1d20 + @badassrank[Badass Rank]`,
       RollBuilder._createDiceRollData({actor: this.actor})
     );
-    const rollResult = await roll.roll();
+    const rollResult = await roll.roll({async: true});
 
     let badassTotal = rollResult.total;
     if (badassTotal == 2 || badassTotal == 3) {
@@ -1222,7 +1221,7 @@ export class BNBActorSheet extends ActorSheet {
       `${hp.combinedRegen}`,
       RollBuilder._createDiceRollData({actor: this.actor})
     );
-    const rollResult = await roll.roll();
+    const rollResult = await roll.roll({async: true});
 
     // Prep chat values.
     const flavorText = `${this.actor.name} ${hpRegainAction[dataset.healthType.toLowerCase()]} ${rollResult.total} <b>${hp.label}</b>.`;
@@ -1425,7 +1424,7 @@ export class BNBActorSheet extends ActorSheet {
       bonus: bonusValue,
       targetSpd: targetSpeedValue
     });
-    const rollResult = await roll.roll();
+    const rollResult = await roll.roll({async: true});
 
     // Display the result.
     return await this._displayNpcAttackRollResultToChat(dataset, { rollResult: rollResult });
@@ -1451,7 +1450,7 @@ export class BNBActorSheet extends ActorSheet {
         { extra: extraBonusValue }
       )
     );
-    const rollResult = await roll.roll();
+    const rollResult = await roll.roll({async: true});
 
     // Display the result.
     return await this._displayMeleeRollResultToChat(dataset, { rollResult: rollResult });
@@ -1491,7 +1490,7 @@ export class BNBActorSheet extends ActorSheet {
         }
       )
     );
-    const rollResult = await roll.roll();
+    const rollResult = await roll.roll({async: true});
 
     // Display the result.
     return await this._displayGunRollResultToChat(dataset, { rollResult: rollResult });
@@ -1528,7 +1527,7 @@ export class BNBActorSheet extends ActorSheet {
         { extrabonusvalue: extraBonusValue }
       )
     );
-    const rollResult = await roll.roll();
+    const rollResult = await roll.roll({async: true});
 
     // Display the result.
     if (displayResultOverride && typeof displayResultOverride === 'function') {

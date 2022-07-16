@@ -315,7 +315,7 @@ export class BNBActor extends Actor {
       rollFormula,
       RollBuilder._createDiceRollData({actor: actor})
     );
-    const rollResult = await roll.roll();    
+    const rollResult = await roll.roll({async: true});    
     
     // Convert roll to a results object for sheet display.
     const rollResults = {};
