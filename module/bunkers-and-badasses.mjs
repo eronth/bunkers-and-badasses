@@ -208,17 +208,19 @@ Handlebars.registerHelper('shortName', function(str) {
 
 Hooks.once("ready", async function() {
   // Wait to register hotbar drop hook on ready so that modules could register earlier if they want to
-  Hooks.on("hotbarDrop", (bar, data, slot) => createItemMacro(data, slot));  
+  Hooks.on("hotbarDrop", (bar, data, slot) => createItemMacro(data, slot));
 });
 
 Hooks.on("preCreateToken", function (document, data) {
   const actor = document?.actor;
-  const actorSystem = actor?.data?.system;
-  const tokenData = document.data;
+  const actorSystem = actor?.system;
+  const protoToken = actor?.prototypeToken;
+  
 
   // Get the Hps values from the actor
   const actorHps = actorSystem.attributes.hps;
-  const tokenBars = tokenData?.flags?.barbrawl?.resourceBars;
+
+  const tokenBars = protoToken?.flags?.barbrawl?.resourceBars;
 
   const hasTokenLoadedBefore = actorSystem?.attributes?.hasTokenLoadedBefore ?? false;
 
@@ -249,10 +251,10 @@ Hooks.on("preCreateToken", function (document, data) {
   //   delete tokenBars.bar1;
   //   delete tokenBars.bar2;
   //   const removeKey = 'flags.barbrawl.resourceBars.-=';
-  //   actor.data.update({ [removeKey+'bar1']: null });
-  //   actor.data.update({ [removeKey+'bar2']: null });
-  //   actor.data.token.update({ [removeKey+'bar1']: null });
-  //   actor.data.token.update({ [removeKey+'bar2']: null });
+  //   actor.update({ [removeKey+'bar1']: null });
+  //   actor.update({ [removeKey+'bar2']: null });
+  //   actor.token.update({ [removeKey+'bar1']: null });
+  //   actor.token.update({ [removeKey+'bar2']: null });
   // }
   
 
@@ -310,7 +312,7 @@ function getBarbrawlBar(barId) {
 }
 let barbrawlOrder = 0;
 const visibleBarDefaults = {
-  'position': 'top-inner',
+  'position': 'top-outer',
   'otherVisibility': CONST.TOKEN_DISPLAY_MODES.HOVER,
   'ownerVisibility': CONST.TOKEN_DISPLAY_MODES.ALWAYS
 };

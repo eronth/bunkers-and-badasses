@@ -33,7 +33,7 @@ export class BNBActor extends Actor {
       barbrawl: this.preCreateBarbrawlHealthBars(data, gameFlags)
     }
 
-    // Assemble the initial token data.
+    // Assemble the initial token data values.
     const initTokenData = {
       token: {
         ...initTokenBars,
@@ -45,12 +45,12 @@ export class BNBActor extends Actor {
     };
 
     // Update actor's token.
-    this.data.update(initTokenData);
+    this.prototypeToken.updateSource(initTokenData.token);
   }
 
   preCreateBarbrawlHealthBars(data, gameFlags) {
     const visibleBarDefaults = {
-      'position': 'top-inner',
+      'position': 'top-outer',
       'otherVisibility': CONST.TOKEN_DISPLAY_MODES.HOVER,
       'ownerVisibility': CONST.TOKEN_DISPLAY_MODES.ALWAYS
     };

@@ -991,7 +991,7 @@ export class BNBActorSheet extends ActorSheet {
       item.sheet.render(true)
   }
 
-  _createDropdown(event, dropdownData) {
+  async _createDropdown(event, dropdownData) {
     let dropdownHTML = ""
     event.preventDefault()
     let li = $(event.currentTarget).parents(".item-element-group")
@@ -1005,7 +1005,7 @@ export class BNBActorSheet extends ActorSheet {
       if (!dropdownData) {
         return
       } else {
-        dropdownHTML = `<div class="item-summary">${TextEditor.enrichHTML(dropdownData.text)}`;
+        dropdownHTML = `<div class="item-summary">${await TextEditor.enrichHTML(dropdownData.text, {async: true})}`;
       }
       // if (dropdownData.tags) {
       //     let tags = `<div class='tags'>`
