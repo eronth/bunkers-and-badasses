@@ -275,20 +275,19 @@ Hooks.on("preCreateToken", function (document, data) {
           // || actorHps[settingName.toLocaleLowerCase()].max > 0) {
             tokenBars[barId] = {...getBarbrawlBar(barId)};
             const addBarKey = 'flags.barbrawl.resourceBars.'+barId;
-            document.data.update({ [addBarKey]: tokenBars[barId] });
-            actor.update({ [addBarKey]: tokenBars[barId] });
-            actor.data.token.update({ [addBarKey]: tokenBars[barId] });
+            document.updateSource({ [addBarKey]: tokenBars[barId] });
+            actor.updateSource({ [addBarKey]: tokenBars[barId] });
+            actor.prototypeToken.updateSource({ [addBarKey]: tokenBars[barId] });
           //}
-
         }
       } else if (!settingValue && (previousHpsSettings[settingName] || !hasTokenLoadedBefore)) {
 
         // turn the hp off
         delete tokenBars[barId];
         const removeKey = 'flags.barbrawl.resourceBars.-='+barId;
-        document.data.update({ [removeKey]: null });
-        actor.update({ [removeKey]: null });
-        actor.data.token.update({ [removeKey]: null });
+        document.updateSource({ [removeKey]: null });
+        actor.updateSource({ [removeKey]: null });
+        actor.prototypeToken.updateSource({ [removeKey]: null });
 
       }
 
