@@ -77,9 +77,9 @@ export class BNBItem extends Item {
     const dataSet = event.currentTarget.dataset;
     const actor = game.actors.get(dataSet.actorId);
     if (actor === null) return;
-    const actorSystem = actor.data.system;
+    const actorSystem = actor.system;
     const item = actor.items.get(dataSet.itemId);
-    const itemSystem = item.data.system;
+    const itemSystem = item.system;
 
     const hits = dataSet.hits;
     const crits = dataSet.crits;

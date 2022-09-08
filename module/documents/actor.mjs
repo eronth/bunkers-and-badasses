@@ -291,7 +291,7 @@ export class BNBActor extends Actor {
     const dataSet = event.currentTarget.dataset;
     const actor = game.actors.get(dataSet.actorId);
     if (actor === null) return;
-    const actorSystem = actor.data.system;
+    const actorSystem = actor.system;
 
     const isPlusOneDice = dataSet.plusOneDice === 'true';
     const isDoubleDamage = dataSet.doubleDamage === 'true';
