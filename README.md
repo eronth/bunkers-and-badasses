@@ -13,4 +13,4 @@ Eventual Updates:
 * Better support for various level up benefits.
 * Add Mayhem counter
 * Add Boss Bars.
-* Redsign skills page.
+* Redesign skills page.

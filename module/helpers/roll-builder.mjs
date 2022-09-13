@@ -3,13 +3,13 @@ export class RollBuilder {
     const actor = foundryObjs.actor;
     const item = foundryObjs.item;
 
-    const level = actor.data.data.attributes.level;
-    const vh_class = actor.data.data.class;
-    const stats = actor.data.data.stats;
-    const checks = actor.data.data.checks;
-    const attributes = actor.data.data.attributes;
-    const checksBonus = actor.data.data.bonus?.checks;
-    const combatBonus = actor.data.data.bonus?.combat;
+    const level = actor.system.attributes.level;
+    const vh_class = actor.system.class;
+    const stats = actor.system.stats;
+    const checks = actor.system.checks;
+    const attributes = actor.system.attributes;
+    const checksBonus = actor.system.bonus?.checks;
+    const combatBonus = actor.system.bonus?.combat;
 
     const returnData = {
       actor: actor,

@@ -5,8 +5,8 @@
     <div>
       <label for="current-xp-amount" class="current-xp-label">XP</label>
       <input id="current-xp-amount" class="current-xp-input"
-      placeholder="Current XP" name="data.attributes.xp.value"
-      value="{{data.attributes.xp.value}}"
+      placeholder="Current XP" name="system.attributes.xp.value"
+      value="{{system.attributes.xp.value}}"
       onfocus="this.select()" type="number" data-dtype="Number" />
     </div>
     <div>
@@ -29,8 +29,8 @@
     </div>
     <div>  
       <input id="badass-rank" class="badass-rank-input"
-      placeholder="Badass Rank" name="data.attributes.badass.rank" 
-      value="{{data.attributes.badass.rank}}"
+      placeholder="Badass Rank" name="system.attributes.badass.rank" 
+      value="{{system.attributes.badass.rank}}"
       onfocus="this.select()" type="number" data-dtype="Number" />
     </div>
   </div>
@@ -43,16 +43,16 @@
   
   {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/builder-subtabs/builder-components/favored-element-component.html"
     elements=(toArray 
-      (toFavoredElementObject "Kinetic" data.favored.kinetic)
-      (toFavoredElementObject "Incendiary" data.favored.incendiary)
-      (toFavoredElementObject "Shock" data.favored.shock)
-      (toFavoredElementObject "Corrosive" data.favored.corrosive)
-      (toFavoredElementObject "Explosive" data.favored.explosive)
-      (toFavoredElementObject "Radiation" data.favored.radiation)
-      (toFavoredElementObject "Cryo" data.favored.cryo)
-      (toFavoredElementObject "Incendiation" data.favored.incendiation)
-      (toFavoredElementObject "Corroshock" data.favored.corroshock)
-      (toFavoredElementObject "Crysplosive" data.favored.crysplosive)
+      (toFavoredElementObject "Kinetic" system.favored.kinetic)
+      (toFavoredElementObject "Incendiary" system.favored.incendiary)
+      (toFavoredElementObject "Shock" system.favored.shock)
+      (toFavoredElementObject "Corrosive" system.favored.corrosive)
+      (toFavoredElementObject "Explosive" system.favored.explosive)
+      (toFavoredElementObject "Radiation" system.favored.radiation)
+      (toFavoredElementObject "Cryo" system.favored.cryo)
+      (toFavoredElementObject "Incendiation" system.favored.incendiation)
+      (toFavoredElementObject "Corroshock" system.favored.corroshock)
+      (toFavoredElementObject "Crysplosive" system.favored.crysplosive)
     )
   }}
 </div>

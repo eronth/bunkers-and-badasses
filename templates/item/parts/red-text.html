@@ -1,25 +1,25 @@
 <div class="item-body flexrow">
   <div class="red-text">
     <input class="red-text" 
-    value="{{data.redText}}" placeholder="Red Text"
-    type="text" name="data.redText" data-dtype="String"
+    value="{{system.redText}}" placeholder="Red Text"
+    type="text" name="system.redText" data-dtype="String"
     />
   </div>
 </div>
 <div class="item-body flexrow">
   <div class="flexrow red-text-description">
-    <textarea class="red-text-textarea" name="data.redTextEffect"
+    <textarea class="red-text-textarea" name="system.redTextEffect"
       placeholder="Red Text effect, either provided by DM or estimated on usage."
-      type="text" rows="5">{{data.redTextEffect}}</textarea>
+      type="text" rows="5">{{system.redTextEffect}}</textarea>
   </div>
 </div>
 {{#if showRedTextMeaning}}
 <div class="bolded bm-alert">— Red Text notes - Only visible to BMs! —</div>
 <div class="item-body flexrow">
   <div class="flexrow red-text-description">
-    <textarea class="red-text-textarea" name="data.redTextEffectBM"
+    <textarea class="red-text-textarea" name="system.redTextEffectBM"
     placeholder="BM ONLY - Red Text Notes."
-    type="text" rows="5">{{data.redTextEffectBM}}</textarea>
+    type="text" rows="5">{{system.redTextEffectBM}}</textarea>
   </div>
 </div>
 {{/if}}

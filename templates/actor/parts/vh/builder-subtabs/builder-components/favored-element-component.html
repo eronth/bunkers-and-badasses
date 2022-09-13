@@ -5,7 +5,7 @@
   {{#each elements as |element|}}
   <div class="flexrow favored-body" title="{{element.label}}">
     <input type="checkbox" id="favor{{element.label}}" title="{{element.label}}"
-    name="data.favored.{{toLowerCase element.label}}" data-dtype="Boolean" 
+    name="system.favored.{{toLowerCase element.label}}" data-dtype="Boolean" 
     {{ checked element.favored }} />
     <label for="favor{{element.label}}" >
       <img id="enable{{label}}" class="element-selector-icon-medium" 

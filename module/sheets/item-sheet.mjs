@@ -22,7 +22,7 @@ export class BNBItemSheet extends ItemSheet {
 
     // Alternatively, you could use the following return statement to do a
     // unique item sheet by type, like `weapon-sheet.html`.
-    return `${path}/item-${this.item.data.type}-sheet.html`;
+    return `${path}/item-${this.item.type}-sheet.html`;
   }
 
   /* -------------------------------------------- */
@@ -33,7 +33,10 @@ export class BNBItemSheet extends ItemSheet {
     const context = super.getData();
 
     // Use a safe clone of the item data for further operations.
-    const itemData = context.item.data;
+    const itemData = context.item;
+
+    // Get updates from previous versions.
+    this.updateDataFromPreviousVersions(itemData);
 
     // Get updates from previous versions.
     this.updateDataFromPreviousVersions(itemData);
@@ -50,14 +53,14 @@ export class BNBItemSheet extends ItemSheet {
     context.usePlayerEridian = game.settings.get('bunkers-and-badasses', 'usePlayerEridian');
 
     // Add the actor's data to context.data for easier access, as well as flags.
-    context.data = itemData.data;
+    context.system = itemData.system;
     context.flags = itemData.flags;
-    context.elements = itemData.data.elements;
+    context.elements = itemData.system.elements;
 
     // Special handling for uniques.
-    if (itemData.data.special?.overrideType?.toLowerCase() === "mwbg") {
+    if (itemData.system.special?.overrideType?.toLowerCase() === "mwbg") {
       context.isMasterworkBladegun = true;
-    } else if (itemData.data.special?.overrideType?.toLowerCase() === "solarflare") {
+    } else if (itemData.system.special?.overrideType?.toLowerCase() === "solarflare") {
       context.isSolarFlare = true;
     }  
 
@@ -67,18 +70,20 @@ export class BNBItemSheet extends ItemSheet {
   }
 
   updateDataFromPreviousVersions(item) {
-    if (item.data.healthType == null) {
-      item.data.healthType = (item.data.isArmor) ? 'armor' : 'shield';
-      const targetKey = 'data.healthType';
-      this.item.update({ [targetKey]: item.data.healthType });
-
-      item.data.recoveryRate = (item.data.isArmor) ? item.data.repairRate : item.data.rechargeRate;
-      const targetKey2 = 'data.recoveryRate';
-      this.item.update({ [targetKey2]: item.data.recoveryRate });
-
-      item.data.isArmor = null;
-      const removeArmorKey = 'data.-=isArmor';
-      this.item.update({ [removeArmorKey]: null });
+    if (item.type == "shield") {
+      if (item.system.healthType == null) {
+        item.healthType = (item.isArmor) ? 'armor' : 'shield';
+        const targetKey = 'system.healthType';
+        this.item.update({ [targetKey]: item.system.healthType });
+  
+        item.system.recoveryRate = (item.system.isArmor) ? item.system.repairRate : item.system.rechargeRate;
+        const targetKey2 = 'system.recoveryRate';
+        this.item.update({ [targetKey2]: item.system.recoveryRate });
+  
+        item.system.isArmor = null;
+        const removeArmorKey = 'system.-=isArmor';
+        this.item.update({ [removeArmorKey]: null });
+      }
     }
   }
 
@@ -118,7 +123,7 @@ export class BNBItemSheet extends ItemSheet {
     //     allOptions.toggle();
     // });
     let newRarityObj = {"name": newRarity, "value": newRarity.toLowerCase(), "colorValue": this._getColorsForRarity(newRarity)};
-    this.item.update({"data.rarity": newRarityObj});
+    this.item.update({"system.rarity": newRarityObj});
   }
 
   _onGunTypeOptionDropdownClick(event) {
@@ -134,7 +139,7 @@ export class BNBItemSheet extends ItemSheet {
     const fullName = event.currentTarget.innerHTML;
   
     const newGunType = $(event.currentTarget).attr("value");
-    this.item.update({"data.type": { name: fullName, value: newGunType } });
+    this.item.update({"system.type": { name: fullName, value: newGunType } });
   }
 
   _onHealthTypeOptionDropdownClick(event) {
@@ -149,7 +154,7 @@ export class BNBItemSheet extends ItemSheet {
     $("ul").children(`.health-type-init-${this.item.id}`).html($(event.currentTarget).html());
 
     const newHealthType = $(event.currentTarget).attr("value");
-    this.item.update({"data.healthType": newHealthType});
+    this.item.update({"system.healthType": newHealthType});
   }
 
 
@@ -183,7 +188,7 @@ export class BNBItemSheet extends ItemSheet {
 
     const templateLocation = 'systems/bunkers-and-badasses/templates/item/parts/damage-entry.html';
     let htmlContent = await renderTemplate(templateLocation, {
-        elements: this.item.data.data.elements,
+        elements: this.item.system.elements,
       });
 
     this.elemDiag = new Dialog({
@@ -205,7 +210,7 @@ export class BNBItemSheet extends ItemSheet {
 
   _onCheckboxToggleClick(event) {
     const targetKey = $(event.currentTarget).attr("data-item-target");
-    const currentValue = getProperty(this.item.data, targetKey);
+    const currentValue = getProperty(this.item, targetKey);
     return this.item.update({ [targetKey]: !currentValue });
   }
 

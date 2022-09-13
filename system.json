@@ -1,12 +1,15 @@
 {
-  "name": "bunkers-and-badasses",
+  "id": "bunkers-and-badasses",
   "title": "Bunkers & Badasses",
   "description": "Badasses, loot, and mayhem. This system is for running the tabletop adaptation of Borderlands' 'Bunkers & Badasses' by Nerdvana.",
-  "version": "0.1.4",
-  "minimumCoreVersion": "9",
-  "compatibleCoreVersion": "9",
+  "version": "0.2.0",
+  "compatibleCoreVersion": "10.285",
+  "compatibility": {
+    "minimum": 10,
+    "verified": 10.285,
+    "maximum": 10
+  },
   "templateVersion": 2,
-  "author": "Nic Pereira",
   "authors": [{
     "name": "Nic Pereira",
     "email": "BadassBunks@nicpereira.dev",
@@ -22,21 +25,17 @@
     "css/header/health.css",
     "css/header/xp-bar.css"
   ],
-  "packs": [
-    {
-      "name": "loot",
-      "label": "Unique Loot",
-      "path": "packs/loot.db",
-      "entity": "Item"
-    }
-  ],
-  "languages": [
-    {
-      "lang": "en",
-      "name": "English",
-      "path": "lang/en.json"
-    }
-  ],
+  "packs": [{
+    "name": "loot",
+    "label": "Unique Loot",
+    "path": "packs/loot.db",
+    "entity": "Item"
+  }],
+  "languages": [{
+    "lang": "en",
+    "name": "English",
+    "path": "lang/en.json"
+  }],
   "socket": true,
   "initiative": "1d20 + @attributes.badass.rank + @checks.initiative.value + @checks.initiative.misc + @bonus.checks.initiative",
   "gridDistance": 1,
@@ -44,6 +43,6 @@
   "primaryTokenAttribute": "attributes.hps.flesh",
   "secondaryTokenAttribute": "attributes.hps.shield",
   "url": "https://github.com/eronth/bunkers-and-badasses",
-  "manifest": "https://github.com/eronth/bunkers-and-badasses/releases/download/v0.1.4/system.json",
-  "download": "https://github.com/eronth/bunkers-and-badasses/archive/refs/tags/v0.1.4.zip"
+  "manifest": "https://github.com/eronth/bunkers-and-badasses/releases/download/v0.2.0/system.json",
+  "download": "https://github.com/eronth/bunkers-and-badasses/archive/refs/tags/v0.2.0.zip"
 }

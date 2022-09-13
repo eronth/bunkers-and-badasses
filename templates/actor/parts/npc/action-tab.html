@@ -1,39 +1,39 @@
 <div class="flexcol">
   <div class="weapon">
     <label class="npc-action-label rollable" data-roll-type="npc-attack"><i class="fa fa-dice-d20"></i> Weapon:</label>
-    <input class="flexlarge" value="{{data.weapon}}" name="data.weapon" 
+    <input class="flexlarge" value="{{system.weapon}}" name="system.weapon" 
       type="text" data-dtype="String" />
   </div>
   <label class="npc-action-label">Special:</label>
   <div class="npc-special-text">
-    <textarea class="" name="data.special"
-    data-dtype="String" type="text" rows="3">{{data.special}}</textarea>
+    <textarea class="" name="system.special"
+    data-dtype="String" type="text" rows="3">{{system.special}}</textarea>
   </div>
   <hr style="height:1px;border-width:0;color:gray;background-color:gray">
   <label class="npc-action-header">Actions</label>
   <div>
     {{> "systems/bunkers-and-badasses/templates/actor/parts/npc/action-components/action-block.html"
-      dataLocation="data.actions.base.action1"
-      value=data.actions.base.action1
+      dataLocation="system.actions.base.action1"
+      value=system.actions.base.action1
     }}
   </div>
   <div>
     {{> "systems/bunkers-and-badasses/templates/actor/parts/npc/action-components/action-block.html"
-      dataLocation="data.actions.base.action2"
-      value=data.actions.base.action2
+      dataLocation="system.actions.base.action2"
+      value=system.actions.base.action2
     }}
   </div>
   <label class="npc-action-header"><i class="fas fa-skull"></i> Mayhem Actions</label>
   <div>
     {{> "systems/bunkers-and-badasses/templates/actor/parts/npc/action-components/action-block.html"
-      dataLocation="data.actions.mayhem.action1"
-      value=data.actions.mayhem.action1
+      dataLocation="system.actions.mayhem.action1"
+      value=system.actions.mayhem.action1
     }}
   </div>
   <div>
     {{> "systems/bunkers-and-badasses/templates/actor/parts/npc/action-components/action-block.html"
-      dataLocation="data.actions.mayhem.action2"
-      value=data.actions.mayhem.action2
+      dataLocation="system.actions.mayhem.action2"
+      value=system.actions.mayhem.action2
     }}
   </div>
 </div>

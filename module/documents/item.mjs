@@ -20,7 +20,7 @@ export class BNBItem extends Item {
     // If present, return the actor's roll data.
     if ( !this.actor ) return null;
     const rollData = this.actor.getRollData();
-    rollData.item = foundry.utils.deepClone(this.data.data);
+    rollData.item = foundry.utils.deepClone(this.system);
 
     return rollData;
   }
@@ -31,20 +31,18 @@ export class BNBItem extends Item {
    * @private
    */
   async roll() {
-    const item = this.data;
-
     // Initialize chat data.
     const speaker = ChatMessage.getSpeaker({ actor: this.actor });
     const rollMode = game.settings.get('core', 'rollMode');
-    const label = `[${item.type}] ${item.name}`;
+    const label = `[${this.type}] ${this.name}`;
 
     // If there's no roll data, send a chat message.
-    if (!this.data.data.formula) {
+    if (!this.system.formula) {
       ChatMessage.create({
         speaker: speaker,
         rollMode: rollMode,
         flavor: label,
-        content: item.data.description ?? ''
+        content: this.system.description ?? ''
       });
     }
     // Otherwise, create a roll and send a chat message from it.
@@ -53,7 +51,7 @@ export class BNBItem extends Item {
       const rollData = this.getRollData();
 
       // Invoke the roll and submit it to chat.
-      const roll = await new Roll(rollData.item.formula, rollData).roll();
+      const roll = await new Roll(rollData.item.formula, rollData).roll({async: true});
       roll.toMessage({
         speaker: speaker,
         rollMode: rollMode,
@@ -79,15 +77,15 @@ export class BNBItem extends Item {
     const dataSet = event.currentTarget.dataset;
     const actor = game.actors.get(dataSet.actorId);
     if (actor === null) return;
-    const actorData = actor.data.data;
+    const actorSystem = actor.system;
     const item = actor.items.get(dataSet.itemId);
-    const itemData = item.data.data;
+    const itemSystem = item.system;
 
     const hits = dataSet.hits;
     const crits = dataSet.crits;
 
     let rollFormula = '';
-    Object.entries(itemData.elements).forEach(([key, elementData]) => {
+    Object.entries(itemSystem.elements).forEach(([key, elementData]) => {
       if(elementData.enabled) {
         if (isNaN(hits)) {
           rollFormula+=`(${elementData.damage})[${elementData.label}] +`;
@@ -99,14 +97,14 @@ export class BNBItem extends Item {
       }
     });
     rollFormula = rollFormula.slice(0, -1);
-    // if (actorData?.bonus?.shooting?.dmg) {
+    // if (actorSystem?.bonus?.shooting?.dmg) {
     //   rollFormula += `+ @shootdmgeffects[Dmg Effects]`
     // } else {
     //   rollFormula = rollFormula.slice(0, -1);
     // }
     if (!isNaN(crits)) {
       rollFormula += `+ ${crits}d12[Crit]`
-      // if (actorData?.bonus?.shooting?.dmg) {
+      // if (actorSystem?.bonus?.shooting?.dmg) {
       //   rollFormula += `+ @shootcritdmgeffects[Crit Effects]`
       // }
     }
@@ -116,7 +114,7 @@ export class BNBItem extends Item {
     const roll = new Roll(rollFormula, {
       actor: actor,
     });
-    const rollResult = await roll.roll();
+    const rollResult = await roll.roll({async: true});
     
     // Convert roll to a results object for sheet display.
     const rollResults = {};
@@ -137,15 +135,15 @@ export class BNBItem extends Item {
     });
 
     const additionalDamage = 
-      (actorData.favored[itemData.type?.value] ? actorData.stats.dmg.modToUse : 0) +
-      (itemData.statMods?.dmg ?? 0) +
+      (actorSystem.favored[itemSystem.type?.value] ? actorSystem.stats.dmg.modToUse : 0) +
+      (itemSystem.statMods?.dmg ?? 0) +
       ( // SPECIAL special logic for a unique legendary.
-        (itemData.special?.overrideType?.toLowerCase() === 'mwbg') 
-        ? (actorData.stats.mst.modToUse + (itemData.statMods?.mst ?? 0)) : 0
+        (itemSystem.special?.overrideType?.toLowerCase() === 'mwbg') 
+        ? (actorSystem.stats.mst.modToUse + (itemSystem.statMods?.mst ?? 0)) : 0
       ) +
-      (actorData?.bonus?.combat?.shooting?.dmg ?? 0) + (actorData?.bonus?.combat?.attack?.dmg ?? 0) +
+      (actorSystem?.bonus?.combat?.shooting?.dmg ?? 0) + (actorSystem?.bonus?.combat?.attack?.dmg ?? 0) +
       ((!isNaN(crits) && crits > 0) 
-        ? (actorData?.bonus?.combat?.shooting?.critdmg ?? 0) + (actorData?.bonus?.combat?.attack?.critdmg ?? 0)
+        ? (actorSystem?.bonus?.combat?.shooting?.critdmg ?? 0) + (actorSystem?.bonus?.combat?.attack?.critdmg ?? 0)
         : 0);
     const templateLocation = 'systems/bunkers-and-badasses/templates/chat/damage-results.html';
     const chatHtmlContent = await renderTemplate(templateLocation, {
