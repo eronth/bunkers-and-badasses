@@ -91,7 +91,7 @@ Hooks.once('init', async function() {
 
   game.socket.on('show-bm-red-text', async data => {
     const item = data.item;
-    const itemData = item.data.data;
+    const itemSystem = item.system;
     
     const user = game.users.get(game.user.id);
       if (user.isGM) 
@@ -99,7 +99,7 @@ Hooks.once('init', async function() {
       const secretMessageData = {
         user: user,
         flavor: `Secret BM only notes for ${this.actor.name}'s <b>${item.name}</b>`,
-        content: itemData.redTextEffectBM,
+        content: itemSystem.redTextEffectBM,
         whisper: game.users.filter(u => u.isGM).map(u => u.id),
         speaker: ChatMessage.getSpeaker(),
       };
@@ -208,22 +208,24 @@ Handlebars.registerHelper('shortName', function(str) {
 
 Hooks.once("ready", async function() {
   // Wait to register hotbar drop hook on ready so that modules could register earlier if they want to
-  Hooks.on("hotbarDrop", (bar, data, slot) => createItemMacro(data, slot));  
+  Hooks.on("hotbarDrop", (bar, data, slot) => createItemMacro(data, slot));
 });
 
 Hooks.on("preCreateToken", function (document, data) {
   const actor = document?.actor;
-  const actorData = actor?.data?.data;
-  const tokenData = document.data;
+  const actorSystem = actor?.system;
+  const protoToken = actor?.prototypeToken;
+  
 
   // Get the Hps values from the actor
-  const actorHps = actorData.attributes.hps;
-  const tokenBars = tokenData?.flags?.barbrawl?.resourceBars;
+  const actorHps = actorSystem.attributes.hps;
 
-  const hasTokenLoadedBefore = actorData?.attributes?.hasTokenLoadedBefore ?? false;
+  const tokenBars = protoToken?.flags?.barbrawl?.resourceBars;
+
+  const hasTokenLoadedBefore = actorSystem?.attributes?.hasTokenLoadedBefore ?? false;
 
   // Get the settings values.
-  const previousHpsSettings = actorData?.attributes?.previousHpsSettings ?? { 
+  const previousHpsSettings = actorSystem?.attributes?.previousHpsSettings ?? { 
     Flesh: true,
     Shield: true,
     Armor: ((actor.type == 'npc') ? true : false),
@@ -249,10 +251,10 @@ Hooks.on("preCreateToken", function (document, data) {
   //   delete tokenBars.bar1;
   //   delete tokenBars.bar2;
   //   const removeKey = 'flags.barbrawl.resourceBars.-=';
-  //   actor.data.update({ [removeKey+'bar1']: null });
-  //   actor.data.update({ [removeKey+'bar2']: null });
-  //   actor.data.token.update({ [removeKey+'bar1']: null });
-  //   actor.data.token.update({ [removeKey+'bar2']: null });
+  //   actor.update({ [removeKey+'bar1']: null });
+  //   actor.update({ [removeKey+'bar2']: null });
+  //   actor.token.update({ [removeKey+'bar1']: null });
+  //   actor.token.update({ [removeKey+'bar2']: null });
   // }
   
 
@@ -273,20 +275,19 @@ Hooks.on("preCreateToken", function (document, data) {
           // || actorHps[settingName.toLocaleLowerCase()].max > 0) {
             tokenBars[barId] = {...getBarbrawlBar(barId)};
             const addBarKey = 'flags.barbrawl.resourceBars.'+barId;
-            document.data.update({ [addBarKey]: tokenBars[barId] });
-            actor.update({ [addBarKey]: tokenBars[barId] });
-            actor.data.token.update({ [addBarKey]: tokenBars[barId] });
+            document.updateSource({ [addBarKey]: tokenBars[barId] });
+            actor.updateSource({ [addBarKey]: tokenBars[barId] });
+            actor.prototypeToken.updateSource({ [addBarKey]: tokenBars[barId] });
           //}
-
         }
       } else if (!settingValue && (previousHpsSettings[settingName] || !hasTokenLoadedBefore)) {
 
         // turn the hp off
         delete tokenBars[barId];
         const removeKey = 'flags.barbrawl.resourceBars.-='+barId;
-        document.data.update({ [removeKey]: null });
-        actor.update({ [removeKey]: null });
-        actor.data.token.update({ [removeKey]: null });
+        document.updateSource({ [removeKey]: null });
+        actor.updateSource({ [removeKey]: null });
+        actor.prototypeToken.updateSource({ [removeKey]: null });
 
       }
 
@@ -294,12 +295,12 @@ Hooks.on("preCreateToken", function (document, data) {
   }
 
   // Always save settings changes.
-  const settingsKey = 'data.attributes.previousHpsSettings';
+  const settingsKey = 'system.attributes.previousHpsSettings';
   actor.update({[settingsKey]: currentHpsSettings});
 
   // Mark if the token has been loaded before, so we can track first ever load or not.
   if (!hasTokenLoadedBefore) {
-    const tokenLoadKey = 'data.attributes.hasTokenLoadedBefore';
+    const tokenLoadKey = 'system.attributes.hasTokenLoadedBefore';
     actor.update({[tokenLoadKey]: true});
   }
 
@@ -310,7 +311,7 @@ function getBarbrawlBar(barId) {
 }
 let barbrawlOrder = 0;
 const visibleBarDefaults = {
-  'position': 'top-inner',
+  'position': 'top-outer',
   'otherVisibility': CONST.TOKEN_DISPLAY_MODES.HOVER,
   'ownerVisibility': CONST.TOKEN_DISPLAY_MODES.ALWAYS
 };
@@ -374,7 +375,7 @@ const tokenBarbrawlBars = {
 async function createItemMacro(data, slot) {
   if (data.type !== "Item") return;
   if (!("data" in data)) return ui.notifications.warn("You can only create macro buttons for owned Items");
-  const item = data.data;
+  const item = data["data"];
 
   // Create the macro command
   const command = `game.bnb.rollItemMacro("${item.name}");`;
@@ -407,7 +408,7 @@ async function rollItemMacro(itemName) {
   if (!item) return ui.notifications.warn(`Your controlled Actor does not have an item named ${itemName}`);
 
   // Trigger the item roll
-  return await item.roll();
+  return await item.roll({async: true});
 }
 
 

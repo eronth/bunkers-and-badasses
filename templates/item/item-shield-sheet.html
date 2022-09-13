@@ -1,7 +1,7 @@
-<form class="item-form-rarity {{cssClass}}" style="--rarityColor: {{data.rarity.colorValue}}" autocomplete="off">
+<form class="item-form-rarity {{cssClass}}" style="--rarityColor: {{system.rarity.colorValue}}" autocomplete="off">
   <header class="sheet-header">
     <img class="profile-img item-rarity-border" 
-          style="--rarityColor: {{data.rarity.colorValue}}" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
+          style="--rarityColor: {{system.rarity.colorValue}}" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
     <div class="header-fields flexrow">
       <div class="flex-size-3">
         <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Shield Name"/></h1>
@@ -20,7 +20,7 @@
         <div class="item-body item-body-num flexcol flex-size-4 item-tag-group">
           <label for="level-input-{{item.id}}" class="flex-size-1">Level</label>
           <input id="level-input-{{item.id}}" class="flex-size-1"
-          value="{{data.level}}" name="data.level"
+          value="{{system.level}}" name="system.level"
           type="number" data-dtype="Number"
           />
         </div>
@@ -28,7 +28,7 @@
         <div class="item-body item-body-space flexcol flex-size-7">
           <label for="guild-input-{{item.id}}">Guild</label>
           <input id="guild-input-{{item.id}}" class="" 
-          value="{{data.guild}}" name="data.guild"
+          value="{{system.guild}}" name="system.guild"
           type="text" data-dtype="String"
           />
         </div>
@@ -39,24 +39,24 @@
           <label>Protection Type</label>
           {{> "systems/bunkers-and-badasses/templates/item/parts/health-type-dropdown.html"
             itemId=item.id 
-            healthType=data.healthType }}
+            healthType=system.healthType }}
         </div>
         {{!-- Capacity --}}
         <div class="item-body item-body-num flexcol">
           <label for="capacity-input-{{item.id}}">Capacity</label>
           <input id="capacity-input-{{item.id}}" class="" 
-          value="{{data.capacity}}" name="data.capacity"
+          value="{{system.capacity}}" name="system.capacity"
           type="number" data-dtype="Number"
           />
         </div>
         {{!-- Recharge --}}
         <div class="item-body item-body-num flexcol">
           <label for="recharge-input-{{item.id}}">
-            {{hpToRecoveryTitle data.healthType true}}
+            {{hpToRecoveryTitle system.healthType true}}
           </label>
           <input id="recharge-input-{{item.id}}" class="" 
           type="text" data-dtype="String"
-          value="{{data.recoveryRate}}" name="data.recoveryRate"
+          value="{{system.recoveryRate}}" name="system.recoveryRate"
           />
         </div>
       </div>
@@ -64,12 +64,12 @@
     {{> "systems/bunkers-and-badasses/templates/item/parts/damage-entry.html"
       device="shield"
       bonus="resistance" bonusTag="res"
-      elements=data.elements
+      elements=system.elements
     }}
     <div class="item-body flexrow">
     <label for="effect-input-{{item.id}}">Effect</label>
     <input id="effect-input-{{item.id}}" class="flex-size-4" 
-      value="{{data.effect}}" name="data.effect"
+      value="{{system.effect}}" name="system.effect"
       type="text"  data-dtype="String"
       />
   </div>

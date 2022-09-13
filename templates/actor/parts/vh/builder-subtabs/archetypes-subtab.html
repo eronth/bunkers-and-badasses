@@ -2,7 +2,7 @@
   <div>
     {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/builder-subtabs/builder-components/archetype-component.html"
       archetypeNum="1" 
-      archetype=data.archetypes.archetype1
+      archetype=system.archetypes.archetype1
       archetypeFeats=archetype1Feats
       showStats=true
     }}
@@ -10,7 +10,7 @@
   <div>
     {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/builder-subtabs/builder-components/archetype-component.html"
       archetypeNum="2"
-      archetype=data.archetypes.archetype2
+      archetype=system.archetypes.archetype2
       archetypeFeats=archetype2Feats
       levelRequirement="5"
     }}
@@ -35,7 +35,7 @@
       data-item-id="{{item._id}}"
       >
         <div class="item-name bolded flex-size-4">{{item.name}}</div>
-        <div class="item-text flex-size-7 large-text-overflow-hidden">{{item.data.description}}</div>
+        <div class="item-text flex-size-7 large-text-overflow-hidden">{{item.system.description}}</div>
         <div class="item-controls flex-size-1">
           <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
           <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>

@@ -15,7 +15,7 @@
   
   {{#if check.usesBadassRank}}
     <div class="flexcol cc2">
-      <input class="" value="{{data.attributes.badass.rank}}"
+      <input class="" value="{{system.attributes.badass.rank}}"
         type="number" data-dtype="Number"
         disabled />
       <label class="check-num-label">badass&nbsp;rank</label>
@@ -46,7 +46,7 @@
   {{/if}}
   
   <div class="flexcol cc2">
-    <input class="" value="{{check.misc}}" name="data.checks.{{toLowerCase checkName}}.misc"
+    <input class="" value="{{check.misc}}" name="system.checks.{{toLowerCase checkName}}.misc"
       onfocus="this.select()"
       type="number" data-dtype="Number" />
     <label class="check-num-label">misc</label>

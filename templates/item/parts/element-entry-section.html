@@ -2,7 +2,7 @@
   <div class="flexrow flex-size-3">
     <a id="enable{{label}}"
       class="checkbox element-toggle" 
-      title="Enable Element" data-target="item" data-item-target="data.elements.{{toLowerCase element.label}}.enabled"
+      title="Enable Element" data-target="item" data-item-target="system.elements.{{toLowerCase element.label}}.enabled"
     >
       {{#if element.enabled}}
       <!-- <i class="far fa-check-square"></i> -->
@@ -20,7 +20,7 @@
   </div>
   <div class="element-damage flex-group-center">
     <input class="element-damage" type="text" type="String" 
-      name="data.elements.{{toLowerCase element.label}}.damage"
+      name="system.elements.{{toLowerCase element.label}}.damage"
       {{#if element.enabled}}
       value="{{element.damage}}" placeholder="1d6"
       {{else}}

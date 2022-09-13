@@ -13,16 +13,16 @@
       {{!-- As you add new fields, add them in here! --}}
       <div class="flexrow centerize">
         <label class="item-label">Tier</label>
-        <input type="text" name="data.tier" value="{{data.tier}}" data-dtype="Number" />
+        <input type="text" name="system.tier" value="{{system.tier}}" data-dtype="Number" />
         <label class="item-label">Skill Level</label>
-        <input type="number" name="data.skillLevel" value="{{data.skillLevel}}" data-dtype="Number"/>
+        <input type="number" name="system.skillLevel" value="{{system.skillLevel}}" data-dtype="Number"/>
       </div>
       <div class="description flexcol">
         <label class="item-label">Description</label>
         <textarea type="text" 
                   rows="5"
-                  name="data.description"
-                  placeholder="Description of skill's effects.">{{data.description}}</textarea>
+                  name="system.description"
+                  placeholder="Description of skill's effects.">{{system.description}}</textarea>
       </div>
     </div>
   </section>

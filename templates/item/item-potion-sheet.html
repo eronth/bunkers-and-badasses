@@ -1,7 +1,7 @@
-<form class="item-form-rarity {{cssClass}}" style="--rarityColor: {{data.rarity.colorValue}}" autocomplete="off">
+<form class="item-form-rarity {{cssClass}}" style="--rarityColor: {{system.rarity.colorValue}}" autocomplete="off">
   <header class="sheet-header item-header">
     <img class="profile-img item-rarity-border" 
-          style="--rarityColor: {{data.rarity.colorValue}}" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
+          style="--rarityColor: {{system.rarity.colorValue}}" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
     <div class="header-fields flexrow">
       <div class="flex-size-3">
         <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Relic Type"/></h1>
@@ -18,21 +18,21 @@
       <div class="item-body flexrow item-tag-group flex-size-5">
         <label for="effect-input-{{item.id}}" class="flex-size-2">Effect</label>
         <input id="effect-input-{{item.id}}" class="flex-size-10"
-          value="{{data.effect}}" name="data.effect" placeholder="Potion's Effect"
+          value="{{system.effect}}" name="system.effect" placeholder="Potion's Effect"
           type="text" data-dtype="String"
           />
       </div>
       <div class="item-body item-body-num flexrow item-tag-group">
         <label for="effect-input-{{item.id}}" class="flex-size-2">Quantity</label>
         <input id="effect-input-{{item.id}}" class="flex-size-1"
-          value="{{data.quantity}}" name="data.quantity"
+          value="{{system.quantity}}" name="system.quantity"
           type="number" data-dtype="Number"
           />
       </div>
       <div class="item-body item-body-num flexrow item-tag-group">
         <label for="cost-input-{{item.id}}" class="flex-size-2">Cost</label>
         <input id="cost-input-{{item.id}}" class="flex-size-1"
-          value="{{data.cost}}" name="data.cost"
+          value="{{system.cost}}" name="system.cost"
           type="number" data-dtype="Number"
           />
       </div>
