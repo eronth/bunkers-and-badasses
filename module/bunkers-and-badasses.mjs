@@ -216,12 +216,9 @@ Hooks.on("preCreateToken", function (document, data) {
   const actorSystem = actor?.system;
   const protoToken = actor?.prototypeToken;
   
-
   // Get the Hps values from the actor
   const actorHps = actorSystem.attributes.hps;
-
   const tokenBars = protoToken?.flags?.barbrawl?.resourceBars;
-
   const hasTokenLoadedBefore = actorSystem?.attributes?.hasTokenLoadedBefore ?? false;
 
   // Get the settings values.
@@ -281,14 +278,12 @@ Hooks.on("preCreateToken", function (document, data) {
           //}
         }
       } else if (!settingValue && (previousHpsSettings[settingName] || !hasTokenLoadedBefore)) {
-
         // turn the hp off
         delete tokenBars[barId];
         const removeKey = 'flags.barbrawl.resourceBars.-='+barId;
         document.updateSource({ [removeKey]: null });
         actor.updateSource({ [removeKey]: null });
         actor.prototypeToken.updateSource({ [removeKey]: null });
-
       }
 
     }

@@ -285,15 +285,15 @@ export class BNBActorSheet extends ActorSheet {
     actorHPs.flesh.combinedRegen = actorHPs.armor.combinedRegen = actorHPs.shield.combinedRegen 
       = actorHPs.bone.combinedRegen = actorHPs.eridian.combinedRegen = "";
     
-    // Get the HPs from the actor data
-    Object.entries(context.items).forEach(entry => {
-      const [itemIndex, itemData] = entry;
-      if (itemData.type === "shield" && itemData.system.equipped) {
-        actorHPs[itemData.system.healthType].max += itemData.system.capacity ?? 0;
-        if (actorHPs[itemData.system.healthType].combinedRegen) {
-          actorHPs[itemData.system.healthType].combinedRegen += ' + ';
-        }
-        actorHPs[itemData.system.healthType].combinedRegen += itemData.system.recoveryRate;
+      // Get the HPs from the actor data
+      Object.entries(context.items).forEach(entry => {
+        const [itemIndex, itemData] = entry;
+        if (itemData.type === "shield" && itemData.system.equipped) {
+          actorHPs[itemData.system.healthType].max += itemData.system.capacity ?? 0;
+          if (actorHPs[itemData.system.healthType].combinedRegen) {
+            actorHPs[itemData.system.healthType].combinedRegen += ' + ';
+          }
+          actorHPs[itemData.system.healthType].combinedRegen += itemData.system.recoveryRate;
       }
     });
 

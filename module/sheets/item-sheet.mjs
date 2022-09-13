@@ -38,6 +38,9 @@ export class BNBItemSheet extends ItemSheet {
     // Get updates from previous versions.
     this.updateDataFromPreviousVersions(itemData);
 
+    // Get updates from previous versions.
+    this.updateDataFromPreviousVersions(itemData);
+
     // Retrieve the roll data for TinyMCE editors.
     context.rollData = {};
     let actor = this.object?.parent ?? null;
