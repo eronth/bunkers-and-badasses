@@ -1549,3 +1549,15 @@ input[type="time"]:focus {
   font-size: xx-large;
 }
 
+.enriched-region {
+  background-color: #0001;
+  border: 1px solid rgb(122, 121, 113);
+  border-radius: 3px;
+  padding: 3px 4px;
+  min-height: 40px;
+}
+.enriched-red-text-description {
+  margin-top: -1px;
+  border-top-left-radius: 1px;
+  border-top-right-radius: 1px;
+}

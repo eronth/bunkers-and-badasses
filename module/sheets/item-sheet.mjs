@@ -28,19 +28,20 @@ export class BNBItemSheet extends ItemSheet {
   /* -------------------------------------------- */
 
   /** @override */
-  getData() {
+  async getData(options) {
     // Retrieve base data structure.
-    const context = super.getData();
+    const context = await super.getData(options);
 
     // Use a safe clone of the item data for further operations.
     const itemData = context.item;
-
+    
     // Get updates from previous versions.
     this.updateDataFromPreviousVersions(itemData);
+    
+    // Prep enriched text portions for better text display.
+    await this.prepareEnrichedFields(context);
 
-    // Get updates from previous versions.
-    this.updateDataFromPreviousVersions(itemData);
-
+    // Not 100% what this even means!!
     // Retrieve the roll data for TinyMCE editors.
     context.rollData = {};
     let actor = this.object?.parent ?? null;
@@ -48,6 +49,7 @@ export class BNBItemSheet extends ItemSheet {
       context.rollData = actor.getRollData();
     }
 
+    // Prep some flags for display.
     context.usePlayerArmor = game.settings.get('bunkers-and-badasses', 'usePlayerArmor');
     context.usePlayerBone = game.settings.get('bunkers-and-badasses', 'usePlayerBone');
     context.usePlayerEridian = game.settings.get('bunkers-and-badasses', 'usePlayerEridian');
@@ -85,6 +87,13 @@ export class BNBItemSheet extends ItemSheet {
         this.item.update({ [removeArmorKey]: null });
       }
     }
+  }
+
+  async prepareEnrichedFields(context) {
+    context.enriched = {
+      redTextEffect: await TextEditor.enrichHTML(this.object.system.redTextEffect, {async: true}),
+      redTextEffectBM: await TextEditor.enrichHTML(this.object.system.redTextEffectBM, {async: true})
+    };
   }
 
   /* -------------------------------------------- */
