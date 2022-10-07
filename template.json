@@ -417,6 +417,8 @@
       },
       "loot": {
         "isLoot": true,
+        "quantity": 1,
+        "cost": 0,
         "guild": "",
         "rarity": {
           "name": "Common",
@@ -513,9 +515,7 @@
       "classEffect": ""
     },
     "potion": {
-      "templates": ["base", "loot"],
-      "quantity": 1,
-      "cost": 0
+      "templates": ["base", "loot"]
     },
     "skill": {
       "templates": ["base"],
