@@ -24,6 +24,18 @@
           placeholder="Give item details here."
           type="text" rows="5">{{system.description}}</textarea>
       </div>
+      <div class="flexrow enriched-region">
+        {{editor
+          enriched.description
+          target="system.description"
+          placeholder="Placeholder text here"
+          initialValue="starting value goes here"
+          initialContent="text text text"
+          button=true
+          editable=editable
+        }}
+      </div>
+      
       
     </div>
     {{> "systems/bunkers-and-badasses/templates/item/parts/red-text.html" }}
