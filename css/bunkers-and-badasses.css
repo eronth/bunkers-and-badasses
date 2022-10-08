@@ -1561,3 +1561,10 @@ input[type="time"]:focus {
   border-top-left-radius: 1px;
   border-top-right-radius: 1px;
 }
+.enriched-npc-action-description {
+  margin: -1px;
+  border-bottom: 0;
+  border-left: 0;
+  border-right: 0;
+  background-color: #0000;
+}
