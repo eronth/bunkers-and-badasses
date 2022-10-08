@@ -182,7 +182,6 @@ Handlebars.registerHelper('getBestHealthShade', function(str) {
     str = "dark";
   else if (str === "eridian")
     str = "light";
-
   return str;
 });
 
