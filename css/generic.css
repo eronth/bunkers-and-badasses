@@ -1,3 +1,10 @@
+.italics {
+  font-style: italic;
+}
+.bolded {
+  font-weight: bold;
+}
+
 .font-xx-small {
   font-size: xx-small;
 }
@@ -22,8 +29,6 @@
 .font-xx-large {
     font-size: xx-large;
 }
-
-
 
 .grid,
 .grid-2col {
