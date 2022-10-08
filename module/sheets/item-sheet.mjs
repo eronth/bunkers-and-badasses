@@ -90,9 +90,12 @@ export class BNBItemSheet extends ItemSheet {
   }
 
   async prepareEnrichedFields(context) {
+    const system = this.object.system;
+    const configs = {async: true};
     context.enriched = {
-      redTextEffect: await TextEditor.enrichHTML(this.object.system.redTextEffect, {async: true}),
-      redTextEffectBM: await TextEditor.enrichHTML(this.object.system.redTextEffectBM, {async: true})
+      description: await TextEditor.enrichHTML(system.description, configs),
+      redTextEffect: await TextEditor.enrichHTML(system.redTextEffect, configs),
+      redTextEffectBM: await TextEditor.enrichHTML(system.redTextEffectBM, configs)
     };
   }
 
