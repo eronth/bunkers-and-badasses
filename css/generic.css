@@ -173,6 +173,11 @@
   grid-column-end: span 12;
 }
 
+.flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
 .flex-group-center,
 .flex-group-left,
 .flex-group-right {
