@@ -19,10 +19,14 @@
       </div>
       <div class="description flexcol">
         <label class="item-label">Description</label>
-        <textarea type="text" 
-                  rows="5"
-                  name="system.description"
-                  placeholder="Description of skill's effects.">{{system.description}}</textarea>
+        <div class="flexrow enriched-region">
+          {{editor enriched.description
+            target="system.description"
+            placeholder="Description of skill's effects."
+            button=true
+            editable=editable
+          }}
+        </div>
       </div>
     </div>
   </section>
