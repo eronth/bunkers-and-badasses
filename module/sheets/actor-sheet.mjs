@@ -27,7 +27,7 @@ export class BNBActorSheet extends ActorSheet {
   /* -------------------------------------------- */
 
   /** @override */
-  getData() {
+  async getData() {
     // Retrieve the data structure from the base sheet. You can inspect or log
     // the context variable to see the structure, but some key properties for
     // sheets are the actor object, the data object, whether or not it's
@@ -70,6 +70,8 @@ export class BNBActorSheet extends ActorSheet {
       this._prepareItems(context);
       this._prepareNpcHps(context);
     }
+
+    await this._prepareEnrichedFields(context, actorData.type);
 
     // Add roll data for TinyMCE editors.
     context.rollData = context.actor.getRollData();
@@ -338,6 +340,38 @@ export class BNBActorSheet extends ActorSheet {
 
   _prepareNpcHps(context) {
     context.hps = context.system.attributes.hps;
+  }
+
+  async _prepareEnrichedFields(context, actorType) {
+    let additionalEnrichments = {};
+    if (actorType == 'vault hunter') {
+      additionalEnrichments = {
+        ...additionalEnrichments,
+        ...(await this._getVaultHunterEnrichedFields(context))
+      };
+    }
+    if (actorType == 'npc') {
+      additionalEnrichments = {
+        ...additionalEnrichments,
+        ...(await this._getNPCEnrichedFields(context))
+      };
+    }
+
+    const system = this.object.system;
+    const configs = {async: true};
+    context.enriched = {
+      description: await TextEditor.enrichHTML(system.description, configs),
+      
+      ...additionalEnrichments
+    };
+  }
+
+  async _getVaultHunterEnrichedFields(context) {
+
+  }
+
+  async _getNPCEnrichedFields(context) {
+    
   }
 
   /**
