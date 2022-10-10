@@ -360,8 +360,14 @@ export class BNBActorSheet extends ActorSheet {
     const system = this.object.system;
     const configs = {async: true};
     context.enriched = {
-      description: await TextEditor.enrichHTML(system.description, configs),
-      
+      bio: {
+        appearance: await TextEditor.enrichHTML(system.bio.appearance, configs),
+        background: await TextEditor.enrichHTML(system.bio.background, configs),
+        characterInfo: await TextEditor.enrichHTML(system.bio.characterInfo, configs),
+        loyalties: await TextEditor.enrichHTML(system.bio.loyalties, configs),
+        traits: await TextEditor.enrichHTML(system.bio.traits, configs),
+        additionalNotes: await TextEditor.enrichHTML(system.bio.additionalNotes, configs),
+      },
       ...additionalEnrichments
     };
   }
