@@ -385,10 +385,22 @@ export class BNBActorSheet extends ActorSheet {
     const configs = {async: true};
     return {
       special: await TextEditor.enrichHTML(system.special, configs),
-      baseAction1Description: await TextEditor.enrichHTML(system.actions.base.action1.description, configs),
-      baseAction2Description: await TextEditor.enrichHTML(system.actions.base.action2.description, configs),
-      mayhemAction1Description: await TextEditor.enrichHTML(system.actions.mayhem.action1.description, configs),
-      mayhemAction1Description: await TextEditor.enrichHTML(system.actions.mayhem.action2.description, configs),
+      base: {
+        action1: { 
+          description: await TextEditor.enrichHTML(system.actions.base.action1.description, configs),
+        },
+        action2: { 
+          description: await TextEditor.enrichHTML(system.actions.base.action2.description, configs),
+        },
+      },
+      mayhem: {
+        action1: { 
+          description: await TextEditor.enrichHTML(system.actions.mayhem.action1.description, configs),
+        },
+        action2: { 
+          description: await TextEditor.enrichHTML(system.actions.mayhem.action2.description, configs),
+        },
+      }
     };
   }
 
