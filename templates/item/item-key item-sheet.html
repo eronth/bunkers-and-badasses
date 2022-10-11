@@ -19,10 +19,13 @@
       <div class="flexrow">
         <label>Description</label>
       </div>
-      <div class="flexrow">
-        <textarea class="key-item-textarea" name="system.description" 
-          placeholder="Give item details here."
-          type="text" rows="5">{{system.description}}</textarea>
+      <div class="flexrow enriched-region">
+        {{editor enriched.description
+          target="system.description"
+          placeholder="Item description."
+          button=true
+          editable=editable
+        }}
       </div>
       
     </div>

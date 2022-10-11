@@ -126,12 +126,20 @@ Handlebars.registerHelper('concat', function() {
   return outStr;
 });
 
+Handlebars.registerHelper('capitalize', function(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+});
+
 Handlebars.registerHelper('toLowerCase', function(str) {
   return str.toLowerCase();
 });
 
 Handlebars.registerHelper('toUpperCase', function(str) {
   return str.toUpperCase();
+});
+
+Handlebars.registerHelper('enrich', function(str) {
+  return TextEditor.enrichHTML(str, {async: false});;
 });
 
 Handlebars.registerHelper('toArray', (...values) => {
@@ -143,9 +151,6 @@ Handlebars.registerHelper('toFavoredElementObject', function(...values) {
   return {label: values[0], favored: values[1]};
 });
 
-Handlebars.registerHelper('capitalize', function(str) {
-  return str.charAt(0).toUpperCase() + str.slice(1);
-});
 
 Handlebars.registerHelper('hpTitle', function(str) {
   if (str === "flesh")
@@ -182,7 +187,6 @@ Handlebars.registerHelper('getBestHealthShade', function(str) {
     str = "dark";
   else if (str === "eridian")
     str = "light";
-
   return str;
 });
 

@@ -48,6 +48,9 @@
     "systems/bunkers-and-badasses/templates/item/parts/red-text.html",
 
     // Dialog partials
-    "systems/bunkers-and-badasses/templates/dialog/parts/element-radio-button.html"
+    "systems/bunkers-and-badasses/templates/dialog/parts/element-radio-button.html",
+
+    //General partials
+    "systems/bunkers-and-badasses/templates/general/divided-input.html"
   ]);
 };

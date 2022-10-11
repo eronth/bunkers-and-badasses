@@ -1,3 +1,10 @@
+.italics {
+  font-style: italic;
+}
+.bolded {
+  font-weight: bold;
+}
+
 .font-xx-small {
   font-size: xx-small;
 }
@@ -22,8 +29,6 @@
 .font-xx-large {
     font-size: xx-large;
 }
-
-
 
 .grid,
 .grid-2col {
@@ -173,6 +178,11 @@
   grid-column-end: span 12;
 }
 
+.flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
 .flex-group-center,
 .flex-group-left,
 .flex-group-right {
@@ -308,4 +318,35 @@
   -ms-flex-pack: center;
   justify-content: center;
   text-align: center;
+}
+
+.divided-input-left {
+  justify-content: right;
+}
+.divided-input-center {
+  justify-content: center;
+  margin-left: 0px;
+  margin-right: 0px;
+}
+.divided-input-right {
+  justify-content: left;
+}
+.divided-input-left input{
+  border-right: 0px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+.divided-input-center input,
+.divided-input-center input:disabled {
+  border: 1px solid var(--color-border-light-tertiary);
+  border-left: 0px;
+  border-right: 0px;
+  border-radius: 0px;
+  width: 0;
+  max-width: unset;
+}
+.divided-input-right input{
+  border-left: 0px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
 }
