@@ -406,7 +406,7 @@ export class BNBActorSheet extends ActorSheet {
           action2: { 
             description: await TextEditor.enrichHTML(system.actions.mayhem.action2.description, configs),
           },
-        ,}
+        },
       },
     };
   }
