@@ -138,6 +138,10 @@ Handlebars.registerHelper('toUpperCase', function(str) {
   return str.toUpperCase();
 });
 
+Handlebars.registerHelper('enrich', function(str) {
+  return TextEditor.enrichHTML(str, {async: false});;
+});
+
 Handlebars.registerHelper('toArray', (...values) => {
   // Omit the Handlebars options object.
   return values.slice(0, values.length - 1);

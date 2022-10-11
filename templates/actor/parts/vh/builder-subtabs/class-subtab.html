@@ -30,9 +30,14 @@
         <label class="bolded">Background Description</label>
       </div>
       <div class="flexrow background-description">
-        <textarea class="background-textarea" name="system.class.background.description"
-          placeholder="Description of your background."
-          type="text" rows="3">{{system.class.background.description}}</textarea>
+        <div class="enriched-region">
+          {{editor enriched.class.background.description
+            target="system.class.background.description"
+            placeholder="Description of your background."
+            button=true
+            editable=editable
+          }}
+        </div>
       </div>
     </div>
   </div>

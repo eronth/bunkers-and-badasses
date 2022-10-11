@@ -70,14 +70,15 @@ export class BNBActorSheet extends ActorSheet {
       this._prepareItems(context);
       this._prepareNpcHps(context);
     }
-
-    await this._prepareEnrichedFields(context, actorData.type);
-
+    
     // Add roll data for TinyMCE editors.
     context.rollData = context.actor.getRollData();
-
+    
     // Prepare active effects
     context.effects = prepareActiveEffectCategories(this.actor.effects);
+
+    // This should be near the last thing to happen.
+    await this._prepareEnrichedFields(context, actorData.type);
     
     return context;
   }
@@ -347,13 +348,13 @@ export class BNBActorSheet extends ActorSheet {
     if (actorType == 'vault hunter') {
       additionalEnrichments = {
         ...additionalEnrichments,
-        ...(await this._getVaultHunterEnrichedFields(context))
+        ...(await this._getVaultHunterEnrichedFields(context)),
       };
     }
     if (actorType == 'npc') {
       additionalEnrichments = {
         ...additionalEnrichments,
-        ...(await this._getNPCEnrichedFields(context))
+        ...(await this._getNPCEnrichedFields(context)),
       };
     }
 
@@ -376,7 +377,11 @@ export class BNBActorSheet extends ActorSheet {
     const system = this.object.system;
     const configs = {async: true};
     return {
-      description: await TextEditor.enrichHTML(system.description, configs),
+      class: {
+        background: {
+          description: await TextEditor.enrichHTML(system.class.background.description, configs),
+        },
+      },
     };
   }
 
@@ -433,10 +438,10 @@ export class BNBActorSheet extends ActorSheet {
   _prepareItems(context) {
     // Initialize containers.
     const features = [];
-    const skills = {
+    const skilltree = {
       1: [], 2: [], 3: [],
-      4: [], 5: [], 6: []
-    }
+      4: [], 5: [], 6: [],
+    };
     const guns = [];
     const equippedGuns = [];
     const shields = [];
@@ -457,7 +462,7 @@ export class BNBActorSheet extends ActorSheet {
         features.push(i); // Append to features.
       } else if (i.type === 'skill') {
         if (i.system.tier != null) {
-          skills[i.system.tier].push(i); // Append to skill.
+          skilltree[i.system.tier].push(i); // Append to skill.
         }
       } else if (i.type === 'Archetype Feat') {
         archetypeFeats.push(i); // Append to archetype Feats.
@@ -540,7 +545,7 @@ export class BNBActorSheet extends ActorSheet {
     // Assign and return
     context.keyItems = keyItems;
     context.features = features;
-    context.skills = skills;
+    context.skilltree = skilltree;
     context.archetypeFeats = archetypeFeats;
     context.guns = guns;
     context.equippedGuns = equippedGuns;

@@ -1,6 +1,6 @@
 <div class="flexcol">
   <ol class="items-list">
-    {{#each skills as |skills tier|}}
+    {{#each skilltree as |skills tier|}}
       <li class="item flexrow items-header">
         <div class="item-name flex-size-3">Tier {{tier}} Skills</div>
         <div class="reward-text flex-size-5 large-text-overflow-hidden"></div>
@@ -17,7 +17,7 @@
             </div>
             <h4 class="flex-size-2">{{item.name}}</h4>
           </div>
-          <div class="reward-text flex-size-6 large-text-overflow-hidden">{{item.system.description}}</div>
+          <div class="reward-text flex-size-6 large-text-overflow-hidden">{{{item.system.description}}}</div>
           <div class="reward-text flex-size-1">SL {{item.system.skillLevel}}</div>
           <div class="item-controls flex-size-1">
             <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
