@@ -52,6 +52,7 @@
 
     // General partials
     "systems/bunkers-and-badasses/templates/general/divided-input.html",
-    "systems/bunkers-and-badasses/templates/general/details-dropdown.html"
+    "systems/bunkers-and-badasses/templates/general/dropdown/dropdown-header.html",
+    "systems/bunkers-and-badasses/templates/general/dropdown/dropdown-details.html"
   ]);
 };

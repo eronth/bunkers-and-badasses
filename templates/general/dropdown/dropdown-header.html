@@ -1,0 +1,14 @@
+<div class="item-element-group" data-item-id="{{item._id}}">
+  <li class="flexrow items-header item-content item-dropdown" 
+  data-item-id="{{item._id}}"
+  >
+    <div class="item-name bolded flex-size-4">{{item.name}}</div>
+    <div class="item-text flex-size-7 large-text-overflow-hidden">
+      {{{enrich item.system.description}}}
+    </div>
+    <div class="item-controls flex-size-1">
+      <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+      <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+    </div>
+  </li>
+</div>
