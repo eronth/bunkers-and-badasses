@@ -1,5 +1,6 @@
-import {onManageActiveEffect, prepareActiveEffectCategories} from "../helpers/effects.mjs";
+import { onManageActiveEffect, prepareActiveEffectCategories } from "../helpers/effects.mjs";
 import { RollBuilder } from "../helpers/roll-builder.mjs";
+import { Dropdown } from "../helpers/dropdown.mjs";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -615,7 +616,7 @@ export class BNBActorSheet extends ActorSheet {
     html.find(".checkbox").click(this._onCheckboxClick.bind(this));
 
     // Display inventory details.
-    html.find(".item-dropdown").mousedown(this._expandItemDropdown.bind(this))
+    html.find(".item-dropdown").mousedown(this._toggleItemDetailsDropdown.bind(this))
 
     // Active Effect management
     html.find(".effect-control").click(ev => onManageActiveEffect(ev, this.actor));
@@ -1053,45 +1054,32 @@ export class BNBActorSheet extends ActorSheet {
         return this.actor.update({[`${target}`] : !getProperty(this.actor, target)});
   }
 
-  _expandItemDropdown(event) {
+  _toggleItemDetailsDropdown(event) {
     let id = $(event.currentTarget).attr("data-item-id")
     let item = this.actor.items.get(id)
     if (item && event.button == 0)
-      this._createDropdown(event, { text: item.system.description });
+      this._createDropdown(event, { description: item.system.description, type: item.type });
     else if (item)
       item.sheet.render(true)
   }
 
   async _createDropdown(event, dropdownData) {
-    let dropdownHTML = ""
-    event.preventDefault()
-    let li = $(event.currentTarget).parents(".item-element-group")
-    // Toggle expansion for an item
-    if (li.hasClass("expanded")) { // If expansion already shown - remove
-      let summary = li.children(".item-summary");
-      summary.slideUp(200, () => summary.remove());
+    event.preventDefault();
+
+    // Get the element to append to.
+    const li = $(event.currentTarget).parents(".item-element-group");
+
+    // Handle the hide/show portion.
+    if (li.hasClass('expanded')) { // If expansion already shown - remove
+      const detailsDropdown = li.children(".details-dropdown");
+      detailsDropdown.slideUp(200, () => detailsDropdown.remove());
     } else {
-      // Add a div with the item summary belowe the item
-      let div
-      if (!dropdownData) {
-        return
-      } else {
-        dropdownHTML = `<div class="item-summary">${await TextEditor.enrichHTML(dropdownData.text, {async: true})}`;
-      }
-      // if (dropdownData.tags) {
-      //     let tags = `<div class='tags'>`
-      //     dropdownData.tags.forEach(tag => {
-      //         tags = tags.concat(`<span class='tag'>${tag}</span>`)
-      //     })
-      //     dropdownHTML = dropdownHTML.concat(tags)
-      // }
-      dropdownHTML += "</div>"
-      div = $(dropdownHTML)
+      const div = $(await Dropdown.dropdownDetailsHtmlTemplate(dropdownData));
       li.append(div.hide());
       div.slideDown(200);
     }
-    li.toggleClass("expanded");
-}
+    li.toggleClass('expanded');
+  }
 
   /**
    * Handle clickable rolls.
