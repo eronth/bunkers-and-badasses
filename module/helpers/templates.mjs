@@ -50,7 +50,8 @@
     // Dialog partials
     "systems/bunkers-and-badasses/templates/dialog/parts/element-radio-button.html",
 
-    //General partials
-    "systems/bunkers-and-badasses/templates/general/divided-input.html"
+    // General partials
+    "systems/bunkers-and-badasses/templates/general/divided-input.html",
+    "systems/bunkers-and-badasses/templates/general/details-dropdown.html"
   ]);
 };
