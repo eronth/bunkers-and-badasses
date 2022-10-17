@@ -436,7 +436,6 @@
     "gun": {
       "templates": ["base", "loot", "elemental"],
       "weilded": false,
-
       "prefix": {
         "name": "",
         "effects": ""
@@ -462,7 +461,6 @@
       "damage": "",
       "range": 0,
       "bonusCritDmg": 0,
-
       "statMods": {
         "acc": 0,
         "dmg": 0,
@@ -472,7 +470,6 @@
       "hitBonus": 0,
       "isSplash": false,
       "overheat": "",
-
       "bonus": ""
     },
     "shield": {
