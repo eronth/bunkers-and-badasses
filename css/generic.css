@@ -331,7 +331,9 @@
 .divided-input-right {
   justify-content: left;
 }
-.divided-input-left input{
+.divided-input-left input,
+.divided-input-left input:disabled {
+  border: 1px solid var(--color-border-light-tertiary);
   border-right: 0px;
   border-top-right-radius: 0px;
   border-bottom-right-radius: 0px;
@@ -345,7 +347,9 @@
   width: 0;
   max-width: unset;
 }
-.divided-input-right input{
+.divided-input-right input,
+.divided-input-right input:disabled {
+  border: 1px solid var(--color-border-light-tertiary);
   border-left: 0px;
   border-top-left-radius: 0px;
   border-bottom-left-radius: 0px;
