@@ -252,9 +252,9 @@
 }
 
 .flex-size-5 {
-  -webkit-box-flex: 4;
-  -ms-flex: 4;
-  flex: 4;
+  -webkit-box-flex: 5;
+  -ms-flex: 5;
+  flex: 5;
 }
 
 .flex-size-6 {
