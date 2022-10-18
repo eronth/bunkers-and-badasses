@@ -16,6 +16,16 @@ export class Dropdown {
       default: return 'MISSING-DROPDOWN-PARAM';
     };
   }
+  static getHeaderTemplateLocation(itemType) {
+    switch (itemType) {
+      case 'Archetype Feat':
+        return 'systems/bunkers-and-badasses/templates/general/dropdown/item-headers/archetype-feat-dropdown-header.html';
+      case 'skill':
+        return 'systems/bunkers-and-badasses/templates/general/dropdown/item-headers/class-skill-dropdown-header.html';
+      case 'Action Skill':
+        return 'systems/bunkers-and-badasses/templates/general/dropdown/item-headers/action-skill-dropdown-header.html';
+    }
+  }
 
   static async toggleItemDetailsDropdown(event, dropdownData) {
     event.preventDefault();

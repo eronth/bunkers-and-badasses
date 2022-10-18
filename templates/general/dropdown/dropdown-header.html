@@ -1,6 +1,5 @@
 <li class='{{dropdownComponentClass "group"}} {{dropdownComponentClass "clickable"}} item-element-group' data-item-id="{{item._id}}">
   <div class='{{dropdownComponentClass "header"}} flexrow align-center'>
-    {{> "systems/bunkers-and-badasses/templates/general/dropdown/item-headers/archetype-feat-dropdown-header.html""systems/bunkers-and-badasses/templates/general/dropdown/item-headers/archetype-feat-dropdown-header.html"
-      item=item }}
+    {{> (dropdownHeaderLocation item.type) item=item }}
   </div>
 </li>
