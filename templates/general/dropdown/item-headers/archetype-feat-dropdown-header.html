@@ -1,0 +1,17 @@
+<div class="item-image flex-size-1">
+  <a class="rollable flexcol align-center" data-roll-type="item" style="width:24px;">
+    <img class=''
+      src="{{item.img}}" title="{{item.system.archetype}}-{{item.name}}" width="24" height="24"/>
+  </a>
+</div>
+
+<div class="align-left bolded flex-size-5">{{item.name}}</div>
+
+<div class="align-left flex-size-12 large-text-overflow-hidden" style="max-height:31px">
+  {{{enrich item.system.description}}}
+</div>
+
+<div class="archetype-item-controls flex-size-1">
+  <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+  <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+</div>

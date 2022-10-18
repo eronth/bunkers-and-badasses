@@ -52,7 +52,13 @@
 
     // General partials
     "systems/bunkers-and-badasses/templates/general/divided-input.html",
+    
+    // Dropdown pieces
     "systems/bunkers-and-badasses/templates/general/dropdown/dropdown-header.html",
-    "systems/bunkers-and-badasses/templates/general/dropdown/dropdown-details.html"
+    "systems/bunkers-and-badasses/templates/general/dropdown/item-headers/archetype-feat-dropdown-header.html",
+    "systems/bunkers-and-badasses/templates/general/dropdown/item-headers/action-skill-dropdown-header.html",
+    "systems/bunkers-and-badasses/templates/general/dropdown/item-headers/class-skill-dropdown-header.html",
+    "systems/bunkers-and-badasses/templates/general/dropdown/dropdown-details.html",
+
   ]);
 };

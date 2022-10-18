@@ -606,7 +606,8 @@ input[type="time"]:focus {
   justify-content: center;
 }
 
-.bnb .items-list .item-controls {
+.bnb .items-list .item-controls,
+.bnb .items-list .archetype-item-controls {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -617,12 +618,19 @@ input[type="time"]:focus {
   -ms-flex-pack: end;
   justify-content: flex-end;
 }
+.bnb .items-list .archetype-item-controls {
+  -webkit-box-flex: 3;
+  -ms-flex: 3;
+  flex: 3;
+}
 
+.bnb .items-list .archetype-item-controls a,
 .bnb .items-list .item-controls a {
   font-size: 12px;
   text-align: center;
   margin: 0 6px;
 }
+
 
 .bnb .items-list .item-controls-small {
   display: -webkit-box;
