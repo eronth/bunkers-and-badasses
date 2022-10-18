@@ -83,8 +83,13 @@
 a#submit { z-index: 1; }
 
 .item-dropdown-group {
+  margin-top: -1px;
   border: 1px rgb(122, 121, 113) solid;
 }
 .item-dropdown-group .item-dropdown-header {
-
+  padding: 1px 5px;
+}
+.item-dropdown-group .item-dropdown-body {
+  border-top: 1px rgb(193, 192, 184) solid;
+  padding: 2px 5px;
 }
