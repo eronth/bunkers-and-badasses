@@ -616,7 +616,7 @@ export class BNBActorSheet extends ActorSheet {
     html.find(".checkbox").click(this._onCheckboxClick.bind(this));
 
     // Display inventory details.
-    html.find(".item-dropdown").mousedown(this._toggleItemDetailsDropdown.bind(this))
+    html.find(".item-dropdown").mousedown(this._onItemDetailsComponenetClick.bind(this))
 
     // Active Effect management
     html.find(".effect-control").click(ev => onManageActiveEffect(ev, this.actor));
@@ -1054,31 +1054,16 @@ export class BNBActorSheet extends ActorSheet {
         return this.actor.update({[`${target}`] : !getProperty(this.actor, target)});
   }
 
-  _toggleItemDetailsDropdown(event) {
-    let id = $(event.currentTarget).attr("data-item-id")
-    let item = this.actor.items.get(id)
+  _onItemDetailsComponenetClick(event) {
+    // Get needed values.
+    const id = $(event.currentTarget).attr("data-item-id");
+    const item = this.actor.items.get(id);
+
+    // Handle interactions per button click.
     if (item && event.button == 0)
-      this._createDropdown(event, { description: item.system.description, type: item.type });
+      Dropdown.toggleItemDetailsDropdown(event, { description: item.system.description, type: item.type });
     else if (item)
-      item.sheet.render(true)
-  }
-
-  async _createDropdown(event, dropdownData) {
-    event.preventDefault();
-
-    // Get the element to append to.
-    const li = $(event.currentTarget).parents(".item-element-group");
-
-    // Handle the hide/show portion.
-    if (li.hasClass('expanded')) { // If expansion already shown - remove
-      const detailsDropdown = li.children(".details-dropdown");
-      detailsDropdown.slideUp(200, () => detailsDropdown.remove());
-    } else {
-      const div = $(await Dropdown.dropdownDetailsHtmlTemplate(dropdownData));
-      li.append(div.hide());
-      div.slideDown(200);
-    }
-    li.toggleClass('expanded');
+      item.sheet.render(true);
   }
 
   /**

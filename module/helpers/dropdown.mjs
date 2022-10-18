@@ -1,5 +1,47 @@
 export class Dropdown {
-  static async dropdownDetailsHtmlTemplate(data) {
+  static getComponentClass(componentType) {
+    switch (componentType) {
+      case 'header': return 'dropdown-header';
+      case 'body': return 'dropdown-body';
+      case 'group': return 'dropdown-group';
+      default: return 'MISSING-DROPDOWN-PARAM';
+    };
+  }
+  static getComponentCss(componentType) {
+    switch (componentType) {
+      case 'header': return '';
+      case 'body': return '';
+      default: return 'MISSING-DROPDOWN-PARAM';
+    };
+  }
+
+  static async toggleItemDetailsDropdown(event, dropdownData) {
+    event.preventDefault();
+
+    // Get the element to append to/remove from.
+    const li = $(event.currentTarget).parents(`.${this.getComponentClass('group')}`);
+
+    // Handle the hide/show portion.
+    if (li.hasClass('expanded')) { // If expansion already shown - remove
+      await this._removeDetailsDropdown(li);
+    } else {
+      await this._addDetailsDropdown(li, dropdownData);
+    }
+    li.toggleClass('expanded');
+  }
+
+  static async _removeDetailsDropdown(headerComponent) {
+    const detailsDropdown = headerComponent.children(`.${this.getComponentClass('body')}`);
+    detailsDropdown.slideUp(200, () => detailsDropdown.remove());
+  }
+
+  static async _addDetailsDropdown(headerComponenet, dropdownData) {
+    const div = $(await this._dropdownDetailsHtmlTemplate(dropdownData));
+    headerComponenet.append(div.hide());
+    div.slideDown(200);
+  }
+
+  static async _dropdownDetailsHtmlTemplate(data) {
     if (!data) {
       return "no data found (probably because the developer messed something up).";
     }

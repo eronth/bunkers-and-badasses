@@ -7,6 +7,8 @@ import { BNBItemSheet } from "./sheets/item-sheet.mjs";
 // Import helper/utility classes and constants.
 import { preloadHandlebarsTemplates } from "./helpers/templates.mjs";
 import { BNB } from "./helpers/config.mjs";
+import { Dropdown } from "./helpers/dropdown.mjs";
+
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -204,6 +206,13 @@ Handlebars.registerHelper('shortName', function(str) {
     return str;
 });
 
+// Dropdown related helpers.
+Handlebars.registerHelper('dropdownComponentClass', function(componentType) {
+  return Dropdown.getComponentClass(componentType);
+});
+Handlebars.registerHelper('dropdownComponentCss', function(componentType) {
+  return Dropdown.getComponentCss(componentType);
+});
 
 
 /* -------------------------------------------- */
