@@ -10,9 +10,7 @@
         </div>
       </li>
       {{#each skills as |item id|}}
-      {{> "systems/bunkers-and-badasses/templates/general/dropdown/dropdown-header.html"
-        item=item
-      }}
+        {{> (dropdownHeaderLocation "base") item=item }}
       {{/each}}
     {{/each}}
   </ol>

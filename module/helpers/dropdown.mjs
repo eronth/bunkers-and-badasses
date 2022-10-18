@@ -24,6 +24,8 @@ export class Dropdown {
         return 'systems/bunkers-and-badasses/templates/general/dropdown/item-headers/class-skill-dropdown-header.html';
       case 'Action Skill':
         return 'systems/bunkers-and-badasses/templates/general/dropdown/item-headers/action-skill-dropdown-header.html';
+      case 'base':
+        return 'systems/bunkers-and-badasses/templates/general/dropdown/dropdown-header.html';
     }
   }
 
