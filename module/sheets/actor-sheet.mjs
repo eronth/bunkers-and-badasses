@@ -616,7 +616,7 @@ export class BNBActorSheet extends ActorSheet {
     html.find(".checkbox").click(this._onCheckboxClick.bind(this));
 
     // Display inventory details.
-    html.find(".item-dropdown").mousedown(this._onItemDetailsComponenetClick.bind(this))
+    html.find(`.${Dropdown.getComponentClass('clickable')}`).mousedown(this._onItemDetailsComponenetClick.bind(this))
 
     // Active Effect management
     html.find(".effect-control").click(ev => onManageActiveEffect(ev, this.actor));

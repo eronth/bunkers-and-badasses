@@ -1,9 +1,11 @@
 export class Dropdown {
   static getComponentClass(componentType) {
     switch (componentType) {
-      case 'header': return 'dropdown-header';
-      case 'body': return 'dropdown-body';
-      case 'group': return 'dropdown-group';
+      case 'header': return 'item-dropdown-header';
+      case 'body': return 'item-dropdown-body';
+      case 'group': return 'item-dropdown-group';
+      case 'clickable': return 'item-dropdown-click-component';
+
       default: return 'MISSING-DROPDOWN-PARAM';
     };
   }
@@ -19,7 +21,7 @@ export class Dropdown {
     event.preventDefault();
 
     // Get the element to append to/remove from.
-    const li = $(event.currentTarget).parents(`.${this.getComponentClass('group')}`);
+    const li = $(event.currentTarget);//.parents(`.${this.getComponentClass('group')}`);
 
     // Handle the hide/show portion.
     if (li.hasClass('expanded')) { // If expansion already shown - remove
