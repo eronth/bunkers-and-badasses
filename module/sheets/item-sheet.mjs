@@ -39,7 +39,7 @@ export class BNBItemSheet extends ItemSheet {
     this.updateDataFromPreviousVersions(itemData);
     
     // Prep enriched text portions for better text display.
-    await this.prepareEnrichedFields(context);
+    await this.prepareEnrichedFields(context, itemData);
 
     // Not 100% what this even means!!
     // Retrieve the roll data for TinyMCE editors.
@@ -89,13 +89,22 @@ export class BNBItemSheet extends ItemSheet {
     }
   }
 
-  async prepareEnrichedFields(context) {
+  async prepareEnrichedFields(context, item) {
     const system = this.object.system;
     const configs = {async: true};
+    let extraEnrichments = {};
+
+    if (item.type == "Action Skill") {
+      extraEnrichments = {
+        notes: await TextEditor.enrichHTML(system.notes, configs),
+      };
+    }
+
     context.enriched = {
       description: await TextEditor.enrichHTML(system.description, configs),
       redTextEffect: await TextEditor.enrichHTML(system.redTextEffect, configs),
-      redTextEffectBM: await TextEditor.enrichHTML(system.redTextEffectBM, configs)
+      redTextEffectBM: await TextEditor.enrichHTML(system.redTextEffectBM, configs),
+      ...extraEnrichments
     };
   }
 
