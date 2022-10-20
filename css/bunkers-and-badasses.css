@@ -1583,3 +1583,15 @@ input[type="time"]:focus {
   border-right: 0;
   background-color: #0000;
 }
+
+.action-skill-description-title {
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  justify-content: start;
+  text-align: start;
+  align-self: end;
+}
+
+.action-skill-labels {
+  align-self: center;
+}
