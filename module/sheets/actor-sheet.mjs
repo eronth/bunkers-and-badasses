@@ -453,6 +453,7 @@ export class BNBActorSheet extends ActorSheet {
     const relics = [];
     const potions = [];
     const archetypeFeats = [];
+    const actionSkills = [];
     const keyItems = [];
 
     // Iterate through items, allocating to containers
@@ -469,6 +470,8 @@ export class BNBActorSheet extends ActorSheet {
         }
       } else if (i.type === 'Archetype Feat') {
         archetypeFeats.push(i); // Append to archetype Feats.
+      } else if (i.type === 'Action Skill') {
+        actionSkills.push(i); // Append to Action Skills (should probably only ever be one, but whatever).
       } else if (i.type === 'gun') {
         let elemIcon = "";
         let gunDmgString = "";
@@ -546,10 +549,13 @@ export class BNBActorSheet extends ActorSheet {
     }
 
     // Assign and return
-    context.keyItems = keyItems;
+    /// Items that only exist for character stuff.
     context.features = features;
     context.skilltree = skilltree;
     context.archetypeFeats = archetypeFeats;
+    context.actionSkills = actionSkills;
+    /// Items that are actually inventory items.
+    context.keyItems = keyItems;
     context.guns = guns;
     context.equippedGuns = equippedGuns;
     context.shields = shields;
