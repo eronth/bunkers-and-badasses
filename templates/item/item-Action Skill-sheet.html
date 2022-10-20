@@ -1,0 +1,54 @@
+<form class="{{cssClass}}" autocomplete="off">
+  <header class="sheet-header">
+    <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
+    <div class="header-fields">
+      <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Name"/></h1>
+    </div>
+  </header>
+
+  {{!-- Sheet Body --}}
+  <section class="item-body">
+    <div class="flexcol">
+
+      <!--  uses (value, max) -->
+      
+      <div class="description flexcol margin-2">
+        <div class="flexrow align-center">
+          <div class="flex-size-8 action-skill-description-title">
+            <label class="item-label">Description</label>
+          </div>
+          <div class="flexrow margin-2 flex-size-7">
+            <label for="class-input" class="bolded action-skill-labels lr-padding-2 flex-size-2">Class</label>
+            <input id="class-input" class="flex-size-10" value="{{system.class}}" name="system.class"
+              onfocus="this.select()" type="text" data-dtype="String"/>
+          </div>
+          <div class="flexrow margin-2 flex-size-8">
+            <label for="bonus-uses-input" class="bolded action-skill-labels lr-padding-2 flex-size-5">Bonus Uses Per Day</label>
+            <input id="bonus-uses-input" class="flex-size-1" value="{{system.bonusUses}}" name="system.bonusUses"
+              onfocus="this.select()" type="number" data-dtype="Number" />
+          </div>
+
+        </div>
+        <div class="flexrow enriched-region">
+          {{editor enriched.description
+            target="system.description"
+            placeholder="Description of action skill's effects."
+            button=true
+            editable=editable
+          }}
+        </div>
+      </div>
+      <div class="description flexcol margin-2">
+        <label class="item-label">Extra Notes</label>
+        <div class="flexrow enriched-region">
+          {{editor enriched.notes
+            target="system.notes"
+            placeholder="Extra notes"
+            button=true
+            editable=editable
+          }}
+        </div>
+      </div>
+    </div>
+  </section>
+</form>
