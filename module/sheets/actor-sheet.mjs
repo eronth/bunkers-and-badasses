@@ -1067,7 +1067,7 @@ export class BNBActorSheet extends ActorSheet {
 
     // Handle interactions per button click.
     if (item && event.button == 0)
-      Dropdown.toggleItemDetailsDropdown(event, { description: item.system.description, type: item.type });
+      Dropdown.toggleItemDetailsDropdown(event, { description: item.system.description, notes: item.system.notes, type: item.type });
     else if (item)
       item.sheet.render(true);
   }

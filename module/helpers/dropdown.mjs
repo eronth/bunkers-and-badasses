@@ -30,6 +30,16 @@ export class Dropdown {
         return 'systems/bunkers-and-badasses/templates/general/dropdown/item-headers/default-dropdown-header.html';
     }
   }
+  static getBodyTemplateLocation(itemType) {
+    switch (itemType) {
+      case 'Action Skill':
+        return 'systems/bunkers-and-badasses/templates/general/dropdown/item-bodies/action-skill-dropdown-details.html';
+      case 'Archetype Feat':
+      case 'skill':
+      default:
+        return 'systems/bunkers-and-badasses/templates/general/dropdown/dropdown-details.html';
+    }
+  }
 
   static async toggleItemDetailsDropdown(event, dropdownData) {
     event.preventDefault();
@@ -63,7 +73,7 @@ export class Dropdown {
     }
 
     // Get the html template, create the data block, then put it together.
-    const templateLocation = 'systems/bunkers-and-badasses/templates/general/dropdown/dropdown-details.html';
+    const templateLocation = this.getBodyTemplateLocation(data.type);
     const enrichedData = {
       ...data,
       type: data.type,
