@@ -97,4 +97,21 @@
       </div>
     </ol>
   </section>
+  <section>
+    <ol class="items-list">
+      <li class="flexrow items-header">
+        <div class="item-name">Action Skill</div>
+        <div class="item-controls">
+          <!-- <a 
+            class="item-control item-create" 
+            title="Create item" data-dtype="Archetype Feat">
+              <i class="fas fa-plus"></i> Add Feat
+            </a> -->
+        </div>
+      </li>
+      {{#each actionSkills as |item id|}}
+        {{> (dropdownHeaderLocation "base") item=item }}
+      {{/each}}      
+    </ol>
+  </section>
 </div>

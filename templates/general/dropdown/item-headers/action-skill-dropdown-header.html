@@ -1,0 +1,15 @@
+<div class="item-name flex-size-6 flexrow">
+  <div class="item-image">
+    <a class="rollable" data-roll-type="item"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></a>
+  </div>
+  <h4 class="flex-size-4 bolded lr-padding-4">{{item.name}}</h4>
+
+  <div class="align-left flex-size-12 large-text-overflow-hidden" style="max-height:31px">{{{item.system.description}}}</div>
+
+  <div class="align-center flex-size-6 lr-padding-2">Bonus Activations: {{item.system.bonusUses}}</div>
+
+  <div class="class-skill-item-controls">
+    <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+    <!-- <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a> -->
+  </div>
+</div>
