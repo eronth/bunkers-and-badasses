@@ -84,7 +84,7 @@ export class BNBActorSheet extends ActorSheet {
     return context;
   }
 
-  _updateVaultHunterFromPreviousVersions(context) {
+  async _updateVaultHunterFromPreviousVersions(context) {
 
     ///////////////////////////////////
     //////// Update from 0.1.3 ////////
@@ -145,7 +145,7 @@ export class BNBActorSheet extends ActorSheet {
       const attributeLabel = `system.bonus.healths`;
       this.actor.update({[attributeLabel]: effectsHPs});
     }
-    ////////////  Update HP From Previous Versions  ////////////
+    ////////////  Update HP From Previous Versions  ////////////  
   }
 
   _updateNPCFromPreviousVersions(context) {
@@ -438,7 +438,7 @@ export class BNBActorSheet extends ActorSheet {
    *
    * @return {undefined}
    */
-  _prepareItems(context) {
+  async _prepareItems(context) {
     // Initialize containers.
     const features = [];
     const skilltree = {
@@ -546,6 +546,32 @@ export class BNBActorSheet extends ActorSheet {
       } else if (i.type === 'potion') {
         potions.push(i);
       }
+    }
+
+    // If we don't already have an action skill, make one for the player.
+    if (actionSkills.length === 0) {
+      const actorActionSkill = this?.actor?.system?.class?.actionSkill;
+      
+      // Prepare item data.
+      const nameToUse = ((!actorActionSkill?.name || actorActionSkill?.name === 'Action Skill')
+        ? 'New Action Skill'
+        : actorActionSkill?.name);
+      const itemSystemData = {
+        class: '', 
+        bonusUses: 0,
+        description: actorActionSkill?.description,
+        notes: actorActionSkill?.notes,
+      };
+      const newActionSkillItemData = {
+        name: nameToUse,
+        type: "Action Skill",
+        img: 'icons/svg/clockwork.svg',
+        system: {...itemSystemData}
+      };
+
+      // Create item for use.
+      const newASitem = await Item.create(newActionSkillItemData, { parent: this.actor });
+      context.items.push(newASitem);
     }
 
     // Assign and return
