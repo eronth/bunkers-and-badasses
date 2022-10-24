@@ -8,3 +8,4 @@ Updates
 
 Bugfixes
 * Fixed a bug with displaying melee dice rolls to chat.
+* Reversed icons for Effects enabled/disabled. The check and x seemed reversed from expected.
