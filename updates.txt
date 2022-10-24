@@ -2,6 +2,8 @@ Updates
 * Made preparations for Foundry V10
 * Fixed several textarea fields to use the built in TinyMCE editor.
 * Updated some text display areas to show the enriched HTML text properly.
+* Updated Action Skill to us the more robust "item" popup.
 * Cleaned up display on grenades.
+* Unified a bunch of UI stuff.
 
 Bugfixes
