@@ -7,19 +7,25 @@
   </div>
 </div>
 <div class="item-body flexrow">
-  <div class="flexrow red-text-description">
-    <textarea class="red-text-textarea" name="system.redTextEffect"
-      placeholder="Red Text effect, either provided by DM or estimated on usage."
-      type="text" rows="5">{{system.redTextEffect}}</textarea>
+  <div class="flexrow enriched-region enriched-red-text-description">
+    {{editor enriched.redTextEffect
+      target="system.redTextEffect"
+      placeholder="What does the red text mean?"
+      button=true
+      editable=editable
+    }}
   </div>
 </div>
 {{#if showRedTextMeaning}}
 <div class="bolded bm-alert">— Red Text notes - Only visible to BMs! —</div>
 <div class="item-body flexrow">
-  <div class="flexrow red-text-description">
-    <textarea class="red-text-textarea" name="system.redTextEffectBM"
-    placeholder="BM ONLY - Red Text Notes."
-    type="text" rows="5">{{system.redTextEffectBM}}</textarea>
+  <div class="flexrow enriched-region">
+    {{editor enriched.redTextEffectBM
+      target="system.redTextEffectBM"
+      placeholder="Add secret weapon effects here."
+      button=true
+      editable=editable
+    }}
   </div>
 </div>
 {{/if}}

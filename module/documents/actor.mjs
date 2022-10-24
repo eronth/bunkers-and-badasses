@@ -70,6 +70,15 @@ export class BNBActor extends Actor {
     // Data modifications in this step occur before processing embedded
     // documents or derived data.
     super.prepareBaseData();
+    this._prepareVaultHunterBaseData();
+    this._prepareNpcBaseData();
+  }
+
+  _prepareVaultHunterBaseData() {
+    if (this.type !== 'vault hunter') return;
+  }
+  _prepareNpcBaseData() {
+    if (this.type !== 'npc') return;
   }
 
   /**
@@ -88,14 +97,14 @@ export class BNBActor extends Actor {
 
     // Make separate methods for each Actor type (vault hunter, npc, etc.) to keep
     // things organized.
-    this._prepareVaultHunterData(actorData);
-    this._prepareNpcData(actorData);
+    this._prepareVaultHunterDerivedData(actorData);
+    this._prepareNpcDerivedData(actorData);
   }
 
   /**
    * Prepare Vault Hunter type specific data
    */
-  _prepareVaultHunterData(actorData) {
+  _prepareVaultHunterDerivedData(actorData) {
     if (actorData.type !== 'vault hunter') return;
 
     // Run a quick update to make sure data from previous versions matches current expected version..
@@ -135,7 +144,9 @@ export class BNBActor extends Actor {
     });
   }
 
-  _updateVaultHunterDataVersions(actorData) {
+  async _updateVaultHunterDataVersions(actorData) {
+    if (this.type !== 'vault hunter') return;
+
     if (!actorData?.system?.checks?.throw) {
       actorData.system.checks.throw = {
         stat: "acc",
@@ -146,13 +157,12 @@ export class BNBActor extends Actor {
       const archetypeRewardsLabel = "system.checks.throw";
       this.update({[archetypeRewardsLabel]: actorData.system.checks.throw});
     }
-    
   }
   
   /**
    * Prepare NPC type specific data.
    */
-  _prepareNpcData(actorData) {
+  _prepareNpcDerivedData(actorData) {
     if (actorData.type !== 'npc') return;
 
     // const hps = actorData.system.attributes.hps;

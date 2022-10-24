@@ -182,21 +182,16 @@
           "description": "",
           "bonuses": ""
         },
-        "actionSkill": {
-          "name": "Action Skill",
-          "description": "",
-          "notes": "",
-          "uses": {
-            "value": 0,
-            "min": 0,
-            "max": 0
-          }
-        },
         "baseStats": {
           "acc": 0,
           "dmg": 0,
           "spd": 0,
           "mst": 0
+        },
+        "actionSkill": {
+          "uses": {
+            "value": 0
+          }
         }
       },
       "favored": {
@@ -341,7 +336,7 @@
   },
   "Item": {
     "types": [ "gun", "shield", "grenade", "relic", "potion", "key item",
-      "skill", "Archetype Level", "Archetype Feat" ],
+      "skill", "Archetype Level", "Archetype Feat", "Action Skill" ],
     "templates": {
       "base": {
         "description": "",
@@ -438,7 +433,6 @@
     "gun": {
       "templates": ["base", "loot", "elemental"],
       "weilded": false,
-
       "prefix": {
         "name": "",
         "effects": ""
@@ -464,7 +458,6 @@
       "damage": "",
       "range": 0,
       "bonusCritDmg": 0,
-
       "statMods": {
         "acc": 0,
         "dmg": 0,
@@ -474,7 +467,6 @@
       "hitBonus": 0,
       "isSplash": false,
       "overheat": "",
-
       "bonus": ""
     },
     "shield": {
@@ -535,7 +527,9 @@
     },
     "Action Skill": {
       "templates": ["base"],
-      "remainingUses": 0
+      "class": "",
+      "bonusUses": 0,
+      "notes": ""
     }
   }
 }

@@ -1,0 +1,21 @@
+<div class="flexrow">
+  <div class="flex-size-1">
+    <img class='lr-margin-5'
+      src="{{item.img}}" title="action-skill-{{item.name}}"
+      width="40" height="40"/>
+  </div>
+  <div class="flexcol flex-size-3">
+    <div><b>Class:</b> {{item.system.class}}</div>
+    <div><b>Bonus Uses Per Day:</b> {{item.system.bonusUses}}</div>
+  </div>
+</div>
+<hr />
+<div>
+  {{{enrich item.system.description}}}
+</div>
+{{#if item.system.notes}}
+<hr />
+<div>
+  {{{enrich item.system.notes}}}
+</div>
+{{/if}}

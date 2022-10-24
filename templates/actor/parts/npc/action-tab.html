@@ -5,35 +5,41 @@
       type="text" data-dtype="String" />
   </div>
   <label class="npc-action-label">Special:</label>
-  <div class="npc-special-text">
-    <textarea class="" name="system.special"
-    data-dtype="String" type="text" rows="3">{{system.special}}</textarea>
-  </div>
+  <dev class="flex flexrow">
+    <div class="enriched-region">
+      {{editor enriched.special
+        target="system.special"
+        placeholder="Extra notes on how an NPC might act."
+        button=true
+        editable=editable
+      }}
+    </div>
+  </dev>
   <hr style="height:1px;border-width:0;color:gray;background-color:gray">
   <label class="npc-action-header">Actions</label>
   <div>
     {{> "systems/bunkers-and-badasses/templates/actor/parts/npc/action-components/action-block.html"
       dataLocation="system.actions.base.action1"
-      value=system.actions.base.action1
+      value=enriched.actions.base.action1
     }}
   </div>
   <div>
     {{> "systems/bunkers-and-badasses/templates/actor/parts/npc/action-components/action-block.html"
       dataLocation="system.actions.base.action2"
-      value=system.actions.base.action2
+      value=enriched.actions.base.action2
     }}
   </div>
   <label class="npc-action-header"><i class="fas fa-skull"></i> Mayhem Actions</label>
   <div>
     {{> "systems/bunkers-and-badasses/templates/actor/parts/npc/action-components/action-block.html"
       dataLocation="system.actions.mayhem.action1"
-      value=system.actions.mayhem.action1
+      value=enriched.actions.mayhem.action1
     }}
   </div>
   <div>
     {{> "systems/bunkers-and-badasses/templates/actor/parts/npc/action-components/action-block.html"
       dataLocation="system.actions.mayhem.action2"
-      value=system.actions.mayhem.action2
+      value=enriched.actions.mayhem.action2
     }}
   </div>
 </div>

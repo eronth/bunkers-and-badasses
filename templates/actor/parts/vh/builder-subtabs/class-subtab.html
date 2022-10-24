@@ -30,9 +30,14 @@
         <label class="bolded">Background Description</label>
       </div>
       <div class="flexrow background-description">
-        <textarea class="background-textarea" name="system.class.background.description"
-          placeholder="Description of your background."
-          type="text" rows="3">{{system.class.background.description}}</textarea>
+        <div class="enriched-region">
+          {{editor enriched.class.background.description
+            target="system.class.background.description"
+            placeholder="Description of your background."
+            button=true
+            editable=editable
+          }}
+        </div>
       </div>
     </div>
   </div>
@@ -62,34 +67,33 @@
       value="{{system.class.baseStats.mst}}"
       onfocus="this.select()"
       type="number" data-dtype="Number" />
-      </div>
-      <div class="flexrow flex-group-center class-stats-section">
-        <label class="melee-dice-header rollable" data-roll-type="melee-dice-roll"><i class="fa fa-dice-d20"></i> Melee Dice</label>
-        <input 
-        name="system.class.meleeDice" 
-        value="{{system.class.meleeDice}}"
-        placeholder="1d6"
-        onfocus="this.select()"
-        type="text" data-dtype="Dice" />
-      </div>
     </div>
-    <section>
-      
+    <div class="flexrow flex-group-center class-stats-section">
+      <label class="melee-dice-header rollable" data-roll-type="melee-dice-roll"><i class="fa fa-dice-d20"></i> Melee Dice</label>
+      <input 
+      name="system.class.meleeDice" 
+      value="{{system.class.meleeDice}}"
+      placeholder="e.g. 1d6"
+      onfocus="this.select()"
+      type="text" data-dtype="Dice" />
+    </div>
+  </div>
+  
+  <section>
     <ol class="items-list">
-      <li class="item flexrow items-header action-skill-header">
-        <div class="">Action Skill</div>
-        <div class="">Remaining Activations</div>
+      <li class="flexrow items-header">
+        <div class="item-name">Action Skill</div>
+        <div class="item-controls">
+          <!-- <a 
+            class="item-control item-create" 
+            title="Create item" data-dtype="Archetype Feat">
+              <i class="fas fa-plus"></i> Add Feat
+            </a> -->
+        </div>
       </li>
-      <div class="item-element-group action-skill-item">
-        <li class="item item-element-group flexrow action-skill-dropdown">
-          <div class="item-name bolded flex-size-4">{{system.class.actionSkill.name}}</div>
-          <div class="item-text flex-size-7 large-text-overflow-hidden">{{system.class.actionSkill.description}}</div>
-          <div class="item-text flex-size-2">{{system.class.actionSkill.uses.value}}/{{system.class.actionSkill.uses.max}}</div>
-          <div class="item-controls flex-size-1">
-            <a class="item-control action-skill-edit" title="Edit Action Skill"><i class="fas fa-edit"></i></a>
-          </div>
-        </li>
-      </div>
+      {{#each actionSkills as |item id|}}
+        {{> (dropdownHeaderLocation "base") item=item }}
+      {{/each}}      
     </ol>
   </section>
 </div>
