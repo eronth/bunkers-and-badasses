@@ -187,6 +187,11 @@
           "dmg": 0,
           "spd": 0,
           "mst": 0
+        },
+        "actionSkill": {
+          "uses": {
+            "value": 0
+          }
         }
       },
       "favored": {

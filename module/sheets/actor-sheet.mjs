@@ -62,6 +62,7 @@ export class BNBActorSheet extends ActorSheet {
       this._prepareArchetypes(context);
       this._prepareExperience(context);
       this._prepareVhHps(context);
+      this._prepareActionSkill(context);
       this._prepareVaultHunterData(context);
     }
 
@@ -175,6 +176,20 @@ export class BNBActorSheet extends ActorSheet {
       const attributeLabel = `system.attributes.hps`;
       this.actor.update({[attributeLabel]: actorHPs});
     }
+  }
+
+  _prepareActionSkill(context) {
+    if (context.actionSkills == null || context.actionSkills[0] == null) { return; }
+
+    const actor = context.actor;
+    const actionSkill = context.actionSkills[0];
+    const actionSkillName = actionSkill.name;
+    const actionSkillUses = {
+      value: context.actor.system.class.actionSkill.uses.value,
+      max: actionSkill.system.bonusUses + actor.system.stats.mst.mod,
+    };
+    context.actionSkillName = actionSkillName;
+    context.actionSkillUses = actionSkillUses;
   }
 
   _prepareArchetypes(context) {
