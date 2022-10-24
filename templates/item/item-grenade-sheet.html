@@ -32,6 +32,10 @@
           />
       </div>
       <div class="item-body item-body-num item-body-num-50 flexrow item-tag-group">
+        <label for="guild-input-{{item.id}}">Cost</label>
+        <input id="guild-input-{{item.id}}" class="" 
+          value="{{system.cost}}" name="system.cost"
+          type="number" data-dtype="Number" />
       </div>
     </div>
     {{> "systems/bunkers-and-badasses/templates/item/parts/damage-entry.html"
