@@ -1584,6 +1584,7 @@ input[type="time"]:focus {
   background-color: #0000;
 }
 
+.archetype-feat-description-title,
 .action-skill-description-title,
 .class-skill-description-title {
   -webkit-box-pack: start;
@@ -1599,4 +1600,7 @@ input[type="time"]:focus {
 .class-skill-labels {
   align-self: center;
   margin-left: 30px; /* There's got to be a better way, but CSS is just so strange. */
+}
+.archetype-feat-labels {
+  align-self: center;
 }
