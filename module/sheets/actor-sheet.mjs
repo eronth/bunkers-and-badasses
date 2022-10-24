@@ -664,6 +664,7 @@ export class BNBActorSheet extends ActorSheet {
 
     // Rollable abilities.
     html.find('.rollable').click(this._onRoll.bind(this));
+    html.find('.postable').click(this._onPost.bind(this));
 
     // Drag events for macros.
     if (this.actor.isOwner) {
@@ -1111,7 +1112,45 @@ export class BNBActorSheet extends ActorSheet {
   }
 
   /**
-   * Handle clickable rolls.
+   * Handle clickables that send info to chat.
+   * @param {Event} event   The originating click event
+   * @private
+   */
+  async _onPost(event) {
+    event.preventDefault();
+    const dataset = event.currentTarget.dataset;
+
+    if (!dataset.rollType) { return; }
+
+    if (dataset.rollType == 'item') {
+      const itemId = event.currentTarget.closest('.post-item').dataset.itemId;
+      const item = this.actor.items.get(itemId);
+      const chatInfoBaseLocation = 'systems/bunkers-and-badasses/templates/chat/info/';
+      const messageData = {
+        user: game.user.id,
+        speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+        type: CONST.CHAT_MESSAGE_TYPES.IC,
+        // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
+        speaker: ChatMessage.getSpeaker()
+      };
+
+      if (item.type == 'Archetype Feat') {
+        const templateLocation = `${chatInfoBaseLocation}archetype-feat-info.html`;
+        const chatHtmlContent = await renderTemplate(templateLocation, {
+          actorId: this.actor.id,
+          description: item.system.description,
+          item: item
+        });
+        messageData.flavor = `<b>${item.name}</b>.`;
+        messageData.content = chatHtmlContent;
+      }
+
+      // Send the roll to chat!
+      return ChatMessage.create(messageData);
+    }
+  }
+  /**
+   * Handle clickables that send rolls to chat.
    * @param {Event} event   The originating click event
    * @private
    */
