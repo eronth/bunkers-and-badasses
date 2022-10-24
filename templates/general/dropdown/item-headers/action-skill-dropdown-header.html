@@ -1,17 +1,19 @@
-<div class="item-name flex-size-6 flexrow">
+<div class="item-image flex-size-1 flexrow">
   <div class="item-image post-item" data-item-id="{{item._id}}">
-    <a class="postable" data-roll-type="item">
-      <img class='stop-dropdown' src="{{item.img}}" title="{{item.name}}" width="24" height="24"/>
+    <a class="postable flexcol align-center" data-roll-type="item" style="width:24px;">
+      <img class='stop-dropdown box-hover' 
+        src="{{item.img}}" title="action-skill-{{item.name}}" width="24" height="24"/>
     </a>
   </div>
-  <h4 class="flex-size-4 bolded lr-padding-4">{{item.name}}</h4>
+</div>
 
-  <div class="align-left flex-size-12 large-text-overflow-hidden" style="max-height:31px">{{{item.system.description}}}</div>
+<div class="flex-size-5 align-left bolded lr-padding-4">{{item.name}}</div>
 
-  <div class="align-center flex-size-6 lr-padding-2">Bonus Activations: {{item.system.bonusUses}}</div>
+<div class="align-left flex-size-13 large-text-overflow-hidden" style="max-height:31px">{{{item.system.description}}}</div>
 
-  <div class="class-skill-item-controls">
-    <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit stop-dropdown"></i></a>
-    <!-- <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash stop-dropdown"></i></a> -->
-  </div>
+<div class="align-center flex-size-7 lr-padding-2">Bonus Activations: {{item.system.bonusUses}}</div>
+
+<div class="class-skill-item-controls">
+  <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit stop-dropdown"></i></a>
+  <!-- <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash stop-dropdown"></i></a> -->
 </div>
