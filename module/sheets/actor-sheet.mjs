@@ -1142,15 +1142,26 @@ export class BNBActorSheet extends ActorSheet {
         // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
         speaker: ChatMessage.getSpeaker()
       };
+      const renderTemplateConfig = {
+        actorId: this.actor.id,
+        description: item.system.description,
+        item: item
+      };
 
       if (item.type == 'Archetype Feat') {
         const templateLocation = `${chatInfoBaseLocation}archetype-feat-info.html`;
-        const chatHtmlContent = await renderTemplate(templateLocation, {
-          actorId: this.actor.id,
-          description: item.system.description,
-          item: item
-        });
-        messageData.flavor = `<b>${item.name}</b>.`;
+        const chatHtmlContent = await renderTemplate(templateLocation, renderTemplateConfig);
+        messageData.flavor = `Archetype Feat <b>${item.name}</b>.`;
+        messageData.content = chatHtmlContent;
+      } else if (item.type == 'Action Skill') {
+        const templateLocation = `${chatInfoBaseLocation}action-skill-info.html`;
+        const chatHtmlContent = await renderTemplate(templateLocation, renderTemplateConfig);
+        messageData.flavor = `Action Skill <b>${item.name}</b>.`;
+        messageData.content = chatHtmlContent;
+      } else if (item.type == 'skill') {
+        const templateLocation = `${chatInfoBaseLocation}class-skill-info.html`;
+        const chatHtmlContent = await renderTemplate(templateLocation, renderTemplateConfig);
+        messageData.flavor = `Class Skill <b>${item.name}</b>.`;
         messageData.content = chatHtmlContent;
       }
 
