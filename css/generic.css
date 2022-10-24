@@ -374,6 +374,26 @@
 .margin-5 {
   margin: 5px;
 }
+.lr-margin-1 {
+  margin-left: 1px;
+  margin-right: 1px;
+}
+.lr-margin-2 {
+  margin-left: 2px;
+  margin-right: 2px;
+}
+.lr-margin-3 {
+  margin-left: 3px;
+  margin-right: 3px;
+}
+.lr-margin-4 {
+  margin-left: 4px;
+  margin-right: 4px;
+}
+.lr-margin-5 {
+  margin-left: 5px;
+  margin-right: 5px;
+}
 .padding-1 {
   padding: 1px;
 }
