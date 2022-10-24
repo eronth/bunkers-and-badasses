@@ -617,17 +617,14 @@ export class BNBActorSheet extends ActorSheet {
     // -------------------------------------------------------------
     
     // Handle Items.
-    html.find('.item-create').click(this._onItemCreate.bind(this));
     html.find('.checkbox').click(this._onItemCheckbox.bind(this));
-    // html.find('.item-equip').click(ev => {
-    //   ev.stopPropagation();
-    //   const li = $(ev.currentTarget).parents(".item-element-group");
-    //   const item = this.actor.items.get(li.data("itemId"));
-    //   item.system.equipped = !item.system.equipped;
-    //   let hello="hello"
-    // });
+
+    html.find('.item-create').click(this._onItemCreate.bind(this));
     html.find('.item-edit').click(ev => {
+      ev.preventDefault();
       ev.stopPropagation();
+      ev.stopImmediatePropagation();
+      ev.cancelBubble = true;
       const li = $(ev.currentTarget).parents(".item-element-group");
       const item = this.actor.items.get(li.data("itemId"));
       item.sheet.render(true);
@@ -663,7 +660,7 @@ export class BNBActorSheet extends ActorSheet {
     html.find(".checkbox").click(this._onCheckboxClick.bind(this));
 
     // Display inventory details.
-    html.find(`.${Dropdown.getComponentClass('clickable')}`).mousedown(this._onItemDetailsComponenetClick.bind(this))
+    $(`.${Dropdown.getComponentClass('clickable')}`).mouseup(this._onItemDetailsComponenetClick.bind(this));
 
     // Active Effect management
     html.find(".effect-control").click(ev => onManageActiveEffect(ev, this.actor));
@@ -1102,6 +1099,12 @@ export class BNBActorSheet extends ActorSheet {
   }
 
   _onItemDetailsComponenetClick(event) {
+    const classList = event.target.classList;
+    if (classList.contains('stop-dropdown')) {
+      return;
+    }
+    event.preventDefault();
+    event.stopPropagation();
     // Get needed values.
     const id = $(event.currentTarget).attr("data-item-id");
     const item = this.actor.items.get(id);
