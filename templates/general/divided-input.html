@@ -1,17 +1,29 @@
 <div class="flexrow">
-  <div class="flexrow divided-input-left">
-    <input id="{{id}}-count-input" value="{{targetObj.value}}" 
-      name="{{targetText}}.value" onfocus="this.select()" type="number" data-dtype="Number" 
+  <div class="flexrow flex-size-2 divided-input-left">
+    <input id="{{id}}-count-input"
+      {{#if leftValueOverride}}
+      value="{{leftValueOverride}}"
+      {{/if}}
+      {{^if leftValueOverride}}
+      value="{{targetObj.value}}" name="{{targetText}}.value"
+      {{/if}}
+      onfocus="this.select()" type="number" data-dtype="Number" 
       {{#if leftDisable}}disabled{{/if}}/>
   </div>
-  <div class="flexrow divided-input-center">
+  <div class="flexrow flex-size-1 divided-input-center">
     <input id="{{id}}-value-divider" value=" / " 
       type="text" data-dtype="string" 
       disabled />
   </div>
-  <div class="flexrow divided-input-right">
-    <input id="{{id}}-max-input" class="divided-input-right" value="{{targetObj.max}}" 
-      name="{{targetText}}.max" onfocus="this.select()" type="number" data-dtype="Number" 
+  <div class="flexrow flex-size-2 divided-input-right">
+    <input id="{{id}}-max-input" class="divided-input-right"
+      {{#if rightValueOverride}}
+      value="{{rightValueOverride}}"
+      {{/if}}
+      {{^if rightValueOverride}}
+      value="{{targetObj.max}}" name="{{targetText}}.max"
+      {{/if}}
+      onfocus="this.select()" type="number" data-dtype="Number" 
       {{#if rightDisable}}disabled{{/if}}/>
   </div>
 </div>
