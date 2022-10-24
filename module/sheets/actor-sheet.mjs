@@ -1279,6 +1279,7 @@ export class BNBActorSheet extends ActorSheet {
       rollFormula,
       RollBuilder._createDiceRollData({actor: this.actor})
     );
+    const rollResult = await roll.roll({async: true});
 
     const flavorText = `${this.actor.name} rolls their Melee Dice.`;
     return rollResult.toMessage({

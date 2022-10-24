@@ -1,6 +1,8 @@
 <div class="item-name flex-size-3 flexrow">
-  <div class="item-image">
-    <a class="rollable" data-roll-type="item"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></a>
+  <div class="item-image post-item" data-item-id="{{item._id}}">
+    <a class="postable" data-roll-type="item">
+      <img class='stop-dropdown' src="{{item.img}}" title="{{item.name}}" width="24" height="24"/>
+    </a>
   </div>
   <h4 class="flex-size-2 bolded">{{item.name}}</h4>
 </div>
