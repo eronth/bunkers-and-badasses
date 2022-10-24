@@ -776,8 +776,17 @@ export class BNBActorSheet extends ActorSheet {
     const itemData = {
       name: name,
       type: type,
-      system: system
+      system: system,
     };
+
+    if (type==='Archetype Feat') {
+      itemData.img = 'icons/svg/combat.svg';
+    } else if (type==='Action Skill') {
+      itemData.img = 'icons/svg/clockwork.svg';
+    } else if (type==='skill') {
+      itemData.img = 'icons/svg/oak.svg';
+    }
+
     // Remove the type from the dataset since it's in the itemData.type prop.
     delete itemData.system["type"];
 
