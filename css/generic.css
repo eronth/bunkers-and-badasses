@@ -299,6 +299,12 @@
   flex: 12;
 }
 
+.flex-size-13 {
+  -webkit-box-flex: 13;
+  -ms-flex: 13;
+  flex: 13;
+}
+
 .align-left {
   -webkit-box-pack: start;
   -ms-flex-pack: start;
@@ -428,4 +434,13 @@
 .lr-padding-5 {
   padding-left: 5px;
   padding-right: 5px;
+}
+
+.box-hover:hover {
+  box-shadow: 0 0 5px cyan;
+  cursor: pointer;
+}
+.text-hover:hover {
+  text-shadow: 0 0 10px cyan;
+  cursor: pointer;
 }
