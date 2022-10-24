@@ -1586,7 +1586,8 @@ input[type="time"]:focus {
 
 .archetype-feat-description-title,
 .action-skill-description-title,
-.class-skill-description-title {
+.class-skill-description-title,
+.key-item-description-title {
   -webkit-box-pack: start;
   -ms-flex-pack: start;
   justify-content: start;
@@ -1594,7 +1595,8 @@ input[type="time"]:focus {
   align-self: end;
 }
 
-.action-skill-labels {
+.action-skill-labels,
+.key-item-labels {
   align-self: center;
 }
 .class-skill-labels {
