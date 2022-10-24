@@ -1100,11 +1100,8 @@ export class BNBActorSheet extends ActorSheet {
 
   _onItemDetailsComponenetClick(event) {
     const classList = event.target.classList;
-    if (classList.contains('stop-dropdown')) {
-      return;
-    }
-    event.preventDefault();
-    event.stopPropagation();
+    if (classList.contains('stop-dropdown')) { return; }
+    
     // Get needed values.
     const id = $(event.currentTarget).attr("data-item-id");
     const item = this.actor.items.get(id);
