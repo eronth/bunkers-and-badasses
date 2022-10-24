@@ -1584,7 +1584,8 @@ input[type="time"]:focus {
   background-color: #0000;
 }
 
-.action-skill-description-title {
+.action-skill-description-title,
+.class-skill-description-title {
   -webkit-box-pack: start;
   -ms-flex-pack: start;
   justify-content: start;
@@ -1594,4 +1595,8 @@ input[type="time"]:focus {
 
 .action-skill-labels {
   align-self: center;
+}
+.class-skill-labels {
+  align-self: center;
+  margin-left: 30px; /* There's got to be a better way, but CSS is just so strange. */
 }
