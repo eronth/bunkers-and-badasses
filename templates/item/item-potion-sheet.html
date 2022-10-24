@@ -19,22 +19,19 @@
         <label for="effect-input-{{item.id}}" class="flex-size-2">Effect</label>
         <input id="effect-input-{{item.id}}" class="flex-size-10"
           value="{{system.effect}}" name="system.effect" placeholder="Potion's Effect"
-          type="text" data-dtype="String"
-          />
+          type="text" data-dtype="String" />
       </div>
-      <div class="item-body item-body-num flexrow item-tag-group">
+      <div class="item-body item-body-num flexrow item-tag-group flex-size-2">
         <label for="effect-input-{{item.id}}" class="flex-size-2">Quantity</label>
         <input id="effect-input-{{item.id}}" class="flex-size-1"
           value="{{system.quantity}}" name="system.quantity"
-          type="number" data-dtype="Number"
-          />
+          type="number" data-dtype="Number" />
       </div>
       <div class="item-body item-body-num flexrow item-tag-group">
         <label for="cost-input-{{item.id}}" class="flex-size-2">Cost</label>
         <input id="cost-input-{{item.id}}" class="flex-size-1"
           value="{{system.cost}}" name="system.cost"
-          type="number" data-dtype="Number"
-          />
+          type="number" data-dtype="Number" />
       </div>
     </div>
     {{> "systems/bunkers-and-badasses/templates/item/parts/red-text.html" }}
