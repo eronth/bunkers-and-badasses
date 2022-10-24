@@ -7,3 +7,4 @@ Updates
 * Unified a bunch of UI stuff.
 
 Bugfixes
+* Fixed a bug with displaying melee dice rolls to chat.
