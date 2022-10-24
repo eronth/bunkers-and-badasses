@@ -252,9 +252,9 @@
 }
 
 .flex-size-5 {
-  -webkit-box-flex: 4;
-  -ms-flex: 4;
-  flex: 4;
+  -webkit-box-flex: 5;
+  -ms-flex: 5;
+  flex: 5;
 }
 
 .flex-size-6 {
@@ -299,6 +299,12 @@
   flex: 12;
 }
 
+.flex-size-13 {
+  -webkit-box-flex: 13;
+  -ms-flex: 13;
+  flex: 13;
+}
+
 .align-left {
   -webkit-box-pack: start;
   -ms-flex-pack: start;
@@ -319,6 +325,9 @@
   justify-content: center;
   text-align: center;
 }
+.align-items-end {
+  align-items: end;
+}
 
 .divided-input-left {
   justify-content: right;
@@ -331,7 +340,9 @@
 .divided-input-right {
   justify-content: left;
 }
-.divided-input-left input{
+.divided-input-left input,
+.divided-input-left input:disabled {
+  border: 1px solid var(--color-border-light-tertiary);
   border-right: 0px;
   border-top-right-radius: 0px;
   border-bottom-right-radius: 0px;
@@ -345,8 +356,91 @@
   width: 0;
   max-width: unset;
 }
-.divided-input-right input{
+.divided-input-right input,
+.divided-input-right input:disabled {
+  border: 1px solid var(--color-border-light-tertiary);
   border-left: 0px;
   border-top-left-radius: 0px;
   border-bottom-left-radius: 0px;
+}
+
+
+.margin-1 {
+  margin: 1px;
+}
+.margin-2 {
+  margin: 2px;
+}
+.margin-3 {
+  margin: 3px;
+}
+.margin-4 {
+  margin: 4px;
+}
+.margin-5 {
+  margin: 5px;
+}
+.lr-margin-1 {
+  margin-left: 1px;
+  margin-right: 1px;
+}
+.lr-margin-2 {
+  margin-left: 2px;
+  margin-right: 2px;
+}
+.lr-margin-3 {
+  margin-left: 3px;
+  margin-right: 3px;
+}
+.lr-margin-4 {
+  margin-left: 4px;
+  margin-right: 4px;
+}
+.lr-margin-5 {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.padding-1 {
+  padding: 1px;
+}
+.padding-2 {
+  padding: 2px;
+}
+.padding-3 {
+  padding: 3px;
+}
+.padding-4 {
+  padding: 4px;
+}
+.padding-5 {
+  padding: 5px;
+}
+.lr-padding-1 {
+  padding-left: 1px;
+  padding-right: 1px;
+}
+.lr-padding-2 {
+  padding-left: 2px;
+  padding-right: 2px;
+}
+.lr-padding-3 {
+  padding-left: 3px;
+  padding-right: 3px;
+}
+.lr-padding-4 {
+  padding-left: 4px;
+  padding-right: 4px;
+}
+.lr-padding-5 {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.box-hover:hover {
+  box-shadow: 0 0 5px cyan;
+  cursor: pointer;
+}
+.text-hover:hover {
+  text-shadow: 0 0 10px cyan;
+  cursor: pointer;
 }

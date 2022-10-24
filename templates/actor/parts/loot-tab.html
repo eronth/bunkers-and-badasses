@@ -2,12 +2,11 @@
 <div class="flexrow">
   <div class="flexrow flex-size-1 centerize grenade-input">
     <label for="grenade-count-input" class="grenade-input-label flex-size-2 bolded">Grenades: </label>
-    
     {{> "systems/bunkers-and-badasses/templates/general/divided-input.html"
+      id="grenade"
       targetObj=system.attributes.grenades targetText="system.attributes.grenades"
       leftDisable=false rightDisable=false
     }}
-
   </div>
   <div class="flex-size-2 loot-inventory-header-container">
     <label class="loot-inventory-header flexrow">Loot Inventory</label>

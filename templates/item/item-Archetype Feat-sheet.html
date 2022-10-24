@@ -7,35 +7,32 @@
   </header>
 
   {{!-- Sheet Body --}}
-  <section class="sheet-body">
+  <section class="item-body">
     
-    {{!-- Attributes Tab --}}
-    <div class="attributes flexcol" data-group="primary">
-      {{!-- As you add new fields, add them in here! --}}
-      <div class="flexrow">
-        <div class="resource flexrow">
-          <label class="resource-label flex-size-1">Archetype</label>
-          <input class="flex-size-2" 
-                 type="text" 
-                 name="system.archetype" 
-                 value="{{system.archetype}}" 
-                 placeholder="Feat's Archetype"/>
+    {{!-- Archetype Feat Details --}}
+    <div class="flexcol">
+      <div class="description flexcol margin-2">
+        <div class="flexrow align-center">
+          
+          <div class="flex-size-8 archetype-feat-description-title">
+            <label class="item-label">Description</label>
+          </div>
+          <div class="flexrow margin-2 flex-size-10">
+            <label for="archetype-input" class="bolded archetype-feat-labels lr-padding-2 flex-size-3">Archetype</label>
+            <input id="archetype-input" class="flex-size-10" value="{{system.archetype}}" name="system.archetype"
+              onfocus="this.select()" type="text" data-dtype="String"/>
+          </div>
+          <div class="flexrow margin-2 flex-size-10">
+            <label for="requirement-input" class="bolded archetype-feat-labels lr-padding-2 flex-size-5">Requirement</label>
+            <input id="requirement-input" class="flex-size-10" value="{{system.requirement}}" name="system.requirement"
+              onfocus="this.select()" type="text" data-dtype="String" />
+          </div>
+
         </div>
-        <div class="resource flexrow">
-          <label class="resource-label flex-size-1">Requirement</label>
-          <input class="flex-size-2"
-                 type="text" 
-                 name="system.requirement" 
-                 value="{{system.requirement}}" 
-                 placeholder="Requirement (if any)"/>
-        </div>
-      </div>
-      <div class="resource flexcol">
-        <label class="resource-label">Description</label>
         <div class="flexrow enriched-region">
           {{editor enriched.description
             target="system.description"
-            placeholder="Description of feat's effects."
+            placeholder="Description of archetype feat's effects."
             button=true
             editable=editable
           }}
@@ -43,6 +40,4 @@
       </div>
     </div>
   </section>
-
-  
 </form>

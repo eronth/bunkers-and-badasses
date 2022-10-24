@@ -1,5 +1,6 @@
-import {onManageActiveEffect, prepareActiveEffectCategories} from "../helpers/effects.mjs";
+import { onManageActiveEffect, prepareActiveEffectCategories } from "../helpers/effects.mjs";
 import { RollBuilder } from "../helpers/roll-builder.mjs";
+import { Dropdown } from "../helpers/dropdown.mjs";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -61,6 +62,7 @@ export class BNBActorSheet extends ActorSheet {
       this._prepareArchetypes(context);
       this._prepareExperience(context);
       this._prepareVhHps(context);
+      this._prepareActionSkill(context);
       this._prepareVaultHunterData(context);
     }
 
@@ -83,7 +85,7 @@ export class BNBActorSheet extends ActorSheet {
     return context;
   }
 
-  _updateVaultHunterFromPreviousVersions(context) {
+  async _updateVaultHunterFromPreviousVersions(context) {
 
     ///////////////////////////////////
     //////// Update from 0.1.3 ////////
@@ -144,7 +146,7 @@ export class BNBActorSheet extends ActorSheet {
       const attributeLabel = `system.bonus.healths`;
       this.actor.update({[attributeLabel]: effectsHPs});
     }
-    ////////////  Update HP From Previous Versions  ////////////
+    ////////////  Update HP From Previous Versions  ////////////  
   }
 
   _updateNPCFromPreviousVersions(context) {
@@ -174,6 +176,20 @@ export class BNBActorSheet extends ActorSheet {
       const attributeLabel = `system.attributes.hps`;
       this.actor.update({[attributeLabel]: actorHPs});
     }
+  }
+
+  _prepareActionSkill(context) {
+    if (context.actionSkills == null || context.actionSkills[0] == null) { return; }
+
+    const actor = context.actor;
+    const actionSkill = context.actionSkills[0];
+    const actionSkillName = actionSkill.name;
+    const actionSkillUses = {
+      value: context.actor.system.class.actionSkill.uses.value,
+      max: actionSkill.system.bonusUses + actor.system.stats.mst.mod,
+    };
+    context.actionSkillName = actionSkillName;
+    context.actionSkillUses = actionSkillUses;
   }
 
   _prepareArchetypes(context) {
@@ -406,7 +422,7 @@ export class BNBActorSheet extends ActorSheet {
           action2: { 
             description: await TextEditor.enrichHTML(system.actions.mayhem.action2.description, configs),
           },
-        ,}
+        },
       },
     };
   }
@@ -437,7 +453,7 @@ export class BNBActorSheet extends ActorSheet {
    *
    * @return {undefined}
    */
-  _prepareItems(context) {
+  async _prepareItems(context) {
     // Initialize containers.
     const features = [];
     const skilltree = {
@@ -452,6 +468,7 @@ export class BNBActorSheet extends ActorSheet {
     const relics = [];
     const potions = [];
     const archetypeFeats = [];
+    const actionSkills = [];
     const keyItems = [];
 
     // Iterate through items, allocating to containers
@@ -468,6 +485,8 @@ export class BNBActorSheet extends ActorSheet {
         }
       } else if (i.type === 'Archetype Feat') {
         archetypeFeats.push(i); // Append to archetype Feats.
+      } else if (i.type === 'Action Skill') {
+        actionSkills.push(i); // Append to Action Skills (should probably only ever be one, but whatever).
       } else if (i.type === 'gun') {
         let elemIcon = "";
         let gunDmgString = "";
@@ -544,11 +563,40 @@ export class BNBActorSheet extends ActorSheet {
       }
     }
 
+    // If we don't already have an action skill, make one for the player.
+    if (actionSkills.length === 0) {
+      const actorActionSkill = this?.actor?.system?.class?.actionSkill;
+      
+      // Prepare item data.
+      const nameToUse = ((!actorActionSkill?.name || actorActionSkill?.name === 'Action Skill')
+        ? 'New Action Skill'
+        : actorActionSkill?.name);
+      const itemSystemData = {
+        class: '', 
+        bonusUses: 0,
+        description: actorActionSkill?.description,
+        notes: actorActionSkill?.notes,
+      };
+      const newActionSkillItemData = {
+        name: nameToUse,
+        type: "Action Skill",
+        img: 'icons/svg/clockwork.svg',
+        system: {...itemSystemData}
+      };
+
+      // Create item for use.
+      const newASitem = await Item.create(newActionSkillItemData, { parent: this.actor });
+      context.items.push(newASitem);
+    }
+
     // Assign and return
-    context.keyItems = keyItems;
+    /// Items that only exist for character stuff.
     context.features = features;
     context.skilltree = skilltree;
     context.archetypeFeats = archetypeFeats;
+    context.actionSkills = actionSkills;
+    /// Items that are actually inventory items.
+    context.keyItems = keyItems;
     context.guns = guns;
     context.equippedGuns = equippedGuns;
     context.shields = shields;
@@ -569,15 +617,9 @@ export class BNBActorSheet extends ActorSheet {
     // -------------------------------------------------------------
     
     // Handle Items.
-    html.find('.item-create').click(this._onItemCreate.bind(this));
     html.find('.checkbox').click(this._onItemCheckbox.bind(this));
-    // html.find('.item-equip').click(ev => {
-    //   ev.stopPropagation();
-    //   const li = $(ev.currentTarget).parents(".item-element-group");
-    //   const item = this.actor.items.get(li.data("itemId"));
-    //   item.system.equipped = !item.system.equipped;
-    //   let hello="hello"
-    // });
+
+    html.find('.item-create').click(this._onItemCreate.bind(this));
     html.find('.item-edit').click(ev => {
       ev.stopPropagation();
       const li = $(ev.currentTarget).parents(".item-element-group");
@@ -615,13 +657,14 @@ export class BNBActorSheet extends ActorSheet {
     html.find(".checkbox").click(this._onCheckboxClick.bind(this));
 
     // Display inventory details.
-    html.find(".item-dropdown").mousedown(this._expandItemDropdown.bind(this))
+    html.find(`.${Dropdown.getComponentClass('clickable')}`).mouseup(this._onItemDetailsComponenetClick.bind(this));
 
     // Active Effect management
     html.find(".effect-control").click(ev => onManageActiveEffect(ev, this.actor));
 
     // Rollable abilities.
     html.find('.rollable').click(this._onRoll.bind(this));
+    html.find('.postable').click(this._onPost.bind(this));
 
     // Drag events for macros.
     if (this.actor.isOwner) {
@@ -733,8 +776,17 @@ export class BNBActorSheet extends ActorSheet {
     const itemData = {
       name: name,
       type: type,
-      system: system
+      system: system,
     };
+
+    if (type==='Archetype Feat') {
+      itemData.img = 'icons/svg/combat.svg';
+    } else if (type==='Action Skill') {
+      itemData.img = 'icons/svg/clockwork.svg';
+    } else if (type==='skill') {
+      itemData.img = 'icons/svg/oak.svg';
+    }
+
     // Remove the type from the dataset since it's in the itemData.type prop.
     delete itemData.system["type"];
 
@@ -1053,48 +1105,72 @@ export class BNBActorSheet extends ActorSheet {
         return this.actor.update({[`${target}`] : !getProperty(this.actor, target)});
   }
 
-  _expandItemDropdown(event) {
-    let id = $(event.currentTarget).attr("data-item-id")
-    let item = this.actor.items.get(id)
+  _onItemDetailsComponenetClick(event) {
+    const classList = event.target.classList;
+    if (classList.contains('stop-dropdown')) { return; }
+
+    // Get needed values.
+    const id = $(event.currentTarget).attr("data-item-id");
+    const item = this.actor.items.get(id);
+
+    // Handle interactions per button click.
     if (item && event.button == 0)
-      this._createDropdown(event, { text: item.system.description });
+      Dropdown.toggleItemDetailsDropdown(event, { description: item.system.description, notes: item.system.notes, type: item.type });
     else if (item)
-      item.sheet.render(true)
+      item.sheet.render(true);
   }
 
-  async _createDropdown(event, dropdownData) {
-    let dropdownHTML = ""
-    event.preventDefault()
-    let li = $(event.currentTarget).parents(".item-element-group")
-    // Toggle expansion for an item
-    if (li.hasClass("expanded")) { // If expansion already shown - remove
-      let summary = li.children(".item-summary");
-      summary.slideUp(200, () => summary.remove());
-    } else {
-      // Add a div with the item summary belowe the item
-      let div
-      if (!dropdownData) {
-        return
-      } else {
-        dropdownHTML = `<div class="item-summary">${await TextEditor.enrichHTML(dropdownData.text, {async: true})}`;
-      }
-      // if (dropdownData.tags) {
-      //     let tags = `<div class='tags'>`
-      //     dropdownData.tags.forEach(tag => {
-      //         tags = tags.concat(`<span class='tag'>${tag}</span>`)
-      //     })
-      //     dropdownHTML = dropdownHTML.concat(tags)
-      // }
-      dropdownHTML += "</div>"
-      div = $(dropdownHTML)
-      li.append(div.hide());
-      div.slideDown(200);
-    }
-    li.toggleClass("expanded");
-}
-
   /**
-   * Handle clickable rolls.
+   * Handle clickables that send info to chat.
+   * @param {Event} event   The originating click event
+   * @private
+   */
+  async _onPost(event) {
+    event.preventDefault();
+    const dataset = event.currentTarget.dataset;
+
+    if (!dataset.rollType) { return; }
+
+    if (dataset.rollType == 'item') {
+      const itemId = event.currentTarget.closest('.post-item').dataset.itemId;
+      const item = this.actor.items.get(itemId);
+      const chatInfoBaseLocation = 'systems/bunkers-and-badasses/templates/chat/info/';
+      const messageData = {
+        user: game.user.id,
+        speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+        type: CONST.CHAT_MESSAGE_TYPES.IC,
+        // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
+        speaker: ChatMessage.getSpeaker()
+      };
+      const renderTemplateConfig = {
+        actorId: this.actor.id,
+        description: item.system.description,
+        item: item
+      };
+
+      if (item.type == 'Archetype Feat') {
+        const templateLocation = `${chatInfoBaseLocation}archetype-feat-info.html`;
+        const chatHtmlContent = await renderTemplate(templateLocation, renderTemplateConfig);
+        messageData.flavor = `Archetype Feat <b>${item.name}</b>.`;
+        messageData.content = chatHtmlContent;
+      } else if (item.type == 'Action Skill') {
+        const templateLocation = `${chatInfoBaseLocation}action-skill-info.html`;
+        const chatHtmlContent = await renderTemplate(templateLocation, renderTemplateConfig);
+        messageData.flavor = `Action Skill <b>${item.name}</b>.`;
+        messageData.content = chatHtmlContent;
+      } else if (item.type == 'skill') {
+        const templateLocation = `${chatInfoBaseLocation}class-skill-info.html`;
+        const chatHtmlContent = await renderTemplate(templateLocation, renderTemplateConfig);
+        messageData.flavor = `Class Skill <b>${item.name}</b>.`;
+        messageData.content = chatHtmlContent;
+      }
+
+      // Send the roll to chat!
+      return ChatMessage.create(messageData);
+    }
+  }
+  /**
+   * Handle clickables that send rolls to chat.
    * @param {Event} event   The originating click event
    * @private
    */
@@ -1203,6 +1279,7 @@ export class BNBActorSheet extends ActorSheet {
       rollFormula,
       RollBuilder._createDiceRollData({actor: this.actor})
     );
+    const rollResult = await roll.roll({async: true});
 
     const flavorText = `${this.actor.name} rolls their Melee Dice.`;
     return rollResult.toMessage({

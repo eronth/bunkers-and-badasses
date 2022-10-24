@@ -606,7 +606,9 @@ input[type="time"]:focus {
   justify-content: center;
 }
 
-.bnb .items-list .item-controls {
+.bnb .items-list .item-controls,
+.bnb .items-list .archetype-item-controls,
+.bnb .items-list .class-skill-item-controls {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -617,12 +619,25 @@ input[type="time"]:focus {
   -ms-flex-pack: end;
   justify-content: flex-end;
 }
+.bnb .items-list .archetype-item-controls {
+  -webkit-box-flex: 3;
+  -ms-flex: 3;
+  flex: 3;
+}
+.bnb .items-list .class-skill-item-controls {
+  -webkit-box-flex: 2;
+  -ms-flex: 2;
+  flex: 2;
+}
 
-.bnb .items-list .item-controls a {
+.bnb .items-list .item-controls a,
+.bnb .items-list .archetype-item-controls a,
+.bnb .items-list .class-skill-item-controls a {
   font-size: 12px;
   text-align: center;
   margin: 0 6px;
 }
+
 
 .bnb .items-list .item-controls-small {
   display: -webkit-box;
@@ -1567,4 +1582,25 @@ input[type="time"]:focus {
   border-left: 0;
   border-right: 0;
   background-color: #0000;
+}
+
+.archetype-feat-description-title,
+.action-skill-description-title,
+.class-skill-description-title {
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  justify-content: start;
+  text-align: start;
+  align-self: end;
+}
+
+.action-skill-labels {
+  align-self: center;
+}
+.class-skill-labels {
+  align-self: center;
+  margin-left: 30px; /* There's got to be a better way, but CSS is just so strange. */
+}
+.archetype-feat-labels {
+  align-self: center;
 }

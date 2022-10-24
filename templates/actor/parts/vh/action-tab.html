@@ -40,17 +40,18 @@
           <div></div>
           <div class="flex-size-2">
             <button class="btn btn-primary action-skill-button action-skill-use">
-              <label>{{system.class.actionSkill.name}}</label>
+              <label>{{actionSkillName}}</label>
             </button>
           </div>
           <div class="flexcol uses-container cc2">
             <div class="flexrow">
-              <input class="" name="system.class.actionSkill.uses.value" value="{{system.class.actionSkill.uses.value}}"
-              type="text" data-dtype="String" />
-              <label> / </label>
-              <input class="" name="system.class.actionSkill.uses.max" value="{{system.class.actionSkill.uses.max}}"
-              type="text" data-dtype="String"
-              disabled />
+              {{> "systems/bunkers-and-badasses/templates/general/divided-input.html"
+                id="action-skill"
+                targetObj=actionSkillUses targetText="system.class.actionSkill.uses"
+                leftDisable=false 
+                rightValueOverride=(adder system.class.actionSkill.uses.max actionSkillUses.max)
+                rightDisable=true
+              }}
             </div>
             <label class="check-num-label">uses</label>
           </div>
