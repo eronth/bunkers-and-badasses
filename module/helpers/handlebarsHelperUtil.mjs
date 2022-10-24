@@ -13,6 +13,17 @@ export class HandlebarsHelperUtil {
       return outStr;
     });
 
+    Handlebars.registerHelper('adder', function() {
+      let sum = 0;
+      for (let arg in arguments) {
+        if (typeof arguments[arg] != 'object') {
+          let addValue = parseInt(arguments[arg]);
+          sum += (isNaN(addValue)) ? 0 : addValue;
+        }
+      }
+      return sum;
+    });
+
     Handlebars.registerHelper('capitalize', function(str) {
       return str.charAt(0).toUpperCase() + str.slice(1);
     });
