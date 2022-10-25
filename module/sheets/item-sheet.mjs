@@ -28,19 +28,20 @@ export class BNBItemSheet extends ItemSheet {
   /* -------------------------------------------- */
 
   /** @override */
-  getData() {
+  async getData(options) {
     // Retrieve base data structure.
-    const context = super.getData();
+    const context = await super.getData(options);
 
     // Use a safe clone of the item data for further operations.
     const itemData = context.item;
-
+    
     // Get updates from previous versions.
     this.updateDataFromPreviousVersions(itemData);
+    
+    // Prep enriched text portions for better text display.
+    await this.prepareEnrichedFields(context, itemData);
 
-    // Get updates from previous versions.
-    this.updateDataFromPreviousVersions(itemData);
-
+    // Not 100% what this even means!!
     // Retrieve the roll data for TinyMCE editors.
     context.rollData = {};
     let actor = this.object?.parent ?? null;
@@ -48,6 +49,7 @@ export class BNBItemSheet extends ItemSheet {
       context.rollData = actor.getRollData();
     }
 
+    // Prep some flags for display.
     context.usePlayerArmor = game.settings.get('bunkers-and-badasses', 'usePlayerArmor');
     context.usePlayerBone = game.settings.get('bunkers-and-badasses', 'usePlayerBone');
     context.usePlayerEridian = game.settings.get('bunkers-and-badasses', 'usePlayerEridian');
@@ -85,6 +87,25 @@ export class BNBItemSheet extends ItemSheet {
         this.item.update({ [removeArmorKey]: null });
       }
     }
+  }
+
+  async prepareEnrichedFields(context, item) {
+    const system = this.object.system;
+    const configs = {async: true};
+    let extraEnrichments = {};
+
+    if (item.type == "Action Skill") {
+      extraEnrichments = {
+        notes: await TextEditor.enrichHTML(system.notes, configs),
+      };
+    }
+
+    context.enriched = {
+      description: await TextEditor.enrichHTML(system.description, configs),
+      redTextEffect: await TextEditor.enrichHTML(system.redTextEffect, configs),
+      redTextEffectBM: await TextEditor.enrichHTML(system.redTextEffectBM, configs),
+      ...extraEnrichments
+    };
   }
 
   /* -------------------------------------------- */

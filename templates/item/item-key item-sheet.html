@@ -17,12 +17,24 @@
     <div class="item-body-large-field flexcol">
       
       <div class="flexrow">
-        <label>Description</label>
+        
+        <div class="flex-size-8 key-item-description-title">
+          <label class="item-label">Description</label>
+        </div>
+        <div class="flexrow margin-2 flex-size-3">
+          <label for="bonus-uses-input" class="bolded key-item-labels lr-padding-2 flex-size-1">Cost</label>
+          <input id="bonus-uses-input" class="flex-size-1" value="{{system.cost}}" name="system.cost"
+            onfocus="this.select()" type="number" data-dtype="Number" />
+        </div>
+
       </div>
-      <div class="flexrow">
-        <textarea class="key-item-textarea" name="system.description" 
-          placeholder="Give item details here."
-          type="text" rows="5">{{system.description}}</textarea>
+      <div class="flexrow enriched-region">
+        {{editor enriched.description
+          target="system.description"
+          placeholder="Item description."
+          button=true
+          editable=editable
+        }}
       </div>
       
     </div>

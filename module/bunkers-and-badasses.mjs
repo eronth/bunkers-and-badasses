@@ -7,6 +7,8 @@ import { BNBItemSheet } from "./sheets/item-sheet.mjs";
 // Import helper/utility classes and constants.
 import { preloadHandlebarsTemplates } from "./helpers/templates.mjs";
 import { BNB } from "./helpers/config.mjs";
+import { BarbrawlBuilder } from "./helpers/barbrawl-builder.mjs"
+import { HandlebarsHelperUtil } from "./helpers/handlebarsHelperUtil.mjs"
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -114,93 +116,7 @@ Hooks.once('init', async function() {
 /* -------------------------------------------- */
 /*  Handlebars Helpers                          */
 /* -------------------------------------------- */
-
-// If you need to add Handlebars helpers, here are a few useful examples:
-Handlebars.registerHelper('concat', function() {
-  let outStr = '';
-  for (let arg in arguments) {
-    if (typeof arguments[arg] != 'object') {
-      outStr += arguments[arg];
-    }
-  }
-  return outStr;
-});
-
-Handlebars.registerHelper('toLowerCase', function(str) {
-  return str.toLowerCase();
-});
-
-Handlebars.registerHelper('toUpperCase', function(str) {
-  return str.toUpperCase();
-});
-
-Handlebars.registerHelper('toArray', (...values) => {
-  // Omit the Handlebars options object.
-  return values.slice(0, values.length - 1);
-});
-
-Handlebars.registerHelper('toFavoredElementObject', function(...values) {
-  return {label: values[0], favored: values[1]};
-});
-
-Handlebars.registerHelper('capitalize', function(str) {
-  return str.charAt(0).toUpperCase() + str.slice(1);
-});
-
-Handlebars.registerHelper('hpTitle', function(str) {
-  if (str === "flesh")
-    str = "health";
-  return str.charAt(0).toUpperCase() + str.slice(1);
-});
-
-Handlebars.registerHelper('hpToRecoveryTitle', function(str, doCapitalize) {
-  if (str === "flesh")
-    str = "regen";
-  else if (str === "shield")
-    str = "recharge";
-  else if (str === "armor")
-    str = "repair";
-  else if (str === "bone")
-    str = "regrow";
-  else if (str === "eridian")
-    str = "reinvigorate";
-
-  if (doCapitalize)
-    return str.charAt(0).toUpperCase() + str.slice(1);
-  else
-    return str;
-});
-
-Handlebars.registerHelper('getBestHealthShade', function(str) {
-  if (str === "flesh")
-    str = "light";
-  else if (str === "shield")
-    str = "light";
-  else if (str === "armor")
-    str = "light";
-  else if (str === "bone")
-    str = "dark";
-  else if (str === "eridian")
-    str = "light";
-
-  return str;
-});
-
-Handlebars.registerHelper('shortName', function(str) {
-  let check = str.toLowerCase();
-  if (check === 'submachine gun')
-    return 'SMG';
-  else if (check === 'combat rifle')
-    return 'Rifle';
-  else if (check === 'sniper rifle')
-    return 'Sniper';
-  else if (check === 'rocket launcher')
-    return 'RL';
-  else
-    return str;
-});
-
-
+HandlebarsHelperUtil.prepareHandlebarsHelpers();
 
 /* -------------------------------------------- */
 /*  Ready Hook                                  */
@@ -304,53 +220,8 @@ Hooks.on("preCreateToken", function (document, data) {
 function getBarbrawlBar(barId) {
   return tokenBarbrawlBars[barId];
 }
-let barbrawlOrder = 0;
-const visibleBarDefaults = {
-  'position': 'top-outer',
-  'otherVisibility': CONST.TOKEN_DISPLAY_MODES.HOVER,
-  'ownerVisibility': CONST.TOKEN_DISPLAY_MODES.ALWAYS
-};
 const tokenBarbrawlBars = {
-  'barEridian': {
-    'id': 'barEridian',
-    'order': barbrawlOrder++,
-    'maxcolor': '#ff00ff',
-    'mincolor': '#bb00bb',
-    'attribute': 'attributes.hps.eridian',
-    ...visibleBarDefaults,
-  },
-  'bar2': { // Shield
-    'id': 'bar2',
-    'order': barbrawlOrder++,
-    'maxcolor': '#24e7eb',
-    'mincolor': '#79d1d2',
-    'attribute': 'attributes.hps.shield',
-    ...visibleBarDefaults
-  },
-  'barArmor': {
-    'id': 'barArmor',
-    'order': barbrawlOrder++,
-    'maxcolor': '#ffdd00',
-    'mincolor': '#e1cc47',
-    'attribute': 'attributes.hps.armor',
-    ...visibleBarDefaults
-  },
-  'bar1': { // Flesh
-    'id': 'bar1',
-    'order': barbrawlOrder++,
-    'maxcolor': '#d23232',
-    'mincolor': '#a20b0b',
-    'attribute': 'attributes.hps.flesh',
-    ...visibleBarDefaults
-  },
-  'barBone': {
-    'id': 'barBone',
-    'order': barbrawlOrder++,
-    'maxcolor': '#bbbbbb',
-    'mincolor': '#333333',
-    'attribute': 'attributes.hps.bone',
-    ...visibleBarDefaults
-  }
+  ...(BarbrawlBuilder._buildBarbrawlBars( {useAllHealth: true} ))
 };
 
 

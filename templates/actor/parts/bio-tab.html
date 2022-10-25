@@ -1,66 +1,98 @@
 <div class="flexcol">
   {{!-- Character Info Section --}}
-  <div class="flexrow bio-header">
-    <label>Character Info</label>
-  </div>
-  <div class="flexrow bio-description">
-    <textarea class="bio-textarea" name="system.bio.characterInfo"
-      placeholder="Overview of your character and their personality."
-      type="text" rows="4">{{system.bio.characterInfo}}</textarea>
-  </div>
-  {{!-- Background/Appearance Section --}}
-  <div class="flexrow">
-    <div class="flexcol">
-      <div class="flexrow bio-header">
-        <label>Background</label>
+  <div class="flexcol">
+    <div class="flexrow bio-header">
+      <label>Character Info</label>
+    </div>
+    <div class="flexrow">
+      <div class="enriched-region">
+        {{editor enriched.bio.characterInfo
+          target="system.bio.characterInfo"
+          placeholder="Overview of your character and their personality."
+          button=true
+          editable=editable
+        }}
       </div>
-      <div class="flexrow bio-description">
-        <textarea class="bio-textarea" name="system.bio.background" 
+    </div>
+  </div>
+  {{!-- Background Section --}}
+  <div class="flexcol">
+    <div class="flexrow bio-header">
+      <label>Background</label>
+    </div>
+    <div class="flexrow">
+      <div class="enriched-region">
+        {{editor enriched.bio.background
+          target="system.bio.background"
           placeholder="Background information, at least partially inspired by your class background."
-          type="text" rows="3">{{system.bio.background}}</textarea>
-      </div>
-    </div>
-    <div class="flexcol">
-      <div class="flexrow bio-header">
-        <label>Appearance</label>
-      </div>
-      <div class="flexrow bio-description">
-        <textarea class="bio-textarea" name="system.bio.appearance"
-          placeholder="Description of your character's visuals. Consider using the class Appearance section as inspiration."
-          type="text" rows="3">{{system.bio.appearance}}</textarea>
+          button=true
+          editable=editable
+        }}
       </div>
     </div>
   </div>
-  {{!-- Character Traits/Loyalties Section --}}
-  <div class="flexrow">
-    <div class="flexcol">
-      <div class="flexrow bio-header">
-        <label>Traits</label>
-      </div>
-      <div class="flexrow bio-description">
-        <textarea class="bio-textarea" name="system.bio.traits"
-          placeholder="The character's traits and quirks."
-          type="text" rows="3">{{system.bio.traits}}</textarea>
+  {{!-- Appearance Section --}}
+  <div class="flexcol">
+    <div class="flexrow bio-header">
+      <label>Appearance</label>
+    </div>
+    <div class="flexrow">
+      <div class="enriched-region">
+        {{editor enriched.bio.appearance
+          target="system.bio.appearance"
+          placeholder="Description of your character's visuals. Consider using the class Appearance section as inspiration."
+          button=true
+          editable=editable
+        }}
       </div>
     </div>
-    <div class="flexcol">
-      <div class="flexrow bio-header">
-        <label>Loyalties</label>
+  </div>
+  {{!-- Character Traits Section --}}
+  <div class="flexcol">
+    <div class="bio-header">
+      <label>Traits</label>
+    </div>
+    <div class="flexrow">
+      <div class="enriched-region">
+        {{editor enriched.bio.traits
+          target="system.bio.traits"
+          placeholder="The character's traits and quirks."
+          button=true
+          editable=editable
+        }}
       </div>
-      <div class="flexrow bio-description">
-        <textarea class="bio-textarea" name="system.bio.loyalties"
+    </div>
+  </div>
+  {{!-- Loyalties Section --}}
+  <div class="flexcol">
+    <div class="bio-header">
+      <label>Loyalties</label>
+    </div>
+    <div class="flexrow">
+      <div class="enriched-region">
+        {{editor enriched.bio.loyalties
+          target="system.bio.loyalties"
           placeholder="The character's friends, enemies, leaders, followers, or other loyalties."
-          type="text" rows="3">{{system.bio.loyalties}}</textarea>
+          button=true
+          editable=editable
+        }}
       </div>
     </div>
   </div>
   {{!-- Additional Notes Section --}}
-  <div class="flexrow bio-header">
-    <label>Additional Notes</label>
-  </div>
-  <div class="flexrow bio-description">
-    <textarea class="bio-textarea" name="system.bio.additionalNotes"
-      placeholder="Additional notes or details about your character."
-      type="text" rows="4">{{system.bio.additionalNotes}}</textarea>
+  <div class="flexcol">
+    <div class="flexrow bio-header">
+      <label>Additional Notes</label>
+    </div>
+    <div class="flexrow">
+      <div class="enriched-region">
+        {{editor enriched.bio.additionalNotes
+          target="system.bio.additionalNotes"
+          placeholder="Additional notes or details about your character."
+          button=true
+          editable=editable
+        }}
+      </div>
+    </div>
   </div>
 </div>

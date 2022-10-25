@@ -1,21 +1,19 @@
-{{!-- Header and Gold --}}
+{{!-- Grenades, Header, and Gold --}}
 <div class="flexrow">
   <div class="flexrow flex-size-1 centerize grenade-input">
-    <label for="grenade-input" class="grenade-input-label flex-size-2">Grenades: Count </label>
-    <input id="grenade-input" class="grenade-input" value="{{system.attributes.grenades.value}}" name="system.attributes.grenades.value"
-    onfocus="this.select()" type="number" data-dtype="Number"
-    />
-    <label for="grenade-input" class="grenade-input-label flex-size-2"> Max </label>
-    <input id="grenade-input" class="grenade-input" value="{{system.attributes.grenades.max}}" name="system.attributes.grenades.max"
-    onfocus="this.select()" type="number" data-dtype="Number"
-    />
+    <label for="grenade-count-input" class="grenade-input-label flex-size-2 bolded">Grenades: </label>
+    {{> "systems/bunkers-and-badasses/templates/general/divided-input.html"
+      id="grenade"
+      targetObj=system.attributes.grenades targetText="system.attributes.grenades"
+      leftDisable=false rightDisable=false
+    }}
   </div>
   <div class="flex-size-2 loot-inventory-header-container">
     <label class="loot-inventory-header flexrow">Loot Inventory</label>
   </div>
   <div class="flexrow flex-size-1 centerize gold-input">
     <div class="max-width-50">
-      <label for="gold-input" class="gold-input-label flex-size-2">Gold: </label>
+      <label for="gold-input" class="gold-input-label flex-size-2 bolded">Gold: </label>
       <input id="gold-input" class="gold-input" value="{{system.gold}}" name="system.gold"
       onfocus="this.select()" type="number" data-dtype="Number"
       />
