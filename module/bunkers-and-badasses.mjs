@@ -7,8 +7,8 @@ import { BNBItemSheet } from "./sheets/item-sheet.mjs";
 // Import helper/utility classes and constants.
 import { preloadHandlebarsTemplates } from "./helpers/templates.mjs";
 import { BNB } from "./helpers/config.mjs";
+import { BarbrawlBuilder } from "./helpers/barbrawl-builder.mjs"
 import { HandlebarsHelperUtil } from "./helpers/handlebarsHelperUtil.mjs"
-
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -220,53 +220,8 @@ Hooks.on("preCreateToken", function (document, data) {
 function getBarbrawlBar(barId) {
   return tokenBarbrawlBars[barId];
 }
-let barbrawlOrder = 0;
-const visibleBarDefaults = {
-  'position': 'top-outer',
-  'otherVisibility': CONST.TOKEN_DISPLAY_MODES.HOVER,
-  'ownerVisibility': CONST.TOKEN_DISPLAY_MODES.ALWAYS
-};
 const tokenBarbrawlBars = {
-  'barEridian': {
-    'id': 'barEridian',
-    'order': barbrawlOrder++,
-    'maxcolor': '#ff00ff',
-    'mincolor': '#bb00bb',
-    'attribute': 'attributes.hps.eridian',
-    ...visibleBarDefaults,
-  },
-  'bar2': { // Shield
-    'id': 'bar2',
-    'order': barbrawlOrder++,
-    'maxcolor': '#24e7eb',
-    'mincolor': '#79d1d2',
-    'attribute': 'attributes.hps.shield',
-    ...visibleBarDefaults
-  },
-  'barArmor': {
-    'id': 'barArmor',
-    'order': barbrawlOrder++,
-    'maxcolor': '#ffdd00',
-    'mincolor': '#e1cc47',
-    'attribute': 'attributes.hps.armor',
-    ...visibleBarDefaults
-  },
-  'bar1': { // Flesh
-    'id': 'bar1',
-    'order': barbrawlOrder++,
-    'maxcolor': '#d23232',
-    'mincolor': '#a20b0b',
-    'attribute': 'attributes.hps.flesh',
-    ...visibleBarDefaults
-  },
-  'barBone': {
-    'id': 'barBone',
-    'order': barbrawlOrder++,
-    'maxcolor': '#bbbbbb',
-    'mincolor': '#333333',
-    'attribute': 'attributes.hps.bone',
-    ...visibleBarDefaults
-  }
+  ...(BarbrawlBuilder._buildBarbrawlBars( {useAllHealth: true} ))
 };
 
 

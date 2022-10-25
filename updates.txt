@@ -5,7 +5,9 @@ Updates
 * Updated Action Skill to us the more robust "item" popup.
 * Cleaned up display on grenades.
 * Unified a bunch of UI stuff.
+* Updated item UI to include Cost value.
 
 Bugfixes
 * Fixed a bug with displaying melee dice rolls to chat.
 * Reversed icons for Effects enabled/disabled. The check and x seemed reversed from expected.
+* Fixed BarBrawl healthbar display order.
