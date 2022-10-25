@@ -172,11 +172,8 @@ Hooks.on("preCreateToken", function (document, data) {
   
 
   for (const [settingName, settingValue] of Object.entries(currentHpsSettings)) {
-    const barId = ((settingName === "Shield") 
-      ? 'bar2'
-      : ((settingName === "Flesh")
-        ? 'bar1'
-        : `bar${settingName}`));
+    const barId = `bar${settingName}`;
+    
     // Only toggle on if the setting is different.
     if ((settingValue !== previousHpsSettings[settingName]) || !hasTokenLoadedBefore) {
 
