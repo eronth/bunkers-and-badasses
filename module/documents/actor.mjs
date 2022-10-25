@@ -272,7 +272,7 @@ export class BNBActor extends Actor {
     
     // Convert roll to a results object for sheet display.
     const rollResults = {};
-    rollResults["kinetic"] = {
+    rollResults["Kinetic"] = {
       formula: rollResult._formula,
       total: rollResult.total
     };
