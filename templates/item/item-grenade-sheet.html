@@ -4,7 +4,7 @@
           style="--rarityColor: {{system.rarity.colorValue}}" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
     <div class="header-fields flexrow">
       <div class="flex-size-3">
-        <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Relic Type"/></h1>
+        <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Grenade Type"/></h1>
       </div>
       <div class="item-body centerize">
         {{> "systems/bunkers-and-badasses/templates/item/parts/rarity-dropdown.html"
@@ -32,6 +32,10 @@
           />
       </div>
       <div class="item-body item-body-num item-body-num-50 flexrow item-tag-group">
+        <label for="guild-input-{{item.id}}">Cost</label>
+        <input id="guild-input-{{item.id}}" class="" 
+          value="{{system.cost}}" name="system.cost"
+          type="number" data-dtype="Number" />
       </div>
     </div>
     {{> "systems/bunkers-and-badasses/templates/item/parts/damage-entry.html"

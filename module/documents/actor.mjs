@@ -1,4 +1,5 @@
 import { RollBuilder } from "../helpers/roll-builder.mjs";
+import { BarbrawlBuilder } from "../helpers/barbrawl-builder.mjs";
 
 /**
  * Extend the base Actor document by defining a custom roll data structure which is ideal for the Simple system.
@@ -49,67 +50,9 @@ export class BNBActor extends Actor {
   }
 
   preCreateBarbrawlHealthBars(data, gameFlags) {
-    const visibleBarDefaults = {
-      'position': 'top-outer',
-      'otherVisibility': CONST.TOKEN_DISPLAY_MODES.HOVER,
-      'ownerVisibility': CONST.TOKEN_DISPLAY_MODES.ALWAYS
-    };
-    
-    let barbrawlOrder = 0;
-    const initTokenBarbrawlBars = { };
-    if (gameFlags.useEridian) {
-      initTokenBarbrawlBars['barEridian'] = {
-        'id': 'barEridian',
-        'order': barbrawlOrder++,
-        'maxcolor': '#ff00ff',
-        'mincolor': '#bb00bb',
-        'attribute': 'attributes.hps.eridian',
-        ...visibleBarDefaults,
-      };
-    } else { barbrawlOrder++; } // keep the order numbers synchronized.
-    if (gameFlags.useShield) {
-      initTokenBarbrawlBars['bar2'] = { // Shield
-        'id': 'bar2',
-        'order': barbrawlOrder++,
-        'maxcolor': '#24e7eb',
-        'mincolor': '#79d1d2',
-        'attribute': 'attributes.hps.shield',
-        ...visibleBarDefaults
-      };
-    } else { barbrawlOrder++; } // keep the order numbers synchronized.
-    if (gameFlags.useArmor) {
-      initTokenBarbrawlBars['barArmor'] = {
-        'id': 'barArmor',
-        'order': barbrawlOrder++,
-        'maxcolor': '#ffdd00',
-        'mincolor': '#e1cc47',
-        'attribute': 'attributes.hps.armor',
-        ...visibleBarDefaults
-      };
-    } else { barbrawlOrder++; } // keep the order numbers synchronized.
-    if (gameFlags.useFlesh) {
-      initTokenBarbrawlBars['bar1'] = { // Flesh
-        'id': 'bar1',
-        'order': barbrawlOrder++,
-        'maxcolor': '#d23232',
-        'mincolor': '#a20b0b',
-        'attribute': 'attributes.hps.flesh',
-        ...visibleBarDefaults
-      };
-    } else { barbrawlOrder++; } // keep the order numbers synchronized.
-    if (gameFlags.useBone) {
-      initTokenBarbrawlBars['barBone'] = {
-        'id': 'barBone',
-        'order': barbrawlOrder++,
-        'maxcolor': '#bbbbbb',
-        'mincolor': '#333333',
-        'attribute': 'attributes.hps.bone',
-        ...visibleBarDefaults
-      };
-    } else { barbrawlOrder++; } // keep the order numbers synchronized.
-    
-    return { 
-      resourceBars: {...initTokenBarbrawlBars} 
+    const initTokenBars = (BarbrawlBuilder._buildBarbrawlBars(gameFlags));
+    return {
+      'resourceBars': {...initTokenBars} 
     };
   }
 
@@ -127,6 +70,15 @@ export class BNBActor extends Actor {
     // Data modifications in this step occur before processing embedded
     // documents or derived data.
     super.prepareBaseData();
+    this._prepareVaultHunterBaseData();
+    this._prepareNpcBaseData();
+  }
+
+  _prepareVaultHunterBaseData() {
+    if (this.type !== 'vault hunter') return;
+  }
+  _prepareNpcBaseData() {
+    if (this.type !== 'npc') return;
   }
 
   /**
@@ -145,14 +97,14 @@ export class BNBActor extends Actor {
 
     // Make separate methods for each Actor type (vault hunter, npc, etc.) to keep
     // things organized.
-    this._prepareVaultHunterData(actorData);
-    this._prepareNpcData(actorData);
+    this._prepareVaultHunterDerivedData(actorData);
+    this._prepareNpcDerivedData(actorData);
   }
 
   /**
    * Prepare Vault Hunter type specific data
    */
-  _prepareVaultHunterData(actorData) {
+  _prepareVaultHunterDerivedData(actorData) {
     if (actorData.type !== 'vault hunter') return;
 
     // Run a quick update to make sure data from previous versions matches current expected version..
@@ -192,7 +144,9 @@ export class BNBActor extends Actor {
     });
   }
 
-  _updateVaultHunterDataVersions(actorData) {
+  async _updateVaultHunterDataVersions(actorData) {
+    if (this.type !== 'vault hunter') return;
+
     if (!actorData?.system?.checks?.throw) {
       actorData.system.checks.throw = {
         stat: "acc",
@@ -203,13 +157,12 @@ export class BNBActor extends Actor {
       const archetypeRewardsLabel = "system.checks.throw";
       this.update({[archetypeRewardsLabel]: actorData.system.checks.throw});
     }
-    
   }
   
   /**
    * Prepare NPC type specific data.
    */
-  _prepareNpcData(actorData) {
+  _prepareNpcDerivedData(actorData) {
     if (actorData.type !== 'npc') return;
 
     // const hps = actorData.system.attributes.hps;
@@ -319,7 +272,7 @@ export class BNBActor extends Actor {
     
     // Convert roll to a results object for sheet display.
     const rollResults = {};
-    rollResults["kinetic"] = {
+    rollResults["Kinetic"] = {
       formula: rollResult._formula,
       total: rollResult.total
     };

@@ -16,7 +16,7 @@
   <div class="flexcol item-sheet">
 
     <div class="flexrow">
-      <div class="flexcol acc-hits-container">
+      <div class="flexcol acc-hits-container flex-size-2">
         <div class="flexrow">
           <label class="bolded">Acc</label>
           <label class="crit-hit hit">Hits</label>
@@ -70,69 +70,63 @@
       </div>
 
 
-      <div class="flex-size-2 flexcol ">
+      <div class="flex-size-5 flexcol ">
         <div class="flexrow gun-center-container bolded">
           <div class="centerize"> 
             <label for="level-input-{{item.id}}" class="flex-size-1">Level</label>
             <input id="level-input-{{item.id}}" class="flex-size-1"
-            onfocus="this.select()"
             value="{{system.level}}" name="system.level"
-            type="number" data-dtype="Number"
-            />
+            onfocus="this.select()" type="number" data-dtype="Number" />
           </div>
           <div class="centerize">
-            <label for="range-value flex-size-3 bolded">Range</label>
-            <input id="range-value" class="gun-center-entry"
-            onfocus="this.select()"
+            <label for="range-value-input-{{item.id}}" class="flex-size-3 bolded">Range</label>
+            <input id="range-value-input-{{item.id}}" class="gun-center-entry"
             value="{{system.range}}" name="system.range"
-            type="number" data-dtype="Number" />
+            onfocus="this.select()" type="number" data-dtype="Number" />
           </div>
-          <div class="centerize flex-size-2">
-            <label for="bonus-crit flex-size-4 bolded">Bonus Crit Dmg</label>
-            <input id="bonus-crit" class="gun-center-entry"
-            onfocus="this.select()"
-            value="{{system.bonusCritDmg}}" name="system.bonusCritDmg"
-            type="number" data-dtype="Number" />
+          <div class="centerize cost-container flex-size-2">
+            <label for="cost-input-{{item.id}}" class="flex-size-4 bolded">Cost</label>
+            <input id="cost-input-{{item.id}}" class=""
+            value="{{system.cost}}" name="system.cost"
+            onfocus="this.select()" type="number" data-dtype="Number" />
           </div>
         </div>
         <div class="flexrow gun-center-contain">
           <div class="item-body flexrow">
             <label for="prefix-input-{{item.id}}">Prefix</label>
             <input id="prefix-input-{{item.id}}" class="flex-size-2"
-              onfocus="this.select()"
-              value="{{system.prefix.name}}" name="system.prefix.name"
-              type="text" data-dtype="String"
-              />
+            value="{{system.prefix.name}}" name="system.prefix.name"
+            onfocus="this.select()" type="text" data-dtype="String" />
           </div>
           <div class="item-body flexrow flex-size-2">
             <label for="prefix-bonus-input-{{item.id}}">Bonus</label>
             <input id="prefix-bonus-input-{{item.id}}" class="flex-size-4"
-              onfocus="this.select()"
-              value="{{system.prefix.effects}}" placeholder="Prefix Bonus" name="system.prefix.effects"
-              type="text" data-dtype="String"
-              />
+            value="{{system.prefix.effects}}" placeholder="Prefix Bonus" name="system.prefix.effects"
+            onfocus="this.select()" type="text" data-dtype="String" />
           </div>
         </div>
         <div class="flexrow gun-center-contain">
           <div class="item-body flexrow">
             <label for="guild-input-{{item.id}}">Guild</label>
             <input id="guild-input-{{item.id}}" class="flex-size-2"
-            onfocus="this.select()"
-              value="{{system.guild}}" name="system.guild"
-              type="text" data-dtype="String"
-              />
+            value="{{system.guild}}" name="system.guild"
+            onfocus="this.select()" type="text" data-dtype="String" />
           </div>
           <div class="item-body flexrow flex-size-2">
             <label for="guild-bonus-input-{{item.id}}">Bonus</label>
             <input id="guild-bonus-input-{{item.id}}" class="flex-size-4" 
-            onfocus="this.select()"
-              value="{{system.guildBonus}}" placeholder="Guild Bonus" name="system.guildBonus"
-              type="text" data-dtype="String"
-              />
+            value="{{system.guildBonus}}" placeholder="Guild Bonus" name="system.guildBonus"
+            onfocus="this.select()" type="text" data-dtype="String" />
           </div>
         </div>
-        <div class="flexrow gun-center-container">
-          <div class="flexrow centerize">
+        <div class="flexrow gun-center-contain">
+          <div class="flexrow centerize flex-size-1">
+            <label for="bonus-crit-input-{{item.id}}" class="flex-size-4 bolded">Bonus Crit Dmg</label>
+            <input id="bonus-crit-input-{{item.id}}" class="gun-center-entry"
+            value="{{system.bonusCritDmg}}" name="system.bonusCritDmg"
+            onfocus="this.select()" type="number" data-dtype="Number" />
+          </div>
+          <div class="flexrow centerize flex-size-2">
             <label for="gun-type" class="bolded">Gun Type:</label>
             {{> "systems/bunkers-and-badasses/templates/item/parts/gun-type-dropdown.html" 
               itemId=item.id }}
@@ -141,9 +135,8 @@
         <div class="flexrow gun-center-contain">
           <label for="gun-info" class="bolded">Gun Info</label>
           <input id="gun-info" class="flex-size-3"
-          onfocus="this.select()"
-            value="{{system.effect}}" name="system.effect"
-            type="text" data-dtype="String" />
+          value="{{system.effect}}" name="system.effect"
+          onfocus="this.select()" type="text" data-dtype="String" />
         </div>
       </div>
     </div>
@@ -189,11 +182,6 @@
         </div>
       </div>
     </div>
-    <!-- <input 
-      name="system.special.overrideType" 
-      value="{{system.special.overrideType}}"
-      onfocus="this.select()"
-      type="text" data-dtype="String" /> -->
     {{> "systems/bunkers-and-badasses/templates/item/parts/red-text.html" }}
   </div>
 </form>

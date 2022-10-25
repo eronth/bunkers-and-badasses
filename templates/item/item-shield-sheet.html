@@ -21,16 +21,20 @@
           <label for="level-input-{{item.id}}" class="flex-size-1">Level</label>
           <input id="level-input-{{item.id}}" class="flex-size-1"
           value="{{system.level}}" name="system.level"
-          type="number" data-dtype="Number"
-          />
+          onfocus="this.select()" type="number" data-dtype="Number" />
         </div>
         {{!-- Guild --}}
         <div class="item-body item-body-space flexcol flex-size-7">
           <label for="guild-input-{{item.id}}">Guild</label>
           <input id="guild-input-{{item.id}}" class="" 
           value="{{system.guild}}" name="system.guild"
-          type="text" data-dtype="String"
-          />
+          onfocus="this.select()" type="text" data-dtype="String" />
+        </div>
+        <div class="item-body item-body-num flexcol flex-size-7">
+          <label for="cost-input-{{item.id}}">Cost</label>
+          <input id="cost-input-{{item.id}}" class="" 
+          value="{{system.cost}}" name="system.cost"
+          onfocus="this.select()" type="number" data-dtype="Number" />
         </div>
       </div>
       <div class="shield-stats-container shield-stats-container-right flexrow flex-size-12">
@@ -46,8 +50,7 @@
           <label for="capacity-input-{{item.id}}">Capacity</label>
           <input id="capacity-input-{{item.id}}" class="" 
           value="{{system.capacity}}" name="system.capacity"
-          type="number" data-dtype="Number"
-          />
+          onfocus="this.select()" type="number" data-dtype="Number" />
         </div>
         {{!-- Recharge --}}
         <div class="item-body item-body-num flexcol">
@@ -55,9 +58,8 @@
             {{hpToRecoveryTitle system.healthType true}}
           </label>
           <input id="recharge-input-{{item.id}}" class="" 
-          type="text" data-dtype="String"
           value="{{system.recoveryRate}}" name="system.recoveryRate"
-          />
+          onfocus="this.select()" type="text" data-dtype="String" />
         </div>
       </div>
     </div>
@@ -70,8 +72,7 @@
     <label for="effect-input-{{item.id}}">Effect</label>
     <input id="effect-input-{{item.id}}" class="flex-size-4" 
       value="{{system.effect}}" name="system.effect"
-      type="text"  data-dtype="String"
-      />
+      onfocus="this.select()" type="text"  data-dtype="String" />
   </div>
 
   {{> "systems/bunkers-and-badasses/templates/item/parts/red-text.html" }}
