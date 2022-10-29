@@ -23,7 +23,7 @@
 
   system.bonus.badass // Modifies Badass Rank.
 
-  system.class.actionSkill.uses.max // Modifies how many uses of your Action Skill you get.
+  system.bonus.class.actionSkill.uses.max // Modifies how many uses of your Action Skill you get.
 
   system.bonus.healths.flesh.max // Modifies max health. You know, the non-shield, non-armor health.
   system.bonus.healths.flesh.regen // Modifies health regen. You know, the non-shield, non-armor health.

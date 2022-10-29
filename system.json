@@ -18,7 +18,11 @@
   "scripts": [],
   "esmodules": ["module/bunkers-and-badasses.mjs"],
   "styles": [
+    "css/common-colors/color-declare.css",
     "css/bunkers-and-badasses.css",
+    "css/common-colors/attack-colors.css",
+    "css/common-colors/elemental-colors.css",
+    "css/common-colors/rarity-colors.css",
     "css/generic.css",
     "css/health.css",
     "css/dropdown.css",

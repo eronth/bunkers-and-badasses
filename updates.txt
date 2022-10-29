@@ -6,6 +6,7 @@ Updates
 * Cleaned up display on grenades.
 * Unified a bunch of UI stuff.
 * Updated item UI to include Cost value.
+* Added CSS classes for element and rarity colors (can be used in journals).
 
 Bugfixes
 * Fixed a bug with displaying melee dice rolls to chat.
