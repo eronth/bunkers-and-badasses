@@ -185,7 +185,7 @@ export class BNBActorSheet extends ActorSheet {
     const actionSkill = context.actionSkills[0];
     const actionSkillName = actionSkill.name;
     const actionSkillUses = {
-      value: context.actor.system.class.actionSkill.uses.value,
+      value: actor.system.class.actionSkill.uses.value,
       max: actionSkill.system.bonusUses + actor.system.stats.mst.mod,
     };
     context.actionSkillName = actionSkillName;
