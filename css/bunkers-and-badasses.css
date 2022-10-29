@@ -1323,7 +1323,7 @@ input[type="time"]:focus {
 
 .rarity .common {
   color: white;
-  background-color: #a5a49f;
+  background-color: var(--common);
 }
 .rarity .uncommon {
   color: white;
@@ -1331,7 +1331,7 @@ input[type="time"]:focus {
 }
 .rarity .rare {
   color: white;
-  background-color: #00a0ff;
+  background-color: var(--rare);
 }
 .rarity .epic {
   color: white;

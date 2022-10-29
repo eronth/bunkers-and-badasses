@@ -1,0 +1,123 @@
+/* Element colors. */
+.elemental-text {
+  color: var(--element);
+}
+.kinetic-text {
+  color: var(--kinetic);
+}
+.incendiary-text {
+  color: var(--incendiary);
+}
+.corrosive-text {
+  color: var(--corrosive);
+}
+.shock-text {
+  color: var(--shock);
+}
+.explosive-text {
+  color: var(--explosive);
+}
+.radiation-text {
+  color: var(--radiation);
+}
+.cryo-text {
+  color: var(--cryo);
+}
+.incendiation-text {
+  color: var(--incendiation);
+}
+.corroshock-text {
+  color: var(--corroshock);
+}
+.crysplosive-text {
+  color: var(--crysplosive);
+}
+.plasma-text {
+  color: var(--plasma);
+}
+
+.elemental-background {
+  color: white;
+  background-color: var(--element);
+}
+.kinetic-background {
+  color: white;
+  background-color: var(--kinetic);
+}
+.incendiary-background {
+  color: white;
+  background-color: var(--incendiary);
+}
+.corrosive-background {
+  color: white;
+  background-color: var(--corrosive);
+}
+.shock-background {
+  color: white;
+  background-color: var(--shock);
+}
+.explosive-background {
+  color: white;
+  background-color: var(--explosive);
+}
+.radiation-background {
+  color: white;
+  background-color: var(--radiation);
+}
+.cryo-background {
+  color: white;
+  background-color: var(--cryo);
+}
+.incendiation-background {
+  color: white;
+  background-color: var(--incendiation);
+}
+.corroshock-background {
+  color: white;
+  background-color: var(--corroshock);
+}
+.crysplosive-background {
+  color: white;
+  background-color: var(--crysplosive);
+}
+.plasma-background {
+  color: white;
+  background-color: var(--plasma);
+}
+
+.elemental-border {
+  border: 1px solid var(--element);
+}
+.kinetic-border {
+  border: 1px solid var(--kinetic);
+}
+.incendiary-border {
+  border: 1px solid var(--incendiary);
+}
+.corrosive-border {
+  border: 1px solid var(--corrosive);
+}
+.shock-border {
+  border: 1px solid var(--shock);
+}
+.explosive-border {
+  border: 1px solid var(--explosive);
+}
+.radiation-border {
+  border: 1px solid var(--radiation);
+}
+.cryo-border {
+  border: 1px solid var(--cryo);
+}
+.incendiation-border {
+  border: 1px solid var(--incendiation);
+}
+.corroshock-border {
+  border: 1px solid var(--corroshock);
+}
+.crysplosive-border {
+  border: 1px solid var(--crysplosive);
+}
+.plasma-border {
+  border: 1px solid var(--plasma);
+}

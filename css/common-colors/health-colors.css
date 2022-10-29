@@ -1,0 +1,184 @@
+.health-text {
+    color: var(--health);
+}
+.health-high-text {
+    color: var(--health-high);
+}
+.health-low-text {
+    color: var(--health-low);
+}
+.bone-text {
+    color: var(--bone);
+}
+.bone-high-text {
+    color: var(--bone-high);
+}
+.bone-low-text {
+    color: var(--bone-low);
+}
+.flesh-text {
+    color: var(--flesh);
+}
+.flesh-high-text {
+    color: var(--flesh-high);
+}
+.flesh-low-text {
+    color: var(--flesh-low);
+}
+.armor-text {
+    color: var(--armor);
+}
+.armor-high-text {
+    color: var(--armor-high);
+}
+.armor-low-text {
+    color: var(--armor-low);
+}
+.shield-text {
+    color: var(--shield);
+}
+.shield-high-text {
+    color: var(--shield-high);
+}
+.shield-low-text {
+    color: var(--shield-low);
+}
+.eridian-text {
+    color: var(--eridian);
+}
+.eridian-high-text {
+    color: var(--eridian-high);
+}
+.eridian-low-text {
+    color: var(--eridian-low);
+}
+
+
+.health-background {
+    color: white;
+    background-color: var(--health);
+}
+.health-high-background {
+    color: white;
+    background-color: var(--health-high);
+}
+.health-low-background {
+    color: white;
+    background-color: var(--health-low);
+}
+.bone-background {
+    color: white;
+    background-color: var(--bone);
+}
+.bone-high-background {
+    color: white;
+    background-color: var(--bone-high);
+}
+.bone-low-background {
+    color: white;
+    background-color: var(--bone-low);
+}
+.flesh-background {
+    color: white;
+    background-color: var(--flesh);
+}
+.flesh-high-background {
+    color: white;
+    background-color: var(--flesh-high);
+}
+.flesh-low-background {
+    color: white;
+    background-color: var(--flesh-low);
+}
+.armor-background {
+    color: white;
+    background-color: var(--armor);
+}
+.armor-high-background {
+    color: white;
+    background-color: var(--armor-high);
+}
+.armor-low-background {
+    color: white;
+    background-color: var(--armor-low);
+}
+.shield-background {
+    color: white;
+    background-color: var(--shield);
+}
+.shield-high-background {
+    color: white;
+    background-color: var(--shield-high);
+}
+.shield-low-background {
+    color: white;
+    background-color: var(--shield-low);
+}
+.eridian-background {
+    color: white;
+    background-color: var(--eridian);
+}
+.eridian-high-background {
+    color: white;
+    background-color: var(--eridian-high);
+}
+.eridian-low-background {
+    color: white;
+    background-color: var(--eridian-low);
+}
+
+
+.health-text {
+    border: 1px solid var(--health);
+}
+.health-high-text {
+    border: 1px solid var(--health-high);
+}
+.health-low-text {
+    border: 1px solid var(--health-low);
+}
+.bone-text {
+    border: 1px solid var(--bone);
+}
+.bone-high-text {
+    border: 1px solid var(--bone-high);
+}
+.bone-low-text {
+    border: 1px solid var(--bone-low);
+}
+.flesh-text {
+    border: 1px solid var(--flesh);
+}
+.flesh-high-text {
+    border: 1px solid var(--flesh-high);
+}
+.flesh-low-text {
+    border: 1px solid var(--flesh-low);
+}
+.armor-text {
+    border: 1px solid var(--armor);
+}
+.armor-high-text {
+    border: 1px solid var(--armor-high);
+}
+.armor-low-text {
+    border: 1px solid var(--armor-low);
+}
+.shield-text {
+    border: 1px solid var(--shield);
+}
+.shield-high-text {
+    border: 1px solid var(--shield-high);
+}
+.shield-low-text {
+    border: 1px solid var(--shield-low);
+}
+.eridian-text {
+    border: 1px solid var(--eridian);
+}
+.eridian-high-text {
+    border: 1px solid var(--eridian-high);
+}
+.eridian-low-text {
+    border: 1px solid var(--eridian-low);
+}
