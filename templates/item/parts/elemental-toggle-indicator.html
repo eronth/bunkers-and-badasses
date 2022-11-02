@@ -1,0 +1,8 @@
+<img id="enable-{{element.label}}" alt="{{element.label}}" 
+{{#if element.enabled}}
+class="checkbox element-toggle element-selector-icon" 
+{{else}}
+class="checkbox element-toggle element-selector-icon-disabled"
+{{/if}}
+data-target="item" data-item-target="system.elements.{{toLowerCase element.label}}.enabled"
+src="systems/bunkers-and-badasses/assets/elements/{{element.label}}.png" />

@@ -7,6 +7,7 @@ Updates
 * Unified a bunch of UI stuff.
 * Updated item UI to include Cost value.
 * Added CSS classes for element and rarity colors (can be used in journals).
+* Updated the element selector for damage and resistances.
 
 Bugfixes
 * Fixed a bug with displaying melee dice rolls to chat.
