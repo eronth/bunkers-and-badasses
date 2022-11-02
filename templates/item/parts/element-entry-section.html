@@ -2,17 +2,16 @@
   <div class="flexrow flex-size-3">
     <a id="enable{{label}}"
       class="checkbox element-toggle" 
-      title="Enable Element" data-target="item" data-item-target="system.elements.{{toLowerCase element.label}}.enabled"
+      title="Enable Element" data-target="item" 
+      data-item-target="system.elements.{{toLowerCase element.label}}.enabled"
     >
+    <img id="enable-{{label}}" alt="{{element.label}}" 
       {{#if element.enabled}}
-      <!-- <i class="far fa-check-square"></i> -->
-      <img id="enable{{label}}" class="element-toggle element-selector-icon" alt="{{element.label}}" 
-        src="systems/bunkers-and-badasses/assets/elements/{{element.label}}.png" />
+        class="element-toggle element-selector-icon"
       {{else}}
-      <!-- <i class="far fa-square"></i> -->
-      <img id="enable{{label}}" class="element-selector-icon-disabled" alt="{{element.label}}" 
-        src="systems/bunkers-and-badasses/assets/elements/{{element.label}}.png" />
+        class="element-toggle element-selector-icon-disabled" 
       {{/if}}
+      src="systems/bunkers-and-badasses/assets/elements/{{element.label}}.png" />
       <label for="enable{{label}}" class="element-label-smaller" 
         style="--elementColor:{{#if element.enabled}}{{element.color}}{{else}}darkgrey{{/if}}"
       >{{element.label}} {{bonusTag}}:</label>
