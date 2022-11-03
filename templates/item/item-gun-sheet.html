@@ -141,10 +141,18 @@
       </div>
     </div>
     {{!-- Elemental selection section --}}
-    <div class="item-body flexrow">
+    <div class="item-body">
       {{> "systems/bunkers-and-badasses/templates/item/parts/damage-entry.html"
-        device="gun" bonus="damage per hit" stat="damage"
+        device="gun" bonus="damage per hit"
         elements=system.elements
+        targetData="system.elements"
+      }}
+    </div>
+    <div class="item-body">
+      {{> "systems/bunkers-and-badasses/templates/item/parts/damage-entry.html"
+        device="gun" bonus="bonus attack damage" passin="text"
+        elements=system.bonusElements
+        targetData="system.bonusElements"
       }}
     </div>
     <div class="flexcol stat-mod-mod-header">

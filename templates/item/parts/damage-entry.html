@@ -3,14 +3,14 @@
   <div class="flexrow element-toggle-container">
     {{#each elements as |element key|}}
       {{> "systems/bunkers-and-badasses/templates/item/parts/elemental-toggle-indicator.html"
-        element=element }}
+        element=element elementType=key targetData=../targetData}}
     {{/each}}
   </div>
   <div class="flexrow element-list-container">
     {{#each elements as |element key|}}
       {{#if element.enabled}}
         {{> "systems/bunkers-and-badasses/templates/item/parts/elemental-value-input.html"
-          element=element elementType=key stat=stat }}
+          element=element elementType=key targetData=../targetData}}
       {{/if}}
     {{/each}}
   </div>
