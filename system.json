@@ -24,6 +24,7 @@
     "css/common-colors/elemental-colors.css",
     "css/common-colors/rarity-colors.css",
     "css/generic.css",
+    "css/elemental.css",
     "css/health.css",
     "css/dropdown.css",
     "css/header/health.css",

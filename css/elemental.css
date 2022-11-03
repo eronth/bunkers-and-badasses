@@ -1,0 +1,50 @@
+
+.element-toggle-container {
+  justify-content: space-evenly;
+}
+.element-list-container {
+  margin-top: 8px;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  gap: 4px;
+}
+.element-list-container > div {
+  flex: 0 1 135px; /* nice */
+}
+.element-list-container > div > img {
+  margin-right: 2px;
+}
+.element-list-container > div > label {
+  font-size: smaller;
+  font-weight: bold;
+}
+.element-list-container > div > input {
+  font-size: smaller;
+  height:17px;
+  min-width:49px;
+  width:49px;
+}
+
+/*wtf is going on below here.*/
+.element-selector-icon {
+  border: 0;
+  height: 13px;
+  width: 13px;
+  max-width: 13px;
+}
+.element-selector-icon-medium {
+  border: 0;
+  height: 20px;
+}
+.element-selector-icon-disabled {
+  filter: grayscale(100%);
+  border: 0;
+  height: 13px;
+  width: 13px;
+  max-width: 13px;
+}
+
+.element-toggle:hover {
+  text-shadow: 0 0 10px cyan;
+  cursor: pointer;
+}
