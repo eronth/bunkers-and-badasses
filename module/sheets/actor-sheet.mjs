@@ -1437,7 +1437,9 @@ export class BNBActorSheet extends ActorSheet {
     const attackValues = {...actorSystem.checks.shooting};
     attackValues.badassRollsEnabled = actorSystem.attributes.badass.rollsEnabled;
     
-    const isFavoredWeaponType = actorSystem.favored[itemSystem.type.value];
+    const isFavoredWeaponType = ((itemSystem?.special?.overrideType !== 'snotgun') 
+    ? actorSystem.favored[itemSystem.type.value]
+    : (actorSystem.favored.sniper || actorSystem.favored.shotgun));
     const elementTypes = 
       [ "kinetic", "incendiary", "shock", "corrosive",
         "explosive", "radiation", "cryo",
