@@ -1,9 +1,9 @@
 <div class="flexrow">
   <img for="{{label}}-element-input" alt="{{element.label}}" 
-    class="element-toggle element-selector-icon" src="systems/bunkers-and-badasses/assets/elements/{{element.label}}.png"
+    class="element-toggle element-selector-icon" src="systems/bunkers-and-badasses/assets/elements/{{capitalize elementType}}.png"
   />
-  <label for="{{label}}-element-input" class=" flex-size-2 {{elementType}}-text">{{element.label}}:</label>
+  <label for="{{label}}-element-input" class=" flex-size-2 {{elementType}}-text">{{capitalize elementType}}:</label>
   <input  id="{{label}}-element-input" class="flex-size-1" type="text" type="String" 
-    name="system.elements.{{toLowerCase element.label}}.{{stat}}"
-    value="{{element.damage}}" placeholder="1d6" />
+    name="{{targetData}}.{{elementType}}.damage"
+    value="{{element.damage}}" placeholder="e.g. 1d6" />
 </div>
