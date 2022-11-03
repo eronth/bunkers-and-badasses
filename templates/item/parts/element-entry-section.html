@@ -1,30 +1,17 @@
-<div class="element-container flexrow">
-  <div class="flexrow flex-size-3">
-    <a id="enable{{label}}"
-      class="checkbox element-toggle" 
-      title="Enable Element" data-target="item" 
-      data-item-target="system.elements.{{toLowerCase element.label}}.enabled"
-    >
-    <img id="enable-{{label}}" alt="{{element.label}}" 
-      {{#if element.enabled}}
-        class="element-toggle element-selector-icon"
-      {{else}}
-        class="element-toggle element-selector-icon-disabled" 
-      {{/if}}
-      src="systems/bunkers-and-badasses/assets/elements/{{element.label}}.png" />
-      <label for="enable{{label}}" class="element-label-smaller" 
-        style="--elementColor:{{#if element.enabled}}{{element.color}}{{else}}darkgrey{{/if}}"
-      >{{element.label}} {{bonusTag}}:</label>
-    </a>
+<div class="flexcol elements-container">
+  <div class="flex-size-2 elem-reminder-text">Click an element below to enable/disable. Enter {{device}} <b>{{bonus}}</b> for each element as needed.</div>
+  <div class="flexrow element-toggle-container">
+    {{#each elements as |element key|}}
+      {{> "systems/bunkers-and-badasses/templates/item/parts/elemental-toggle-indicator.html"
+        element=element elementType=key targetData=../targetData}}
+    {{/each}}
   </div>
-  <div class="element-damage flex-group-center">
-    <input class="element-damage" type="text" type="String" 
-      name="system.elements.{{toLowerCase element.label}}.damage"
+  <div class="flexrow element-list-container">
+    {{#each elements as |element key|}}
       {{#if element.enabled}}
-      value="{{element.damage}}" placeholder="1d6"
-      {{else}}
-      value="" placeholder="" disabled
+        {{> "systems/bunkers-and-badasses/templates/item/parts/elemental-value-input.html"
+          element=element elementType=key targetData=../targetData}}
       {{/if}}
-      >
+    {{/each}}
   </div>
 </div>

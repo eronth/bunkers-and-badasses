@@ -41,10 +41,9 @@
     // Item partials
     "systems/bunkers-and-badasses/templates/item/parts/rarity-dropdown.html",
     "systems/bunkers-and-badasses/templates/item/parts/element-selector.html",
-    "systems/bunkers-and-badasses/templates/item/parts/damage-entry.html",
     "systems/bunkers-and-badasses/templates/item/parts/element-entry-section.html",
-    "systems/bunkers-and-badasses/templates/item/parts/elemental-toggle-indicator.html",
-    "systems/bunkers-and-badasses/templates/item/parts/elemental-value-input.html",
+      "systems/bunkers-and-badasses/templates/item/parts/elemental-toggle-indicator.html",
+      "systems/bunkers-and-badasses/templates/item/parts/elemental-value-input.html",
     "systems/bunkers-and-badasses/templates/item/parts/gun-type-dropdown.html",
     "systems/bunkers-and-badasses/templates/item/parts/health-type-dropdown.html",
     "systems/bunkers-and-badasses/templates/item/parts/red-text.html",
