@@ -1,6 +1,7 @@
 import { onManageActiveEffect, prepareActiveEffectCategories } from "../helpers/effects.mjs";
 import { RollBuilder } from "../helpers/roll-builder.mjs";
 import { Dropdown } from "../helpers/dropdown.mjs";
+import { genericUtil } from "../helpers/genericUtil.mjs";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -474,16 +475,14 @@ export class BNBActorSheet extends ActorSheet {
         let gunDmgString = "";
         const finalPlus = `<label class="element-damage-plus"> + </label>`;
         Object.entries(i.system.elements).forEach(e => {
-          const element = e[1];
+          const [key, element] = e;
           if(element.enabled) {
-            elemIcon = (e[0] === "kinetic") ? ""
-            : `<img id="gunDmg${element.label}" alt="${element.label}" 
-              class="element-damage-icon" src="systems/bunkers-and-badasses/assets/elements/${element.label}.png" />`;
+            elemIcon = (e[0] === "kinetic") 
+            ? ""
+            : `<img id="gunDmg${genericUtil.capitalize(key)}" alt="${genericUtil.capitalize(key)}" 
+              class="element-damage-icon" src="systems/bunkers-and-badasses/assets/elements/${genericUtil.capitalize(key)}.png" />`;
 
-              gunDmgString += 
-            `<label class="element-label" style="--elementColor:${element.color}">
-              ${element.damage} ${elemIcon}
-            </label> ${finalPlus}`;
+              gunDmgString += `<label class='bolded ${key}-text'>${element.damage} ${elemIcon}</label> ${finalPlus}`;
           }
         });
         
@@ -501,10 +500,10 @@ export class BNBActorSheet extends ActorSheet {
       } else if (i.type === 'shield') {
         let shieldResistString = "";
         Object.entries(i.system.elements).forEach(e => {
-          const element = e[1];
+          const [key, element] = e;
           if(element.enabled) {
-            shieldResistString += `<img id="resist${element.label}" alt="${element.label}" 
-              class="element-resist-icon" src="systems/bunkers-and-badasses/assets/elements/${element.label}.png" />`;
+            shieldResistString += `<img id="resist${genericUtil.capitalize(key)}" alt="${genericUtil.capitalize(key)}" 
+              class="element-resist-icon" src="systems/bunkers-and-badasses/assets/elements/${genericUtil.capitalize(key)}.png" />`;
           }
         });
         i.system.resistHtml = shieldResistString;
@@ -514,16 +513,14 @@ export class BNBActorSheet extends ActorSheet {
         let elemIcon = "";
         const finalPlus = `<label class="element-damage-plus"> + </label>`;
         Object.entries(i.system.elements).forEach(e => {
-          const element = e[1];
+          const [key, element] = e;
           if(element.enabled) {
             elemIcon = (e[0] === "kinetic") ? ""
-            : `<img id="gDmg${element.label}" alt="${element.label}" 
-              class="element-damage-icon" src="systems/bunkers-and-badasses/assets/elements/${element.label}.png" />`;
+            : `<img id="gDmg${genericUtil.capitalize(key)}" alt="${genericUtil.capitalize(key)}" 
+              class="element-damage-icon" src="systems/bunkers-and-badasses/assets/elements/${genericUtil.capitalize(key)}.png" />`;
 
             grenadeDmgString += 
-            `<label class="element-label" style="--elementColor:${element.color}">
-              ${element.damage} ${elemIcon}
-            </label> ${finalPlus}`;
+            `<label class='bolded ${key}-text'>${element.damage} ${elemIcon}</label> ${finalPlus}`;
           }
         });
 

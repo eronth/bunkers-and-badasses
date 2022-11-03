@@ -1,3 +1,5 @@
+import { genericUtil } from "../helpers/genericUtil.mjs";
+
 /**
  * Extend the basic Item with some very simple modifications.
  * @extends {Item}
@@ -88,10 +90,10 @@ export class BNBItem extends Item {
     Object.entries(itemSystem.elements).forEach(([key, elementData]) => {
       if(elementData.enabled) {
         if (isNaN(hits)) {
-          rollFormula+=`(${elementData.damage})[${elementData.label}] +`;
+          rollFormula+=`(${elementData.damage})[${genericUtil.capitalize(key)}] +`;
         } else {
           for (let i = 0; i < hits; i++) {
-            rollFormula+=`(${elementData.damage})[${elementData.label}] +`;
+            rollFormula+=`(${elementData.damage})[${genericUtil.capitalize(key)}] +`;
           }
         }
       }
