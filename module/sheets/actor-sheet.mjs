@@ -877,6 +877,7 @@ export class BNBActorSheet extends ActorSheet {
   async _takeDamage(html) {
     // Prep data to access.
     const actorSystem = this.actor.system;
+    const items = this.actor.items;
     const hps = actorSystem.attributes.hps;
 
     // Pull data from html.
@@ -884,6 +885,28 @@ export class BNBActorSheet extends ActorSheet {
     const damageType = $("input[type=radio][name=damage-type-element]:checked")[0].dataset.element.toLowerCase();
 
     if (isNaN(damageAmount) || damageAmount <= 0) { return; }
+
+    // Determine damage reductions first.
+    let reduction = '';
+    let reductionResult = 0;
+    if (items?._source) {
+      Object.entries(items._source).forEach(([key, item]) => {
+        if (item.type === 'shield') {
+          if (item.system.elements[damageType].enabled) {
+            reduction += item.system.elements[damageType].damage + '+';
+          }
+        }
+      });
+    }
+    if (reduction.length > 0) { 
+      reduction = reduction.slice(0, -1); // Cleave off final +.
+
+      const roll = new Roll(reduction, {
+        actor: this.actor,
+      });
+      const rollResult = await roll.roll({async: true});
+      reductionResult = rollResult.total;
+    }
 
     // Track the amount of damage done to each health type.
     const damageTaken = { };
@@ -908,10 +931,11 @@ export class BNBActorSheet extends ActorSheet {
         x2: ['cryo', 'crysplosive'],
         ignore: []
       },
-    }
+    };
 
     // Calculate how much damage is taken to each health type.
-    let damageToDeal = damageAmount;
+    let damageToDeal = damageAmount - reductionResult;
+    if (damageToDeal < 0) { damageToDeal = 0; }
     Object.entries(hps).forEach(([healthType, hpValues]) => {
       // Skip over healthbars that don't get hit by this damage type.
       if (!modifyDamage[healthType].ignore.includes(damageType)) {

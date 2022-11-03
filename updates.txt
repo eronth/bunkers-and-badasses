@@ -9,6 +9,7 @@ Updates
 * Added CSS classes for element and rarity colors (can be used in journals).
 * Updated the element selector for damage and resistances.
 * Added bonus attack damage to guns.
+* Resistance applied to "Take damage" action.
 
 Bugfixes
 * Fixed a bug with displaying melee dice rolls to chat.

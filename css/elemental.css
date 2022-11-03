@@ -32,6 +32,12 @@
   width: 13px;
   max-width: 13px;
 }
+.take-damage-element-selector-icon {
+  border: 0;
+  height: 12px;
+  width: 12px;
+  max-width: 12px;
+}
 .element-selector-icon-medium {
   border: 0;
   height: 20px;
