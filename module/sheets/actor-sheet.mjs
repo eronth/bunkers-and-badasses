@@ -901,11 +901,18 @@ export class BNBActorSheet extends ActorSheet {
     if (reduction.length > 0) { 
       reduction = reduction.slice(0, -1); // Cleave off final +.
 
-      const roll = new Roll(reduction, {
-        actor: this.actor,
-      });
+      const roll = new Roll(reduction, this.actor.getRollData());
       const rollResult = await roll.roll({async: true});
       reductionResult = rollResult.total;
+
+      const label = `${this.actor.name} resists <span class='${damageType}-text bolded'>` +
+      `${reductionResult} ${damageType}`
+      + `</span> damage.`;
+      rollResult.toMessage({
+        speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+        flavor: label,
+        rollMode: game.settings.get('core', 'rollMode'),
+      });
     }
 
     // Track the amount of damage done to each health type.
@@ -936,6 +943,11 @@ export class BNBActorSheet extends ActorSheet {
     // Calculate how much damage is taken to each health type.
     let damageToDeal = damageAmount - reductionResult;
     if (damageToDeal < 0) { damageToDeal = 0; }
+
+    if (reductionResult > 0) {
+      const label = `${this.actor.name} resists ${damageAmount - damageToDeal}`;
+    }
+
     Object.entries(hps).forEach(([healthType, hpValues]) => {
       // Skip over healthbars that don't get hit by this damage type.
       if (!modifyDamage[healthType].ignore.includes(damageType)) {
