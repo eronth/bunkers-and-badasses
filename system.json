@@ -31,10 +31,20 @@
     "css/header/xp-bar.css"
   ],
   "packs": [{
-    "name": "loot",
-    "label": "Unique Loot",
-    "path": "packs/loot.db",
-    "entity": "Item"
+    "label": "Unique Guns", "name": "unique-guns",
+    "path": "packs/unique-guns.db", "entity": "Item"
+  }, {
+    "label": "Unique Grenades", "name": "unique-grenades",
+    "path": "packs/unique-grenades.db", "entity": "Item"
+  }, {
+    "label": "Unique Shields", "name": "unique-shields",
+    "path": "packs/unique-shields.db", "entity": "Item"
+  }, {
+    "label": "Unique Potions", "name": "unique-potions",
+    "path": "packs/unique-potions.db", "entity": "Item"
+  }, {
+    "label": "Unique Relics", "name": "unique-relics",
+    "path": "packs/unique-relics.db", "entity": "Item"
   }],
   "languages": [{
     "lang": "en",

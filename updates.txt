@@ -10,6 +10,7 @@ Updates
 * Updated the element selector for damage and resistances.
 * Added bonus attack damage to guns.
 * Resistance applied to "Take damage" action.
+* More unique loot added.
 
 Bugfixes
 * Fixed a bug with displaying melee dice rolls to chat.
