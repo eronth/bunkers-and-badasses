@@ -13,6 +13,8 @@
     </div>
   </header>
 
+  <!-- <input onfocus="this.select()" value='{{system.special.overrideType}}' name='system.special.overrideType' type="text" data-dtype="String" /> -->
+
   <div class="flexcol item-sheet">
 
     <div class="flexrow">
@@ -141,11 +143,18 @@
       </div>
     </div>
     {{!-- Elemental selection section --}}
-    <div class="item-body flexrow">
-      {{> "systems/bunkers-and-badasses/templates/item/parts/damage-entry.html"
-        device="gun"
-        bonus="damage" bonusTag="dmg"
+    <div class="item-body">
+      {{> "systems/bunkers-and-badasses/templates/item/parts/element-entry-section.html"
+        device="gun" bonus="damage per hit"
         elements=system.elements
+        targetData="system.elements"
+      }}
+    </div>
+    <div class="item-body">
+      {{> "systems/bunkers-and-badasses/templates/item/parts/element-entry-section.html"
+        device="gun" bonus="bonus attack damage" passin="text"
+        elements=system.bonusElements
+        targetData="system.bonusElements"
       }}
     </div>
     <div class="flexcol stat-mod-mod-header">

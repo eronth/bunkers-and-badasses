@@ -38,10 +38,10 @@
           type="number" data-dtype="Number" />
       </div>
     </div>
-    {{> "systems/bunkers-and-badasses/templates/item/parts/damage-entry.html"
-      device="grenade"
-      bonus="damage" bonusTag="dmg"
+    {{> "systems/bunkers-and-badasses/templates/item/parts/element-entry-section.html"
+      device="grenade" bonus="damage" stat="damage"
       elements=system.elements
+      targetData="system.elements"
     }}
     <div class="item-body flexrow">
     <label for="effect-input-{{item.id}}">Effect</label>

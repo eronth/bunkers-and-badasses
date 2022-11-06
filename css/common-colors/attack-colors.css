@@ -1,0 +1,23 @@
+/* Attack stats. */
+.crithit-text {
+  color: var(--crithit);
+}
+.crit-text {
+  color: var(--crits);
+}
+.hit-text {
+  color: var(--hits);
+}
+
+.crithit-background {
+  color: white;
+  background-color: var(--crithit);
+}
+.crit-background {
+  color: white;
+  background-color: var(--crits);
+}
+.hit-background {
+  color: white;
+  background-color: var(--hits);
+}

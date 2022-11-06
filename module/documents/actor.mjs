@@ -279,7 +279,8 @@ export class BNBActor extends Actor {
 
     const templateLocation = 'systems/bunkers-and-badasses/templates/chat/damage-results.html';
     const chatHtmlContent = await renderTemplate(templateLocation, {
-      results: rollResults
+      results: rollResults,
+      imageOverride: 'systems/bunkers-and-badasses/assets/elements/melee/Melee-Kinetic.png'
     });
 
     // Prep chat values.

@@ -10,7 +10,13 @@
         {{result.formula}}
       </label>
       <label class="result-label {{toLowerCase key}}-color">{{result.total}} <img id="damage-{{key}}" alt="{{key}}" 
-        class="element-damage-icon" src="systems/bunkers-and-badasses/assets/elements/{{key}}.png" /></label>
+        class="element-damage-icon"
+        {{#if ../imageOverride}}
+        src="{{../imageOverride}}"
+        {{else}}
+        src="systems/bunkers-and-badasses/assets/elements/{{key}}.png"
+        {{/if}}
+        /></label>
     </div>
     {{/each}}
     {{#if showAdditionalDamage}}
@@ -25,4 +31,5 @@
     </div>
     {{/if}}
   </div>
+
 </div>

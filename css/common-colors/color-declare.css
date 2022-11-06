@@ -1,0 +1,40 @@
+:root {
+  --theme: cyan;
+  /* Rarity colors */
+  --common: #a5a49f;
+  --uncommon: #0ea11f;
+  --rare: #00a0ff;
+  --epic: #7000a4;
+  --legendary: #ffa500;
+  /* Element colors. */
+  --kinetic: rgb(76, 76, 76);
+  --incendiary: rgb(213, 59, 49);
+  --corrosive: rgb(141, 157, 62);
+  --shock: rgb(113, 148, 205);
+  --explosive: rgb(234, 70, 134);
+  --radiation: rgb(228, 170, 22);
+  --cryo: rgb(18, 152, 185);
+  --incendiation: rgb(167, 78, 101);
+  --corroshock: rgb(73, 125, 135);
+  --crysplosive: rgb(115, 105, 160);
+  --plasma: rgb(195, 114, 8);
+  /* Attack stats. */
+  --hits: darkblue;
+  --crits: darkred;
+  /* Health types. */
+  --bone: #bbbbbb;
+  --bone-high: #bbbbbb;
+  --bone-low: #333333;
+  --flesh: #d23232;
+  --flesh-high: #d23232;
+  --flesh-low: #a20b0b;
+  --armor: #ffdd00;
+  --armor-high: #ffdd00;
+  --armor-low: #e1cc47;
+  --shield: #24e7eb;
+  --shield-high: #24e7eb;
+  --shield-low: #79d1d2;
+  --eridian: #ff00ff;
+  --eridian-high: #ff00ff;
+  --eridian-low: #bb00bb;
+}

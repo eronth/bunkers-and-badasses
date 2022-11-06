@@ -38,18 +38,18 @@
       <div class="action-skill-container">
         <div class="flexrow as-btn-inner-container action-skill">
           <div></div>
-          <div class="flex-size-2">
+          <div class="flex-size-3">
             <button class="btn btn-primary action-skill-button action-skill-use">
               <label>{{actionSkillName}}</label>
             </button>
           </div>
-          <div class="flexcol uses-container cc2">
+          <div class="flexcol flex-size-2 uses-container cc2">
             <div class="flexrow">
               {{> "systems/bunkers-and-badasses/templates/general/divided-input.html"
                 id="action-skill"
                 targetObj=actionSkillUses targetText="system.class.actionSkill.uses"
                 leftDisable=false 
-                rightValueOverride=(adder system.class.actionSkill.uses.max actionSkillUses.max)
+                rightValueOverride=(adder system.bonus.class.actionSkill.uses.max actionSkillUses.max)
                 rightDisable=true
               }}
             </div>
@@ -139,7 +139,7 @@
               <div class="item-effect flexrow item-prop-stack attack-details-line damage-row">
                 <label><i>Shwing!</i></label>
                 <label class="flex-size-2">
-                  <label class="element-label" style="--elementColor:rgb(76, 76, 76)">{{system.class.meleeDice}}&nbsp;</label>
+                  <label class="kinetic-text">{{system.class.meleeDice}}&nbsp;</label>
                   <label class="element-damage-damage">Damage</label>
                 </label>
                 <label class="gun-detail-header"><b>Range:</b>&nbsp;Adjacent</label>

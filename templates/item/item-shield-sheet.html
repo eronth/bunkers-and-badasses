@@ -63,10 +63,10 @@
         </div>
       </div>
     </div>
-    {{> "systems/bunkers-and-badasses/templates/item/parts/damage-entry.html"
-      device="shield"
-      bonus="resistance" bonusTag="res"
+    {{> "systems/bunkers-and-badasses/templates/item/parts/element-entry-section.html"
+      device="shield" bonus="damage resistance" stat="damage"
       elements=system.elements
+      targetData="system.elements"
     }}
     <div class="item-body flexrow">
     <label for="effect-input-{{item.id}}">Effect</label>
