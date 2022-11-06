@@ -1,6 +1,7 @@
 import { onManageActiveEffect, prepareActiveEffectCategories } from "../helpers/effects.mjs";
 import { RollBuilder } from "../helpers/roll-builder.mjs";
 import { Dropdown } from "../helpers/dropdown.mjs";
+import { genericUtil } from "../helpers/genericUtil.mjs";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -185,7 +186,7 @@ export class BNBActorSheet extends ActorSheet {
     const actionSkill = context.actionSkills[0];
     const actionSkillName = actionSkill.name;
     const actionSkillUses = {
-      value: context.actor.system.class.actionSkill.uses.value,
+      value: actor.system.class.actionSkill.uses.value,
       max: actionSkill.system.bonusUses + actor.system.stats.mst.mod,
     };
     context.actionSkillName = actionSkillName;
@@ -474,16 +475,14 @@ export class BNBActorSheet extends ActorSheet {
         let gunDmgString = "";
         const finalPlus = `<label class="element-damage-plus"> + </label>`;
         Object.entries(i.system.elements).forEach(e => {
-          const element = e[1];
+          const [key, element] = e;
           if(element.enabled) {
-            elemIcon = (e[0] === "kinetic") ? ""
-            : `<img id="gunDmg${element.label}" alt="${element.label}" 
-              class="element-damage-icon" src="systems/bunkers-and-badasses/assets/elements/${element.label}.png" />`;
+            elemIcon = (e[0] === "kinetic") 
+            ? ""
+            : `<img id="gunDmg${genericUtil.capitalize(key)}" alt="${genericUtil.capitalize(key)}" 
+              class="element-damage-icon" src="systems/bunkers-and-badasses/assets/elements/${genericUtil.capitalize(key)}.png" />`;
 
-              gunDmgString += 
-            `<label class="element-label" style="--elementColor:${element.color}">
-              ${element.damage} ${elemIcon}
-            </label> ${finalPlus}`;
+              gunDmgString += `<label class='bolded ${key}-text'>${element.damage} ${elemIcon}</label> ${finalPlus}`;
           }
         });
         
@@ -501,10 +500,10 @@ export class BNBActorSheet extends ActorSheet {
       } else if (i.type === 'shield') {
         let shieldResistString = "";
         Object.entries(i.system.elements).forEach(e => {
-          const element = e[1];
+          const [key, element] = e;
           if(element.enabled) {
-            shieldResistString += `<img id="resist${element.label}" alt="${element.label}" 
-              class="element-resist-icon" src="systems/bunkers-and-badasses/assets/elements/${element.label}.png" />`;
+            shieldResistString += `<img id="resist${genericUtil.capitalize(key)}" alt="${genericUtil.capitalize(key)}" 
+              class="element-resist-icon" src="systems/bunkers-and-badasses/assets/elements/${genericUtil.capitalize(key)}.png" />`;
           }
         });
         i.system.resistHtml = shieldResistString;
@@ -514,16 +513,14 @@ export class BNBActorSheet extends ActorSheet {
         let elemIcon = "";
         const finalPlus = `<label class="element-damage-plus"> + </label>`;
         Object.entries(i.system.elements).forEach(e => {
-          const element = e[1];
+          const [key, element] = e;
           if(element.enabled) {
             elemIcon = (e[0] === "kinetic") ? ""
-            : `<img id="gDmg${element.label}" alt="${element.label}" 
-              class="element-damage-icon" src="systems/bunkers-and-badasses/assets/elements/${element.label}.png" />`;
+            : `<img id="gDmg${genericUtil.capitalize(key)}" alt="${genericUtil.capitalize(key)}" 
+              class="element-damage-icon" src="systems/bunkers-and-badasses/assets/elements/${genericUtil.capitalize(key)}.png" />`;
 
             grenadeDmgString += 
-            `<label class="element-label" style="--elementColor:${element.color}">
-              ${element.damage} ${elemIcon}
-            </label> ${finalPlus}`;
+            `<label class='bolded ${key}-text'>${element.damage} ${elemIcon}</label> ${finalPlus}`;
           }
         });
 
@@ -880,6 +877,7 @@ export class BNBActorSheet extends ActorSheet {
   async _takeDamage(html) {
     // Prep data to access.
     const actorSystem = this.actor.system;
+    const items = this.actor.items;
     const hps = actorSystem.attributes.hps;
 
     // Pull data from html.
@@ -887,6 +885,35 @@ export class BNBActorSheet extends ActorSheet {
     const damageType = $("input[type=radio][name=damage-type-element]:checked")[0].dataset.element.toLowerCase();
 
     if (isNaN(damageAmount) || damageAmount <= 0) { return; }
+
+    // Determine damage reductions first.
+    let reduction = '';
+    let reductionResult = 0;
+    if (items?._source) {
+      Object.entries(items._source).forEach(([key, item]) => {
+        if (item.type === 'shield') {
+          if (item.system.elements[damageType].enabled) {
+            reduction += item.system.elements[damageType].damage + '+';
+          }
+        }
+      });
+    }
+    if (reduction.length > 0) { 
+      reduction = reduction.slice(0, -1); // Cleave off final +.
+
+      const roll = new Roll(reduction, this.actor.getRollData());
+      const rollResult = await roll.roll({async: true});
+      reductionResult = rollResult.total;
+
+      const label = `${this.actor.name} resists <span class='${damageType}-text bolded'>` +
+      `${reductionResult} ${damageType}`
+      + `</span> damage.`;
+      rollResult.toMessage({
+        speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+        flavor: label,
+        rollMode: game.settings.get('core', 'rollMode'),
+      });
+    }
 
     // Track the amount of damage done to each health type.
     const damageTaken = { };
@@ -911,10 +938,16 @@ export class BNBActorSheet extends ActorSheet {
         x2: ['cryo', 'crysplosive'],
         ignore: []
       },
-    }
+    };
 
     // Calculate how much damage is taken to each health type.
-    let damageToDeal = damageAmount;
+    let damageToDeal = damageAmount - reductionResult;
+    if (damageToDeal < 0) { damageToDeal = 0; }
+
+    if (reductionResult > 0) {
+      const label = `${this.actor.name} resists ${damageAmount - damageToDeal}`;
+    }
+
     Object.entries(hps).forEach(([healthType, hpValues]) => {
       // Skip over healthbars that don't get hit by this damage type.
       if (!modifyDamage[healthType].ignore.includes(damageType)) {
@@ -1416,7 +1449,9 @@ export class BNBActorSheet extends ActorSheet {
     const attackValues = {...actorSystem.checks.shooting};
     attackValues.badassRollsEnabled = actorSystem.attributes.badass.rollsEnabled;
     
-    const isFavoredWeaponType = actorSystem.favored[itemSystem.type.value];
+    const isFavoredWeaponType = ((itemSystem?.special?.overrideType !== 'snotgun') 
+    ? actorSystem.favored[itemSystem.type.value]
+    : (actorSystem.favored.sniper || actorSystem.favored.shotgun));
     const elementTypes = 
       [ "kinetic", "incendiary", "shock", "corrosive",
         "explosive", "radiation", "cryo",

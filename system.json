@@ -2,7 +2,7 @@
   "id": "bunkers-and-badasses",
   "title": "Bunkers & Badasses",
   "description": "Badasses, loot, and mayhem. This system is for running the tabletop adaptation of Borderlands' 'Bunkers & Badasses' by Nerdvana.",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "compatibleCoreVersion": "10",
   "compatibility": {
     "minimum": 10,
@@ -18,18 +18,33 @@
   "scripts": [],
   "esmodules": ["module/bunkers-and-badasses.mjs"],
   "styles": [
+    "css/common-colors/color-declare.css",
     "css/bunkers-and-badasses.css",
+    "css/common-colors/attack-colors.css",
+    "css/common-colors/elemental-colors.css",
+    "css/common-colors/rarity-colors.css",
     "css/generic.css",
+    "css/elemental.css",
     "css/health.css",
     "css/dropdown.css",
     "css/header/health.css",
     "css/header/xp-bar.css"
   ],
   "packs": [{
-    "name": "loot",
-    "label": "Unique Loot",
-    "path": "packs/loot.db",
-    "entity": "Item"
+    "label": "Unique Guns", "name": "unique-guns",
+    "path": "packs/unique-guns.db", "entity": "Item"
+  }, {
+    "label": "Unique Grenades", "name": "unique-grenades",
+    "path": "packs/unique-grenades.db", "entity": "Item"
+  }, {
+    "label": "Unique Shields", "name": "unique-shields",
+    "path": "packs/unique-shields.db", "entity": "Item"
+  }, {
+    "label": "Unique Potions", "name": "unique-potions",
+    "path": "packs/unique-potions.db", "entity": "Item"
+  }, {
+    "label": "Unique Relics", "name": "unique-relics",
+    "path": "packs/unique-relics.db", "entity": "Item"
   }],
   "languages": [{
     "lang": "en",
@@ -43,6 +58,6 @@
   "primaryTokenAttribute": "attributes.hps.flesh",
   "secondaryTokenAttribute": "attributes.hps.shield",
   "url": "https://github.com/eronth/bunkers-and-badasses",
-  "manifest": "https://github.com/eronth/bunkers-and-badasses/releases/download/v0.3.2/system.json",
-  "download": "https://github.com/eronth/bunkers-and-badasses/archive/refs/tags/v0.3.2.zip"
+  "manifest": "https://github.com/eronth/bunkers-and-badasses/releases/download/v0.3.3/system.json",
+  "download": "https://github.com/eronth/bunkers-and-badasses/archive/refs/tags/v0.3.3.zip"
 }

@@ -1,0 +1,63 @@
+/* Rarity Colors */
+.rarity-text {
+  color: var(--rarity);
+}
+.common-text {
+  color: var(--common);
+}
+.uncommon-text {
+  color: var(--uncommon);
+}
+.rare-text {
+  color: var(--rare);
+}
+.epic-text {
+  color: var(--epic);
+}
+.legendary-text {
+  color: var(--legendary);
+}
+
+.rarity-background {
+  color: white;
+  background: var(--rarity);
+}
+.common-background {
+  color: white;
+  background: var(--common);
+}
+.uncommon-background {
+  color: white;
+  background: var(--uncommon);
+}
+.rare-background {
+  color: white;
+  background: var(--rare);
+}
+.epic-background {
+  color: white;
+  background: var(--epic);
+}
+.legendary-background {
+  color: white;
+  background: var(--legendary);
+}
+
+.rarity-border {
+  border: 1px solid var(--rarity);
+}
+.common-border {
+  border: 1px solid var(--common);
+}
+.uncommon-border {
+  border: 1px solid var(--uncommon);
+}
+.rare-border {
+  border: 1px solid var(--rare);
+}
+.epic-border {
+  border: 1px solid var(--epic);
+}
+.legendary-border {
+  border: 1px solid var(--legendary);
+}

@@ -26,10 +26,7 @@
   text-shadow: 0 0 10px cyan;
   cursor: pointer;
 }
-.element-toggle:hover {
-  text-shadow: 0 0 10px cyan;
-  cursor: pointer;
-}
+
 button:hover {
   box-shadow: 0 0 5px cyan;
 }
@@ -1173,46 +1170,11 @@ input[type="time"]:focus {
   margin-left: 5px;
   margin-right: 5px;
 }
-.element-label {
-  color: var(--elementColor);
-}
-.element-label-smaller {
-  font-size: smaller;
-  color: var(--elementColor);
-  cursor: pointer;
-}
+
 .element-toggle {
   align-items: center;
 }
-.element-damage input {
-  height: 17px;
-}
 
-.element-damage input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: gray;
-  opacity: 1; /* Firefox */
-}
-.element-damage input:-ms-input-placeholder { /* Internet Explorer 10-11 */
-  color: gray;
-}
-.element-damage input::-ms-input-placeholder { /* Microsoft Edge */
-  color: gray;
-}
-.element-selector-icon {
-  border: 0;
-  width: 13px;
-  height: 13px;
-}
-.element-selector-icon-medium {
-  border: 0;
-  height: 20px;
-}
-.element-selector-icon-disabled {
-  filter: grayscale(100%);
-  border: 0;
-  width: 13px;
-  height: 13px;
-}
 .element-resist-icon {
   border: 0;
   height: 12px;
@@ -1323,23 +1285,23 @@ input[type="time"]:focus {
 
 .rarity .common {
   color: white;
-  background-color: #a5a49f;
+  background-color: var(--common);
 }
 .rarity .uncommon {
   color: white;
-  background-color: #0ea11f;
+  background-color: var(--uncommon);
 }
 .rarity .rare {
   color: white;
-  background-color: #00a0ff;
+  background-color: var(--rare);
 }
 .rarity .epic {
   color: white;
-  background-color: #7000a4;
+  background-color: var(--epic);
 }
 .rarity .legendary {
   color: white;
-  background-color: #ffa500;
+  background-color: var(--legendary);
 }
 
 .font-rarity {
