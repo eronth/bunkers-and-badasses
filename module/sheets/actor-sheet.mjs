@@ -1582,11 +1582,11 @@ export class BNBActorSheet extends ActorSheet {
     const targetSpeedValue = parseInt(html.find("#target-speed")[0].value);
 
     // Prepare and roll the check.
-    const rollBonusMod = isNaN(bonusValue) ? '' : ` + @extraBonus[bonus]`;
-    const rollTargetSpd = isNaN(targetSpeedValue) ? '' : ` - @targetSpd[target spd mod]`;
+    const rollBonusMod = (!bonusValue || isNaN(bonusValue)) ? '' : ` + @extraBonus[bonus]`;
+    const rollTargetSpd = (!targetSpeedValue || isNaN(targetSpeedValue)) ? '' : ` - @targetSpd[target spd mod]`;
     const rollFormula = `1d20${rollBonusMod}${rollTargetSpd}`;
     const roll = new Roll(rollFormula, {
-      bonus: bonusValue,
+      extraBonus: bonusValue,
       targetSpd: targetSpeedValue
     });
     const rollResult = await roll.roll({async: true});
