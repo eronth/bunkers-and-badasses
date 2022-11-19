@@ -1,5 +1,6 @@
 Updates
 * Prepared for potential Anointment section addition.
+* Hits and Crits can now gain bonus using the Effects tab.
 
 
 Bugfixes

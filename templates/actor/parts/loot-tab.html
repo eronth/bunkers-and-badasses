@@ -55,9 +55,12 @@
       <div class="flexcol item-effec-stack-container">
         <div class="item-effect item-prop-stack">
           <div class="gun-row">
-            <img id="hits" alt="Hits" class="critshits-icon" 
-              src="systems/bunkers-and-badasses/assets/weapons/hits.png" />
-            <label class="gun-row-hits">{{system.accuracy.low.hits}} {{system.accuracy.mid.hits}} {{system.accuracy.high.hits}}</label>
+            <img id="hits" alt="Hits" class="critshits-icon" src="systems/bunkers-and-badasses/assets/weapons/hits.png" />
+            <label class="gun-row-hits">
+              {{adder system.accuracy.low.hits ../system.bonus.combat.hits.low ../system.bonus.combat.hits.all}}
+              {{adder system.accuracy.mid.hits ../system.bonus.combat.hits.mid ../system.bonus.combat.hits.all}}
+              {{adder system.accuracy.high.hits ../system.bonus.combat.hits.high ../system.bonus.combat.hits.all}}
+            </label>
             {{{system.dmgHtml}}}
             <label class="gun-detail-header">  Range:</label>
             <label>{{system.range}} sq</label>
@@ -65,9 +68,12 @@
         </div>
         <div class="item-effect item-prop-stack">
           <div class="gun-row">
-            <img id="crits" alt="Crits" class="critshits-icon" 
-              src="systems/bunkers-and-badasses/assets/weapons/crits.png" />
-            <label class="gun-row-crits">{{system.accuracy.low.crits}} {{system.accuracy.mid.crits}} {{system.accuracy.high.crits}}</label>
+            <img id="crits" alt="Crits" class="critshits-icon" src="systems/bunkers-and-badasses/assets/weapons/crits.png" />
+            <label class="gun-row-crits">
+              {{adder system.accuracy.low.crits ../system.bonus.combat.crits.low ../system.bonus.combat.crits.all}}
+              {{adder system.accuracy.mid.crits ../system.bonus.combat.crits.mid ../system.bonus.combat.crits.all}}
+              {{adder system.accuracy.high.crits ../system.bonus.combat.crits.high ../system.bonus.combat.crits.all}}
+            </label>
           </div>
         </div>
         <!--
@@ -84,7 +90,7 @@
     </div>
     <div class="item-equip-control">
       <a class="checkbox" title="Equip Item?" data-target="item" data-item-target="system.equipped">
-        {{#if item.system.equipped}}<i class="far fa-check-square"></i>{{else}}<i class="far fa-square"></i></a>{{/if}}
+        {{#if item.system.equipped}}<i class="far fa-check-square"></i>{{else}}<i class="far fa-square"></i>{{/if}}
       </a>
     </div>
     <div class="item-controls">
@@ -152,7 +158,7 @@
     </div>
     <div class="item-equip-control">
       <a class="checkbox" title="Equip Item?" data-target="item" data-item-target="system.equipped">
-      {{#if item.system.equipped}}<i class="far fa-check-square"></i>{{else}}<i class="far fa-square"></i></a>{{/if}}
+      {{#if item.system.equipped}}<i class="far fa-check-square"></i>{{else}}<i class="far fa-square"></i>{{/if}}
       </a>
     </div>
     <div class="item-controls">
@@ -209,7 +215,7 @@
     </div>
     <div class="item-equip-control">
       <a class="checkbox" title="Equip Item?" data-target="item" data-item-target="system.equipped">
-        {{#if item.system.equipped}}<i class="far fa-check-square"></i>{{else}}<i class="far fa-square"></i></a>{{/if}}
+        {{#if item.system.equipped}}<i class="far fa-check-square"></i>{{else}}<i class="far fa-square"></i>{{/if}}
       </a>
     </div>
     <div class="item-controls">
@@ -264,7 +270,7 @@
     </div>
     <div class="item-equip-control">
       <a class="checkbox" title="Equip Item?" data-target="item" data-item-target="system.equipped">
-      {{#if item.system.equipped}}<i class="far fa-check-square"></i>{{else}}<i class="far fa-square"></i></a>{{/if}}
+      {{#if item.system.equipped}}<i class="far fa-check-square"></i>{{else}}<i class="far fa-square"></i>{{/if}}
       </a>
     </div>
     <div class="item-controls">
@@ -297,8 +303,9 @@
       <div class="item-image">
         <a class="rollable" data-roll-type="item">
           <img class="item-rarity-outline" 
-               style="--rarityColor: {{item.system.rarity.colorValue}}" 
-               src="{{item.img}}" title="{{item.system.class}} {{item.name}}" width="24" height="24"/></a>
+            style="--rarityColor: {{item.system.rarity.colorValue}}" 
+            src="{{item.img}}" title="{{item.system.class}} {{item.name}}" width="24" height="24" />
+        </a>
       </div>
       <div class="flexcol">
         <div class="bolded font-rarity" style="--rarityColor: {{item.system.rarity.colorValue}}">{{item.system.rarity.name}}</div>
@@ -320,7 +327,7 @@
     </div>
     <div class="item-equip-control">
       <a class="checkbox" title="Equip Item?" data-target="item" data-item-target="system.equipped">
-      {{#if item.system.equipped}}<i class="far fa-check-square"></i>{{else}}<i class="far fa-square"></i></a>{{/if}}
+      {{#if item.system.equipped}}<i class="far fa-check-square"></i>{{else}}<i class="far fa-square"></i>{{/if}}
       </a>
     </div>
     <div class="item-controls">
@@ -347,14 +354,15 @@
   {{#each keyItems as |item id|}}
   {{log item}}
   <li class="item item-element-group loot-rarity-fade-border flexrow" 
-  style="--rarityColor: {{item.system.rarity.colorValue}}"
-  data-item-id="{{item._id}}">
-  <div class="item-name rollable" data-roll-type="item">
-    <div class="item-image">
-      <a class="rollable" data-roll-type="item">
-        <img class="item-rarity-outline" 
-        style="--rarityColor: {{item.system.rarity.colorValue}}" 
-        src="{{item.img}}" title="{{item.system.class}} {{item.name}}" width="24" height="24"/></a>
+    style="--rarityColor: {{item.system.rarity.colorValue}}"
+    data-item-id="{{item._id}}">
+    <div class="item-name rollable" data-roll-type="item">
+      <div class="item-image">
+        <a class="rollable" data-roll-type="item">
+          <img class="item-rarity-outline" 
+          style="--rarityColor: {{item.system.rarity.colorValue}}" 
+          src="{{item.img}}" title="{{item.system.class}} {{item.name}}" width="24" height="24"/>
+        </a>
       </div>
       <div class="flexcol">
         <div class="bolded font-rarity" style="--rarityColor: {{item.system.rarity.colorValue}}">{{item.system.rarity.name}}</div>
@@ -370,7 +378,7 @@
     </div>
     <div class="item-equip-control">
       <a class="checkbox" title="Equip Item?" data-target="item" data-item-target="system.equipped">
-      {{#if item.system.equipped}}<i class="far fa-check-square"></i>{{else}}<i class="far fa-square"></i></a>{{/if}}
+      {{#if item.system.equipped}}<i class="far fa-check-square"></i>{{else}}<i class="far fa-square"></i>{{/if}}
       </a>
     </div>
     <div class="item-controls">

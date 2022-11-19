@@ -1789,6 +1789,7 @@ export class BNBActorSheet extends ActorSheet {
   async _displayGunRollResultToChat(dataset, rollObjs) {
     const item = this.actor.items.get(dataset.itemId);
     const itemSystem = item.system;
+    const combatBonuses = this.actor.system?.bonus?.combat;
 
     // Pull values from objs.
     const rollResult = rollObjs.rollResult;
@@ -1797,20 +1798,32 @@ export class BNBActorSheet extends ActorSheet {
     const isFail = (rollResult.dice[0].results[0].result === 1);
 
     // Determine the hits and crits counts.
+    let accRank = null;
+    if (rollResult.total >= 16) { accRank = 'high'; }
+    else if (rollResult.total >= 8) { accRank = 'mid'; }
+    else if (rollResult.total >= 2) { accRank = 'low'; }
+    
     let hitsAndCrits = {};
-    if (rollResult.total >= 16) {
-      hitsAndCrits = {...itemSystem.accuracy.high};
-    } else if (rollResult.total >= 8) {
-      hitsAndCrits = {...itemSystem.accuracy.mid};
-    } else if (rollResult.total >= 2) {
-      hitsAndCrits = {...itemSystem.accuracy.low};
+    if (accRank) {
+      hitsAndCrits = {...itemSystem.accuracy[accRank]};
+      hitsAndCrits.hits += (combatBonuses?.hits ? (combatBonuses?.hits[accRank] ?? 0) : 0)
+        + (combatBonuses?.hits?.all ?? 0);
+      hitsAndCrits.crits += (combatBonuses?.hits ? (combatBonuses?.crits[accRank] ?? 0) : 0)
+        + (combatBonuses?.crits?.all ?? 0);
     } else {
       hitsAndCrits = { hits: 0, crits: 0 };
+      hitsAndCrits.hits += (combatBonuses?.special?.hitsSuperLow ?? 0);
+      hitsAndCrits.crits += (combatBonuses?.special?.critsSuperLow ?? 0);
     }
 
     // Account for the bonus crit from a nat 20.
     if (isCrit) {
       hitsAndCrits.crits += 1;
+      hitsAndCrits.hits += (combatBonuses?.special?.hits20 ?? 0);
+      hitsAndCrits.crits += (combatBonuses?.special?.crits20 ?? 0);
+    } else if (isFail) {
+      hitsAndCrits.hits += (combatBonuses?.special?.hits1 ?? 0);
+      hitsAndCrits.crits += (combatBonuses?.special?.crits1 ?? 0);
     }
 
     // Generate message for chat.

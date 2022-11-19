@@ -22,7 +22,7 @@
         <div class="effect-duration">{{effect.duration.label}}</div>
         <div class="item-controls effect-controls flexrow">
           <a class="effect-control" data-action="toggle" title="{{localize 'BNB.EffectToggle'}}">
-            <i class="fas {{#if effect.disabled}}fa-times{{else}}fa-check{{/if}}"></i>
+            {{#if effect.disabled}}<i class="far fa-square"></i>{{else}}<i class="far fa-check-square"></i>{{/if}}
           </a>
           <a class="effect-control" data-action="edit" title="{{localize 'BNB.EffectEdit'}}">
             <i class="fas fa-edit"></i>

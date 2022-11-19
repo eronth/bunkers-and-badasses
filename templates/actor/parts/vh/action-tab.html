@@ -171,13 +171,17 @@
                     <div class="flexrow">
                       <label class="gun-row-hits">
                         <img id="hits" alt="Hits" class="critshits-icon" src="systems/bunkers-and-badasses/assets/weapons/hits.png" />
-                        {{system.accuracy.low.hits}} {{system.accuracy.mid.hits}} {{system.accuracy.high.hits}}
+                        {{adder system.accuracy.low.hits ../system.bonus.combat.hits.low ../system.bonus.combat.hits.all}}
+                        {{adder system.accuracy.mid.hits ../system.bonus.combat.hits.mid ../system.bonus.combat.hits.all}}
+                        {{adder system.accuracy.high.hits ../system.bonus.combat.hits.high ../system.bonus.combat.hits.all}}
                       </label>
                     </div>
                     <div class="flexrow">
                       <label class="gun-row-crits">
                         <img id="crits" alt="Crits" class="critshits-icon" src="systems/bunkers-and-badasses/assets/weapons/crits.png" />
-                        {{system.accuracy.low.crits}} {{system.accuracy.mid.crits}} {{system.accuracy.high.crits}}
+                        {{adder system.accuracy.low.crits ../system.bonus.combat.crits.low ../system.bonus.combat.crits.all}}
+                        {{adder system.accuracy.mid.crits ../system.bonus.combat.crits.mid ../system.bonus.combat.crits.all}}
+                        {{adder system.accuracy.high.crits ../system.bonus.combat.crits.high ../system.bonus.combat.crits.all}}
                       </label>
                     </div>
                   </div>
