@@ -9,3 +9,4 @@ Bugfixes
 * Fix bonuses added to NPC attack rolls.
 * Fixed the Action Skill button failing to properly print to chat.
 * Fix bug where coloring for health types sometimes didn't show up right.
+* Fixed a bug where health texts were outlined.
