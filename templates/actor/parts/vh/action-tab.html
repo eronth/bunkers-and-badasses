@@ -186,13 +186,23 @@
                     </div>
                   </div>
                   <div class="flexrow flex-size-2 post-crithit-details">
-                    <label>
-                      {{{system.dmgHtml}}}
-                    </label>
+                    <div class="flexcol">
+                      <label class="flex-size-1">{{{system.dmgHtml}}}</label>
+                    </div>
                   </div>
                   <div class="flexrow post-crithit-details">
-                    <label class="gun-detail-header">Range:</label>
-                    <label>{{system.range}} sq</label>
+                    <div class="flexcol">
+                      <div class="flexrow">
+                        <label class="flex-size-3">In Hand?</label>
+                        <a class="checkbox" title="In hand?" data-target="item" data-item-target="system.inHand">
+                          {{#if item.system.inHand}}<i class="far fa-check-square"></i>{{else}}<i class="far fa-square"></i>{{/if}}
+                        </a>
+                      </div>
+                      <div class="flexrow">
+                        <label class="gun-detail-header">Range:</label>
+                        <label>{{system.range}} sq</label>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

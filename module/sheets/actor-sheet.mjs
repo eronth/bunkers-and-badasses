@@ -597,7 +597,7 @@ export class BNBActorSheet extends ActorSheet {
     // -------------------------------------------------------------
     
     // Handle Items.
-    html.find('.checkbox').click(this._onItemCheckbox.bind(this));
+    html.find('.checkbox').click((event) => this._onItemCheckbox(event));
 
     html.find('.item-create').click(this._onItemCreate.bind(this));
     html.find('.item-edit').click(ev => {
@@ -774,10 +774,12 @@ export class BNBActorSheet extends ActorSheet {
   }
 
   _onItemCheckbox(event) {
+    event.stopPropagation();
+
     let target = $(event.currentTarget).attr("data-target")
     if (target == "item") {
       target = $(event.currentTarget).attr("data-item-target")
-      let item = this.actor.items.get($(event.currentTarget).parents(".item").attr("data-item-id"))
+      const item = this.actor.items.get($(event.currentTarget).parents(".item").attr("data-item-id"))
       return item.update({ [`${target}`]: !getProperty(item.system, target) })
     }
     if (target)
