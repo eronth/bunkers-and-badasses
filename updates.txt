@@ -2,4 +2,4 @@ Updates
 
 
 Bugfixes
-
+* Fix bonuses added to NPC attack rolls.
