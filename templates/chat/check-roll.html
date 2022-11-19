@@ -11,6 +11,9 @@ data-actor-id="{{actorId}}" data-item-id="{{itemId}}" >
   {{#if redText}}
   <div class="red-text">{{redText}}</div>
   {{/if}}
+  {{#if anoint}}
+  <div class='anoint-text'>{{anoint}}</div>
+  {{/if}}
   {{#if showDamageButton}}
   <div class="chat-damage-buttons">
     <button data-action="damage"
