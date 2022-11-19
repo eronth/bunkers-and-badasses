@@ -190,6 +190,7 @@ export class BNBActorSheet extends ActorSheet {
       max: actionSkill.system.bonusUses + actor.system.stats.mst.mod,
     };
     context.actionSkillName = actionSkillName;
+    context.actionSkillId = actionSkill._id;
     context.actionSkillUses = actionSkillUses;
   }
 
@@ -619,11 +620,10 @@ export class BNBActorSheet extends ActorSheet {
     html.find('.archetype-reward-delete').click(this._onArchetypeRewardDelete.bind(this));
     
     // Handle action skill.
-    html.find('.action-skill-edit').click(this._onActionSkillEdit.bind(this));
-    html.find('.action-skill-use').click(this._onActionSkillUse.bind(this));
+    html.find('.action-skill-use').click((event) => this._onActionSkillUse(event));
 
     // Handle combat health adjustments.
-    html.find('.take-damage').click(this._onTakeDamage.bind(this));
+    html.find('.take-damage').click(() => this._onTakeDamage());
 
     // Handle HP Gains.
     html.find('.hp-gain').click(this._onHpGain.bind(this));
@@ -784,74 +784,38 @@ export class BNBActorSheet extends ActorSheet {
       return this.actor.update({[`${target}`] : !getProperty(this.actor.system, target)});
   }
 
-  async _onActionSkillEdit(event) {
-    // Prep data to access.
-    const actorSystem = this.actor.system;
-    const dataset = event.currentTarget.dataset;
-    const actionSkill = actorSystem.class.actionSkill;
-
-    const templateLocation = 'systems/bunkers-and-badasses/templates/dialog/action-skill-edit.html';
-    const dialogHtmlContent = await renderTemplate(templateLocation, {
-      actionSkill: actionSkill
-    });
-
-    this.actionSkill = new Dialog({
-      title: `Update Action Skill`,
-      Id: `update-action-skill-dialog`,
-      content: dialogHtmlContent,
-      buttons: {
-        "Cancel" : {
-          label : "Cancel",
-          callback : async (html) => {}
-        },
-        "Roll" : {
-          label : `Update Action Skill`,
-          callback : async (html) => {
-            return await this._updateActionSkill(dataset, html);
-          }
-        }
-      }
-    }).render(true);
-  }
-
-  async _updateActionSkill(dataset, html) {
-    // Pull data from html.
-    const actionSkill = {
-      name: html.find("#as-name")[0].value,
-      description: html.find("#as-description")[0].value,
-      notes: html.find("#as-notes")[0].value,
-      uses: {
-        value: html.find("#as-uses-value")[0].value,
-        max: html.find("#as-uses-max")[0].value,
-        min: 0
-      }
-    };
-    return await this.actor.update({"system.class.actionSkill": actionSkill});
-  }
-
-  async _onActionSkillUse() {
+  async _onActionSkillUse(event) {
     // Prep data
-    const actorSystem = this.actor.system;
+    const itemId = event.currentTarget.closest('.action-skill-use').dataset.itemId;
+    const item = this.actor.items.get(itemId);
+
+    if (!item) { return; }
 
     // Prep chat values.
-    const flavorText = `${this.actor.name} uses ${actorSystem.class.actionSkill.name}.`;
-    const messageContent = actorSystem.class.actionSkill.description;
+    const templateLocation = `systems/bunkers-and-badasses/templates/chat/info/action-skill-info.html`;
+    const renderTemplateConfig = {
+      actorId: this.actor.id,
+      description: item.system.description,
+      item: item
+    };
+    const content = await renderTemplate(templateLocation, renderTemplateConfig);
+    const flavorText = `${this.actor.name} uses <b>${item.name}</b>.`;
     const messageData = {
       user: game.user.id,
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
       flavor: flavorText,
       type: CONST.CHAT_MESSAGE_TYPES.IC,
-      content: messageContent,
       // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
       speaker: ChatMessage.getSpeaker(),
+      content: content,
     }
+
 
     // Send the roll to chat!
     return ChatMessage.create(messageData);
   }
 
   async _onTakeDamage() {
-    
     const templateLocation = "systems/bunkers-and-badasses/templates/dialog/take-damage.html";
     const takeDamageDialogContent = await renderTemplate(templateLocation, { });
 

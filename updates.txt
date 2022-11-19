@@ -3,3 +3,4 @@ Updates
 
 Bugfixes
 * Fix bonuses added to NPC attack rolls.
+* Fixed the Action Skill button failing to properly print to chat.
