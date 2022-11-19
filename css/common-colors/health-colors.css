@@ -128,57 +128,57 @@
 }
 
 
-.health-text {
+.health-border {
     border: 1px solid var(--health);
 }
-.health-high-text {
+.health-high-border {
     border: 1px solid var(--health-high);
 }
-.health-low-text {
+.health-low-border {
     border: 1px solid var(--health-low);
 }
-.bone-text {
+.bone-border {
     border: 1px solid var(--bone);
 }
-.bone-high-text {
+.bone-high-border {
     border: 1px solid var(--bone-high);
 }
-.bone-low-text {
+.bone-low-border {
     border: 1px solid var(--bone-low);
 }
-.flesh-text {
+.flesh-border {
     border: 1px solid var(--flesh);
 }
-.flesh-high-text {
+.flesh-high-border {
     border: 1px solid var(--flesh-high);
 }
-.flesh-low-text {
+.flesh-low-border {
     border: 1px solid var(--flesh-low);
 }
-.armor-text {
+.armor-border {
     border: 1px solid var(--armor);
 }
-.armor-high-text {
+.armor-high-border {
     border: 1px solid var(--armor-high);
 }
-.armor-low-text {
+.armor-low-border {
     border: 1px solid var(--armor-low);
 }
-.shield-text {
+.shield-border {
     border: 1px solid var(--shield);
 }
-.shield-high-text {
+.shield-high-border {
     border: 1px solid var(--shield-high);
 }
-.shield-low-text {
+.shield-low-border {
     border: 1px solid var(--shield-low);
 }
-.eridian-text {
+.eridian-border {
     border: 1px solid var(--eridian);
 }
-.eridian-high-text {
+.eridian-high-border {
     border: 1px solid var(--eridian-high);
 }
-.eridian-low-text {
+.eridian-low-border {
     border: 1px solid var(--eridian-low);
 }
