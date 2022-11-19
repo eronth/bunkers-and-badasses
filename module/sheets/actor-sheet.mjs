@@ -190,6 +190,7 @@ export class BNBActorSheet extends ActorSheet {
       max: actionSkill.system.bonusUses + actor.system.stats.mst.mod,
     };
     context.actionSkillName = actionSkillName;
+    context.actionSkillId = actionSkill._id;
     context.actionSkillUses = actionSkillUses;
   }
 
@@ -455,53 +456,67 @@ export class BNBActorSheet extends ActorSheet {
     const keyItems = [];
 
     // Iterate through items, allocating to containers
+    const elementIconDirectory = 'systems/bunkers-and-badasses/assets/elements/';
     for (let i of context.items) {
       i.img = i.img || DEFAULT_TOKEN;
       
-      if (i.type === 'key item') {
-        keyItems.push(i); // Append to key item.
-      } else if (i.type === 'feature') {
-        features.push(i); // Append to features.
-      } else if (i.type === 'skill') {
+      if (i.type === 'key item') { keyItems.push(i); }
+      else if (i.type === 'feature') { features.push(i); }
+      else if (i.type === 'skill') {
         if (i.system.tier != null) {
-          skilltree[i.system.tier].push(i); // Append to skill.
+          skilltree[i.system.tier].push(i);
         }
-      } else if (i.type === 'Archetype Feat') {
-        archetypeFeats.push(i); // Append to archetype Feats.
-      } else if (i.type === 'Action Skill') {
-        actionSkills.push(i); // Append to Action Skills (should probably only ever be one, but whatever).
-      } else if (i.type === 'gun') {
-        let elemIcon = "";
-        let gunDmgString = "";
+      }
+      else if (i.type === 'Archetype Feat') { archetypeFeats.push(i); }
+      else if (i.type === 'Action Skill') { actionSkills.push(i); } // Append to Action Skills (should probably only ever be one, but whatever).
+      else if (i.type === 'gun') {
         const finalPlus = `<label class="element-damage-plus"> + </label>`;
+        
+        let dmgPerHitString = "";
         Object.entries(i.system.elements).forEach(e => {
           const [key, element] = e;
-          if(element.enabled) {
-            elemIcon = (e[0] === "kinetic") 
+          if (element.enabled) {
+            const elemIcon = (e[0] === "kinetic") 
             ? ""
             : `<img id="gunDmg${genericUtil.capitalize(key)}" alt="${genericUtil.capitalize(key)}" 
-              class="element-damage-icon" src="systems/bunkers-and-badasses/assets/elements/${genericUtil.capitalize(key)}.png" />`;
+              class="element-damage-icon" src="${elementIconDirectory}${genericUtil.capitalize(key)}.png" />`;
 
-              gunDmgString += `<label class='bolded ${key}-text'>${element.damage} ${elemIcon}</label> ${finalPlus}`;
+              dmgPerHitString += `<label class='bolded ${key}-text'>${element.damage} ${elemIcon}</label> ${finalPlus}`;
           }
         });
         
-        // We need to remove the last plus label, it doesn't belong.
-        gunDmgString = gunDmgString.slice(0, finalPlus.length * -1);
+        // We need to remove the last plus label, it doesn't belong, then add the "damage" text.
+        i.system.dmgPerHitHtml = (dmgPerHitString
+          ? dmgPerHitString.slice(0, finalPlus.length * -1) + `<label class="element-damage-damage">per hit</label>`
+          : '');
 
-        // Add the "damage" text.
-        gunDmgString += `<label class="element-damage-damage">Damage</label>`;
+
+        let bonusDmgString = "";
+        Object.entries(i.system.bonusElements).forEach(e => {
+          const [key, element] = e;
+          if (element.enabled) {
+            const elemIcon = (e[0] === "kinetic") 
+            ? ""
+            : `<img id="gunDmg${genericUtil.capitalize(key)}" alt="${genericUtil.capitalize(key)}" 
+              class="element-damage-icon" src="${elementIconDirectory}${genericUtil.capitalize(key)}.png" />`;
+
+              bonusDmgString += `<label class='bolded ${key}-text'>${element.damage} ${elemIcon}</label> ${finalPlus}`;
+          }
+        });
         
-        i.system.dmgHtml = gunDmgString;
+        // We need to remove the last plus label, it doesn't belong, then add the "damage" text.
+        i.system.bonusDamageHtml = (bonusDmgString 
+          ? bonusDmgString.slice(0, finalPlus.length * -1) + `<label class="element-damage-damage">bonus</label>`
+          : '');
+
+
         guns.push(i);
-        if (i.system.equipped) {
-          equippedGuns.push(i);
-        }
+        if (i.system.equipped) { equippedGuns.push(i); }
       } else if (i.type === 'shield') {
         let shieldResistString = "";
         Object.entries(i.system.elements).forEach(e => {
           const [key, element] = e;
-          if(element.enabled) {
+          if (element.enabled) {
             shieldResistString += `<img id="resist${genericUtil.capitalize(key)}" alt="${genericUtil.capitalize(key)}" 
               class="element-resist-icon" src="systems/bunkers-and-badasses/assets/elements/${genericUtil.capitalize(key)}.png" />`;
           }
@@ -509,37 +524,30 @@ export class BNBActorSheet extends ActorSheet {
         i.system.resistHtml = shieldResistString;
         shields.push(i);
       } else if (i.type === 'grenade') {
-        let grenadeDmgString = "";
-        let elemIcon = "";
         const finalPlus = `<label class="element-damage-plus"> + </label>`;
+
+        let grenadeDmgString = "";
         Object.entries(i.system.elements).forEach(e => {
           const [key, element] = e;
-          if(element.enabled) {
-            elemIcon = (e[0] === "kinetic") ? ""
+          if (element.enabled) {
+            const elemIcon = (e[0] === "kinetic") ? ""
             : `<img id="gDmg${genericUtil.capitalize(key)}" alt="${genericUtil.capitalize(key)}" 
               class="element-damage-icon" src="systems/bunkers-and-badasses/assets/elements/${genericUtil.capitalize(key)}.png" />`;
 
-            grenadeDmgString += 
-            `<label class='bolded ${key}-text'>${element.damage} ${elemIcon}</label> ${finalPlus}`;
+            grenadeDmgString += `<label class='bolded ${key}-text'>${element.damage} ${elemIcon}</label> ${finalPlus}`;
           }
         });
 
-        // We need to remove the last plus label, it doesn't belong.
-        grenadeDmgString = grenadeDmgString.slice(0, finalPlus.length * -1); 
+        // We need to remove the last plus label, it doesn't belong, then add the "damage" text.
+        i.system.dmgHtml = (grenadeDmgString
+          ? grenadeDmgString.slice(0, finalPlus.length * -1) + `<label class="element-damage-damage">Damage</label>`
+          : '');
 
-        // Add the "damage" text.
-        grenadeDmgString += `<label class="element-damage-damage">Damage</label>`;
-
-        i.system.dmgHtml = grenadeDmgString;
         grenades.push(i);
-        if (i.system.equipped) {
-          equippedGrenades.push(i);
-        }
-      } else if (i.type === 'relic') {
-        relics.push(i);
-      } else if (i.type === 'potion') {
-        potions.push(i);
+        if (i.system.equipped) { equippedGrenades.push(i); }
       }
+      else if (i.type === 'relic') { relics.push(i); }
+      else if (i.type === 'potion') { potions.push(i); }
     }
 
     // If we don't already have an action skill, make one for the player.
@@ -596,7 +604,7 @@ export class BNBActorSheet extends ActorSheet {
     // -------------------------------------------------------------
     
     // Handle Items.
-    html.find('.checkbox').click(this._onItemCheckbox.bind(this));
+    html.find('.checkbox').click((event) => this._onItemCheckbox(event));
 
     html.find('.item-create').click(this._onItemCreate.bind(this));
     html.find('.item-edit').click(ev => {
@@ -619,11 +627,10 @@ export class BNBActorSheet extends ActorSheet {
     html.find('.archetype-reward-delete').click(this._onArchetypeRewardDelete.bind(this));
     
     // Handle action skill.
-    html.find('.action-skill-edit').click(this._onActionSkillEdit.bind(this));
-    html.find('.action-skill-use').click(this._onActionSkillUse.bind(this));
+    html.find('.action-skill-use').click((event) => this._onActionSkillUse(event));
 
     // Handle combat health adjustments.
-    html.find('.take-damage').click(this._onTakeDamage.bind(this));
+    html.find('.take-damage').click(() => this._onTakeDamage());
 
     // Handle HP Gains.
     html.find('.hp-gain').click(this._onHpGain.bind(this));
@@ -774,84 +781,50 @@ export class BNBActorSheet extends ActorSheet {
   }
 
   _onItemCheckbox(event) {
+    event.stopPropagation();
+
     let target = $(event.currentTarget).attr("data-target")
     if (target == "item") {
       target = $(event.currentTarget).attr("data-item-target")
-      let item = this.actor.items.get($(event.currentTarget).parents(".item").attr("data-item-id"))
+      const item = this.actor.items.get($(event.currentTarget).parents(".item").attr("data-item-id"))
       return item.update({ [`${target}`]: !getProperty(item.system, target) })
     }
     if (target)
       return this.actor.update({[`${target}`] : !getProperty(this.actor.system, target)});
   }
 
-  async _onActionSkillEdit(event) {
-    // Prep data to access.
-    const actorSystem = this.actor.system;
-    const dataset = event.currentTarget.dataset;
-    const actionSkill = actorSystem.class.actionSkill;
-
-    const templateLocation = 'systems/bunkers-and-badasses/templates/dialog/action-skill-edit.html';
-    const dialogHtmlContent = await renderTemplate(templateLocation, {
-      actionSkill: actionSkill
-    });
-
-    this.actionSkill = new Dialog({
-      title: `Update Action Skill`,
-      Id: `update-action-skill-dialog`,
-      content: dialogHtmlContent,
-      buttons: {
-        "Cancel" : {
-          label : "Cancel",
-          callback : async (html) => {}
-        },
-        "Roll" : {
-          label : `Update Action Skill`,
-          callback : async (html) => {
-            return await this._updateActionSkill(dataset, html);
-          }
-        }
-      }
-    }).render(true);
-  }
-
-  async _updateActionSkill(dataset, html) {
-    // Pull data from html.
-    const actionSkill = {
-      name: html.find("#as-name")[0].value,
-      description: html.find("#as-description")[0].value,
-      notes: html.find("#as-notes")[0].value,
-      uses: {
-        value: html.find("#as-uses-value")[0].value,
-        max: html.find("#as-uses-max")[0].value,
-        min: 0
-      }
-    };
-    return await this.actor.update({"system.class.actionSkill": actionSkill});
-  }
-
-  async _onActionSkillUse() {
+  async _onActionSkillUse(event) {
     // Prep data
-    const actorSystem = this.actor.system;
+    const itemId = event.currentTarget.closest('.action-skill-use').dataset.itemId;
+    const item = this.actor.items.get(itemId);
+
+    if (!item) { return; }
 
     // Prep chat values.
-    const flavorText = `${this.actor.name} uses ${actorSystem.class.actionSkill.name}.`;
-    const messageContent = actorSystem.class.actionSkill.description;
+    const templateLocation = `systems/bunkers-and-badasses/templates/chat/info/action-skill-info.html`;
+    const renderTemplateConfig = {
+      actorId: this.actor.id,
+      description: item.system.description,
+      item: item
+    };
+    const content = await renderTemplate(templateLocation, renderTemplateConfig);
+    const flavorText = `${this.actor.name} uses <b>${item.name}</b>.`;
     const messageData = {
       user: game.user.id,
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
       flavor: flavorText,
       type: CONST.CHAT_MESSAGE_TYPES.IC,
-      content: messageContent,
       // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
       speaker: ChatMessage.getSpeaker(),
+      content: content,
     }
+
 
     // Send the roll to chat!
     return ChatMessage.create(messageData);
   }
 
   async _onTakeDamage() {
-    
     const templateLocation = "systems/bunkers-and-badasses/templates/dialog/take-damage.html";
     const takeDamageDialogContent = await renderTemplate(templateLocation, { });
 
@@ -1582,11 +1555,11 @@ export class BNBActorSheet extends ActorSheet {
     const targetSpeedValue = parseInt(html.find("#target-speed")[0].value);
 
     // Prepare and roll the check.
-    const rollBonusMod = isNaN(bonusValue) ? '' : ` + @extraBonus[bonus]`;
-    const rollTargetSpd = isNaN(targetSpeedValue) ? '' : ` - @targetSpd[target spd mod]`;
+    const rollBonusMod = (!bonusValue || isNaN(bonusValue)) ? '' : ` + @extraBonus[bonus]`;
+    const rollTargetSpd = (!targetSpeedValue || isNaN(targetSpeedValue)) ? '' : ` - @targetSpd[target spd mod]`;
     const rollFormula = `1d20${rollBonusMod}${rollTargetSpd}`;
     const roll = new Roll(rollFormula, {
-      bonus: bonusValue,
+      extraBonus: bonusValue,
       targetSpd: targetSpeedValue
     });
     const rollResult = await roll.roll({async: true});
@@ -1825,6 +1798,7 @@ export class BNBActorSheet extends ActorSheet {
   async _displayGunRollResultToChat(dataset, rollObjs) {
     const item = this.actor.items.get(dataset.itemId);
     const itemSystem = item.system;
+    const combatBonuses = this.actor.system?.bonus?.combat;
 
     // Pull values from objs.
     const rollResult = rollObjs.rollResult;
@@ -1833,20 +1807,32 @@ export class BNBActorSheet extends ActorSheet {
     const isFail = (rollResult.dice[0].results[0].result === 1);
 
     // Determine the hits and crits counts.
+    let accRank = null;
+    if (rollResult.total >= 16) { accRank = 'high'; }
+    else if (rollResult.total >= 8) { accRank = 'mid'; }
+    else if (rollResult.total >= 2) { accRank = 'low'; }
+    
     let hitsAndCrits = {};
-    if (rollResult.total >= 16) {
-      hitsAndCrits = {...itemSystem.accuracy.high};
-    } else if (rollResult.total >= 8) {
-      hitsAndCrits = {...itemSystem.accuracy.mid};
-    } else if (rollResult.total >= 2) {
-      hitsAndCrits = {...itemSystem.accuracy.low};
+    if (accRank) {
+      hitsAndCrits = {...itemSystem.accuracy[accRank]};
+      hitsAndCrits.hits += (combatBonuses?.hits ? (combatBonuses?.hits[accRank] ?? 0) : 0)
+        + (combatBonuses?.hits?.all ?? 0);
+      hitsAndCrits.crits += (combatBonuses?.hits ? (combatBonuses?.crits[accRank] ?? 0) : 0)
+        + (combatBonuses?.crits?.all ?? 0);
     } else {
       hitsAndCrits = { hits: 0, crits: 0 };
+      hitsAndCrits.hits += (combatBonuses?.special?.hitsSuperLow ?? 0);
+      hitsAndCrits.crits += (combatBonuses?.special?.critsSuperLow ?? 0);
     }
 
     // Account for the bonus crit from a nat 20.
     if (isCrit) {
       hitsAndCrits.crits += 1;
+      hitsAndCrits.hits += (combatBonuses?.special?.hits20 ?? 0);
+      hitsAndCrits.crits += (combatBonuses?.special?.crits20 ?? 0);
+    } else if (isFail) {
+      hitsAndCrits.hits += (combatBonuses?.special?.hits1 ?? 0);
+      hitsAndCrits.crits += (combatBonuses?.special?.crits1 ?? 0);
     }
 
     // Generate message for chat.

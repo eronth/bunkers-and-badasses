@@ -39,7 +39,7 @@
         <div class="flexrow as-btn-inner-container action-skill">
           <div></div>
           <div class="flex-size-3">
-            <button class="btn btn-primary action-skill-button action-skill-use">
+            <button class="btn btn-primary action-skill-button action-skill-use" data-item-id="{{actionSkillId}}">
               <label>{{actionSkillName}}</label>
             </button>
           </div>
@@ -167,28 +167,43 @@
               </div>
               <div class="item-effect item-prop-stack">
                 <div class="flexrow gun-row hits-and-crits">
-                  <div class="flexcol">
+                  <div class="flexcol flex-size-2">
                     <div class="flexrow">
                       <label class="gun-row-hits">
                         <img id="hits" alt="Hits" class="critshits-icon" src="systems/bunkers-and-badasses/assets/weapons/hits.png" />
-                        {{system.accuracy.low.hits}} {{system.accuracy.mid.hits}} {{system.accuracy.high.hits}}
+                        {{adder system.accuracy.low.hits ../system.bonus.combat.hits.low ../system.bonus.combat.hits.all}}
+                        {{adder system.accuracy.mid.hits ../system.bonus.combat.hits.mid ../system.bonus.combat.hits.all}}
+                        {{adder system.accuracy.high.hits ../system.bonus.combat.hits.high ../system.bonus.combat.hits.all}}
                       </label>
                     </div>
                     <div class="flexrow">
                       <label class="gun-row-crits">
                         <img id="crits" alt="Crits" class="critshits-icon" src="systems/bunkers-and-badasses/assets/weapons/crits.png" />
-                        {{system.accuracy.low.crits}} {{system.accuracy.mid.crits}} {{system.accuracy.high.crits}}
+                        {{adder system.accuracy.low.crits ../system.bonus.combat.crits.low ../system.bonus.combat.crits.all}}
+                        {{adder system.accuracy.mid.crits ../system.bonus.combat.crits.mid ../system.bonus.combat.crits.all}}
+                        {{adder system.accuracy.high.crits ../system.bonus.combat.crits.high ../system.bonus.combat.crits.all}}
                       </label>
                     </div>
                   </div>
-                  <div class="flexrow flex-size-2 post-crithit-details">
-                    <label>
-                      {{{system.dmgHtml}}}
-                    </label>
+                  <div class="flexrow flex-size-6 post-crithit-details">
+                    <div class="flexcol">
+                      <label class="action-tab-damage">{{{system.dmgPerHitHtml}}}</label>
+                      <label class="action-tab-damage">{{{system.bonusDamageHtml}}}</label>
+                    </div>
                   </div>
-                  <div class="flexrow post-crithit-details">
-                    <label class="gun-detail-header">Range:</label>
-                    <label>{{system.range}} sq</label>
+                  <div class="flexrow flex-size-3 post-crithit-details">
+                    <div class="flexcol">
+                      <div class="flexrow">
+                        <label class="flex-size-3">In Hand?</label>
+                        <a class="checkbox" title="In hand?" data-target="item" data-item-target="system.inHand">
+                          {{#if item.system.inHand}}<i class="far fa-check-square"></i>{{else}}<i class="far fa-square"></i>{{/if}}
+                        </a>
+                      </div>
+                      <div class="flexrow">
+                        <label class="gun-detail-header">Range:</label>
+                        <label>{{system.range}} sq</label>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -215,7 +230,7 @@
               </div>
               <div class="item-effect flexrow item-prop-stack attack-details-line damage-row">
                 <label>Count: {{../system.attributes.grenades.value}} / {{../system.attributes.grenades.max}}</label>
-                <label class="flex-size-2">{{{system.dmgHtml}}}</label>
+                <label class="flex-size-2 action-tab-damage">{{{system.dmgHtml}}}</label>
                 <label class="gun-detail-header"><b>Free Range:</b>&nbsp;{{../system.stats.dmg.modToUse}}</label>
               </div>
             </div>

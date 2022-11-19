@@ -1,0 +1,41 @@
+
+
+.red-text input {
+  color: var(--redText);
+  font-weight: bold;
+  font-style: italic;
+  width: 100%;
+  margin-top: 5px;
+  border-bottom-left-radius: 1px;
+  border-bottom-right-radius: 1px;
+}
+
+.red-text-description textarea {
+  margin-top: -1px;
+  border-color: rgb(122, 121, 113);
+  border-top-left-radius: 1px;
+  border-top-right-radius: 1px;
+}
+
+.chat-roll-result .red-text {
+  color: var(--redText);
+  font-weight: bold;
+  font-style: italic;
+}
+
+.enriched-red-text-description {
+  margin-top: -1px;
+  border-top-left-radius: 1px;
+  border-top-right-radius: 1px;
+}
+
+.anoint-container {
+  margin-top: 4px;
+  margin-left: 1px;
+}
+
+input.anoint-text {
+  color: var(--anointText);
+  font-weight: bold;
+}
+

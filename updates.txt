@@ -1,18 +1,11 @@
 Updates
-* Made preparations for Foundry V10
-* Fixed several textarea fields to use the built in TinyMCE editor.
-* Updated some text display areas to show the enriched HTML text properly.
-* Updated Action Skill to us the more robust "item" popup.
-* Cleaned up display on grenades.
-* Unified a bunch of UI stuff.
-* Updated item UI to include Cost value.
-* Added CSS classes for element and rarity colors (can be used in journals).
-* Updated the element selector for damage and resistances.
-* Added bonus attack damage to guns.
-* Resistance applied to "Take damage" action.
-* More unique loot added.
+* Prepared for potential Anointment section addition.
+* Hits and Crits can now gain bonus using the Effects tab.
+* Added ability to mark which weapon is currently in-hand.
+* Added display for extra attack damage in Action! tab gun slots.
+
 
 Bugfixes
-* Fixed a bug with displaying melee dice rolls to chat.
-* Reversed icons for Effects enabled/disabled. The check and x seemed reversed from expected.
-* Fixed BarBrawl healthbar display order.
+* Fix bonuses added to NPC attack rolls.
+* Fixed the Action Skill button failing to properly print to chat.
+* Fix bug where coloring for health types sometimes didn't show up right.

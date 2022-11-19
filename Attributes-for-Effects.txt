@@ -55,4 +55,19 @@
   system.bonus.combat.grenades.acc
   system.bonus.combat.grenades.dmg
   system.bonus.combat.grenades.critdmg
+
+  // The following bonuses will not be seen in gun sheets, but will show up in other places (character sheet, gun attack chat card)
+  system.bonus.combat.hits.all // All results 2+.
+  system.bonus.combat.crits.all // All results 2+.
+  system.bonus.combat.hits.high // For the 16-20 range only.
+  system.bonus.combat.crits.high // For the 16-20 range only.
+  system.bonus.combat.hits.mid // For the 8-15 range only.
+  system.bonus.combat.crits.mid // For the 8-15 range only.
+  system.bonus.combat.hits.low // For the 2-7 range only.
+  system.bonus.combat.crits.low // For the 2-7 range only.
+
+  system.bonus.combat.special.hitsSuperLow // For the 1 and lower range only (excluding nat 1).
+  system.bonus.combat.special.critsSuperLow // For the 1 and lower range only (excludng nat 1).
+  system.bonus.combat.special.hits20 // For the nat 20s only.
+  system.bonus.combat.special.crits20 // For the nat 20s only.
 }
