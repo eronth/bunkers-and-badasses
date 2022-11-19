@@ -456,53 +456,67 @@ export class BNBActorSheet extends ActorSheet {
     const keyItems = [];
 
     // Iterate through items, allocating to containers
+    const elementIconDirectory = 'systems/bunkers-and-badasses/assets/elements/';
     for (let i of context.items) {
       i.img = i.img || DEFAULT_TOKEN;
       
-      if (i.type === 'key item') {
-        keyItems.push(i); // Append to key item.
-      } else if (i.type === 'feature') {
-        features.push(i); // Append to features.
-      } else if (i.type === 'skill') {
+      if (i.type === 'key item') { keyItems.push(i); }
+      else if (i.type === 'feature') { features.push(i); }
+      else if (i.type === 'skill') {
         if (i.system.tier != null) {
-          skilltree[i.system.tier].push(i); // Append to skill.
+          skilltree[i.system.tier].push(i);
         }
-      } else if (i.type === 'Archetype Feat') {
-        archetypeFeats.push(i); // Append to archetype Feats.
-      } else if (i.type === 'Action Skill') {
-        actionSkills.push(i); // Append to Action Skills (should probably only ever be one, but whatever).
-      } else if (i.type === 'gun') {
-        let elemIcon = "";
-        let gunDmgString = "";
+      }
+      else if (i.type === 'Archetype Feat') { archetypeFeats.push(i); }
+      else if (i.type === 'Action Skill') { actionSkills.push(i); } // Append to Action Skills (should probably only ever be one, but whatever).
+      else if (i.type === 'gun') {
         const finalPlus = `<label class="element-damage-plus"> + </label>`;
+        
+        let dmgPerHitString = "";
         Object.entries(i.system.elements).forEach(e => {
           const [key, element] = e;
-          if(element.enabled) {
-            elemIcon = (e[0] === "kinetic") 
+          if (element.enabled) {
+            const elemIcon = (e[0] === "kinetic") 
             ? ""
             : `<img id="gunDmg${genericUtil.capitalize(key)}" alt="${genericUtil.capitalize(key)}" 
-              class="element-damage-icon" src="systems/bunkers-and-badasses/assets/elements/${genericUtil.capitalize(key)}.png" />`;
+              class="element-damage-icon" src="${elementIconDirectory}${genericUtil.capitalize(key)}.png" />`;
 
-              gunDmgString += `<label class='bolded ${key}-text'>${element.damage} ${elemIcon}</label> ${finalPlus}`;
+              dmgPerHitString += `<label class='bolded ${key}-text'>${element.damage} ${elemIcon}</label> ${finalPlus}`;
           }
         });
         
-        // We need to remove the last plus label, it doesn't belong.
-        gunDmgString = gunDmgString.slice(0, finalPlus.length * -1);
+        // We need to remove the last plus label, it doesn't belong, then add the "damage" text.
+        i.system.dmgPerHitHtml = (dmgPerHitString
+          ? dmgPerHitString.slice(0, finalPlus.length * -1) + `<label class="element-damage-damage">per hit</label>`
+          : '');
 
-        // Add the "damage" text.
-        gunDmgString += `<label class="element-damage-damage">Damage</label>`;
+
+        let bonusDmgString = "";
+        Object.entries(i.system.bonusElements).forEach(e => {
+          const [key, element] = e;
+          if (element.enabled) {
+            const elemIcon = (e[0] === "kinetic") 
+            ? ""
+            : `<img id="gunDmg${genericUtil.capitalize(key)}" alt="${genericUtil.capitalize(key)}" 
+              class="element-damage-icon" src="${elementIconDirectory}${genericUtil.capitalize(key)}.png" />`;
+
+              bonusDmgString += `<label class='bolded ${key}-text'>${element.damage} ${elemIcon}</label> ${finalPlus}`;
+          }
+        });
         
-        i.system.dmgHtml = gunDmgString;
+        // We need to remove the last plus label, it doesn't belong, then add the "damage" text.
+        i.system.bonusDamageHtml = (bonusDmgString 
+          ? bonusDmgString.slice(0, finalPlus.length * -1) + `<label class="element-damage-damage">bonus</label>`
+          : '');
+
+
         guns.push(i);
-        if (i.system.equipped) {
-          equippedGuns.push(i);
-        }
+        if (i.system.equipped) { equippedGuns.push(i); }
       } else if (i.type === 'shield') {
         let shieldResistString = "";
         Object.entries(i.system.elements).forEach(e => {
           const [key, element] = e;
-          if(element.enabled) {
+          if (element.enabled) {
             shieldResistString += `<img id="resist${genericUtil.capitalize(key)}" alt="${genericUtil.capitalize(key)}" 
               class="element-resist-icon" src="systems/bunkers-and-badasses/assets/elements/${genericUtil.capitalize(key)}.png" />`;
           }
@@ -510,37 +524,30 @@ export class BNBActorSheet extends ActorSheet {
         i.system.resistHtml = shieldResistString;
         shields.push(i);
       } else if (i.type === 'grenade') {
-        let grenadeDmgString = "";
-        let elemIcon = "";
         const finalPlus = `<label class="element-damage-plus"> + </label>`;
+
+        let grenadeDmgString = "";
         Object.entries(i.system.elements).forEach(e => {
           const [key, element] = e;
-          if(element.enabled) {
-            elemIcon = (e[0] === "kinetic") ? ""
+          if (element.enabled) {
+            const elemIcon = (e[0] === "kinetic") ? ""
             : `<img id="gDmg${genericUtil.capitalize(key)}" alt="${genericUtil.capitalize(key)}" 
               class="element-damage-icon" src="systems/bunkers-and-badasses/assets/elements/${genericUtil.capitalize(key)}.png" />`;
 
-            grenadeDmgString += 
-            `<label class='bolded ${key}-text'>${element.damage} ${elemIcon}</label> ${finalPlus}`;
+            grenadeDmgString += `<label class='bolded ${key}-text'>${element.damage} ${elemIcon}</label> ${finalPlus}`;
           }
         });
 
-        // We need to remove the last plus label, it doesn't belong.
-        grenadeDmgString = grenadeDmgString.slice(0, finalPlus.length * -1); 
+        // We need to remove the last plus label, it doesn't belong, then add the "damage" text.
+        i.system.dmgHtml = (grenadeDmgString
+          ? grenadeDmgString.slice(0, finalPlus.length * -1) + `<label class="element-damage-damage">Damage</label>`
+          : '');
 
-        // Add the "damage" text.
-        grenadeDmgString += `<label class="element-damage-damage">Damage</label>`;
-
-        i.system.dmgHtml = grenadeDmgString;
         grenades.push(i);
-        if (i.system.equipped) {
-          equippedGrenades.push(i);
-        }
-      } else if (i.type === 'relic') {
-        relics.push(i);
-      } else if (i.type === 'potion') {
-        potions.push(i);
+        if (i.system.equipped) { equippedGrenades.push(i); }
       }
+      else if (i.type === 'relic') { relics.push(i); }
+      else if (i.type === 'potion') { potions.push(i); }
     }
 
     // If we don't already have an action skill, make one for the player.
@@ -597,7 +604,7 @@ export class BNBActorSheet extends ActorSheet {
     // -------------------------------------------------------------
     
     // Handle Items.
-    html.find('.checkbox').click(this._onItemCheckbox.bind(this));
+    html.find('.checkbox').click((event) => this._onItemCheckbox(event));
 
     html.find('.item-create').click(this._onItemCreate.bind(this));
     html.find('.item-edit').click(ev => {
@@ -774,10 +781,12 @@ export class BNBActorSheet extends ActorSheet {
   }
 
   _onItemCheckbox(event) {
+    event.stopPropagation();
+
     let target = $(event.currentTarget).attr("data-target")
     if (target == "item") {
       target = $(event.currentTarget).attr("data-item-target")
-      let item = this.actor.items.get($(event.currentTarget).parents(".item").attr("data-item-id"))
+      const item = this.actor.items.get($(event.currentTarget).parents(".item").attr("data-item-id"))
       return item.update({ [`${target}`]: !getProperty(item.system, target) })
     }
     if (target)

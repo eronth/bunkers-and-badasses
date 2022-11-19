@@ -1550,3 +1550,8 @@ input[type="time"]:focus {
 .archetype-feat-labels {
   align-self: center;
 }
+
+
+.action-tab-damage {
+  font-size: 12px; /* For some reason this affects kerning? */
+}
