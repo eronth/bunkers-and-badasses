@@ -167,7 +167,7 @@
               </div>
               <div class="item-effect item-prop-stack">
                 <div class="flexrow gun-row hits-and-crits">
-                  <div class="flexcol">
+                  <div class="flexcol flex-size-2">
                     <div class="flexrow">
                       <label class="gun-row-hits">
                         <img id="hits" alt="Hits" class="critshits-icon" src="systems/bunkers-and-badasses/assets/weapons/hits.png" />
@@ -185,12 +185,13 @@
                       </label>
                     </div>
                   </div>
-                  <div class="flexrow flex-size-2 post-crithit-details">
+                  <div class="flexrow flex-size-6 post-crithit-details">
                     <div class="flexcol">
-                      <label class="flex-size-1">{{{system.dmgHtml}}}</label>
+                      <label class="action-tab-damage">{{{system.dmgPerHitHtml}}}</label>
+                      <label class="action-tab-damage">{{{system.bonusDamageHtml}}}</label>
                     </div>
                   </div>
-                  <div class="flexrow post-crithit-details">
+                  <div class="flexrow flex-size-3 post-crithit-details">
                     <div class="flexcol">
                       <div class="flexrow">
                         <label class="flex-size-3">In Hand?</label>
@@ -229,7 +230,7 @@
               </div>
               <div class="item-effect flexrow item-prop-stack attack-details-line damage-row">
                 <label>Count: {{../system.attributes.grenades.value}} / {{../system.attributes.grenades.max}}</label>
-                <label class="flex-size-2">{{{system.dmgHtml}}}</label>
+                <label class="flex-size-2 action-tab-damage">{{{system.dmgHtml}}}</label>
                 <label class="gun-detail-header"><b>Free Range:</b>&nbsp;{{../system.stats.dmg.modToUse}}</label>
               </div>
             </div>

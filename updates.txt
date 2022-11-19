@@ -1,6 +1,8 @@
 Updates
 * Prepared for potential Anointment section addition.
 * Hits and Crits can now gain bonus using the Effects tab.
+* Added ability to mark which weapon is currently in-hand.
+* Added display for extra attack damage in Action! tab gun slots.
 
 
 Bugfixes
