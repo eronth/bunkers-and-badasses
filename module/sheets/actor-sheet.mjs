@@ -451,6 +451,7 @@ export class BNBActorSheet extends ActorSheet {
     const equippedGrenades = [];
     const relics = [];
     const potions = [];
+    const archetypeLevels = [];
     const archetypeFeats = [];
     const actionSkills = [];
     const keyItems = [];
@@ -467,6 +468,7 @@ export class BNBActorSheet extends ActorSheet {
           skilltree[i.system.tier].push(i);
         }
       }
+      else if (i.type === 'Archetype Level') { archetypeLevels.push(i); }
       else if (i.type === 'Archetype Feat') { archetypeFeats.push(i); }
       else if (i.type === 'Action Skill') { actionSkills.push(i); } // Append to Action Skills (should probably only ever be one, but whatever).
       else if (i.type === 'gun') {

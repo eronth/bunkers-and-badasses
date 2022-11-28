@@ -1,0 +1,158 @@
+<form class="{{cssClass}}" autocomplete="off">
+  <header class="sheet-header">
+    <!-- <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/> -->
+    <div class="header-fields">
+      <h1 class="charname"><input type="text" value="placeholdername" disabled/></h1>
+    </div>
+  </header>
+
+  {{!-- Sheet Body --}}
+  <section class="item-body archetype-level-body">
+    
+    {{!-- Archetype Levels Details --}}
+    <div class="flexcol">
+
+      <!-- Header of sorts -->
+      <div class="level-details-container flexcol">
+        <div class="flexrow">
+          <div class="flexrow flex-size-2 level-detail-entry">
+            <label class="flex-size-3">Archetype Level</label>
+            <input type="number"></input>
+          </div>
+          <div class="flexrow flex-size-1 level-detail-entry"></div>
+          <div class="flexrow flex-size-2 level-detail-entry">
+            <label class="flex-size-3">Skill Points Gained</label>
+            <input type="number"></input>
+          </div>
+        </div>
+        
+        <div class="flexrow level-detail-entry">
+          <label>Feat Gained</label>
+          <input class="flex-size-4" type="text"></input>
+        </div>
+      </div>
+
+      <!-- HP Increase Section -->
+      <div class="level-details-container flexcol">
+        <label>Health Increase</label>
+        <div class="flexrow">
+          <div class="flexrow level-detail-entry">
+            <label class="flex-size-2">Max Health</label>
+            <input type="number"></input>
+          </div>
+          <div class="flexrow level-detail-entry">
+            <label class="flex-size-2">Max Armor</label>
+            <input type="number"></input>
+          </div>
+          <div class="flexrow level-detail-entry">
+            <label class="flex-size-2">Max Shield</label>
+            <input type="number"></input>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stat gainss -->
+      <div class="level-details-container flexcol">
+        <label>Stat Gains</label>
+        <div class="flexrow">
+          <div class="flexrow level-detail-entry">
+            <label>ACC</label>
+            <input type="number"></input>
+          </div>
+          <div class="flexrow level-detail-entry">
+            <label>DMG</label>
+            <input type="number"></input>
+          </div>
+          <div class="flexrow level-detail-entry">
+            <label>SPD</label>
+            <input type="number"></input>
+          </div>
+          <div class="flexrow level-detail-entry">
+            <label>MST</label>
+            <input type="number"></input>
+          </div>
+        </div>
+      </div>
+
+      <!-- Supply Time -->
+      <div class="level-details-container flexcol">
+        <label>Max Supply Increase</label>
+        <div class="flexrow">
+          <div class="flexrow level-detail-entry">
+            <label class="flex-size-3">Max Potions</label>
+            <input type="number"></input>
+          </div>
+          <div class="flexrow level-detail-entry">
+            <label class="flex-size-3">Max Grenades</label>
+            <input type="number"></input>
+          </div>
+          <div class="flexrow level-detail-entry">
+            <label class="flex-size-3">Favored Guns</label>
+            <input type="number"></input>
+          </div>
+        </div>
+      </div>
+
+      <!-- Damage time -->
+      <div class="level-details-container flexcol">
+        <label>Bonus Damage</label>
+        <div class="flexrow">
+          <div class="flexrow level-detail-entry">
+            <label class="flex-size-7">Elemental</label>
+            <input type="number"></input>
+          </div>
+          <div class="flexrow level-detail-entry">
+            <label class="flex-size-7">Non-Elemental</label>
+            <input type="number"></input>
+          </div>
+        </div>
+        <div class="flexrow">
+          <div class="flexrow level-detail-entry">
+            <label class="flex-size-3">Any Attack</label>
+            <input type="number"></input>
+          </div>
+          <div class="flexrow level-detail-entry">
+            <label class="flex-size-3">Melee</label>
+            <input type="number"></input>
+          </div>
+          <div class="flexrow level-detail-entry">
+            <label class="flex-size-3">Shooting</label>
+            <input type="number"></input>
+          </div>
+          <div class="flexrow level-detail-entry">
+            <label class="flex-size-3">Grenade</label>
+            <input type="number"></input>
+          </div>
+        </div>
+        <div class="flexrow">
+          <div class="flexrow level-detail-entry">
+            <label class="flex-size-3">per <img id="per-hit" alt="Hit" class="critshits-icon" src="systems/bunkers-and-badasses/assets/weapons/hits.png" />hit</label>
+            <input type="number"></input>
+          </div>
+          <div class="flexrow level-detail-entry">
+            <label class="flex-size-3">per <img id="per-crit" alt="Crit" class="critshits-icon" src="systems/bunkers-and-badasses/assets/weapons/crits.png" />crit</label>
+            <input type="number"></input>
+          </div>
+          <div class="flexrow level-detail-entry">
+            <label class="flex-size-3">if any <img id="if-any-crit" alt="Crit" class="critshits-icon" src="systems/bunkers-and-badasses/assets/weapons/crits.png" />crit</label>
+            <input type="number"></input>
+          </div>
+          <div class="flexrow level-detail-entry">
+            <label class="flex-size-3">on nat 20</label>
+            <input type="number"></input>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</form>
+
+
+Any Attack
+Shooting
+Melee
+Grenade
+
+Elemental
+Non-Elemental
