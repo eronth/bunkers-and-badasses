@@ -87,6 +87,9 @@ export class BNBItemSheet extends ItemSheet {
         this.item.update({ [removeArmorKey]: null });
       }
     }
+
+    /* Update from v0.3 to v0.4 */
+    
   }
 
   async prepareEnrichedFields(context, item) {

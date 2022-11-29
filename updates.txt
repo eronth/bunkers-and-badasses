@@ -1,4 +1,7 @@
 Updates
+* Updated Archetype Levels to be much more useful.
+  * Archetype levels now track tons of stats individually.
+  * Archetype levels now add their values to character stats automatically.
 * Prepared for potential Anointment section addition.
 * Hits and Crits can now gain bonus using the Effects tab.
 * Added ability to mark which weapon is currently in-hand.

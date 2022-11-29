@@ -479,6 +479,48 @@
       "templates": ["base"],
       "archetypeNumber": 0,
       "level": 1,
+      "skillPoints": 1,
+      "feat": null,
+      "hps": {
+        "flesh": {
+          "max": null
+        },
+        "armor": {
+          "max": null
+        },
+        "shield": {
+          "max": null
+        },
+        "eridian": {
+          "max": null
+        },
+        "bone": {
+          "max": null
+        }
+      },
+      "stats": {
+        "acc": null,
+        "dmg": null,
+        "spd": null,
+        "mst": null
+      },
+      "maxPotions": null,
+      "maxGrenades": null,
+      "maxFavoredGuns": null,
+      "bonusDamage": {
+        "elements": {
+          "kinetic": null,
+          "other": null
+        },
+        "anyAttack": null,
+        "meleeAttack": null,
+        "shootingAttack": null,
+        "grenade": null,
+        "perHit": null,
+        "perCrit": null,
+        "ifAnyCrit": null,
+        "onNat20": null
+      },
       "bonus": ""
     },
     "Archetype Feat": {
