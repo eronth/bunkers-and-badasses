@@ -2,7 +2,7 @@
   <header class="sheet-header">
     <!-- <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/> -->
     <div class="header-fields">
-      <h1 class="charname"><input type="text" value="placeholdername" disabled/></h1>
+      <h1 class="charname"><input type="text" value="{{customDisplayName}}" disabled/></h1>
     </div>
   </header>
 
@@ -11,7 +11,7 @@
     
     {{!-- Archetype Levels Details --}}
     <div class="flexcol">
-
+      
       <!-- Header of sorts -->
       <div class="level-details-container flexcol">
         <div class="flexrow">
@@ -35,7 +35,7 @@
             value="{{system.feat}}" name="system.feat" />
           </div>
           <div class="flexrow level-detail-entry">
-            <label for="archetype-bonus-input-{{id}}" class="flex-size-2">Other Details</label>
+            <label for="archetype-bonus-input-{{id}}" class="flex-size-2">Short Desc.</label>
             <input id="archetype-bonus-input-{{id}}" class="flex-size-3" type="number" data-dtype="Number"
             value="{{system.bonus}}" name="system.bonus" />
           </div>

@@ -578,10 +578,29 @@ export class BNBActorSheet extends ActorSheet {
       context.items.push(newASitem);
     }
 
+    // My code is a disaster and so am I.
+    const archetype1Levels = [];
+    const archetype2Levels = [];
+    const unbouncArchetypeLevels = [];
+    for (let level of archetypeLevels) {
+      if (level.system.archetypeNumber == '1') {
+        archetype1Levels.push(level);
+      } else if (level.system.archetypeNumber == '2') {
+        archetype2Levels.push(level);
+      } else {
+        unbouncArchetypeLevels.push(level);
+      }
+    }
+
+    function archCompare(a, b) { // My code is a disaster and so am I.
+      return (a.system.level > b.system.level) ? 1 : ((b.system.level > a.system.level) ? -1 : 0)
+    }
     // Assign and return
     /// Items that only exist for character stuff.
     context.features = features;
     context.skilltree = skilltree;
+    context.archetype1Levels = archetype1Levels.sort(archCompare);
+    context.archetype2Levels = archetype2Levels.sort(archCompare);
     context.archetypeFeats = archetypeFeats;
     context.actionSkills = actionSkills;
     /// Items that are actually inventory items.
@@ -608,20 +627,9 @@ export class BNBActorSheet extends ActorSheet {
     // Handle Items.
     html.find('.checkbox').click((event) => this._onItemCheckbox(event));
 
-    html.find('.item-create').click(this._onItemCreate.bind(this));
-    html.find('.item-edit').click(ev => {
-      ev.stopPropagation();
-      const li = $(ev.currentTarget).parents(".item-element-group");
-      const item = this.actor.items.get(li.data("itemId"));
-      item.sheet.render(true);
-    });
-    html.find('.item-delete').click(ev => {
-      ev.stopPropagation();
-      const li = $(ev.currentTarget).parents(".item-element-group");
-      const item = this.actor.items.get(li.data("itemId"));
-      item.delete();
-      li.slideUp(200, () => this.render(false));
-    });
+    html.find('.item-create').click((event) => this._onItemCreate(event));
+    html.find('.item-edit').click((event) => this._onItemEdit(event));
+    html.find('.item-delete').click((event) => this._onItemDelete(event));
 
     // Handle Archetype Rewards.
     html.find('.archetype-reward-create').click(this._onArchetypeRewardCreate.bind(this));
@@ -773,6 +781,10 @@ export class BNBActorSheet extends ActorSheet {
       itemData.img = 'icons/svg/clockwork.svg';
     } else if (type==='skill') {
       itemData.img = 'icons/svg/oak.svg';
+    } else if (type==='Archetype Level') {
+      itemData.img = 'icons/svg/upgrade.svg';
+      itemData.system.archetypeNumber = header.dataset.archetypeNumber;
+      itemData.system.level = ((Number)(header.dataset.archetypeCount))+1;
     }
 
     // Remove the type from the dataset since it's in the itemData.type prop.
@@ -780,6 +792,21 @@ export class BNBActorSheet extends ActorSheet {
 
     // Finally, create the item!
     return await Item.create(itemData, {parent: this.actor});
+  }
+  
+  _onItemEdit(event) {
+    event.stopPropagation();
+    const li = $(event.currentTarget).parents(".item-element-group");
+    const item = this.actor.items.get(li.data("itemId"));
+    item.sheet.render(true);
+  }
+
+  _onItemDelete(event) {
+    event.stopPropagation();
+    const li = $(event.currentTarget).parents(".item-element-group");
+    const item = this.actor.items.get(li.data("itemId"));
+    item.delete();
+    li.slideUp(200, () => this.render(false));
   }
 
   _onItemCheckbox(event) {

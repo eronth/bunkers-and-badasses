@@ -54,14 +54,22 @@
     <li class="item flexrow items-header">
       <div class="item-name">Achetype Level Reward</div>
       <div class="item-controls">
-        <a 
-          class="item-control archetype-reward-create" 
-          title="Create item" data-dtype="Archetype Level"
-          data-archetype-number="{{archetypeNum}}">
-            <i class="fas fa-plus"></i> Add Reward
-          </a>
+        <a class="item-control item-create" title="Create item" data-dtype="Archetype Level"
+        data-archetype-number="{{archetypeNum}}" data-archetype-count="{{archetypeLevels.length}}">
+          <i class="fas fa-plus"></i> Add Reward
+        </a>
       </div>
     </li>
+    {{#each archetypeLevels as |item id|}}
+    <li class="item item-element-group flexrow" data-item-id="{{item._id}}">
+      <div class="item-name bolded flex-size-2">Level {{item.system.level}}</div>
+      <div class="reward-text flex-size-7 large-text-overflow-hidden">{{item.system.bonus}}</div>
+      <div class="item-controls-small">
+        <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+        <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+      </div>
+    </li>
+    {{/each}}
     {{#each archetype.rewards as |reward id |}}
     <li class="item flexrow">
       <div class="item-name bolded flex-size-2">Level {{reward.Level}}</div>
