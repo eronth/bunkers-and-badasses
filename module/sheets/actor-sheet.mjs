@@ -2,6 +2,7 @@ import { onManageActiveEffect, prepareActiveEffectCategories } from "../helpers/
 import { RollBuilder } from "../helpers/roll-builder.mjs";
 import { Dropdown } from "../helpers/dropdown.mjs";
 import { genericUtil } from "../helpers/genericUtil.mjs";
+import { OnActionUtil } from "../helpers/onActionUtil.mjs";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -60,6 +61,7 @@ export class BNBActorSheet extends ActorSheet {
     if (actorData.type == 'vault hunter') {
       this._updateVaultHunterFromPreviousVersions(context);
       this._prepareItems(context);
+      this._prepareArchetypeLevelBonuses(context);
       this._prepareArchetypes(context);
       this._prepareExperience(context);
       this._prepareVhHps(context);
@@ -147,7 +149,54 @@ export class BNBActorSheet extends ActorSheet {
       const attributeLabel = `system.bonus.healths`;
       this.actor.update({[attributeLabel]: effectsHPs});
     }
-    ////////////  Update HP From Previous Versions  ////////////  
+    ////////////  Update HP From Previous Versions  ////////////
+
+    ///////////////////////////////////
+    //////// Update from 0.3.5 ////////
+    ///////////////////////////////////
+    const archetypes = this?.actor?.system?.archetypes;
+    const archetype1Rewards = archetypes?.archetype1?.rewards;
+    const archetype2Rewards  = archetypes?.archetype2?.rewards;
+
+    if (archetype1Rewards && archetype1Rewards.length > 0) {
+    //   let currentItemNum = 1;
+    //   for (let reward in archetype1Rewards) {  
+    //     // Prepare item data.
+    //     const itemSystemData = {
+    //       archetypeNumber: 1,
+    //       level: reward?.level ?? currentItemNum,
+    //       bonus: reward?.description,
+    //       description: reward?.description,
+    //     };
+    //     const newArchetypeLevelData = {
+    //       name: 'New Archetype Level',
+    //       type: "Archetype Level",
+    //       img: 'icons/svg/upgrade.svg',
+    //       system: {...itemSystemData}
+    //     };
+    //     currentItemNum++;
+  
+    //     // Create item for use.
+    //     const newArchetypeLevelItem = await Item.create(newArchetypeLevelData, { parent: this.actor });
+    //     context.items.push(newArchetypeLevelItem);
+    //   }
+    // // // // // // // // //   archetype1Rewards.level
+    // // // // // // // // // archetype1Rewards.description
+    //   // // Square brackets needed to get the right value.
+    //   const attributeLabel = `system.archetypes.archetype1.rewards`;
+    //   this.actor.update({[attributeLabel]: null});
+    }
+    
+    // if (archetype2Rewards && archetype2Rewards.length > 0) {
+    //   for (let reward in archetype2Rewards) {
+        
+    //   }
+    //   // Square brackets needed to get the right value.
+    //   const attributeLabel = `system.archetypes.archetype2.rewards`;
+    //   this.actor.update({[attributeLabel]: null});
+    // }
+
+    
   }
 
   _updateNPCFromPreviousVersions(context) {
@@ -296,11 +345,63 @@ export class BNBActorSheet extends ActorSheet {
     return {...experienceReqs};
   }
 
+  _applyArchetypeLevelBonus(archetypeLevelBonusTotals, i) {
+    // Add the bonuses to the totals.
+    archetypeLevelBonusTotals.skillPoints += Number(i.system.skillPoints);
+    if (i.system.feat) { archetypeLevelBonusTotals.feats.push(i.system.feat); }
+    archetypeLevelBonusTotals.hps.flesh.max += Number(i.system.hps.flesh.max);
+    archetypeLevelBonusTotals.hps.armor.max += Number(i.system.hps.armor.max);
+    archetypeLevelBonusTotals.hps.shield.max += Number(i.system.hps.shield.max);
+    archetypeLevelBonusTotals.hps.eridian.max += Number(i.system.hps.eridian.max);
+    archetypeLevelBonusTotals.hps.bone.max += Number(i.system.hps.bone.max);
+    archetypeLevelBonusTotals.hps.flesh.regen += i.system.hps.flesh.regen;
+    archetypeLevelBonusTotals.hps.armor.regen += i.system.hps.armor.regen;
+    archetypeLevelBonusTotals.hps.shield.regen += i.system.hps.shield.regen;
+    archetypeLevelBonusTotals.hps.eridian.regen += i.system.hps.eridian.regen;
+    archetypeLevelBonusTotals.hps.bone.regen += i.system.hps.bone.regen;
+    archetypeLevelBonusTotals.stats.acc += Number(i.system.stats.acc);
+    archetypeLevelBonusTotals.stats.dmg += Number(i.system.stats.dmg);
+    archetypeLevelBonusTotals.stats.spd += Number(i.system.stats.spd);
+    archetypeLevelBonusTotals.stats.mst += Number(i.system.stats.mst);
+    archetypeLevelBonusTotals.maxPotions += Number(i.system.maxPotions);
+    archetypeLevelBonusTotals.maxGrenades += Number(i.system.maxGrenades);
+    archetypeLevelBonusTotals.maxFavoredGuns += Number(i.system.maxFavoredGuns);
+    archetypeLevelBonusTotals.bonusDamage.elements.kinetic += Number(i.system.bonusDamage.elements.kinetic);
+    archetypeLevelBonusTotals.bonusDamage.elements.other += Number(i.system.bonusDamage.elements.other);
+    archetypeLevelBonusTotals.bonusDamage.anyAttack += Number(i.system.bonusDamage.anyAttack);
+    archetypeLevelBonusTotals.bonusDamage.meleeAttack += Number(i.system.bonusDamage.meleeAttack);
+    archetypeLevelBonusTotals.bonusDamage.shootingAttack += Number(i.system.bonusDamage.shootingAttack);
+    archetypeLevelBonusTotals.bonusDamage.grenade += Number(i.system.bonusDamage.grenade);
+    archetypeLevelBonusTotals.bonusDamage.perHit += Number(i.system.bonusDamage.perHit);
+    archetypeLevelBonusTotals.bonusDamage.perCrit += Number(i.system.bonusDamage.perCrit);
+    archetypeLevelBonusTotals.bonusDamage.ifAnyCrit += Number(i.system.bonusDamage.ifAnyCrit);
+    archetypeLevelBonusTotals.bonusDamage.onNat20 += Number(i.system.bonusDamage.onNat20);
+    if (i.system.bonus) { archetypeLevelBonusTotals.bonuses.push(i.system.bonus); }
+  }
+
+  _prepareArchetypeLevelBonuses(context) {
+    const archetypeLevelItems = [...(context.archetype1Levels ?? []), ...(context.archetype2Levels ?? [])];
+    const oldActorAlbt = { ...(this.actor.system.archetypeLevelBonusTotals ?? this.defaultArchetypeLevelBonusTotals()) };
+    const archetypeLevelBonusTotals = this.defaultArchetypeLevelBonusTotals();
+
+    // Add up all the bonuses from the archetype levels.
+    archetypeLevelItems.forEach(i => {
+      this._applyArchetypeLevelBonus(archetypeLevelBonusTotals, i);
+    });
+
+    const albHasChanges = JSON.stringify(archetypeLevelBonusTotals) !== JSON.stringify(oldActorAlbt);
+    if (albHasChanges) {
+      const attributeLabel = `system.archetypeLevelBonusTotals`;
+      this.actor.update({[attributeLabel]: archetypeLevelBonusTotals});
+    }
+  }
+
   _prepareVhHps(context) {
     const actorHPs = this.actor.system.attributes.hps;
     const oldActorHPs = JSON.parse(JSON.stringify(actorHPs));
     const effectsHPs = this.actor.system.bonus.healths;
-    
+    const archetypeHPs = (this.actor.system.archetypeLevelBonusTotals ?? this.defaultArchetypeLevelBonusTotals()).hps;
+
     // Clean slate for HPs totals.
     actorHPs.flesh.max = actorHPs.armor.max = actorHPs.shield.max = actorHPs.bone.max = actorHPs.eridian.max = 0;
     actorHPs.flesh.combinedRegen = actorHPs.armor.combinedRegen = actorHPs.shield.combinedRegen 
@@ -318,10 +419,10 @@ export class BNBActorSheet extends ActorSheet {
       }
     });
 
-    // Add bonuses from Builder Tab and effects.
+    // Add bonuses from Builder Tab, Archetype levels, and effects.
     Object.entries(actorHPs).forEach(entry => {
       const [hpType, hpData] = entry;
-      hpData.max += (actorHPs[hpType].base ?? 0) + (effectsHPs[hpType].max ?? 0);
+      hpData.max += (actorHPs[hpType].base ?? 0) + (effectsHPs[hpType].max ?? 0) + (archetypeHPs[hpType].max ?? 0) + (actorHPs[hpType].bonus ?? 0);
       if (actorHPs[hpType].regen) {
         if (hpData.combinedRegen) { hpData.combinedRegen += ' + '; }
         hpData.combinedRegen += actorHPs[hpType].regen;
@@ -330,6 +431,11 @@ export class BNBActorSheet extends ActorSheet {
         if (hpData.combinedRegen) { hpData.combinedRegen += ' + '; }
         hpData.combinedRegen += effectsHPs[hpType].regen;
       }
+      if (archetypeHPs[hpType].regen) {
+        if (hpData.combinedRegen) { hpData.combinedRegen += ' + '; }
+        hpData.combinedRegen += archetypeHPs[hpType].regen;
+      }
+
     });
 
     // Gather HPs that are actually used for the context's needs.
@@ -552,6 +658,8 @@ export class BNBActorSheet extends ActorSheet {
       else if (i.type === 'potion') { potions.push(i); }
     }
 
+    
+
     // If we don't already have an action skill, make one for the player.
     if (actionSkills.length === 0) {
       const actorActionSkill = this?.actor?.system?.class?.actionSkill;
@@ -614,7 +722,56 @@ export class BNBActorSheet extends ActorSheet {
     context.potions = potions;
   }
 
+  prepareMissingActionSkill() {
+
+  }
+
+  prepareMissingArchetypeSkills() {
+
+  }
+
+  defaultArchetypeLevelBonusTotals() {
+    return {
+      skillPoints: 0,
+      feats: [],
+      bonuses: [],
+      hps: { 
+        flesh: { max: 0, regen: 0 },
+        armor: { max: 0, regen: 0 },
+        shield: { max: 0, regen: 0 },
+        eridian: { max: 0, regen: 0 },
+        bone: { max: 0, regen: 0 },
+      },
+      stats: {
+        acc: 0,
+        dmg: 0,
+        spd: 0,
+        mst: 0,
+      },
+      maxPotions: 0,
+      maxGrenades: 0,
+      maxFavoredGuns: 0,
+      bonusDamage: {
+        elements: {
+          kinetic: 0,
+          other: 0
+        },
+        anyAttack: 0,
+        meleeAttack: 0,
+        shootingAttack: 0,
+        grenade: 0,
+        perHit: 0,
+        perCrit: 0,
+        ifAnyCrit: 0,
+        onNat20: 0,
+      },
+    };
+  }
+
   /* -------------------------------------------- */
+  inRender(toggle) {
+    this.render(toggle);
+  }
 
   /** @override */
   activateListeners(html) {
@@ -625,19 +782,19 @@ export class BNBActorSheet extends ActorSheet {
     // -------------------------------------------------------------
     
     // Handle Items.
-    html.find('.checkbox').click((event) => this._onItemCheckbox(event));
+    html.find('.checkbox').click((event) => OnActionUtil.onItemCheckbox(event, this.actor));
 
-    html.find('.item-create').click((event) => this._onItemCreate(event));
-    html.find('.item-edit').click((event) => this._onItemEdit(event));
-    html.find('.item-delete').click((event) => this._onItemDelete(event));
+    html.find('.item-create').click((event) => OnActionUtil.onItemCreate(event, this.actor));
+    html.find('.item-edit').click((event) => OnActionUtil.onItemEdit(event, this.actor));
+    html.find('.item-delete').click((event) => OnActionUtil.onItemDelete(event, this.actor, this.inRender.bind(this, false)));
 
     // Handle Archetype Rewards.
-    html.find('.archetype-reward-create').click(this._onArchetypeRewardCreate.bind(this));
-    html.find('.archetype-reward-edit').click(this._onArchetypeRewardEdit.bind(this));
-    html.find('.archetype-reward-delete').click(this._onArchetypeRewardDelete.bind(this));
+    // html.find('.archetype-reward-create').click(this._onArchetypeRewardCreate.bind(this));
+    // html.find('.archetype-reward-edit').click(this._onArchetypeRewardEdit.bind(this));
+    // html.find('.archetype-reward-delete').click(this._onArchetypeRewardDelete.bind(this));
     
     // Handle action skill.
-    html.find('.action-skill-use').click((event) => this._onActionSkillUse(event));
+    html.find('.action-skill-use').click((event) => OnActionUtil.onActionSkillUse(event, this.actor));
 
     // Handle combat health adjustments.
     html.find('.take-damage').click(() => this._onTakeDamage());
@@ -650,13 +807,13 @@ export class BNBActorSheet extends ActorSheet {
     html.find('.set-level').click(this._onSetLevel.bind(this));
 
     // Handle checkbox changes.
-    html.find(".checkbox").click(this._onCheckboxClick.bind(this));
+    html.find(".checkbox").click((event) => OnActionUtil.onCheckboxClick(event, this.actor));
 
     // Display inventory details.
     html.find(`.${Dropdown.getComponentClass('clickable')}`).mouseup(this._onItemDetailsComponenetClick.bind(this));
 
     // Active Effect management
-    html.find(".effect-control").click(ev => onManageActiveEffect(ev, this.actor));
+    html.find('.effect-control').click((event) => onManageActiveEffect(event, this.actor));
 
     // Rollable abilities.
     html.find('.rollable').click(this._onRoll.bind(this));
@@ -709,7 +866,7 @@ export class BNBActorSheet extends ActorSheet {
     this.rewardDiag = new Dialog({
       title: archetype.name + " Reward",
       Id: "archetype-reward-dialog",
-      content: htmlContent,
+      cointent: htmlContent,
       buttons: {
         "Update" : {
           label : "Update",
@@ -752,105 +909,6 @@ export class BNBActorSheet extends ActorSheet {
     
     // Square brackets needed to get the right value.
     this.actor.update({["system.archetypes.archetype"+archetypeNum+".rewards"]: archetype.rewards});
-  }
-
-  /**
-   * Handle creating a new Owned Item for the actor using initial data defined in the HTML dataset
-   * @param {Event} event   The originating click event
-   * @private
-   */
-  async _onItemCreate(event) {
-    event.preventDefault();
-    const header = event.currentTarget;
-    // Get the type of item to create.
-    const type = header.dataset.dtype;
-    // Grab any data associated with this control.
-    const system = duplicate(header.dataset);
-    // Initialize a default name.
-    const name = `New ${type.capitalize()}`;
-    // Prepare the item object.
-    const itemData = {
-      name: name,
-      type: type,
-      system: system,
-    };
-
-    if (type==='Archetype Feat') {
-      itemData.img = 'icons/svg/combat.svg';
-    } else if (type==='Action Skill') {
-      itemData.img = 'icons/svg/clockwork.svg';
-    } else if (type==='skill') {
-      itemData.img = 'icons/svg/oak.svg';
-    } else if (type==='Archetype Level') {
-      itemData.img = 'icons/svg/upgrade.svg';
-      itemData.system.archetypeNumber = header.dataset.archetypeNumber;
-      itemData.system.level = ((Number)(header.dataset.archetypeCount))+1;
-    }
-
-    // Remove the type from the dataset since it's in the itemData.type prop.
-    delete itemData.system["type"];
-
-    // Finally, create the item!
-    return await Item.create(itemData, {parent: this.actor});
-  }
-  
-  _onItemEdit(event) {
-    event.stopPropagation();
-    const li = $(event.currentTarget).parents(".item-element-group");
-    const item = this.actor.items.get(li.data("itemId"));
-    item.sheet.render(true);
-  }
-
-  _onItemDelete(event) {
-    event.stopPropagation();
-    const li = $(event.currentTarget).parents(".item-element-group");
-    const item = this.actor.items.get(li.data("itemId"));
-    item.delete();
-    li.slideUp(200, () => this.render(false));
-  }
-
-  _onItemCheckbox(event) {
-    event.stopPropagation();
-
-    let target = $(event.currentTarget).attr("data-target")
-    if (target == "item") {
-      target = $(event.currentTarget).attr("data-item-target")
-      const item = this.actor.items.get($(event.currentTarget).parents(".item").attr("data-item-id"))
-      return item.update({ [`${target}`]: !getProperty(item.system, target) })
-    }
-    if (target)
-      return this.actor.update({[`${target}`] : !getProperty(this.actor.system, target)});
-  }
-
-  async _onActionSkillUse(event) {
-    // Prep data
-    const itemId = event.currentTarget.closest('.action-skill-use').dataset.itemId;
-    const item = this.actor.items.get(itemId);
-
-    if (!item) { return; }
-
-    // Prep chat values.
-    const templateLocation = `systems/bunkers-and-badasses/templates/chat/info/action-skill-info.html`;
-    const renderTemplateConfig = {
-      actorId: this.actor.id,
-      description: item.system.description,
-      item: item
-    };
-    const content = await renderTemplate(templateLocation, renderTemplateConfig);
-    const flavorText = `${this.actor.name} uses <b>${item.name}</b>.`;
-    const messageData = {
-      user: game.user.id,
-      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-      flavor: flavorText,
-      type: CONST.CHAT_MESSAGE_TYPES.IC,
-      // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
-      speaker: ChatMessage.getSpeaker(),
-      content: content,
-    }
-
-
-    // Send the roll to chat!
-    return ChatMessage.create(messageData);
   }
 
   async _onTakeDamage() {
@@ -1109,17 +1167,6 @@ export class BNBActorSheet extends ActorSheet {
       }
     }
     return current;
-  }
-
-  _onCheckboxClick(event) {
-    let target = $(event.currentTarget).attr("data-target")
-    if (target == "item") {
-        target = $(event.currentTarget).attr("data-item-target")
-        let item = this.actor.items.get($(event.currentTarget).parents(".item").attr("data-item-id"))
-        return item.update({ [`${target}`]: !getProperty(item, target) })
-    }
-    if (target)
-        return this.actor.update({[`${target}`] : !getProperty(this.actor, target)});
   }
 
   _onItemDetailsComponenetClick(event) {
