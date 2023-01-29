@@ -482,21 +482,11 @@
       "skillPoints": 1,
       "feat": null,
       "hps": {
-        "flesh": {
-          "max": null
-        },
-        "armor": {
-          "max": null
-        },
-        "shield": {
-          "max": null
-        },
-        "eridian": {
-          "max": null
-        },
-        "bone": {
-          "max": null
-        }
+        "flesh": { "max": null, "regen": null },
+        "armor": { "max": null, "regen": null },
+        "shield": { "max": null, "regen": null },
+        "eridian": { "max": null, "regen": null },
+        "bone": { "max": null, "regen": null }
       },
       "stats": {
         "acc": null,

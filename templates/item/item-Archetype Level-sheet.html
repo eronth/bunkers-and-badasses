@@ -11,7 +11,7 @@
     
     {{!-- Archetype Levels Details --}}
     <div class="flexcol">
-      
+
       <!-- Header of sorts -->
       <div class="level-details-container flexcol">
         <div class="flexrow">
@@ -27,36 +27,36 @@
             value="{{system.skillPoints}}" name="system.skillPoints" />
           </div>
         </div>
+
+        <div class="flexrow level-detail-entry">
+          <label for="archetype-bonus-input-{{id}}" class="flex-size-2">Short Level Desc.</label>
+          <input id="archetype-bonus-input-{{id}}" class="flex-size-3" type="text" data-dtype="String"
+          value="{{system.bonus}}" name="system.bonus" />
+        </div>
         
-        <div class="flexrow">
-          <div class="flexrow level-detail-entry">
-            <label for="archetype-feat-input-{{id}}" class="flex-size-2">Feat Gained</label>
-            <input id="archetype-feat-input-{{id}}" class="flex-size-3" type="number" data-dtype="Number"
-            value="{{system.feat}}" name="system.feat" />
-          </div>
-          <div class="flexrow level-detail-entry">
-            <label for="archetype-bonus-input-{{id}}" class="flex-size-2">Short Desc.</label>
-            <input id="archetype-bonus-input-{{id}}" class="flex-size-3" type="number" data-dtype="Number"
-            value="{{system.bonus}}" name="system.bonus" />
-          </div>
+        <div class="flexrow level-detail-entry">
+          <label for="archetype-feat-input-{{id}}" class="flex-size-2">Feat Gained</label>
+          <input id="archetype-feat-input-{{id}}" class="flex-size-3" type="text" data-dtype="String"
+          value="{{system.feat}}" name="system.feat" />
         </div>
       </div>
 
       <!-- HP Increase Section -->
       <div class="level-details-container flexcol">
+        <!--- Max HP Increase --->
         <label>Health Increase</label>
         <div class="flexrow">
-          {{#if usePlayerBone}}
+          {{#if usePlayerEridian}}
           <div class="flexrow level-detail-entry">
-            <label for="archetype-max-bone-{{id}}" class="flex-size-2">Max Bone</label>
-            <input id="archetype-max-bone-{{id}}" type="number" data-dtype="Number"
-            value="{{system.hps.bone.max}}" name="system.hps.bone.max" />
+            <label for="archetype-max-eridian-{{id}}" class="flex-size-2">Max Eridian</label>
+            <input id="archetype-max-eridian-{{id}}" type="number" data-dtype="Number"
+            value="{{system.hps.eridian.max}}" name="system.hps.eridian.max" />
           </div>
           {{/if}}
           <div class="flexrow level-detail-entry">
-            <label for="archetype-max-flesh-{{id}}" class="flex-size-2">Max Health</label>
-            <input id="archetype-max-flesh-{{id}}" type="number" data-dtype="Number"
-            value="{{system.hps.flesh.max}}" name="system.hps.flesh.max" />
+            <label for="archetype-max-shield-{{id}}" class="flex-size-2">Max Shield</label>
+            <input id="archetype-max-shield-{{id}}" type="number" data-dtype="Number"
+            value="{{system.hps.shield.max}}" name="system.hps.shield.max" />
           </div>
           {{#if usePlayerArmor}}
           <div class="flexrow level-detail-entry">
@@ -66,15 +66,49 @@
           </div>
           {{/if}}
           <div class="flexrow level-detail-entry">
-            <label for="archetype-max-shield-{{id}}" class="flex-size-2">Max Shield</label>
-            <input id="archetype-max-shield-{{id}}" type="number" data-dtype="Number"
-            value="{{system.hps.shield.max}}" name="system.hps.shield.max" />
+            <label for="archetype-max-flesh-{{id}}" class="flex-size-2">Max Health</label>
+            <input id="archetype-max-flesh-{{id}}" type="number" data-dtype="Number"
+            value="{{system.hps.flesh.max}}" name="system.hps.flesh.max" />
           </div>
+          {{#if usePlayerBone}}
+          <div class="flexrow level-detail-entry">
+            <label for="archetype-max-bone-{{id}}" class="flex-size-2">Max Bone</label>
+            <input id="archetype-max-bone-{{id}}" type="number" data-dtype="Number"
+            value="{{system.hps.bone.max}}" name="system.hps.bone.max" />
+          </div>
+          {{/if}}
+        </div>
+        <!--- HP Regain --->
+        <div class="flexrow">
           {{#if usePlayerEridian}}
           <div class="flexrow level-detail-entry">
-            <label for="archetype-max-eridian-{{id}}" class="flex-size-2">Max Eridian</label>
-            <input id="archetype-max-eridian-{{id}}" type="number" data-dtype="Number"
-            value="{{system.hps.eridian.max}}" name="system.hps.eridian.max" />
+            <label for="archetype-eridian-regen-{{id}}" class="flex-size-2">Eridian Reinvigorate</label>
+            <input id="archetype-eridian-regen-{{id}}" type="text" data-dtype="String"
+            value="{{system.hps.eridian.regen}}" name="system.hps.eridian.regen" />
+          </div>
+          {{/if}}
+          <div class="flexrow level-detail-entry">
+            <label for="archetype-shield-regen-{{id}}" class="flex-size-2">Shield Recharge</label>
+            <input id="archetype-shield-regen-{{id}}" type="text" data-dtype="String"
+            value="{{system.hps.shield.regen}}" name="system.hps.shield.regen" />
+          </div>
+          {{#if usePlayerArmor}}
+          <div class="flexrow level-detail-entry">
+            <label for="archetype-armor-regen-{{id}}" class="flex-size-2">Armor Repair</label>
+            <input id="archetype-armor-regen-{{id}}" type="text" data-dtype="String"
+            value="{{system.hps.armor.regen}}" name="system.hps.armor.regen" />
+          </div>
+          {{/if}}
+          <div class="flexrow level-detail-entry">
+            <label for="archetype-flesh-regen-{{id}}" class="flex-size-2">Health Regen</label>
+            <input id="archetype-flesh-regen-{{id}}" type="text" data-dtype="String"
+            value="{{system.hps.flesh.regen}}" name="system.hps.flesh.regen" />
+          </div>
+          {{#if usePlayerBone}}
+          <div class="flexrow level-detail-entry">
+            <label for="archetype-bone-regen-{{id}}" class="flex-size-2">Bone Regrow</label>
+            <input id="archetype-bone-regen-{{id}}" type="text" data-dtype="String"
+            value="{{system.hps.flesh.regen}}" name="system.hps.bone.regen" />
           </div>
           {{/if}}
         </div>
@@ -193,3 +227,12 @@
     </div>
   </section>
 </form>
+
+
+
+
+
+
+convert old archetypes
+remove old archetypes
+add bonuses to proper spots
