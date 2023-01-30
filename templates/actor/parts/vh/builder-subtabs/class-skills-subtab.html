@@ -1,4 +1,16 @@
 <div class="flexcol">
+  <div class="flexrow">
+    <div class="flexrow flex-size-2"></div>
+    <div class="flexrow skill-tree-header"><label>Skill Tree</label></div>
+    <div class="flexrow flex-size-2 centerize skill-point-input">
+      <div class="flexrow flex-size-2"><label for="skill-point-count-input" class="skill-point-input-label flex-size-2 bolded">Skill Points Used: </label></div>
+      {{> "systems/bunkers-and-badasses/templates/general/divided-input.html"
+        id="skill-point" targetObj=skillPoints 
+        leftDisable=true rightDisable=true
+      }}
+      <!-- targetText="system.attributes.potions" -->
+    </div>
+  </div>
   <ol class="items-list">
     {{#each skilltree as |skills tier|}}
       <li class="item flexrow items-header">

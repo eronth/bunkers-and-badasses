@@ -59,6 +59,7 @@ export class BNBActorSheet extends ActorSheet {
 
     // Prepare Vault Hunter data and items.
     if (actorData.type == 'vault hunter') {
+      context.skillPoints = { value: 0, max: 0 };
       this._updateVaultHunterFromPreviousVersions(context);
       this._prepareItems(context);
       this._prepareArchetypeLevelBonuses(context);
@@ -389,6 +390,8 @@ export class BNBActorSheet extends ActorSheet {
       this._applyArchetypeLevelBonus(archetypeLevelBonusTotals, i);
     });
 
+    context.skillPoints.max += archetypeLevelBonusTotals.skillPoints;
+    
     const albHasChanges = JSON.stringify(archetypeLevelBonusTotals) !== JSON.stringify(oldActorAlbt);
     if (albHasChanges) {
       const attributeLabel = `system.archetypeLevelBonusTotals`;
@@ -579,6 +582,7 @@ export class BNBActorSheet extends ActorSheet {
       else if (i.type === 'skill') {
         if (i.system.tier != null) {
           skilltree[i.system.tier].push(i);
+          context.skillPoints.value += i.system.skillLevel;
         }
       }
       else if (i.type === 'Archetype Level') { archetypeLevels.push(i); }
