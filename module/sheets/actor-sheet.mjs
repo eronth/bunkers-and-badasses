@@ -354,11 +354,11 @@ export class BNBActorSheet extends ActorSheet {
     archetypeLevelBonusTotals.hps.shield.max += Number(i.system.hps.shield.max);
     archetypeLevelBonusTotals.hps.eridian.max += Number(i.system.hps.eridian.max);
     archetypeLevelBonusTotals.hps.bone.max += Number(i.system.hps.bone.max);
-    archetypeLevelBonusTotals.hps.flesh.regen += i.system.hps.flesh.regen;
-    archetypeLevelBonusTotals.hps.armor.regen += i.system.hps.armor.regen;
-    archetypeLevelBonusTotals.hps.shield.regen += i.system.hps.shield.regen;
-    archetypeLevelBonusTotals.hps.eridian.regen += i.system.hps.eridian.regen;
-    archetypeLevelBonusTotals.hps.bone.regen += i.system.hps.bone.regen;
+    this._applyBonusToRegen(archetypeLevelBonusTotals.regens, 'flesh', i.system.hps.flesh.regen);
+    this._applyBonusToRegen(archetypeLevelBonusTotals.regens, 'armor', i.system.hps.armor.regen);
+    this._applyBonusToRegen(archetypeLevelBonusTotals.regens, 'shield', i.system.hps.shield.regen);
+    this._applyBonusToRegen(archetypeLevelBonusTotals.regens, 'eridian', i.system.hps.eridian.regen);
+    this._applyBonusToRegen(archetypeLevelBonusTotals.regens, 'bone', i.system.hps.bone.regen);
     archetypeLevelBonusTotals.stats.acc += Number(i.system.stats.acc);
     archetypeLevelBonusTotals.stats.dmg += Number(i.system.stats.dmg);
     archetypeLevelBonusTotals.stats.spd += Number(i.system.stats.spd);
@@ -401,42 +401,39 @@ export class BNBActorSheet extends ActorSheet {
     const oldActorHPs = JSON.parse(JSON.stringify(actorHPs));
     const effectsHPs = this.actor.system.bonus.healths;
     const archetypeHPs = (this.actor.system.archetypeLevelBonusTotals ?? this.defaultArchetypeLevelBonusTotals()).hps;
+    const archetypeRegens = (this.actor.system.archetypeLevelBonusTotals ?? this.defaultArchetypeLevelBonusTotals()).regens;
 
     // Clean slate for HPs totals.
     actorHPs.flesh.max = actorHPs.armor.max = actorHPs.shield.max = actorHPs.bone.max = actorHPs.eridian.max = 0;
     actorHPs.flesh.combinedRegen = actorHPs.armor.combinedRegen = actorHPs.shield.combinedRegen 
       = actorHPs.bone.combinedRegen = actorHPs.eridian.combinedRegen = "";
+    const combinedRegen = {
+      flesh: { num: 0, texts: [], },
+      armor: { num: 0, texts: [], },
+      shield: { num: 0, texts: [], },
+      bone: { num: 0, texts: [], },
+      eridian: { num: 0, texts: [], },
+    };
     
-      // Get the HPs from the actor data
-      Object.entries(context.items).forEach(entry => {
-        const [itemIndex, itemData] = entry;
-        if (itemData.type === "shield" && itemData.system.equipped) {
-          actorHPs[itemData.system.healthType].max += itemData.system.capacity ?? 0;
-          if (actorHPs[itemData.system.healthType].combinedRegen) {
-            actorHPs[itemData.system.healthType].combinedRegen += ' + ';
-          }
-          actorHPs[itemData.system.healthType].combinedRegen += itemData.system.recoveryRate;
+    // Get the HPs from the actor items (Shields and Archetype Levels.)
+    Object.entries(context.items).forEach(entry => {
+      const [itemIndex, itemData] = entry;
+      if (itemData.type === "shield" && itemData.system.equipped) {
+        actorHPs[itemData.system.healthType].max += itemData.system.capacity ?? 0;
+        this._applyBonusToRegen(combinedRegen, itemData.system.healthType, itemData.system.recoveryRate);
       }
     });
 
-    // Add bonuses from Builder Tab, Archetype levels, and effects.
+    // Add bonuses from Builder Tab and effects.
     Object.entries(actorHPs).forEach(entry => {
       const [hpType, hpData] = entry;
       hpData.max += (actorHPs[hpType].base ?? 0) + (effectsHPs[hpType].max ?? 0) + (archetypeHPs[hpType].max ?? 0) + (actorHPs[hpType].bonus ?? 0);
-      if (actorHPs[hpType].regen) {
-        if (hpData.combinedRegen) { hpData.combinedRegen += ' + '; }
-        hpData.combinedRegen += actorHPs[hpType].regen;
-      }
-      if (effectsHPs[hpType].regen) {
-        if (hpData.combinedRegen) { hpData.combinedRegen += ' + '; }
-        hpData.combinedRegen += effectsHPs[hpType].regen;
-      }
-      if (archetypeHPs[hpType].regen) {
-        if (hpData.combinedRegen) { hpData.combinedRegen += ' + '; }
-        hpData.combinedRegen += archetypeHPs[hpType].regen;
-      }
-
-    });
+      this._applyBonusToRegen(combinedRegen, hpType, actorHPs[hpType].regen);
+      this._applyBonusToRegen(combinedRegen, hpType, archetypeRegens[hpType].num);
+      this._applyBonusToRegen(combinedRegen, hpType, archetypeRegens[hpType].texts.join(' + '));
+      this._applyBonusToRegen(combinedRegen, hpType, effectsHPs[hpType].regen);
+      hpData.combinedRegen = [combinedRegen[hpType].num, ...combinedRegen[hpType].texts].join(' + ');
+    });    
 
     // Gather HPs that are actually used for the context's needs.
     const usedHps = {};
@@ -462,6 +459,16 @@ export class BNBActorSheet extends ActorSheet {
       this.actor.update({[attributeLabel]: actorHPs});
     }
   }
+
+  _applyBonusToRegen(combinedRegen, healthType, recoveryRate) {
+    if (!recoveryRate) { return; }
+
+    if (isNaN(recoveryRate)) {
+      combinedRegen[healthType].texts.push(recoveryRate);
+    } else {
+      combinedRegen[healthType].num += Number(recoveryRate ?? 0);
+    };
+  };
 
   _prepareNpcHps(context) {
     context.hps = context.system.attributes.hps;
@@ -736,11 +743,18 @@ export class BNBActorSheet extends ActorSheet {
       feats: [],
       bonuses: [],
       hps: { 
-        flesh: { max: 0, regen: 0 },
-        armor: { max: 0, regen: 0 },
-        shield: { max: 0, regen: 0 },
-        eridian: { max: 0, regen: 0 },
-        bone: { max: 0, regen: 0 },
+        flesh: { max: 0 },
+        armor: { max: 0 },
+        shield: { max: 0 },
+        eridian: { max: 0 },
+        bone: { max: 0 },
+      },
+      regens: {
+        flesh: { num: 0, texts: [], },
+        armor: { num: 0, texts: [], },
+        shield: { num: 0, texts: [], },
+        bone: { num: 0, texts: [], },
+        eridian: { num: 0, texts: [], },
       },
       stats: {
         acc: 0,
