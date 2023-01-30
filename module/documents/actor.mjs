@@ -113,13 +113,14 @@ export class BNBActor extends Actor {
     // Pull basic data into easy-to-access variables.
     const actorSystem = actorData.system;
     const archetypeStats = actorSystem.archetypes.archetype1.baseStats;
+    const archetypeLevelUpStats = actorSystem.archetypeLevelBonusTotals.stats;
     const classStats = actorSystem.class.baseStats;
 
     // Handle stat values and totals. Values are class+archetype. Totals are *everything*.
     Object.entries(actorSystem.stats).forEach(entry => {
       const [key, statData] = entry;
       statData.effects = actorSystem.bonus.stats[key] ?? { value: 0, mod: 0 };
-      statData.value = archetypeStats[key] + classStats[key] + statData.misc + statData.effects.value;
+      statData.value = archetypeStats[key] + classStats[key] + archetypeLevelUpStats[key] + statData.misc + statData.effects.value;
       statData.mod = Math.floor(statData.value / 2)  + (statData.modBonus ?? 0) + statData.effects.mod;
       statData.modToUse = actorSystem.attributes.badass.rollsEnabled ? statData.value : statData.mod;
     });
