@@ -29,13 +29,13 @@
         </div>
 
         <div class="flexrow level-detail-entry">
-          <label for="archetype-bonus-input-{{id}}" class="flex-size-2">Short Level Desc.</label>
+          <label for="archetype-bonus-input-{{id}}" class="flex-size-1">Short Level Desc.</label>
           <input id="archetype-bonus-input-{{id}}" class="flex-size-3" type="text" data-dtype="String"
           value="{{system.bonus}}" name="system.bonus" />
         </div>
         
         <div class="flexrow level-detail-entry">
-          <label for="archetype-feat-input-{{id}}" class="flex-size-2">Feat Gained</label>
+          <label for="archetype-feat-input-{{id}}" class="flex-size-1">Feat Gained</label>
           <input id="archetype-feat-input-{{id}}" class="flex-size-3" type="text" data-dtype="String"
           value="{{system.feat}}" name="system.feat" />
         </div>
@@ -82,31 +82,31 @@
         <div class="flexrow">
           {{#if usePlayerEridian}}
           <div class="flexrow level-detail-entry">
-            <label for="archetype-eridian-regen-{{id}}" class="flex-size-2">Eridian Reinvigorate</label>
+            <label for="archetype-eridian-regen-{{id}}" class="flex-size-2">Reinvigorate</label>
             <input id="archetype-eridian-regen-{{id}}" type="text" data-dtype="String"
             value="{{system.hps.eridian.regen}}" name="system.hps.eridian.regen" />
           </div>
           {{/if}}
           <div class="flexrow level-detail-entry">
-            <label for="archetype-shield-regen-{{id}}" class="flex-size-2">Shield Recharge</label>
+            <label for="archetype-shield-regen-{{id}}" class="flex-size-2">Recharge</label>
             <input id="archetype-shield-regen-{{id}}" type="text" data-dtype="String"
             value="{{system.hps.shield.regen}}" name="system.hps.shield.regen" />
           </div>
           {{#if usePlayerArmor}}
           <div class="flexrow level-detail-entry">
-            <label for="archetype-armor-regen-{{id}}" class="flex-size-2">Armor Repair</label>
+            <label for="archetype-armor-regen-{{id}}" class="flex-size-2">Repair</label>
             <input id="archetype-armor-regen-{{id}}" type="text" data-dtype="String"
             value="{{system.hps.armor.regen}}" name="system.hps.armor.regen" />
           </div>
           {{/if}}
           <div class="flexrow level-detail-entry">
-            <label for="archetype-flesh-regen-{{id}}" class="flex-size-2">Health Regen</label>
+            <label for="archetype-flesh-regen-{{id}}" class="flex-size-2">Regen</label>
             <input id="archetype-flesh-regen-{{id}}" type="text" data-dtype="String"
             value="{{system.hps.flesh.regen}}" name="system.hps.flesh.regen" />
           </div>
           {{#if usePlayerBone}}
           <div class="flexrow level-detail-entry">
-            <label for="archetype-bone-regen-{{id}}" class="flex-size-2">Bone Regrow</label>
+            <label for="archetype-bone-regen-{{id}}" class="flex-size-2">Regrow</label>
             <input id="archetype-bone-regen-{{id}}" type="text" data-dtype="String"
             value="{{system.hps.flesh.regen}}" name="system.hps.bone.regen" />
           </div>
