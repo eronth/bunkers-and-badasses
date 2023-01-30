@@ -7,7 +7,7 @@ Updates
 * Added ability to mark which weapon is currently in-hand.
 * Added display for extra attack damage in Action! tab gun slots.
 * Added display for skill points used.
-
+* Added display for potion counts.
 
 Bugfixes
 * Improved visuals for various combined Regen sources.

@@ -68,6 +68,10 @@
           "value": 0,
           "max": 3
         },
+        "potions": {
+          "value": 0,
+          "max": 2
+        },
         "hps": {
           "flesh": {
             "gains": []
