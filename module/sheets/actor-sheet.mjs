@@ -970,8 +970,10 @@ export class BNBActorSheet extends ActorSheet {
     if (items?._source) {
       Object.entries(items._source).forEach(([key, item]) => {
         if (item.type === 'shield') {
-          if (item.system.elements[damageType].enabled) {
-            reduction += item.system.elements[damageType].damage + '+';
+          if (item.system.equipped) {
+            if (item.system.elements[damageType].enabled) {
+              reduction += item.system.elements[damageType].damage + '+';
+            }
           }
         }
       });
