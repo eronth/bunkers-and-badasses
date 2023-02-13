@@ -1055,7 +1055,7 @@ export class BNBActorSheet extends ActorSheet {
       }
     });
 
-    // TODO Display the damage to chat.
+    // TODO Display the damage to chat. 
 
     // Square brackets needed to get the right value.
     const attributeLabel = `system.attributes.hps`;
@@ -1702,10 +1702,14 @@ export class BNBActorSheet extends ActorSheet {
     const rollStatMod = isFavored ? ` + @acc[ACC ${actorSystem.attributes.badass.rollsEnabled ? 'Stat' : 'Mod'}]` : '';
     const rollGearAccBonus = ` + @gearacc[Gear ACC]`;
     
-    // SPECIAL special logic for a unique legendary.
-    const rollMstMod = (itemOverrideType.toLowerCase() === 'mwbg') ? ` + @mst[MST ${actorSystem.attributes.badass.rollsEnabled ? 'Stat' : 'Mod'}]` : '';
-    const rollGearMstBonus = (itemOverrideType.toLowerCase() === 'mwbg') ? ` + @gearmst[Gear MST]` : '';
-    // /SPECIAL special logic for a unique legendary.
+    //// SPECIAL special logic for a unique legendary.
+    const rollMstMod = (itemOverrideType.toLowerCase() === 'mwbg')
+      ? ` + @mst[MST ${actorSystem.attributes.badass.rollsEnabled ? 'Stat' : 'Mod'}]`
+      : '';
+    const rollGearMstBonus = (itemOverrideType.toLowerCase() === 'mwbg')
+      ? ` + @gearmst[Gear MST]`
+      : '';
+    //// /SPECIAL special logic for a unique legendary.
 
     const rollMiscBonus = ` + @shootingmisc[Misc]`;
     const rollEffectsBonus = ` + @shootingeffects[Effects]`;
@@ -1866,11 +1870,13 @@ export class BNBActorSheet extends ActorSheet {
       total: rollResult.total,
       showDamageButton: true,
       bonusFromAcc: bonusFromAcc,
+      attackType: 'melee',
       success: !isFail,
       failure: isFail,
       isPlusOneDice: isPlusOneDice,
       isDoubleDamage: isDoubleDamage,
       isCrit: isCrit,
+      critHit: isCrit,
     });
 
     // Prep chat values.
@@ -1930,7 +1936,7 @@ export class BNBActorSheet extends ActorSheet {
       hitsAndCrits.hits += (combatBonuses?.special?.hits1 ?? 0);
       hitsAndCrits.crits += (combatBonuses?.special?.crits1 ?? 0);
     }
-
+    
     // Generate message for chat.
     const templateLocation = 'systems/bunkers-and-badasses/templates/chat/gun-attack-roll.html';
     const chatHtmlContent = await renderTemplate(templateLocation, {
@@ -1940,6 +1946,7 @@ export class BNBActorSheet extends ActorSheet {
       result: rollResult.result,
       total: rollResult.total,
       redText: itemSystem.redText,
+      attackType: 'shooting',
       hits: hitsAndCrits.hits, crits: hitsAndCrits.crits,
       bonusCritsText: isCrit ? "+1 Crit (already added)" : "",
       critHit: isCrit,   success: !isFail,   failure: isFail,
@@ -1983,6 +1990,7 @@ export class BNBActorSheet extends ActorSheet {
       result: rollResult.result,
       total: rollResult.total,
       difficulty: difficultyValue,
+      attackType: 'check',
       success: difficultyEntered && rollResult.total >= difficultyValue,
       failure: difficultyEntered && rollResult.total < difficultyValue,
     });
@@ -2024,6 +2032,7 @@ export class BNBActorSheet extends ActorSheet {
       total: rollResult.total,
       difficulty: difficultyValue,
       redText: itemSystem.redText,
+      attackType: 'grenade',
       showDamageButton: true,
       success: difficultyEntered && rollResult.total >= difficultyValue,
       failure: difficultyEntered && rollResult.total < difficultyValue,
