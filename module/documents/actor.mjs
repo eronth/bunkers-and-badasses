@@ -246,6 +246,21 @@ export class BNBActor extends Actor {
     const actor = game.actors.get(dataSet.actorId);
     if (actor === null) return;
     const actorSystem = actor.system;
+    const archetypeBonusDamages = actorSystem?.archetypeLevelBonusTotals?.bonusDamage;
+
+    const levelUpDamage = (0
+      + (archetypeBonusDamages?.anyAttack ?? 0)
+      + ((dataSet.attackType === 'shooting') ? (archetypeBonusDamages?.shootingAttack ?? 0) : 0)
+      + ((dataSet.attackType === 'melee') ? (archetypeBonusDamages?.meleeAttack ?? 0) : 0)
+      + ((dataSet.attackType === 'grenade') ? (archetypeBonusDamages?.grenade ?? 0) : 0)
+      + ((archetypeBonusDamages?.perHit ?? 0) * (dataSet.hits ?? 0))
+      + ((archetypeBonusDamages?.perCrit ?? 0) * (dataSet.crits ?? 0))
+      + (dataSet.crits ? (archetypeBonusDamages?.ifAnyCrit ?? 0) : 0)
+      // TODO add a way to know if the attack is elemental or not.
+      // + (isNonElemental ? (archetypeBonusDamages?.elements?.kinetic ?? 0) : 0)
+      // + (isElemental ? (archetypeBonusDamages?.elements?.other ?? 0) : 0)
+      + (dataSet.critHit ? (archetypeBonusDamages?.onNat20 ?? 0) : 0)
+    );
 
     const isPlusOneDice = dataSet.plusOneDice === 'true';
     const isDoubleDamage = dataSet.doubleDamage === 'true';
