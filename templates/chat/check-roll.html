@@ -17,6 +17,7 @@ data-actor-id="{{actorId}}" data-item-id="{{itemId}}" >
   {{#if showDamageButton}}
   <div class="chat-damage-buttons">
     <button data-action="damage"
+    data-attack-type={{attackType}}
     data-actor-id="{{actorId}}"
     data-item-id="{{itemId}}" 
     data-flavor="Boom!!">
