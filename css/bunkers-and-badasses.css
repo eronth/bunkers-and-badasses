@@ -372,18 +372,24 @@ input[type="time"]:focus {
 }
 
 .bnb .builder-common-container .bonus-max-xp-label,
+.bnb .builder-common-container .base-potions-label,
+.bnb .builder-common-container .base-grenades-label,
 .bnb .builder-common-container .badass-rank-label {
   font-weight: bold;
   text-align: center;
   align-self: center;
   justify-self: center;
 }
+.bnb .builder-common-container .base-potions-label,
+.bnb .builder-common-container .base-grenades-label,
 .bnb .builder-common-container .badass-rank-label {
   min-width: 100px;
   margin-left: 4px;
   margin-right: 2px;
 }
-.bnb .builder-common-container .current-xp-input, 
+.bnb .builder-common-container .current-xp-input,
+.bnb .builder-common-container .base-max-potions-input,
+.bnb .builder-common-container .base-max-grenades-input,
 .bnb .builder-common-container .badass-rank-input {
   align-self: center;
   text-align: center;
@@ -834,6 +840,8 @@ input[type="time"]:focus {
 }
 
 .bnb .builder-common-container .xp-manage-container,
+.bnb .builder-common-container .base-max-potions-container,
+.bnb .builder-common-container .base-max-grenades-container,
 .bnb .builder-common-container .badass-rank-container {
   text-align: center;
   align-items: center;

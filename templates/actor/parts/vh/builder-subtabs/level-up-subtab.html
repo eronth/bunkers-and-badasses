@@ -37,6 +37,45 @@
 
 </div>
 
+
+
+<div class="flexrow builder-common-container">
+  <div class="flexrow flex-size-2 base-max-potions-container">
+    {{!-- Base Max Potions Rank --}}
+    <div>
+      <label for="base-potions" class="base-potions-label"><i class="fas fa-flask-round-potion"></i> Base Max Potions</label>
+    </div>
+    <div>  
+      <input id="base-potions" class="base-max-potions-input"
+      placeholder="Max Potions" name="system.attributes.potions.max" 
+      value="{{system.attributes.potions.max}}"
+      onfocus="this.select()" type="number" data-dtype="Number" />
+    </div>
+  </div>
+  
+  <div class="flexrow flex-size-2 base-max-grenades-container">
+    {{!-- Base Max Grenades Rank --}}
+    <div>
+      <label for="base-grenades" class="base-grenades-label"><i class="fas fa-bomb"></i> Base Max Grenades</label>
+    </div>
+    <div>  
+      <input id="base-grenades" class="base-max-grenades-input"
+      placeholder="Max Grenades" name="system.attributes.grenades.max" 
+      value="{{system.attributes.grenades.max}}"
+      onfocus="this.select()" type="number" data-dtype="Number" />
+    </div>
+  </div>
+
+</div>
+
+<div class="flexrow">
+  <i class="fa-solid fa-flask-round-potion"></i>
+  <i class="fas fa-flask-round-potion"></i>
+  <i class="fas fa-explosion"></i>
+  <i class="fas fa-burst"></i>
+  <i class="fas fa-bomb"></i>
+</div>
+
 {{!-- Favored Segment --}}
 <div class="flexcol flex-size-2 favored-section">
   {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/builder-subtabs/builder-components/favored-weapon-component.html"}}
