@@ -57,6 +57,9 @@ export class BNBActorSheet extends ActorSheet {
       useShield: true
     };
 
+    context.potionCount = { value: 0, max: (actorData.system?.attributes?.potions?.max ?? 0) };
+    context.maxGrenades = (actorData.system?.attributes?.grenades.max ?? 0);
+    
     // Prepare Vault Hunter data and items.
     if (actorData.type == 'vault hunter') {
       context.skillPoints = { value: 0, max: 0 };
@@ -391,6 +394,8 @@ export class BNBActorSheet extends ActorSheet {
     });
 
     context.skillPoints.max += archetypeLevelBonusTotals.skillPoints;
+    context.potionCount.max += archetypeLevelBonusTotals.maxPotions;
+    context.maxGrenades += archetypeLevelBonusTotals.maxGrenades;
     
     const albHasChanges = JSON.stringify(archetypeLevelBonusTotals) !== JSON.stringify(oldActorAlbt);
     if (albHasChanges) {
@@ -666,7 +671,10 @@ export class BNBActorSheet extends ActorSheet {
         if (i.system.equipped) { equippedGrenades.push(i); }
       }
       else if (i.type === 'relic') { relics.push(i); }
-      else if (i.type === 'potion') { potions.push(i); }
+      else if (i.type === 'potion') {
+        potions.push(i);
+        context.potionCount.value += i.system.quantity;
+      }
     }
 
     
