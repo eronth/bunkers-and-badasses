@@ -14,9 +14,8 @@
   <div class="flexrow flex-size-1 centerize potion-input">
     <label for="potion-count-input" class="potion-input-label flex-size-2 bolded">Potions: </label>
     {{> "systems/bunkers-and-badasses/templates/general/divided-input.html"
-      id="potion"
-      targetObj=system.attributes.potions targetText="system.attributes.potions"
-      leftDisable=false rightDisable=false
+      id="potion" targetObj=potionCount
+      leftDisable=true rightDisable=true
     }}
   </div> 
   <div class="flexrow flex-size-1 centerize grenade-input">
@@ -24,7 +23,8 @@
     {{> "systems/bunkers-and-badasses/templates/general/divided-input.html"
       id="grenade"
       targetObj=system.attributes.grenades targetText="system.attributes.grenades"
-      leftDisable=false rightDisable=false
+      rightValueOverride=maxGrenades
+      leftDisable=false rightDisable=true
     }}
   </div>
 </div>

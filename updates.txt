@@ -8,6 +8,7 @@ Updates
 * Added display for extra attack damage in Action! tab gun slots.
 * Added display for skill points used.
 * Added display for potion counts.
+* Updated grenade count displays to match potions and skill points.
 
 Bugfixes
 * Improved visuals for various combined Regen sources.
