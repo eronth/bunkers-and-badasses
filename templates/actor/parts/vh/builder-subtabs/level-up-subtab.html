@@ -22,17 +22,8 @@
     </div>
   </div>
 
-  <div class="flexrow flex-size-2 badass-rank-container">
-    {{!-- Badass Rank --}}
-    <div>
-      <label for="badass-rank" class="badass-rank-label"><i class="fas fa-skull"></i> Badass Rank</label>
-    </div>
-    <div>  
-      <input id="badass-rank" class="badass-rank-input"
-      placeholder="Badass Rank" name="system.attributes.badass.rank" 
-      value="{{system.attributes.badass.rank}}"
-      onfocus="this.select()" type="number" data-dtype="Number" />
-    </div>
+  <div class="flexrow flex-group-center level-up-health-container">
+    <label class="melee-dice-header rollable" data-roll-type="melee-dice-roll"><i class="fa fa-dice-d20"></i> Level Up Health</label>
   </div>
 
 </div>
@@ -40,12 +31,26 @@
 
 
 <div class="flexrow builder-common-container">
+
+  <div class="flexrow flex-size-2 badass-rank-container">
+    {{!-- Badass Rank --}}
+    <div class="flexrow flex-size-5">
+      <label for="badass-rank" class="badass-rank-label"><i class="fas fa-skull"></i> Badass Rank</label>
+    </div>
+    <div class="flexrow flex-size-1">
+      <input id="badass-rank" class="badass-rank-input"
+      placeholder="Badass Rank" name="system.attributes.badass.rank" 
+      value="{{system.attributes.badass.rank}}"
+      onfocus="this.select()" type="number" data-dtype="Number" />
+    </div>
+  </div>
+
   <div class="flexrow flex-size-2 base-max-potions-container">
     {{!-- Base Max Potions Rank --}}
-    <div>
+    <div class="flexrow flex-size-5">
       <label for="base-potions" class="base-potions-label"><i class="fas fa-flask-round-potion"></i> Base Max Potions</label>
     </div>
-    <div>  
+    <div class="flexrow flex-size-1">
       <input id="base-potions" class="base-max-potions-input"
       placeholder="Max Potions" name="system.attributes.potions.max" 
       value="{{system.attributes.potions.max}}"
@@ -55,10 +60,10 @@
   
   <div class="flexrow flex-size-2 base-max-grenades-container">
     {{!-- Base Max Grenades Rank --}}
-    <div>
+    <div class="flexrow flex-size-5">
       <label for="base-grenades" class="base-grenades-label"><i class="fas fa-bomb"></i> Base Max Grenades</label>
     </div>
-    <div>  
+    <div class="flexrow flex-size-1">
       <input id="base-grenades" class="base-max-grenades-input"
       placeholder="Max Grenades" name="system.attributes.grenades.max" 
       value="{{system.attributes.grenades.max}}"
@@ -66,14 +71,6 @@
     </div>
   </div>
 
-</div>
-
-<div class="flexrow">
-  <i class="fa-solid fa-flask-round-potion"></i>
-  <i class="fas fa-flask-round-potion"></i>
-  <i class="fas fa-explosion"></i>
-  <i class="fas fa-burst"></i>
-  <i class="fas fa-bomb"></i>
 </div>
 
 {{!-- Favored Segment --}}

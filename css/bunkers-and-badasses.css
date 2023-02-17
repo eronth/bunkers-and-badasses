@@ -840,6 +840,7 @@ input[type="time"]:focus {
 }
 
 .bnb .builder-common-container .xp-manage-container,
+.bnb .builder-common-container .level-up-health-container,
 .bnb .builder-common-container .base-max-potions-container,
 .bnb .builder-common-container .base-max-grenades-container,
 .bnb .builder-common-container .badass-rank-container {
@@ -852,9 +853,6 @@ input[type="time"]:focus {
 }
 .bnb .builder-common-container .xp-manage-container {
   margin-right: 1px;
-}
-.bnb .builder-common-container .badass-rank-container {
-  margin-left: 1px;
 }
 
 .badass-container {
@@ -875,6 +873,7 @@ input[type="time"]:focus {
   align-items: center
 }
 .xp-manage-container label,
+.level-up-health-container label,
 .badass-container label,
 .badass-container a {
   font-weight: bold;
