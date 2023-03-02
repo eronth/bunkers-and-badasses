@@ -1,22 +1,23 @@
 {
   "id": "bunkers-and-badasses",
   "title": "Bunkers & Badasses",
-  "description": "Badasses, loot, and mayhem. This system is for running the tabletop adaptation of Borderlands' 'Bunkers & Badasses' by Nerdvana.",
+  "description": "Badasses, loot, and mayhem. This system is for running the tabletop adaptation of Borderlands' 'Bunkers &amp; Badasses' by Nerdvana.",
   "version": "0.3.5",
-  "compatibleCoreVersion": "10",
   "compatibility": {
     "minimum": 10,
-    "verified": 10.288,
-    "maximum": 10
+    "verified": 10.291
   },
-  "templateVersion": 2,
-  "authors": [{
-    "name": "Nic Pereira",
-    "email": "BadassBunks@nicpereira.dev",
-    "discord": "emf#0016"
-  }],
-  "scripts": [],
-  "esmodules": ["module/bunkers-and-badasses.mjs"],
+  "authors": [
+    {
+      "name": "Nic Pereira",
+      "email": "BadassBunks@nicpereira.dev",
+      "discord": "emf#0016",
+      "flags": {}
+    }
+  ],
+  "esmodules": [
+    "module/bunkers-and-badasses.mjs"
+  ],
   "styles": [
     "css/common-colors/color-declare.css",
     "css/bunkers-and-badasses.css",
@@ -32,27 +33,61 @@
     "css/header/health.css",
     "css/header/xp-bar.css"
   ],
-  "packs": [{
-    "label": "Unique Guns", "name": "unique-guns",
-    "path": "packs/unique-guns.db", "entity": "Item"
-  }, {
-    "label": "Unique Grenades", "name": "unique-grenades",
-    "path": "packs/unique-grenades.db", "entity": "Item"
-  }, {
-    "label": "Unique Shields", "name": "unique-shields",
-    "path": "packs/unique-shields.db", "entity": "Item"
-  }, {
-    "label": "Unique Potions", "name": "unique-potions",
-    "path": "packs/unique-potions.db", "entity": "Item"
-  }, {
-    "label": "Unique Relics", "name": "unique-relics",
-    "path": "packs/unique-relics.db", "entity": "Item"
-  }],
-  "languages": [{
-    "lang": "en",
-    "name": "English",
-    "path": "lang/en.json"
-  }],
+  "packs": [
+    {
+      "label": "Unique Guns",
+      "name": "unique-guns",
+      "path": "packs/unique-guns.db",
+      "type": "Item",
+      "private": false,
+      "system": "bunkers-and-badasses",
+      "flags": {}
+    },
+    {
+      "label": "Unique Grenades",
+      "name": "unique-grenades",
+      "path": "packs/unique-grenades.db",
+      "type": "Item",
+      "private": false,
+      "system": "bunkers-and-badasses",
+      "flags": {}
+    },
+    {
+      "label": "Unique Shields",
+      "name": "unique-shields",
+      "path": "packs/unique-shields.db",
+      "type": "Item",
+      "private": false,
+      "system": "bunkers-and-badasses",
+      "flags": {}
+    },
+    {
+      "label": "Unique Potions",
+      "name": "unique-potions",
+      "path": "packs/unique-potions.db",
+      "type": "Item",
+      "private": false,
+      "system": "bunkers-and-badasses",
+      "flags": {}
+    },
+    {
+      "label": "Unique Relics",
+      "name": "unique-relics",
+      "path": "packs/unique-relics.db",
+      "type": "Item",
+      "private": false,
+      "system": "bunkers-and-badasses",
+      "flags": {}
+    }
+  ],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json",
+      "flags": {}
+    }
+  ],
   "socket": true,
   "initiative": "1d20 + @attributes.badass.rank + @checks.initiative.value + @checks.initiative.misc + @bonus.checks.initiative",
   "gridDistance": 1,
