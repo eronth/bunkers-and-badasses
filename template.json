@@ -170,11 +170,13 @@
             "spd": 0,
             "mst": 0
           },
+          "rewardsAreCollapsed": false,
           "rewards": []
         },
         "archetype2": {
           "name": "",
           "level": 0,
+          "rewardsAreCollapsed": false,
           "rewards": []
         }
       },

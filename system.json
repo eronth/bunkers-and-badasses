@@ -31,7 +31,8 @@
     "css/health.css",
     "css/header/health.css",
     "css/header/xp-bar.css",
-    "css/archetype-level.css"
+    "css/archetype-level.css",
+    "node_modules/rpg-awesome/css/rpg-awesome.min.css"
   ],
   "packs": [{
     "label": "Unique Guns", "name": "unique-guns",

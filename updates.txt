@@ -9,7 +9,8 @@ Updates
 * Added display for skill points used.
 * Added display for potion counts.
 * Updated grenade count displays to match potions and skill points.
-* Added text that rolls health you gain on level up in teh Level Up tab.
+* Added text that rolls health you gain on level up in the Level Up tab.
+* Adding ability to collapse potentially large sections.
 
 Bugfixes
 * Improved visuals for various combined Regen sources.

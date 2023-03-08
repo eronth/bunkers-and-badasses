@@ -52,7 +52,12 @@
   <!-- Archetype Levels -->
   <ol class="items-list">
     <li class="item flexrow items-header">
-      <div class="item-name">Achetype Level Reward</div>
+      <div class="item-name clickable archetype-reward-collapse-toggle"
+      data-archetype-number="{{archetypeNum}}">
+        {{> "systems/bunkers-and-badasses/templates/general/accordion-toggle-icon.html"
+          collapsed=archetype.rewardsAreCollapsed
+          text="Achetype Level Reward"}}
+      </div>
       <div class="item-controls">
         <a class="item-control item-create" title="Create item" data-dtype="Archetype Level"
         data-archetype-number="{{archetypeNum}}" data-archetype-count="{{archetypeLevels.length}}">
@@ -60,6 +65,7 @@
         </a>
       </div>
     </li>
+    {{^archetype.rewardsAreCollapsed}}
     {{#each archetypeLevels as |item id|}}
     <li class="item item-element-group flexrow" data-item-id="{{item._id}}">
       <div class="item-name bolded flex-size-2">Level {{item.system.level}}</div>
@@ -86,5 +92,6 @@
       </div>
     </li>
     {{/each}}
+    {{/archetype.rewardsAreCollapsed}}
   </ol>
 </div>

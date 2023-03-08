@@ -108,6 +108,16 @@ export class OnActionUtil {
     return ChatMessage.create(messageData);
   }
 
+  static async onarchetypeRewardCollapseToggle(event, actor) {
+    // Prep data
+    const archetypeNum = event.currentTarget.dataset.archetypeNumber;
+    const archetype = actor.system.archetypes["archetype" + archetypeNum];
+
+    // // Square brackets needed to get the right value.
+    const attributeLabel = `system.archetypes.archetype${archetypeNum}.rewardsAreCollapsed`;
+    return await actor.update({[attributeLabel]: !archetype.rewardsAreCollapsed});
+  }
+
   // I wanted these to be automatic, but it was just straight up not working.
   // Instead, I will just make the players manually update their archetype levels.
   static async onOldArchetypeRewardUpgrade(event, actor) {
