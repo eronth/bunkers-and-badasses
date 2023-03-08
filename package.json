@@ -1,7 +1,7 @@
 {
   "name": "bunkers-and-badasses",
   "version": "1.0.0",
-  "description": "CSS compiler for the Bunkers 🙵 Badasses system",
+  "description": "CSS compiler for the Bunkers & Badasses system",
   "scripts": {
     "build": "gulp build",
     "compile": "gulp css",
@@ -15,9 +15,6 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "gulp": "^4.0.2",
-    "gulp-autoprefixer": "^8.0.1",
-    "gulp-sass": "^5.1.0",
-    "gulp-sourcemaps": "^3.0.0"
+    "rpg-awesome": "^0.2.0"
   }
 }

@@ -51,6 +51,12 @@ export class HandlebarsHelperUtil {
       : false)
     );
 
+    Handlebars.registerHelper('lootCategoryIsCollapsed', (isCollapsed, category) =>
+      (isCollapsed
+      ? (isCollapsed[category] ?? false)
+      : false)
+    );
+
     Handlebars.registerHelper('toFavoredElementObject', function(...values) {
       return {label: values[0], favored: values[1]};
     });

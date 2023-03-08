@@ -55,6 +55,14 @@
     "vault hunter": {
       "templates": ["base"],
       "gold": 0,
+      "isCollapsed": {
+        "guns": false,
+        "shields": false,
+        "grenades": false,
+        "relics": false,
+        "potions": false,
+        "key": false
+      },
       "attributes": {
         "badass": {
           "rank": 1,

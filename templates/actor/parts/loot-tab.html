@@ -31,7 +31,12 @@
 {{!-- Guns --}}
 <ol class="items-list">
   <li class="item flexrow items-header">
-    <div class="item-name">Guns</div>
+    <div class="item-name clickable loot-category-collapse-toggle"
+    data-loot-category-type="guns">
+      {{> "systems/bunkers-and-badasses/templates/general/accordion-toggle-icon.html"
+        collapsed=(lootCategoryIsCollapsed isCollapsed "guns")
+        text="Guns"}}
+    </div>
     <div class="item-details">
       <div class="item-effect flex-size-5"><label>Description</label></div>
     </div>
@@ -42,6 +47,7 @@
       <a class="item-control item-create" title="Create Item" data-dtype="gun"><i class="fas fa-plus"></i> Add Gun</a>
     </div>
   </li>
+  {{^if (lootCategoryIsCollapsed isCollapsed "guns")}}
   {{#each guns as |item id|}}
   <li class="item item-element-group loot-rarity-fade-border flexrow" 
     style="--rarityColor: {{item.system.rarity.colorValue}}"
@@ -109,11 +115,17 @@
   </li>
   {{log item}}
   {{/each}}
+  {{/if}}
 </ol>
 {{!-- Shields --}}
 <ol class="items-list">
   <li class="item flexrow items-header">
-    <div class="item-name">Shield Mods</div>
+    <div class="item-name clickable loot-category-collapse-toggle"
+    data-loot-category-type="shields">
+      {{> "systems/bunkers-and-badasses/templates/general/accordion-toggle-icon.html"
+        collapsed=(lootCategoryIsCollapsed isCollapsed "shields")
+        text="Shield Mods"}}
+    </div>
     <div class="item-details">
       <div class="item-effect flex-size-5"><label>Description</label></div>
       <!-- <div class="item-capacity flex-size-5"><label>Class Effect</label></div> -->
@@ -125,6 +137,7 @@
       <a class="item-control item-create" title="Create Item" data-dtype="shield"><i class="fas fa-plus"></i> Add Shield</a>
     </div>
   </li>
+  {{^if (lootCategoryIsCollapsed isCollapsed "shields")}}
   {{#each shields as |item id|}}
   <li class="item item-element-group loot-rarity-fade-border flexrow" 
       style="--rarityColor: {{item.system.rarity.colorValue}}"
@@ -177,11 +190,17 @@
   </li>
   {{log item}}
   {{/each}}
+  {{/if}}
 </ol>
 {{!-- Grenades --}}
 <ol class="items-list">
   <li class="item flexrow items-header">
-    <div class="item-name">Grenade Mods</div>
+    <div class="item-name clickable loot-category-collapse-toggle"
+    data-loot-category-type="grenades">
+      {{> "systems/bunkers-and-badasses/templates/general/accordion-toggle-icon.html"
+        collapsed=(lootCategoryIsCollapsed isCollapsed "grenades")
+        text="Grenade Mods"}}
+    </div>
     <div class="item-details">
       <div class="item-effect flex-size-5"><label>Description</label></div>
     </div>
@@ -192,6 +211,7 @@
       <a class="item-control item-create" title="Create Item" data-dtype="grenade"><i class="fas fa-plus"></i> Add Grenade</a>
     </div>
   </li>
+  {{^if (lootCategoryIsCollapsed isCollapsed "grenades")}}
   {{#each grenades as |item id|}}
   <li class="item item-element-group loot-rarity-fade-border flexrow" 
     style="--rarityColor: {{item.system.rarity.colorValue}}"
@@ -211,7 +231,7 @@
     <div class="item-details">
       <div class="flexcol item-effec-stack-container">
         <div class="item-effect item-prop-stack">
-          <label class="item-effect">
+          <label class="item-effect item-prop-left">
             <div>{{#if item.system.effect}}<b>Effect</b>:{{/if}} {{item.system.effect}}</div>
           </label>
         </div>
@@ -234,11 +254,17 @@
   </li>
   {{log item}}
   {{/each}}
+  {{/if}}
 </ol>
 {{!-- Relics --}}
 <ol class="items-list">
   <li class="item flexrow items-header">
-    <div class="item-name">Relics</div>
+    <div class="item-name clickable loot-category-collapse-toggle"
+    data-loot-category-type="relics">
+      {{> "systems/bunkers-and-badasses/templates/general/accordion-toggle-icon.html"
+        collapsed=(lootCategoryIsCollapsed isCollapsed "relics")
+        text="Relics"}}
+    </div>
     <div class="item-details">
       <div class="item-effect flex-size-5"><label>Effect</label></div>
       <!-- <div class="item-capacity flex-size-5"><label>Class Effect</label></div> -->
@@ -250,6 +276,7 @@
       <a class="item-control item-create" title="Create Item" data-dtype="relic"><i class="fas fa-plus"></i> Add Relic</a>
     </div>
   </li>
+  {{^if (lootCategoryIsCollapsed isCollapsed "relics")}}
   {{#each relics as |item id|}}
   {{log item}}
   <li class="item item-element-group loot-rarity-fade-border flexrow" 
@@ -288,11 +315,17 @@
     </div>
   </li>
   {{/each}}
+  {{/if}}
 </ol>
 {{!-- Potions --}}
 <ol class="items-list">
   <li class="item flexrow items-header">
-    <div class="item-name">Potions</div>
+    <div class="item-name clickable loot-category-collapse-toggle"
+    data-loot-category-type="potions">
+      {{> "systems/bunkers-and-badasses/templates/general/accordion-toggle-icon.html"
+        collapsed=(lootCategoryIsCollapsed isCollapsed "potions")
+        text="Potions"}}
+    </div>
     <div class="item-details">
       <div class="item-effect flex-size-5"><label>Effect</label></div>
     </div>
@@ -303,6 +336,7 @@
       <a class="item-control item-create" title="Create Item" data-dtype="potion"><i class="fas fa-plus"></i> Add Potion</a>
     </div>
   </li>
+  {{^if (lootCategoryIsCollapsed isCollapsed "potions")}}
   {{#each potions as |item id|}}
   {{log item}}
   <li class="item item-element-group loot-rarity-fade-border flexrow" 
@@ -345,11 +379,17 @@
     </div>
   </li>
   {{/each}}
+  {{/if}}
 </ol>
 {{!-- Key/Generic Items --}}
 <ol class="items-list">
   <li class="item flexrow items-header">
-    <div class="item-name">Key Items</div>
+    <div class="item-name clickable loot-category-collapse-toggle"
+    data-loot-category-type="key">
+      {{> "systems/bunkers-and-badasses/templates/general/accordion-toggle-icon.html"
+        collapsed=(lootCategoryIsCollapsed isCollapsed "key")
+        text="Key Items"}}
+    </div>
     <div class="item-details">
       <div class="item-effect flex-size-5"><label>Effect</label></div>
     </div>
@@ -360,6 +400,7 @@
       <a class="item-control item-create" title="Create Item" data-dtype="key item"><i class="fas fa-plus"></i> Add Item</a>
     </div>
   </li>
+  {{^if (lootCategoryIsCollapsed isCollapsed "key")}}
   {{#each keyItems as |item id|}}
   {{log item}}
   <li class="item item-element-group loot-rarity-fade-border flexrow" 
@@ -396,4 +437,5 @@
     </div>
   </li>
   {{/each}}
+  {{/if}}
 </ol>
