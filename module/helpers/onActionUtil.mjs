@@ -108,4 +108,45 @@ export class OnActionUtil {
     return ChatMessage.create(messageData);
   }
 
+  // I wanted these to be automatic, but it was just straight up not working.
+  // Instead, I will just make the players manually update their archetype levels.
+  static async onOldArchetypeRewardUpgrade(event, actor) {
+    // Pull data from event.
+    const archetypeNum = event.currentTarget.dataset.archetypeNumber;
+    const rewardIndex = event.currentTarget.dataset.rewardIndex;
+    const archetype = actor.system.archetypes["archetype" + archetypeNum];
+    const reward = archetype.rewards[rewardIndex];
+    
+    // Prep sepcific data for saving.
+    const itemSystemData = {
+      archetypeNumber: archetypeNum,
+      level: reward?.Level ?? 0,
+      bonus: reward?.Description,
+      description: reward?.Description,
+    };
+    // Prepare item base data.
+    const newArchetypeLevelData = {
+      name: 'New Archetype Level',
+      type: "Archetype Level",
+      img: 'icons/svg/upgrade.svg',
+      system: {...itemSystemData}
+    };
+
+    // Create item for use.
+    const newArchetypeLevelItem = await Item.create(newArchetypeLevelData, { parent: actor });
+    this.onOldArchetypeRewardDelete(event, actor);
+  }
+
+  static async onOldArchetypeRewardDelete(event, actor) {
+    // Pull data from event.
+    const archetypeNum = event.currentTarget.dataset.archetypeNumber;
+    const rewardIndex = event.currentTarget.dataset.rewardIndex;
+    const archetype = actor.system.archetypes["archetype" + archetypeNum];
+    
+    // Prep data for saving.
+    archetype.rewards.splice(rewardIndex, 1);
+    
+    // Square brackets needed to get the right value.
+    actor.update({["system.archetypes.archetype"+archetypeNum+".rewards"]: archetype.rewards});
+  }
 }

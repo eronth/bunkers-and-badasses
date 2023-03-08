@@ -154,53 +154,6 @@ export class BNBActorSheet extends ActorSheet {
       this.actor.update({[attributeLabel]: effectsHPs});
     }
     ////////////  Update HP From Previous Versions  ////////////
-
-    ///////////////////////////////////
-    //////// Update from 0.3.5 ////////
-    ///////////////////////////////////
-    const archetypes = this?.actor?.system?.archetypes;
-    const archetype1Rewards = archetypes?.archetype1?.rewards;
-    const archetype2Rewards  = archetypes?.archetype2?.rewards;
-
-    if (archetype1Rewards && archetype1Rewards.length > 0) {
-    //   let currentItemNum = 1;
-    //   for (let reward in archetype1Rewards) {  
-    //     // Prepare item data.
-    //     const itemSystemData = {
-    //       archetypeNumber: 1,
-    //       level: reward?.level ?? currentItemNum,
-    //       bonus: reward?.description,
-    //       description: reward?.description,
-    //     };
-    //     const newArchetypeLevelData = {
-    //       name: 'New Archetype Level',
-    //       type: "Archetype Level",
-    //       img: 'icons/svg/upgrade.svg',
-    //       system: {...itemSystemData}
-    //     };
-    //     currentItemNum++;
-  
-    //     // Create item for use.
-    //     const newArchetypeLevelItem = await Item.create(newArchetypeLevelData, { parent: this.actor });
-    //     context.items.push(newArchetypeLevelItem);
-    //   }
-    // // // // // // // // //   archetype1Rewards.level
-    // // // // // // // // // archetype1Rewards.description
-    //   // // Square brackets needed to get the right value.
-    //   const attributeLabel = `system.archetypes.archetype1.rewards`;
-    //   this.actor.update({[attributeLabel]: null});
-    }
-    
-    // if (archetype2Rewards && archetype2Rewards.length > 0) {
-    //   for (let reward in archetype2Rewards) {
-        
-    //   }
-    //   // Square brackets needed to get the right value.
-    //   const attributeLabel = `system.archetypes.archetype2.rewards`;
-    //   this.actor.update({[attributeLabel]: null});
-    // }
-
-    
   }
 
   _updateNPCFromPreviousVersions(context) {
@@ -745,10 +698,6 @@ export class BNBActorSheet extends ActorSheet {
 
   }
 
-  prepareMissingArchetypeSkills() {
-
-  }
-
   defaultArchetypeLevelBonusTotals() {
     return {
       skillPoints: 0,
@@ -813,11 +762,10 @@ export class BNBActorSheet extends ActorSheet {
     html.find('.item-create').click((event) => OnActionUtil.onItemCreate(event, this.actor));
     html.find('.item-edit').click((event) => OnActionUtil.onItemEdit(event, this.actor));
     html.find('.item-delete').click((event) => OnActionUtil.onItemDelete(event, this.actor, this.inRender.bind(this, false)));
-
+    
     // Handle Archetype Rewards.
-    // html.find('.archetype-reward-create').click(this._onArchetypeRewardCreate.bind(this));
-    // html.find('.archetype-reward-edit').click(this._onArchetypeRewardEdit.bind(this));
-    // html.find('.archetype-reward-delete').click(this._onArchetypeRewardDelete.bind(this));
+    html.find('.old-archetype-reward-upgrade').click((event) => OnActionUtil.onOldArchetypeRewardUpgrade(event, this.actor));
+    html.find('.old-archetype-reward-delete').click((event) => OnActionUtil.onOldArchetypeRewardDelete(event, this.actor));
     
     // Handle action skill.
     html.find('.action-skill-use').click((event) => OnActionUtil.onActionSkillUse(event, this.actor));
@@ -854,87 +802,6 @@ export class BNBActorSheet extends ActorSheet {
         li.addEventListener("dragstart", handler, false);
       });
     }
-  }
-
-  _onArchetypeRewardCreate(event) {
-    const archetypeNum = event.currentTarget.dataset.archetypeNumber;
-    const archetypeRewards = this.actor.system.archetypes["archetype" + archetypeNum].rewards;
-
-    // Figure out the current archetype highest level.
-    let highestLevel = 0;
-    archetypeRewards.forEach(archetypeReward => {
-      if (archetypeReward.Level > highestLevel) {
-        highestLevel = archetypeReward.Level;
-      }
-    });
-
-    archetypeRewards.push({ Level: highestLevel+1, Description: "" });
-
-    // Square brackets needed to get the right value.
-    const archetypeRewardsLabel = "system.archetypes.archetype"+archetypeNum+".rewards";
-    this.actor.update({[archetypeRewardsLabel]: archetypeRewards});
-  }
-
-  async _onArchetypeRewardEdit(event) {
-    event.preventDefault();
-
-    const archetypeNum = event.currentTarget.dataset.archetypeNumber;
-    const rewardIndex = event.currentTarget.dataset.rewardIndex;
-    const archetype = this.actor.system.archetypes["archetype" + archetypeNum];
-
-    const templateLocation = 'systems/bunkers-and-badasses/templates/dialog/archetype-reward.html';
-    const htmlContent = await renderTemplate(templateLocation, {
-      level: archetype.rewards[rewardIndex]["Level"],
-      description: archetype.rewards[rewardIndex]["Description"],
-      index: rewardIndex, archetypeNum: archetypeNum
-    });
-
-    this.rewardDiag = new Dialog({
-      title: archetype.name + " Reward",
-      Id: "archetype-reward-dialog",
-      cointent: htmlContent,
-      buttons: {
-        "Update" : {
-          label : "Update",
-          callback : async (html) => {
-            this._updateArchetypeRewardCallback(html);
-          }
-        }
-      }
-    }).render(true);
-  }
-  
-  async _updateArchetypeRewardCallback(html) {
-    // Pull data from html.
-    const levelValue = parseInt(html.find("#archetypeLevel")[0].value);
-    const descriptionValue = html.find("#rewardText")[0].value;
-
-    const archetypeNum = parseInt(html.find("#archetypeNum")[0].value);
-    const archetype = this.actor.system.archetypes["archetype" + archetypeNum];
-
-    const rewardIndex = parseInt(html.find("#rewardIndex")[0].value);
-
-    // Prep data with updated values.
-    archetype.rewards[rewardIndex]["Level"] = levelValue;
-    archetype.rewards[rewardIndex]["Description"] = descriptionValue;
-
-    archetype.rewards.sort((a, b) => a.Level - b.Level);
-
-    // Square brackets needed to get the right value.
-    this.actor.update({["system.archetypes.archetype"+archetypeNum+".rewards"]: archetype.rewards});
-  }
-
-  _onArchetypeRewardDelete(event) {
-    // Pull data from event.
-    const archetypeNum = event.currentTarget.dataset.archetypeNumber;
-    const rewardIndex = event.currentTarget.dataset.rewardIndex;
-    const archetype = this.actor.system.archetypes["archetype" + archetypeNum];
-    
-    // Prep data for saving.
-    archetype.rewards.splice(rewardIndex, 1);
-    
-    // Square brackets needed to get the right value.
-    this.actor.update({["system.archetypes.archetype"+archetypeNum+".rewards"]: archetype.rewards});
   }
 
   async _onTakeDamage() {
