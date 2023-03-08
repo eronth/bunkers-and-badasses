@@ -681,6 +681,7 @@ export class BNBActorSheet extends ActorSheet {
     context.archetype2Levels = archetype2Levels.sort(archCompare);
     context.archetypeFeats = archetypeFeats;
     context.actionSkills = actionSkills;
+    context.skillsAreCollapsed = this.actor.system.class.skillsAreCollapsed;
     /// Items that are actually inventory items.
     context.keyItems = keyItems;
     context.guns = guns;
@@ -761,11 +762,15 @@ export class BNBActorSheet extends ActorSheet {
     html.find('.item-edit').click((event) => OnActionUtil.onItemEdit(event, this.actor));
     html.find('.item-delete').click((event) => OnActionUtil.onItemDelete(event, this.actor, this.inRender.bind(this, false)));
     
-    // Handle Archetype Rewards.
-    html.find('.archetype-reward-collapse-toggle').click((event) => OnActionUtil.onarchetypeRewardCollapseToggle(event, this.actor));
+    // Handle Old Archetype Rewards.
     html.find('.old-archetype-reward-upgrade').click((event) => OnActionUtil.onOldArchetypeRewardUpgrade(event, this.actor));
     html.find('.old-archetype-reward-delete').click((event) => OnActionUtil.onOldArchetypeRewardDelete(event, this.actor));
     
+    // Handle Collapsible Sections.
+    html.find('.archetype-reward-collapse-toggle').click((event) => OnActionUtil.onArchetypeRewardCollapseToggle(event, this.actor));
+    html.find('.skill-tier-collapse-toggle').click((event) => OnActionUtil.onSkillTierCollapseToggle(event, this.actor));
+
+
     // Handle action skill.
     html.find('.action-skill-use').click((event) => OnActionUtil.onActionSkillUse(event, this.actor));
 

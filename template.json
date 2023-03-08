@@ -194,6 +194,14 @@
           "spd": 0,
           "mst": 0
         },
+        "skillsAreCollapsed": {
+          "Tier1": false,
+          "Tier2": false,
+          "Tier3": false,
+          "Tier4": false,
+          "Tier5": false,
+          "Tier6": false
+        },
         "actionSkill": {
           "uses": {
             "value": 0

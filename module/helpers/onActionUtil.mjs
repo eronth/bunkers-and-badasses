@@ -108,14 +108,24 @@ export class OnActionUtil {
     return ChatMessage.create(messageData);
   }
 
-  static async onarchetypeRewardCollapseToggle(event, actor) {
+  static async onArchetypeRewardCollapseToggle(event, actor) {
     // Prep data
     const archetypeNum = event.currentTarget.dataset.archetypeNumber;
     const archetype = actor.system.archetypes["archetype" + archetypeNum];
 
-    // // Square brackets needed to get the right value.
+    // Square brackets needed to get the right value.
     const attributeLabel = `system.archetypes.archetype${archetypeNum}.rewardsAreCollapsed`;
     return await actor.update({[attributeLabel]: !archetype.rewardsAreCollapsed});
+  }
+
+  static async onSkillTierCollapseToggle(event, actor) {
+    // Prep data
+    const skillTier = event.currentTarget.dataset.skillTier;
+    const collapsed = actor.system.class.skillsAreCollapsed['Tier'+skillTier];
+
+    // Square brackets needed to get the right value.
+    const attributeLabel = `system.class.skillsAreCollapsed.${'Tier'+skillTier}`;
+    return await actor.update({[attributeLabel]: !collapsed});
   }
 
   // I wanted these to be automatic, but it was just straight up not working.

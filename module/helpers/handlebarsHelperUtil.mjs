@@ -45,6 +45,11 @@ export class HandlebarsHelperUtil {
       return values.slice(0, values.length - 1);
     });
 
+    Handlebars.registerHelper('skillTierIsCollapsed', (skillsAreCollapsed, skillTier) => 
+      (skillsAreCollapsed
+      ? (skillsAreCollapsed['Tier' + skillTier] ?? false)
+      : false)
+    );
 
     Handlebars.registerHelper('toFavoredElementObject', function(...values) {
       return {label: values[0], favored: values[1]};
