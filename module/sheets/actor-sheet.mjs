@@ -630,8 +630,6 @@ export class BNBActorSheet extends ActorSheet {
       }
     }
 
-    
-
     // If we don't already have an action skill, make one for the player.
     if (actionSkills.length === 0) {
       const actorActionSkill = this?.actor?.system?.class?.actionSkill;

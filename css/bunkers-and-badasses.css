@@ -4,6 +4,11 @@
   font-family: "Roboto", sans-serif;
 }
 
+.clickable:hover {
+  cursor: pointer;
+  text-shadow: 0 0 10px cyan;
+}
+
 .tabs .item.active {
   text-shadow: 0 0 10px cyan;
 }

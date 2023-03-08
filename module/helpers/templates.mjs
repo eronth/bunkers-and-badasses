@@ -54,6 +54,7 @@
 
     // General partials
     "systems/bunkers-and-badasses/templates/general/divided-input.html",
+    "systems/bunkers-and-badasses/templates/general/accordion-toggle-icon.html",
     
     // Dropdown pieces
     "systems/bunkers-and-badasses/templates/general/dropdown/dropdown-header.html",
