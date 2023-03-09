@@ -120,11 +120,16 @@ export class BNBItem extends Item {
       });
     }
 
-    if (!isNaN(crits)) {
+    if (!isNaN(crits) && crits > 0) {
       const damageText = `${crits}d12`
         + (evb.perCrit ? ` + ${(evb.perCrit * crits)}` : '');
       const anyCritText = (crits ? ` + ${(archetypeBonusDamages?.ifAnyCrit ?? 0)}` : '');
       rollFormula += ` (${damageText}${anyCritText})[Crit]`;
+    }
+
+    if (rollFormula === '') {
+      ui.notifications.warn('No damage to roll.');
+      rollFormula = '0[Kinetic]';
     }
     
     // Prepare and roll the damage.
