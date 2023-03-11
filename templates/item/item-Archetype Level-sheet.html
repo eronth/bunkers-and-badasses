@@ -1,0 +1,238 @@
+<form class="{{cssClass}}" autocomplete="off">
+  <header class="sheet-header">
+    <!-- <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/> -->
+    <div class="header-fields">
+      <h1 class="charname"><input type="text" value="{{customDisplayName}}" disabled/></h1>
+    </div>
+  </header>
+
+  {{!-- Sheet Body --}}
+  <section class="item-body archetype-level-body">
+    
+    {{!-- Archetype Levels Details --}}
+    <div class="flexcol">
+
+      <!-- Header of sorts -->
+      <div class="level-details-container flexcol">
+        <div class="flexrow">
+          <div class="flexrow flex-size-2 level-detail-entry">
+            <label for="archetype-level-input-{{id}}" class="flex-size-3">Archetype Level</label>
+            <input id="archetype-level-input-{{id}}" type="number" data-dtype="Number"
+            value="{{system.level}}" name="system.level" />
+          </div>
+          <div class="flexrow flex-size-1 level-detail-entry"></div>
+          <div class="flexrow flex-size-2 level-detail-entry">
+            <label for="archetype-skillpoint-gained-{{id}}" class="flex-size-3">Skill Points Gained</label>
+            <input id="archetype-skillpoint-gained-{{id}}" type="number" data-dtype="Number"
+            value="{{system.skillPoints}}" name="system.skillPoints" />
+          </div>
+        </div>
+
+        <div class="flexrow level-detail-entry">
+          <label for="archetype-bonus-input-{{id}}" class="flex-size-1">Short Level Desc.</label>
+          <input id="archetype-bonus-input-{{id}}" class="flex-size-3 left-text" type="text" data-dtype="String"
+          value="{{system.bonus}}" name="system.bonus" />
+        </div>
+        
+        <div class="flexrow level-detail-entry">
+          <label for="archetype-feat-input-{{id}}" class="flex-size-1">Feat Gained</label>
+          <input id="archetype-feat-input-{{id}}" class="flex-size-3 left-text" type="text" data-dtype="String"
+          value="{{system.feat}}" name="system.feat" />
+        </div>
+      </div>
+
+      <!-- HP Increase Section -->
+      <div class="level-details-container flexcol">
+        <!--- Max HP Increase --->
+        <label>Health Increase</label>
+        <div class="flexrow">
+          {{#if usePlayerEridian}}
+          <div class="flexrow level-detail-entry">
+            <label for="archetype-max-eridian-{{id}}" class="flex-size-2">Max Eridian</label>
+            <input id="archetype-max-eridian-{{id}}" type="number" data-dtype="Number"
+            value="{{system.hps.eridian.max}}" name="system.hps.eridian.max" />
+          </div>
+          {{/if}}
+          <div class="flexrow level-detail-entry">
+            <label for="archetype-max-shield-{{id}}" class="flex-size-2">Max Shield</label>
+            <input id="archetype-max-shield-{{id}}" type="number" data-dtype="Number"
+            value="{{system.hps.shield.max}}" name="system.hps.shield.max" />
+          </div>
+          {{#if usePlayerArmor}}
+          <div class="flexrow level-detail-entry">
+            <label for="archetype-max-armor-{{id}}" class="flex-size-2">Max Armor</label>
+            <input id="archetype-max-armor-{{id}}" type="number" data-dtype="Number"
+            value="{{system.hps.armor.max}}" name="system.hps.armor.max" />
+          </div>
+          {{/if}}
+          <div class="flexrow level-detail-entry">
+            <label for="archetype-max-flesh-{{id}}" class="flex-size-2">Max Health</label>
+            <input id="archetype-max-flesh-{{id}}" type="number" data-dtype="Number"
+            value="{{system.hps.flesh.max}}" name="system.hps.flesh.max" />
+          </div>
+          {{#if usePlayerBone}}
+          <div class="flexrow level-detail-entry">
+            <label for="archetype-max-bone-{{id}}" class="flex-size-2">Max Bone</label>
+            <input id="archetype-max-bone-{{id}}" type="number" data-dtype="Number"
+            value="{{system.hps.bone.max}}" name="system.hps.bone.max" />
+          </div>
+          {{/if}}
+        </div>
+        <!--- HP Regain --->
+        <div class="flexrow">
+          {{#if usePlayerEridian}}
+          <div class="flexrow level-detail-entry">
+            <label for="archetype-eridian-regen-{{id}}" class="flex-size-2">Reinvigorate</label>
+            <input id="archetype-eridian-regen-{{id}}" type="text" data-dtype="String"
+            value="{{system.hps.eridian.regen}}" name="system.hps.eridian.regen" />
+          </div>
+          {{/if}}
+          <div class="flexrow level-detail-entry">
+            <label for="archetype-shield-regen-{{id}}" class="flex-size-2">Recharge</label>
+            <input id="archetype-shield-regen-{{id}}" type="text" data-dtype="String"
+            value="{{system.hps.shield.regen}}" name="system.hps.shield.regen" />
+          </div>
+          {{#if usePlayerArmor}}
+          <div class="flexrow level-detail-entry">
+            <label for="archetype-armor-regen-{{id}}" class="flex-size-2">Repair</label>
+            <input id="archetype-armor-regen-{{id}}" type="text" data-dtype="String"
+            value="{{system.hps.armor.regen}}" name="system.hps.armor.regen" />
+          </div>
+          {{/if}}
+          <div class="flexrow level-detail-entry">
+            <label for="archetype-flesh-regen-{{id}}" class="flex-size-2">Regen</label>
+            <input id="archetype-flesh-regen-{{id}}" type="text" data-dtype="String"
+            value="{{system.hps.flesh.regen}}" name="system.hps.flesh.regen" />
+          </div>
+          {{#if usePlayerBone}}
+          <div class="flexrow level-detail-entry">
+            <label for="archetype-bone-regen-{{id}}" class="flex-size-2">Regrow</label>
+            <input id="archetype-bone-regen-{{id}}" type="text" data-dtype="String"
+            value="{{system.hps.bone.regen}}" name="system.hps.bone.regen" />
+          </div>
+          {{/if}}
+        </div>
+      </div>
+
+      <!-- Stat gainss -->
+      <div class="level-details-container flexcol">
+        <label>Stat Gains</label>
+        <div class="flexrow">
+          <div class="flexrow level-detail-entry">
+            <label for="archetype-stat-acc-{{id}}">ACC</label>
+            <input id="archetype-stat-acc-{{id}}" type="number" data-dtype="Number"
+            value="{{system.stats.acc}}" name="system.stats.acc" />
+          </div>
+          <div class="flexrow level-detail-entry">
+            <label for="archetype-stat-dmg-{{id}}">DMG</label>
+            <input id="archetype-stat-dmg-{{id}}" type="number" data-dtype="Number"
+            value="{{system.stats.dmg}}" name="system.stats.dmg" />
+          </div>
+          <div class="flexrow level-detail-entry">
+            <label for="archetype-stat-spd-{{id}}">SPD</label>
+            <input id="archetype-stat-spd-{{id}}" type="number" data-dtype="Number"
+            value="{{system.stats.spd}}" name="system.stats.spd" />
+          </div>
+          <div class="flexrow level-detail-entry">
+            <label for="archetype-stat-mst-{{id}}">MST</label>
+            <input id="archetype-stat-mst-{{id}}" type="number" data-dtype="Number"
+            value="{{system.stats.mst}}" name="system.stats.mst" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Supply Time -->
+      <div class="level-details-container flexcol">
+        <label>Max Supply Increase</label>
+        <div class="flexrow">
+          <div class="flexrow level-detail-entry">
+            <label for="archetype-max-potions-input-{{id}}" class="flex-size-3">Max Potions</label>
+            <input id="archetype-max-potions-input-{{id}}" type="number" data-dtype="Number"
+            value="{{system.maxPotions}}" name="system.maxPotions" />
+          </div>
+          <div class="flexrow level-detail-entry">
+            <label for="archetype-max-grenades-input-{{id}}" class="flex-size-3">Max Grenades</label>
+            <input id="archetype-max-grenades-input-{{id}}" type="number" data-dtype="Number"
+            value="{{system.maxGrenades}}" name="system.maxGrenades" />
+          </div>
+          <div class="flexrow level-detail-entry">
+            <label for="archetype-favored-guns-input-{{id}}" class="flex-size-3">Favored Guns</label>
+            <input id="archetype-favored-guns-input-{{id}}" type="number" data-dtype="Number"
+            value="{{system.maxFavoredGuns}}" name="system.maxFavoredGuns" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Damage time -->
+      <div class="level-details-container flexcol">
+        <label>Bonus Damage</label>
+        <div class="flexrow">
+          <div class="flexrow level-detail-entry">
+            <label for="archetype-elemental-bonus-damage-input-{{id}}" class="flex-size-7">Elemental</label>
+            <input id="archetype-elemental-bonus-damage-input-{{id}}" class="el-row-input" type="number" data-dtype="Number"
+            value="{{system.bonusDamage.elements.other}}" name="system.bonusDamage.elements.other" />
+          </div>
+          <div class="flexrow level-detail-entry">
+            <label for="archetype-kinetic-bonus-damage-input-{{id}}" class="flex-size-7">Non-Elemental</label>
+            <input id="archetype-kinetic-bonus-damage-input-{{id}}" class="el-row-input" type="number" data-dtype="Number"
+            value="{{system.bonusDamage.elements.kinetic}}" name="system.bonusDamage.elements.kinetic" />
+          </div>
+        </div>
+        <div class="flexrow">
+          <div class="flexrow level-detail-entry">
+            <label for="archetype-anyAttack-bonus-damage-input-{{id}}" class="flex-size-3">Any Attack</label>
+            <input id="archetype-anyAttack-bonus-damage-input-{{id}}" type="number" data-dtype="Number"
+            value="{{system.bonusDamage.anyAttack}}" name="system.bonusDamage.anyAttack" />
+          </div>
+          <div class="flexrow level-detail-entry">
+            <label for="archetype-meleeAttack-bonus-damage-input-{{id}}" class="flex-size-3">Melee</label>
+            <input id="archetype-meleeAttack-bonus-damage-input-{{id}}" type="number" data-dtype="Number"
+            value="{{system.bonusDamage.meleeAttack}}" name="system.bonusDamage.meleeAttack" />
+          </div>
+          <div class="flexrow level-detail-entry">
+            <label for="archetype-shootingAttack-bonus-damage-input-{{id}}" class="flex-size-3">Shooting</label>
+            <input id="archetype-shootingAttack-bonus-damage-input-{{id}}" type="number" data-dtype="Number"
+            value="{{system.bonusDamage.shootingAttack}}" name="system.bonusDamage.shootingAttack" />
+          </div>
+          <div class="flexrow level-detail-entry">
+            <label for="archetype-grenade-bonus-damage-input-{{id}}" class="flex-size-3">Grenade</label>
+            <input id="archetype-grenade-bonus-damage-input-{{id}}" type="number" data-dtype="Number"
+            value="{{system.bonusDamage.grenade}}" name="system.bonusDamage.grenade" />
+          </div>
+        </div>
+        <div class="flexrow">
+          <div class="flexrow level-detail-entry">
+            <label for="archetype-perHit-bonus-damage-input-{{id}}" class="flex-size-3">per <img id="per-hit" alt="Hit" class="critshits-icon" src="systems/bunkers-and-badasses/assets/weapons/hits.png" />hit</label>
+            <input id="archetype-perHit-bonus-damage-input-{{id}}" type="number" data-dtype="Number"
+            value="{{system.bonusDamage.perHit}}" name="system.bonusDamage.perHit" />
+          </div>
+          <div class="flexrow level-detail-entry">
+            <label for="archetype-perCrit-bonus-damage-input-{{id}}" class="flex-size-3">per <img id="per-crit" alt="Crit" class="critshits-icon" src="systems/bunkers-and-badasses/assets/weapons/crits.png" />crit</label>
+            <input id="archetype-perCrit-bonus-damage-input-{{id}}" type="number" data-dtype="Number"
+            value="{{system.bonusDamage.perCrit}}" name="system.bonusDamage.perCrit" />
+          </div>
+          <div class="flexrow level-detail-entry">
+            <label for="archetype-ifAnyCrit-bonus-damage-input-{{id}}" class="flex-size-3">if any <img id="if-any-crit" alt="Crit" class="critshits-icon" src="systems/bunkers-and-badasses/assets/weapons/crits.png" />crit</label>
+            <input id="archetype-ifAnyCrit-bonus-damage-input-{{id}}" type="number" data-dtype="Number"
+            value="{{system.bonusDamage.ifAnyCrit}}" name="system.bonusDamage.ifAnyCrit" />
+          </div>
+          <div class="flexrow level-detail-entry">
+            <label for="archetype-onNat20-bonus-damage-input-{{id}}" class="flex-size-3">on nat 20</label>
+            <input id="archetype-onNat20-bonus-damage-input-{{id}}" type="number" data-dtype="Number"
+            value="{{system.bonusDamage.onNat20}}" name="system.bonusDamage.onNat20" />
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</form>
+
+
+
+
+
+
+convert old archetypes
+remove old archetypes
+add bonuses to proper spots

@@ -4,6 +4,11 @@
   font-family: "Roboto", sans-serif;
 }
 
+.clickable:hover {
+  cursor: pointer;
+  text-shadow: 0 0 10px cyan;
+}
+
 .tabs .item.active {
   text-shadow: 0 0 10px cyan;
 }
@@ -44,16 +49,26 @@ input[type="time"]:focus {
 }
 
 /* Styles limited to bnb sheets */
-
+.skill-point-input,
+.potion-input,
 .grenade-input {
   justify-content: center;
   max-width: 70%;
   font-size: smaller;
 }
-.grenade-input label{
+.skill-point-input label,
+.potion-input label,
+.grenade-input label {
+  text-align: right;
+  padding-left: 12px;
   max-width: 40%;
 }
-.grenade-input input{
+.skill-point-input label {
+  max-width: none;
+}
+.skill-point-input input,
+.potion-input input,
+.grenade-input input {
   max-width: 20px;
   text-align: center;
 }
@@ -362,18 +377,24 @@ input[type="time"]:focus {
 }
 
 .bnb .builder-common-container .bonus-max-xp-label,
+.bnb .builder-common-container .base-potions-label,
+.bnb .builder-common-container .base-grenades-label,
 .bnb .builder-common-container .badass-rank-label {
   font-weight: bold;
   text-align: center;
   align-self: center;
   justify-self: center;
 }
+.bnb .builder-common-container .base-potions-label,
+.bnb .builder-common-container .base-grenades-label,
 .bnb .builder-common-container .badass-rank-label {
   min-width: 100px;
   margin-left: 4px;
   margin-right: 2px;
 }
-.bnb .builder-common-container .current-xp-input, 
+.bnb .builder-common-container .current-xp-input,
+.bnb .builder-common-container .base-max-potions-input,
+.bnb .builder-common-container .base-max-grenades-input,
 .bnb .builder-common-container .badass-rank-input {
   align-self: center;
   text-align: center;
@@ -824,6 +845,9 @@ input[type="time"]:focus {
 }
 
 .bnb .builder-common-container .xp-manage-container,
+.bnb .builder-common-container .level-up-health-container,
+.bnb .builder-common-container .base-max-potions-container,
+.bnb .builder-common-container .base-max-grenades-container,
 .bnb .builder-common-container .badass-rank-container {
   text-align: center;
   align-items: center;
@@ -834,9 +858,6 @@ input[type="time"]:focus {
 }
 .bnb .builder-common-container .xp-manage-container {
   margin-right: 1px;
-}
-.bnb .builder-common-container .badass-rank-container {
-  margin-left: 1px;
 }
 
 .badass-container {
@@ -857,6 +878,7 @@ input[type="time"]:focus {
   align-items: center
 }
 .xp-manage-container label,
+.level-up-health-container label,
 .badass-container label,
 .badass-container a {
   font-weight: bold;
@@ -1024,6 +1046,7 @@ input[type="time"]:focus {
   margin-top: 5px;
 }
 
+.bnb .skill-tree-header,
 .bnb .bio-header {
   font-size: larger;
   font-weight: bold;
@@ -1032,6 +1055,9 @@ input[type="time"]:focus {
   align-items: center;
   align-self: center;
   padding-top: 3px;
+}
+.bnb .skill-tree-header > label {
+  text-align: center;
 }
 
 .bnb .bio-description:nth-child(n+2) {

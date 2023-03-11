@@ -7,8 +7,8 @@ import { BNBItemSheet } from "./sheets/item-sheet.mjs";
 // Import helper/utility classes and constants.
 import { preloadHandlebarsTemplates } from "./helpers/templates.mjs";
 import { BNB } from "./helpers/config.mjs";
-import { BarbrawlBuilder } from "./helpers/barbrawl-builder.mjs"
-import { HandlebarsHelperUtil } from "./helpers/handlebarsHelperUtil.mjs"
+import { BarbrawlBuilder } from "./helpers/barbrawl-builder.mjs";
+import { HandlebarsHelperUtil } from "./helpers/handlebarsHelperUtil.mjs";
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */

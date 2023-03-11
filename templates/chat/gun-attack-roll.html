@@ -30,9 +30,10 @@ data-actor-id="{{actorId}}" >
   {{#if showDamageButton}}
   <div class="chat-damage-buttons">
     <button data-action="damage"
-    data-actor-id="{{actorId}}"
-    data-item-id="{{itemId}}" 
-    data-hits={{hits}} data-crits={{crits}} 
+    data-actor-id="{{actorId}}" data-item-id="{{itemId}}" 
+    data-attack-type="{{attackType}}"
+    data-hits={{hits}} data-crits={{crits}}
+    data-is-nat-20="{{critHit}}"
     data-flavor="Pew Pew!">
       Roll Damage
     </button>

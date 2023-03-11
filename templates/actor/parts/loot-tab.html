@@ -1,16 +1,5 @@
 {{!-- Grenades, Header, and Gold --}}
 <div class="flexrow">
-  <div class="flexrow flex-size-1 centerize grenade-input">
-    <label for="grenade-count-input" class="grenade-input-label flex-size-2 bolded">Grenades: </label>
-    {{> "systems/bunkers-and-badasses/templates/general/divided-input.html"
-      id="grenade"
-      targetObj=system.attributes.grenades targetText="system.attributes.grenades"
-      leftDisable=false rightDisable=false
-    }}
-  </div>
-  <div class="flex-size-2 loot-inventory-header-container">
-    <label class="loot-inventory-header flexrow">Loot Inventory</label>
-  </div>
   <div class="flexrow flex-size-1 centerize gold-input">
     <div class="max-width-50">
       <label for="gold-input" class="gold-input-label flex-size-2 bolded">Gold: </label>
@@ -19,11 +8,35 @@
       />
     </div>
   </div>
+  <div class="flex-size-1 loot-inventory-header-container">
+    <label class="loot-inventory-header flexrow">Loot Inventory</label>
+  </div>
+  <div class="flexrow flex-size-1 centerize potion-input">
+    <label for="potion-count-input" class="potion-input-label flex-size-2 bolded">Potions: </label>
+    {{> "systems/bunkers-and-badasses/templates/general/divided-input.html"
+      id="potion" targetObj=potionCount
+      leftDisable=true rightDisable=true
+    }}
+  </div> 
+  <div class="flexrow flex-size-1 centerize grenade-input">
+    <label for="grenade-count-input" class="grenade-input-label flex-size-2 bolded">Grenades: </label>
+    {{> "systems/bunkers-and-badasses/templates/general/divided-input.html"
+      id="grenade"
+      targetObj=system.attributes.grenades targetText="system.attributes.grenades"
+      rightValueOverride=maxGrenades
+      leftDisable=false rightDisable=true
+    }}
+  </div>
 </div>
 {{!-- Guns --}}
 <ol class="items-list">
   <li class="item flexrow items-header">
-    <div class="item-name">Guns</div>
+    <div class="item-name clickable loot-category-collapse-toggle"
+    data-loot-category-type="guns">
+      {{> "systems/bunkers-and-badasses/templates/general/accordion-toggle-icon.html"
+        collapsed=(lootCategoryIsCollapsed isCollapsed "guns")
+        text="Guns"}}
+    </div>
     <div class="item-details">
       <div class="item-effect flex-size-5"><label>Description</label></div>
     </div>
@@ -34,6 +47,7 @@
       <a class="item-control item-create" title="Create Item" data-dtype="gun"><i class="fas fa-plus"></i> Add Gun</a>
     </div>
   </li>
+  {{^if (lootCategoryIsCollapsed isCollapsed "guns")}}
   {{#each guns as |item id|}}
   <li class="item item-element-group loot-rarity-fade-border flexrow" 
     style="--rarityColor: {{item.system.rarity.colorValue}}"
@@ -101,11 +115,17 @@
   </li>
   {{log item}}
   {{/each}}
+  {{/if}}
 </ol>
 {{!-- Shields --}}
 <ol class="items-list">
   <li class="item flexrow items-header">
-    <div class="item-name">Shield</div>
+    <div class="item-name clickable loot-category-collapse-toggle"
+    data-loot-category-type="shields">
+      {{> "systems/bunkers-and-badasses/templates/general/accordion-toggle-icon.html"
+        collapsed=(lootCategoryIsCollapsed isCollapsed "shields")
+        text="Shield Mods"}}
+    </div>
     <div class="item-details">
       <div class="item-effect flex-size-5"><label>Description</label></div>
       <!-- <div class="item-capacity flex-size-5"><label>Class Effect</label></div> -->
@@ -117,6 +137,7 @@
       <a class="item-control item-create" title="Create Item" data-dtype="shield"><i class="fas fa-plus"></i> Add Shield</a>
     </div>
   </li>
+  {{^if (lootCategoryIsCollapsed isCollapsed "shields")}}
   {{#each shields as |item id|}}
   <li class="item item-element-group loot-rarity-fade-border flexrow" 
       style="--rarityColor: {{item.system.rarity.colorValue}}"
@@ -169,11 +190,17 @@
   </li>
   {{log item}}
   {{/each}}
+  {{/if}}
 </ol>
 {{!-- Grenades --}}
 <ol class="items-list">
   <li class="item flexrow items-header">
-    <div class="item-name">Grenade</div>
+    <div class="item-name clickable loot-category-collapse-toggle"
+    data-loot-category-type="grenades">
+      {{> "systems/bunkers-and-badasses/templates/general/accordion-toggle-icon.html"
+        collapsed=(lootCategoryIsCollapsed isCollapsed "grenades")
+        text="Grenade Mods"}}
+    </div>
     <div class="item-details">
       <div class="item-effect flex-size-5"><label>Description</label></div>
     </div>
@@ -184,6 +211,7 @@
       <a class="item-control item-create" title="Create Item" data-dtype="grenade"><i class="fas fa-plus"></i> Add Grenade</a>
     </div>
   </li>
+  {{^if (lootCategoryIsCollapsed isCollapsed "grenades")}}
   {{#each grenades as |item id|}}
   <li class="item item-element-group loot-rarity-fade-border flexrow" 
     style="--rarityColor: {{item.system.rarity.colorValue}}"
@@ -203,7 +231,7 @@
     <div class="item-details">
       <div class="flexcol item-effec-stack-container">
         <div class="item-effect item-prop-stack">
-          <label class="item-effect">
+          <label class="item-effect item-prop-left">
             <div>{{#if item.system.effect}}<b>Effect</b>:{{/if}} {{item.system.effect}}</div>
           </label>
         </div>
@@ -226,11 +254,17 @@
   </li>
   {{log item}}
   {{/each}}
+  {{/if}}
 </ol>
 {{!-- Relics --}}
 <ol class="items-list">
   <li class="item flexrow items-header">
-    <div class="item-name">Relic</div>
+    <div class="item-name clickable loot-category-collapse-toggle"
+    data-loot-category-type="relics">
+      {{> "systems/bunkers-and-badasses/templates/general/accordion-toggle-icon.html"
+        collapsed=(lootCategoryIsCollapsed isCollapsed "relics")
+        text="Relics"}}
+    </div>
     <div class="item-details">
       <div class="item-effect flex-size-5"><label>Effect</label></div>
       <!-- <div class="item-capacity flex-size-5"><label>Class Effect</label></div> -->
@@ -242,6 +276,7 @@
       <a class="item-control item-create" title="Create Item" data-dtype="relic"><i class="fas fa-plus"></i> Add Relic</a>
     </div>
   </li>
+  {{^if (lootCategoryIsCollapsed isCollapsed "relics")}}
   {{#each relics as |item id|}}
   {{log item}}
   <li class="item item-element-group loot-rarity-fade-border flexrow" 
@@ -280,11 +315,17 @@
     </div>
   </li>
   {{/each}}
+  {{/if}}
 </ol>
 {{!-- Potions --}}
 <ol class="items-list">
   <li class="item flexrow items-header">
-    <div class="item-name">Potion</div>
+    <div class="item-name clickable loot-category-collapse-toggle"
+    data-loot-category-type="potions">
+      {{> "systems/bunkers-and-badasses/templates/general/accordion-toggle-icon.html"
+        collapsed=(lootCategoryIsCollapsed isCollapsed "potions")
+        text="Potions"}}
+    </div>
     <div class="item-details">
       <div class="item-effect flex-size-5"><label>Effect</label></div>
     </div>
@@ -295,6 +336,7 @@
       <a class="item-control item-create" title="Create Item" data-dtype="potion"><i class="fas fa-plus"></i> Add Potion</a>
     </div>
   </li>
+  {{^if (lootCategoryIsCollapsed isCollapsed "potions")}}
   {{#each potions as |item id|}}
   {{log item}}
   <li class="item item-element-group loot-rarity-fade-border flexrow" 
@@ -337,11 +379,17 @@
     </div>
   </li>
   {{/each}}
+  {{/if}}
 </ol>
 {{!-- Key/Generic Items --}}
 <ol class="items-list">
   <li class="item flexrow items-header">
-    <div class="item-name">Key Item</div>
+    <div class="item-name clickable loot-category-collapse-toggle"
+    data-loot-category-type="key">
+      {{> "systems/bunkers-and-badasses/templates/general/accordion-toggle-icon.html"
+        collapsed=(lootCategoryIsCollapsed isCollapsed "key")
+        text="Key Items"}}
+    </div>
     <div class="item-details">
       <div class="item-effect flex-size-5"><label>Effect</label></div>
     </div>
@@ -352,6 +400,7 @@
       <a class="item-control item-create" title="Create Item" data-dtype="key item"><i class="fas fa-plus"></i> Add Item</a>
     </div>
   </li>
+  {{^if (lootCategoryIsCollapsed isCollapsed "key")}}
   {{#each keyItems as |item id|}}
   {{log item}}
   <li class="item item-element-group loot-rarity-fade-border flexrow" 
@@ -388,4 +437,5 @@
     </div>
   </li>
   {{/each}}
+  {{/if}}
 </ol>
