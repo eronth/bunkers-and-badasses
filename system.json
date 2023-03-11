@@ -6,8 +6,7 @@
   "compatibleCoreVersion": "10",
   "compatibility": {
     "minimum": 10,
-    "verified": 10.288,
-    "maximum": 10
+    "verified": 10.291
   },
   "authors": [{
     "name": "Nic Pereira",
@@ -29,7 +28,9 @@
     "css/gear-bottom-texts.css",
     "css/health.css",
     "css/header/health.css",
-    "css/header/xp-bar.css"
+    "css/header/xp-bar.css",
+    "css/archetype-level.css",
+    "node_modules/rpg-awesome/css/rpg-awesome.min.css"
   ],
   "packs": [{
     "label": "Unique Guns", "name": "unique-guns",

@@ -55,6 +55,14 @@
     "vault hunter": {
       "templates": ["base"],
       "gold": 0,
+      "isCollapsed": {
+        "guns": false,
+        "shields": false,
+        "grenades": false,
+        "relics": false,
+        "potions": false,
+        "key": false
+      },
       "attributes": {
         "badass": {
           "rank": 1,
@@ -67,6 +75,10 @@
         "grenades": {
           "value": 0,
           "max": 3
+        },
+        "potions": {
+          "value": 0,
+          "max": 2
         },
         "hps": {
           "flesh": {
@@ -166,11 +178,13 @@
             "spd": 0,
             "mst": 0
           },
+          "rewardsAreCollapsed": false,
           "rewards": []
         },
         "archetype2": {
           "name": "",
           "level": 0,
+          "rewardsAreCollapsed": false,
           "rewards": []
         }
       },
@@ -187,6 +201,14 @@
           "dmg": 0,
           "spd": 0,
           "mst": 0
+        },
+        "skillsAreCollapsed": {
+          "Tier1": false,
+          "Tier2": false,
+          "Tier3": false,
+          "Tier4": false,
+          "Tier5": false,
+          "Tier6": false
         },
         "actionSkill": {
           "uses": {
@@ -283,6 +305,7 @@
           }
         }
       },
+      "archetypeLevelBonusTotals": {},
       "notes": ""
     },
     "npc": {
@@ -479,6 +502,38 @@
       "templates": ["base"],
       "archetypeNumber": 0,
       "level": 1,
+      "skillPoints": 1,
+      "feat": null,
+      "hps": {
+        "flesh": { "max": null, "regen": null },
+        "armor": { "max": null, "regen": null },
+        "shield": { "max": null, "regen": null },
+        "eridian": { "max": null, "regen": null },
+        "bone": { "max": null, "regen": null }
+      },
+      "stats": {
+        "acc": null,
+        "dmg": null,
+        "spd": null,
+        "mst": null
+      },
+      "maxPotions": null,
+      "maxGrenades": null,
+      "maxFavoredGuns": null,
+      "bonusDamage": {
+        "elements": {
+          "kinetic": null,
+          "other": null
+        },
+        "anyAttack": null,
+        "meleeAttack": null,
+        "shootingAttack": null,
+        "grenade": null,
+        "perHit": null,
+        "perCrit": null,
+        "ifAnyCrit": null,
+        "onNat20": null
+      },
       "bonus": ""
     },
     "Archetype Feat": {

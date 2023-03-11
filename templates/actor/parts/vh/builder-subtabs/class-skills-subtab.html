@@ -1,17 +1,36 @@
 <div class="flexcol">
+  <div class="flexrow">
+    <div class="flexrow flex-size-2"></div>
+    <div class="flexrow skill-tree-header"><label>Skill Tree</label></div>
+    <div class="flexrow flex-size-2 centerize skill-point-input">
+      <div class="flexrow flex-size-2"><label for="skill-point-count-input" class="skill-point-input-label flex-size-2 bolded">Skill Points Used: </label></div>
+      {{> "systems/bunkers-and-badasses/templates/general/divided-input.html"
+        id="skill-point" targetObj=skillPoints 
+        leftDisable=true rightDisable=true
+      }}
+      <!-- targetText="system.attributes.potions" -->
+    </div>
+  </div>
   <ol class="items-list">
     {{#each skilltree as |skills tier|}}
       <li class="item flexrow items-header">
-        <div class="item-name flex-size-3">Tier {{tier}} Skills</div>
+        <div class="item-name clickable skill-tier-collapse-toggle flex-size-3"
+        data-skill-tier="{{tier}}">
+          {{> "systems/bunkers-and-badasses/templates/general/accordion-toggle-icon.html"
+          collapsed=(skillTierIsCollapsed ../skillsAreCollapsed tier)
+          text=(concat "Tier " tier " Skills")}}
+        </div>
         <div class="reward-text flex-size-6 large-text-overflow-hidden"></div>
         <div class="reward-text flex-size-2">Skill Level</div>
         <div class="class-skill-item-controls">
           <a class="item-control item-create" title="Create item" data-dtype="skill" data-tier="{{tier}}"><i class="fas fa-plus"></i> Add Tier {{tier}}</a>
         </div>
       </li>
+      {{^if (skillTierIsCollapsed ../skillsAreCollapsed tier)}}
       {{#each skills as |item id|}}
         {{> (dropdownHeaderLocation "base") item=item }}
       {{/each}}
+      {{/if}}
     {{/each}}
   </ol>
 </div>
