@@ -20,3 +20,4 @@ Bugfixes
 * Fixed a bug where health texts were outlined.
 * Fixed a bug where unequipped shields were adding resistances.
 
+TODO better font for my software
