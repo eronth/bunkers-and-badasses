@@ -1,12 +1,21 @@
 Updates
+* Updated Archetype Levels to be much more useful.
+  * Archetype levels now track tons of stats individually.
+  * Archetype levels now add their values to character stats automatically.
 * Prepared for potential Anointment section addition.
 * Hits and Crits can now gain bonus using the Effects tab.
 * Added ability to mark which weapon is currently in-hand.
 * Added display for extra attack damage in Action! tab gun slots.
-
+* Added display for skill points used.
+* Added display for potion counts.
+* Updated grenade count displays to match potions and skill points.
+* Added text that rolls health you gain on level up in the Level Up tab.
+* Adding ability to collapse potentially large sections.
 
 Bugfixes
+* Improved visuals for various combined Regen sources.
 * Fix bonuses added to NPC attack rolls.
 * Fixed the Action Skill button failing to properly print to chat.
 * Fix bug where coloring for health types sometimes didn't show up right.
 * Fixed a bug where health texts were outlined.
+* Fixed a bug where unequipped shields were adding resistances.

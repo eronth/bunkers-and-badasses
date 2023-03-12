@@ -113,13 +113,15 @@ export class BNBActor extends Actor {
     // Pull basic data into easy-to-access variables.
     const actorSystem = actorData.system;
     const archetypeStats = actorSystem.archetypes.archetype1.baseStats;
+    const archetypeLevelUpStats = actorSystem?.archetypeLevelBonusTotals?.stats;
     const classStats = actorSystem.class.baseStats;
 
     // Handle stat values and totals. Values are class+archetype. Totals are *everything*.
     Object.entries(actorSystem.stats).forEach(entry => {
       const [key, statData] = entry;
       statData.effects = actorSystem.bonus.stats[key] ?? { value: 0, mod: 0 };
-      statData.value = archetypeStats[key] + classStats[key] + statData.misc + statData.effects.value;
+      statData.value = archetypeStats[key] + classStats[key] + statData.misc + statData.effects.value
+      + (archetypeLevelUpStats ? archetypeLevelUpStats[key] : 0);
       statData.mod = Math.floor(statData.value / 2)  + (statData.modBonus ?? 0) + statData.effects.mod;
       statData.modToUse = actorSystem.attributes.badass.rollsEnabled ? statData.value : statData.mod;
     });
@@ -245,6 +247,21 @@ export class BNBActor extends Actor {
     const actor = game.actors.get(dataSet.actorId);
     if (actor === null) return;
     const actorSystem = actor.system;
+    const archetypeBonusDamages = actorSystem?.archetypeLevelBonusTotals?.bonusDamage;
+
+    const levelUpDamage = (0
+      + (archetypeBonusDamages?.anyAttack ?? 0)
+      + ((dataSet.attackType === 'shooting') ? (archetypeBonusDamages?.shootingAttack ?? 0) : 0)
+      + ((dataSet.attackType === 'melee') ? (archetypeBonusDamages?.meleeAttack ?? 0) : 0)
+      + ((dataSet.attackType === 'grenade') ? (archetypeBonusDamages?.grenade ?? 0) : 0)
+      + ((archetypeBonusDamages?.perHit ?? 0) * (dataSet.hits ?? 0))
+      + ((archetypeBonusDamages?.perCrit ?? 0) * (dataSet.crits ?? 0))
+      + (dataSet.crits ? (archetypeBonusDamages?.ifAnyCrit ?? 0) : 0)
+      // TODO add a way to know if the attack is elemental or not.
+      // + (isNonElemental ? (archetypeBonusDamages?.elements?.kinetic ?? 0) : 0)
+      // + (isElemental ? (archetypeBonusDamages?.elements?.other ?? 0) : 0)
+      + (dataSet.critHit ? (archetypeBonusDamages?.onNat20 ?? 0) : 0)
+    );
 
     const isPlusOneDice = dataSet.plusOneDice === 'true';
     const isDoubleDamage = dataSet.doubleDamage === 'true';

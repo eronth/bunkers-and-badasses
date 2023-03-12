@@ -363,6 +363,9 @@
   border-top-left-radius: 0px;
   border-bottom-left-radius: 0px;
 }
+.divided-input input:disabled {
+  color: grey;
+}
 
 
 .margin-1 {

@@ -6,10 +6,8 @@
   "compatibleCoreVersion": "10",
   "compatibility": {
     "minimum": 10,
-    "verified": 10.288,
-    "maximum": 10
+    "verified": 10.291
   },
-  "templateVersion": 2,
   "authors": [{
     "name": "Nic Pereira",
     "email": "BadassBunks@nicpereira.dev",
@@ -30,7 +28,9 @@
     "css/gear-bottom-texts.css",
     "css/health.css",
     "css/header/health.css",
-    "css/header/xp-bar.css"
+    "css/header/xp-bar.css",
+    "css/archetype-level.css",
+    "node_modules/rpg-awesome/css/rpg-awesome.min.css"
   ],
   "packs": [{
     "label": "Unique Guns", "name": "unique-guns",
@@ -60,6 +60,6 @@
   "primaryTokenAttribute": "attributes.hps.flesh",
   "secondaryTokenAttribute": "attributes.hps.shield",
   "url": "https://github.com/eronth/bunkers-and-badasses",
-  "manifest": "https://github.com/eronth/bunkers-and-badasses/releases/download/v0.3.5/system.json",
-  "download": "https://github.com/eronth/bunkers-and-badasses/archive/refs/tags/v0.3.5.zip"
+  "manifest": "https://github.com/eronth/bunkers-and-badasses/releases/download/v0.4.0/system.json",
+  "download": "https://github.com/eronth/bunkers-and-badasses/archive/refs/tags/v0.4.0.zip"
 }

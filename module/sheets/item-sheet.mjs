@@ -44,7 +44,7 @@ export class BNBItemSheet extends ItemSheet {
     // Not 100% what this even means!!
     // Retrieve the roll data for TinyMCE editors.
     context.rollData = {};
-    let actor = this.object?.parent ?? null;
+    const actor = this.object?.parent ?? null;
     if (actor) {
       context.rollData = actor.getRollData();
     }
@@ -53,11 +53,17 @@ export class BNBItemSheet extends ItemSheet {
     context.usePlayerArmor = game.settings.get('bunkers-and-badasses', 'usePlayerArmor');
     context.usePlayerBone = game.settings.get('bunkers-and-badasses', 'usePlayerBone');
     context.usePlayerEridian = game.settings.get('bunkers-and-badasses', 'usePlayerEridian');
-
+    
     // Add the actor's data to context.data for easier access, as well as flags.
     context.system = itemData.system;
     context.flags = itemData.flags;
     context.elements = itemData.system.elements;
+    
+    if (itemData.type == 'Archetype Level') {
+      const archetypeName = actor?.system?.archetypes['archetype'+itemData.system.archetypeNumber]?.name;
+      const level = itemData.system.level;
+      context.customDisplayName = `${archetypeName} Level ${level}`;
+    }
 
     // Special handling for uniques.
     if (itemData.system.special?.overrideType?.toLowerCase() === "mwbg") {
