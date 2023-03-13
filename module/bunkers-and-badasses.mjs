@@ -293,32 +293,44 @@ Hooks.once("dragRuler.ready", (SpeedProvider) => {
   class BnBSpeedProvider extends SpeedProvider {
     get colors() {
       return [
-        { id: 'movement', default: 0x00FF00, name: 'Movement' },
-        { id: 'extraMovement', default: 0xFFFF00, name: 'Extra Movement' },
-        { id: 'extraMovement2', default: 0xFF0000, name: 'More Extra Movement' },
         { id: 'movement', default: 0x00ff00, name: 'Movement' },
         { id: 'extraMovement', default: 0xfff700, name: 'Extra Movement' },
         { id: 'extraMovement2', default: 0xcc20df, name: 'More Extra Movement' },
         { id: 'frozen', default: 0x1298b9, name: 'Frozen Movement' },
-        { id: 'frozenExtraMovement', default: 0xFF0000, name: 'Frozen Extra Movement' }
         { id: 'frozenExtraMovement', default: 0x5dcce8, name: 'Frozen Extra Movement' }
       ]
     }
 
     getRanges(token) {
-      const baseSpeed = token.actor.system.checks.movement.total;
+      const baseSpeed = (token.actor.type=='npc') 
+        ? Math.max.apply(Math, Object.values(token.actor.system.movements).map((m) => m.distance ))
+        : token.actor.system.checks.movement.total;
       const movement = { range: baseSpeed, color: 'movement' };
       const extraMovement = { range: baseSpeed * 2, color: 'extraMovement' };
       const extraMovement2 = { range: baseSpeed * 3, color: 'extraMovement2' };
       const frozen = { range: 1, color: 'frozen' };
       const frozenExtraMovement = { range: 2, color: 'frozenExtraMovement' };
+
+      // Try to determine if a character is considered "Frozen".
+      const actorEffects = (token?.actor?.effects || [])
+        .filter((eff) => (!eff.disabled && !eff.isSuppressed))
+        .map((eff) => eff.label);
+      const tokenData = token.document ? token.document : token;
+      const tokenEffects = (tokenData?.effects || [])
+        .filter((ef) => !ef.disabled && !ef.isSuppressed)
+        .map((ef) => ef.label)
+        .concat(actorEffects);
+
+      const isFroze = ([].concat(actorEffects, tokenEffects)).some(i => i === 'Frozen');
+
       const ranges = (isFroze) 
       ? [ frozen, frozenExtraMovement ]
       : [ movement, extraMovement, extraMovement2 ];
 
-      return ranges
+      return ranges;
     }
   }
+
   dragRuler.registerSystem("bunkers-and-badasses", BnBSpeedProvider);
 })
 
