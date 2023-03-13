@@ -58,7 +58,7 @@ export class BNBActorSheet extends ActorSheet {
     };
 
     context.potionCount = { value: 0, max: (actorData.system?.attributes?.potions?.max ?? 0) };
-    context.maxGrenades = (actorData.system?.attributes?.grenades.max ?? 0);
+    context.maxGrenades = (actorData.system?.attributes?.grenades?.max ?? 0);
     
     // Prepare Vault Hunter data and items.
     if (actorData.type == 'vault hunter') {

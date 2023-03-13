@@ -19,3 +19,4 @@ Bugfixes
 * Fix bug where coloring for health types sometimes didn't show up right.
 * Fixed a bug where health texts were outlined.
 * Fixed a bug where unequipped shields were adding resistances.
+* Fixed a bug with opening new NPC sheets.
