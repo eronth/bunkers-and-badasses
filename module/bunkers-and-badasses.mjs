@@ -39,7 +39,7 @@ Hooks.once('init', async function() {
     default: 'simple',
     type: String,
     choices: {
-      'simple': 'Simple',
+      'simple': 'Simple (Default)',
       'manhattan': 'Manhattan',
       //'everyOther': 'Every Other',
       'exactRounded': 'Exact (Rounded)',
