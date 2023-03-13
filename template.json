@@ -354,6 +354,12 @@
             "description": ""
           }
         }
+      },
+      "attributes": {
+        "grenades": {
+          "value": 0,
+          "max": 0
+        }
       }
     }
   },
