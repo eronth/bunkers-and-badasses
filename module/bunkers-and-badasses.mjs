@@ -25,6 +25,25 @@ Hooks.once('init', async function() {
   
   // Add custom constants for configuration.
   CONFIG.BNB = BNB;
+
+  game.settings.register('bunkers-and-badasses', 'measurementType', {
+    name: 'Distance Measurement Style',
+    hint: 'Choose between several different methods for distance measurements. For now, "Measurement Controls" and "Exact (Rounded Up)" function the exact same way.',
+    scope: 'world',
+    config: true,
+    default: 'simple',
+    type: String,
+    choices: {
+      'simple': 'Simple (Default) — Calculate diagonals as 1 sq',
+      'manhattan': 'Manhattan — Treat diagonals as 2 sq',
+      'everyOther': 'Every Other - Every even number diagonal counts as 2 sq instead of 1 sq',
+      'measureControls': "Measurement Controls - Attempts to match Foundry VTT's Measurement Controls",
+      'exactRound': 'Exact (Rounded) — Use exact distances, round to nearest whole number',
+      'exactRoundUp': 'Exact (Rounded Up) — Use exact distances, round up',
+      'exactRoundDown': 'Exact (Rounded Down) — Use exact distances, round down',
+      'exactDecimal': 'Exact (Decimal) — Use exact distances, show decimal places'
+    }
+  });
   
   // System settings here
   game.settings.register('bunkers-and-badasses', 'usePlayerArmor', {
@@ -127,6 +146,11 @@ Hooks.once("ready", async function() {
   Hooks.on("hotbarDrop", (bar, data, slot) => createItemMacro(data, slot));
 });
 
+Hooks.once('libWrapper.Ready', async () => {
+  libWrapper.register('bunkers-and-badasses', 'Ruler.prototype._computeDistance', rulerFn, libWrapper.MIXED);
+});
+    
+
 Hooks.on("preCreateToken", function (document, data) {
   const actor = document?.actor;
   const actorSystem = actor?.system;
@@ -221,7 +245,49 @@ const tokenBarbrawlBars = {
   ...(BarbrawlBuilder._buildBarbrawlBars( {useAllHealth: true} ))
 };
 
+function rulerFn(wrapper, gridSpaces) {
+  const measureType = game.settings.get('bunkers-and-badasses', 'measurementType');
 
+  if (measureType === 'simple') { return wrapper(gridSpaces); }
+
+  let totalDistance = 0;
+  const lastSegmentKey = this.segments.length - 1;
+
+  this.segments.forEach((segment, key) => {
+    const sideX = Math.abs(segment.ray.A.x - segment.ray.B.x);
+    const sideY = Math.abs(segment.ray.A.y - segment.ray.B.y);
+
+    const addedDistance = getAddedDistance({ line: { X: sideX, Y: sideY } });
+
+    segment.last = (key === lastSegmentKey);
+    segment.distance = addedDistance;
+    totalDistance += addedDistance;
+    segment.text = this._getSegmentLabel(segment, totalDistance);
+  });
+}
+
+function getAddedDistance({ line }) {
+  const measureType = game.settings.get('bunkers-and-badasses', 'measurementType');
+  const { X, Y } = line;
+  const { size, distance } = canvas.scene.dimensions;
+  const gridConversion = distance / size;
+
+  if (measureType === 'manhattan') {
+    return (Math.abs(X) + Math.abs(Y)) * gridConversion;
+  } else if (measureType === 'everyOther') {
+    const straightCount = Math.max(X * gridConversion, Y * gridConversion);
+    const diagonalCount = Math.min(X * gridConversion, Y * gridConversion);
+    return (straightCount + Math.floor((diagonalCount / 2)));
+  } else if (measureType === 'exactDecimal') {
+    return Math.sqrt(Math.pow(X, 2) + Math.pow(Y, 2)) * gridConversion;
+  } else if (measureType === 'exactRound') {
+    return Math.round(Math.sqrt(Math.pow(X, 2) + Math.pow(Y, 2)) * gridConversion);
+  } else if (measureType === 'exactRoundDown') {
+    return Math.floor(Math.sqrt(Math.pow(X, 2) + Math.pow(Y, 2)) * gridConversion);
+  } else if (measureType === 'exactRoundUp' || measureType === 'measureControls') {
+    return Math.ceil(Math.sqrt(Math.pow(X, 2) + Math.pow(Y, 2)) * gridConversion);
+  }
+}
 
 
 /* -------------------------------------------- */
