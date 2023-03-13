@@ -146,42 +146,41 @@ Hooks.once("ready", async function() {
   Hooks.on("hotbarDrop", (bar, data, slot) => createItemMacro(data, slot));
 });
 
-Hooks.once('libWrapper.Ready', async () => {
-  libWrapper.register('bunkers-and-badasses', 'Ruler.prototype._computeDistance', computeBnBDistance, libWrapper.MIXED);
+Hooks.on('canvasInit', (gameCanvas) => {
+  const measureType = game.settings.get('bunkers-and-badasses', 'measurementType');
+  SquareGrid.prototype.measureDistances = measureBnBDistances;
 });
 
-function computeBnBDistance(wrapper, gridSpaces) {
+function measureBnBDistances(segments, options/*wrapper, gridSpaces*/) {
   const measureType = game.settings.get('bunkers-and-badasses', 'measurementType');
+  
+  if (measureType === 'simple') return BaseGrid.prototype.measureDistances.call(this, segments, options);
+  if (!options.gridSpaces) return BaseGrid.prototype.measureDistances.call(this, segments, options);
+  if (!segments || !segments.length) return [];
 
-  if (measureType === 'simple') { return wrapper(gridSpaces); }
+  const { size, distance } = canvas.scene.dimensions;
+  const gridConversion = distance / size;
 
-  let totalDistance = 0;
-  const lastSegmentKey = this.segments.length - 1;
+  let leftoverDiagonal = 0; // Used for every other
 
-  this.segments.forEach((segment, key) => {
+  return segments.map((segment, key) => {
     const sideX = Math.abs(segment.ray.A.x - segment.ray.B.x);
     const sideY = Math.abs(segment.ray.A.y - segment.ray.B.y);
-
-    const addedDistance = getAddedDistance({ line: { X: sideX, Y: sideY } });
-
-    segment.last = (key === lastSegmentKey);
-    segment.distance = addedDistance;
-    totalDistance += addedDistance;
-    segment.text = this._getSegmentLabel(segment, totalDistance);
+    const distance = getAddedDistance({ line: { X: sideX, Y: sideY }, leftoverDiagonal: leftoverDiagonal, gridConversion: gridConversion});
+    leftoverDiagonal = (leftoverDiagonal + Math.min(sideX * gridConversion, sideY * gridConversion)) % 2;
+    return distance;
   });
 }
 
-function getAddedDistance({ line }) {
+function getAddedDistance({ line, leftoverDiagonal, gridConversion }) {
   const measureType = game.settings.get('bunkers-and-badasses', 'measurementType');
   const { X, Y } = line;
-  const { size, distance } = canvas.scene.dimensions;
-  const gridConversion = distance / size;
 
   if (measureType === 'manhattan') {
     return (Math.abs(X) + Math.abs(Y)) * gridConversion;
   } else if (measureType === 'everyOther') {
     const straightCount = Math.max(X * gridConversion, Y * gridConversion);
-    const diagonalCount = Math.min(X * gridConversion, Y * gridConversion);
+    const diagonalCount = Math.min(X * gridConversion, Y * gridConversion) + leftoverDiagonal;
     return (straightCount + Math.floor((diagonalCount / 2)));
   } else if (measureType === 'exactDecimal') {
     return Math.sqrt(Math.pow(X, 2) + Math.pow(Y, 2)) * gridConversion;
