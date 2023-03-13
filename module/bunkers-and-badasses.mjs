@@ -295,7 +295,7 @@ Hooks.once("dragRuler.ready", (SpeedProvider) => {
         { id: 'extraMovement', default: 0xfff700, name: 'Extra Movement' },
         { id: 'extraMovement2', default: 0xcc20df, name: 'More Extra Movement' },
         { id: 'frozen', default: 0x5dcce8, name: 'Frozen Movement' },
-        { id: 'frozenExtraMovement', default: 0x1298b9, name: 'Frozen Extra Movement' }
+        { id: 'frozenExtraMovement', default: 0x9998b9, name: 'Frozen Extra Movement' }
       ]
     }
 
