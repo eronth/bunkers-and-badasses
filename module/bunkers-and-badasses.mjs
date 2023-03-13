@@ -288,8 +288,6 @@ const tokenBarbrawlBars = {
   ...(BarbrawlBuilder._buildBarbrawlBars( {useAllHealth: true} ))
 };
 
-
-
 Hooks.once("dragRuler.ready", (SpeedProvider) => {
   class BnBSpeedProvider extends SpeedProvider {
     get colors() {
