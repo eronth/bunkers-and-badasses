@@ -255,12 +255,11 @@ function rulerFn(wrapper, gridSpaces) {
   let totalDistance = 0;
   const { size, distance } = canvas.scene.dimensions;
   const gridConversion = distance / size;
-  const lastSegmentKey = this.segments.length; - 1;
+  const lastSegmentKey = this.segments.length - 1;
 
   this.segments.forEach((segment, key) => {
     const sideA = Math.abs(segment.ray.A.x - segment.ray.B.x);
     const sideB = Math.abs(segment.ray.A.y - segment.ray.B.y);
-
 
 
     /// CHANGES PER TYPE
@@ -273,7 +272,6 @@ function rulerFn(wrapper, gridSpaces) {
       addedDistance = Math.ceil(Math.sqrt(Math.pow(sideA, 2) + Math.pow(sideB, 2)) * gridConversion);
     }
     /// CHANGES PER TYPE
-
 
 
     segment.last = (key === lastSegmentKey);
