@@ -289,6 +289,20 @@ function getAddedDistance({ line }) {
   }
 }
 
+Hooks.once("dragRuler.ready", (SpeedProvider) => {
+  class BnBSpeedProvider extends SpeedProvider {
+    get colors() {
+      return [
+        { id: 'movement', default: 0x00FF00, name: 'Movement' },
+        { id: 'extraMovement', default: 0xFFFF00, name: 'Extra Movement' },
+        { id: 'extraMovement2', default: 0xFF0000, name: 'More Extra Movement' },
+        { id: 'frozen', default: 0x1298b9, name: 'Frozen Movement' },
+        { id: 'frozenExtraMovement', default: 0xFF0000, name: 'Frozen Extra Movement' }
+      ]
+    }
+  dragRuler.registerSystem("bunkers-and-badasses", BnBSpeedProvider);
+})
+
 
 /* -------------------------------------------- */
 /*  Hotbar Macros                               */
