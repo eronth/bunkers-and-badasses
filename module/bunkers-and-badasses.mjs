@@ -300,6 +300,21 @@ Hooks.once("dragRuler.ready", (SpeedProvider) => {
         { id: 'frozenExtraMovement', default: 0xFF0000, name: 'Frozen Extra Movement' }
       ]
     }
+
+    getRanges(token) {
+      const baseSpeed = token.actor.system.checks.movement.total;
+      const movement = { range: baseSpeed, color: 'movement' };
+      const extraMovement = { range: baseSpeed * 2, color: 'extraMovement' };
+      const extraMovement2 = { range: baseSpeed * 3, color: 'extraMovement2' };
+      const frozen = { range: 1, color: 'frozen' };
+      const frozenExtraMovement = { range: 2, color: 'frozenExtraMovement' };
+      const ranges = (isFroze) 
+      ? [ frozen, frozenExtraMovement ]
+      : [ movement, extraMovement, extraMovement2 ];
+
+      return ranges
+    }
+  }
   dragRuler.registerSystem("bunkers-and-badasses", BnBSpeedProvider);
 })
 
