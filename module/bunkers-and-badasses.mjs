@@ -30,7 +30,7 @@ Hooks.once('init', async function() {
     name: 'Distance Measurement Style',
     hint: 'Choose between "Simple" (calculate diagonals as 1 sq), '
       + '"Manhattan" (diagonals is 2 sq), '
-      //+ '"Every Other" (every even number diagonal counts as 2 sq, the rest are 1 sq), '
+      + '"Every Other" (every even number diagonal counts as 2 sq, the rest are 1 sq), '
       + '"Exact (Decimal)" (calculate exact distances, show decimal places), '
       + 'or "Exact (Rounded)" (calculate exact distances, round decimal place up) '
       + 'for distance measurements.',
@@ -41,7 +41,7 @@ Hooks.once('init', async function() {
     choices: {
       'simple': 'Simple (Default)',
       'manhattan': 'Manhattan',
-      //'everyOther': 'Every Other',
+      'everyOther': 'Every Other',
       'exactRounded': 'Exact (Rounded)',
       'exactDecimal': 'Exact (Decimal)'
     }
@@ -266,6 +266,10 @@ function rulerFn(wrapper, gridSpaces) {
     let addedDistance = 0;
     if (measureType === 'manhattan') {
       addedDistance = (Math.abs(sideX) + Math.abs(sideY)) * gridConversion;
+    } else if (measureType === 'everyOther') {
+      const straightCount = Math.max(sideX * gridConversion, sideY * gridConversion);
+      const diagonalCount = Math.min(sideX * gridConversion, sideY * gridConversion);
+      addedDistance = (straightCount + Math.floor((diagonalCount / 2)));
     } else if (measureType === 'exactDecimal') {
       addedDistance = Math.sqrt(Math.pow(sideX, 2) + Math.pow(sideY, 2)) * gridConversion;
     } else if (measureType === 'exactRounded') {
