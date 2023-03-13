@@ -25,6 +25,27 @@ Hooks.once('init', async function() {
   
   // Add custom constants for configuration.
   CONFIG.BNB = BNB;
+
+  game.settings.register('bunkers-and-badasses', 'measurementType', {
+    name: 'Distance Measurement Style',
+    hint: 'Choose between "Simple" (calculate diagonals as 1 sq), '
+      + '"Manhattan" (diagonals is 2 sq), '
+      //+ '"Every Other" (every even number diagonal counts as 2 sq, the rest are 1 sq), '
+      + '"Exact (Decimal)" (calculate exact distances, show decimal places), '
+      + 'or "Exact (Rounded)" (calculate exact distances, round decimal place up) '
+      + 'for distance measurements.',
+    scope: 'world',
+    config: true,
+    default: 'simple',
+    type: String,
+    choices: {
+      'simple': 'Simple',
+      'manhattan': 'Manhattan',
+      //'everyOther': 'Every Other',
+      'exactRounded': 'Exact (Rounded)',
+      'exactDecimal': 'Exact (Decimal)'
+    }
+  });
   
   // System settings here
   game.settings.register('bunkers-and-badasses', 'usePlayerArmor', {
@@ -127,6 +148,11 @@ Hooks.once("ready", async function() {
   Hooks.on("hotbarDrop", (bar, data, slot) => createItemMacro(data, slot));
 });
 
+Hooks.once('libWrapper.Ready', async () => {
+  libWrapper.register('bunkers-and-badasses', 'Ruler.prototype._computeDistance', rulerFn, libWrapper.MIXED);
+});
+    
+
 Hooks.on("preCreateToken", function (document, data) {
   const actor = document?.actor;
   const actorSystem = actor?.system;
@@ -221,7 +247,41 @@ const tokenBarbrawlBars = {
   ...(BarbrawlBuilder._buildBarbrawlBars( {useAllHealth: true} ))
 };
 
+function rulerFn(wrapper, gridSpaces) {
+  const measureType = game.settings.get('bunkers-and-badasses', 'measurementType');
 
+  if (measureType === 'simple') { return wrapper(gridSpaces); }
+
+  let totalDistance = 0;
+  const { size, distance } = canvas.scene.dimensions;
+  const gridConversion = distance / size;
+  const lastSegmentKey = this.segments.length; - 1;
+
+  this.segments.forEach((segment, key) => {
+    const sideA = Math.abs(segment.ray.A.x - segment.ray.B.x);
+    const sideB = Math.abs(segment.ray.A.y - segment.ray.B.y);
+
+
+
+    /// CHANGES PER TYPE
+    let addedDistance = 0;
+    if (measureType === 'manhattan') {
+      addedDistance = (Math.abs(sideA) + Math.abs(sideB)) * gridConversion;
+    } else if (measureType === 'exactDecimal') {
+      addedDistance = Math.sqrt(Math.pow(sideA, 2) + Math.pow(sideB, 2)) * gridConversion;
+    } else if (measureType === 'exactRounded') {
+      addedDistance = Math.ceil(Math.sqrt(Math.pow(sideA, 2) + Math.pow(sideB, 2)) * gridConversion);
+    }
+    /// CHANGES PER TYPE
+
+
+
+    segment.last = (key === lastSegmentKey);
+    segment.distance = addedDistance;
+    totalDistance += addedDistance;
+    segment.text = this._getSegmentLabel(segment, totalDistance);
+  });
+}
 
 
 /* -------------------------------------------- */
