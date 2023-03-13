@@ -28,7 +28,7 @@ Hooks.once('init', async function() {
 
   game.settings.register('bunkers-and-badasses', 'measurementType', {
     name: 'Distance Measurement Style',
-    hint: 'Choose between several different methods for distance measurements.',
+    hint: 'Choose between several different methods for distance measurements. For now, "Measurement Controls" and "Exact (Rounded Up)" function the exact same way.',
     scope: 'world',
     config: true,
     default: 'simple',
@@ -37,8 +37,11 @@ Hooks.once('init', async function() {
       'simple': 'Simple (Default) — Calculate diagonals as 1 sq',
       'manhattan': 'Manhattan — Treat diagonals as 2 sq',
       'everyOther': 'Every Other - Every even number diagonal counts as 2 sq instead of 1 sq',
-      'exactRounded': 'Exact (Rounded) — Calculate exact distances, round decimal place up',
-      'exactDecimal': 'Exact (Decimal) — Calculate exact distances, show decimal places'
+      'measureControls': "Measurement Controls - Attempts to match Foundry VTT's Measurement Controls",
+      'exactRound': 'Exact (Rounded) — Use exact distances, round to nearest whole number',
+      'exactRoundUp': 'Exact (Rounded Up) — Use exact distances, round up',
+      'exactRoundDown': 'Exact (Rounded Down) — Use exact distances, round down',
+      'exactDecimal': 'Exact (Decimal) — Use exact distances, show decimal places'
     }
   });
   
@@ -248,36 +251,42 @@ function rulerFn(wrapper, gridSpaces) {
   if (measureType === 'simple') { return wrapper(gridSpaces); }
 
   let totalDistance = 0;
-  const { size, distance } = canvas.scene.dimensions;
-  const gridConversion = distance / size;
   const lastSegmentKey = this.segments.length - 1;
 
   this.segments.forEach((segment, key) => {
     const sideX = Math.abs(segment.ray.A.x - segment.ray.B.x);
     const sideY = Math.abs(segment.ray.A.y - segment.ray.B.y);
 
-
-    /// CHANGES PER TYPE
-    let addedDistance = 0;
-    if (measureType === 'manhattan') {
-      addedDistance = (Math.abs(sideX) + Math.abs(sideY)) * gridConversion;
-    } else if (measureType === 'everyOther') {
-      const straightCount = Math.max(sideX * gridConversion, sideY * gridConversion);
-      const diagonalCount = Math.min(sideX * gridConversion, sideY * gridConversion);
-      addedDistance = (straightCount + Math.floor((diagonalCount / 2)));
-    } else if (measureType === 'exactDecimal') {
-      addedDistance = Math.sqrt(Math.pow(sideX, 2) + Math.pow(sideY, 2)) * gridConversion;
-    } else if (measureType === 'exactRounded') {
-      addedDistance = Math.ceil(Math.sqrt(Math.pow(sideX, 2) + Math.pow(sideY, 2)) * gridConversion);
-    }
-    /// CHANGES PER TYPE
-
+    const addedDistance = getAddedDistance({ line: { X: sideX, Y: sideY } });
 
     segment.last = (key === lastSegmentKey);
     segment.distance = addedDistance;
     totalDistance += addedDistance;
     segment.text = this._getSegmentLabel(segment, totalDistance);
   });
+}
+
+function getAddedDistance({ line }) {
+  const measureType = game.settings.get('bunkers-and-badasses', 'measurementType');
+  const { X, Y } = line;
+  const { size, distance } = canvas.scene.dimensions;
+  const gridConversion = distance / size;
+
+  if (measureType === 'manhattan') {
+    return (Math.abs(X) + Math.abs(Y)) * gridConversion;
+  } else if (measureType === 'everyOther') {
+    const straightCount = Math.max(X * gridConversion, Y * gridConversion);
+    const diagonalCount = Math.min(X * gridConversion, Y * gridConversion);
+    return (straightCount + Math.floor((diagonalCount / 2)));
+  } else if (measureType === 'exactDecimal') {
+    return Math.sqrt(Math.pow(X, 2) + Math.pow(Y, 2)) * gridConversion;
+  } else if (measureType === 'exactRound') {
+    return Math.round(Math.sqrt(Math.pow(X, 2) + Math.pow(Y, 2)) * gridConversion);
+  } else if (measureType === 'exactRoundDown') {
+    return Math.floor(Math.sqrt(Math.pow(X, 2) + Math.pow(Y, 2)) * gridConversion);
+  } else if (measureType === 'exactRoundUp' || measureType === 'measureControls') {
+    return Math.ceil(Math.sqrt(Math.pow(X, 2) + Math.pow(Y, 2)) * gridConversion);
+  }
 }
 
 
