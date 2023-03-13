@@ -28,7 +28,7 @@ Hooks.once('init', async function() {
 
   game.settings.register('bunkers-and-badasses', 'measurementType', {
     name: 'Distance Measurement Style',
-    hint: 'Choose between several different methods for distance measurements. For now, "Measurement Controls" and "Exact (Rounded Up)" function the exact same way.',
+    hint: 'Choose between several different methods for distance measurements. For now, "Measurement Controls" and "Euclid (Rounded Up)" function the exact same way.',
     scope: 'world',
     config: true,
     default: 'simple',
@@ -36,12 +36,12 @@ Hooks.once('init', async function() {
     choices: {
       'simple': 'Simple (Default) — Calculate diagonals as 1 sq',
       'manhattan': 'Manhattan — Treat diagonals as 2 sq',
-      'everyOther': 'Every Other - Every even number diagonal counts as 2 sq instead of 1 sq',
+      'everyOther': 'Approximation - Every even number diagonal counts as 2 sq instead of 1 sq',
       'measureControls': "Measurement Controls - Attempts to match Foundry VTT's Measurement Controls",
-      'exactRound': 'Exact (Rounded) — Use exact distances, round to nearest whole number',
-      'exactRoundUp': 'Exact (Rounded Up) — Use exact distances, round up',
-      'exactRoundDown': 'Exact (Rounded Down) — Use exact distances, round down',
-      'exactDecimal': 'Exact (Decimal) — Use exact distances, show decimal places'
+      'exactRound': 'Euclid (Rounded) — Use exact distances, round to nearest whole number',
+      'exactRoundUp': 'Euclid (Rounded Up) — Use exact distances, round up',
+      'exactRoundDown': 'Euclid (Rounded Down) — Use exact distances, round down',
+      'exactDecimal': 'Euclid (Decimal) — Use exact distances, show decimal places'
     }
   });
   
