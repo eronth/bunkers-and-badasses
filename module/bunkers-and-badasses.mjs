@@ -28,22 +28,17 @@ Hooks.once('init', async function() {
 
   game.settings.register('bunkers-and-badasses', 'measurementType', {
     name: 'Distance Measurement Style',
-    hint: 'Choose between "Simple" (calculate diagonals as 1 sq), '
-      + '"Manhattan" (diagonals is 2 sq), '
-      + '"Every Other" (every even number diagonal counts as 2 sq, the rest are 1 sq), '
-      + '"Exact (Decimal)" (calculate exact distances, show decimal places), '
-      + 'or "Exact (Rounded)" (calculate exact distances, round decimal place up) '
-      + 'for distance measurements.',
+    hint: 'Choose between several different methods for distance measurements.',
     scope: 'world',
     config: true,
     default: 'simple',
     type: String,
     choices: {
-      'simple': 'Simple (Default)',
-      'manhattan': 'Manhattan',
-      'everyOther': 'Every Other',
-      'exactRounded': 'Exact (Rounded)',
-      'exactDecimal': 'Exact (Decimal)'
+      'simple': 'Simple (Default) — Calculate diagonals as 1 sq',
+      'manhattan': 'Manhattan — Treat diagonals as 2 sq',
+      'everyOther': 'Every Other - Every even number diagonal counts as 2 sq instead of 1 sq',
+      'exactRounded': 'Exact (Rounded) — Calculate exact distances, round decimal place up',
+      'exactDecimal': 'Exact (Decimal) — Calculate exact distances, show decimal places'
     }
   });
   
