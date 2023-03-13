@@ -147,9 +147,52 @@ Hooks.once("ready", async function() {
 });
 
 Hooks.once('libWrapper.Ready', async () => {
-  libWrapper.register('bunkers-and-badasses', 'Ruler.prototype._computeDistance', rulerFn, libWrapper.MIXED);
+  libWrapper.register('bunkers-and-badasses', 'Ruler.prototype._computeDistance', computeBnBDistance, libWrapper.MIXED);
 });
-    
+
+function computeBnBDistance(wrapper, gridSpaces) {
+  const measureType = game.settings.get('bunkers-and-badasses', 'measurementType');
+
+  if (measureType === 'simple') { return wrapper(gridSpaces); }
+
+  let totalDistance = 0;
+  const lastSegmentKey = this.segments.length - 1;
+
+  this.segments.forEach((segment, key) => {
+    const sideX = Math.abs(segment.ray.A.x - segment.ray.B.x);
+    const sideY = Math.abs(segment.ray.A.y - segment.ray.B.y);
+
+    const addedDistance = getAddedDistance({ line: { X: sideX, Y: sideY } });
+
+    segment.last = (key === lastSegmentKey);
+    segment.distance = addedDistance;
+    totalDistance += addedDistance;
+    segment.text = this._getSegmentLabel(segment, totalDistance);
+  });
+}
+
+function getAddedDistance({ line }) {
+  const measureType = game.settings.get('bunkers-and-badasses', 'measurementType');
+  const { X, Y } = line;
+  const { size, distance } = canvas.scene.dimensions;
+  const gridConversion = distance / size;
+
+  if (measureType === 'manhattan') {
+    return (Math.abs(X) + Math.abs(Y)) * gridConversion;
+  } else if (measureType === 'everyOther') {
+    const straightCount = Math.max(X * gridConversion, Y * gridConversion);
+    const diagonalCount = Math.min(X * gridConversion, Y * gridConversion);
+    return (straightCount + Math.floor((diagonalCount / 2)));
+  } else if (measureType === 'exactDecimal') {
+    return Math.sqrt(Math.pow(X, 2) + Math.pow(Y, 2)) * gridConversion;
+  } else if (measureType === 'exactRound') {
+    return Math.round(Math.sqrt(Math.pow(X, 2) + Math.pow(Y, 2)) * gridConversion);
+  } else if (measureType === 'exactRoundDown') {
+    return Math.floor(Math.sqrt(Math.pow(X, 2) + Math.pow(Y, 2)) * gridConversion);
+  } else if (measureType === 'exactRoundUp' || measureType === 'measureControls') {
+    return Math.ceil(Math.sqrt(Math.pow(X, 2) + Math.pow(Y, 2)) * gridConversion);
+  }
+}
 
 Hooks.on("preCreateToken", function (document, data) {
   const actor = document?.actor;
@@ -245,49 +288,7 @@ const tokenBarbrawlBars = {
   ...(BarbrawlBuilder._buildBarbrawlBars( {useAllHealth: true} ))
 };
 
-function rulerFn(wrapper, gridSpaces) {
-  const measureType = game.settings.get('bunkers-and-badasses', 'measurementType');
 
-  if (measureType === 'simple') { return wrapper(gridSpaces); }
-
-  let totalDistance = 0;
-  const lastSegmentKey = this.segments.length - 1;
-
-  this.segments.forEach((segment, key) => {
-    const sideX = Math.abs(segment.ray.A.x - segment.ray.B.x);
-    const sideY = Math.abs(segment.ray.A.y - segment.ray.B.y);
-
-    const addedDistance = getAddedDistance({ line: { X: sideX, Y: sideY } });
-
-    segment.last = (key === lastSegmentKey);
-    segment.distance = addedDistance;
-    totalDistance += addedDistance;
-    segment.text = this._getSegmentLabel(segment, totalDistance);
-  });
-}
-
-function getAddedDistance({ line }) {
-  const measureType = game.settings.get('bunkers-and-badasses', 'measurementType');
-  const { X, Y } = line;
-  const { size, distance } = canvas.scene.dimensions;
-  const gridConversion = distance / size;
-
-  if (measureType === 'manhattan') {
-    return (Math.abs(X) + Math.abs(Y)) * gridConversion;
-  } else if (measureType === 'everyOther') {
-    const straightCount = Math.max(X * gridConversion, Y * gridConversion);
-    const diagonalCount = Math.min(X * gridConversion, Y * gridConversion);
-    return (straightCount + Math.floor((diagonalCount / 2)));
-  } else if (measureType === 'exactDecimal') {
-    return Math.sqrt(Math.pow(X, 2) + Math.pow(Y, 2)) * gridConversion;
-  } else if (measureType === 'exactRound') {
-    return Math.round(Math.sqrt(Math.pow(X, 2) + Math.pow(Y, 2)) * gridConversion);
-  } else if (measureType === 'exactRoundDown') {
-    return Math.floor(Math.sqrt(Math.pow(X, 2) + Math.pow(Y, 2)) * gridConversion);
-  } else if (measureType === 'exactRoundUp' || measureType === 'measureControls') {
-    return Math.ceil(Math.sqrt(Math.pow(X, 2) + Math.pow(Y, 2)) * gridConversion);
-  }
-}
 
 Hooks.once("dragRuler.ready", (SpeedProvider) => {
   class BnBSpeedProvider extends SpeedProvider {
