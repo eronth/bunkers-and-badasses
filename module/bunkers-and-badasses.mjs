@@ -258,18 +258,18 @@ function rulerFn(wrapper, gridSpaces) {
   const lastSegmentKey = this.segments.length - 1;
 
   this.segments.forEach((segment, key) => {
-    const sideA = Math.abs(segment.ray.A.x - segment.ray.B.x);
-    const sideB = Math.abs(segment.ray.A.y - segment.ray.B.y);
+    const sideX = Math.abs(segment.ray.A.x - segment.ray.B.x);
+    const sideY = Math.abs(segment.ray.A.y - segment.ray.B.y);
 
 
     /// CHANGES PER TYPE
     let addedDistance = 0;
     if (measureType === 'manhattan') {
-      addedDistance = (Math.abs(sideA) + Math.abs(sideB)) * gridConversion;
+      addedDistance = (Math.abs(sideX) + Math.abs(sideY)) * gridConversion;
     } else if (measureType === 'exactDecimal') {
-      addedDistance = Math.sqrt(Math.pow(sideA, 2) + Math.pow(sideB, 2)) * gridConversion;
+      addedDistance = Math.sqrt(Math.pow(sideX, 2) + Math.pow(sideY, 2)) * gridConversion;
     } else if (measureType === 'exactRounded') {
-      addedDistance = Math.ceil(Math.sqrt(Math.pow(sideA, 2) + Math.pow(sideB, 2)) * gridConversion);
+      addedDistance = Math.ceil(Math.sqrt(Math.pow(sideX, 2) + Math.pow(sideY, 2)) * gridConversion);
     }
     /// CHANGES PER TYPE
 
