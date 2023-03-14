@@ -11,7 +11,9 @@ Updates
 * Updated grenade count displays to match potions and skill points.
 * Added text that rolls health you gain on level up in the Level Up tab.
 * Adding ability to collapse potentially large sections.
-* Added ruler options for measuring distances.
+* Improved Ruler functionality.
+  * Added ruler options for measuring distances.
+  * Added support for Drag Ruler integration.
 
 Bugfixes
 * Improved visuals for various combined Regen sources.
