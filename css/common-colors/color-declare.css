@@ -33,9 +33,9 @@
   --flesh-high: hsl(0, 65%, 50%);
   --flesh-low:  hsl(0, 90%, 35%);
 
-  --armor:      hsl(53, 100%, 50%);
-  --armor-high: hsl(53, 100%, 50%);
-  --armor-low:  hsl(53, 85%, 37%);
+  --armor:      hsl(50, 95%, 44%);
+  --armor-high: hsl(50, 95%, 44%);
+  --armor-low:  hsl(53, 85%, 33%);
 
   --shield:      hsl(181, 70%, 50%);
   --shield-high: hsl(181, 70%, 50%);
