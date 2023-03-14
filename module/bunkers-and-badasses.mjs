@@ -150,7 +150,7 @@ Hooks.on('canvasInit', (gameCanvas) => {
   SquareGrid.prototype.measureDistances = measureBnBDistances;
 });
 
-function measureBnBDistances(segments, options/*wrapper, gridSpaces*/) {
+function measureBnBDistances(segments, options) {
   const measureType = game.settings.get('bunkers-and-badasses', 'measurementType');
   
   if (measureType === 'simple') return BaseGrid.prototype.measureDistances.call(this, segments, options);
