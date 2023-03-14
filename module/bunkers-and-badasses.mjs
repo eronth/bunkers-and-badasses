@@ -147,7 +147,6 @@ Hooks.once("ready", async function() {
 });
 
 Hooks.on('canvasInit', (gameCanvas) => {
-  const measureType = game.settings.get('bunkers-and-badasses', 'measurementType');
   SquareGrid.prototype.measureDistances = measureBnBDistances;
 });
 
@@ -316,8 +315,7 @@ Hooks.once("dragRuler.ready", (SpeedProvider) => {
       const tokenData = token.document ? token.document : token;
       const tokenEffects = (tokenData?.effects || [])
         .filter((ef) => !ef.disabled && !ef.isSuppressed)
-        .map((ef) => ef.label)
-        .concat(actorEffects);
+        .map((ef) => ef.label);
 
       const isFroze = ([].concat(actorEffects, tokenEffects)).some(i => i === 'Frozen');
 
