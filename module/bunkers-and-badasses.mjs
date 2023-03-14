@@ -25,6 +25,25 @@ Hooks.once('init', async function() {
   
   // Add custom constants for configuration.
   CONFIG.BNB = BNB;
+
+  game.settings.register('bunkers-and-badasses', 'measurementType', {
+    name: 'Distance Measurement Style',
+    hint: 'Choose between several different methods for distance measurements. For now, "Measurement Controls" and "Euclid (Rounded Up)" function the exact same way.',
+    scope: 'world',
+    config: true,
+    default: 'simple',
+    type: String,
+    choices: {
+      'simple': 'Simple (Default) — Calculate diagonals as 1 sq',
+      'manhattan': 'Manhattan — Treat diagonals as 2 sq',
+      'everyOther': 'Approximation - Every even number diagonal counts as 2 sq instead of 1 sq',
+      'measureControls': "Measurement Controls - Attempts to match Foundry VTT's Measurement Controls",
+      'exactRound': 'Euclid (Rounded) — Use exact distances, round to nearest whole number',
+      'exactRoundUp': 'Euclid (Rounded Up) — Use exact distances, round up',
+      'exactRoundDown': 'Euclid (Rounded Down) — Use exact distances, round down',
+      'exactDecimal': 'Euclid (Decimal) — Use exact distances, show decimal places'
+    }
+  });
   
   // System settings here
   game.settings.register('bunkers-and-badasses', 'usePlayerArmor', {
@@ -127,6 +146,52 @@ Hooks.once("ready", async function() {
   Hooks.on("hotbarDrop", (bar, data, slot) => createItemMacro(data, slot));
 });
 
+Hooks.on('canvasInit', (gameCanvas) => {
+  SquareGrid.prototype.measureDistances = measureBnBDistances;
+});
+
+function measureBnBDistances(segments, options) {
+  const measureType = game.settings.get('bunkers-and-badasses', 'measurementType');
+  
+  if (measureType === 'simple') return BaseGrid.prototype.measureDistances.call(this, segments, options);
+  if (!options.gridSpaces) return BaseGrid.prototype.measureDistances.call(this, segments, options);
+  if (!segments || !segments.length) return [];
+
+  const { size, distance } = canvas.scene.dimensions;
+  const gridConversion = distance / size;
+
+  let leftoverDiagonal = 0; // Used for every other
+
+  return segments.map((segment, key) => {
+    const sideX = Math.abs(segment.ray.A.x - segment.ray.B.x);
+    const sideY = Math.abs(segment.ray.A.y - segment.ray.B.y);
+    const distance = getAddedDistance({ line: { X: sideX, Y: sideY }, leftoverDiagonal: leftoverDiagonal, gridConversion: gridConversion});
+    leftoverDiagonal = (leftoverDiagonal + Math.min(sideX * gridConversion, sideY * gridConversion)) % 2;
+    return distance;
+  });
+}
+
+function getAddedDistance({ line, leftoverDiagonal, gridConversion }) {
+  const measureType = game.settings.get('bunkers-and-badasses', 'measurementType');
+  const { X, Y } = line;
+
+  if (measureType === 'manhattan') {
+    return (Math.abs(X) + Math.abs(Y)) * gridConversion;
+  } else if (measureType === 'everyOther') {
+    const straightCount = Math.max(X * gridConversion, Y * gridConversion);
+    const diagonalCount = Math.min(X * gridConversion, Y * gridConversion) + leftoverDiagonal;
+    return (straightCount + Math.floor((diagonalCount / 2)));
+  } else if (measureType === 'exactDecimal') {
+    return Math.sqrt(Math.pow(X, 2) + Math.pow(Y, 2)) * gridConversion;
+  } else if (measureType === 'exactRound') {
+    return Math.round(Math.sqrt(Math.pow(X, 2) + Math.pow(Y, 2)) * gridConversion);
+  } else if (measureType === 'exactRoundDown') {
+    return Math.floor(Math.sqrt(Math.pow(X, 2) + Math.pow(Y, 2)) * gridConversion);
+  } else if (measureType === 'exactRoundUp' || measureType === 'measureControls') {
+    return Math.ceil(Math.sqrt(Math.pow(X, 2) + Math.pow(Y, 2)) * gridConversion);
+  }
+}
+
 Hooks.on("preCreateToken", function (document, data) {
   const actor = document?.actor;
   const actorSystem = actor?.system;
@@ -221,7 +286,49 @@ const tokenBarbrawlBars = {
   ...(BarbrawlBuilder._buildBarbrawlBars( {useAllHealth: true} ))
 };
 
+Hooks.once("dragRuler.ready", (SpeedProvider) => {
+  class BnBSpeedProvider extends SpeedProvider {
+    get colors() {
+      return [
+        { id: 'movement', default: 0x00ff00, name: 'Movement' },
+        { id: 'extraMovement', default: 0xfff700, name: 'Extra Movement' },
+        { id: 'extraMovement2', default: 0xcc20df, name: 'More Extra Movement' },
+        { id: 'frozen', default: 0x5dcce8, name: 'Frozen Movement' },
+        { id: 'frozenExtraMovement', default: 0x9998b9, name: 'Frozen Extra Movement' }
+      ]
+    }
 
+    getRanges(token) {
+      const baseSpeed = (token.actor.type=='npc') 
+        ? Math.max.apply(Math, Object.values(token.actor.system.movements).map((m) => m.distance ))
+        : token.actor.system.checks.movement.total;
+      const movement = { range: baseSpeed, color: 'movement' };
+      const extraMovement = { range: baseSpeed * 2, color: 'extraMovement' };
+      const extraMovement2 = { range: baseSpeed * 3, color: 'extraMovement2' };
+      const frozen = { range: 1, color: 'frozen' };
+      const frozenExtraMovement = { range: 2, color: 'frozenExtraMovement' };
+
+      // Try to determine if a character is considered "Frozen".
+      const actorEffects = (token?.actor?.effects || [])
+        .filter((eff) => (!eff.disabled && !eff.isSuppressed))
+        .map((eff) => eff.label);
+      const tokenData = token.document ? token.document : token;
+      const tokenEffects = (tokenData?.effects || [])
+        .filter((ef) => !ef.disabled && !ef.isSuppressed)
+        .map((ef) => ef.label);
+
+      const isFroze = ([].concat(actorEffects, tokenEffects)).some(i => i === 'Frozen');
+
+      const ranges = (isFroze) 
+      ? [ frozen, frozenExtraMovement ]
+      : [ movement, extraMovement, extraMovement2 ];
+
+      return ranges;
+    }
+  }
+
+  dragRuler.registerSystem("bunkers-and-badasses", BnBSpeedProvider);
+})
 
 
 /* -------------------------------------------- */
