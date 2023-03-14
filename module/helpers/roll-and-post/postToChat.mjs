@@ -39,4 +39,39 @@ export class PostToChat {
     });
   }
 
+  static async skillCheck(options) {
+    const { actor, checkDetails, rollResult } = options;
+    const difficultyValue = checkDetails.difficultyValue;
+    const checkType = checkDetails.checkType;
+
+    const templateLocation = 'systems/bunkers-and-badasses/templates/chat/check-roll.html';
+    const chatHtmlContent = await renderTemplate(templateLocation, {
+      diceRoll: `Rolled ${rollResult.formula}.`,
+      result: rollResult.result,
+      total: rollResult.total,
+      difficulty: difficultyValue,
+      attackType: 'check',
+      success: (difficultyValue != null) && rollResult.total >= difficultyValue,
+      failure: (difficultyValue != null) && rollResult.total < difficultyValue,
+    });
+
+    // Prep chat values.
+    const checkSubTypeText = ((checkType?.sub ?? '') != '') ? ` (${checkType?.sub})` : '';
+    const flavorText = (checkType?.skill === 'throw') ? `${actor.name} attempts to throw an item.` : `${actor.name} attempts a ${checkType?.super}${checkSubTypeText} check.`;
+    const messageData = {
+      user: game.user.id,
+      speaker: ChatMessage.getSpeaker({ actor: actor }),
+      flavor: flavorText,
+      type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+      roll: rollResult,
+      rollMode: CONFIG.Dice.rollModes.publicroll,
+      content: chatHtmlContent,
+      // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
+      speaker: ChatMessage.getSpeaker(),
+    }
+
+    // Send the roll to chat!
+    return rollResult.toMessage(messageData);
+  }
+
 }

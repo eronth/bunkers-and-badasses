@@ -1155,7 +1155,7 @@ export class BNBActorSheet extends ActorSheet {
       } else if (dataset.rollType == 'melee-dice-roll') {
         return this._meleeAndHPDiceRoll(dataset);
       } else if (dataset.rollType == 'check') {
-        return this._checkRoll(dataset);
+        return ConfirmActionPrompt.checkRoll(event, { actor: this.actor, dataset: dataset });
       } else if (dataset.rollType == 'badass-move') {
         return this._badassRoll(dataset);
       } else if (dataset.rollType == 'health-regain') {
@@ -1258,22 +1258,6 @@ export class BNBActorSheet extends ActorSheet {
       rollMode: CONFIG.Dice.rollModes.publicroll,
       // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
       speaker: ChatMessage.getSpeaker(),
-    });
-  }
-
-  async _checkRoll(dataset) {
-    // Prep data to access.
-    const actorSystem = this.actor.system;
-    const check = actorSystem.checks[dataset.checkType.toLowerCase()];
-    if (check.nonRolled) return; // Special case for movement, since I (potentially foolishly) bundled it with checks.
-    if (dataset.checkType.toLowerCase() === 'initiative') {
-      return this.actor.rollInitiative({createCombatants: true});
-    }
-
-    return await this._makeCheck(dataset, {
-      checkTitle: `${actorSystem[check.stat].label} Check`,
-      checkItem: check,
-      promptCheckType: true
     });
   }
 
@@ -1617,59 +1601,6 @@ export class BNBActorSheet extends ActorSheet {
     return await this._displayGunRollResultToChat(dataset, { rollResult: rollResult });
   }
 
-  async _rollCheckDice(dataset, html, checkItem, displayResultOverride) {
-    // Prep data to access.
-    const actorSystem = this.actor.system;
-    const checkName = dataset.checkType;
-    const checkStat = checkItem.stat;
-
-    // Pull data from html.
-    const extraBonusValue = parseInt(html.find("#extra")[0].value);
-    const difficultyValue = parseInt(html.find("#difficulty")[0].value);
-    const checkTypeElement = html.find("#check-type")
-    let checkType;
-    if (checkTypeElement && checkTypeElement.length > 0) {
-      checkType = checkTypeElement[0].value;
-    } 
-    const difficultyEntered = !isNaN(difficultyValue);
-
-    // Prepare and roll the check.
-    const badassMod = checkItem.usesBadassRank ? ' + @badassrank[Badass Rank]' : ''
-    const rollStatMod = ` + @${checkStat.toLowerCase()}[${checkStat.toUpperCase()} ${actorSystem.attributes.badass.rollsEnabled ? 'Stat' : 'Mod'}]`;
-    const rollMiscBonus = ` + @${checkName.toLowerCase()}misc[Misc]`;
-    const rollEffectBonus = ` + @${checkName.toLowerCase()}effects[Effects]`;
-    const rollExtraMod = (isNaN(extraBonusValue) || extraBonusValue == 0 ? '' : ` + @extrabonusvalue[Extra Bonus]`);
-    const rollDifficulty = ((difficultyValue != null && !isNaN(difficulty)) ? `cs>=${difficultyValue}` : ``);
-    const rollFormula = `1d20${badassMod}${rollStatMod}${rollMiscBonus}${rollEffectBonus}${rollExtraMod}${rollDifficulty}`;
-    const roll = new Roll(
-      rollFormula,
-      RollBuilder._createDiceRollData(
-        { actor: this.actor },
-        { extrabonusvalue: extraBonusValue }
-      )
-    );
-    const rollResult = await roll.roll({async: true});
-
-    // Display the result.
-    if (displayResultOverride && typeof displayResultOverride === 'function') {
-      return await displayResultOverride.call(this, dataset, {
-        checkStat: "acc",
-        checkType: checkType,
-        rollResult: rollResult,
-        difficultyValue: difficultyValue,
-        difficultyEntered: difficultyEntered
-      });
-    } else {
-      return await this._displayCheckRollResultToChat(dataset, {
-        checkStat: checkItem.stat,
-        checkSubType: checkType,
-        rollResult: rollResult, 
-        difficultyValue: difficultyValue, 
-        difficultyEntered: difficultyEntered 
-      });
-    }
-  }
-
   /* -------------------------------------------- */
   /*  Chat Displays                               */
   /* -------------------------------------------- */
@@ -1856,45 +1787,6 @@ export class BNBActorSheet extends ActorSheet {
     this._handleRedText(item);
 
     return 
-  }
-
-  async _displayCheckRollResultToChat(dataset, rollObjs) {
-    // Pull values from objs.
-    const checkSuperType = dataset.checkType;
-    const checkSubType = rollObjs.checkSubType;
-    const checkStat = rollObjs.checkStat;
-    const rollResult = rollObjs.rollResult;
-    const difficultyValue = rollObjs.difficultyValue;
-    const difficultyEntered = rollObjs.difficultyEntered;
-
-    const templateLocation = 'systems/bunkers-and-badasses/templates/chat/check-roll.html';
-    const chatHtmlContent = await renderTemplate(templateLocation, {
-      diceRoll: `Rolled ${rollResult.formula}.`,
-      result: rollResult.result,
-      total: rollResult.total,
-      difficulty: difficultyValue,
-      attackType: 'check',
-      success: difficultyEntered && rollResult.total >= difficultyValue,
-      failure: difficultyEntered && rollResult.total < difficultyValue,
-    });
-
-    // Prep chat values.
-    const checkSubTypeText = (checkSubType != null && checkSubType != "") ? ` (${checkSubType})` : '';
-    const flavorText = (dataset.rollType === 'throw') ? `${this.actor.name} attempts to throw an item.` : `${this.actor.name} attempts a ${checkSuperType}${checkSubTypeText} check.`;
-    const messageData = {
-      user: game.user.id,
-      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-      flavor: flavorText,
-      type: CONST.CHAT_MESSAGE_TYPES.ROLL,
-      roll: rollResult,
-      rollMode: CONFIG.Dice.rollModes.publicroll,
-      content: chatHtmlContent,
-      // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
-      speaker: ChatMessage.getSpeaker(),
-    }
-
-    // Send the roll to chat!
-    return rollResult.toMessage(messageData);
   }
 
   async _displayGrenadeRollResultToChat(dataset, rollObjs) {

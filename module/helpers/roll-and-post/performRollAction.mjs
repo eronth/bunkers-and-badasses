@@ -1,4 +1,5 @@
 import { PostToChat } from "./postToChat.mjs";
+import { RollBuilder } from "../roll-builder.mjs";
 
 export class PerformRollAction {
 
@@ -105,6 +106,63 @@ export class PerformRollAction {
       const roll = new Roll(reductions.join(' + '), actor.getRollData());
       const rollResult = await roll.roll({async: true});
       return rollResult;
+    }
+  }
+
+  static async skillCheck(html, options) {
+    const { actor, checkDetails, displayResultOverride } = options;
+    const checkName = checkDetails.checkType.super;
+    const checkStat = checkDetails.check.stat;
+
+    // Pull data from html.
+    const hasMisc = (parseInt(html.find("#misc")[0].value) ?? 0) > 0;
+    const hasEff = (parseInt(html.find("#effects")[0].value) ?? 0) > 0;
+    const extraBonusValue = parseInt(html.find("#extra")[0].value);
+    const hasExtra = (extraBonusValue ?? 0) > 0;
+    const difficultyValue = parseInt(html.find("#difficulty")[0].value);
+    const checkTypeElement = html.find("#check-type");
+
+    if (checkTypeElement && checkTypeElement.length > 0) {
+      checkDetails.checkType.sub = checkTypeElement[0].value;
+    } 
+    const difficultyEntered = !isNaN(difficultyValue);
+
+    // Prepare and roll the check.
+    const badassMod = checkDetails.usesBadassRank ? ' + @badassrank[Badass Rank]' : ''
+    const rollStatMod = ` + @${checkStat.toLowerCase()}[${checkStat.toUpperCase()} ${actor.system.attributes.badass.rollsEnabled ? 'Stat' : 'Mod'}]`;
+    const rollMiscBonus = hasMisc ? ` + @${checkName.toLowerCase()}misc[Misc]` : '';
+    const rollEffectBonus = hasEff ? ` + @${checkName.toLowerCase()}effects[Effects]` : '';
+    const rollExtraMod = hasExtra ? (isNaN(extraBonusValue) || extraBonusValue == 0 ? '' : ` + @extrabonusvalue[Extra Bonus]`) : '';
+    const rollDifficulty = ((difficultyValue != null && !isNaN(difficulty)) ? `cs>=${difficultyValue}` : ``);
+    const rollFormula = `1d20${badassMod}${rollStatMod}${rollMiscBonus}${rollEffectBonus}${rollExtraMod}${rollDifficulty}`;
+    const roll = new Roll(
+      rollFormula,
+      RollBuilder._createDiceRollData(
+        { actor: actor },
+        { extrabonusvalue: extraBonusValue }
+      )
+    );
+    const rollResult = await roll.roll({async: true});
+
+    // Display the result.
+    if (displayResultOverride && typeof displayResultOverride === 'function') {
+      return await displayResultOverride.call(this, dataset, {
+        checkStat: "acc",
+        checkType: checkType,
+        rollResult: rollResult,
+        difficultyValue: difficultyValue,
+        difficultyEntered: difficultyEntered
+      });
+    } else {
+      return await PostToChat.skillCheck({
+        actor: actor,
+        checkDetails: {
+          ...checkDetails,
+          difficultyValue: difficultyValue,
+        },
+        checkType: checkDetails.checkType,
+        rollResult: rollResult
+      });
     }
   }
 }
