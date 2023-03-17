@@ -1165,9 +1165,9 @@ export class BNBActorSheet extends ActorSheet {
       } else if (dataset.rollType == 'gun-attack') {
         return this._gunAccuracyRoll(dataset);
       } else if (dataset.rollType == 'grenade-throw') {
-        return this._grenadeThrowRoll(dataset);
+        return ConfirmActionPrompt.checkRoll(event, { actor: this.actor, dataset: dataset, defaultDifficulty: 12 });
       } else if (dataset.rollType == 'item-throw') {
-        return this._itemThrowRoll(dataset);
+        return ConfirmActionPrompt.checkRoll(event, { actor: this.actor, dataset: dataset, defaultDifficulty: 12 });
       } else if (dataset.rollType == 'npc-attack') {
         return this._npcAttackRoll(dataset);
       } else if (dataset.rollType == 'npc-action') {
@@ -1421,85 +1421,6 @@ export class BNBActorSheet extends ActorSheet {
           label : "Roll",
           callback : async (html) => {
             return await this._rollGunAttackDice(dataset, html, itemSystem.statMods, itemSystem.special.overrideType);
-          }
-        }
-      }
-    }).render(true);
-  }
-
-  async _grenadeThrowRoll(dataset) {
-    // Prep data to access.
-    const actorSystem = this.actor.system;
-
-    const throwCheck = {
-      stat: "acc",
-      value: actorSystem.stats.acc.modToUse,
-      misc: 0,
-      effects: actorSystem.bonus.checks.throw,
-      total: 0,
-      usesBadassRank: false
-    };
-    throwCheck.total = throwCheck.value + throwCheck.misc + throwCheck.effects;
-
-    return await this._makeCheck(dataset, {
-      checkItem: throwCheck,
-      checkTitle: "Grenade Throw Check",
-      defaultDifficulty: 12
-    }, this._displayGrenadeRollResultToChat);
-  }
-
-  async _itemThrowRoll(dataset) {
-    // Prep data to access.
-    const actorSystem = this.actor.system;
-
-    const throwCheck = {
-      stat: "acc",
-      value: actorSystem.stats.acc.modToUse,
-      misc: 0,
-      effects: actorSystem.bonus.checks.throw,
-      total: 0,
-      usesBadassRank: false
-    };
-    throwCheck.total = throwCheck.value + throwCheck.misc + throwCheck.effects;
-
-    return await this._makeCheck(dataset, {
-      checkItem: throwCheck,
-      checkTitle: "Item Throw Check",
-      defaultDifficulty: 12
-    });
-  }
-
-  async _makeCheck(dataset, checkObjects, displayResultOverride) {
-    // Prep data to access.
-    const actorSystem = this.actor.system;
-
-    const checkItem = checkObjects.checkItem;
-    const checkTitle = checkObjects.checkTitle;
-    const defaultDifficulty = checkObjects.defaultDifficulty;
-    const promptCheckType = checkObjects.promptCheckType;
-    
-    const templateLocation = 'systems/bunkers-and-badasses/templates/dialog/check-difficulty.html';
-    const dialogHtmlContent = await renderTemplate(templateLocation, {
-      attributes: actorSystem.attributes,
-      check: checkItem,
-      promptCheckType: promptCheckType ?? false,
-      isBadass: actorSystem.attributes.badass.rollsEnabled,
-      defaultDifficulty: defaultDifficulty,
-    });
-
-    this.check = new Dialog({
-      title: checkTitle,
-      Id: "check-difficulty",
-      content: dialogHtmlContent,
-      buttons: {
-        "Cancel" : {
-          label : "Cancel",
-          callback : async (html) => {}
-        },
-        "Roll" : {
-          label : "Roll",
-          callback : async (html) => {
-            return await this._rollCheckDice(dataset, html, checkItem, displayResultOverride);
           }
         }
       }
@@ -1784,52 +1705,6 @@ export class BNBActorSheet extends ActorSheet {
     // Send the roll to chat!
     await rollResult.toMessage(messageData);
     
-    this._handleRedText(item);
-
-    return 
-  }
-
-  async _displayGrenadeRollResultToChat(dataset, rollObjs) {
-    const item = this.actor.items.get(dataset.itemId);
-    const itemSystem = item.system;
-
-    // Pull values from objs.
-    const rollResult = rollObjs.rollResult;
-    const difficultyValue = rollObjs.difficultyValue;
-    const difficultyEntered = rollObjs.difficultyEntered;
-
-    const templateLocation = 'systems/bunkers-and-badasses/templates/chat/check-roll.html';
-    const chatHtmlContent = await renderTemplate(templateLocation, {
-      actorId: this.actor.id,
-      itemId: item.id,
-      diceRoll: `Rolled ${rollResult.formula}.`,
-      result: rollResult.result,
-      total: rollResult.total,
-      difficulty: difficultyValue,
-      redText: itemSystem.redText,
-      attackType: 'grenade',
-      showDamageButton: true,
-      success: difficultyEntered && rollResult.total >= difficultyValue,
-      failure: difficultyEntered && rollResult.total < difficultyValue,
-    });
-
-    // Prep chat values.
-    const flavorText = `${this.actor.name} attempts to throw a grenade.`;
-    const messageData = {
-      user: game.user.id,
-      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-      flavor: flavorText,
-      type: CONST.CHAT_MESSAGE_TYPES.ROLL,
-      roll: rollResult,
-      rollMode: CONFIG.Dice.rollModes.publicroll,
-      content: chatHtmlContent,
-      // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
-      speaker: ChatMessage.getSpeaker(),
-    }
-    
-    // Send the roll to chat!
-    await rollResult.toMessage(messageData);
-
     this._handleRedText(item);
 
     return 

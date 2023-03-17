@@ -110,7 +110,7 @@ export class PerformRollAction {
   }
 
   static async skillCheck(html, options) {
-    const { actor, checkDetails, displayResultOverride } = options;
+    const { actor, itemId, checkDetails } = options;
     const checkName = checkDetails.checkType.super;
     const checkStat = checkDetails.check.stat;
 
@@ -145,13 +145,16 @@ export class PerformRollAction {
     const rollResult = await roll.roll({async: true});
 
     // Display the result.
-    if (displayResultOverride && typeof displayResultOverride === 'function') {
-      return await displayResultOverride.call(this, dataset, {
-        checkStat: "acc",
-        checkType: checkType,
+    if (checkDetails.checkType.rollType === 'grenade-throw') {
+      return await PostToChat.grenadeThrow({
+        actor: actor,
+        itemId: itemId,
+        checkDetails: {
+          ...checkDetails,
+          difficultyValue: difficultyValue,
+        },
+        checkType: checkDetails.checkType,
         rollResult: rollResult,
-        difficultyValue: difficultyValue,
-        difficultyEntered: difficultyEntered
       });
     } else {
       return await PostToChat.skillCheck({
@@ -160,7 +163,6 @@ export class PerformRollAction {
           ...checkDetails,
           difficultyValue: difficultyValue,
         },
-        checkType: checkDetails.checkType,
         rollResult: rollResult
       });
     }

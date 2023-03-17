@@ -46,6 +46,7 @@ export class PostToChat {
 
     const templateLocation = 'systems/bunkers-and-badasses/templates/chat/check-roll.html';
     const chatHtmlContent = await renderTemplate(templateLocation, {
+      actorId: actor.id,
       diceRoll: `Rolled ${rollResult.formula}.`,
       result: rollResult.result,
       total: rollResult.total,
@@ -72,6 +73,46 @@ export class PostToChat {
 
     // Send the roll to chat!
     return rollResult.toMessage(messageData);
+  }
+
+  static async grenadeThrow(options) {
+    const { actor, itemId, checkDetails, rollResult } = options;
+    const item = actor.items.get(itemId);
+    const difficultyValue = checkDetails.difficultyValue;
+
+    const templateLocation = 'systems/bunkers-and-badasses/templates/chat/check-roll.html';
+    const chatHtmlContent = await renderTemplate(templateLocation, {
+      actorId: actor.id,
+      itemId: item.id,
+      diceRoll: `Rolled ${rollResult.formula}.`,
+      result: rollResult.result,
+      total: rollResult.total,
+      difficulty: difficultyValue,
+      redText: item.system.redText,
+      attackType: 'grenade',
+      showDamageButton: true,
+      success: (difficultyValue != null) && rollResult.total >= difficultyValue,
+      failure: (difficultyValue != null) && rollResult.total < difficultyValue,
+    });
+
+    // Prep chat values.
+    const flavorText = `${actor.name} attempts to throw a grenade.`;
+    const messageData = {
+      user: game.user.id,
+      speaker: ChatMessage.getSpeaker({ actor: actor }),
+      flavor: flavorText,
+      type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+      roll: rollResult,
+      rollMode: CONFIG.Dice.rollModes.publicroll,
+      content: chatHtmlContent,
+      // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
+      speaker: ChatMessage.getSpeaker(),
+    }
+    
+    // Send the roll to chat!
+    const ret = await rollResult.toMessage(messageData);
+    // TODO fix this shit this._handleRedText(item);
+    return ret;
   }
 
 }
