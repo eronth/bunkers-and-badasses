@@ -1,4 +1,5 @@
 Updates
+* Updated to support Foundry v11
 * Updated Archetype Levels to be much more useful.
   * Archetype levels now track tons of stats individually.
   * Archetype levels now add their values to character stats automatically.
