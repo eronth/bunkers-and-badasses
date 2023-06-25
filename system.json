@@ -33,19 +33,19 @@
   ],
   "packs": [{
     "label": "Unique Guns", "name": "unique-guns",
-    "path": "packs/unique-guns.db", "entity": "Item"
+    "path": "packs/unique-guns.db", "type": "Item", "entity": "Item"
   }, {
     "label": "Unique Grenades", "name": "unique-grenades",
-    "path": "packs/unique-grenades.db", "entity": "Item"
+    "path": "packs/unique-grenades.db", "type": "Item", "entity": "Item"
   }, {
     "label": "Unique Shields", "name": "unique-shields",
-    "path": "packs/unique-shields.db", "entity": "Item"
+    "path": "packs/unique-shields.db", "type": "Item", "entity": "Item"
   }, {
     "label": "Unique Potions", "name": "unique-potions",
-    "path": "packs/unique-potions.db", "entity": "Item"
+    "path": "packs/unique-potions.db", "type": "Item", "entity": "Item"
   }, {
     "label": "Unique Relics", "name": "unique-relics",
-    "path": "packs/unique-relics.db", "entity": "Item"
+    "path": "packs/unique-relics.db", "type": "Item", "entity": "Item"
   }],
   "languages": [{
     "lang": "en",
