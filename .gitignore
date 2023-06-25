@@ -12,7 +12,7 @@ npm-debug.log
 
 # Ignoring Foundry's new pack stuff
 /packs/*/*.log
-/packs/*/LOCK
-/packs/*/LOG
-/packs/*/CURRENT
+/packs/*/LOCK*
+/packs/*/LOG*
+/packs/*/CURRENT*
 /packs/*/MANIFEST-*
