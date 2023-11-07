@@ -9,6 +9,8 @@ export class PostToChat {
       + `${reductionAmount} ${damageType}` 
       + `</span> damage.`;
 
+    if (rollResult.isFakeRollResult) return;
+
     rollResult.toMessage({
       speaker: ChatMessage.getSpeaker({ actor: actor }),
       flavor: label,
