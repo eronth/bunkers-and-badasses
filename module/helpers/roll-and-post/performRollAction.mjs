@@ -107,6 +107,7 @@ export class PerformRollAction {
       const rollResult = await roll.roll({async: true});
       return rollResult;
     }
+    return { total: 0 };
   }
 
   static async skillCheck(html, options) {
