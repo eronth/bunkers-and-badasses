@@ -1654,7 +1654,7 @@ export class BNBActorSheet extends ActorSheet {
       hitsAndCrits = {...itemSystem.accuracy[accRank]};
       hitsAndCrits.hits += (combatBonuses?.hits ? (combatBonuses?.hits[accRank] ?? 0) : 0)
         + (combatBonuses?.hits?.all ?? 0);
-      hitsAndCrits.crits += (combatBonuses?.hits ? (combatBonuses?.crits[accRank] ?? 0) : 0)
+      hitsAndCrits.crits += (combatBonuses?.crits ? (combatBonuses?.crits[accRank] ?? 0) : 0)
         + (combatBonuses?.crits?.all ?? 0);
     } else {
       hitsAndCrits = { hits: 0, crits: 0 };

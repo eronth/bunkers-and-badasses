@@ -1,4 +1,5 @@
 Updates
+* Updated to support Foundry v11
 * Updated Archetype Levels to be much more useful.
   * Archetype levels now track tons of stats individually.
   * Archetype levels now add their values to character stats automatically.
@@ -23,3 +24,4 @@ Bugfixes
 * Fixed a bug where health texts were outlined.
 * Fixed a bug where unequipped shields were adding resistances.
 * Fixed a bug with opening new NPC sheets.
+* Fixed a bug when using bonus crits.
