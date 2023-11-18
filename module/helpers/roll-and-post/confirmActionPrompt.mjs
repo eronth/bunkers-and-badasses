@@ -3,6 +3,36 @@ import { OnActionUtil } from "../onActionUtil.mjs";
 
 export class ConfirmActionPrompt {
   
+  static async badassRoll(event, options) {
+    // Prep data to access.
+    const { actor, checkDetails } = options;
+
+    const templateLocation = 'systems/bunkers-and-badasses/templates/dialog/badass-roll.html';
+    const dialogHtmlContent = await renderTemplate(templateLocation, {
+      badassRank: '',
+      badassRankEffectBonus: '',
+      defaultDifficulty: '',
+    });
+
+    this.check = new Dialog({
+      title: 'Badass Roll',
+      Id: 'badass-roll',
+      content: dialogHtmlContent,
+      buttons: {
+        'Cancel': {
+          label : 'Cancel',
+          callback : async (html) => {}
+        },
+        'Roll': {
+          label: 'Roll',
+          callback: async (html) => {
+            return await PerformRollAction.badassRoll(html, options);
+          }
+        }
+      }
+    }).render(true);
+  }
+  
   // static async deleteItem(event, options) {
   //   const { actor, itemId } = options;
   //   const item = actor.items.get(itemId);
