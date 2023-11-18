@@ -1,0 +1,46 @@
+<div class="flexcol check-dialog">
+  <div class="flexrow check-dialog">
+
+    <div class="flexcol flex-size-3 flex-group-center modifiers">
+      <div class="flexrow check-dialog-header">
+        <label>Roll Bonuses</label>
+      </div>
+      <div class="flexrow check-dialog-body">
+        <div class="flexcol">
+          <input id="badass-rank" class="" value="{{badassRank}}"
+          type="number" data-dtype="Number"
+          disabled />
+          <label for="badass-rank">badass rank</label>
+        </div>
+        <label class="math-sign">+</label>
+        <div class="flexcol">
+          <input id="effects" class="" value="{{badassRankEffectBonus}}"
+          type="number" data-dtype="Number"
+          disabled />
+          <label for="effects">effects</label>
+        </div>
+        <label class="math-sign">+</label>
+        <div class="flexcol">
+          <input id="extra" class="" value=""
+          type="number" data-dtype="Number" />
+          <label for="extra">extra</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="flexcol flex-size-2 flex-group-center difficulty token-cost">
+      <div class="flexrow check-dialog-header">
+        <label for="token-cost">Token Cost</label>
+      </div>
+      <div class="flexrow check-dialog-body">
+        <div class="flexcol">
+          <input id="token-cost" class="" value="1"
+          type="number" data-dtype="Number" />
+          <label for="token-cost">token cost</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION FOR NUMBER OF BADASS TOKENS TO SPEND -->
+  </div>
+</div>
