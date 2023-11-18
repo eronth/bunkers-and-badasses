@@ -9,9 +9,9 @@ export class ConfirmActionPrompt {
 
     const templateLocation = 'systems/bunkers-and-badasses/templates/dialog/badass-roll.html';
     const dialogHtmlContent = await renderTemplate(templateLocation, {
-      badassRank: '',
-      badassRankEffectBonus: '',
-      defaultDifficulty: '',
+      badassRank: actor.system.attributes.badass.rank,
+      badassRankEffectBonus: actor.system.bonus.badass,
+      tokenCost: 1,
     });
 
     this.check = new Dialog({

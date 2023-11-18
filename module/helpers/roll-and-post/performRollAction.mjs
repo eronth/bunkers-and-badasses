@@ -172,6 +172,21 @@ export class PerformRollAction {
   static async badassRoll(html, options) {
     const { actor, itemId, checkDetails } = options;
 
+    const tokenCostFieldValue = parseInt(html.find("#token-cost")[0].value ?? 0) ?? 0;
+    const hasTokenCost = tokenCostFieldValue != 'NaN' && tokenCostFieldValue > 0;
+    const tokenCostValue = hasTokenCost ? tokenCostFieldValue : 0;
+
+    if (hasTokenCost) {
+      if (actor.system.attributes.badass.tokens < tokenCostValue) {
+        ui.notifications.warn(`You don't have enough Badass Tokens to use this ability!`);
+        return;
+      } else {
+        await actor.update({'system.attributes.badass.tokens': actor.system.attributes.badass.tokens - tokenCostValue});
+      }
+    }
+    // IF USES BADASS TOKENS; SPEND THEM!
+    // IF USES BADASS TOKENS BUT YOU'RE OUT; CANCEL!
+
     const effectFieldValue = parseInt(html.find("#effects")[0].value ?? 0) ?? 0;
     const hasEff = effectFieldValue != 'NaN' && effectFieldValue > 0;
     const effectBonusValue = hasEff ? effectFieldValue : 0;
@@ -179,9 +194,6 @@ export class PerformRollAction {
     const hasExtra = extraFieldValue != 'NaN' && extraFieldValue > 0;
     const extraBonusValue = hasExtra ? extraFieldValue : 0;
 
-    // IF USES BADASS TOKENS; SPEND THEM!
-    // PULL BADASS RANK AND EFFECTS
-    // DOUBLE DICE SOUNDS???
 
     // Get the basic roll result.
     const rollFormula = `1d20[Badass Check]`;
