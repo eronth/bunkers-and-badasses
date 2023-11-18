@@ -1157,7 +1157,7 @@ export class BNBActorSheet extends ActorSheet {
       } else if (dataset.rollType == 'check') {
         return ConfirmActionPrompt.checkRoll(event, { actor: this.actor, dataset: dataset });
       } else if (dataset.rollType == 'badass-move') {
-        return this._badassRoll(dataset);
+        return ConfirmActionPrompt.badassRoll(event, { actor: this.actor, dataset: dataset });
       } else if (dataset.rollType == 'health-regain') {
         return this._healthRegainRoll(dataset);
       } else if (dataset.rollType == 'melee-attack') {

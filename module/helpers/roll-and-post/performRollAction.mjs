@@ -168,4 +168,56 @@ export class PerformRollAction {
       });
     }
   }
+
+  static async badassRoll(html, options) {
+    const { actor, itemId, checkDetails } = options;
+
+    const effectFieldValue = parseInt(html.find("#effects")[0].value ?? 0) ?? 0;
+    const hasEff = effectFieldValue != 'NaN' && effectFieldValue > 0;
+    const effectBonusValue = hasEff ? effectFieldValue : 0;
+    const extraFieldValue = parseInt(html.find("#extra")[0].value ?? 0) ?? 0;
+    const hasExtra = extraFieldValue != 'NaN' && extraFieldValue > 0;
+    const extraBonusValue = hasExtra ? extraFieldValue : 0;
+
+    // IF USES BADASS TOKENS; SPEND THEM!
+    // PULL BADASS RANK AND EFFECTS
+    // DOUBLE DICE SOUNDS???
+
+    // Get the basic roll result.
+    const rollFormula = `1d20[Badass Check]`;
+    const roll = new Roll(
+      rollFormula,
+      RollBuilder._createDiceRollData({ actor: actor })
+    );
+    const rollResult = await roll.roll({async: true});
+
+    // Adjust the roll result based on badass dice rules.
+    let correctedBadassDiceResult = rollResult.total;
+    if (correctedBadassDiceResult == 2 || correctedBadassDiceResult == 3) {
+      correctedBadassDiceResult = 1;
+    } else if (correctedBadassDiceResult == 19 || correctedBadassDiceResult == 18) {
+      correctedBadassDiceResult = 20;
+    }
+
+    // Add in expected modifiers.
+    const badassRankValue = actor.system.attributes.badass.rank;
+    const badassTotal = correctedBadassDiceResult + badassRankValue + effectBonusValue + extraBonusValue;
+
+    // Create the display formula.
+    const effectBonusFormula = hasEff ? ` + ${effectBonusValue}[Effects Bonus]` : '';
+    const extraBonusFormula = hasExtra ? ` + ${extraBonusValue}[Extra Bonus]` : '';
+    const finalRollFormula = `1dBadass + ${badassRankValue}[Badass Rank]${effectBonusFormula}${extraBonusFormula}`;
+    // TODO implement this guy
+    //this._adjustBadassResult(rollResult);
+
+    return await PostToChat.badassRoll({ // TODO implement this.
+      actor: actor,
+      checkDetails: {
+        overallRollFormula: finalRollFormula,
+        total: badassTotal,
+        badassDiceResult: correctedBadassDiceResult
+      },
+      rollResult: rollResult,
+    });
+  }
 }
