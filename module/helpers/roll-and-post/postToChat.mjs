@@ -2,6 +2,38 @@ import { genericUtil } from "../genericUtil.mjs";
 
 export class PostToChat {
 
+  static async badassRoll(options) {
+    const { actor, checkDetails, rollResult } = options;
+    //const difficultyValue = checkDetails.difficultyValue;
+
+    const templateLocation = 'systems/bunkers-and-badasses/templates/chat/badass-result.html';
+    const chatHtmlContent = await renderTemplate(templateLocation, {
+      badassDiceResult: checkDetails.badassDiceResult,
+      total: checkDetails.total,
+      overallRollFormula: checkDetails.overallRollFormula,
+    });
+    
+
+    // Prep chat values.
+    const flavorText = `${actor.name} attempts a <i class="fas fa-skull"></i><b>Badass Maneuver</b>!`;
+    const messageData = {
+      user: game.user.id,
+      speaker: ChatMessage.getSpeaker({ actor: actor }),
+      flavor: flavorText,
+      type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+      roll: rollResult,
+      rollMode: CONFIG.Dice.rollModes.publicroll,
+      content: chatHtmlContent,
+      checkDetails: checkDetails,
+      // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
+      speaker: ChatMessage.getSpeaker(),
+    }
+    
+    // Send the roll to chat!
+    const ret = await rollResult.toMessage(messageData);
+    return ret;
+  }
+
   static async damageResistance(options) {
     const { actor, rollResult, reductionAmount, damageType } = options;
 
