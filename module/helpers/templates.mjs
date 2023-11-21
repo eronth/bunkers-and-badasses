@@ -34,6 +34,10 @@
     "systems/bunkers-and-badasses/templates/actor/parts/vh/builder-subtabs/builder-components/favored-element-component.html",
     "systems/bunkers-and-badasses/templates/actor/parts/vh/builder-subtabs/builder-components/archetype-component.html",
     "systems/bunkers-and-badasses/templates/actor/parts/vh/builder-subtabs/builder-components/base-hp-component.html",
+    /// Item list components
+    "systems/bunkers-and-badasses/templates/actor/parts/item-list-components/item-list.html",
+    "systems/bunkers-and-badasses/templates/actor/parts/item-list-components/item-list-header.html",
+    "systems/bunkers-and-badasses/templates/actor/parts/item-list-components/item-list-component.html",
     
     /// Old (to be moved or removed)
     "systems/bunkers-and-badasses/templates/actor/parts/actor-features.html",
