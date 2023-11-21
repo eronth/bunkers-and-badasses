@@ -1474,18 +1474,20 @@ input[type="time"]:focus {
 }
 
 
-.success-text {
-  color: darkgreen;
+.success-text,
+.failure-text {
+  margin: 12px;
   font-weight: bold;
   font-size: larger;
   text-align: center;
+}
+.success-text {
+  color: darkgreen;
 }
 .failure-text {
   color: darkred;
-  font-weight: bold;
-  font-size: larger;
-  text-align: center;
 }
+
 .chat-roll-result .gun-crithits {
   text-align: center;
   font-size: smaller;
