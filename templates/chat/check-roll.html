@@ -1,7 +1,33 @@
 <div class="chat-roll-result"
 data-actor-id="{{actorId}}" data-item-id="{{itemId}}" >
-  <div>{{diceRoll}}</div>
-  <div>Result: {{result}} = {{total}}</div>
+  <div class="dice-roll">
+    {{#if flavor}}
+    <div class="dice-flavor">{{flavor}}</div>
+    {{/if}}
+    <div class="flexcol badass-results-container">
+      <label class="result-header">{{checkType}} Check</label>
+    </div>
+      <br />
+      <br />
+      <div class="dice-result">
+        <div class="dice-formula">{{overallRollFormula}}</div>
+        <div class="dice-tooltip">
+          <section class="tooltip-part">
+            <div class="dice">
+              <header class="part-header flexrow">
+                <span class="part-formula">{{diceRolled}}</span>
+                <span class="part-flavor">{{checkType}}</span>
+                <span class="part-total">{{diceResult}}</span>
+              </header>
+              <ol class="dice-rolls">
+                <li class="roll die d20">{{diceResult}}</li>
+              </ol>
+            </div>
+          </section>
+        </div>
+        <h4 class="dice-total">{{total}}</h4>
+    </div>
+  </div>
   {{#if success}}
   <div class="success-text">Success!</div>
   {{/if}}

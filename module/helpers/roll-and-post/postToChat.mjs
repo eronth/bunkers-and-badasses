@@ -77,12 +77,15 @@ export class PostToChat {
     const { actor, checkDetails, rollResult } = options;
     const difficultyValue = checkDetails.difficultyValue;
     const checkType = checkDetails.checkType;
+    const checkTypeText = checkType.super + ((checkType.sub) ? ` (${checkType.sub})` : '');
 
     const templateLocation = 'systems/bunkers-and-badasses/templates/chat/check-roll.html';
     const chatHtmlContent = await renderTemplate(templateLocation, {
       actorId: actor.id,
-      diceRoll: `Rolled ${rollResult.formula}.`,
-      result: rollResult.result,
+      overallRollFormula: rollResult.formula,
+      diceRolled: '1d20',
+      diceResult: rollResult.dice[0].results[0].result,
+      checkType: checkTypeText,
       total: rollResult.total,
       difficulty: difficultyValue,
       attackType: 'check',
@@ -91,8 +94,7 @@ export class PostToChat {
     });
 
     // Prep chat values.
-    const checkSubTypeText = ((checkType?.sub ?? '') != '') ? ` (${checkType?.sub})` : '';
-    const flavorText = (checkType?.skill === 'throw') ? `${actor.name} attempts to throw an item.` : `${actor.name} attempts a ${checkType?.super}${checkSubTypeText} check.`;
+    const flavorText = (checkType?.skill === 'throw') ? `${actor.name} attempts to throw an item.` : `${actor.name} attempts a ${checkTypeText} check.`;
     const messageData = {
       user: game.user.id,
       speaker: ChatMessage.getSpeaker({ actor: actor }),
@@ -116,17 +118,31 @@ export class PostToChat {
 
     const templateLocation = 'systems/bunkers-and-badasses/templates/chat/check-roll.html';
     const chatHtmlContent = await renderTemplate(templateLocation, {
+      // actorId: actor.id,
       actorId: actor.id,
       itemId: item.id,
-      diceRoll: `Rolled ${rollResult.formula}.`,
-      result: rollResult.result,
+      overallRollFormula: rollResult.formula,
+      // diceRolled: '1d20',
+      diceRolled: '1d20',
+      // diceResult: rollResult.dice[0].results[0].result,
+      diceResult: rollResult.dice[0].results[0].result,
+      // checkType: checkTypeText,
+      checkType: 'Grenade Toss',
+      // total: rollResult.total,
       total: rollResult.total,
+      // difficulty: difficultyValue,
       difficulty: difficultyValue,
       redText: item.system.redText,
+      // attackType: 'check',
       attackType: 'grenade',
       showDamageButton: true,
+      // success: (difficultyValue != null) && rollResult.total >= difficultyValue,
       success: (difficultyValue != null) && rollResult.total >= difficultyValue,
+      // failure: (difficultyValue != null) && rollResult.total < difficultyValue,
       failure: (difficultyValue != null) && rollResult.total < difficultyValue,
+
+
+
     });
 
     // Prep chat values.
