@@ -1,9 +1,114 @@
 <div class="flexcol action flex-size-1">
   {{!-- Checks --}}
+  <div>
+    {{> "systems/bunkers-and-badasses/templates/actor/parts/item-list-components/item-list.html"
+      items=guns
+      
+      categoryType="guns"
+      headerText="Guns"
+      createItemText="Add Gun"
+
+      allowCreate=true
+      allowDelete=true
+      equippable=true
+    }}
+    {{> "systems/bunkers-and-badasses/templates/actor/parts/item-list-components/item-list.html"
+      items=shields
+      
+      categoryType="shield"
+      headerText="Shield Mods"
+      createItemText="Add Shield"
+
+      allowCreate=true
+      allowDelete=true
+      equippable=true
+    }}
+    {{> "systems/bunkers-and-badasses/templates/actor/parts/item-list-components/item-list.html"
+      items=grenades
+      
+      categoryType="grenade"
+      headerText="Grenade Mods"
+      createItemText="Add Grenade"
+
+      allowCreate=true
+      allowDelete=true
+      equippable=true
+    }}
+    {{> "systems/bunkers-and-badasses/templates/actor/parts/item-list-components/item-list.html"
+      items=relics
+      
+      categoryType="relic"
+      headerText="Relic"
+      createItemText="Add Relic"
+
+      allowCreate=true
+      allowDelete=true
+      equippable=true
+    }}
+    {{> "systems/bunkers-and-badasses/templates/actor/parts/item-list-components/item-list.html"
+      items=potions
+      
+      categoryType="potion"
+      headerText="Potions"
+      createItemText="Add Potion"
+
+      allowCreate=true
+      allowDelete=true
+      equippable=true
+    }}
+    {{> "systems/bunkers-and-badasses/templates/actor/parts/item-list-components/item-list.html"
+      items=keyItems
+      
+      categoryType="keyItem"
+      headerText="Key Items"
+      createItemText="Add Item"
+
+      allowCreate=true
+      allowDelete=true
+      equippable=true
+    }}
+    {{> "systems/bunkers-and-badasses/templates/actor/parts/item-list-components/item-list.html"
+      items=archetypeFeats
+      
+      categoryType="archetypeFeat"
+      headerText="Archetype Feats"
+      createItemText="Add Feat"
+
+      allowCreate=true
+      allowDelete=true
+      equippable=true
+    }}
+    {{> "systems/bunkers-and-badasses/templates/actor/parts/item-list-components/item-list.html"
+      items=actionSkills
+      
+      categoryType="actionSkill"
+      headerText="Action Skill"
+      createItemText=""
+
+      allowCreate=true
+      allowDelete=true
+      equippable=true
+    }}
+    {{#each skilltree as |skills tier|}}
+    {{> "systems/bunkers-and-badasses/templates/actor/parts/item-list-components/item-list.html"
+      items=skills
+      
+      categoryType="skills"
+      headerText="Tier 1 Skills"
+      createItemText="Add Tier 1"
+
+      allowCreate=true
+      allowDelete=true
+      equippable=true
+    }}
+    {{/each}}
+
+
+  </div>
   <div class="flexrow">
     <div class="flex-size-5 flexcol">
       {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/action-components/checks-block.html" }}
-    </div>    
+    </div>
   </div>
   
   {{!-- HP/Attack/Action Skill --}}
