@@ -1,0 +1,213 @@
+
+.bnb .items-list .item-title .item-name {
+  font-weight: bold;
+  margin: 0;
+  margin-left: 5px;
+  overflow: hidden;
+  font-size: 13px;
+  text-align: left;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.bnb .items-list .item-title .item-image img {
+  margin: 2px;
+  width: 24px;
+}
+
+
+/* EVERYTHING BELOW THIS POINT IS UNCERTAIN! */
+/* EVERYTHING BELOW THIS POINT IS UNCERTAIN! */
+/* EVERYTHING BELOW THIS POINT IS UNCERTAIN! */
+
+.bnb .items-list .item-text {
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.bnb .items-list .reward-text {
+  justify-content: flex-start;
+  text-align: left;
+  padding-left: 6px;
+  padding-right: 5px;
+}
+
+.bnb .items-list .item-name h3, 
+.bnb .items-list .item-name h4 {
+  margin: 0;
+  white-space: nowrap;
+  overflow-x: hidden;
+}
+
+.bnb .items-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  color: #444;
+}
+
+.bnb .items-list .item-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.bnb .items-list .item-equip-control {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 100px;
+  flex: 0 0 100px;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.bnb .items-list .item-equip {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 100px;
+  flex: 0 0 100px;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.bnb .items-list .item-controls,
+.bnb .items-list .archetype-item-controls,
+.bnb .items-list .class-skill-item-controls {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 100px;
+  flex: 0 0 100px;
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+}
+.bnb .items-list .archetype-item-controls {
+  -webkit-box-flex: 3;
+  -ms-flex: 3;
+  flex: 3;
+}
+.bnb .items-list .class-skill-item-controls {
+  -webkit-box-flex: 2;
+  -ms-flex: 2;
+  flex: 2;
+}
+
+.bnb .items-list .item-controls a,
+.bnb .items-list .archetype-item-controls a,
+.bnb .items-list .class-skill-item-controls a {
+  font-size: 12px;
+  text-align: center;
+  margin: 0 6px;
+}
+
+
+.bnb .items-list .item-controls-small {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 0;
+  -ms-flex: 1 0 7px;
+  flex: 1 0 7px;
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+}
+
+.bnb .items-list .item-controls-small a {
+  font-size: 12px;
+  text-align: center;
+  margin: 0 6px;
+}
+
+
+.bnb .items-list .item {
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 0 2px;
+  border-bottom: 1px solid #c9c7b8;
+}
+
+.bnb .items-list .item:last-child {
+  border-bottom: none;
+}
+
+.bnb .items-list .item .item-name {
+  color: #191813;
+}
+
+.bnb .items-list .item .item-name .item-image {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 30px;
+  flex: 0 0 30px;
+  height: 30px;
+  background-size: 30px;
+  border: none;
+  margin-right: 5px;
+}
+
+.bnb .items-list .item-prop {
+  text-align: center;
+  border-left: 1px solid #c9c7b8;
+  border-right: 1px solid #c9c7b8;
+  font-size: 12px;
+}
+.bnb .items-list .item-prop-left {
+  text-align: left;
+  border-left: 1px solid #c9c7b8;
+  border-right: 1px solid #c9c7b8;
+  font-size: 12px;
+}
+.bnb .items-list .item-prop-right {
+  text-align: right;
+  border-left: 1px solid #c9c7b8;
+  border-right: 1px solid #c9c7b8;
+  font-size: 12px;
+}
+.bnb .items-list .item-prop-stack {
+  text-align: center;
+  border-left: 1px solid #c9c7b8;
+  font-size: 12px;
+  align-self: flex-start;
+}
+
+.bnb .items-list .items-header {
+  height: 28px;
+  margin: 2px 0;
+  padding: 0;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.05);
+  border: 2px groove #eeede0;
+  font-weight: bold;
+}
+
+.bnb .items-list .items-header > * {
+  font-size: 12px;
+  text-align: center;
+}
+
+.bnb .items-list .items-header .item-name {
+  padding-left: 5px;
+  text-align: left;
+}
+
+.bnb .items-list .items-header .item-text {
+  padding-left: 5px;
+  text-align: left;
+}

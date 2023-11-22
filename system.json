@@ -23,6 +23,7 @@
     "css/common-colors/health-colors.css",
     "css/common-colors/rarity-colors.css",
     "css/generic.css",
+    "css/item-list.css",
     "css/dropdown.css",
     "css/elemental.css",
     "css/gear-bottom-texts.css",
