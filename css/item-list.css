@@ -19,6 +19,17 @@
   width: 24px;
 }
 
+.bnb .items-list .item-dropdown-group .item-dropdown-header {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.bnb .items-list .item-details-header,
+.bnb .items-list .item-details {
+  font-style: italic;
+}
+
 
 /* EVERYTHING BELOW THIS POINT IS UNCERTAIN! */
 /* EVERYTHING BELOW THIS POINT IS UNCERTAIN! */
@@ -94,6 +105,7 @@
   -webkit-box-pack: end;
   -ms-flex-pack: end;
   justify-content: flex-end;
+  align-items: center;
 }
 .bnb .items-list .archetype-item-controls {
   -webkit-box-flex: 3;

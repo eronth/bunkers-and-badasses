@@ -3,6 +3,7 @@
   <div>
     {{> "systems/bunkers-and-badasses/templates/actor/parts/item-list-components/item-list.html"
       items=guns
+      itemType="gun"
       
       categoryType="guns"
       headerText="Guns"
@@ -11,9 +12,11 @@
       allowCreate=true
       allowDelete=true
       equippable=true
+      hasRarity=true
     }}
     {{> "systems/bunkers-and-badasses/templates/actor/parts/item-list-components/item-list.html"
       items=shields
+      itemType="shield"
       
       categoryType="shield"
       headerText="Shield Mods"
@@ -22,9 +25,11 @@
       allowCreate=true
       allowDelete=true
       equippable=true
+      hasRarity=true
     }}
     {{> "systems/bunkers-and-badasses/templates/actor/parts/item-list-components/item-list.html"
       items=grenades
+      itemType="grenade"
       
       categoryType="grenade"
       headerText="Grenade Mods"
@@ -33,9 +38,11 @@
       allowCreate=true
       allowDelete=true
       equippable=true
+      hasRarity=true
     }}
     {{> "systems/bunkers-and-badasses/templates/actor/parts/item-list-components/item-list.html"
       items=relics
+      itemType="relic"
       
       categoryType="relic"
       headerText="Relic"
@@ -44,9 +51,11 @@
       allowCreate=true
       allowDelete=true
       equippable=true
+      hasRarity=true
     }}
     {{> "systems/bunkers-and-badasses/templates/actor/parts/item-list-components/item-list.html"
       items=potions
+      itemType="potion"
       
       categoryType="potion"
       headerText="Potions"
@@ -55,9 +64,11 @@
       allowCreate=true
       allowDelete=true
       equippable=true
+      hasRarity=true
     }}
     {{> "systems/bunkers-and-badasses/templates/actor/parts/item-list-components/item-list.html"
       items=keyItems
+      itemType="key item"
       
       categoryType="keyItem"
       headerText="Key Items"
@@ -66,9 +77,11 @@
       allowCreate=true
       allowDelete=true
       equippable=true
+      hasRarity=true
     }}
     {{> "systems/bunkers-and-badasses/templates/actor/parts/item-list-components/item-list.html"
       items=archetypeFeats
+      itemType="Archetype Feat"
       
       categoryType="archetypeFeat"
       headerText="Archetype Feats"
@@ -80,26 +93,29 @@
     }}
     {{> "systems/bunkers-and-badasses/templates/actor/parts/item-list-components/item-list.html"
       items=actionSkills
+      itemType="action skill"
       
       categoryType="actionSkill"
       headerText="Action Skill"
       createItemText=""
 
-      allowCreate=true
-      allowDelete=true
+      allowCreate=false
+      allowDelete=false
       equippable=true
     }}
     {{#each skilltree as |skills tier|}}
     {{> "systems/bunkers-and-badasses/templates/actor/parts/item-list-components/item-list.html"
       items=skills
+      itemType="skill"
       
-      categoryType="skills"
-      headerText="Tier 1 Skills"
-      createItemText="Add Tier 1"
+      categoryType="skill"
+      headerText=(concat "Tier " tier " Skills")
+      createItemText=(concat "Add Tier " tier)
 
       allowCreate=true
       allowDelete=true
       equippable=true
+      tier=tier
     }}
     {{/each}}
 

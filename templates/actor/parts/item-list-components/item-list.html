@@ -2,45 +2,62 @@
   <li class="item flexrow items-header">
     
     {{!-- Collapse Toggle --}}
-    <div class="item-name clickable loot-category-collapse-toggle"
-      data-loot-category-type="{{categoryType}}">
+    <div class="item-name flex-size-5 clickable loot-category-collapse-toggle"
+      data-loot-category-type="{{categoryType}}"
+      data-skill-tier="{{tier}}">
       {{> "systems/bunkers-and-badasses/templates/general/accordion-toggle-icon.html"
         collapsed=(lootCategoryIsCollapsed isCollapsed categoryType)
         text=headerText}}
     </div>
 
     {{!-- Item Details Header --}}
-    <div class="flex-size-6">
+    <div class="item-details-header flex-size-12">
       hi
     </div>
     
     {{!-- Item Controls Header --}}
-    {{#if allowCreate}}
-    <div class="item-controls">
-      <a class="item-control item-create" title="Create Item" data-dtype="gun">
+    <div class="item-controls flex-size-2">
+      {{#if allowCreate}}
+      <a class="item-control item-create" title="Create Item" data-dtype="{{itemType}}" data-tier="{{tier}}">
         <i class="fas fa-plus"></i> {{createItemText}}
       </a>
+      {{/if}}
     </div>
-    {{/if}}
   </li>
   {{^if (lootCategoryIsCollapsed isCollapsed categoryType)}}
   {{#each items as |item id|}}
-  <li class="item item-element-group loot-rarity-fade-border flexrow" 
+  <li class="item item-element-group 
+    item-dropdown-group {{^if ../hasRarity}}no-rarity{{/if}} item-dropdown-click-component
+    loot-rarity-fade-border 
+    item-element-group
+    flexrow" 
     style="--rarityColor: {{item.system.rarity.colorValue}}"
     data-item-id="{{item._id}}">
-    
+    <!-- item-element-group -->
     {{!-- Item Image --}}
-    <div></div>
-
-    {{!-- Item Details --}}
-    <div class="flex-size-6"></div>
-
-    {{!-- Item Controls --}}
-    <div class="item-controls">
-      <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-      {{#if ../allowDelete}}
-      <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
-      {{/if}}
+    <div class="flexrow item-dropdown-header {{^if ../hasRarity}}no-rarity{{/if}}">
+      <div class="item-title flex-size-2 flexrow">
+        <div class="item-image post-item" data-item-id="{{item._id}}">
+          <a class="postable flexcol align-center" data-roll-type="item">
+            <img class='stop-dropdown box-hover' 
+            src="{{item.img}}" title="{{categoryType}}-{{item.name}}" width="24" height="24"/>
+          </a>
+        </div>
+        <div class="item-name flex-size-4">{{item.name}}</div>
+      </div>
+      
+      {{!-- Item Details --}}
+      <div class="item-details flex-size-12 large-text-overflow-hidden"
+      style="max-height:31px">
+      SQUIDS WANT ME DEAD but squarbs want me blebd! don't have grapes, just have apes! words are meaningless data that you've decided holds value and purpose</div>
+      
+      {{!-- Item Controls --}}
+      <div class="item-controls flex-size-2">
+        <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+        {{#if ../allowDelete}}
+        <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+        {{/if}}
+      </div>
     </div>
   </li>
   {{log item}}
