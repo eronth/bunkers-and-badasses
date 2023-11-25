@@ -38,9 +38,12 @@
     <div class="flexrow item-dropdown-header {{^if ../hasRarity}}no-rarity{{/if}}">
       <div class="item-title flex-size-2 flexrow">
         <div class="item-image post-item" data-item-id="{{item._id}}">
-          <a class="postable flexcol align-center" data-roll-type="item">
-            <img class='stop-dropdown box-hover' 
-            src="{{item.img}}" title="{{categoryType}}-{{item.name}}" width="24" height="24"/>
+          <a class="postable align-center" data-roll-type="item">
+            <div class="chat-post-image-container">
+              <img class='to-chat-image box-hover stop-dropdown' 
+              src="{{item.img}}" title="Post {{item.name}} to chat" width="24" height="24"/>
+              <i class="fa-solid fa-message icon to-chat-icon stop-dropdown"></i>
+            </div>
           </a>
         </div>
         <div class="item-name flex-size-4">{{item.name}}</div>
