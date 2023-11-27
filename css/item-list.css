@@ -91,7 +91,7 @@
 .bnb .items-list .items-header .skill-level {
   text-align: center;
 }
-.bnb .items-list .item-element-group .skill-level {
+.bnb .items-list .item-list-component .skill-level {
   text-align: center;
   align-self: center;
 }
