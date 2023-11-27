@@ -34,7 +34,6 @@ export class Dropdown {
   static getBodyTemplateLocation(itemType) {
     switch (itemType) {
       case 'Action Skill':
-        //return 'systems/bunkers-and-badasses/templates/general/dropdown/item-bodies/action-skill-dropdown-details.html';
       case 'Archetype Feat':
       case 'skill':
       default:
@@ -78,7 +77,10 @@ export class Dropdown {
     const enrichedData = {
       ...data,
       type: data.type,
-      description: await TextEditor.enrichHTML(data.description, {async: true})
+      description: await TextEditor.enrichHTML(data.description, {async: true}),
+      notes: (data.notes)
+      ? (await TextEditor.enrichHTML(data.notes, {async: true}))
+      : null,
     };
     const dialogHtmlContent = await renderTemplate(templateLocation, { data: enrichedData});
 

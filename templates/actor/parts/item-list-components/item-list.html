@@ -24,6 +24,11 @@
     <div class="skill-level flex-size-2">SL</div>
     {{/if}}
 
+    {{!-- Bonus Uses --}}
+    {{#if showBonusUses}}
+    <div class="skill-level flex-size-2">+Uses</div>
+    {{/if}}
+
     {{!-- Item Controls Header --}}
     <div class="item-controls flex-size-4">
       {{#if allowCreate}}
@@ -116,6 +121,11 @@
       {{!-- Skill Level --}}
       {{#if ../hasSkillLevel}}
       <div class="skill-level flex-size-2">{{item.system.skillLevel}}</div>
+      {{/if}}
+
+      {{!-- Bonus Uses --}}
+      {{#if ../showBonusUses}}
+      <div class="skill-level flex-size-2">{{item.system.bonusUses}}</div>
       {{/if}}
   
       {{!-- Item Controls --}}

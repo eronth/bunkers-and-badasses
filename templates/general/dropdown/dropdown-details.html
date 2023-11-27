@@ -1,4 +1,10 @@
 <div class='{{dropdownComponentClass "body"}}'>
     <hr class='{{dropdownComponentClass "hr"}}' />
+    <label class="bolded">Description:</label>
     {{{data.description}}}
+    {{#if data.notes}}
+    <br />
+    <label class="bolded">Notes:</label>
+    {{{data.notes}}}
+    {{/if}}
 </div>
