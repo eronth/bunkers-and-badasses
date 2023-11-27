@@ -90,6 +90,7 @@ a#submit { z-index: 1; }
 }
 .item-dropdown-group .item-dropdown-body {
   padding: 2px 5px;
+  width: 100%;
 }
 
 .item-dropdown-group.no-rarity {

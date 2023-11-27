@@ -33,6 +33,12 @@
   width: 100%;
 }
 
+/* .large-text-overflow-hidden {
+  overflow: hidden;
+  white-space: nowrap;
+  justify-content: flex-start;
+}
+
 .bnb .item-details {
   display: flex;
   -webkit-box-orient: horizontal;
@@ -45,6 +51,15 @@
   justify-content: flex-start;
   align-items: center;
   border-right: 1px solid #c9c7b8;
+} */
+
+.large-text-overflow-hidden {
+  overflow: hidden;
+  justify-content: flex-start;
+}
+
+.white-space-nowrap {
+  white-space: nowrap;
 }
 
 .bnb .items-list .item-details-header,
@@ -81,6 +96,9 @@
   text-align: left;
 }
 
+.bnb .noflex {
+  display: block;
+}
 
 /* EVERYTHING BELOW THIS POINT IS UNCERTAIN! */
 /* EVERYTHING BELOW THIS POINT IS UNCERTAIN! */

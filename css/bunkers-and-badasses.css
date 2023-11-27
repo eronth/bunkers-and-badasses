@@ -586,20 +586,6 @@ input[type="time"]:focus {
   -webkit-box-direction: normal;
 }
 
-.bnb .item-details {
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -webkit-box-flex: 5;
-  -ms-flex: 5;
-  flex: 5;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  border-right: 1px solid #c9c7b8;
-}
-
 .bnb .item .item-equip label{
   display: flex;
   -webkit-box-orient: horizontal;
