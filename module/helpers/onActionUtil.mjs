@@ -130,11 +130,11 @@ export class OnActionUtil {
 
   static async onLootCategoryCollapseToggle(event, actor) {
     // Prep data
-    const lootCategory = event.currentTarget.dataset.lootCategoryType;
-    const collapsed = actor.system.isCollapsed[lootCategory];
+    const collapseCategory = event.currentTarget.dataset.collapseCategoryType;
+    const collapsed = actor.system.isCollapsed[collapseCategory];
 
     // Square brackets needed to get the right value.
-    const attributeLabel = `system.isCollapsed.${lootCategory}`;
+    const attributeLabel = `system.isCollapsed.${collapseCategory}`;
     return await actor.update({[attributeLabel]: !collapsed});
   }
 

@@ -5,6 +5,7 @@ export class Dropdown {
       case 'body': return 'item-dropdown-body';
       case 'group': return 'item-dropdown-group';
       case 'clickable': return 'item-dropdown-click-component';
+      case 'hr': return 'item-dropdown-hr';
 
       default: return 'MISSING-DROPDOWN-PARAM';
     };

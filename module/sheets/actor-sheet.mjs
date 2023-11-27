@@ -81,7 +81,10 @@ export class BNBActorSheet extends ActorSheet {
       this._prepareNpcHps(context);
     }
 
-    context.isCollapsed = this.actor.system.isCollapsed;
+    context.isCollapsed = {
+      ...(this.actor.system.isCollapsed),
+      ...(context.skillsAreCollapsed)
+    };
     
     // Add roll data for TinyMCE editors.
     context.rollData = context.actor.getRollData();

@@ -19,7 +19,7 @@
       items=shields
       itemType="shield"
       
-      categoryType="shield"
+      categoryType="shields"
       headerText="Shield Mods"
       createItemText="Add Shield"
 
@@ -32,7 +32,7 @@
       items=grenades
       itemType="grenade"
       
-      categoryType="grenade"
+      categoryType="grenades"
       headerText="Grenade Mods"
       createItemText="Add Grenade"
 
@@ -45,7 +45,7 @@
       items=relics
       itemType="relic"
       
-      categoryType="relic"
+      categoryType="relics"
       headerText="Relic"
       createItemText="Add Relic"
 
@@ -58,7 +58,7 @@
       items=potions
       itemType="potion"
       
-      categoryType="potion"
+      categoryType="potions"
       headerText="Potions"
       createItemText="Add Potion"
 
@@ -71,7 +71,7 @@
       items=keyItems
       itemType="key item"
       
-      categoryType="keyItem"
+      categoryType="keyItems"
       headerText="Key Items"
       createItemText="Add Item"
 
@@ -84,7 +84,7 @@
       items=archetypeFeats
       itemType="Archetype Feat"
       
-      categoryType="archetypeFeat"
+      categoryType="archetypeFeats"
       headerText="Archetype Feats"
       createItemText="Add Feat"
 
@@ -96,7 +96,7 @@
       items=actionSkills
       itemType="action skill"
       
-      categoryType="actionSkill"
+      categoryType="actionSkills"
       headerText="Action Skill"
       createItemText=""
 
@@ -108,8 +108,10 @@
     {{> "systems/bunkers-and-badasses/templates/actor/parts/item-list-components/item-list.html"
       items=skills
       itemType="skill"
+
+      isCollapsed=../isCollapsed
       
-      categoryType="skill"
+      categoryType=(concat "tier" tier "Skills")
       headerText=(concat "Tier " tier " Skills")
       createItemText=(concat "Add Tier " tier)
 

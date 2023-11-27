@@ -8,6 +8,13 @@
   margin-left: 0px;
 }
 
+.bnb .items-list .item-title .item-rarity-and-type-line{
+  margin: 0;
+  margin-left: 3px;
+  padding: 0;
+  font-size: smaller;
+}
+
 .bnb .items-list .item-title .item-name {
   font-weight: bold;
   margin: 0;
@@ -32,26 +39,6 @@
   padding: 0;
   width: 100%;
 }
-
-/* .large-text-overflow-hidden {
-  overflow: hidden;
-  white-space: nowrap;
-  justify-content: flex-start;
-}
-
-.bnb .item-details {
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -webkit-box-flex: 5;
-  -ms-flex: 5;
-  flex: 5;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  border-right: 1px solid #c9c7b8;
-} */
 
 .large-text-overflow-hidden {
   overflow: hidden;

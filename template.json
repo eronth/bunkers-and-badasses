@@ -61,7 +61,15 @@
         "grenades": false,
         "relics": false,
         "potions": false,
-        "key": false
+        "keyItems": false,
+        "archetypeFeats": false,
+        "actionSkills": false,
+        "tier1Skills": false,
+        "tier2Skills": false,
+        "tier3Skills": false,
+        "tier4Skills": false,
+        "tier5Skills": false,
+        "tier6Skills": false
       },
       "attributes": {
         "badass": {
@@ -201,14 +209,6 @@
           "dmg": 0,
           "spd": 0,
           "mst": 0
-        },
-        "skillsAreCollapsed": {
-          "Tier1": false,
-          "Tier2": false,
-          "Tier3": false,
-          "Tier4": false,
-          "Tier5": false,
-          "Tier6": false
         },
         "actionSkill": {
           "uses": {

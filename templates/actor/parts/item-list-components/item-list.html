@@ -4,7 +4,7 @@
   <li class="item items-header flexrow">
     {{!-- Collapse Toggle --}}
     <div class="item-name flex-size-5 clickable loot-category-collapse-toggle"
-      data-loot-category-type="{{categoryType}}"
+      data-collapse-category-type="{{categoryType}}"
       data-skill-tier="{{tier}}">
       {{> "systems/bunkers-and-badasses/templates/general/accordion-toggle-icon.html"
         collapsed=(lootCategoryIsCollapsed isCollapsed categoryType)
@@ -49,6 +49,7 @@
     <div class="flex-view-test flex-size-1">20</div>
     <div class="flex-view-test flex-size-1">21</div>
     <div class="flex-view-test flex-size-1">22</div>
+    <div class="flex-view-test flex-size-1">23</div>
   </li>
   {{^if (lootCategoryIsCollapsed isCollapsed categoryType)}}
   {{#each items as |item id|}}
@@ -78,7 +79,7 @@
         {{!-- Item Name, Rarity --}}
         <div class="flexcol flex-size-4">
           {{#if ../showRarityAndType}}
-          <div class="bolded font-rarity" style="--rarityColor: {{item.system.rarity.colorValue}}">
+          <div class="item-rarity-and-type-line bolded font-rarity" style="--rarityColor: {{item.system.rarity.colorValue}}">
             {{item.system.rarity.name}} {{shortName item.system.type.name}}
           </div>
           {{/if}}
@@ -86,14 +87,14 @@
         </div>
       </div>
       
-      <!-- {{!-- Item Details --}}
-      <div class="flex-size-12">
-        5
-      </div> -->
       {{!-- Item Details --}}
+      <div class="item-details flex-size-12">
+        5
+      </div>
+      <!-- {{!-- Item Details --}}
       <div class="item-details white-space-nowrap large-text-overflow-hidden flex-size-12">
         S
-      </div>
+      </div> -->
       
       {{!-- Item Equip Checkbox --}}
       <div class="item-equip-control flex-size-2">
