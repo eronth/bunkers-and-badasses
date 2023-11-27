@@ -87,6 +87,15 @@
   display: block;
 }
 
+
+.bnb .items-list .items-header .skill-level {
+  text-align: center;
+}
+.bnb .items-list .item-element-group .skill-level {
+  text-align: center;
+  align-self: center;
+}
+
 /* EVERYTHING BELOW THIS POINT IS UNCERTAIN! */
 /* EVERYTHING BELOW THIS POINT IS UNCERTAIN! */
 /* EVERYTHING BELOW THIS POINT IS UNCERTAIN! */
