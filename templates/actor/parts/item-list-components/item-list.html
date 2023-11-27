@@ -1,22 +1,24 @@
 <ol class="items-list">
-  <li class="item flexrow items-header">
-    
+
+  {{!-- Header --}}
+  <li class="item items-header flexrow">
     {{!-- Collapse Toggle --}}
-    <div class="item-name flex-size-5 clickable loot-category-collapse-toggle"
+    <div class="item-name flex-size-4 clickable loot-category-collapse-toggle"
       data-loot-category-type="{{categoryType}}"
       data-skill-tier="{{tier}}">
       {{> "systems/bunkers-and-badasses/templates/general/accordion-toggle-icon.html"
         collapsed=(lootCategoryIsCollapsed isCollapsed categoryType)
         text=headerText}}
     </div>
-
-    {{!-- Item Details Header --}}
-    <div class="item-details-header flex-size-12">
-      hi
-    </div>
     
+    {{!-- Item Details Header --}}
+    <div class="item-details-header flex-size-12">Details</div>
+
+    {{!-- Item Equip Header --}}
+    <div class="flex-size-2">Equip?</div>
+
     {{!-- Item Controls Header --}}
-    <div class="item-controls flex-size-2">
+    <div class="item-controls flex-size-4">
       {{#if allowCreate}}
       <a class="item-control item-create" title="Create Item" data-dtype="{{itemType}}" data-tier="{{tier}}">
         <i class="fas fa-plus"></i> {{createItemText}}
@@ -24,43 +26,84 @@
       {{/if}}
     </div>
   </li>
+  <li class="flexrow items-header">
+    <div class="flex-view-test flex-size-1">1</div>
+    <div class="flex-view-test flex-size-1">2</div>
+    <div class="flex-view-test flex-size-1">3</div>
+    <div class="flex-view-test flex-size-1">4</div>
+    <div class="flex-view-test flex-size-1">5</div>
+    <div class="flex-view-test flex-size-1">6</div>
+    <div class="flex-view-test flex-size-1">7</div>
+    <div class="flex-view-test flex-size-1">8</div>
+    <div class="flex-view-test flex-size-1">9</div>
+    <div class="flex-view-test flex-size-1">10</div>
+    <div class="flex-view-test flex-size-1">11</div>
+    <div class="flex-view-test flex-size-1">12</div>
+    <div class="flex-view-test flex-size-1">13</div>
+    <div class="flex-view-test flex-size-1">14</div>
+    <div class="flex-view-test flex-size-1">15</div>
+    <div class="flex-view-test flex-size-1">16</div>
+    <div class="flex-view-test flex-size-1">17</div>
+    <div class="flex-view-test flex-size-1">18</div>
+    <div class="flex-view-test flex-size-1">19</div>
+    <div class="flex-view-test flex-size-1">20</div>
+    <div class="flex-view-test flex-size-1">21</div>
+    <div class="flex-view-test flex-size-1">22</div>
+  </li>
   {{^if (lootCategoryIsCollapsed isCollapsed categoryType)}}
   {{#each items as |item id|}}
   <li class="item item-element-group 
-    item-dropdown-group {{^if ../hasRarity}}no-rarity{{/if}} item-dropdown-click-component
-    loot-rarity-fade-border 
-    item-element-group
-    flexrow" 
+    item-dropdown-group item-dropdown-click-component
+    loot-rarity-fade-border {{^if ../hasRarity}}no-rarity{{/if}}
+    flexcol"
     style="--rarityColor: {{item.system.rarity.colorValue}}"
     data-item-id="{{item._id}}">
-    <!-- item-element-group -->
-    {{!-- Item Image --}}
-    <div class="flexrow item-dropdown-header {{^if ../hasRarity}}no-rarity{{/if}}">
-      <div class="item-title flex-size-2 flexrow">
+
+    {{!-- Dropdown Container --}}
+    <div class="item-dropdown-header flexrow">
+
+      {{!-- Item Title (Image and Name) --}}
+      <div class="item-title flexrow flex-size-4">
+        {{!-- Item Image --}}
         <div class="item-image post-item" data-item-id="{{item._id}}">
           <a class="postable align-center" data-roll-type="item">
             <div class="chat-post-image-container">
+              {{!-- Item Image --}}
               <img class='to-chat-image box-hover stop-dropdown' 
               src="{{item.img}}" title="Post {{item.name}} to chat" width="24" height="24"/>
               <i class="fa-solid fa-message icon to-chat-icon stop-dropdown"></i>
             </div>
           </a>
-        </div>
+        </div> 
+        {{!-- Item Name --}}
         <div class="item-name flex-size-4">{{item.name}}</div>
       </div>
       
       {{!-- Item Details --}}
-      <div class="item-details flex-size-12 large-text-overflow-hidden"
+      <div class="flex-size-12">
+        5
+      </div>
+      <!-- {{!-- Item Details --}}
+      <div class="item-details flex-size-14 large-text-overflow-hidden"
       style="max-height:31px">
-      SQUIDS WANT ME DEAD but squarbs want me blebd! don't have grapes, just have apes! words are meaningless data that you've decided holds value and purpose</div>
+        SQUIDS WANT ME DEAD but squarbs want me blebd! don't have grapes, just have apes! words are meaningless data that you've decided holds value and purpose
+      </div> -->
       
+      {{!-- Item Equip Checkbox --}}
+      <div class="item-equip-control flex-size-2">
+        <a class="checkbox" title="Equip Item?" data-target="item" data-item-target="system.equipped">
+          {{#if item.system.equipped}}<i class="far fa-check-square"></i>{{else}}<i class="far fa-square"></i>{{/if}}
+        </a>
+      </div>
+  
       {{!-- Item Controls --}}
-      <div class="item-controls flex-size-2">
+      <div class="item-controls flex-size-4">
         <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
         {{#if ../allowDelete}}
         <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
         {{/if}}
       </div>
+
     </div>
   </li>
   {{log item}}
