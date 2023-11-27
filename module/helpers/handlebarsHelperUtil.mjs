@@ -45,12 +45,6 @@ export class HandlebarsHelperUtil {
       return values.slice(0, values.length - 1);
     });
 
-    Handlebars.registerHelper('skillTierIsCollapsed', (skillsAreCollapsed, skillTier) => 
-      (skillsAreCollapsed
-      ? (skillsAreCollapsed['Tier' + skillTier] ?? false)
-      : false)
-    );
-
     Handlebars.registerHelper('lootCategoryIsCollapsed', (isCollapsed, category) =>
       (isCollapsed
       ? (isCollapsed[category] ?? false)

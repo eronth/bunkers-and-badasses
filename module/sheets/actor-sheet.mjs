@@ -81,10 +81,7 @@ export class BNBActorSheet extends ActorSheet {
       this._prepareNpcHps(context);
     }
 
-    context.isCollapsed = {
-      ...(this.actor.system.isCollapsed),
-      ...(context.skillsAreCollapsed)
-    };
+    context.isCollapsed = {...(this.actor.system.isCollapsed)};
     
     // Add roll data for TinyMCE editors.
     context.rollData = context.actor.getRollData();
@@ -508,8 +505,6 @@ export class BNBActorSheet extends ActorSheet {
     for (let [k, v] of Object.entries(context.system.attributes.hps)) {
       v.label = game.i18n.localize(CONFIG.BNB.hps[k]) ?? k;
     }
-
-    context.skillsAreCollapsed = this.actor.system.class.skillsAreCollapsed;
   }
 
   /**
@@ -776,7 +771,7 @@ export class BNBActorSheet extends ActorSheet {
     // Handle Collapsible Sections.
     html.find('.archetype-reward-collapse-toggle').click((event) => OnActionUtil.onArchetypeRewardCollapseToggle(event, this.actor));
     html.find('.skill-tier-collapse-toggle').click((event) => OnActionUtil.onSkillTierCollapseToggle(event, this.actor));
-    html.find('.loot-category-collapse-toggle').click((event) => OnActionUtil.onLootCategoryCollapseToggle(event, this.actor));
+    html.find('.category-collapse-toggle').click((event) => OnActionUtil.onCategoryCollapseToggle(event, this.actor));
 
     // Handle action skill.
     html.find('.action-skill-use').click((event) => OnActionUtil.onActionSkillUse(event, this.actor));

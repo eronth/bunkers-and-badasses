@@ -118,17 +118,7 @@ export class OnActionUtil {
     return await actor.update({[attributeLabel]: !archetype.rewardsAreCollapsed});
   }
 
-  static async onSkillTierCollapseToggle(event, actor) {
-    // Prep data
-    const skillTier = event.currentTarget.dataset.skillTier;
-    const collapsed = actor.system.class.skillsAreCollapsed['Tier'+skillTier];
-
-    // Square brackets needed to get the right value.
-    const attributeLabel = `system.class.skillsAreCollapsed.${'Tier'+skillTier}`;
-    return await actor.update({[attributeLabel]: !collapsed});
-  }
-
-  static async onLootCategoryCollapseToggle(event, actor) {
+  static async onCategoryCollapseToggle(event, actor) {
     // Prep data
     const collapseCategory = event.currentTarget.dataset.collapseCategoryType;
     const collapsed = actor.system.isCollapsed[collapseCategory];
