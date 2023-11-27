@@ -3,7 +3,7 @@
   {{!-- Header --}}
   <li class="item items-header flexrow">
     {{!-- Collapse Toggle --}}
-    <div class="item-name flex-size-4 clickable loot-category-collapse-toggle"
+    <div class="item-name flex-size-5 clickable loot-category-collapse-toggle"
       data-loot-category-type="{{categoryType}}"
       data-skill-tier="{{tier}}">
       {{> "systems/bunkers-and-badasses/templates/general/accordion-toggle-icon.html"
@@ -63,7 +63,7 @@
     <div class="item-dropdown-header flexrow">
 
       {{!-- Item Title (Image and Name) --}}
-      <div class="item-title flexrow flex-size-4">
+      <div class="item-title flexrow flex-size-5">
         {{!-- Item Image --}}
         <div class="item-image post-item" data-item-id="{{item._id}}">
           <a class="postable align-center" data-roll-type="item">
@@ -75,8 +75,15 @@
             </div>
           </a>
         </div> 
-        {{!-- Item Name --}}
-        <div class="item-name flex-size-4">{{item.name}}</div>
+        {{!-- Item Name, Rarity --}}
+        <div class="flexcol flex-size-4">
+          {{#if ../showRarityAndType}}
+          <div class="bolded font-rarity" style="--rarityColor: {{item.system.rarity.colorValue}}">
+            {{item.system.rarity.name}} {{shortName item.system.type.name}}
+          </div>
+          {{/if}}
+          <div class="item-name">{{item.system.prefix.name}} {{item.name}}</div>
+        </div>
       </div>
       
       {{!-- Item Details --}}
