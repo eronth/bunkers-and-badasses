@@ -11,9 +11,9 @@
 
       allowCreate=true
       allowDelete=true
-      showRarityAndType=true
       equippable=true
       hasRarity=true
+      showSubtype=true
     }}
     {{> "systems/bunkers-and-badasses/templates/actor/parts/item-list-components/item-list.html"
       items=shields
@@ -83,6 +83,7 @@
     {{> "systems/bunkers-and-badasses/templates/actor/parts/item-list-components/item-list.html"
       items=archetypeFeats
       itemType="Archetype Feat"
+      detailType="archetypeFeat"
       
       categoryType="archetypeFeats"
       headerText="Archetype Feats"
@@ -95,7 +96,7 @@
     {{> "systems/bunkers-and-badasses/templates/actor/parts/item-list-components/item-list.html"
       items=actionSkills
       itemType="action skill"
-      
+
       categoryType="actionSkills"
       headerText="Action Skill"
       createItemText=""

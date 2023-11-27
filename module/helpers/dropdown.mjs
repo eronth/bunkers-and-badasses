@@ -34,7 +34,7 @@ export class Dropdown {
   static getBodyTemplateLocation(itemType) {
     switch (itemType) {
       case 'Action Skill':
-        return 'systems/bunkers-and-badasses/templates/general/dropdown/item-bodies/action-skill-dropdown-details.html';
+        //return 'systems/bunkers-and-badasses/templates/general/dropdown/item-bodies/action-skill-dropdown-details.html';
       case 'Archetype Feat':
       case 'skill':
       default:

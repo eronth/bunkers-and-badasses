@@ -52,11 +52,14 @@
 .bnb .items-list .item-details-header,
 .bnb .items-list .item-details,
 .bnb .items-list .item-details > div > label > p {
-  font-size: 13px;
   text-align: left;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.bnb .items-list .item-details > div > label.default-description > p {
+  font-size: 13px;
 }
 
 .bnb .items-list .item-details {
@@ -108,6 +111,19 @@
   text-align: center;
   align-self: center;
 }
+
+.bnb .items-list .item-list-component .item-details .archetype-minor-detail {
+  margin-top: 3px;
+  font-size: 12px;
+  font-style: italic;
+}
+.bnb .items-list .item-list-component .item-details .archetype-minor-detail label {
+  flex-grow: 5;
+  margin-top: 0;
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
 
 /* EVERYTHING BELOW THIS POINT IS UNCERTAIN! */
 /* EVERYTHING BELOW THIS POINT IS UNCERTAIN! */

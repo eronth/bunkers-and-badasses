@@ -39,6 +39,7 @@
     "systems/bunkers-and-badasses/templates/actor/parts/item-list-components/item-list-header.html",
     "systems/bunkers-and-badasses/templates/actor/parts/item-list-components/item-list-component.html",
     "systems/bunkers-and-badasses/templates/actor/parts/item-list-components/item-detail/default-item-detail-component.html",
+    "systems/bunkers-and-badasses/templates/actor/parts/item-list-components/item-detail/archetype-feat-item-detail-component.html",
     
     /// Old (to be moved or removed)
     "systems/bunkers-and-badasses/templates/actor/parts/actor-features.html",
