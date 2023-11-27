@@ -1,4 +1,5 @@
 import { Dropdown } from "./dropdown.mjs";
+import { ItemList } from "./itemList.mjs";
 
 export class HandlebarsHelperUtil {
   static prepareHandlebarsHelpers() {
@@ -116,5 +117,8 @@ export class HandlebarsHelperUtil {
 
     Handlebars.registerHelper('dropdownHeaderLocation', ((itemType) =>
       Dropdown.getHeaderTemplateLocation(itemType)));
+
+    Handlebars.registerHelper('itemDetailsBlockTemplateLocation', ((detailsTemplateType) =>
+      ItemList.getItemDetailsBlockTemplateLocation(detailsTemplateType)));
   }
 }
