@@ -185,6 +185,7 @@
   justify-content: center;
 }
 
+.bnb .items-list .item-controls-header,
 .bnb .items-list .item-controls {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -193,6 +194,7 @@
   -ms-flex-pack: end;
   justify-content: flex-end;
   align-items: center;
+  border-left: 1px solid darkgrey;
 }
 .bnb .items-list .archetype-item-controls {
   -webkit-box-flex: 3;

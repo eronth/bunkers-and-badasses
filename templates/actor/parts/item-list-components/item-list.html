@@ -12,7 +12,7 @@
     </div>
     
     {{!-- Item Details Header --}}
-    <div class="item-details-header flex-size-12">Details</div>
+    <div class="item-details-header flex-size-13">Details</div>
 
     {{!-- Item Equip Header --}}
     {{#if equippable}}
@@ -30,9 +30,9 @@
     {{/if}}
 
     {{!-- Item Controls Header --}}
-    <div class="item-controls flex-size-4">
+    <div class="item-controls-header flex-size-3">
       {{#if allowCreate}}
-      <a class="item-control item-create" title="Create Item" data-dtype="{{itemType}}" data-tier="{{tier}}">
+      <a class="item-control item-create" title="Create {{itemType}}" data-dtype="{{itemType}}" data-tier="{{tier}}">
         <i class="fas fa-plus"></i> {{createItemText}}
       </a>
       {{/if}}
@@ -101,8 +101,8 @@
       </div>
       
       {{!-- Item Details --}}
-      <div class="item-details flex-size-12">
-        {{> (itemDetailsBlockTemplateLocation ../detailType) item=item }}
+      <div class="item-details flex-size-13">
+        {{> (itemDetailsBlockTemplateLocation ../itemType) item=item }}
       </div>
       <!-- {{!-- Item Details --}}
       <div class="item-details white-space-nowrap large-text-overflow-hidden flex-size-12">
@@ -129,7 +129,7 @@
       {{/if}}
   
       {{!-- Item Controls --}}
-      <div class="item-controls flex-size-4">
+      <div class="item-controls flex-size-3">
         <a class="item-control item-edit stop-dropdown" title="Edit Item"><i class="fas fa-edit"></i></a>
         {{#if ../allowDelete}}
         <a class="item-control item-delete stop-dropdown" title="Delete Item"><i class="fas fa-trash"></i></a>
