@@ -52,11 +52,18 @@
 .bnb .items-list .item-details-header,
 .bnb .items-list .item-details,
 .bnb .items-list .item-details > div > label > p,
-.bnb .items-list .item-details .grenade-effects > div {
+.bnb .items-list .item-details .grenade-effects > div,
+.bnb .items-list .item-details .shield-effects > div {
   text-align: left;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+.bnb .items-list .item-details .shield-effects > div {
+  flex-grow: 1;
+}
+.bnb .items-list .item-details .shield-details-subsection {
+  width: 80%;
 }
 
 .bnb .items-list .item-details > div > label.default-description > p {
@@ -125,7 +132,7 @@
   padding-right: 3px;
 }
 
-.bnb .item-list-component .item-details .grenade-level-and-guild {
+.bnb .item-list-component .item-details .level-and-guild {
   text-align: right;
   padding-right: 5px;
 }
@@ -135,8 +142,32 @@
   flex-direction: row;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-
 }
+.bnb .item-list-component .item-details .loot-health {
+  /* display: inline-flex; */
+  font-size: small;
+  /* display: -webkit-inline-box; */
+}
+
+.bnb .item-list-component .item-details .health-type-icon {
+  margin: 0;
+  border: 0;
+  padding: 0;
+  align-self: center;
+  flex-shrink: 0;
+  flex-grow: 0;
+  height: 28px;
+  margin-right: 2px;
+}
+
+.bnb .item-list-component .item-details .loot-health .health-regain {
+  font-size: smaller;
+}
+.bnb .item-list-component .item-details .resist-label {
+  margin-left: 2px;
+}
+
+
 
 /* EVERYTHING BELOW THIS POINT IS UNCERTAIN! */
 /* EVERYTHING BELOW THIS POINT IS UNCERTAIN! */

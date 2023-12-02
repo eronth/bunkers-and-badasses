@@ -45,7 +45,7 @@
     "systems/bunkers-and-badasses/templates/actor/parts/item-list-components/item-detail/key-item-detail-component.html",
     "systems/bunkers-and-badasses/templates/actor/parts/item-list-components/item-detail/potion-item-detail-component.html",
     "systems/bunkers-and-badasses/templates/actor/parts/item-list-components/item-detail/relic-item-detail-component.html",
-    "systems/bunkers-and-badasses/templates/actor/parts/item-list-components/item-detail/shield-item-detail-component.html",
+    "systems/bunkers-and-badasses/templates/actor/parts/item-list-components/item-detail/shield-mod-item-detail-component.html",
     
     /// Old (to be moved or removed)
     "systems/bunkers-and-badasses/templates/actor/parts/actor-features.html",
