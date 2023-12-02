@@ -986,9 +986,6 @@ input[type="time"]:focus {
   border: 0;
   height: 12px;
 }
-.loot-element-damage {
-  font-size: smaller;
-}
 .element-damage-icon {
   border: 0;
   height: 12px;
