@@ -3,6 +3,7 @@ export class ItemList {
     switch ((detailsTemplateType ?? '').toLowerCase()) {
       case 'grenade mod':
       case 'grenademod':
+      case 'grenade':
         return 'systems/bunkers-and-badasses/templates/actor/parts/item-list-components/item-detail/grenade-mod-item-detail-component.html';
 
       case 'archetype feat':

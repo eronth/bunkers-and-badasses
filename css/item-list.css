@@ -51,7 +51,8 @@
 
 .bnb .items-list .item-details-header,
 .bnb .items-list .item-details,
-.bnb .items-list .item-details > div > label > p {
+.bnb .items-list .item-details > div > label > p,
+.bnb .items-list .item-details .grenade-effects > div {
   text-align: left;
   white-space: nowrap;
   overflow: hidden;
@@ -124,6 +125,18 @@
   padding-right: 3px;
 }
 
+.bnb .item-list-component .item-details .grenade-level-and-guild {
+  text-align: right;
+  padding-right: 3px;
+}
+.bnb .item-list-component .item-details label.loot-element-damage {
+  display: flex;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+
+}
 
 /* EVERYTHING BELOW THIS POINT IS UNCERTAIN! */
 /* EVERYTHING BELOW THIS POINT IS UNCERTAIN! */
