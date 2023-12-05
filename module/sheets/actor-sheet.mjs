@@ -555,7 +555,7 @@ export class BNBActorSheet extends ActorSheet {
         Object.entries(i.system.elements).forEach(e => {
           const [key, element] = e;
           if (element.enabled) {
-            const iconData = {id: 'gunDmg', elementName: genericUtil.capitalize(key), cssClass: 'element-damage-icon'};
+            const iconData = {id: 'gunDmg', elementType: key, cssClass: 'element-damage-icon'};
             const elemIcon = (e[0] === "kinetic") 
             ? ""
             : genericUtil.createElementIcon(iconData);
@@ -574,7 +574,7 @@ export class BNBActorSheet extends ActorSheet {
         Object.entries(i.system.bonusElements).forEach(e => {
           const [key, element] = e;
           if (element.enabled) {
-            const iconData = {id: 'gunDmg', elementName: genericUtil.capitalize(key), cssClass: 'element-damage-icon' };
+            const iconData = {id: 'gunDmg', elementType: key, cssClass: 'element-damage-icon' };
             const elemIcon = (e[0] === "kinetic") 
             ? ""
             : genericUtil.createElementIcon(iconData);
@@ -596,7 +596,7 @@ export class BNBActorSheet extends ActorSheet {
         Object.entries(i.system.elements).forEach(e => {
           const [key, element] = e;
           if (element.enabled) {
-            const iconData = {id: 'resist', elementName: genericUtil.capitalize(key), cssClass: 'element-resist-icon' };
+            const iconData = {id: 'resist', elementType: key, cssClass: 'element-resist-icon' };
             shieldResistString += genericUtil.createElementIcon(iconData);
           }
         });
@@ -609,7 +609,7 @@ export class BNBActorSheet extends ActorSheet {
         Object.entries(i.system.elements).forEach(e => {
           const [key, element] = e;
           if (element.enabled) {
-            const iconData = {id: 'gDmg', elementName: genericUtil.capitalize(key), cssClass: 'element-damage-icon' };
+            const iconData = {id: 'gDmg', elementType: key, cssClass: 'element-damage-icon' };
             const elemIcon = (e[0] === "kinetic") ? ""
             : genericUtil.createElementIcon(iconData);
 
