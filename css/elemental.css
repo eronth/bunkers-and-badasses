@@ -56,7 +56,7 @@
 
 .element-damage-icon {
   border: 0;
-  height: 12px;
+  height: 13px;
   padding-left: 2px;
 }
 .bnb .item-list-component .item-details .element-damage-icon {
@@ -64,6 +64,45 @@
   border: 0;
   padding: 0;
 }
+.bnb .item-list-component .item-details .element-damage-icon.element-explosive {
+  height: 14px;
+  margin-left: -4px;
+  margin-bottom: -2px;
+  margin-right: -3px;
+}
+.bnb .item-list-component .item-details .element-damage-icon.element-crysplosive {
+  height: 14px;
+  margin-left: -4px;
+  margin-bottom: -2px;
+  margin-right: -3px;
+}
+.bnb .item-list-component .item-details .element-damage-icon.element-corrosive {
+  margin-left: -1px;
+  margin-bottom: -1px;
+  margin-right: -1px;
+}
+.bnb .item-list-component .item-details .element-damage-icon.element-radiation {
+  margin-left: -1px;
+  margin-bottom: -1px;
+  margin-right: -1px;
+}
+.bnb .item-list-component .item-details .element-damage-icon.element-incendiation {
+  margin-left: -1px;
+  margin-bottom: -1px;
+  margin-right: -1px;
+}
+.bnb .item-list-component .item-details .element-damage-icon.element-corroshock {
+  height: 15px;
+  margin-left: -2px;
+  margin-bottom: -2px;
+  margin-right: -1px;
+}
+.bnb .item-list-component .item-details .element-damage-icon.element-cryo {
+  margin-left: -1px;
+  margin-bottom: -2px;
+  margin-right: -1px;
+}
+
 .bnb .damage-results-container .element-damage-icon {
   height: 22px;
 }
