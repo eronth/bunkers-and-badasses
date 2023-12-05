@@ -1,6 +1,8 @@
 export class ItemList {
   static getItemDetailsBlockTemplateLocation(detailsTemplateType) {
     switch ((detailsTemplateType ?? '').toLowerCase()) {
+      case 'gun':
+        return 'systems/bunkers-and-badasses/templates/actor/parts/item-list-components/item-detail/gun-item-detail-component.html';
       case 'shield mod':
       case 'shieldmod':
       case 'shield':
@@ -21,7 +23,5 @@ export class ItemList {
     }
   }
 }
-
-//     "systems/bunkers-and-badasses/templates/actor/parts/item-list-components/item-detail/gun-item-detail-component.html",
 //     "systems/bunkers-and-badasses/templates/actor/parts/item-list-components/item-detail/key-item-detail-component.html",
 //     "systems/bunkers-and-badasses/templates/actor/parts/item-list-components/item-detail/potion-item-detail-component.html",

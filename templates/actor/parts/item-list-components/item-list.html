@@ -96,13 +96,13 @@
         {{!-- Item Name, Rarity, Typings --}}
         <div class="flexcol flex-size-4">
           {{#if ../hasRarity}}
-          <div class="item-rarity-and-type-line bolded font-rarity" style="--rarityColor: {{item.system.rarity.colorValue}}">
+          <div class="item-rarity-and-type-line bolded font-rarity" style="--rarityColor: {{item.system.rarity.colorValue}}">    
             {{item.system.rarity.name}}
             {{#if ../showSubtype}} {{shortName item.system.type.name}}{{/if}}
             {{#if ../showClass}} {{shortName item.system.class}}{{/if}}
           </div>
           {{/if}}
-          <div class="item-name">{{item.system.prefix.name}} {{item.name}}</div>
+          <div class="item-name"> {{#if item.system.prefix.name}}{{item.system.prefix.name}} {{/if}}{{item.name}}</div>
         </div>
       </div>
       
@@ -110,10 +110,6 @@
       <div class="item-details flex-size-13">
         {{> (itemDetailsBlockTemplateLocation ../itemType) item=item }}
       </div>
-      <!-- {{!-- Item Details --}}
-      <div class="item-details white-space-nowrap large-text-overflow-hidden flex-size-12">
-        S
-      </div> -->
       
       {{!-- Item Equip Checkbox --}}
       {{#if ../equippable}}
