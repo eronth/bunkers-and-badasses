@@ -82,15 +82,15 @@ export class HandlebarsHelperUtil {
 
     Handlebars.registerHelper('getBestHealthShade', function(str) {
       if (str === "flesh")
-        str = "light";
+        str = "dark";
       else if (str === "shield")
-        str = "light";
+        str = "dark";
       else if (str === "armor")
-        str = "light";
+        str = "dark";
       else if (str === "bone")
         str = "dark";
       else if (str === "eridian")
-        str = "light";
+        str = "dark";
       return str;
     });
 
