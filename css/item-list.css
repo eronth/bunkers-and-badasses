@@ -45,7 +45,7 @@
   justify-content: flex-start;
 }
 
-.white-space-nowrap {
+.bnb .white-space-nowrap {
   white-space: nowrap;
 }
 
@@ -53,7 +53,8 @@
 .bnb .items-list .item-details,
 .bnb .items-list .item-details > div > label > p,
 .bnb .items-list .item-details .grenade-effects > div,
-.bnb .items-list .item-details .shield-effects > div {
+.bnb .items-list .item-details .shield-effects > div,
+.bnb .items-list .item-details .relic-effects > label {
   text-align: left;
   white-space: nowrap;
   overflow: hidden;
@@ -111,6 +112,9 @@
   display: block;
 }
 
+.bnb .items-list .item-list-component .item-details .relic-effects {
+  font-size: 13px;
+}
 
 .bnb .items-list .items-header .skill-level {
   text-align: center;

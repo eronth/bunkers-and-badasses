@@ -93,12 +93,13 @@
             </div>
           </a>
         </div> 
-        {{!-- Item Name, Rarity --}}
+        {{!-- Item Name, Rarity, Typings --}}
         <div class="flexcol flex-size-4">
           {{#if ../hasRarity}}
           <div class="item-rarity-and-type-line bolded font-rarity" style="--rarityColor: {{item.system.rarity.colorValue}}">
             {{item.system.rarity.name}}
             {{#if ../showSubtype}} {{shortName item.system.type.name}}{{/if}}
+            {{#if ../showClass}} {{shortName item.system.class}}{{/if}}
           </div>
           {{/if}}
           <div class="item-name">{{item.system.prefix.name}} {{item.name}}</div>
