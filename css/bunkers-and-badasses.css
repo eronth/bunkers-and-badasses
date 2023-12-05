@@ -968,80 +968,7 @@ input[type="time"]:focus {
 .shield-stats-container-right {
   margin-left: 1px;
 }
-.elements-container {
-  border: 1px solid darkgrey;
-  margin-top: 2px;
-  margin-bottom: 2px;
-}
-.element-container {
-  margin-left: 5px;
-  margin-right: 5px;
-}
 
-.element-toggle {
-  align-items: center;
-}
-
-.element-resist-icon {
-  border: 0;
-  height: 12px;
-}
-.element-damage-icon {
-  border: 0;
-  height: 12px;
-  padding-left: 2px;
-}
-.element-damage-plus {
-  padding-left: 2px;
-  padding-right: 2px;
-}
-.element-damage-damage {
-  padding-left: 3px;
-}
-.resist-label {
-  padding-left: 5px;
-  font-weight: bold;
-  white-space: nowrap;
-  overflow-x: hidden;
-}
-.resist-label label{
-  padding-left: 5px;
-  font-weight: bold;
-  white-space: nowrap;
-  overflow-x: hidden;
-}
-.elemental ul { 
-  height: 48px;
-  width: 100px;
-  max-width: 100px;
-  border: 1px rgb(122, 121, 113) solid;
-  border-radius: 3px;
-  background: rgba(0, 0, 0, 0.05);
-  list-style-type: none;
-  padding: 0;
-}
-.elemental ul li {
-  cursor: pointer;
-  border: 1px rgb(122, 121, 113) solid;
-  position: relative;
-
-  z-index: 2;
-  text-align: center;
-}
-.elemental ul li:not(.init) {
-  float: left;
-  width: 98px;
-  padding: 7px 7px;
-  display: none;
-}
-.elemental li.init { 
-  cursor: pointer;
-  padding: 15px 7px;
-  height: 48px;
-}
-.elemental ul li:not(.init):hover, ul li.selected:not(.init) {
-  text-decoration: underline;
-}
 .twocol ul {
   columns: 2;
   -webkit-columns: 2;
@@ -1062,22 +989,7 @@ input[type="time"]:focus {
 .bnb .gun-header-line label{
   justify-content: flex-end;
 }
-.bnb .gun-row .critshits-icon {
-  border: 0;
-  height: 12px;
-  padding-right: 2px;
-}
-.bnb .gun-row label {
-  padding: 0px 2px;
-}
-.bnb .gun-row-crits {
-  color: darkred;
-  font-weight: bold;
-}
-.bnb .gun-row-hits {
-  color: darkblue;
-  font-weight: bold;  
-}
+
 .bnb .gun-row .post-crithit-details {
   align-items: center;
   padding: 5px;
@@ -1297,9 +1209,6 @@ input[type="time"]:focus {
 }
 .damage-results-container .result-label {
   font-size: xx-large;
-}
-.damage-results-container .element-damage-icon {
-  height: 22px;
 }
 
 .badass-results-container {

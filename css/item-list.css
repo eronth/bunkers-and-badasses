@@ -114,8 +114,33 @@
   display: block;
 }
 
-.bnb .items-list .item-list-component .item-details .hits-and-crits {
-  font-size: 13px;
+
+
+
+
+.bnb .item-list-component .item-details .gun-row .critshits-icon {
+  border: 0;
+  height: 12px;
+  padding-right: 2px;
+}
+.bnb .item-list-component .item-details .gun-row label {
+  padding: 0px 2px;
+}
+.bnb .item-list-component .item-details .gun-row-crits {
+  color: darkred;
+  font-weight: bold;
+  align-self: center;
+}
+.bnb .item-list-component .item-details .gun-row-hits {
+  color: darkblue;
+  font-weight: bold; 
+  align-self: center;
+}
+
+.bnb .item-list-component .item-details .damage-per-hit-and-bonus-damage-in-between {
+  margin: 3px;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 .bnb .items-list .items-header .skill-level {
@@ -172,6 +197,7 @@
 .bnb .item-list-component .item-details .resist-label {
   text-align: center;
 }
+
 
 
 
