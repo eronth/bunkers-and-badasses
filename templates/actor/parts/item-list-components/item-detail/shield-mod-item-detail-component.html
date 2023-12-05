@@ -1,11 +1,12 @@
 <div class="flexrow">
-  <img id="enable{{label}}" alt="{{item.system.healthType}}" class="health-type-icon" 
+  <img id="enable{{label}}" alt="{{item.system.healthType}}" class="health-type-icon" title="{{capitalize item.system.healthType}}"
     src="systems/bunkers-and-badasses/assets/SHA/{{item.system.healthType}}-{{getBestHealthShade item.system.healthType}}.png" />
   
   <div class="shield-details-subsection flexcol">
     <div class="flexrow loot-health">
       <label>
-        {{item.system.capacity}} {{capitalize (hpTitle item.system.healthType)}} - <span class="health-regain">{{item.system.recoveryRate}} {{capitalize (hpToRecoveryTitle item.system.healthType)}}</span>
+        {{item.system.capacity}} {{capitalize (hpTitle item.system.healthType)}} 
+        {{#if item.system.recoveryRate}}- <span class="health-regain">{{item.system.recoveryRate}} {{capitalize (hpToRecoveryTitle item.system.healthType)}}</span>{{/if}}
       </label>
       <label class="resist-label">
         {{#if item.system.resistHtml}}Resists: {{{item.system.resistHtml}}}{{/if}}

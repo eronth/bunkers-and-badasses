@@ -534,7 +534,6 @@ export class BNBActorSheet extends ActorSheet {
     const keyItems = [];
 
     // Iterate through items, allocating to containers
-    const elementIconDirectory = 'systems/bunkers-and-badasses/assets/elements/';
     for (let i of context.items) {
       i.img = i.img || DEFAULT_TOKEN;
       
@@ -556,10 +555,10 @@ export class BNBActorSheet extends ActorSheet {
         Object.entries(i.system.elements).forEach(e => {
           const [key, element] = e;
           if (element.enabled) {
+            const iconData = {id: 'gunDmg', elementName: genericUtil.capitalize(key), cssClass: 'element-damage-icon'};
             const elemIcon = (e[0] === "kinetic") 
             ? ""
-            : `<img id="gunDmg${genericUtil.capitalize(key)}" alt="${genericUtil.capitalize(key)}" 
-              class="element-damage-icon" src="${elementIconDirectory}${genericUtil.capitalize(key)}.png" />`;
+            : genericUtil.createElementIcon(iconData);
 
               dmgPerHitString += `<label class='bolded ${key}-text'>${element.damage} ${elemIcon}</label> ${finalPlus}`;
           }
@@ -575,10 +574,10 @@ export class BNBActorSheet extends ActorSheet {
         Object.entries(i.system.bonusElements).forEach(e => {
           const [key, element] = e;
           if (element.enabled) {
+            const iconData = {id: 'gunDmg', elementName: genericUtil.capitalize(key), cssClass: 'element-damage-icon' };
             const elemIcon = (e[0] === "kinetic") 
             ? ""
-            : `<img id="gunDmg${genericUtil.capitalize(key)}" alt="${genericUtil.capitalize(key)}" 
-              class="element-damage-icon" src="${elementIconDirectory}${genericUtil.capitalize(key)}.png" />`;
+            : genericUtil.createElementIcon(iconData);
 
               bonusDmgString += `<label class='bolded ${key}-text'>${element.damage} ${elemIcon}</label> ${finalPlus}`;
           }
@@ -597,8 +596,8 @@ export class BNBActorSheet extends ActorSheet {
         Object.entries(i.system.elements).forEach(e => {
           const [key, element] = e;
           if (element.enabled) {
-            shieldResistString += `<img id="resist${genericUtil.capitalize(key)}" alt="${genericUtil.capitalize(key)}" 
-              class="element-resist-icon" src="systems/bunkers-and-badasses/assets/elements/${genericUtil.capitalize(key)}.png" />`;
+            const iconData = {id: 'resist', elementName: genericUtil.capitalize(key), cssClass: 'element-resist-icon' };
+            shieldResistString += genericUtil.createElementIcon(iconData);
           }
         });
         i.system.resistHtml = shieldResistString;
@@ -610,9 +609,9 @@ export class BNBActorSheet extends ActorSheet {
         Object.entries(i.system.elements).forEach(e => {
           const [key, element] = e;
           if (element.enabled) {
+            const iconData = {id: 'gDmg', elementName: genericUtil.capitalize(key), cssClass: 'element-damage-icon' };
             const elemIcon = (e[0] === "kinetic") ? ""
-            : `<img id="gDmg${genericUtil.capitalize(key)}" alt="${genericUtil.capitalize(key)}" 
-              class="element-damage-icon" src="systems/bunkers-and-badasses/assets/elements/${genericUtil.capitalize(key)}.png" />`;
+            : genericUtil.createElementIcon(iconData);
 
             grenadeDmgString += `<label class='bolded ${key}-text'>${element.damage} ${elemIcon}</label> ${finalPlus}`;
           }

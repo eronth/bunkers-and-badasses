@@ -14,4 +14,10 @@ export class genericUtil {
       return healthType;
     }
   }
+
+  static createElementIcon({id, elementName, cssClass}) {
+    return `<img id="${id}${elementName}" alt="${elementName}" title="${elementName}"
+    class=${cssClass} src="systems/bunkers-and-badasses/assets/elements/${elementName}.png" />`;
+  }
+
 }
