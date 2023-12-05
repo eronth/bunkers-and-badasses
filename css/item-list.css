@@ -238,8 +238,14 @@
   -ms-flex-pack: end;
   justify-content: flex-end;
   align-items: center;
+}
+.bnb .items-list .item-controls-header .item-create {
+  margin-right: 5px;
+}
+.bnb .items-list .item-controls {
   border-left: 1px solid darkgrey;
 }
+
 .bnb .items-list .archetype-item-controls {
   -webkit-box-flex: 3;
   -ms-flex: 3;

@@ -20,6 +20,11 @@
     {{/if}}
 
     {{!-- Skill Level Header --}}
+    {{#if showItemCount}}
+    <div class="skill-level flex-size-2">Count</div>
+    {{/if}}
+
+    {{!-- Skill Level Header --}}
     {{#if hasSkillLevel}}
     <div class="skill-level flex-size-2">SL</div>
     {{/if}}
@@ -116,6 +121,11 @@
           {{#if item.system.equipped}}<i class="far fa-check-square"></i>{{else}}<i class="far fa-square"></i>{{/if}}
         </a>
       </div>
+      {{/if}}
+
+      {{!-- Item Count --}}
+      {{#if ../showItemCount}}
+      <div class="skill-level flex-size-2">{{item.system.quantity}}</div>
       {{/if}}
 
       {{!-- Skill Level --}}

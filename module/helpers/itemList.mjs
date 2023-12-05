@@ -9,6 +9,8 @@ export class ItemList {
       case 'grenademod':
       case 'grenade':
         return 'systems/bunkers-and-badasses/templates/actor/parts/item-list-components/item-detail/grenade-mod-item-detail-component.html';
+      case 'potion':
+        return 'systems/bunkers-and-badasses/templates/actor/parts/item-list-components/item-detail/potion-item-detail-component.html';
       case 'archetype feat':
       case 'archetypefeat':
         return 'systems/bunkers-and-badasses/templates/actor/parts/item-list-components/item-detail/archetype-feat-item-detail-component.html';
