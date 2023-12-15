@@ -1,0 +1,16 @@
+.system-bunkers-and-badasses #chat-log .action-skill .simple-icon,
+.system-bunkers-and-badasses #chat-log .archetype-feat .simple-icon,
+.system-bunkers-and-badasses #chat-log .class-skill .simple-icon {
+  max-width: 45px;
+}
+.system-bunkers-and-badasses #chat-log .action-skill .simple-icon img,
+.system-bunkers-and-badasses #chat-log .archetype-feat .simple-icon img,
+.system-bunkers-and-badasses #chat-log .class-skill .simple-icon img {
+  margin: 0;
+  margin-left: 3px;
+}
+.system-bunkers-and-badasses #chat-log .action-skill .base-details,
+.system-bunkers-and-badasses #chat-log .archetype-feat .base-details,
+.system-bunkers-and-badasses #chat-log .class-skill .base-details {
+  margin-left: 3px;
+}
