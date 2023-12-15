@@ -1,6 +1,7 @@
 import { genericUtil } from "../genericUtil.mjs";
 
 export class PostToChat {
+  static chatInfoBaseLocation = 'systems/bunkers-and-badasses/templates/chat/info/';
 
   static async badassRoll(options) {
     const { actor, checkDetails, rollResult } = options;
@@ -165,4 +166,92 @@ export class PostToChat {
     return ret;
   }
 
+  static async itemInfo(options) {
+    const actor = options.actor;
+    const item = options.item;
+
+    // Pull message details for specific item type.
+    const messageDetailOptions = {
+      item: item,
+      renderTemplateConfig: {
+        actorId: actor.id,
+        description: item.system.description,
+        item: item
+      }
+    };
+    let messageDetail = await this.getItemPostMessageDetail(messageDetailOptions);
+
+    // Compile message data for chatbox.
+    const messageData = {
+      user: game.user.id,
+      speaker: ChatMessage.getSpeaker({ actor: actor }),
+      type: CONST.CHAT_MESSAGE_TYPES.IC,
+      // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
+      speaker: ChatMessage.getSpeaker(),
+      ...messageDetail
+    };
+
+    // Send the roll to chat!
+    return ChatMessage.create(messageData);
+  }
+
+  static async getItemPostMessageDetail(options) {
+    const item = options.item;
+    const itemType = item.type.toLowerCase();
+    switch (itemType) {
+      case 'gun':
+      case 'shield':
+      case 'shield mod':
+      case 'shieldmod':
+      case 'grenade':
+      case 'grenade mod':
+      case 'grenademod':
+      case 'relic':
+      case 'potion':
+      case 'key':
+      case 'keyitem':
+      case 'key item':
+        return await this.getKeyItemPostDetail(options);
+      case 'archetype feat':
+      case 'archetypefeat':
+        return await this.getArchetypeFeatPostDetail(options);
+      case 'actionskill':
+      case 'action skill':
+        return await this.getActionSkillPostDetail(options);
+      case 'skill':
+        return await this.getSkillPostDetail(options);
+      default:
+    }
+  }
+
+  static async getArchetypeFeatPostDetail(options) {
+    const templateLocation = `${this.chatInfoBaseLocation}archetype-feat-info.html`;
+    const renderTemplateConfig = options.renderTemplateConfig;
+    const item = renderTemplateConfig.item;
+    const chatHtmlContent = await renderTemplate(templateLocation, renderTemplateConfig);
+    return {
+      flavor: `Archetype Feat <b>${item.name}</b>.`,
+      content: chatHtmlContent
+    }
+  }
+  static async getActionSkillPostDetail(options) {
+    const templateLocation = `${this.chatInfoBaseLocation}action-skill-info.html`;
+    const renderTemplateConfig = options.renderTemplateConfig;
+    const item = renderTemplateConfig.item;
+    const chatHtmlContent = await renderTemplate(templateLocation, renderTemplateConfig);
+    return {
+      flavor: `Action Skill <b>${item.name}</b>.`,
+      content: chatHtmlContent
+    }
+  }
+  static async getSkillPostDetail(options) {
+    const templateLocation = `${this.chatInfoBaseLocation}class-skill-info.html`;
+    const renderTemplateConfig = options.renderTemplateConfig;
+    const item = renderTemplateConfig.item;
+    const chatHtmlContent = await renderTemplate(templateLocation, renderTemplateConfig);
+    return {
+      flavor: `Class Skill <b>${item.name}</b>.`,
+      content: chatHtmlContent
+    }
+  }
 }

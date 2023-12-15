@@ -3,6 +3,7 @@ import { RollBuilder } from "../helpers/roll-builder.mjs";
 import { Dropdown } from "../helpers/dropdown.mjs";
 import { genericUtil } from "../helpers/genericUtil.mjs";
 import { OnActionUtil } from "../helpers/onActionUtil.mjs";
+import { PostToChat } from "../helpers/roll-and-post/postToChat.mjs";
 import { ConfirmActionPrompt } from "../helpers/roll-and-post/confirmActionPrompt.mjs";
 
 /**
@@ -967,39 +968,7 @@ export class BNBActorSheet extends ActorSheet {
     if (dataset.rollType == 'item') {
       const itemId = event.currentTarget.closest('.post-item').dataset.itemId;
       const item = this.actor.items.get(itemId);
-      const chatInfoBaseLocation = 'systems/bunkers-and-badasses/templates/chat/info/';
-      const messageData = {
-        user: game.user.id,
-        speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-        type: CONST.CHAT_MESSAGE_TYPES.IC,
-        // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
-        speaker: ChatMessage.getSpeaker()
-      };
-      const renderTemplateConfig = {
-        actorId: this.actor.id,
-        description: item.system.description,
-        item: item
-      };
-
-      if (item.type == 'Archetype Feat') {
-        const templateLocation = `${chatInfoBaseLocation}archetype-feat-info.html`;
-        const chatHtmlContent = await renderTemplate(templateLocation, renderTemplateConfig);
-        messageData.flavor = `Archetype Feat <b>${item.name}</b>.`;
-        messageData.content = chatHtmlContent;
-      } else if (item.type == 'Action Skill') {
-        const templateLocation = `${chatInfoBaseLocation}action-skill-info.html`;
-        const chatHtmlContent = await renderTemplate(templateLocation, renderTemplateConfig);
-        messageData.flavor = `Action Skill <b>${item.name}</b>.`;
-        messageData.content = chatHtmlContent;
-      } else if (item.type == 'skill') {
-        const templateLocation = `${chatInfoBaseLocation}class-skill-info.html`;
-        const chatHtmlContent = await renderTemplate(templateLocation, renderTemplateConfig);
-        messageData.flavor = `Class Skill <b>${item.name}</b>.`;
-        messageData.content = chatHtmlContent;
-      }
-
-      // Send the roll to chat!
-      return ChatMessage.create(messageData);
+      await PostToChat.itemInfo({item: item, actor: this.actor});
     }
   }
   /**
