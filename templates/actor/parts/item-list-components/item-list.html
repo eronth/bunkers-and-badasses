@@ -70,7 +70,7 @@
   </li> -->
   {{^if (lootCategoryIsCollapsed isCollapsed categoryType)}}
   {{#each items as |item id|}}
-  <li class="item item-list-component item-element-group 
+  <li class="item item-list-component item-element-group {{../itemType}}-list-component
     item-dropdown-group item-dropdown-click-component
     loot-rarity-fade-border {{^if ../hasRarity}}no-rarity{{/if}}
     noflex"
@@ -81,29 +81,51 @@
     <div class="item-dropdown-header flexrow">
 
       {{!-- Item Title (Image and Name) --}}
-      <div class="item-title flexrow flex-size-5">
-        {{!-- Item Image --}}
-        <div class="item-image post-item" data-item-id="{{item._id}}">
-          <a class="postable align-center" data-roll-type="item">
-            <div class="chat-post-image-container">
-              {{!-- Item Image --}}
-              <img class='to-chat-image box-hover stop-dropdown' 
-              src="{{item.img}}" title="Post {{item.name}} to chat" width="24" height="24"/>
-              <i class="fa-solid fa-message icon to-chat-icon stop-dropdown"></i>
+      <div class="item-title flexcol flex-size-5">
+        <div class=" flexrow">
+          {{!-- Item Image --}}
+          <div class="item-image post-item" data-item-id="{{item._id}}">
+            <a class="postable align-center" data-roll-type="item">
+              <div class="chat-post-image-container">
+                {{!-- Item Image --}}
+                <img class='to-chat-image box-hover stop-dropdown' 
+                src="{{item.img}}" title="Post {{item.name}} to chat" width="24" height="24"/>
+                <i class="fa-solid fa-message icon to-chat-icon stop-dropdown"></i>
+              </div>
+            </a>
+          </div> 
+          {{!-- Item Name, Rarity, Typings --}}
+          <div class="flexcol flex-size-4">
+            {{#if ../hasRarity}}
+            <div class="item-rarity bolded font-rarity" 
+              style="--rarityColor: {{item.system.rarity.colorValue}}">
+              {{item.system.rarity.name}}
             </div>
-          </a>
-        </div> 
-        {{!-- Item Name, Rarity, Typings --}}
-        <div class="flexcol flex-size-4">
-          {{#if ../hasRarity}}
-          <div class="item-rarity-and-type-line bolded font-rarity" style="--rarityColor: {{item.system.rarity.colorValue}}">    
-            {{item.system.rarity.name}}
-            {{#if ../showSubtype}} {{shortName item.system.type.name}}{{/if}}
-            {{#if ../showClass}} {{shortName item.system.class}}{{/if}}
+            {{/if}}
+            {{#if ../showSubtype}}
+            <div class="item-subtype bolded font-rarity"
+              style="--rarityColor: {{item.system.rarity.colorValue}}">
+              {{item.system.type.name}}
+            </div>
+            {{/if}}
+            {{#if ../showClass}}
+            <div class="item-class bolded font-rarity"
+              style="--rarityColor: {{item.system.rarity.colorValue}}">
+              {{shortName item.system.class}}
+            </div>
+            {{/if}}
+            {{^if ../showNameOnThirdLine}}
+            <div class="item-name">
+              {{#if ../hasPrefix}}{{item.system.prefix.name}} {{/if}}{{item.name}}
+            </div>
+            {{/if}}
           </div>
-          {{/if}}
-          <div class="item-name"> {{#if item.system.prefix.name}}{{item.system.prefix.name}} {{/if}}{{item.name}}</div>
         </div>
+        {{#if ../showNameOnThirdLine}}
+        <div class="item-name">
+          {{#if ../hasPrefix}}{{item.system.prefix.name}} {{/if}}{{item.name}}
+        </div>
+        {{/if}}
       </div>
       
       {{!-- Item Details --}}
