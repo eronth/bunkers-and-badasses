@@ -207,7 +207,9 @@ export class PostToChat {
       case 'grenade mod':
       case 'grenademod':
       case 'relic':
+        return await this.getRelicPostDetail(options);
       case 'potion':
+        return await this.getPotionPostDetail(options);
       case 'key':
       case 'keyitem':
       case 'key item':
@@ -224,6 +226,36 @@ export class PostToChat {
     }
   }
 
+  static async getRelicPostDetail(options) {
+    const templateLocation = `${this.chatInfoBaseLocation}relic-info.html`;
+    const renderTemplateConfig = options.renderTemplateConfig;
+    const item = renderTemplateConfig.item;
+    const chatHtmlContent = await renderTemplate(templateLocation, renderTemplateConfig);
+    return {
+      flavor: `Relic <b>${item.name}</b>.`,
+      content: chatHtmlContent
+    }
+  }
+  static async getPotionPostDetail(options) {
+    const templateLocation = `${this.chatInfoBaseLocation}potion-info.html`;
+    const renderTemplateConfig = options.renderTemplateConfig;
+    const item = renderTemplateConfig.item;
+    const chatHtmlContent = await renderTemplate(templateLocation, renderTemplateConfig);
+    return {
+      flavor: `Potion <b>${item.name}</b>.`,
+      content: chatHtmlContent
+    }
+  }
+  static async getKeyItemPostDetail(options) {
+    const templateLocation = `${this.chatInfoBaseLocation}key-item-info.html`;
+    const renderTemplateConfig = options.renderTemplateConfig;
+    const item = renderTemplateConfig.item;
+    const chatHtmlContent = await renderTemplate(templateLocation, renderTemplateConfig);
+    return {
+      flavor: `Key Item <b>${item.name}</b>.`,
+      content: chatHtmlContent
+    }
+  }
   static async getArchetypeFeatPostDetail(options) {
     const templateLocation = `${this.chatInfoBaseLocation}archetype-feat-info.html`;
     const renderTemplateConfig = options.renderTemplateConfig;
