@@ -32,10 +32,6 @@
   display: flex;
 }
 
-.bnb .items-list .item-title .item-image img {
-  width: 24px;
-}
-
 .bnb .items-list .item-dropdown-group .item-dropdown-header {
   margin: 0;
   padding: 0;
