@@ -200,12 +200,15 @@ export class PostToChat {
     const itemType = item.type.toLowerCase();
     switch (itemType) {
       case 'gun':
+        return await this.getGunPostDetail(options);
       case 'shield':
       case 'shield mod':
       case 'shieldmod':
+        return await this.getShieldPostDetail(options);
       case 'grenade':
       case 'grenade mod':
       case 'grenademod':
+        return await this.getGrenadePostDetail(options);
       case 'relic':
         return await this.getRelicPostDetail(options);
       case 'potion':
@@ -226,6 +229,38 @@ export class PostToChat {
     }
   }
 
+  static async getGunPostDetail(options) {
+    const templateLocation = `${this.chatInfoBaseLocation}gun-info.html`;
+    const renderTemplateConfig = options.renderTemplateConfig;
+    const item = renderTemplateConfig.item;
+    const chatHtmlContent = await renderTemplate(templateLocation, renderTemplateConfig);
+    const flavorPrefix = item.system.prefix.name ? `${item.system.prefix.name} ` : '';
+    return {
+      flavor: `${flavorPrefix}<b>${item.name}</b> ${item.system.type.name}.`,
+      content: chatHtmlContent
+    }
+  }
+  static async getShieldPostDetail(options) {
+    const templateLocation = `${this.chatInfoBaseLocation}shield-info.html`;
+    const renderTemplateConfig = options.renderTemplateConfig;
+    const item = renderTemplateConfig.item;
+    const capHealthType = genericUtil.capitalize(genericUtil.healthTypeToText(item.system.healthType));
+    const chatHtmlContent = await renderTemplate(templateLocation, renderTemplateConfig);
+    return {
+      flavor: `<b>${item.name}</b> ${capHealthType} Protection.`,
+      content: chatHtmlContent
+    }
+  }
+  static async getGrenadePostDetail(options) {
+    const templateLocation = `${this.chatInfoBaseLocation}grenade-info.html`;
+    const renderTemplateConfig = options.renderTemplateConfig;
+    const item = renderTemplateConfig.item;
+    const chatHtmlContent = await renderTemplate(templateLocation, renderTemplateConfig);
+    return {
+      flavor: `<b>${item.name}</b> Grenade.`,
+      content: chatHtmlContent
+    }
+  }
   static async getRelicPostDetail(options) {
     const templateLocation = `${this.chatInfoBaseLocation}relic-info.html`;
     const renderTemplateConfig = options.renderTemplateConfig;
