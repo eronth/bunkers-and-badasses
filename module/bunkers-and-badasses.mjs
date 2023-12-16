@@ -386,7 +386,10 @@ async function rollItemMacro(itemName) {
 /*  Chat Hooks                                  */
 /* -------------------------------------------- */
 Hooks.on('renderChatMessage', (app, html, data) => {
-})
+  if (!game.user.isGM) {
+    html.find('.gm-secret').remove();
+  }
+});
 Hooks.on('renderChatLog', (app, html, data) => {
   BNBItem.addChatListeners(html);
   BNBActor.addChatListeners(html);
