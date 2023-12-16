@@ -40,8 +40,14 @@
 
 .system-bunkers-and-badasses #chat-log .description,
 .system-bunkers-and-badasses #chat-log .notes,
-.system-bunkers-and-badasses #chat-log .red-text {
+.system-bunkers-and-badasses #chat-log .red-text-block {
   color: hsl(0, 0%, 20%);
   margin-left: 3px;
   margin-right: 3px;
+}
+
+.system-bunkers-and-badasses #chat-log .red-text-block label.red-text {
+  color: var(--redText);
+  font-weight: bold;
+  font-style: italic;
 }

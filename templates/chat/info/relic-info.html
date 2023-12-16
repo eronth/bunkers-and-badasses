@@ -10,8 +10,8 @@
     </div>
     <div class="base-details flexcol flex-size-3 font-rarity item-header-info"
       style="--rarityColor: {{item.system.rarity.colorValue}}">
-      <div>{{item.system.rarity.name}}</div>
-      <div>{{item.name}} {{item.system.class}}</div>
+      <div>{{item.system.rarity.name}} {{item.system.class}}</div>
+      <div>{{item.name}}</div>
     </div>
   </div>
   <hr />
@@ -26,4 +26,6 @@
     <br />
     <span class="description-text">{{{enrich item.system.classEffect}}}</span>
   </div>
+  <hr />
+  {{> "systems/bunkers-and-badasses/templates/chat/info/components/red-text.html" item=item }}
 </div>
