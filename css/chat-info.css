@@ -1,16 +1,47 @@
+.system-bunkers-and-badasses #chat-log .relic .simple-icon,
 .system-bunkers-and-badasses #chat-log .action-skill .simple-icon,
 .system-bunkers-and-badasses #chat-log .archetype-feat .simple-icon,
 .system-bunkers-and-badasses #chat-log .class-skill .simple-icon {
   max-width: 45px;
 }
+.system-bunkers-and-badasses #chat-log .relic .simple-icon img,
 .system-bunkers-and-badasses #chat-log .action-skill .simple-icon img,
 .system-bunkers-and-badasses #chat-log .archetype-feat .simple-icon img,
 .system-bunkers-and-badasses #chat-log .class-skill .simple-icon img {
   margin: 0;
   margin-left: 3px;
 }
+.system-bunkers-and-badasses #chat-log .relic .base-details,
 .system-bunkers-and-badasses #chat-log .action-skill .base-details,
 .system-bunkers-and-badasses #chat-log .archetype-feat .base-details,
 .system-bunkers-and-badasses #chat-log .class-skill .base-details {
   margin-left: 3px;
+}
+
+.system-bunkers-and-badasses #chat-log .item-header-info {
+  font-size: 18px;
+}
+
+.system-bunkers-and-badasses #chat-log .chat-info-rarity-boarder {
+  border: 2px solid var(--rarityColor);
+  border-radius: 5px;
+  background: rgba(0, 0, 0, 0.05);
+  margin: 0;
+  padding: 0;
+  padding-top: 3px;
+}
+
+.system-bunkers-and-badasses #chat-log .font-rarity {
+  font-weight: bold;
+  -webkit-text-fill-color: var(--rarityColor); /* Will override color (regardless of order) */
+  -webkit-text-stroke: 0.2px hsl(0, 0%, 20%);;
+  text-shadow: 1px 1px 1px hsl(0, 0%, 20%);
+}
+
+.system-bunkers-and-badasses #chat-log .description,
+.system-bunkers-and-badasses #chat-log .notes,
+.system-bunkers-and-badasses #chat-log .red-text {
+  color: hsl(0, 0%, 20%);
+  margin-left: 3px;
+  margin-right: 3px;
 }
