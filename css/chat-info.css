@@ -8,9 +8,37 @@
 .system-bunkers-and-badasses #chat-log .base-details {
   margin-left: 3px;
 }
+.system-bunkers-and-badasses #chat-log .guild,
+.system-bunkers-and-badasses #chat-log .level {
+  color: hsl(0, 0%, 20%);
+  font-size: smaller;
+  font-weight: bold;
+}
+.system-bunkers-and-badasses #chat-log .level-and-guild {
+  text-align: right;
+  font-weight: bold;
+}
 
+.system-bunkers-and-badasses #chat-log .description img.health-type-icon {
+  border: 0;
+  max-height: 40px;
+  max-width: 40px;
+}
+.system-bunkers-and-badasses #chat-log .description .health-bonus-details {
+  margin: 0;
+  margin-left: 3px;
+}
+.system-bunkers-and-badasses #chat-log .description .health-bonus-details .main-data {
+  font-size: 20px;
+}
+.system-bunkers-and-badasses #chat-log .description .health-bonus-details .sub-data {
+  font-size: 12px;
+}
 .system-bunkers-and-badasses #chat-log .item-header-info {
   font-size: 18px;
+}
+.system-bunkers-and-badasses #chat-log .item-header-info .item-rarity-and-type-chat-display {
+  font-size: smaller;
 }
 
 .system-bunkers-and-badasses #chat-log .chat-info-rarity-boarder {
@@ -26,7 +54,7 @@
 .system-bunkers-and-badasses #chat-log .font-rarity {
   font-weight: bold;
   -webkit-text-fill-color: var(--rarityColor); /* Will override color (regardless of order) */
-  -webkit-text-stroke: 0.2px hsl(0, 0%, 20%);;
+  -webkit-text-stroke: 0.2px hsl(0, 0%, 20%);
   text-shadow: 1px 1px 1px hsl(0, 0%, 20%);
 }
 
