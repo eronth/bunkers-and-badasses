@@ -1,11 +1,17 @@
 .health-text {
-    color: var(--health);
+    color: var(--flesh);
 }
 .health-high-text {
-    color: var(--health-high);
+    color: var(--flesh-high);
 }
 .health-low-text {
-    color: var(--health-low);
+    color: var(--flesh-low);
+}
+.health-light-icon-text {
+    color: var(--flesh-light-icon);
+}
+.health-dark-icon-text {
+    color: var(--flesh-dark-icon);
 }
 .bone-text {
     color: var(--bone);
@@ -16,6 +22,12 @@
 .bone-low-text {
     color: var(--bone-low);
 }
+.bone-light-icon-text {
+    color: var(--bone-light-icon);
+}
+.bone-dark-icon-text {
+    color: var(--bone-dark-icon);
+}
 .flesh-text {
     color: var(--flesh);
 }
@@ -24,6 +36,12 @@
 }
 .flesh-low-text {
     color: var(--flesh-low);
+}
+.flesh-light-icon-text {
+    color: var(--flesh-light-icon);
+}
+.flesh-dark-icon-text {
+    color: var(--flesh-dark-icon);
 }
 .armor-text {
     color: var(--armor);
@@ -34,6 +52,12 @@
 .armor-low-text {
     color: var(--armor-low);
 }
+.armor-light-icon-text {
+    color: var(--armor-light-icon);
+}
+.armor-dark-icon-text {
+    color: var(--armor-dark-icon);
+}
 .shield-text {
     color: var(--shield);
 }
@@ -42,6 +66,12 @@
 }
 .shield-low-text {
     color: var(--shield-low);
+}
+.shield-light-icon-text {
+    color: var(--shield-light-icon);
+}
+.shield-dark-icon-text {
+    color: var(--shield-dark-icon);
 }
 .eridian-text {
     color: var(--eridian);
@@ -52,19 +82,33 @@
 .eridian-low-text {
     color: var(--eridian-low);
 }
+.eridian-light-icon-text {
+    color: var(--eridian-light-icon);
+}
+.eridian-dark-icon-text {
+    color: var(--eridian-dark-icon);
+}
 
 
 .health-background {
     color: white;
-    background-color: var(--health);
+    background-color: var(--flesh);
 }
 .health-high-background {
     color: white;
-    background-color: var(--health-high);
+    background-color: var(--flesh-high);
 }
 .health-low-background {
     color: white;
-    background-color: var(--health-low);
+    background-color: var(--flesh-low);
+}
+.health-light-icon-background {
+    color: white;
+    background-color: var(--flesh-light-icon);
+}
+.health-dark-icon-background {
+    color: white;
+    background-color: var(--flesh-dark-icon);
 }
 .bone-background {
     color: white;
@@ -78,6 +122,14 @@
     color: white;
     background-color: var(--bone-low);
 }
+.bone-light-icon-background {
+    color: white;
+    background-color: var(--bone-light-icon);
+}
+.bone-dark-icon-background {
+    color: white;
+    background-color: var(--bone-dark-icon);
+}
 .flesh-background {
     color: white;
     background-color: var(--flesh);
@@ -89,6 +141,14 @@
 .flesh-low-background {
     color: white;
     background-color: var(--flesh-low);
+}
+.flesh-light-icon-background {
+    color: white;
+    background-color: var(--flesh-light-icon);
+}
+.flesh-dark-icon-background {
+    color: white;
+    background-color: var(--flesh-dark-icon);
 }
 .armor-background {
     color: white;
@@ -102,6 +162,14 @@
     color: white;
     background-color: var(--armor-low);
 }
+.armor-light-icon-background {
+    color: white;
+    background-color: var(--armor-light-icon);
+}
+.armor-dark-icon-background {
+    color: white;
+    background-color: var(--armor-dark-icon);
+}
 .shield-background {
     color: white;
     background-color: var(--shield);
@@ -113,6 +181,14 @@
 .shield-low-background {
     color: white;
     background-color: var(--shield-low);
+}
+.shield-light-icon-background {
+    color: white;
+    background-color: var(--shield-light-icon);
+}
+.shield-dark-icon-background {
+    color: white;
+    background-color: var(--shield-dark-icon);
 }
 .eridian-background {
     color: white;
@@ -126,16 +202,30 @@
     color: white;
     background-color: var(--eridian-low);
 }
+.eridian-light-icon-background {
+    color: white;
+    background-color: var(--eridian-light-icon);
+}
+.eridian-dark-icon-background {
+    color: white;
+    background-color: var(--eridian-dark-icon);
+}
 
 
 .health-border {
-    border: 1px solid var(--health);
+    border: 1px solid var(--flesh);
 }
 .health-high-border {
-    border: 1px solid var(--health-high);
+    border: 1px solid var(--flesh-high);
 }
 .health-low-border {
-    border: 1px solid var(--health-low);
+    border: 1px solid var(--flesh-low);
+}
+.health-dark-icon-border {
+    border: 1px solid var(--flesh-dark-icon);
+}
+.health-light-icon-border {
+    border: 1px solid var(--flesh-light-icon);
 }
 .bone-border {
     border: 1px solid var(--bone);
@@ -146,6 +236,12 @@
 .bone-low-border {
     border: 1px solid var(--bone-low);
 }
+.bone-dark-icon-border {
+    border: 1px solid var(--bone-dark-icon);
+}
+.bone-light-icon-border {
+    border: 1px solid var(--bone-light-icon);
+}
 .flesh-border {
     border: 1px solid var(--flesh);
 }
@@ -154,6 +250,12 @@
 }
 .flesh-low-border {
     border: 1px solid var(--flesh-low);
+}
+.flesh-dark-icon-border {
+    border: 1px solid var(--flesh-dark-icon);
+}
+.flesh-light-icon-border {
+    border: 1px solid var(--flesh-light-icon);
 }
 .armor-border {
     border: 1px solid var(--armor);
@@ -164,6 +266,12 @@
 .armor-low-border {
     border: 1px solid var(--armor-low);
 }
+.armor-dark-icon-border {
+    border: 1px solid var(--armor-dark-icon);
+}
+.armor-light-icon-border {
+    border: 1px solid var(--armor-light-icon);
+}
 .shield-border {
     border: 1px solid var(--shield);
 }
@@ -173,6 +281,12 @@
 .shield-low-border {
     border: 1px solid var(--shield-low);
 }
+.shield-dark-icon-border {
+    border: 1px solid var(--shield-dark-icon);
+}
+.shield-light-icon-border {
+    border: 1px solid var(--shield-light-icon);
+}
 .eridian-border {
     border: 1px solid var(--eridian);
 }
@@ -181,4 +295,10 @@
 }
 .eridian-low-border {
     border: 1px solid var(--eridian-low);
+}
+.eridian-dark-icon-border {
+    border: 1px solid var(--eridian-dark-icon);
+}
+.eridian-light-icon-border {
+    border: 1px solid var(--eridian-light-icon);
 }
