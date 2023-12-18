@@ -550,79 +550,26 @@ export class BNBActorSheet extends ActorSheet {
       else if (i.type === 'Archetype Feat') { archetypeFeats.push(i); }
       else if (i.type === 'Action Skill') { actionSkills.push(i); } // Append to Action Skills (should probably only ever be one, but whatever).
       else if (i.type === 'gun') {
-        const finalPlus = `<label class="element-damage-plus"> + </label>`;
-        
-        let dmgPerHitString = "";
-        Object.entries(i.system.elements).forEach(e => {
-          const [key, element] = e;
-          if (element.enabled) {
-            const iconData = {id: 'gunDmg', elementType: key, cssClass: 'element-damage-icon'};
-            const elemIcon = (e[0] === "kinetic") 
-            ? ""
-            : genericUtil.createElementIcon(iconData);
 
-              dmgPerHitString += `<label class='bolded ${key}-text'>${element.damage} ${elemIcon}</label> ${finalPlus}`;
-          }
-        });
-        
-        // We need to remove the last plus label, it doesn't belong, then add the "damage" text.
-        i.system.dmgPerHitHtml = (dmgPerHitString
-          ? dmgPerHitString.slice(0, finalPlus.length * -1) + `<label class="element-damage-damage">per hit</label>`
+        const damageElementsHtml = genericUtil.createGunDamagePerHitHtml({ elements: i.system.elements });
+        i.system.dmgPerHitHtml = (damageElementsHtml 
+          ? damageElementsHtml + `<label class="element-damage-damage">per hit</label>`
           : '');
 
-
-        let bonusDmgString = "";
-        Object.entries(i.system.bonusElements).forEach(e => {
-          const [key, element] = e;
-          if (element.enabled) {
-            const iconData = {id: 'gunDmg', elementType: key, cssClass: 'element-damage-icon' };
-            const elemIcon = (e[0] === "kinetic") 
-            ? ""
-            : genericUtil.createElementIcon(iconData);
-
-              bonusDmgString += `<label class='bolded ${key}-text'>${element.damage} ${elemIcon}</label> ${finalPlus}`;
-          }
-        });
-        
-        // We need to remove the last plus label, it doesn't belong, then add the "damage" text.
-        i.system.bonusDamageHtml = (bonusDmgString 
-          ? bonusDmgString.slice(0, finalPlus.length * -1) + `<label class="element-damage-damage">bonus</label>`
+        const bonusDamageElementsHtml = genericUtil.createGunBonusDamageHtml({ elements: i.system.bonusElements });
+        i.system.bonusDamageHtml = (bonusDamageElementsHtml 
+          ? bonusDamageElementsHtml + `<label class="element-damage-damage">bonus</label>`
           : '');
-
-
         guns.push(i);
         if (i.system.equipped) { equippedGuns.push(i); }
       } else if (i.type === 'shield') {
-        let shieldResistString = "";
-        Object.entries(i.system.elements).forEach(e => {
-          const [key, element] = e;
-          if (element.enabled) {
-            const iconData = {id: 'resist', elementType: key, cssClass: 'element-resist-icon' };
-            shieldResistString += genericUtil.createElementIcon(iconData);
-          }
-        });
-        i.system.resistHtml = shieldResistString;
+        i.system.resistHtml = genericUtil.createMiniShieldResistHtml({ elements: i.system.elements });
         shields.push(i);
       } else if (i.type === 'grenade') {
-        const finalPlus = `<label class="element-damage-plus"> + </label>`;
-
-        let grenadeDmgString = "";
-        Object.entries(i.system.elements).forEach(e => {
-          const [key, element] = e;
-          if (element.enabled) {
-            const iconData = {id: 'gDmg', elementType: key, cssClass: 'element-damage-icon' };
-            const elemIcon = (e[0] === "kinetic") ? ""
-            : genericUtil.createElementIcon(iconData);
-
-            grenadeDmgString += `<label class='bolded ${key}-text'>${element.damage} ${elemIcon}</label> ${finalPlus}`;
-          }
-        });
-
-        // We need to remove the last plus label, it doesn't belong, then add the "damage" text.
-        i.system.dmgHtml = (grenadeDmgString
-          ? grenadeDmgString.slice(0, finalPlus.length * -1) + `<label class="element-damage-damage">Damage</label>`
+        const grenadeDamageHtml = genericUtil.createGrenadeDamageHtml({ elements: i.system.elements });
+        i.system.dmgHtml = (grenadeDamageHtml
+          ? grenadeDamageHtml + `<label class="element-damage-damage">Damage</label>`
           : '');
-
         grenades.push(i);
         if (i.system.equipped) { equippedGrenades.push(i); }
       }
