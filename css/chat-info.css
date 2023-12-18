@@ -20,32 +20,8 @@
 }
 
 .system-bunkers-and-badasses #chat-log .description .element-resist-text {
-  margin-right: 2px;
-}
-
-.system-bunkers-and-badasses #chat-log .description .element-resist-icon {
-  margin-left: -1px;
-}
-.system-bunkers-and-badasses #chat-log .description .element-incendiary {
-  margin-left: -1px;
-  margin-bottom: -0.5px;
-}
-.system-bunkers-and-badasses #chat-log .description .element-cryo {
-  margin-bottom: -0.5px;
-}
-.system-bunkers-and-badasses #chat-log .description .element-radiation {
-  margin-bottom: -0.5px;
-}
-.system-bunkers-and-badasses #chat-log .description .element-explosive {
-  margin-left: -3px;
-  margin-bottom: -1px;
-}
-.system-bunkers-and-badasses #chat-log .description .element-incendiation {
-  margin-bottom: -0.5px;
-}
-.system-bunkers-and-badasses #chat-log .description .element-crysplosive {
-  margin-bottom: -1px;
-  margin-left: -3px;
+  margin-right: 3px;
+  white-space: nowrap;
 }
 
 .system-bunkers-and-badasses #chat-log .description img.health-type-icon {

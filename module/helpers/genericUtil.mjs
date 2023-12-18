@@ -111,10 +111,10 @@ export class genericUtil {
       if (element.enabled) {
         const iconData = {id: 'resist', elementType: key, cssClass: 'element-resist-icon' };
         const elemIcon = ((e[0] === "kinetic") 
-          ? ""
-          : this.createElementIcon(iconData));
+          ? ''
+          : ` ${this.createElementIcon(iconData)}`);
 
-        shieldResistString += `<label class='bolded ${key}-text element-resist-text'>${element.damage} ${elemIcon}</label> `;
+        shieldResistString += `<label class='bolded ${key}-text element-resist-text'>${element.damage}${elemIcon}</label> `;
       }
     });
     
