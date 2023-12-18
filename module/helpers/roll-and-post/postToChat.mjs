@@ -230,92 +230,150 @@ export class PostToChat {
   }
 
   static async getGunPostDetail(options) {
+    // Pull base objects.
     const templateLocation = `${this.chatInfoBaseLocation}gun-info.html`;
     const renderTemplateConfig = options.renderTemplateConfig;
     const item = renderTemplateConfig.item;
+
+    // Create chat info data.
     const chatHtmlContent = await renderTemplate(templateLocation, renderTemplateConfig);
     const flavorPrefix = item.system.prefix.name ? `${item.system.prefix.name} ` : '';
+    
+    // Create additional message details object.
     return {
       flavor: `${flavorPrefix}<b>${item.name}</b> ${item.system.type.name}.`,
       content: chatHtmlContent
     }
   }
+
   static async getShieldPostDetail(options) {
+    // Pull base objects.
     const templateLocation = `${this.chatInfoBaseLocation}shield-info.html`;
     const renderTemplateConfig = options.renderTemplateConfig;
     const item = renderTemplateConfig.item;
+
+    // Create chat info data.
     const capHealthType = genericUtil.capitalize(genericUtil.healthTypeToText(item.system.healthType));
+    renderTemplateConfig.healthType = capHealthType;
+    renderTemplateConfig.resistHtml = genericUtil.createFullShieldResistHtml({elements: item.system.elements});
+    const levelAndGuild = `Level ${item.system.level} ${item.system.guild}`;
     const chatHtmlContent = await renderTemplate(templateLocation, renderTemplateConfig);
+    
+    // Create additional message details object.
     return {
-      flavor: `<b>${item.name}</b> ${capHealthType} Protection.`,
+      flavor: `<div class="flexrow"><div><b>${item.name}</b> ${capHealthType} Protection.</div><div class="level-and-guild">${levelAndGuild}</div></div>`,
       content: chatHtmlContent
     }
   }
+
   static async getGrenadePostDetail(options) {
+    // Pull base objects.
     const templateLocation = `${this.chatInfoBaseLocation}grenade-info.html`;
     const renderTemplateConfig = options.renderTemplateConfig;
     const item = renderTemplateConfig.item;
+
+    // Create chat info data.
+    renderTemplateConfig.damageHtml = genericUtil.createGrenadeDamageHtml({elements: item.system.elements});
+    const levelAndGuild = `Level ${item.system.level} ${item.system.guild}`;
     const chatHtmlContent = await renderTemplate(templateLocation, renderTemplateConfig);
+    
+    // Create additional message details object.
     return {
-      flavor: `<b>${item.name}</b> Grenade.`,
+      flavor: `<div class="flexrow"><div><b>${item.name}</b> Grenade.</div><div class="level-and-guild">${levelAndGuild}</div></div>`,
       content: chatHtmlContent
     }
   }
+
   static async getRelicPostDetail(options) {
+    // Pull base objects.
     const templateLocation = `${this.chatInfoBaseLocation}relic-info.html`;
     const renderTemplateConfig = options.renderTemplateConfig;
     const item = renderTemplateConfig.item;
+    
+    // Create chat info data.
     const chatHtmlContent = await renderTemplate(templateLocation, renderTemplateConfig);
+    
+    // Create additional message details object.
     return {
       flavor: `Relic <b>${item.name}</b>.`,
       content: chatHtmlContent
     }
   }
+
   static async getPotionPostDetail(options) {
+    // Pull base objects.
     const templateLocation = `${this.chatInfoBaseLocation}potion-info.html`;
     const renderTemplateConfig = options.renderTemplateConfig;
     const item = renderTemplateConfig.item;
+    
+    // Create chat info data.
     const chatHtmlContent = await renderTemplate(templateLocation, renderTemplateConfig);
+    
+    // Create additional message details object.
     return {
       flavor: `Potion <b>${item.name}</b>.`,
       content: chatHtmlContent
     }
   }
+
   static async getKeyItemPostDetail(options) {
+    // Pull base objects.
     const templateLocation = `${this.chatInfoBaseLocation}key-item-info.html`;
     const renderTemplateConfig = options.renderTemplateConfig;
     const item = renderTemplateConfig.item;
+
+    // Create chat info data.
     const chatHtmlContent = await renderTemplate(templateLocation, renderTemplateConfig);
+    
+    // Create additional message details object.
     return {
       flavor: `Key Item <b>${item.name}</b>.`,
       content: chatHtmlContent
     }
   }
+
   static async getArchetypeFeatPostDetail(options) {
+    // Pull base objects.
     const templateLocation = `${this.chatInfoBaseLocation}archetype-feat-info.html`;
     const renderTemplateConfig = options.renderTemplateConfig;
     const item = renderTemplateConfig.item;
+
+    // Create chat info data.
     const chatHtmlContent = await renderTemplate(templateLocation, renderTemplateConfig);
+    
+    // Create additional message details object.
     return {
       flavor: `Archetype Feat <b>${item.name}</b>.`,
       content: chatHtmlContent
     }
   }
+
   static async getActionSkillPostDetail(options) {
+    // Pull base objects.
     const templateLocation = `${this.chatInfoBaseLocation}action-skill-info.html`;
     const renderTemplateConfig = options.renderTemplateConfig;
     const item = renderTemplateConfig.item;
+
+    // Create chat info data.
     const chatHtmlContent = await renderTemplate(templateLocation, renderTemplateConfig);
+    
+    // Create additional message details object.
     return {
       flavor: `Action Skill <b>${item.name}</b>.`,
       content: chatHtmlContent
     }
   }
+
   static async getSkillPostDetail(options) {
+    // Pull base objects.
     const templateLocation = `${this.chatInfoBaseLocation}class-skill-info.html`;
     const renderTemplateConfig = options.renderTemplateConfig;
     const item = renderTemplateConfig.item;
+
+    // Create chat info data.
     const chatHtmlContent = await renderTemplate(templateLocation, renderTemplateConfig);
+    
+    // Create additional message details object.
     return {
       flavor: `Class Skill <b>${item.name}</b>.`,
       content: chatHtmlContent
