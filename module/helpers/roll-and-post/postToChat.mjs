@@ -238,10 +238,11 @@ export class PostToChat {
     // Create chat info data.
     const chatHtmlContent = await renderTemplate(templateLocation, renderTemplateConfig);
     const flavorPrefix = item.system.prefix.name ? `${item.system.prefix.name} ` : '';
+    const levelAndGuild = `Level ${item.system.level} ${item.system.guild}`;
     
     // Create additional message details object.
     return {
-      flavor: `${flavorPrefix}<b>${item.name}</b> ${item.system.type.name}.`,
+      flavor: `<div class="flexrow"><div>${flavorPrefix}<b>${item.name}</b> ${item.system.type.name}</div><div class="level-and-guild">${levelAndGuild}</div></div>`,
       content: chatHtmlContent
     }
   }
@@ -256,8 +257,8 @@ export class PostToChat {
     const capHealthType = genericUtil.capitalize(genericUtil.healthTypeToText(item.system.healthType));
     renderTemplateConfig.healthType = capHealthType;
     renderTemplateConfig.resistHtml = genericUtil.createFullShieldResistHtml({elements: item.system.elements});
-    const levelAndGuild = `Level ${item.system.level} ${item.system.guild}`;
     const chatHtmlContent = await renderTemplate(templateLocation, renderTemplateConfig);
+    const levelAndGuild = `Level ${item.system.level} ${item.system.guild}`;
     
     // Create additional message details object.
     return {
@@ -274,8 +275,8 @@ export class PostToChat {
 
     // Create chat info data.
     renderTemplateConfig.damageHtml = genericUtil.createGrenadeDamageHtml({elements: item.system.elements});
-    const levelAndGuild = `Level ${item.system.level} ${item.system.guild}`;
     const chatHtmlContent = await renderTemplate(templateLocation, renderTemplateConfig);
+    const levelAndGuild = `Level ${item.system.level} ${item.system.guild}`;
     
     // Create additional message details object.
     return {
