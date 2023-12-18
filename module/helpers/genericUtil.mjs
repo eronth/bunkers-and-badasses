@@ -114,7 +114,7 @@ export class genericUtil {
           ? ""
           : this.createElementIcon(iconData));
 
-        shieldResistString += `<label class='bolded ${key}-text'>${element.damage} ${elemIcon}</label> `;
+        shieldResistString += `<label class='bolded ${key}-text element-resist-text'>${element.damage} ${elemIcon}</label> `;
       }
     });
     
