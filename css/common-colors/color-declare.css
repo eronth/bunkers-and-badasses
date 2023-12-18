@@ -25,25 +25,35 @@
   --redText: darkred;
   --anointText: hsl(330, 37%, 48%);
   /* Health types. */
-  --bone:      hsl(53, 100%, 95%);
-  --bone-high: hsl(53, 100%, 95%);
-  --bone-low:  hsl(53, 15%, 55%);
+  --bone:             hsl(53, 100%, 95%);
+  --bone-high:        hsl(53, 100%, 95%);
+  --bone-low:         hsl(53, 15%, 55%);
+  --bone-light-icon:  hsl(0, 0%, 83%);
+  --bone-dark-icon:   hsl(0, 0%, 51%);
 
-  --flesh:      hsl(0, 65%, 50%);
-  --flesh-high: hsl(0, 65%, 50%);
-  --flesh-low:  hsl(0, 90%, 35%);
+  --flesh:            hsl(0, 65%, 50%);
+  --flesh-high:       hsl(0, 65%, 50%);
+  --flesh-low:        hsl(0, 90%, 35%);
+  --flesh-light-icon: hsl(0, 92%, 48%);
+  --flesh-dark-icon:  hsl(353, 72%, 39%);
 
-  --armor:      hsl(50, 95%, 44%);
-  --armor-high: hsl(50, 95%, 44%);
-  --armor-low:  hsl(53, 85%, 33%);
+  --armor:            hsl(50, 95%, 44%);
+  --armor-high:       hsl(50, 95%, 44%);
+  --armor-low:        hsl(53, 85%, 33%);
+  --armor-light-icon: hsl(52, 52%, 65%);
+  --armor-dark-icon:  hsl(53, 40%, 44%);
 
-  --shield:      hsl(181, 70%, 50%);
-  --shield-high: hsl(181, 70%, 50%);
-  --shield-low:  hsl(181, 100%, 35%);
+  --shield:            hsl(181, 70%, 50%);
+  --shield-high:       hsl(181, 70%, 50%);
+  --shield-low:        hsl(181, 100%, 35%);
+  --shield-light-icon: hsl(180, 62%, 49%);
+  --shield-dark-icon:  hsl(186, 52%, 47%);
 
-  --eridian:      hsl(300, 100%, 42%);
-  --eridian-high: hsl(300, 100%, 42%);
-  --eridian-low:  hsl(300, 80%, 35%);
+  --eridian:           hsl(300, 100%, 42%);
+  --eridian-high:      hsl(300, 100%, 42%);
+  --eridian-low:       hsl(300, 80%, 35%);
+  --eridian-light-icon:hsl(274, 99%, 58%);
+  --eridian-dark-icon: hsl(274, 80%, 36%);
 
   --brown-seventeen:  hsl(17, 17%, 17%);
 }
