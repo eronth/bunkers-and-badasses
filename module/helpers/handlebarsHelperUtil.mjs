@@ -62,22 +62,22 @@ export class HandlebarsHelperUtil {
       return str.charAt(0).toUpperCase() + str.slice(1);
     });
 
-    Handlebars.registerHelper('hpToRecoveryTitle', function(str, doCapitalize) {
-      if (str === "flesh")
-        str = "regen";
-      else if (str === "shield")
-        str = "recharge";
-      else if (str === "armor")
-        str = "repair";
-      else if (str === "bone")
-        str = "regrow";
-      else if (str === "eridian")
-        str = "reinvigorate";
+    Handlebars.registerHelper('hpToRecoveryTitle', function(str) {
+      let recoveryTitle = str;
+      
+      const textToCheck = str.toLowerCase();
+      if (textToCheck === 'flesh' || textToCheck === 'health')
+        recoveryTitle = 'regen';
+      else if (textToCheck === 'shield')
+        recoveryTitle = 'recharge';
+      else if (textToCheck === 'armor')
+        recoveryTitle = 'repair';
+      else if (textToCheck === 'bone')
+        recoveryTitle = 'regrow';
+      else if (textToCheck === 'eridian')
+        recoveryTitle = 'reinvigorate';
 
-      if (doCapitalize)
-        return str.charAt(0).toUpperCase() + str.slice(1);
-      else
-        return str;
+        return recoveryTitle;
     });
 
     Handlebars.registerHelper('getBestHealthShade', function(str) {
