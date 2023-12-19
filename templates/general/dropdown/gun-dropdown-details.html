@@ -1,0 +1,84 @@
+<div class='{{dropdownComponentClass "body"}}'>
+  <hr class='{{dropdownComponentClass "hr"}}' />
+  
+
+  <div class="flexrow">
+    <div class="health-protection-details flex-size-2">
+      <!-- hits and crits -->
+
+    </div>
+    <div class="level-and-guild flex-size-2">
+      <!-- guild, level -->
+      <b>
+        {{#if item.system.level}}
+        Level {{item.system.level}}
+        {{/if}}
+        {{#if item.system.guild}}
+        {{item.system.guild}}
+        {{/if}}
+      </b>
+    </div>
+    <label class="item-cost">
+      {{#if item.system.cost}}
+      <b>Cost:</b> {{item.system.cost}}g
+      {{/if}}
+    </label>
+  </div>
+  
+  <!-- resistances -->
+  <b>Damage:</b>
+  {{#if damagePerHitHtml}}
+  <div class="resist-container dropdown-elements-container">
+    {{{damagePerHitHtml}}} Damage per Hit
+  </div>
+  {{/if}}
+  <!-- damage -->
+  {{#if damagePerAttackHtml}}
+  <div class="damage-container dropdown-elements-container">
+    {{{damagePerAttackHtml}}} Bonus Damage per Attack
+  </div>
+  {{/if}}
+
+  <!-- Description -->
+  {{#if item.system.description}}
+  <br />
+  <label class="bolded">Description:</label>
+  <div>{{{item.system.description}}}</div>
+  {{/if}}
+
+  <!-- Effect -->
+  {{#if item.system.effect}}
+  <br />
+  <label class="bolded">Effect:</label>
+  <div>{{{item.system.effect}}}</div>
+  {{/if}}
+
+  <!-- Class Effect -->
+  {{#if item.system.classEffect}}
+  <br />
+  <label class="bolded">Class Effect ({{item.system.class}}):</label>
+  <div>{{{item.system.classEffect}}}</div>
+  {{/if}}
+
+  <!-- Notes -->
+  {{#if item.system.notes}}
+  <br />
+  <label class="bolded">Notes:</label>
+  <div>{{{item.system.notes}}}</div>
+  {{/if}}
+
+  <!-- Red Text -->
+  {{#if item.system.redText}}
+  <div class="red-text">{{{item.system.redText}}}</div>
+  <div class="red-text-notes">{{{item.system.redTextEffect}}}</div>
+  {{/if}}
+</div>
+
+<!-- 
+  range
+  prefix: prefix bonus
+  guild: guild bonsu
+  bonus crit damage
+  gun info
+  stat mods
+-->

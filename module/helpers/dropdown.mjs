@@ -34,7 +34,7 @@ export class Dropdown {
   static getBodyTemplateLocation(itemType) {
     switch (itemType) { //grenade, shield, gun
       case 'gun':
-        return 'systems/bunkers-and-badasses/templates/general/dropdown/dropdown-details.html';
+        return 'systems/bunkers-and-badasses/templates/general/dropdown/gun-dropdown-details.html';
       case 'shield':
       case 'grenade':
         return 'systems/bunkers-and-badasses/templates/general/dropdown/mod-dropdown-details.html';

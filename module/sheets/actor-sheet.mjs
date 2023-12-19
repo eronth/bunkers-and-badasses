@@ -896,7 +896,10 @@ export class BNBActorSheet extends ActorSheet {
 
     // Handle interactions per button click.
     const dropdownData = { item: item };
-    if (item.type === 'shield') {
+    if (item.type ==='gun') {
+      dropdownData.damagePerHitHtml = genericUtil.createGunDamagePerHitHtml({ elements: item.system.elements });
+      dropdownData.damagePerAttackHtml = genericUtil.createGunBonusDamageHtml({ elements: item.system.bonusElements });
+    } else if (item.type === 'shield') {
       dropdownData.resistHtml = genericUtil.createFullShieldResistHtml({ elements: item.system.elements });
     } else if (item.type === 'grenade') {
       dropdownData.damageHtml = genericUtil.createGrenadeDamageHtml({ elements: item.system.elements });
