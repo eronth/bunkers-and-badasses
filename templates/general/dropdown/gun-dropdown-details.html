@@ -1,11 +1,45 @@
 <div class='{{dropdownComponentClass "body"}}'>
   <hr class='{{dropdownComponentClass "hr"}}' />
   
-
+<!-- 
+  range
+  prefix: prefix bonus
+  guild: guild bonsu
+  bonus crit damage
+  gun info
+  stat mods
+-->
   <div class="flexrow">
-    <div class="health-protection-details flex-size-2">
-      <!-- hits and crits -->
-
+    <!-- hits and crits -->
+    <div class="hits-and-crits-container flex-size-2">
+      <div class="flexrow">
+        <label class="bolded crit-hit crit-hit-acc title">Acc</label>
+        <div class="crit-hit-label-icon">
+          <label class="bolded crit-hit hit title">Hits</label>
+          <img class="hits-icon" title="Hits" width="24" height="24"
+            src="systems/bunkers-and-badasses/assets/weapons/hits.png" />
+        </div>
+        <div class="crit-hit-label-icon">
+          <label class="bolded crit-hit crit title">Crits</label>
+          <img class="crits-icon" title="Crits" width="24" height="24"
+            src="systems/bunkers-and-badasses/assets/weapons/crits.png" />
+        </div>
+      </div>
+      <div class="flexrow crit-hit-top-row">
+        <label class="crit-hit-acc detail">2-7</label>
+        <label class="crit-hit hit detail">{{item.system.accuracy.low.hits}}</label>
+        <label class="crit-hit crit detail">{{item.system.accuracy.low.crits}}</label>
+      </div>
+      <div class="flexrow">
+        <label class="crit-hit-acc detail">8-15</label>
+        <label class="crit-hit hit detail">{{item.system.accuracy.mid.hits}}</label>
+        <label class="crit-hit crit detail">{{item.system.accuracy.mid.crits}}</label>
+      </div>
+      <div class="flexrow">
+        <label class="crit-hit-acc detail">16-20</label>
+        <label class="crit-hit hit detail">{{item.system.accuracy.high.hits}}</label>
+        <label class="crit-hit crit detail">{{item.system.accuracy.high.crits}}</label>
+      </div>
     </div>
     <div class="level-and-guild flex-size-2">
       <!-- guild, level -->
@@ -25,14 +59,14 @@
     </label>
   </div>
   
-  <!-- resistances -->
+  <!-- damage -->
+  <br />
   <b>Damage:</b>
   {{#if damagePerHitHtml}}
   <div class="resist-container dropdown-elements-container">
     {{{damagePerHitHtml}}} Damage per Hit
   </div>
   {{/if}}
-  <!-- damage -->
   {{#if damagePerAttackHtml}}
   <div class="damage-container dropdown-elements-container">
     {{{damagePerAttackHtml}}} Bonus Damage per Attack
@@ -74,11 +108,3 @@
   {{/if}}
 </div>
 
-<!-- 
-  range
-  prefix: prefix bonus
-  guild: guild bonsu
-  bonus crit damage
-  gun info
-  stat mods
--->

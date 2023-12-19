@@ -124,3 +124,75 @@ a#submit { z-index: 1; }
 .bnb .items-list .item-dropdown-group .item-dropdown-body .red-text-notes {
   padding-bottom: 5px;
 }
+
+.bnb .items-list .item-dropdown-group .item-dropdown-body .icons-container {
+  margin-top: -24px;
+}
+.bnb .items-list .item-dropdown-group .item-dropdown-body .gun-icon {
+  border: 0;
+}
+
+.bnb .items-list .item-dropdown-group .item-dropdown-body .hits-and-crits-container .hits-icon {
+  border: 0;
+}
+.bnb .items-list .item-dropdown-group .item-dropdown-body .hits-and-crits-container .crits-icon {
+  border: 0;
+}
+
+.bnb .items-list .item-dropdown-group .item-dropdown-body .hits-and-crits-container .crit-hit.title {
+  align-self: center;
+  text-align: center;
+  z-index: 5;
+}
+.bnb .items-list .item-dropdown-group .item-dropdown-body .hits-and-crits-container .crit-hit-acc.title {
+  text-align: left;
+  text-align-last: left;
+}
+
+.bnb .items-list .item-dropdown-group .item-dropdown-body .hits-and-crits-container .crit-hit.hit.detail {
+  text-align: center;
+  color: var(--hits);
+}
+.bnb .items-list .item-dropdown-group .item-dropdown-body .hits-and-crits-container .crit-hit.crit.detail {
+  text-align: center;
+  color: var(--crits);
+}
+
+.bnb .items-list .item-dropdown-group .item-dropdown-body .hits-and-crits-container {
+  margin-left: 5px;
+  margin-right: 5px;
+  border: 1px solid darkgrey;
+  border-radius: 7px;
+  padding: 3px;
+  padding-left: 4px;
+  font-size: 16px;
+}
+
+
+
+.bnb .items-list .item-dropdown-group .item-dropdown-body .hits-and-crits-container .crit-hit.hit.title,
+.bnb .items-list .item-dropdown-group .item-dropdown-body .hits-and-crits-container .crit-hit.crit.title {
+  position: relative; /* Establish a stacking context */
+  z-index: 3; /* Bring the text to the foreground */
+  font-size: 10px;
+  color: white;
+}
+
+.bnb .items-list .item-dropdown-group .item-dropdown-body .hits-and-crits-container .crit-hit-label-icon {
+  position: relative;
+  text-align: center;
+}
+
+.bnb .items-list .item-dropdown-group .item-dropdown-body .hits-and-crits-container .hits-icon,
+.bnb .items-list .item-dropdown-group .item-dropdown-body .hits-and-crits-container .crits-icon {
+  --side-length: 31px;
+  position: absolute;
+  top: -4px;
+  left: calc(50% - var(--side-length) / 2);
+  width: var(--side-length);
+  height: var(--side-length);
+  z-index: 1; 
+}
+.bnb .items-list .item-dropdown-group .item-dropdown-body .hits-and-crits-container .crit-hit-top-row {
+  margin-top: 6px;
+}
