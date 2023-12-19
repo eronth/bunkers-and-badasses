@@ -121,4 +121,12 @@ export class genericUtil {
     return shieldResistString;
   }
 
+  static isNullOrEmptyObject(obj) 
+  {
+    if (obj === null || obj === undefined) {
+      return true;
+    }
+    return Object.keys(obj).length === 0 && obj.constructor === Object;
+  }
+
 }

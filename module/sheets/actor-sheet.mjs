@@ -365,8 +365,10 @@ export class BNBActorSheet extends ActorSheet {
     const actorHPs = this.actor.system.attributes.hps;
     const oldActorHPs = JSON.parse(JSON.stringify(actorHPs));
     const effectsHPs = this.actor.system.bonus.healths;
-    const archetypeHPs = (this.actor.system.archetypeLevelBonusTotals ?? this.defaultArchetypeLevelBonusTotals()).hps;
-    const archetypeRegens = (this.actor.system.archetypeLevelBonusTotals ?? this.defaultArchetypeLevelBonusTotals()).regens;
+    const doArchetypeBonusesExist = !genericUtil.isNullOrEmptyObject(this.actor.system.archetypeLevelBonusTotals);
+    const archetypeLevelBonusTotals = ((doArchetypeBonusesExist) ? this.actor.system.archetypeLevelBonusTotals : this.defaultArchetypeLevelBonusTotals());
+    const archetypeHPs = archetypeLevelBonusTotals.hps;
+    const archetypeRegens = archetypeLevelBonusTotals.regens;
 
     // Clean slate for HPs totals.
     actorHPs.flesh.max = actorHPs.armor.max = actorHPs.shield.max = actorHPs.bone.max = actorHPs.eridian.max = 0;
@@ -392,7 +394,10 @@ export class BNBActorSheet extends ActorSheet {
     // Add bonuses from Builder Tab and effects.
     Object.entries(actorHPs).forEach(entry => {
       const [hpType, hpData] = entry;
-      hpData.max += (actorHPs[hpType].base ?? 0) + (effectsHPs[hpType].max ?? 0) + (archetypeHPs[hpType].max ?? 0) + (actorHPs[hpType].bonus ?? 0);
+      hpData.max += (actorHPs[hpType].base ?? 0);
+      hpData.max += (effectsHPs[hpType].max ?? 0);
+      hpData.max += (archetypeHPs[hpType].max ?? 0); 
+      hpData.max += (actorHPs[hpType].bonus ?? 0);
       this._applyBonusToRegen(combinedRegen, hpType, actorHPs[hpType].regen);
       this._applyBonusToRegen(combinedRegen, hpType, archetypeRegens[hpType].num);
       this._applyBonusToRegen(combinedRegen, hpType, archetypeRegens[hpType].texts.join(' + '));
