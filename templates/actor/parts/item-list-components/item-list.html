@@ -69,6 +69,11 @@
     <div class="flex-view-test flex-size-1">23</div>
   </li> -->
   {{^if (lootCategoryIsCollapsed isCollapsed categoryType)}}
+  {{#if (listIsEmpty items)}}
+  <li class="item-dropdown-group loot-rarity-fade-border no-rarity no-items">
+    <label>No {{headerText}} added.</label>
+  </li>
+  {{/if}}
   {{#each items as |item id|}}
   <li class="item item-list-component item-element-group {{../itemType}}-list-component
     item-dropdown-group item-dropdown-click-component

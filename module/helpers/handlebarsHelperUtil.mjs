@@ -113,6 +113,11 @@ export class HandlebarsHelperUtil {
       }
     );
 
+    Handlebars.registerHelper('listIsEmpty', (list) => {
+        return (list === null || list.length === 0);
+      }
+    );
+
     // Dropdown related helpers.
     Handlebars.registerHelper('dropdownComponentClass', ((componentType) => 
       Dropdown.getComponentClass(componentType)));
