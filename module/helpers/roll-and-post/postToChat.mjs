@@ -236,13 +236,21 @@ export class PostToChat {
     const item = renderTemplateConfig.item;
 
     // Create chat info data.
+    renderTemplateConfig.damagePerHitHtml = genericUtil.createGunDamagePerHitHtml({elements: item.system.elements});
+    if (renderTemplateConfig.damagePerHitHtml) {
+      renderTemplateConfig.damagePerHitHtml += `<label class="element-damage-plus"> Damage</label>`;
+    }
+    renderTemplateConfig.damagePerAttackHtml = genericUtil.createGunBonusDamageHtml({elements: item.system.bonusElements});
+    if (renderTemplateConfig.damagePerAttackHtml) {
+      renderTemplateConfig.damagePerAttackHtml += `<label class="element-damage-plus"> Damage</label>`;
+    }
     const chatHtmlContent = await renderTemplate(templateLocation, renderTemplateConfig);
     const flavorPrefix = item.system.prefix.name ? `${item.system.prefix.name} ` : '';
     const levelAndGuild = `Level ${item.system.level} ${item.system.guild}`;
     
     // Create additional message details object.
     return {
-      flavor: `<div class="flexrow"><div>${flavorPrefix}<b>${item.name}</b> ${item.system.type.name}</div><div class="level-and-guild">${levelAndGuild}</div></div>`,
+      flavor: `<div class="flavor-text-wrapper"><div class="flavor-text-inner">${flavorPrefix}<b>${item.name}</b> ${item.system.type.name}</div><div class="level-and-guild">${levelAndGuild}</div></div>`,
       content: chatHtmlContent
     }
   }

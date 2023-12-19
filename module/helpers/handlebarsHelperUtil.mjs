@@ -108,6 +108,11 @@ export class HandlebarsHelperUtil {
         return str;
     });
 
+    Handlebars.registerHelper('addPlusIfPositive', (value) => {
+        return (value >= 0) ? `+${value}` : value;
+      }
+    );
+
     // Dropdown related helpers.
     Handlebars.registerHelper('dropdownComponentClass', ((componentType) => 
       Dropdown.getComponentClass(componentType)));

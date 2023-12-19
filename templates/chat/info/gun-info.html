@@ -1,0 +1,101 @@
+<div class="chat-info-rarity-boarder"
+  style="--rarityColor: {{item.system.rarity.colorValue}}">
+  <div class="gun flexrow">
+    <div class="simple-icon flex-size-1">
+      <img class='lr-margin-5 item-rarity-border'
+        src="{{item.img}}" title="gun-{{item.name}}"
+        style="--rarityColor: {{item.system.rarity.colorValue}}"
+        data-item-id="{{item._id}}"
+        width="40" height="40"/>
+    </div>
+    <div class="item-header-info flexrow flex-size-3">
+      <div class="base-details flexcol flex-size-5 font-rarity"
+        style="--rarityColor: {{item.system.rarity.colorValue}}">
+        <div class="item-rarity-and-type-chat-display">
+          {{item.system.rarity.name}} {{item.system.type.name}}
+        </div>
+        <div class="item-name-and-chat-display">
+        {{#if item.system.prefix.name}}{{item.system.prefix.name}} {{/if}}{{item.name}}
+        </div>
+      </div>
+      <img class="gun-icon" title="Accuracy" width="24" height="24"
+        src="systems/bunkers-and-badasses/assets/weapons/{{item.system.type.value}}.webp" />
+    </div>
+  </div>
+  <hr />
+  <div class="description flexrow">
+    <div class="flexcol hits-and-crits-container flex-size-3">
+      <div class="flexrow">
+        <label class="bolded crit-hit crit-hit-acc title">Acc</label>
+        <label class="bolded crit-hit hit title">Hits</label>
+        <!-- <img class="hits-icon" title="Hits" width="24" height="24"
+          src="systems/bunkers-and-badasses/assets/weapons/hits.png" /> -->
+        <label class="bolded crit-hit crit title">Crits</label>
+        <!-- <img class="crits-icon" title="Crits" width="24" height="24"
+          src="systems/bunkers-and-badasses/assets/weapons/crits.png" /> -->
+      </div>
+      <div class="flexrow">
+        <label class="crit-hit-acc detail">2-7</label>
+        <label class="crit-hit hit detail">{{item.system.accuracy.low.hits}}</label>
+        <label class="crit-hit crit detail">{{item.system.accuracy.low.crits}}</label>
+      </div>
+      <div class="flexrow">
+        <label class="crit-hit-acc detail">8-15</label>
+        <label class="crit-hit hit detail">{{item.system.accuracy.mid.hits}}</label>
+        <label class="crit-hit crit detail">{{item.system.accuracy.mid.crits}}</label>
+      </div>
+      <div class="flexrow">
+        <label class="crit-hit-acc detail">16-20</label>
+        <label class="crit-hit hit detail">{{item.system.accuracy.high.hits}}</label>
+        <label class="crit-hit crit detail">{{item.system.accuracy.high.crits}}</label>
+      </div>
+    </div>
+    <div class="flexcol flex-size-2">
+      <label class="range">Range: {{item.system.range}}</label>
+      <div class="flexcol stat-mod-container">
+        {{#if item.system.statMods.acc}}
+        <label class="stat-mod">{{addPlusIfPositive item.system.statMods.acc}} Acc Mod</label>
+        {{/if}}
+        {{#if item.system.statMods.dmg}}
+        <label class="stat-mod">{{addPlusIfPositive item.system.statMods.dmg}} Dmg Mod</label>
+        {{/if}}
+        {{#if item.system.statMods.spd}}
+        <label class="stat-mod">{{addPlusIfPositive item.system.statMods.spd}} Spd Mod</label>
+        {{/if}}
+        {{#if item.system.statMods.mst}}
+        <label class="stat-mod">{{addPlusIfPositive item.system.statMods.mst}} Mst Mod</label>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+  {{#if item.system.bonusCritDmg}}<label>Crit Hit Bonus Damage: {{item.system.bonusCritDmg}}</label>{{/if}}
+  <hr />
+  <div class="description flexcol">
+    {{#if damagePerHitHtml}}
+    <label><b>Damage Per Hit:</b></label>
+    <label>{{{damagePerHitHtml}}}</label>
+    {{/if}}
+    {{#if damagePerAttackHtml}}
+    <label class="{{#if damagePerHitHtml}}margin-top-3{{/if}}"><b>Bonus Damage:</b></label>
+    <label>{{{damagePerAttackHtml}}}</label>
+    {{/if}}
+  </div>
+  {{#if item.system.effect}}
+  <hr />
+  <div class="description flexcol">
+    {{#if item.system.effect}}
+    <span class="description-label"><b>Gun Info:</b></span>
+    <span class="description-text">{{{enrich item.system.effect}}}</span>
+    {{/if}}
+    {{#if item.system.prefix.effects}}
+    <span class="description-label margin-top-6"><b>Prefix Effect:</b></span>
+    <span class="description-text"><b>{{item.system.prefix.name}}:</b> {{{enrich item.system.prefix.effects}}}</span>
+    {{/if}}
+    {{#if item.system.guildBonus}}
+    <span class="description-label margin-top-6"><b>Guild Bonus:</b></span>
+    <span class="description-text"><b>{{item.system.guild}}:</b> {{{enrich item.system.guildBonus}}}</span>
+    {{/if}}
+  </div>
+  {{/if}}
+  {{> "systems/bunkers-and-badasses/templates/chat/info/components/red-text.html" item=item }}
+</div>

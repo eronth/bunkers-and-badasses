@@ -1270,3 +1270,10 @@ input[type="time"]:focus {
 .action-tab-damage {
   font-size: 12px; /* For some reason this affects kerning? */
 }
+
+.margin-top-3 {
+  margin-top: 3px;
+}
+.margin-top-6 {
+  margin-top: 6px;
+}
