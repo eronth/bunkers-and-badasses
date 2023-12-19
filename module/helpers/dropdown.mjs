@@ -32,10 +32,7 @@ export class Dropdown {
     }
   }
   static getBodyTemplateLocation(itemType) {
-    switch (itemType) {
-      case 'Action Skill':
-      case 'Archetype Feat':
-      case 'skill':
+    switch (itemType) { //grenade, shield, gun
       default:
         return 'systems/bunkers-and-badasses/templates/general/dropdown/dropdown-details.html';
     }
@@ -71,18 +68,11 @@ export class Dropdown {
     if (!data) {
       return "no data found (probably because the developer messed something up).";
     }
+    const item = data.item;
 
     // Get the html template, create the data block, then put it together.
-    const templateLocation = this.getBodyTemplateLocation(data.type);
-    const enrichedData = {
-      ...data,
-      type: data.type,
-      description: await TextEditor.enrichHTML(data.description, {async: true}),
-      notes: (data.notes)
-      ? (await TextEditor.enrichHTML(data.notes, {async: true}))
-      : null,
-    };
-    const dialogHtmlContent = await renderTemplate(templateLocation, { data: enrichedData});
+    const templateLocation = this.getBodyTemplateLocation(item.type);
+    const dialogHtmlContent = await renderTemplate(templateLocation, { item: item});
 
     // Return the fully formed html.
     return dialogHtmlContent;
