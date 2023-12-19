@@ -61,12 +61,14 @@
   padding-left: 2px;
 }
 .system-bunkers-and-badasses #chat-log .description .element-damage-icon,
+.bnb .items-list .item-dropdown-group .item-dropdown-body .dropdown-elements-container .element-damage-icon,
 .bnb .item-list-component .item-details .element-damage-icon {
   margin: 0;
   border: 0;
   padding: 0;
 }
 .system-bunkers-and-badasses #chat-log .description .element-explosive,
+.bnb .items-list .item-dropdown-group .item-dropdown-body .dropdown-elements-container .element-explosive,
 .bnb .item-list-component .item-details .element-damage-icon.element-explosive {
   height: 14px;
   margin-left: -4px;
@@ -80,7 +82,17 @@
   margin-bottom: -2px;
   margin-right: -3px;
 }
+.bnb .item-list-component .item-details .element-resist-icon.element-crysplosive {
+  margin-bottom: -1px;
+}
+.bnb .items-list .item-dropdown-group .item-dropdown-body .dropdown-elements-container .element-crysplosive {
+  height: 15px;
+  margin-left: -4px;
+  margin-bottom: -2px;
+  margin-right: -3px;
+}
 .system-bunkers-and-badasses #chat-log .description .element-corrosive,
+.bnb .items-list .item-dropdown-group .item-dropdown-body .dropdown-elements-container .element-corrosive,
 .bnb .item-list-component .item-details .element-damage-icon.element-corrosive {
   margin-left: -1px;
   margin-bottom: -1px;
@@ -92,13 +104,26 @@
   margin-bottom: -1px;
   margin-right: -1px;
 }
+.bnb .items-list .item-dropdown-group .item-dropdown-body .dropdown-elements-container .element-radiation {
+  height: 14px;
+  margin-left: -1px;
+  margin-bottom: -2px;
+  margin-right: -1px;
+}
 .system-bunkers-and-badasses #chat-log .description .element-incendiation,
 .bnb .item-list-component .item-details .element-damage-icon.element-incendiation {
   margin-left: -1px;
   margin-bottom: -1px;
   margin-right: -1px;
 }
+.bnb .items-list .item-dropdown-group .item-dropdown-body .dropdown-elements-container .element-incendiation {
+  height: 14px;
+  margin-left: -1px;
+  margin-bottom: -2px;
+  margin-right: -1px;
+}
 .system-bunkers-and-badasses #chat-log .description .element-corroshock,
+.bnb .items-list .item-dropdown-group .item-dropdown-body .dropdown-elements-container .element-corroshock,
 .bnb .item-list-component .item-details .element-damage-icon.element-corroshock {
   height: 15px;
   margin-left: -2px;
@@ -111,6 +136,13 @@
   margin-bottom: -2px;
   margin-right: -1px;
 }
+.bnb .items-list .item-dropdown-group .item-dropdown-body .dropdown-elements-container .element-cryo {
+  height: 13px;
+  margin-left: -2px;
+  margin-bottom: -1px;
+  margin-right: -1px;
+}
+
 
 .bnb .damage-results-container .element-damage-icon {
   height: 22px;

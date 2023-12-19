@@ -78,6 +78,8 @@
     "systems/bunkers-and-badasses/templates/general/dropdown/item-headers/action-skill-dropdown-header.html",
     "systems/bunkers-and-badasses/templates/general/dropdown/item-headers/class-skill-dropdown-header.html",
     "systems/bunkers-and-badasses/templates/general/dropdown/dropdown-details.html",
+    "systems/bunkers-and-badasses/templates/general/dropdown/gun-dropdown-details.html",
+    "systems/bunkers-and-badasses/templates/general/dropdown/mod-dropdown-details.html",
 
   ]);
 };

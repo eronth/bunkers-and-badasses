@@ -38,13 +38,6 @@
   width: 100%;
 }
 
-.bnb .items-list .item-dropdown-group .item-dropdown-body .red-text {
-  color: darkred;
-  font-weight: bold;
-  font-style: italic;
-  text-align: center;
-}
-
 .large-text-overflow-hidden {
   overflow: hidden;
   justify-content: flex-start;

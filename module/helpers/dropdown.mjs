@@ -33,6 +33,11 @@ export class Dropdown {
   }
   static getBodyTemplateLocation(itemType) {
     switch (itemType) { //grenade, shield, gun
+      case 'gun':
+        return 'systems/bunkers-and-badasses/templates/general/dropdown/dropdown-details.html';
+      case 'shield':
+      case 'grenade':
+        return 'systems/bunkers-and-badasses/templates/general/dropdown/mod-dropdown-details.html';
       default:
         return 'systems/bunkers-and-badasses/templates/general/dropdown/dropdown-details.html';
     }
@@ -68,11 +73,10 @@ export class Dropdown {
     if (!data) {
       return "no data found (probably because the developer messed something up).";
     }
-    const item = data.item;
 
     // Get the html template, create the data block, then put it together.
-    const templateLocation = this.getBodyTemplateLocation(item.type);
-    const dialogHtmlContent = await renderTemplate(templateLocation, { item: item});
+    const templateLocation = this.getBodyTemplateLocation(data.item.type);
+    const dialogHtmlContent = await renderTemplate(templateLocation, data);
 
     // Return the fully formed html.
     return dialogHtmlContent;

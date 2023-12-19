@@ -895,8 +895,14 @@ export class BNBActorSheet extends ActorSheet {
     const item = this.actor.items.get(id);
 
     // Handle interactions per button click.
+    const dropdownData = { item: item };
+    if (item.type === 'shield') {
+      dropdownData.resistHtml = genericUtil.createFullShieldResistHtml({ elements: item.system.elements });
+    } else if (item.type === 'grenade') {
+      dropdownData.damageHtml = genericUtil.createGrenadeDamageHtml({ elements: item.system.elements });
+    }
     if (item && event.button == 0)
-      Dropdown.toggleItemDetailsDropdown(event, { item: item });
+      Dropdown.toggleItemDetailsDropdown(event, dropdownData);
     else if (item)
       item.sheet.render(true);
   }

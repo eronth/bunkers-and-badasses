@@ -92,6 +92,16 @@ a#submit { z-index: 1; }
   padding: 2px 5px;
   width: 100%;
 }
+
+.item-dropdown-group .item-dropdown-body .health-protection-details {
+  font-size: 16px;
+}
+.item-dropdown-group .item-dropdown-body .health-protection-details .recovery-rate{
+  font-size: small;
+}
+.item-dropdown-group .item-dropdown-body .level-and-guild {
+  text-align: right;
+}
 .item-dropdown-group .item-dropdown-body .item-cost {
   text-align: right;
   margin-right: 4px;
@@ -102,4 +112,15 @@ a#submit { z-index: 1; }
 }
 .item-dropdown-group .item-dropdown-body.no-rarity {
   border-top: 1px rgb(193, 192, 184) solid;
+}
+
+.bnb .items-list .item-dropdown-group .item-dropdown-body .red-text {
+  margin-top: 2px;
+  color: darkred;
+  font-weight: bold;
+  font-style: italic;
+  text-align: center;
+}
+.bnb .items-list .item-dropdown-group .item-dropdown-body .red-text-notes {
+  padding-bottom: 5px;
 }
