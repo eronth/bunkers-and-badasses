@@ -1,14 +1,7 @@
 <div class='{{dropdownComponentClass "body"}}'>
   <hr class='{{dropdownComponentClass "hr"}}' />
   
-<!-- 
-  range
-  prefix: prefix bonus
-  guild: guild bonsu
-  bonus crit damage
-  gun info
-  stat mods
--->
+
   <div class="flexrow">
     <!-- hits and crits -->
     <div class="hits-and-crits-container flex-size-2">
@@ -41,51 +34,88 @@
         <label class="crit-hit crit detail">{{item.system.accuracy.high.crits}}</label>
       </div>
     </div>
-    <div class="level-and-guild flex-size-2">
-      <!-- guild, level -->
-      <b>
-        {{#if item.system.level}}
-        Level {{item.system.level}}
+    <div class="flexcol flex-size-3">
+      <div class="flexrow">
+        <label class="range"><b>Range:</b> {{item.system.range}}</label>
+        <div class="level-and-guild flex-size-2">
+          <!-- guild, level -->
+          <b>
+            {{#if item.system.level}}
+            Level {{item.system.level}}
+            {{/if}}
+            {{#if item.system.guild}}
+            {{item.system.guild}}
+            {{/if}}
+          </b>
+        </div>
+        <label class="item-cost">
+          {{#if item.system.cost}}
+          <b>Cost:</b> {{item.system.cost}}g
+          {{/if}}
+        </label>
+      </div>
+      <div class="various-gun-info gun-damage-container flexcol">
+        <label class="margin-top-6 header bolded">Damage:</label>
+        {{#if damagePerHitHtml}}
+        <div class="damage-container dropdown-elements-container">
+          {{{damagePerHitHtml}}} Damage per Hit
+        </div>
         {{/if}}
-        {{#if item.system.guild}}
-        {{item.system.guild}}
+        {{#if damagePerAttackHtml}}
+        <div class="damage-container dropdown-elements-container">
+          {{{damagePerAttackHtml}}} Bonus Damage per Attack
+        </div>
         {{/if}}
-      </b>
+      </div>
+      <div>
+        {{#if item.system.bonusCritDmg}}
+        <div class=""><b>Crit Hit Bonus Damage:</b> {{addPlusIfPositive item.system.bonusCritDmg}}</div>
+        {{/if}}
+      </div>
     </div>
-    <label class="item-cost">
-      {{#if item.system.cost}}
-      <b>Cost:</b> {{item.system.cost}}g
-      {{/if}}
-    </label>
   </div>
-  
-  <!-- damage -->
-  <br />
-  <b>Damage:</b>
-  {{#if damagePerHitHtml}}
-  <div class="resist-container dropdown-elements-container">
-    {{{damagePerHitHtml}}} Damage per Hit
+  <div class="flexrow stat-mod-container">
+    {{#if item.system.statMods.acc}}
+    <label class="stat-mod">{{addPlusIfPositive item.system.statMods.acc}} Acc Mod</label>
+    {{/if}}
+    {{#if item.system.statMods.dmg}}
+    <label class="stat-mod">{{addPlusIfPositive item.system.statMods.dmg}} Dmg Mod</label>
+    {{/if}}
+    {{#if item.system.statMods.spd}}
+    <label class="stat-mod">{{addPlusIfPositive item.system.statMods.spd}} Spd Mod</label>
+    {{/if}}
+    {{#if item.system.statMods.mst}}
+    <label class="stat-mod">{{addPlusIfPositive item.system.statMods.mst}} Mst Mod</label>
+    {{/if}}
   </div>
-  {{/if}}
-  {{#if damagePerAttackHtml}}
-  <div class="damage-container dropdown-elements-container">
-    {{{damagePerAttackHtml}}} Bonus Damage per Attack
+  <!-- more details -->
+  <div class="gun-detail-descriptions">
+    
+    {{#if item.system.description}}
+    <div class="various-gun-info flexcol">  
+      <label class="margin-top-6 header bolded">Description:</label>
+      <div>{{{item.system.description}}}</div>
+    </div>
+    {{/if}}
+    {{#if item.system.effect}}
+    <div class="various-gun-info flexcol">
+      <label class="margin-top-6 header bolded">Gun Info:</label>
+      <div>{{{item.system.effect}}}</div>
+    </div>
+    {{/if}}
+    {{#if item.system.prefix.effects}}
+    <div class="various-gun-info flexcol">
+      <label class="margin-top-6 header bolded"><b>Prefix Effect:</b></label>
+      <div class=""><b>{{item.system.prefix.name}}:</b> {{{enrich item.system.prefix.effects}}}</div>
+    </div>
+    {{/if}}
+    {{#if item.system.guildBonus}}
+    <div class="various-gun-info flexcol">
+      <label class="margin-top-6 header bolded"><b>Guild Bonus:</b></label>
+      <div class=""><b>{{item.system.guild}}:</b> {{{enrich item.system.guildBonus}}}</div>
+    </div>
+    {{/if}}
   </div>
-  {{/if}}
-
-  <!-- Description -->
-  {{#if item.system.description}}
-  <br />
-  <label class="bolded">Description:</label>
-  <div>{{{item.system.description}}}</div>
-  {{/if}}
-
-  <!-- Effect -->
-  {{#if item.system.effect}}
-  <br />
-  <label class="bolded">Effect:</label>
-  <div>{{{item.system.effect}}}</div>
-  {{/if}}
 
   <!-- Class Effect -->
   {{#if item.system.classEffect}}

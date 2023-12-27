@@ -148,6 +148,9 @@ a#submit { z-index: 1; }
   text-align: left;
   text-align-last: left;
 }
+.bnb .items-list .item-dropdown-group .item-dropdown-body .hits-and-crits-container .crit-hit-acc.detail {
+  font-size: smaller;
+}
 
 .bnb .items-list .item-dropdown-group .item-dropdown-body .hits-and-crits-container .crit-hit.hit.detail {
   text-align: center;
@@ -195,4 +198,28 @@ a#submit { z-index: 1; }
 }
 .bnb .items-list .item-dropdown-group .item-dropdown-body .hits-and-crits-container .crit-hit-top-row {
   margin-top: 6px;
+}
+
+.bnb .items-list .item-dropdown-group .item-dropdown-body .gun-detail-descriptions label.header {
+  font-size: 16px;
+}
+
+.bnb .items-list .item-dropdown-group .item-dropdown-body .gun-detail-descriptions {
+  display: flex;
+  flex-wrap: wrap;
+}
+.bnb .items-list .item-dropdown-group .item-dropdown-body .gun-detail-descriptions > div.various-gun-info {
+  flex: 1 1 auto;
+  align-self: start;
+}
+.bnb .items-list .item-dropdown-group .item-dropdown-body .gun-damage-container {
+  margin-bottom: 5px;
+}
+.bnb .items-list .item-dropdown-group .item-dropdown-body .stat-mod-container {
+  margin-top: 10px;
+  font-weight: bold;
+  text-align: center;
+}
+.bnb .items-list .item-dropdown-group .item-dropdown-body .gun-damage-container .damage-container {
+  margin-left: 7px;
 }
