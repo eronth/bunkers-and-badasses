@@ -1278,3 +1278,35 @@ input[type="time"]:focus {
 .margin-top-6 {
   margin-top: 6px;
 }
+
+.bnb .action .attacks-container .attack {
+  font-size: 12px;
+}
+
+.bnb .action .attacks-container .attack .attack-header {
+  max-width: fit-content;
+}
+
+.bnb .action .attacks-container .attack .attack-description {
+  text-align: end;
+  margin-right: 5px;
+}
+
+
+.bnb .action .attacks-container .attack .dice-icon {
+  margin: 3px;
+  max-width: fit-content;
+  align-self: center;
+}
+
+.bnb .action .attacks-container .attack .minor-details {
+  font-size: 10px;
+}
+.bnb .action .attacks-container .attack .flavor-text {
+  text-align: start;
+  font-style: italic;
+}
+.bnb .action .attacks-container .attack .range {
+  text-align: end;
+  margin-right: 5px;
+}

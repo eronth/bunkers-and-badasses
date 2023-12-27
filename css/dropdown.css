@@ -163,7 +163,7 @@ a#submit { z-index: 1; }
 
 .bnb .items-list .item-dropdown-group .item-dropdown-body .hits-and-crits-container {
   margin-left: 5px;
-  margin-right: 5px;
+  margin-right: 8px;
   border: 1px solid darkgrey;
   border-radius: 7px;
   padding: 3px;

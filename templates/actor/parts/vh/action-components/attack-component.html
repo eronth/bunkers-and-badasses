@@ -1,0 +1,47 @@
+<div class="loot-rarity-fade-border attack rollable flexrow"
+  title="Roll Attack" style="--rarityColor: {{rarityColor}}"
+  data-roll-type="{{rollType}}" data-check-type="{{checkType}}" data-roll-mod="{{rollMod}}">
+  {{!-- Icon section --}}
+  <div class="dice-icon">
+    <i class="fa fa-dice-d20"></i>
+  </div>
+
+  {{!-- Attack details --}}
+  <div class="flexcol">
+    <div class="flexrow">
+      <label class="attack-header"><b>{{attackName}}</b></label>
+      <div class="attack-description">{{description}}</div>
+    </div>
+    <div class="minor-details flexrow">
+      <div class="flavor-text">{{flavorText}}</div>
+      <div class="damage">Damage</div>
+      <div class="range"><b>{{rangeLabel}}:</b> {{rangeDistance}}{{#if rangeUnit}} {{rangeUnit}}{{/if}}</div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- <li class="item item-element-group loot-rarity-fade-border flexrow rollable" 
+    style="--rarityColor: {{item.system.rarity.colorValue}}"
+    data-item-id="{{item._id}}" data-roll-type="grenade-throw" data-check-type="Throw" data-roll-mod="acc" data-roll-type="throw">
+    <div class="item-details attack-block item-attack-roll">
+      <div class="item-controls">
+        <a class="item-control item-attack" title="Roll Attack"><i class="fa fa-dice-d20"></i></a>
+      </div>
+      <div class="flexcol item-effec-stack-container">
+        <div class="item-effect flexrow item-prop-stack attack-details-line">
+          <h4 class="attack-header">{{item.name}}</h4>
+          <label>
+            <div>{{#if system.effect}}<b>Effect</b>:{{/if}} {{system.effect}}</div>
+          </label>
+        </div>
+        <div class="item-effect flexrow item-prop-stack attack-details-line damage-row">
+          <label>Count: {{../system.attributes.grenades.value}} / {{../system.attributes.grenades.max}}</label>
+          <label class="flex-size-2 action-tab-damage">{{{system.dmgHtml}}}</label>
+          <label class="gun-detail-header"><b>Free Range:</b>&nbsp;{{../system.stats.dmg.modToUse}}</label>
+        </div>
+      </div>
+    </div>
+  </li> -->

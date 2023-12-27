@@ -24,6 +24,8 @@
     "systems/bunkers-and-badasses/templates/actor/parts/vh/action-components/check.html",
     "systems/bunkers-and-badasses/templates/actor/parts/vh/action-components/hp-display-block.html",
     "systems/bunkers-and-badasses/templates/actor/parts/npc/action-components/action-block.html",
+    "systems/bunkers-and-badasses/templates/actor/parts/vh/action-components/attacks-block-component.html",
+    "systems/bunkers-and-badasses/templates/actor/parts/vh/action-components/attack-component.html",
     /// Builder subtabs
     "systems/bunkers-and-badasses/templates/actor/parts/vh/builder-subtabs/level-up-subtab.html",
     "systems/bunkers-and-badasses/templates/actor/parts/vh/builder-subtabs/archetypes-subtab.html",
