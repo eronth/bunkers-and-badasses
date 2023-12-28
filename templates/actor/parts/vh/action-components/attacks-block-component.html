@@ -14,6 +14,24 @@
     rangeDistance="Adjacent"
     rangeUnit=""
   }}
+  {{#each equippedGuns as |item id|}}
+    {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/action-components/gun-attack-component.html"
+      attackName=(concat system.prefix.name " " item.name)
+      rollType="gun-attack"
+      rarityColor=item.system.rarity.colorValue
+
+      itemId = item._id
+      checkType="Shooting"
+      rollMod="acc"
+
+      description=(concat "<b>Effect:</b> " item.system.effect)
+      flavorText="Pew pew!"
+
+      rangeLabel="Range"
+      rangeDistance=item.system.range
+      rangeUnit="sq"
+    }}
+  {{/each}}
   {{#each equippedGrenades as |item id|}}
     {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/action-components/attack-component.html"
       attackName=item.name
