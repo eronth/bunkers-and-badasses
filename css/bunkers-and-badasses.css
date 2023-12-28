@@ -1218,6 +1218,9 @@ input[type="time"]:focus {
   font-weight: bold;
   font-size: larger;
 }
+.badass-results-container .result-header.difficulty {
+  font-size: smaller;
+}
 .badass-results-container .result-label {
   font-size: xx-large;
 }
@@ -1289,9 +1292,16 @@ input[type="time"]:focus {
 
 .bnb .action .attacks-container .attack .attack-description {
   text-align: end;
+  margin-left: 1em;
   margin-right: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
+.for-some-reason-needed {
+  width: 40%;
+}
 
 .bnb .action .attacks-container .attack .dice-icon {
   margin: 3px;

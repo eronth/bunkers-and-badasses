@@ -7,7 +7,7 @@
 
     rollMod="acc"
 
-    description="A melee attack with your weapon."
+    description="Strike a nearby target."
     flavorText="Shwing!"
 
     rangeLabel="Range"
@@ -20,10 +20,11 @@
       rollType="grenade-throw"
       rarityColor=item.system.rarity.colorValue
 
+      itemId = item._id
       checkType="Throw"
       rollMod="acc"
 
-      description=item.system.effect
+      description=(concat "<b>Effect:</b> " item.system.effect)
       flavorText="Yeet!"
 
       rangeLabel="Free Range"
@@ -47,7 +48,7 @@
     rangeUnit="sq"
   }}
   <!-- data-roll-type="item-throw" data-check-type="Throw" data-roll-mod="acc" data-roll-type="throw" -->
-  <li class="item item-element-group loot-rarity-fade-border flexrow rollable" 
+  <!-- <li class="item item-element-group loot-rarity-fade-border flexrow rollable" 
     style="--rarityColor: darkred"
     data-roll-type="melee-attack">
     <div class="item-details attack-block item-attack-roll">
@@ -175,11 +176,11 @@
           <label>Throw an item to or at a target.</label>
         </div>
         <div class="item-effect flexrow item-prop-stack attack-details-line damage-row">
-          <label><!--Placeholder--></label>
-          <label class="flex-size-2"><!--Placeholder--></label>
+          <label><! --Placeholder-- ></label>
+          <label class="flex-size-2"><! --Placeholder-- ></label>
           <label class="gun-detail-header"><b>Free Range:</b>&nbsp;{{system.stats.dmg.modToUse}}</label>
         </div>
       </div>
     </div>
-  </li>
+  </li> -->
 </div>

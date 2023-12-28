@@ -1,16 +1,17 @@
 <div class="loot-rarity-fade-border attack rollable flexrow"
   title="Roll Attack" style="--rarityColor: {{rarityColor}}"
-  data-roll-type="{{rollType}}" data-check-type="{{checkType}}" data-roll-mod="{{rollMod}}">
+  data-roll-type="{{rollType}}" data-check-type="{{checkType}}" data-roll-mod="{{rollMod}}"
+  {{#if itemId}}data-item-id="{{itemId}}"{{/if}}>
   {{!-- Icon section --}}
-  <div class="dice-icon">
+  <div class="dice-icon flex-size-2">
     <i class="fa fa-dice-d20"></i>
   </div>
 
   {{!-- Attack details --}}
-  <div class="flexcol">
+  <div class="flexcol flex-size-2 for-some-reason-needed">
     <div class="flexrow">
       <label class="attack-header"><b>{{attackName}}</b></label>
-      <div class="attack-description">{{description}}</div>
+      <div class="attack-description">{{{description}}}</div>
     </div>
     <div class="minor-details flexrow">
       <div class="flavor-text">{{flavorText}}</div>
