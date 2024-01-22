@@ -1267,6 +1267,25 @@ input[type="time"]:focus {
 .key-item-labels {
   align-self: center;
 }
+.use-action-skill-dialog .confirm-use-action-skill-description-title {
+  align-self: end;
+}
+.use-action-skill-dialog .confirm-use-action-skill-notes-title {
+  margin-top: 6px;
+}
+.use-action-skill-dialog .confirm-use-text {
+  margin-bottom: 6px;
+  border: 1px solid #b5b3a4;
+  border-radius: 4px;
+  background-color: hsla(0, 0%, 0%, 0.1);
+}
+.use-action-skill-dialog .free-activation-text {
+  text-align: end;
+  align-items: center;
+}
+
+
+
 .class-skill-labels {
   align-self: center;
   margin-left: 30px; /* There's got to be a better way, but CSS is just so strange. */
