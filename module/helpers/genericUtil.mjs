@@ -35,7 +35,7 @@ export class genericUtil {
         ? ""
         : this.createElementIcon(iconData);
 
-        damageHtmlString += `<label class='bolded ${key}-text'>${element.damage} ${elemIcon}</label> ${finalPlus}`;
+        damageHtmlString += `<label class='bolded element-damage-nowrap-label ${key}-text'>${element.damage} ${elemIcon}</label> ${finalPlus}`;
       }
     });
     
@@ -58,7 +58,7 @@ export class genericUtil {
           ? ""
           : this.createElementIcon(iconData);
 
-        damageHtmlString += `<label class='bolded ${key}-text'>${element.damage} ${elemIcon}</label> ${finalPlus}`;
+        damageHtmlString += `<label class='bolded element-damage-nowrap-label ${key}-text'>${element.damage} ${elemIcon}</label> ${finalPlus}`;
       }
     });
     

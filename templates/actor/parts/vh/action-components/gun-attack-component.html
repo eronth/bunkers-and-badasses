@@ -3,20 +3,35 @@
   data-roll-type="{{rollType}}" data-check-type="{{checkType}}" data-roll-mod="{{rollMod}}"
   {{#if itemId}}data-item-id="{{itemId}}"{{/if}}>
   {{!-- Icon section --}}
-  <div class="dice-icon flex-size-2">
+  <div class="dice-icon">
     <i class="fa fa-dice-d20"></i>
   </div>
 
   {{!-- Attack details --}}
-  <div class="flexcol flex-size-2 for-some-reason-needed">
+  <div class="flexcol for-some-reason-needed">
     <div class="flexrow">
       <label class="attack-header"><b>{{attackName}}</b></label>
-      <div class="attack-description">{{{description}}}</div>
+      <div class="attack-description">{{#if description}}<b>Effect:</b> {{/if}}{{{description}}}</div>
     </div>
     <div class="minor-details flexrow">
-      <div class="flavor-text">{{flavorText}}</div>
-      <div class="damage">Damage</div>
-      <div class="range"><b>{{rangeLabel}}:</b> {{rangeDistance}}{{#if rangeUnit}} {{rangeUnit}}{{/if}}</div>
+      <div class="crit-hit hits flexrow">
+        <div>h</div>
+        <div class="hit">1</div>
+        <div class="hit">1</div>
+        <div class="hit">1</div>
+      </div>
+      <div class="damage flex-size-3">{{#if perHitDamage}}{{{perHitDamage}}}{{/if}}</div>
+      <div class="range flex-size-2">In Hand?</div>
+    </div>
+    <div class="minor-details flexrow">
+      <div class="crit-hit crits flexrow">
+        <div>c</div>
+        <div class="crit">1</div>
+        <div class="crit">1</div>
+        <div class="crit">1</div>
+      </div>
+      <div class="damage flex-size-3">{{#if perAttackDamage}}{{{perAttackDamage}}}{{/if}}</div>
+      <div class="range flex-size-2"><b>{{rangeLabel}}:</b> {{rangeDistance}}{{#if rangeUnit}} {{rangeUnit}}{{/if}}</div>
     </div>
   </div>
 </div>
