@@ -10,6 +10,7 @@
     description="Strike a nearby target."
     flavorText="Shwing!"
 
+    damage=system.class.meleeDice
     rangeLabel="Range"
     rangeDistance="Adjacent"
     rangeUnit=""
@@ -24,7 +25,8 @@
       checkType="Shooting"
       rollMod="acc"
 
-      description=(concat "<b>Effect:</b> " item.system.effect)
+      description=item.system.effect
+      appendEffectLabel=true
       flavorText="Pew pew!"
 
       rangeLabel="Range"
@@ -42,9 +44,11 @@
       checkType="Throw"
       rollMod="acc"
 
-      description=(concat "<b>Effect:</b> " item.system.effect)
+      description=item.system.effect
+      appendEffectLabel=true
       flavorText="Yeet!"
 
+      damage=item.system.dmgHtml
       rangeLabel="Free Range"
       rangeDistance=../system.stats.dmg.modToUse
       rangeUnit="sq"
