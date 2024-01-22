@@ -16,16 +16,16 @@
     <div class="minor-details flexrow">
       <div class="crit-hit-container flexcol">
         <div class="crit-hit hits flexrow">
-          <div>h</div>
-          <div class="hit">1</div>
-          <div class="hit">1</div>
-          <div class="hit">1</div>
+          <img id="hits" alt="Hits" class="critshits-icon hits" src="systems/bunkers-and-badasses/assets/weapons/hits.png" />
+          <div class="hit">{{adder system.accuracy.low.hits ../system.bonus.combat.hits.low ../system.bonus.combat.hits.all}}</div>
+          <div class="hit">{{adder system.accuracy.mid.hits ../system.bonus.combat.hits.mid ../system.bonus.combat.hits.all}}</div>
+          <div class="hit">{{adder system.accuracy.high.hits ../system.bonus.combat.hits.high ../system.bonus.combat.hits.all}}</div>
         </div>
         <div class="crit-hit crits flexrow">
-          <div>c</div>
-          <div class="crit">1</div>
-          <div class="crit">1</div>
-          <div class="crit">1</div>
+          <img id="crits" alt="Crits" class="critshits-icon crits" src="systems/bunkers-and-badasses/assets/weapons/crits.png" />
+          <div class="crit">{{adder system.accuracy.low.crits ../system.bonus.combat.crits.low ../system.bonus.combat.crits.all}}</div>
+          <div class="crit">{{adder system.accuracy.mid.crits ../system.bonus.combat.crits.mid ../system.bonus.combat.crits.all}}</div>
+          <div class="crit">{{adder system.accuracy.high.crits ../system.bonus.combat.crits.high ../system.bonus.combat.crits.all}}</div>
         </div>
       </div>
       <div class="flexcol flex-size-5">
@@ -45,29 +45,3 @@
     </div>
   </div>
 </div>
-
-
-
-
-<!-- <li class="item item-element-group loot-rarity-fade-border flexrow rollable" 
-    style="--rarityColor: {{item.system.rarity.colorValue}}"
-    data-item-id="{{item._id}}" data-roll-type="grenade-throw" data-check-type="Throw" data-roll-mod="acc" data-roll-type="throw">
-    <div class="item-details attack-block item-attack-roll">
-      <div class="item-controls">
-        <a class="item-control item-attack" title="Roll Attack"><i class="fa fa-dice-d20"></i></a>
-      </div>
-      <div class="flexcol item-effec-stack-container">
-        <div class="item-effect flexrow item-prop-stack attack-details-line">
-          <h4 class="attack-header">{{item.name}}</h4>
-          <label>
-            <div>{{#if system.effect}}<b>Effect</b>:{{/if}} {{system.effect}}</div>
-          </label>
-        </div>
-        <div class="item-effect flexrow item-prop-stack attack-details-line damage-row">
-          <label>Count: {{../system.attributes.grenades.value}} / {{../system.attributes.grenades.max}}</label>
-          <label class="flex-size-2 action-tab-damage">{{{system.dmgHtml}}}</label>
-          <label class="gun-detail-header"><b>Free Range:</b>&nbsp;{{../system.stats.dmg.modToUse}}</label>
-        </div>
-      </div>
-    </div>
-  </li> -->

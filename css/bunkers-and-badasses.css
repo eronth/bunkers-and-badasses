@@ -1345,3 +1345,7 @@ input[type="time"]:focus {
   text-align: end;
   margin-right: 5px;
 }
+.bnb .action .attacks-container img.critshits-icon {
+  border: 0;
+  height: 12px;
+}
