@@ -1,5 +1,6 @@
 import { PerformRollAction } from "./performRollAction.mjs";
 import { OnActionUtil } from "../onActionUtil.mjs";
+import { PostToChat } from "./postToChat.mjs";
 
 export class ConfirmActionPrompt {
   
@@ -135,6 +136,37 @@ export class ConfirmActionPrompt {
           label: 'Roll',
           callback: async (html) => {
             return await PerformRollAction.skillCheck(html, options);
+          }
+        }
+      }
+    }).render(true);
+  }
+
+  static async useActionSkill(event, options) {
+    // Prep data
+    const { actor } = options;
+    if (!actor) { return; }
+
+    const itemId = event.currentTarget.closest('.action-skill-use').dataset.itemId;
+    const item = actor.items.get(itemId);
+    if (!item) { return; }
+
+    const templateLocation = "systems/bunkers-and-badasses/templates/dialog/use-action-skill.html";
+    const useActionSkillDialogContent = await renderTemplate(templateLocation, { item: item });
+
+    this.useActionSkillDialog = new Dialog({
+      title: `Activate Action Skill: ${item.name}`,
+      Id: `use-action-skill-dialog`,
+      content: useActionSkillDialogContent,
+      buttons: {
+        "Cancel": {
+          label: "Cancel",
+          callback : async (html) => {}
+        },
+        "Use" : {
+          label: `Use ${item.name}`,
+          callback : async (html) => {
+            return await OnActionUtil.onActionSkillUse({ html: html, actor: actor, item: item });
           }
         }
       }

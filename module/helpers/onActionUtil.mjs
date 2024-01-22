@@ -1,3 +1,6 @@
+import { ConfirmActionPrompt } from "./roll-and-post/confirmActionPrompt.mjs";
+import { PostToChat } from "./roll-and-post/postToChat.mjs";
+
 export class OnActionUtil {
   /**
    * Handle creating a new Owned Item for the actor using initial data defined in the HTML dataset
@@ -78,34 +81,20 @@ export class OnActionUtil {
       return actor.update({[`${target}`] : !getProperty(actor, target)});
   }
 
-  static async onActionSkillUse(event, actor) {
-    // Prep data
-    const itemId = event.currentTarget.closest('.action-skill-use').dataset.itemId;
-    const item = actor.items.get(itemId);
-
-    if (!item) { return; }
-
-    // Prep chat values.
-    const templateLocation = `systems/bunkers-and-badasses/templates/chat/info/action-skill-info.html`;
-    const renderTemplateConfig = {
-      actorId: actor.id,
-      description: item.system.description,
-      item: item
-    };
-    const content = await renderTemplate(templateLocation, renderTemplateConfig);
-    const flavorText = `${actor.name} uses <b>${item.name}</b>.`;
-    const messageData = {
-      user: game.user.id,
-      speaker: ChatMessage.getSpeaker({ actor: actor }),
-      flavor: flavorText,
-      type: CONST.CHAT_MESSAGE_TYPES.IC,
-      // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
-      speaker: ChatMessage.getSpeaker(),
-      content: content,
+  static async onActionSkillUse(options) {
+    const { actor, item, html } = options;
+    const freeActivation = (html.find("#free-activation")[0].checked);
+    
+    if (!freeActivation) {
+      let newUses = actor.system.class.actionSkill.uses.value - 1;
+      if (newUses < 0) { 
+        ui.notifications.warn(`You don't have enough remaining Action Skill uses to activate ${item.name}!`);
+        return;
+      }
+      await actor.update({'system.class.actionSkill.uses.value': newUses});
     }
 
-    // Send the roll to chat!
-    return ChatMessage.create(messageData);
+    return await PostToChat.useActionSkill({ actor: actor, item: item });
   }
 
   static async onArchetypeRewardCollapseToggle(event, actor) {

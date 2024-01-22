@@ -726,7 +726,7 @@ export class BNBActorSheet extends ActorSheet {
     html.find('.category-collapse-toggle').click((event) => OnActionUtil.onCategoryCollapseToggle(event, this.actor));
 
     // Handle action skill.
-    html.find('.action-skill-use').click((event) => OnActionUtil.onActionSkillUse(event, this.actor));
+    html.find('.action-skill-use').click((event) => ConfirmActionPrompt.useActionSkill(event, {actor: this.actor}));
 
     // Handle combat health adjustments.
     html.find('.take-damage').click((event) => ConfirmActionPrompt.takeDamage(event, { actor: this.actor }));

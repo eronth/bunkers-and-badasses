@@ -195,6 +195,34 @@ export class PostToChat {
     return ChatMessage.create(messageData);
   }
 
+  static async useActionSkill(options) {
+    const { actor, item } = options;
+    
+    // Prep chat values.
+    const templateLocation = `systems/bunkers-and-badasses/templates/chat/info/action-skill-info.html`;
+    const renderTemplateConfig = {
+      actorId: actor.id,
+      description: item.system.description,
+      item: item
+    };
+    const content = await renderTemplate(templateLocation, renderTemplateConfig);
+
+    const flavorText = `${actor.name} uses <b>${item.name}</b>.`;
+    
+    const messageData = {
+      user: game.user.id,
+      speaker: ChatMessage.getSpeaker({ actor: actor }),
+      flavor: flavorText,
+      type: CONST.CHAT_MESSAGE_TYPES.IC,
+      // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
+      speaker: ChatMessage.getSpeaker(),
+      content: content,
+    }
+
+    // Send the roll to chat!
+    return ChatMessage.create(messageData);
+  }
+
   static async getItemPostMessageDetail(options) {
     const item = options.item;
     const itemType = item.type.toLowerCase();
