@@ -534,6 +534,12 @@ input[type="time"]:focus {
 .crit-hit .crit input{
   color: darkred;
 }
+.bnb .attacks-container .minor-details .crit-hit-container {
+  margin-bottom: 2px;
+  margin-right: 2px;
+  border: 1px solid #b5b3a4;
+  border-radius: 4px;
+}
 
 .gun-center-contain,
 .gun-center-container {

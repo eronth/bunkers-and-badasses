@@ -201,6 +201,10 @@
   padding-left: 2px;
   padding-right: 2px;
 }
+.bnb .attacks-container .minor-details .damage .element-damage-plus {
+  padding-left: 1px;
+  padding-right: 1px;
+}
 .element-damage-damage {
   padding-left: 3px;
 }
