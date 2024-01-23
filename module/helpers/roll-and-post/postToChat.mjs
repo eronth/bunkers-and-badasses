@@ -78,15 +78,17 @@ export class PostToChat {
     const { actor, checkDetails, rollResult } = options;
     const difficultyValue = checkDetails.difficultyValue;
     const checkType = checkDetails.checkType;
-    const checkTypeText = checkType.super + ((checkType.sub) ? ` (${checkType.sub})` : '');
+    const checkTypeText = checkType.super + ((checkType.sub) ? ` (${checkType.sub})` : '') + ' Check';
 
+    const parts = rollResult.dice.map(d => d.getTooltipData());
+    parts[0].flavor = checkTypeText;
+    
     const templateLocation = 'systems/bunkers-and-badasses/templates/chat/check-roll.html';
     const chatHtmlContent = await renderTemplate(templateLocation, {
       actorId: actor.id,
-      overallRollFormula: rollResult.formula,
-      diceRolled: '1d20',
-      diceResult: rollResult.dice[0].results[0].result,
       checkType: checkTypeText,
+      overallRollFormula: rollResult.formula,
+      parts: parts,
       total: rollResult.total,
       difficulty: difficultyValue,
       attackType: 'check',
@@ -112,38 +114,89 @@ export class PostToChat {
     return rollResult.toMessage(messageData);
   }
 
+  static async meleeAttack(options) {
+    const { actor, checkDetails, rollResult } = options;
+    const isFail = rollResult.total <= 1;
+    let isPlusOneDice = false;
+    let isDoubleDamage = false;
+    let isCrit = false;
+    let bonusFromAcc = "";
+    if (rollResult.total >= 20) {
+      bonusFromAcc = "Double Damage";
+      isDoubleDamage = true;
+    } else if (rollResult.total >= 16) {
+      bonusFromAcc = "+1 Damage Dice";
+      isPlusOneDice = true;
+    }
+    if (rollResult.dice[0].results[0].result == 20) {
+      bonusFromAcc += (bonusFromAcc === "" ? "" : " + ") + "Crit!";
+      isCrit = true;
+    }
+    
+    const parts = rollResult.dice.map(d => d.getTooltipData());
+    parts[0].flavor = 'Grenade Toss';
+
+
+    // flavor, checkType, overallRollForumula, parts, total
+    //success, failure, redText, anoint, showDamagebutton
+
+    const templateLocation = 'systems/bunkers-and-badasses/templates/chat/melee-attack-roll.html';
+    const chatHtmlContent = await renderTemplate(templateLocation, {
+      actorId: actor.id,
+      diceRoll: `Rolled ${rollResult.formula}.`,
+      result: rollResult.result,
+      total: rollResult.total,
+      showDamageButton: true,
+      bonusFromAcc: bonusFromAcc,
+      attackType: 'melee',
+      success: !isFail,
+      failure: isFail,
+      isPlusOneDice: isPlusOneDice,
+      isDoubleDamage: isDoubleDamage,
+      isCrit: isCrit,
+      critHit: isCrit,
+    });
+    
+    // Prep chat values.
+    const flavorText = `${actor.name} attempts to strike a target.`;
+    const messageData = {
+      user: game.user.id,
+      speaker: ChatMessage.getSpeaker({ actor: actor }),
+      flavor: flavorText,
+      type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+      roll: rollResult,
+      rollMode: CONFIG.Dice.rollModes.publicroll,
+      content: chatHtmlContent,
+      // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
+      speaker: ChatMessage.getSpeaker(),
+    }
+
+    // Send the roll to chat!
+    return rollResult.toMessage(messageData);
+  }
+
   static async grenadeThrow(options) {
     const { actor, itemId, checkDetails, rollResult } = options;
     const item = actor.items.get(itemId);
     const difficultyValue = checkDetails.difficultyValue;
 
+    const parts = rollResult.dice.map(d => d.getTooltipData());
+    parts[0].flavor = 'Grenade Toss';
+
     const templateLocation = 'systems/bunkers-and-badasses/templates/chat/check-roll.html';
     const chatHtmlContent = await renderTemplate(templateLocation, {
-      // actorId: actor.id,
       actorId: actor.id,
       itemId: item.id,
+      checkType: `${item.name} Grenade Toss`,
       overallRollFormula: rollResult.formula,
-      // diceRolled: '1d20',
-      diceRolled: '1d20',
-      // diceResult: rollResult.dice[0].results[0].result,
-      diceResult: rollResult.dice[0].results[0].result,
-      // checkType: checkTypeText,
-      checkType: 'Grenade Toss',
-      // total: rollResult.total,
+      parts: parts,
       total: rollResult.total,
-      // difficulty: difficultyValue,
       difficulty: difficultyValue,
       redText: item.system.redText,
-      // attackType: 'check',
       attackType: 'grenade',
       showDamageButton: true,
-      // success: (difficultyValue != null) && rollResult.total >= difficultyValue,
       success: (difficultyValue != null) && rollResult.total >= difficultyValue,
-      // failure: (difficultyValue != null) && rollResult.total < difficultyValue,
       failure: (difficultyValue != null) && rollResult.total < difficultyValue,
-
-
-
     });
 
     // Prep chat values.

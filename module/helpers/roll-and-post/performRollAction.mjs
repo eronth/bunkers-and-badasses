@@ -161,6 +161,17 @@ export class PerformRollAction {
         checkType: checkDetails.checkType,
         rollResult: rollResult,
       });
+    } else if (checkDetails.checkType.rollType === 'melee-attack') {
+      return await PostToChat.meleeAttack({
+        actor: actor,
+        itemId: itemId,
+        checkDetails: {
+          ...checkDetails,
+          //difficultyValue: difficultyValue,
+        },
+        checkType: checkDetails.checkType,
+        rollResult: rollResult,
+      });
     } else {
       return await PostToChat.skillCheck({
         actor: actor,
