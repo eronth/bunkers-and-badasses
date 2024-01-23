@@ -129,4 +129,8 @@ export class genericUtil {
     return Object.keys(obj).length === 0 && obj.constructor === Object;
   }
 
+  static isNullOrEmpty(value) {
+    return value == null || value === '';
+  }
+
 }

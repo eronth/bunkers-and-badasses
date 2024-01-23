@@ -95,7 +95,8 @@ export class ConfirmActionPrompt {
     return await this._makeCheck(event, {
       actor: actor,
       checkDetails: {
-        checkTitle: `${actor.system[check.stat].label} Check`,
+        checkTitle: `${dataset.checkType} Check`,//`${actor.system[check.stat].label} Check`,
+        bonusesTitle: `${dataset.checkType} Roll Bonuses`,
         checkType: {
           super: dataset.checkType,
           rollType: dataset.rollType,
@@ -115,6 +116,7 @@ export class ConfirmActionPrompt {
 
     const templateLocation = 'systems/bunkers-and-badasses/templates/dialog/check-difficulty.html';
     const dialogHtmlContent = await renderTemplate(templateLocation, {
+      bonusesTitle: checkDetails.bonusesTitle,
       attributes: actor.system.attributes,
       check: checkDetails.check,
       promptCheckType: checkDetails.promptCheckType ?? false,
@@ -183,13 +185,13 @@ export class ConfirmActionPrompt {
       actor: actor,
       checkDetails: {
         checkTitle: `Melee Attack`,
+        bonusesTitle: `Melee Attack Bonuses`,
         checkType: {
           super: dataset.checkType,
           rollType: dataset.rollType,
         },
         showDifficulty: false,
         showGearMod: true,
-        defaultDifficulty: 0,
         check: check,
         promptCheckType: false,
       },

@@ -1,5 +1,6 @@
 import { PostToChat } from "./postToChat.mjs";
 import { RollBuilder } from "../roll-builder.mjs";
+import { genericUtil } from "../genericUtil.mjs";
 
 export class PerformRollAction {
 
@@ -116,10 +117,13 @@ export class PerformRollAction {
     const checkStat = checkDetails.check.stat;
 
     // Pull data from html.
+    const gearElements = html.find("#gear");
+    const gearValue = (gearElements.length > 0) ? parseInt(gearElements[0].value) : 0;
+    const hasGear = gearValue != 0;
     const hasMisc = (parseInt(html.find("#misc")[0].value) ?? 0) != 0;
     const hasEff = (parseInt(html.find("#effects")[0].value) ?? 0) != 0;
-    const extraBonusValue = parseInt(html.find("#extra")[0].value);
-    const hasExtra = (extraBonusValue ?? 0) != 0;
+    const extraBonusValue = (html.find("#extra")[0].value);
+    const hasExtra = !genericUtil.isNullOrEmpty(extraBonusValue ?? 0) && extraBonusValue != '0';
     const difficultyValue = parseInt(html.find("#difficulty")[0].value);
     const checkTypeElement = html.find("#check-type");
 
@@ -130,11 +134,12 @@ export class PerformRollAction {
     // Prepare and roll the check.
     const badassMod = checkDetails.usesBadassRank ? ' + @badassrank[Badass Rank]' : ''
     const rollStatMod = ` + @${checkStat.toLowerCase()}[${checkStat.toUpperCase()} ${actor.system.attributes.badass.rollsEnabled ? 'Stat' : 'Mod'}]`;
+    const rollGearBonus = hasGear ? ` + ${gearValue}[Gear]` : '';
     const rollMiscBonus = hasMisc ? ` + @${checkName.toLowerCase()}misc[Misc]` : '';
     const rollEffectBonus = hasEff ? ` + @${checkName.toLowerCase()}effects[Effects]` : '';
-    const rollExtraMod = hasExtra ? (isNaN(extraBonusValue) || extraBonusValue == 0 ? '' : ` + @extrabonusvalue[Extra Bonus]`) : '';
+    const rollExtraMod = hasExtra ? ` + @extrabonusvalue[Extra Bonus]` : '';
     const rollDifficulty = '';//((difficultyValue != null && !isNaN(difficultyValue)) ? ` cs>=${difficultyValue}` : ``);
-    const rollFormula = `1d20${badassMod}${rollStatMod}${rollMiscBonus}${rollEffectBonus}${rollExtraMod}${rollDifficulty}`;
+    const rollFormula = `1d20${badassMod}${rollStatMod}${rollGearBonus}${rollMiscBonus}${rollEffectBonus}${rollExtraMod}${rollDifficulty}`;
     const roll = new Roll(
       rollFormula,
       RollBuilder._createDiceRollData(

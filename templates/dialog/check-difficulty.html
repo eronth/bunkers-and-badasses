@@ -3,7 +3,7 @@
 
     <div class="flexcol flex-size-3 flex-group-center modifiers">
       <div class="flexrow check-dialog-header">
-        <label>Roll Bonuses</label>
+        <label>{{bonusesTitle}}</label>
       </div>
       <div class="flexrow check-dialog-body">
         {{^if showFavored}}
@@ -40,7 +40,7 @@
         <label class="math-sign">+</label>
         <div class="flexcol">
           <input id="extra" class="" value=""
-          type="number" data-dtype="Number" />
+          type="text" data-dtype="String" />
           <label for="extra">extra</label>
         </div>
       </div>
