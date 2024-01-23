@@ -120,34 +120,31 @@ export class PostToChat {
     let isPlusOneDice = false;
     let isDoubleDamage = false;
     let isCrit = false;
-    let bonusFromAcc = "";
+    let bonusFromAccResult = "";
     if (rollResult.total >= 20) {
-      bonusFromAcc = "Double Damage";
+      bonusFromAccResult = "Double Damage";
       isDoubleDamage = true;
     } else if (rollResult.total >= 16) {
-      bonusFromAcc = "+1 Damage Dice";
+      bonusFromAccResult = "+1 Damage Dice";
       isPlusOneDice = true;
     }
     if (rollResult.dice[0].results[0].result == 20) {
-      bonusFromAcc += (bonusFromAcc === "" ? "" : " + ") + "Crit!";
+      bonusFromAccResult += (bonusFromAccResult === "" ? "" : " + ") + "Crit!";
       isCrit = true;
     }
     
     const parts = rollResult.dice.map(d => d.getTooltipData());
     parts[0].flavor = 'Grenade Toss';
 
-
-    // flavor, checkType, overallRollForumula, parts, total
-    //success, failure, redText, anoint, showDamagebutton
-
     const templateLocation = 'systems/bunkers-and-badasses/templates/chat/melee-attack-roll.html';
     const chatHtmlContent = await renderTemplate(templateLocation, {
       actorId: actor.id,
-      diceRoll: `Rolled ${rollResult.formula}.`,
-      result: rollResult.result,
+      checkType: 'Melee Attack',
+      overallRollFormula: rollResult.formula,
+      parts: parts,
       total: rollResult.total,
       showDamageButton: true,
-      bonusFromAcc: bonusFromAcc,
+      bonusFromAccResult: bonusFromAccResult,
       attackType: 'melee',
       success: !isFail,
       failure: isFail,
