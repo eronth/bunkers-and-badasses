@@ -957,7 +957,7 @@ export class BNBActorSheet extends ActorSheet {
       } else if (dataset.rollType == 'health-regain') {
         return this._healthRegainRoll(dataset);
       } else if (dataset.rollType == 'melee-attack') {
-        return this._meleeAttackRoll(dataset);
+        return ConfirmActionPrompt.meleeAttack(event, { actor: this.actor, dataset: dataset });
       } else if (dataset.rollType == 'gun-attack') {
         return this._gunAccuracyRoll(dataset);
       } else if (dataset.rollType == 'grenade-throw') {
@@ -1141,36 +1141,36 @@ export class BNBActorSheet extends ActorSheet {
     return rollResult.toMessage(messageData);
   }
 
-  async _meleeAttackRoll(dataset) {
-    // Prep data to access.
-    const actorSystem = this.actor.system;
+  // async _meleeAttackRoll(dataset) {
+  //   // Prep data to access.
+  //   const actorSystem = this.actor.system;
 
-    const templateLocation = 'systems/bunkers-and-badasses/templates/dialog/attack-confirmation.html';
-    const dialogHtmlContent = await renderTemplate(templateLocation, {
-      type: "Melee",
-      attack: actorSystem.checks.melee,
-      showFavored: false,
-      favored: true
-    });
+  //   const templateLocation = 'systems/bunkers-and-badasses/templates/dialog/attack-confirmation.html';
+  //   const dialogHtmlContent = await renderTemplate(templateLocation, {
+  //     type: "Melee",
+  //     attack: actorSystem.checks.melee,
+  //     showFavored: false,
+  //     favored: true
+  //   });
 
-    this.attack = new Dialog({
-      title: "Melee Attack",
-      Id: "melee-attack-prompt",
-      content: dialogHtmlContent,
-      buttons: {
-        "Cancel" : {
-          label : "Cancel",
-          callback : async (html) => {}
-        },
-        "Roll" : {
-          label : "Roll",
-          callback : async (html) => {
-            return await this._rollMeleeAttackDice(dataset, html);
-          }
-        }
-      }
-    }).render(true);
-  }
+  //   this.attack = new Dialog({
+  //     title: "Melee Attack",
+  //     Id: "melee-attack-prompt",
+  //     content: dialogHtmlContent,
+  //     buttons: {
+  //       "Cancel" : {
+  //         label : "Cancel",
+  //         callback : async (html) => {}
+  //       },
+  //       "Roll" : {
+  //         label : "Roll",
+  //         callback : async (html) => {
+  //           return await this._rollMeleeAttackDice(dataset, html);
+  //         }
+  //       }
+  //     }
+  //   }).render(true);
+  // }
 
   async _gunAccuracyRoll(dataset) {
     // Prep data to access.
@@ -1248,31 +1248,31 @@ export class BNBActorSheet extends ActorSheet {
     return await this._displayNpcAttackRollResultToChat(dataset, { rollResult: rollResult });
   }
 
-  async _rollMeleeAttackDice(dataset, html) {
-    // Prep data to access.
-    const actorSystem = this.actor.system;
+  // async _rollMeleeAttackDice(dataset, html) {
+  //   // Prep data to access.
+  //   const actorSystem = this.actor.system;
 
-    // Pull data from html.
-    const extraBonusValue = parseInt(html.find("#extra")[0].value);
+  //   // Pull data from html.
+  //   const extraBonusValue = parseInt(html.find("#extra")[0].value);
 
-    // Prepare and roll the check.
-    const rollStatMod = ` + @acc[ACC ${actorSystem.attributes.badass.rollsEnabled ? 'Stat' : 'Mod'}]`;
-    const rollMiscBonus = ` + @meleemisc[Misc]`;
-    const rollEffectsBonus = ` + @meleeeffects[Effects]`;
-    const rollExtraBonus = isNaN(extraBonusValue) ? '' : ` + ${extraBonusValue}[Extra bonus]`;
-    const rollFormula = `1d20${rollStatMod}${rollMiscBonus}${rollEffectsBonus}${rollExtraBonus}`;
-    const roll = new Roll(
-      rollFormula,
-      RollBuilder._createDiceRollData(
-        { actor: this.actor },
-        { extra: extraBonusValue }
-      )
-    );
-    const rollResult = await roll.roll({async: true});
+  //   // Prepare and roll the check.
+  //   const rollStatMod = ` + @acc[ACC ${actorSystem.attributes.badass.rollsEnabled ? 'Stat' : 'Mod'}]`;
+  //   const rollMiscBonus = ` + @meleemisc[Misc]`;
+  //   const rollEffectsBonus = ` + @meleeeffects[Effects]`;
+  //   const rollExtraBonus = isNaN(extraBonusValue) ? '' : ` + ${extraBonusValue}[Extra bonus]`;
+  //   const rollFormula = `1d20${rollStatMod}${rollMiscBonus}${rollEffectsBonus}${rollExtraBonus}`;
+  //   const roll = new Roll(
+  //     rollFormula,
+  //     RollBuilder._createDiceRollData(
+  //       { actor: this.actor },
+  //       { extra: extraBonusValue }
+  //     )
+  //   );
+  //   const rollResult = await roll.roll({async: true});
 
-    // Display the result.
-    return await this._displayMeleeRollResultToChat(dataset, { rollResult: rollResult });
-  }
+  //   // Display the result.
+  //   return await this._displayMeleeRollResultToChat(dataset, { rollResult: rollResult });
+  // }
 
   async _rollGunAttackDice(dataset, html, itemStats, itemOverrideType) {
     // Prep data to access.

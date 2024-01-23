@@ -116,17 +116,16 @@ export class PerformRollAction {
     const checkStat = checkDetails.check.stat;
 
     // Pull data from html.
-    const hasMisc = (parseInt(html.find("#misc")[0].value) ?? 0) > 0;
-    const hasEff = (parseInt(html.find("#effects")[0].value) ?? 0) > 0;
+    const hasMisc = (parseInt(html.find("#misc")[0].value) ?? 0) != 0;
+    const hasEff = (parseInt(html.find("#effects")[0].value) ?? 0) != 0;
     const extraBonusValue = parseInt(html.find("#extra")[0].value);
-    const hasExtra = (extraBonusValue ?? 0) > 0;
+    const hasExtra = (extraBonusValue ?? 0) != 0;
     const difficultyValue = parseInt(html.find("#difficulty")[0].value);
     const checkTypeElement = html.find("#check-type");
 
     if (checkTypeElement && checkTypeElement.length > 0) {
       checkDetails.checkType.sub = checkTypeElement[0].value;
-    } 
-    const difficultyEntered = !isNaN(difficultyValue);
+    }
 
     // Prepare and roll the check.
     const badassMod = checkDetails.usesBadassRank ? ' + @badassrank[Badass Rank]' : ''
@@ -134,7 +133,7 @@ export class PerformRollAction {
     const rollMiscBonus = hasMisc ? ` + @${checkName.toLowerCase()}misc[Misc]` : '';
     const rollEffectBonus = hasEff ? ` + @${checkName.toLowerCase()}effects[Effects]` : '';
     const rollExtraMod = hasExtra ? (isNaN(extraBonusValue) || extraBonusValue == 0 ? '' : ` + @extrabonusvalue[Extra Bonus]`) : '';
-    const rollDifficulty = ((difficultyValue != null && !isNaN(difficulty)) ? `cs>=${difficultyValue}` : ``);
+    const rollDifficulty = '';//((difficultyValue != null && !isNaN(difficultyValue)) ? ` cs>=${difficultyValue}` : ``);
     const rollFormula = `1d20${badassMod}${rollStatMod}${rollMiscBonus}${rollEffectBonus}${rollExtraMod}${rollDifficulty}`;
     const roll = new Roll(
       rollFormula,
@@ -231,5 +230,40 @@ export class PerformRollAction {
       },
       rollResult: rollResult,
     });
+  }
+
+  static async meleeAttack(html, options) {
+    const { actor } = options;
+    const checkName = 'Melee';
+    const checkStat = 'ACC';
+    
+    // Pull data from html.
+    const hasMisc = (parseInt(html.find("#misc")[0].value) ?? 0) != 0;
+    const hasEff = (parseInt(html.find("#effects")[0].value) ?? 0) != 0;
+    const extraBonusValue = parseInt(html.find("#extra")[0].value);
+    const hasExtra = (extraBonusValue ?? 0) != 0;
+    const difficultyValue = 1; //parseInt(html.find("#difficulty")[0].value);
+    // const checkTypeElement = html.find("#check-type");
+    
+    // Prepare and roll the check.
+    const badassMod = '';//checkDetails.usesBadassRank ? ' + @badassrank[Badass Rank]' : ''
+    const rollStatMod = ` + @${checkStat.toLowerCase()}[${checkStat.toUpperCase()} ${actor.system.attributes.badass.rollsEnabled ? 'Stat' : 'Mod'}]`;
+    const rollMiscBonus = hasMisc ? ` + @${checkName.toLowerCase()}misc[Misc]` : '';
+    //const rollEffectsBonus = ` + @meleeeffects[Effects]`;
+    const rollEffectBonus = hasEff ? ` + @${checkName.toLowerCase()}effects[Effects]` : '';
+    //const rollExtraBonus = isNaN(extraBonusValue) ? '' : ` + ${extraBonusValue}[Extra bonus]`;
+    const rollExtraMod = hasExtra ? (isNaN(extraBonusValue) || extraBonusValue == 0 ? '' : ` + @extrabonusvalue[Extra Bonus]`) : '';
+    const rollDifficulty = '';//((difficultyValue != null && !isNaN(difficultyValue)) ? `cs>=${difficultyValue}` : ``);
+    const rollFormula = `1d20${badassMod}${rollStatMod}${rollMiscBonus}${rollEffectBonus}${rollExtraMod}${rollDifficulty}`;
+    const roll = new Roll(
+      rollFormula,
+      RollBuilder._createDiceRollData(
+        { actor: actor },
+        { extrabonusvalue: extraBonusValue }
+      )
+    );
+    const rollResult = await roll.roll({async: true});
+
+    return await PostToChat.meleeAttack({});
   }
 }

@@ -11,16 +11,16 @@
           <input id="mod" class="" value="{{attack.value}}"
           type="number" data-dtype="Number"
           disabled />
-          <label for="mod">{{attack.stat}} {{#if badassRollsEnabled}}stat{{else}}mod{{/if}}</label>
+          <label for="mod">{{attack.stat}} {{#if isBadass}}stat{{else}}mod{{/if}}</label>
         </div>
         <label class="math-sign">+</label>
         {{/if}}
         {{#if showGearMod}}
         <div class="flexcol">
-          <input id="misc" class="" value="{{gearAcc}}"
+          <input id="gear" class="" value="{{gearAcc}}"
           type="number" data-dtype="Number"
           disabled />
-          <label for="misc">gear bonus</label>
+          <label for="gear">gear bonus</label>
         </div>
         <label class="math-sign">+</label>
         {{/if}}
@@ -32,10 +32,10 @@
         </div>
         <label class="math-sign">+</label>
         <div class="flexcol">
-          <input id="misc" class="" value="{{attack.effects}}"
+          <input id="effects" class="" value="{{attack.effects}}"
           type="number" data-dtype="Number"
           disabled />
-          <label for="misc">effects</label>
+          <label for="effects">effects</label>
         </div>
         <label class="math-sign">+</label>
         <div class="flexcol">
@@ -54,7 +54,7 @@
     <input id="favored-checkbox" 
     value="{{favored}}" 
     type="checkbox" data-dtype="Boolean" {{#if favored}}checked{{/if}} />
-    (+ acc {{#if badassRollsEnabled}}stat{{else}}mod{{/if}})
+    (+ acc {{#if isBadass}}stat{{else}}mod{{/if}})
   </div>
   {{/if}}
   

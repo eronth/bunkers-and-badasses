@@ -6,6 +6,7 @@
         <label>Roll Bonuses</label>
       </div>
       <div class="flexrow check-dialog-body">
+        {{^if showFavored}}
         <div class="flexcol">
           <input id="mod" class="" value="{{check.value}}"
           type="number" data-dtype="Number"
@@ -13,6 +14,16 @@
           <label for="mod">{{check.stat}} {{#if isBadass}}stat{{else}}mod{{/if}}</label>
         </div>
         <label class="math-sign">+</label>
+        {{/if}}
+        {{#if showGearMod}}
+        <div class="flexcol">
+          <input id="gear" class="" value="{{check.gear}}"
+          type="number" data-dtype="Number"
+          disabled />
+          <label for="gear">gear</label>
+        </div>
+        <label class="math-sign">+</label>
+        {{/if}}
         <div class="flexcol">
           <input id="misc" class="" value="{{check.misc}}"
           type="number" data-dtype="Number"
@@ -35,7 +46,8 @@
       </div>
     </div>
 
-    <div class="flexcol flex-group-center difficulty">
+    <div class="flexcol flex-group-center difficulty" 
+    {{^if showDifficulty}}hidden="hidden" style="display:none;"{{/if}} >
       <div class="flexrow check-dialog-header">
         <label for="difficulty">Difficulty</label>
       </div>

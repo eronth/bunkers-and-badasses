@@ -1,6 +1,5 @@
 import { PerformRollAction } from "./performRollAction.mjs";
 import { OnActionUtil } from "../onActionUtil.mjs";
-import { PostToChat } from "./postToChat.mjs";
 
 export class ConfirmActionPrompt {
   
@@ -87,7 +86,6 @@ export class ConfirmActionPrompt {
     // Prep data to access.
     const { actor, dataset, defaultDifficulty } = options;
     const check = actor.system.checks[dataset.checkType.toLowerCase()];
-    const rollType = dataset.rollType;
 
     if (check.nonRolled) return; // Special case for movement, since I (potentially foolishly) bundled it with checks.
     if (dataset.checkType.toLowerCase() === 'initiative') {
@@ -100,11 +98,12 @@ export class ConfirmActionPrompt {
         checkTitle: `${actor.system[check.stat].label} Check`,
         checkType: {
           super: dataset.checkType,
-          rollType: rollType,
+          rollType: dataset.rollType,
         },
+        showDifficulty: true,
         defaultDifficulty: defaultDifficulty,
         check: check,
-        promptCheckType: (rollType === 'check'),
+        promptCheckType: (dataset.rollType === 'check'),
       },
       itemId: dataset.itemId
     });
@@ -121,6 +120,8 @@ export class ConfirmActionPrompt {
       promptCheckType: checkDetails.promptCheckType ?? false,
       isBadass: actor.system.attributes.badass.rollsEnabled,
       defaultDifficulty: checkDetails.defaultDifficulty,
+      showDifficulty: checkDetails.showDifficulty,
+      showGearMod: checkDetails.showGearMod,
     });
 
     this.check = new Dialog({
@@ -171,6 +172,33 @@ export class ConfirmActionPrompt {
         }
       }
     }).render(true);
+  }
+
+  static async meleeAttack(event, options) {
+    const { actor, dataset } = options;
+    const check = actor.system.checks[dataset.checkType.toLowerCase()];
+    check.gear = 0;
+    
+    return await this._makeCheck(event, {
+      actor: actor,
+      checkDetails: {
+        checkTitle: `Melee Attack`,
+        checkType: {
+          super: dataset.checkType,
+          rollType: dataset.rollType,
+        },
+        showDifficulty: false,
+        showGearMod: true,
+        defaultDifficulty: 0,
+        check: check,
+        promptCheckType: false,
+      },
+      itemId: dataset.itemId
+    });
+  }
+
+  static async rangedAttack(event, options) {
+
   }
 
 }
