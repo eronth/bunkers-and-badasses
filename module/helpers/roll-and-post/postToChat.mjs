@@ -194,6 +194,7 @@ export class PostToChat {
       showDamageButton: true,
       success: (difficultyValue != null) && rollResult.total >= difficultyValue,
       failure: (difficultyValue != null) && rollResult.total < difficultyValue,
+      itemEffect: item.system.effect
     });
 
     // Prep chat values.

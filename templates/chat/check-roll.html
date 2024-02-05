@@ -4,9 +4,8 @@ data-actor-id="{{actorId}}" data-item-id="{{itemId}}" >
     <div class="flexcol badass-results-container">
       <label class="result-header">{{checkType}}</label>
       {{#if difficulty}}<label class="result-header difficulty">(Difficulty {{difficulty}})</label>{{/if}}
+      <br />
     </div>
-    <br />
-    <br />
     <div class="dice-result">
       <div class="dice-formula">{{overallRollFormula}}</div>
       <div class="dice-tooltip">
@@ -30,6 +29,9 @@ data-actor-id="{{actorId}}" data-item-id="{{itemId}}" >
       <h4 class="dice-total">{{total}}</h4>
     </div>
   </div>
+  {{#if itemEffect}}
+  <div class="item-effect"><b>Effect:</b> {{itemEffect}}</div>
+  {{/if}}
   {{#if success}}
   <div class="success-text">Success!</div>
   {{/if}}

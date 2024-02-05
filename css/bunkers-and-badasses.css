@@ -1230,6 +1230,9 @@ input[type="time"]:focus {
 .badass-results-container .result-label {
   font-size: xx-large;
 }
+.chat-roll-result .item-effect {
+  margin: 3px;
+}
 
 .cost-container input {
   width: 90px;
