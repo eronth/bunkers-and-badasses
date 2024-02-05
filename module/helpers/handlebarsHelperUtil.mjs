@@ -114,7 +114,7 @@ export class HandlebarsHelperUtil {
     );
 
     Handlebars.registerHelper('listIsEmpty', (list) => {
-        return (list === null || list.length === 0);
+        return (list == null || list.length == 0);
       }
     );
 
