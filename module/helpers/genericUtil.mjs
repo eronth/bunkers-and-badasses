@@ -15,6 +15,30 @@ export class genericUtil {
     }
   }
 
+  static getAllElementalDamageTypes(options) {
+    const damageTypes = ["incendiary", "shock", "corrosive",
+    "explosive", "radiation", "cryo",
+    "incendiation", "corroshock", "crysplosive"]
+
+    if (options?.includeSpecialTypes) {
+      damageTypes.push(...["plasma"]);
+    }
+    return damageTypes;
+  }
+
+  static getAllNonElementalDamageTypes(options) {
+    const damageTypes = [ 'kinetic' ];
+    return damageTypes;
+  }
+
+  static getAllDamageTypes(options) {
+    const damageTypes = [
+      ...this.getAllNonElementalDamageTypes(options),
+      ...this.getAllElementalDamageTypes(options)
+    ];
+    return damageTypes;
+  }
+
   static createElementIcon({id, elementType, cssClass}) {
     const elementKey = elementType.toLowerCase();
     const elementDisplayName = this.capitalize(elementKey);

@@ -1,5 +1,6 @@
 import { PerformRollAction } from "./performRollAction.mjs";
 import { OnActionUtil } from "../onActionUtil.mjs";
+import { genericUtil } from "../genericUtil.mjs";
 
 export class ConfirmActionPrompt {
   
@@ -132,8 +133,8 @@ export class ConfirmActionPrompt {
       content: dialogHtmlContent,
       buttons: {
         'Cancel': {
-          label : 'Cancel',
-          callback : async (html) => {}
+          label: 'Cancel',
+          callback: async (html) => {}
         },
         'Roll': {
           label: 'Roll',
@@ -200,7 +201,101 @@ export class ConfirmActionPrompt {
   }
 
   static async rangedAttack(event, options) {
+    const {actor, dataset } = options;
+    const item = actor.items.get(dataset.itemId);
 
+    const attackValues = await this._getAttackValues({ actor: actor, item: item });
+    const isFavored = await this._isAttackFavored({ actor: actor, item: item });
+    const isBadass = actor.system.attributes.badass.rollsEnabled;
+    
+    const templateLocation = 'systems/bunkers-and-badasses/templates/dialog/attack-confirmation.html';
+    const dialogHtmlContent = await renderTemplate(templateLocation, {
+      type: "Gun",
+      attack: attackValues,
+      showGearMod: true,
+      showFavored: true,
+      favored: isFavored,
+      isBadass: isBadass,
+    });
+
+    const actionOptions = {
+
+    };
+
+    this.attack = new Dialog({
+      title:'Gun Attack',
+      Id: 'melee-attack-prompt',
+      content: dialogHtmlContent,
+      buttons: {
+        'Cancel': {
+          label: 'Cancel',
+          callback: async (html) => {}
+        },
+        'Attack': {
+          label: 'Roll Attack',
+          callback: async (html) => {
+            return await PerformRollAction.rangedAttack(html, actionOptions);
+          }
+        }
+      }
+    }).render(true);
+  }
+
+
+  static async _getAttackValues(options) {
+    const { actor, item } = options;
+    
+    const toHitStat = await this._toHitStat({ actor: actor, item: item });
+
+    const attackValues = {...actor.system.checks.shooting};
+    if (toHitStat != attackValues.stat) {
+      attackValues.stat = toHitStat;
+      attackValues.total -= attackValues.value;
+      attackValues.value = actor.system[toHitStat].value;
+      attackValues.total += attackValues.value;
+    }
+    attackValues.gear = item.system.statMods[toHitStat];
+
+    return attackValues;
+  }
+
+  static async _toHitStat(options) {
+    const { item } = options;
+
+    // Special logic for a legendary weapon.
+    if ((item.system?.special?.overrideType ?? '').toLowerCase() == 'mwbg') {
+      return "mst";
+    }
+
+    return "acc";
+  }
+
+  static async _isAttackFavored(options) {
+    const isFavoredType = 
+      await this._isAttackFavoredWeaponType(options)
+      || await this._isAttackFavoredDamageType(options);
+    return isFavoredType;
+  }
+
+  static async _isAttackFavoredWeaponType(options) {
+    const { actor, item } = options;
+    const isFavoredWeaponType = ((item.system?.special?.overrideType !== 'snotgun') 
+      ? actor.system.favored[item.system.type.value]
+      : (actor.system.favored.sniper || actor.system.favored.shotgun));
+    return isFavoredWeaponType;
+  }
+
+  static async _isAttackFavoredDamageType(options) {
+    const { actor, item } = options;
+    const damageTypes = genericUtil.getAllDamageTypes({ includeSpecialTypes: true });
+
+    let isFavoredDamageType = false;
+    damageTypes.forEach(damageType => {
+      if (actor.system.favored[damageType] && item.system.elements[damageType]?.enabled) {
+        isFavoredDamageType = true;
+      }
+    });
+    return isFavoredDamageType;
   }
 
 }

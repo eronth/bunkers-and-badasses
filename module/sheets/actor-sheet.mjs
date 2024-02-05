@@ -959,7 +959,7 @@ export class BNBActorSheet extends ActorSheet {
       } else if (dataset.rollType == 'melee-attack') {
         return ConfirmActionPrompt.meleeAttack(event, { actor: this.actor, dataset: dataset });
       } else if (dataset.rollType == 'gun-attack') {
-        return this._gunAccuracyRoll(dataset);
+        return ConfirmActionPrompt.rangedAttack(event, { actor: this.actor, dataset: dataset});
       } else if (dataset.rollType == 'grenade-throw') {
         return ConfirmActionPrompt.checkRoll(event, { actor: this.actor, dataset: dataset, defaultDifficulty: 12 });
       } else if (dataset.rollType == 'item-throw') {
@@ -1141,37 +1141,6 @@ export class BNBActorSheet extends ActorSheet {
     return rollResult.toMessage(messageData);
   }
 
-  // async _meleeAttackRoll(dataset) {
-  //   // Prep data to access.
-  //   const actorSystem = this.actor.system;
-
-  //   const templateLocation = 'systems/bunkers-and-badasses/templates/dialog/attack-confirmation.html';
-  //   const dialogHtmlContent = await renderTemplate(templateLocation, {
-  //     type: "Melee",
-  //     attack: actorSystem.checks.melee,
-  //     showFavored: false,
-  //     favored: true
-  //   });
-
-  //   this.attack = new Dialog({
-  //     title: "Melee Attack",
-  //     Id: "melee-attack-prompt",
-  //     content: dialogHtmlContent,
-  //     buttons: {
-  //       "Cancel" : {
-  //         label : "Cancel",
-  //         callback : async (html) => {}
-  //       },
-  //       "Roll" : {
-  //         label : "Roll",
-  //         callback : async (html) => {
-  //           return await this._rollMeleeAttackDice(dataset, html);
-  //         }
-  //       }
-  //     }
-  //   }).render(true);
-  // }
-
   async _gunAccuracyRoll(dataset) {
     // Prep data to access.
     const actorSystem = this.actor.system;
@@ -1181,19 +1150,19 @@ export class BNBActorSheet extends ActorSheet {
     const attackValues = {...actorSystem.checks.shooting};
     attackValues.badassRollsEnabled = actorSystem.attributes.badass.rollsEnabled;
     
-    const isFavoredWeaponType = ((itemSystem?.special?.overrideType !== 'snotgun') 
-    ? actorSystem.favored[itemSystem.type.value]
-    : (actorSystem.favored.sniper || actorSystem.favored.shotgun));
-    const elementTypes = 
-      [ "kinetic", "incendiary", "shock", "corrosive",
-        "explosive", "radiation", "cryo",
-        "incendiation", "corroshock", "crysplosive"];
-    let isFavoredElementType = false;
-    elementTypes.forEach(elementType => {
-      if (actorSystem.favored[elementType] && itemSystem.elements[elementType]?.enabled) {
-        isFavoredElementType = true;
-      }
-    });
+    // const isFavoredWeaponType = ((itemSystem?.special?.overrideType !== 'snotgun') 
+    // ? actorSystem.favored[itemSystem.type.value]
+    // : (actorSystem.favored.sniper || actorSystem.favored.shotgun));
+    // const elementTypes = 
+    //   [ "kinetic", "incendiary", "shock", "corrosive",
+    //     "explosive", "radiation", "cryo",
+    //     "incendiation", "corroshock", "crysplosive"];
+    // let isFavoredElementType = false;
+    // elementTypes.forEach(elementType => {
+    //   if (actorSystem.favored[elementType] && itemSystem.elements[elementType]?.enabled) {
+    //     isFavoredElementType = true;
+    //   }
+    // });
     const templateLocation = "systems/bunkers-and-badasses/templates/dialog/attack-confirmation.html";
     const dialogHtmlContent = await renderTemplate(templateLocation, {
       type: "Gun",
@@ -1247,32 +1216,6 @@ export class BNBActorSheet extends ActorSheet {
     // Display the result.
     return await this._displayNpcAttackRollResultToChat(dataset, { rollResult: rollResult });
   }
-
-  // async _rollMeleeAttackDice(dataset, html) {
-  //   // Prep data to access.
-  //   const actorSystem = this.actor.system;
-
-  //   // Pull data from html.
-  //   const extraBonusValue = parseInt(html.find("#extra")[0].value);
-
-  //   // Prepare and roll the check.
-  //   const rollStatMod = ` + @acc[ACC ${actorSystem.attributes.badass.rollsEnabled ? 'Stat' : 'Mod'}]`;
-  //   const rollMiscBonus = ` + @meleemisc[Misc]`;
-  //   const rollEffectsBonus = ` + @meleeeffects[Effects]`;
-  //   const rollExtraBonus = isNaN(extraBonusValue) ? '' : ` + ${extraBonusValue}[Extra bonus]`;
-  //   const rollFormula = `1d20${rollStatMod}${rollMiscBonus}${rollEffectsBonus}${rollExtraBonus}`;
-  //   const roll = new Roll(
-  //     rollFormula,
-  //     RollBuilder._createDiceRollData(
-  //       { actor: this.actor },
-  //       { extra: extraBonusValue }
-  //     )
-  //   );
-  //   const rollResult = await roll.roll({async: true});
-
-  //   // Display the result.
-  //   return await this._displayMeleeRollResultToChat(dataset, { rollResult: rollResult });
-  // }
 
   async _rollGunAttackDice(dataset, html, itemStats, itemOverrideType) {
     // Prep data to access.
@@ -1370,63 +1313,6 @@ export class BNBActorSheet extends ActorSheet {
     // Send the roll to chat!
     return rollResult.toMessage(messageData);
   }
-
-  // async _displayMeleeRollResultToChat(dataset, rollObjs) {
-  //   // Pull values from objs.
-  //   const rollResult = rollObjs.rollResult;
-
-  //   const isFail = rollResult.total <= 1;
-  //   let isPlusOneDice = false;
-  //   let isDoubleDamage = false;
-  //   let isCrit = false;
-  //   let bonusFromAcc = "";
-  //   if (rollResult.total >= 20) {
-  //     bonusFromAcc = "Double Damage";
-  //     isDoubleDamage = true;
-  //   } else if (rollResult.total >= 16) {
-  //     bonusFromAcc = "+1 Damage Dice";
-  //     isPlusOneDice = true;
-  //   }
-
-  //   if (rollResult.dice[0].results[0].result == 20) {
-  //     bonusFromAcc += (bonusFromAcc === "" ? "" : " + ") + "Crit!";
-  //     isCrit = true;
-  //   }
-
-  //   const templateLocation = 'systems/bunkers-and-badasses/templates/chat/melee-attack-roll.html';
-  //   const chatHtmlContent = await renderTemplate(templateLocation, {
-  //     actorId: this.actor.id,
-  //     diceRoll: `Rolled ${rollResult.formula}.`,
-  //     result: rollResult.result,
-  //     total: rollResult.total,
-  //     showDamageButton: true,
-  //     bonusFromAcc: bonusFromAcc,
-  //     attackType: 'melee',
-  //     success: !isFail,
-  //     failure: isFail,
-  //     isPlusOneDice: isPlusOneDice,
-  //     isDoubleDamage: isDoubleDamage,
-  //     isCrit: isCrit,
-  //     critHit: isCrit,
-  //   });
-
-  //   // Prep chat values.
-  //   const flavorText = `${this.actor.name} attempts to strike a target.`;
-  //   const messageData = {
-  //     user: game.user.id,
-  //     speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-  //     flavor: flavorText,
-  //     type: CONST.CHAT_MESSAGE_TYPES.ROLL,
-  //     roll: rollResult,
-  //     rollMode: CONFIG.Dice.rollModes.publicroll,
-  //     content: chatHtmlContent,
-  //     // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
-  //     speaker: ChatMessage.getSpeaker(),
-  //   }
-
-  //   // Send the roll to chat!
-  //   const chatMessage = rollResult.toMessage(messageData);
-  // }
 
   async _displayGunRollResultToChat(dataset, rollObjs) {
     const item = this.actor.items.get(dataset.itemId);

@@ -17,7 +17,7 @@
         {{/if}}
         {{#if showGearMod}}
         <div class="flexcol">
-          <input id="gear" class="" value="{{gearAcc}}"
+          <input id="gear" class="" value="{{attack.gear}}"
           type="number" data-dtype="Number"
           disabled />
           <label for="gear">gear bonus</label>
@@ -54,7 +54,7 @@
     <input id="favored-checkbox" 
     value="{{favored}}" 
     type="checkbox" data-dtype="Boolean" {{#if favored}}checked{{/if}} />
-    (+ acc {{#if isBadass}}stat{{else}}mod{{/if}})
+    (+{{attack.value}} {{attack.stat}} {{#if isBadass}}stat{{else}}mod{{/if}})
   </div>
   {{/if}}
   
