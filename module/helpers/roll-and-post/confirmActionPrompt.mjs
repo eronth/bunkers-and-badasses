@@ -222,9 +222,7 @@ export class ConfirmActionPrompt {
       isBadass: isBadass,
     });
 
-    const actionOptions = {
-
-    };
+    const actionOptions = { actor: actor, item: item, attackDetails: attackValues};
 
     this.attack = new Dialog({
       title:'Gun Attack',

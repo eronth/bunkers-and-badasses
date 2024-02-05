@@ -248,38 +248,67 @@ export class PerformRollAction {
     });
   }
 
-  static async meleeAttack(html, options) {
-    const { actor } = options;
-    const checkName = 'Melee';
-    const checkStat = 'ACC';
-    
+  static async rangedAttack(html, options) {
+    const { actor, item, attackDetails } = options;
+    const attackingStat = attackDetails.stat;
+    const checkName = 'Shooting';
+    const itemStats = item.system.statMods;
+
     // Pull data from html.
-    const hasMisc = (parseInt(html.find("#misc")[0].value) ?? 0) != 0;
-    const hasEff = (parseInt(html.find("#effects")[0].value) ?? 0) != 0;
-    const extraBonusValue = parseInt(html.find("#extra")[0].value);
-    const hasExtra = (extraBonusValue ?? 0) != 0;
-    const difficultyValue = 1; //parseInt(html.find("#difficulty")[0].value);
-    // const checkTypeElement = html.find("#check-type");
+    const gearBonus = (parseInt(html.find("#gear")[0].value) ?? 0);
+    const miscBonus = (parseInt(html.find("#misc")[0].value) ?? 0);
+    const effectBonus = (parseInt(html.find("#effects")[0].value) ?? 0);
+    const extraBonusValue = (html.find("#extra")[0].value);
     
-    // Prepare and roll the check.
-    const badassMod = '';//checkDetails.usesBadassRank ? ' + @badassrank[Badass Rank]' : ''
-    const rollStatMod = ` + @${checkStat.toLowerCase()}[${checkStat.toUpperCase()} ${actor.system.attributes.badass.rollsEnabled ? 'Stat' : 'Mod'}]`;
+    const hasGear = (gearBonus != 0);
+    const hasMisc = (miscBonus != 0);
+    const hasEff = (effectBonus != 0);
+    const hasExtra = !genericUtil.isNullOrEmpty(extraBonusValue ?? 0) && extraBonusValue != '0';
+    const isFavored = html.find("#favored-checkbox")[0].checked;
+
+    // //// SPECIAL special logic for a unique legendary.
+    // const rollMstMod = (itemOverrideType.toLowerCase() === 'mwbg')
+    //   ? ` + @mst[MST ${actorSystem.attributes.badass.rollsEnabled ? 'Stat' : 'Mod'}]`
+    //   : '';
+    // const rollGearMstBonus = (itemOverrideType.toLowerCase() === 'mwbg')
+    //   ? ` + @gearmst[Gear MST]`
+    //   : '';
+    // //// /SPECIAL special logic for a unique legendary.
+
+    // stat/mod, misc, effects, extra, gear
+    const badassMod = '';
+    const rollStatMod = (isFavored
+      ? ` + @${attackingStat.toLowerCase()}[${attackingStat.toUpperCase()} ${actor.system.attributes.badass.rollsEnabled ? 'Stat' : 'Mod'}]`
+      : '');
+    const rollGearBonus = hasGear ? ` + @gear${attackingStat.toLowerCase()}[Gear]` : '';
     const rollMiscBonus = hasMisc ? ` + @${checkName.toLowerCase()}misc[Misc]` : '';
-    //const rollEffectsBonus = ` + @meleeeffects[Effects]`;
     const rollEffectBonus = hasEff ? ` + @${checkName.toLowerCase()}effects[Effects]` : '';
-    //const rollExtraBonus = isNaN(extraBonusValue) ? '' : ` + ${extraBonusValue}[Extra bonus]`;
-    const rollExtraMod = hasExtra ? (isNaN(extraBonusValue) || extraBonusValue == 0 ? '' : ` + @extrabonusvalue[Extra Bonus]`) : '';
-    const rollDifficulty = '';//((difficultyValue != null && !isNaN(difficultyValue)) ? `cs>=${difficultyValue}` : ``);
-    const rollFormula = `1d20${badassMod}${rollStatMod}${rollMiscBonus}${rollEffectBonus}${rollExtraMod}${rollDifficulty}`;
+    const rollExtraMod = hasExtra ? ` + @extrabonusvalue[Extra Bonus]` : '';
+    const rollFormula = `1d20${badassMod}${rollStatMod}${rollGearBonus}${rollMiscBonus}${rollEffectBonus}${rollExtraMod}`;
+
     const roll = new Roll(
       rollFormula,
       RollBuilder._createDiceRollData(
         { actor: actor },
-        { extrabonusvalue: extraBonusValue }
+        {
+          gearacc: itemStats.acc,
+          geardmg: itemStats.dmg,
+          gearspd: itemStats.spd,
+          gearmst: itemStats.mst,
+          extrabonusvalue: extraBonusValue 
+        }
       )
     );
     const rollResult = await roll.roll({async: true});
 
-    return await PostToChat.meleeAttack({});
+    return await PostToChat.rangedAttack({
+      actor: actor,
+      item: item,
+      // checkDetails: {
+      //   ...checkDetails,
+      // },
+      // checkType: checkDetails.checkType,
+      rollResult: rollResult,
+    });
   }
 }

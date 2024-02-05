@@ -172,6 +172,111 @@ export class PostToChat {
     return rollResult.toMessage(messageData);
   }
 
+  static async rangedAttack(options) {
+    const { actor, item, rollResult } = options;
+    const combatBonuses = actor.system?.bonus?.combat;
+
+    const isNatCrit = rollResult.dice[0].results[0].result == 20;
+    const isFail = rollResult.dice[0].results[0].result <= 1
+      || rollResult.total <= 1;
+
+    // Determine the hits and crits tier.
+    let attackAccRank = null;
+    if (isFail) { attackAccRank = ''; }
+    else if (rollResult.total >= 16) { attackAccRank = 'high'; }
+    else if (rollResult.total >= 8) { attackAccRank = 'mid'; }
+    else if (rollResult.total >= 2) { attackAccRank = 'low'; }
+
+    const hitsAndCrits = this._determineHitsAndCrits({
+      item: item,
+      attackAccRank: attackAccRank,
+      combatBonuses: combatBonuses,
+      isCrit: isNatCrit,
+      isFail: isFail
+    });
+
+    // Prepare the results for easier display.
+    const parts = rollResult.dice.map(d => d.getTooltipData());
+    parts[0].flavor = item.system.type.name + ' Attack';
+
+    // Generate message for chat.
+    const templateLocation = 'systems/bunkers-and-badasses/templates/chat/gun-attack-roll.html';
+    const chatHtmlContent = await renderTemplate(templateLocation, {
+      actorId: actor.id,
+      itemId: item.id,
+
+      overallRollFormula: rollResult.formula,
+      parts: parts,
+      total: rollResult.total,
+      
+      redText: item.system.redText,
+      attackLabel: item.system.type.name,
+      attackType: 'Shooting',
+
+      hits: hitsAndCrits.hits,
+      crits: hitsAndCrits.crits,
+      
+      bonusCritsText: (isNatCrit ? "+1 Crit (already added)" : ""),
+      itemEffect: item.system.effect,
+      
+      isNat20: isNatCrit,
+      success: !isFail,   
+      failure: isFail,
+      
+    });
+
+    // Prep chat values.
+    const flavorText = `${actor.name} attempts to to shoot with <b>${item.name}</b>.`;
+    const messageData = {
+      user: game.user.id,
+      speaker: ChatMessage.getSpeaker({ actor: actor }),
+      flavor: flavorText,
+      type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+      roll: rollResult,
+      rollMode: CONFIG.Dice.rollModes.publicroll,
+      content: chatHtmlContent,
+      // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
+      speaker: ChatMessage.getSpeaker(),
+    }
+
+    // Send the roll to chat!
+    const ret = await rollResult.toMessage(messageData);
+    return ret;
+  }
+
+  static _determineHitsAndCrits(options) {
+    const { item, attackAccRank, combatBonuses, isCrit, isFail } = options;
+    
+    let hitsAndCrits = {};
+    
+    // Determine base hits and crits from the success level.
+    if (attackAccRank) {
+      hitsAndCrits = {...item.system.accuracy[attackAccRank]};
+      hitsAndCrits.hits += 
+        (combatBonuses?.hits ? (combatBonuses?.hits[attackAccRank] ?? 0) : 0)
+        + (combatBonuses?.hits?.all ?? 0);
+      hitsAndCrits.crits += 
+        (combatBonuses?.crits ? (combatBonuses?.crits[attackAccRank] ?? 0) : 0)
+        + (combatBonuses?.crits?.all ?? 0);
+    } else {
+      hitsAndCrits = { hits: 0, crits: 0 };
+      hitsAndCrits.hits += (combatBonuses?.special?.hitsSuperLow ?? 0);
+      hitsAndCrits.crits += (combatBonuses?.special?.critsSuperLow ?? 0);
+    }
+
+    // Account for the bonus crit from a nat 20, and any player bonuses for crits or fails.
+    if (isCrit) {
+      hitsAndCrits.crits += 1;
+      hitsAndCrits.hits += (combatBonuses?.special?.hits20 ?? 0);
+      hitsAndCrits.crits += (combatBonuses?.special?.crits20 ?? 0);
+    } else if (isFail) {
+      hitsAndCrits.hits += (combatBonuses?.special?.hits1 ?? 0);
+      hitsAndCrits.crits += (combatBonuses?.special?.crits1 ?? 0);
+    }
+
+    return hitsAndCrits;
+  }
+
   static async grenadeThrow(options) {
     const { actor, itemId, checkDetails, rollResult } = options;
     const item = actor.items.get(itemId);

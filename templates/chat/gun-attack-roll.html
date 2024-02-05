@@ -1,10 +1,39 @@
 <div class="chat-roll-result"
-data-actor-id="{{actorId}}" >
-  <div>{{diceRoll}}</div>
-  <div>Result: {{result}} = {{total}}</div>
-  {{#if success}}
-  <div class="success-text">{{#if critHit}}Crit {{/if}}Hit!</div>
-  <div class="hit-bonus">{{bonusCritsText}}</div>
+data-actor-id="{{actorId}}" data-item-id="{{itemId}}" >
+  <div class="dice-roll">
+    <div class="flexcol badass-results-container">
+      <label class="result-header">{{attackLabel}} Attack</label>
+      <br />
+    </div>
+    <div class="dice-result">
+      <div class="dice-formula">{{overallRollFormula}}</div>
+      <div class="dice-tooltip">
+        {{#each parts as |part|}}
+        <section class="tooltip-part">
+          <div class="dice">
+            <header class="part-header flexrow">
+              <span class="part-formula">{{part.formula}}</span>
+              <span class="part-flavor">{{part.flavor}}</span>
+              <span class="part-total">{{part.total}}</span>
+            </header>
+            <ol class="dice-rolls">
+              {{#each rolls as |roll|}}
+              <li class="roll {{roll.classes}}">{{roll.result}}</li>
+              {{/each}}
+            </ol>
+          </div>
+        </section>
+        {{/each}}
+      </div>
+      <h4 class="dice-total">{{total}}</h4>
+    </div>
+  </div>  
+  {{!#if success}}
+  <div class="success-text">{{#if isNat20}}Crit {{/if}}Hit!</div>
+  {{/if}}
+  {{#if failure}}
+  <div class="failure-text">Miss!</div>
+  {{/if}}
   <div class="flexrow gun-crithits">
     <div class="container">
       <img id="hits" alt="Hits" class="critshits-icon" 
@@ -17,9 +46,8 @@ data-actor-id="{{actorId}}" >
       <div class="crits-number">{{crits}}</div>
     </div>
   </div>
-  {{/if}}
-  {{#if failure}}
-  <div class="failure-text">Failure!</div>
+  {{#if itemEffect}}
+  <div class="item-effect"><b>Effect:</b> {{itemEffect}}</div>
   {{/if}}
   {{#if redText}}
   <div class="red-text">{{redText}}</div>
@@ -27,16 +55,15 @@ data-actor-id="{{actorId}}" >
   {{#if anoint}}
   <div class='anoint-text'>{{anoint}}</div>
   {{/if}}
-  {{#if showDamageButton}}
+  <div class="hit-bonus">{{bonusCritsText}}</div>
   <div class="chat-damage-buttons">
     <button data-action="damage"
     data-actor-id="{{actorId}}" data-item-id="{{itemId}}" 
     data-attack-type="{{attackType}}"
     data-hits={{hits}} data-crits={{crits}}
-    data-is-nat-20="{{critHit}}"
+    data-is-nat-20="{{isNat20}}"
     data-flavor="Pew Pew!">
       Roll Damage
     </button>
-  </div>
-  {{/if}}
+  </div>  
 </div>
