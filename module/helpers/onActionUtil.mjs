@@ -49,12 +49,10 @@ export class OnActionUtil {
     item.sheet.render(true);
   }
 
-  static onItemDelete(event, actor, render) {
-    event.stopPropagation();
-    const li = $(event.currentTarget).parents(".item-element-group");
-    const item = actor.items.get(li.data("itemId"));
+  static onItemDelete(html, options) {
+    const { actor, item, li, inRender } = options;
     item.delete();
-    li.slideUp(200, () => render(false));
+    //li.slideUp(200, () => inRender(false));
   }
 
   static onItemCheckbox(event, actor) {

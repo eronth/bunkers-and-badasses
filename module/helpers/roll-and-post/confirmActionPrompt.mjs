@@ -4,6 +4,35 @@ import { genericUtil } from "../genericUtil.mjs";
 
 export class ConfirmActionPrompt {
   
+  static async deleteItem(event, options) {
+    event.stopPropagation();
+    const { actor } = options;
+
+    const liList = $(event.currentTarget).parents(".item-element-group");
+    const item = actor.items.get(liList.data("itemId"));
+    
+    const templateLocation = "systems/bunkers-and-badasses/templates/dialog/delete-item.html";
+    const deleteItemDialogContent = await renderTemplate(templateLocation, { item: item });
+
+    this.deleteItemDialog = new Dialog({
+      title: `Delete ${item.name}?`,
+      Id: `delete-item-dialog`,
+      content: deleteItemDialogContent,
+      buttons: {
+        "Cancel": {
+          label: "Cancel",
+          callback: async (html) => { }
+        },
+        "Delete" : {
+          label: `Delete`,
+          callback : async (html) => {
+            return OnActionUtil.onItemDelete(html, { actor: actor, item: item, li: liList[0], inRender: options.inRender });
+          }
+        }
+      }
+    }).render(true);
+  }
+
   static async badassRoll(event, options) {
     // Prep data to access.
     const { actor, checkDetails } = options;
@@ -33,31 +62,6 @@ export class ConfirmActionPrompt {
       }
     }).render(true);
   }
-  
-  // static async deleteItem(event, options) {
-  //   const { actor, itemId } = options;
-  //   const item = actor.items.get(itemId);
-  //   const templateLocation = "systems/bunkers-and-badasses/templates/dialog/delete-item.html";
-  //   const deleteItemDialogContent = await renderTemplate(templateLocation, { item: item });
-
-  //   this.deleteItemDialog = new Dialog({
-  //     title: `Delete ${item.name}?`,
-  //     Id: `delete-item-dialog`,
-  //     content: deleteItemDialogContent,
-  //     buttons: {
-  //       "Cancel": {
-  //         label: "Cancel",
-  //         callback : async (html) => {}
-  //       },
-  //       "Delete" : {
-  //         label: `Delete`,
-  //         callback : async (html) => {
-  //           return await OnActionUtil.onItemDelete(html, { actor: actor, itemId: itemId });
-  //         }
-  //       }
-  //     }
-  //   }).render(true);
-  // }
   
   static async takeDamage(event, options) {
     const { actor } = options;

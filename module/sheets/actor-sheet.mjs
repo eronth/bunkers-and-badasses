@@ -714,7 +714,10 @@ export class BNBActorSheet extends ActorSheet {
 
     html.find('.item-create').click((event) => OnActionUtil.onItemCreate(event, this.actor));
     html.find('.item-edit').click((event) => OnActionUtil.onItemEdit(event, this.actor));
-    html.find('.item-delete').click((event) => OnActionUtil.onItemDelete(event, this.actor, this.inRender.bind(this, false)));
+    html.find('.item-delete').click((event) => ConfirmActionPrompt.deleteItem(event, {
+      actor: this.actor,
+      inRender: this.inRender.bind(this, false),
+    }));
     
     // Handle Old Archetype Rewards.
     html.find('.old-archetype-reward-upgrade').click((event) => OnActionUtil.onOldArchetypeRewardUpgrade(event, this.actor));

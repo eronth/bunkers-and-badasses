@@ -1352,3 +1352,17 @@ input[type="time"]:focus {
   border: 0;
   height: 12px;
 }
+
+
+.bnb .delete-warning .warning-header {
+  color: darkgoldenrod;
+  font-size: x-large;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 6px;
+}
+
+.bnb .delete-warning .warning-details {
+  margin: 4px;
+  margin-bottom: 10px;
+}
