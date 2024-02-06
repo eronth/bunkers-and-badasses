@@ -1,0 +1,51 @@
+.damage-confirmation .damage-crithits {
+  text-align: center;
+  font-size: smaller;
+  padding-bottom: 2px;
+}
+
+.damage-confirmation .damage-crithits .container {
+  margin-top: 5px;
+  position: relative;
+  text-align: center;
+  color: white;
+  --borderVal: 0;
+  --background: transparent;
+}
+
+.damage-confirmation .damage-crithits .container:hover {
+  --borderVal: 1px;
+  --background: rgb(0,0,0,0.5);
+}
+
+.damage-confirmation .damage-crithits .container img {
+  border: 0;
+}
+
+.damage-confirmation .damage-crithits .container .hits-number,
+.damage-confirmation .damage-crithits .container .crits-number {
+  font-size: x-large;
+  position: absolute;
+  top: 47%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.damage-confirmation .damage-crithits .container input.hits-number,
+.damage-confirmation .damage-crithits .container input.crits-number {
+  border: var(--borderVal) solid white;
+  background: var(--background);
+  max-width: 25px;
+  color: white;
+}
+
+.damage-confirmation label {
+  margin-top: 4px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.element-list-container {
+  margin-top: 2px;
+  margin-bottom: 6px;
+}

@@ -30,6 +30,7 @@ data-actor-id="{{actorId}}" data-item-id="{{itemId}}" >
   </div>  
   {{#if success}}
   <div class="success-text">{{#if isNat20}}Crit {{/if}}Hit!</div>
+  {{#if bonusCritsText}}<div class="hit-bonus">{{bonusCritsText}}</div>{{/if}}
   {{/if}}
   {{#if failure}}
   <div class="failure-text">Miss!</div>
@@ -55,7 +56,7 @@ data-actor-id="{{actorId}}" data-item-id="{{itemId}}" >
   {{#if anoint}}
   <div class='anoint-text'>{{anoint}}</div>
   {{/if}}
-  <div class="hit-bonus">{{bonusCritsText}}</div>
+  
   <div class="chat-damage-buttons">
     <button data-action="damage"
     data-actor-id="{{actorId}}" data-item-id="{{itemId}}" 

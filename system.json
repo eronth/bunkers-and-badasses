@@ -32,7 +32,8 @@
     "css/health.css",
     "css/header/health.css",
     "css/header/xp-bar.css",
-    "css/archetype-level.css"
+    "css/archetype-level.css",
+    "css/damage-prompt.css"
   ],
   "packs": [{
     "label": "Unique Guns", "name": "unique-guns",
