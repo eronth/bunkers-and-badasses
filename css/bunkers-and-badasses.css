@@ -1169,6 +1169,9 @@ input[type="time"]:focus {
   padding-bottom: 2px;
 }
 
+.chat-roll-result .dice-rolls {
+  padding-bottom: 5px;
+}
 
 .success-text,
 .failure-text {

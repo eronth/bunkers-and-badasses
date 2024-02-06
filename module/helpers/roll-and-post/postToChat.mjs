@@ -327,13 +327,14 @@ export class PostToChat {
 
     const initialParts = rollResult.dice.map(d => d.getTooltipData());
     const parts = await this._partsSuperGrouper(initialParts);
+    const displayFormula = await this._amazingDamageFormulaDisplay(rollResult._formula);
     //parts[0].flavor = "uhh";
 
     const templateLocation = 'systems/bunkers-and-badasses/templates/chat/damage-results.html';
     const chatHtmlContent = await renderTemplate(templateLocation, {
       actorId: actor.id,
       itemId: item?.id ?? '',
-      overallRollFormula: rollResult._formula,
+      overallRollFormula: displayFormula,
       parts: parts,
       total: rollResult.total,
     });
@@ -385,6 +386,20 @@ export class PostToChat {
     });
 
     return gp;
+  }
+
+  static async _amazingDamageFormulaDisplay(formula) {
+    const formulaSegments = formula.split('] + ');
+    const displayFormula = formulaSegments.map(segment => {
+      segment += ']';
+      const formulaPart = segment.substring(0, segment.indexOf('['));
+      const damageType = segment.substring(segment.indexOf('[')+1, segment.indexOf(']'));
+      const damageTypeIcon = genericUtil.createElementIcon({id: 'dmg', elementType: damageType, cssClass: 'element-damage-formula-icon'});
+      const returnText = `<span class='${damageType}-text'>${formulaPart}${damageTypeIcon}</span>`;
+        
+      return returnText;
+    }).join(' + ');
+    return displayFormula;
   }
 
   static async itemInfo(options) {

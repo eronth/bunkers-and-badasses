@@ -60,6 +60,8 @@
   height: 13px;
   padding-left: 2px;
 }
+.element-damage-result-icon,
+.element-damage-formula-icon,
 .system-bunkers-and-badasses #chat-log .description .element-damage-icon,
 .bnb .items-list .item-dropdown-group .item-dropdown-body .dropdown-elements-container .element-damage-icon,
 .bnb .item-list-component .item-details .element-damage-icon,
@@ -70,6 +72,19 @@
 }
 .bnb .attacks-container .minor-details .damage .element-damage-icon {
   height: 12px;
+}
+.element-damage-result-icon {
+  border: 0;
+  height: 15px;
+  /* width: 15px; */
+  max-width: 16px;
+  margin-left: -1px;
+  margin-bottom: -2px;
+}
+.element-damage-formula-icon {
+  margin-bottom: -2px;
+  padding-left: 2px;
+  height: 13px;
 }
 /* Explosive */
 .system-bunkers-and-badasses #chat-log .description .element-explosive,
@@ -84,6 +99,9 @@
   height: 12px;
   margin-bottom: -2px;
   margin-left: -1px;
+}
+.element-damage-result-icon.element-explosive {
+  margin-left: -2px;
 }
 /* Crysplosive */
 .system-bunkers-and-badasses #chat-log .description .element-crysplosive,
@@ -107,7 +125,15 @@
   margin-bottom: -2px;
   margin-left: -1px;
 }
-/* Corroshock */
+.element-damage-result-icon.element-crysplosive {
+  margin-bottom: -2px;
+  margin-left: -2px;
+}
+/* Incendiary */
+.element-damage-result-icon.element-incendiary {
+  margin-bottom: -1px;
+}
+/* Corrosive */
 .system-bunkers-and-badasses #chat-log .description .element-corrosive,
 .bnb .items-list .item-dropdown-group .item-dropdown-body .dropdown-elements-container .element-corrosive,
 .bnb .item-list-component .item-details .element-damage-icon.element-corrosive {
@@ -190,6 +216,7 @@
   margin-bottom: -2px;
   margin-left: -2px;
 }
+
 
 .element-damage-nowrap-label {
   white-space: nowrap;  

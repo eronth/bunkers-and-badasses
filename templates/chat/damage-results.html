@@ -6,7 +6,7 @@
       <br />
     </div>
     <div class="dice-result">
-      <div class="dice-formula">{{overallRollFormula}}</div>
+      <div class="dice-formula">{{{overallRollFormula}}}</div>
       <div class="dice-tooltip">
         {{#each parts as |part|}}
         <section class="tooltip-part">
@@ -14,7 +14,11 @@
             <header class="part-header flexrow">
               <span class="part-formula">{{part.formula}}</span>
               <span class="part-flavor">{{part.flavor}}</span>
-              <span class="part-total">{{part.total}}</span>
+              <span class="part-total {{part.flavor}}-text">
+                {{part.total}}
+                <img class="element-damage-result-icon element-{{part.flavor}}" alt="{{capitalize part.flavor}}"
+                  src="systems/bunkers-and-badasses/assets/elements/{{capitalize part.flavor}}.png" />
+              </span>
             </header>
             <ol class="dice-rolls">
               {{#each rolls as |roll|}}
