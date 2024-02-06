@@ -259,11 +259,11 @@ export class BNBActor extends Actor {
       dataset: dataset
     };
 
-    if (attackType === 'melee') {
+    if (attackType.toLowerCase() === 'melee') {
       return ConfirmActionPrompt.dealMeleeDamage(event, damageOptions);
-    } else if (attackType === 'shooting') {
+    } else if (attackType.toLowerCase() === 'shooting') {
       return ConfirmActionPrompt.dealShootingDamage(event, damageOptions);
-    } else if (attackType === 'grenade') {
+    } else if (attackType.toLowerCase() === 'grenade') {
       return ConfirmActionPrompt.dealGrenadeDamage(event, damageOptions);
     }
 

@@ -211,7 +211,7 @@ export class PostToChat {
       
       redText: item.system.redText,
       attackLabel: item.system.type.name,
-      attackType: 'Shooting',
+      attackType: 'shooting',
 
       hits: hitsAndCrits.hits,
       crits: hitsAndCrits.crits,
@@ -331,14 +331,17 @@ export class PostToChat {
     const templateLocation = 'systems/bunkers-and-badasses/templates/chat/damage-results.html';
     const chatHtmlContent = await renderTemplate(templateLocation, {
       actorId: actor.id,
-      itemId: item.id,
+      itemId: item?.id ?? '',
       overallRollFormula: rollResult._formula,
       parts: parts,
       total: rollResult.total,
     });
 
     // Prep chat values.
-    const flavorText = `${actor.name} deals damage with ${item.name}.`;
+    const damageWith = (item
+      ? item.name
+      : 'a strike');
+    const flavorText = `${actor.name} deals damage with ${damageWith}.`;
     const messageData = {
       user: game.user.id,
       speaker: ChatMessage.getSpeaker({ actor: actor }),

@@ -1,6 +1,10 @@
 <div class="bnb">
   <div class="damage-confirmation flexcol">
+
     <div>Confirm damage for {{item.name}} attack...</div>
+    {{#if doubleDamage}}
+    <div>Damage will be doubled after rolled.</div>
+    {{/if}}
     {{#if isShootingAttack}}
     hits: {{hits}} crits: {{crits}}
     <input id="{{attackType}}-hits-input" class="hits flex-size-1" 
@@ -8,9 +12,11 @@
     <input id="{{attackType}}-crits-input" class="crits flex-size-1" 
       type="number" type="Int" value="{{crits}}" placeholder="" />
     {{/if}}
-    <div class="flexrow element-list-container damage-per-attack-container">
-      {{#if isShootingAttack}}
-      <label>Bonus Damage Per Hit</label>
+
+
+    {{#if isShootingAttack}}
+    <label>Damage Per Hit</label>
+    <div class="flexrow element-list-container damage-per-hit-container">
       {{#each perHitElements as |element elementType|}}
       <div class="flexrow">
         <img for="{{../attackType}}-{{elementType}}-element-damage-per-hit-input"
@@ -23,11 +29,16 @@
         </label>
         <input id="{{../attackType}}-{{elementType}}-element-damage-per-hit-input"
           class="per-hit flex-size-1" type="text" type="String" 
-          value="{{#if element.enabled}}{{element.damage}}{{/if}}" placeholder="" />
+          value="{{#if element.enabled}}{{element.damage}}{{/if}}" placeholder="" 
+          data-damage-type="{{elementType}}" />
       </div> 
       {{/each}}
+    </div>
+    {{/if}}
 
-      <label>Damage Per Crit</label>
+    {{#if isShootingAttack}}
+    <label>Damage Per Crit</label>
+    <div class="flexrow element-list-container damage-per-crit-container">
       {{#each perCritElements as |element elementType|}}
       <div class="flexrow">
         <img for="{{../attackType}}-{{elementType}}-element-damage-per-crit-input"
@@ -40,16 +51,19 @@
         </label>
         <input id="{{../attackType}}-{{elementType}}-element-damage-per-crit-input"
           class="per-crit flex-size-1" type="text" type="String" 
-          value="{{#if element.enabled}}{{element.damage}}{{/if}}" placeholder="" />
+          value="{{#if element.enabled}}{{element.damage}}{{/if}}" placeholder="" 
+          data-damage-type="{{elementType}}" />
       </div> 
       {{/each}}
-      {{/if}}
+    </div>
+    {{/if}}
 
-      {{#if isShootingAttack}}
-        <label>Bonus Damage Per Attack</label>
-      {{else}}
-        <label>Attack Damage</label>
-      {{/if}}
+    {{#if isShootingAttack}}
+      <label>Bonus Damage Per Attack</label>
+    {{else}}
+      <label>Attack Damage</label>
+    {{/if}}
+    <div class="flexrow element-list-container damage-per-attack-container">
       {{#each perAttackElements as |element elementType|}}
       <div class="flexrow">
         <img for="{{../attackType}}-{{elementType}}-element-damage-per-attack-input"
@@ -67,5 +81,6 @@
       </div> 
       {{/each}}
     </div>
+
   </div>
 </div>

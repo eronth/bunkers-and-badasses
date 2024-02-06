@@ -337,14 +337,20 @@ export class PerformRollAction {
       item: item,
       rollResult: rollResult,
     });
-
-    const hi = "hi";
   }
 
   static async _pullDamageValuesFromHtml(html, attackType) {
     // Pull data from html.
-    const hits = (html.find("input.hits")?.value ?? 0);
-    const crits = (html.find("input.crits")?.value ?? 0);
+    const loh = html.find("input.hits");
+    const hits = loh.length > 0 
+      ? parseInt(loh[0].value) 
+      : 0;
+    //(html.find("input.hits")?.value ?? 0);
+    const loc = html.find("input.crits");
+    const crits = loc.length > 0 
+      ? parseInt(loc[0].value) 
+      : 0;
+    //(html.find("input.crits")?.value ?? 0);
 
     const perHitElements = {};
     html.find("input.per-hit").each((index, element) => {
@@ -378,8 +384,10 @@ export class PerformRollAction {
 
   static async _mergeDamageValuesIntoSummary(summary, damageCount, damageList) {
     Object.entries(damageList).forEach(([damageType, damageValue]) => {
-      summary[damageType] = summary[damageType] || [];
-      summary[damageType].push(...new Array(damageCount).fill(damageValue));
+      if (damageCount > 0) {
+        summary[damageType] = summary[damageType] || [];
+        summary[damageType].push(...new Array(damageCount).fill(damageValue));
+      }
     });
 
     return {...summary};

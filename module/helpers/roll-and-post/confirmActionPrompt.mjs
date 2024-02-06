@@ -1,6 +1,7 @@
 import { PerformRollAction } from "./performRollAction.mjs";
 import { OnActionUtil } from "../onActionUtil.mjs";
 import { genericUtil } from "../genericUtil.mjs";
+import { DefaultData } from "../defaultData.mjs";
 
 export class ConfirmActionPrompt {
   
@@ -301,18 +302,100 @@ export class ConfirmActionPrompt {
   }
 
   static async dealShootingDamage(event, options) {
+    const { actor, item, dataset } = options;
+    
+    const { hits, crits } = dataset;
+    const attackType = dataset.attackType;
+    const perHitElements = {
+      ...DefaultData.damageTypeEntries({ includeSpecialTypes: false }),
+      ...item.system.elements
+    };
+    const perCritElements = {
+      ...DefaultData.damageTypeEntries({ includeSpecialTypes: false }),
+      kinetic: { enabled: true, damage: '1d12' }
+    };
+    const perAttackElements = {
+      ...DefaultData.damageTypeEntries({ includeSpecialTypes: false }),
+      ...item.system.bonusElements
+    };
 
+    const templateLocation = 'systems/bunkers-and-badasses/templates/dialog/damage-confirmation.html';
+    const dialogHtmlContent = await renderTemplate(templateLocation, {
+      perHitElements: perHitElements,
+      perCritElements: perCritElements,
+      hits: hits, crits: crits,
+      perAttackElements: perAttackElements,
+      attackType: attackType,
+      isShootingAttack: attackType.toLowerCase() === 'shooting',
+    });
+
+    this.damage = new Dialog({
+      title: `Roll ${item.name} Damage`,
+      Id: 'shooting-attack-prompt',
+      content: dialogHtmlContent,
+      buttons: {
+        'Cancel': {
+          label: 'Cancel',
+          callback: async (html) => {}
+        },
+        'Damage': {
+          label: 'Roll Damage',
+          callback: async (html) => {
+            return await PerformRollAction.dealDamage(html, { actor: actor, item: item, attackType: attackType });
+          }
+        }
+      }
+    }).render(true);
   }
   
   static async dealMeleeDamage(event, options) {
-     
+    const { actor, item, dataset } = options;
+    
+    const attackType = dataset.attackType;
+    const doubleDamage = dataset.doubleDamage;
+    const plusOneDice = dataset.plusOneDice;
+    const perAttackElements = {
+      ...DefaultData.damageTypeEntries({ includeSpecialTypes: false }),
+      kinetic: { enabled: true, damage: actor.system.class.meleeDice },
+    }
+
+    const templateLocation = 'systems/bunkers-and-badasses/templates/dialog/damage-confirmation.html';
+    const dialogHtmlContent = await renderTemplate(templateLocation, {
+      perHitElements: {},
+      perCritElements: {},
+      hits: 0, crits: 0,
+      perAttackElements: perAttackElements,
+      attackType: attackType,
+      doubleDamage: doubleDamage,
+    });
+
+    this.damage = new Dialog({
+      title:'Roll Melee Damage',
+      Id: 'melee-attack-prompt',
+      content: dialogHtmlContent,
+      buttons: {
+        'Cancel': {
+          label: 'Cancel',
+          callback: async (html) => {}
+        },
+        'Damage': {
+          label: 'Roll Damage',
+          callback: async (html) => {
+            return await PerformRollAction.dealDamage(html, { actor: actor, item: item, attackType: attackType });
+          }
+        }
+      }
+    }).render(true);
   }
 
   static async dealGrenadeDamage(event, options) {
     const { actor, item, dataset } = options;
     
     const attackType = dataset.attackType;
-    const perAttackElements = item.system.elements;
+    const perAttackElements = {
+      ...DefaultData.damageTypeEntries({ includeSpecialTypes: false }),
+      ...item.system.elements
+    };
 
     const templateLocation = 'systems/bunkers-and-badasses/templates/dialog/damage-confirmation.html';
     const dialogHtmlContent = await renderTemplate(templateLocation, {
@@ -332,7 +415,7 @@ export class ConfirmActionPrompt {
           label: 'Cancel',
           callback: async (html) => {}
         },
-        'Attack': {
+        'Damage': {
           label: 'Roll Damage',
           callback: async (html) => {
             return await PerformRollAction.dealDamage(html, { actor: actor, item: item, attackType: attackType });
@@ -340,7 +423,6 @@ export class ConfirmActionPrompt {
         }
       }
     }).render(true);
-
   }
 
 }
