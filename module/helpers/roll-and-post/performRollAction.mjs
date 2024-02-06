@@ -318,14 +318,21 @@ export class PerformRollAction {
     const { hits, crits, perHit, perCrit, perAttack } 
       = await this._pullDamageValuesFromHtml(html, attackType);
 
+    const doubleDamageCheckbox = html.find("#double-damage");
+    const isDoubled = (doubleDamageCheckbox.length > 0 && doubleDamageCheckbox[0].checked);
+
     const summary = {};
     await this._mergeDamageValuesIntoSummary(summary, hits, perHit);
     await this._mergeDamageValuesIntoSummary(summary, crits, perCrit);
     await this._mergeDamageValuesIntoSummary(summary, 1, perAttack);
 
+    const rollForumlaOptions = {
+      summary: summary,
+      isDoubled: isDoubled
+    };
 
     // Create the roll.
-    const rollFormula = await this._createRollFormulaFromSummary(summary);
+    const rollFormula = await this._createRollFormulaFromSummary(rollForumlaOptions);
     const roll = new Roll(
       rollFormula,
       RollBuilder._createDiceRollData({ actor: actor }, { })
@@ -393,10 +400,12 @@ export class PerformRollAction {
     return {...summary};
   }
 
-  static async _createRollFormulaFromSummary(summary) {
+  static async _createRollFormulaFromSummary(rollFormulaOptions) {
+    const { summary, isDoubled } = rollFormulaOptions;
     const rollFormula = Object.entries(summary).map(([damageType, damageValues]) => {
       let sumString = `${damageValues.join(' + ')}`;
       if (damageValues.length > 1) { sumString = `(${sumString})`;}
+      if (isDoubled) { sumString = `2*(${sumString})`; }
       sumString += `[${damageType}]`;
       return sumString;
     }).join(' + ');

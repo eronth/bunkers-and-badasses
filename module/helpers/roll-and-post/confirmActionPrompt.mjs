@@ -367,6 +367,7 @@ export class ConfirmActionPrompt {
       perAttackElements: perAttackElements,
       attackType: attackType,
       doubleDamage: doubleDamage,
+      isMeleeAttack: true,
     });
 
     this.damage = new Dialog({

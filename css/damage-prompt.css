@@ -49,3 +49,21 @@
   margin-top: 2px;
   margin-bottom: 6px;
 }
+
+.bnb .damage-confirmation {
+  text-align: center;
+}
+
+.bnb .damage-confirmation input#double-damage {
+  margin: 0;
+  padding: 0;
+  width: 13px;
+}
+
+.bnb .damage-confirmation input#double-damage {
+  vertical-align: middle;
+}
+.bnb .damage-confirmation span.double-damage-text {
+  vertical-align: middle;
+  margin-left: 5px;
+}

@@ -2,8 +2,16 @@
   <div class="damage-confirmation flexcol">
 
     <label>Confirm damage for {{item.name}} attack...</label>
-    {{#if doubleDamage}}
-    <div>Damage will be doubled after rolled.</div>
+    {{#if isMeleeAttack}}
+    <div class="damage-confirmation">
+      <span class="double-damage-text">Double damage?
+      </span>
+      {{#if doubleDamage}}
+      <input type="checkbox" id="double-damage" name="double-damage" checked />
+      {{else}}
+      <input type="checkbox" id="double-damage" name="double-damage" />
+      {{/if}}
+    </div>
     {{/if}}
 
 
