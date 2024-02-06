@@ -325,7 +325,8 @@ export class PostToChat {
   static async damageResult(options) {
     const { actor, item, rollResult } = options;
 
-    const parts = rollResult.dice.map(d => d.getTooltipData());
+    const initialParts = rollResult.dice.map(d => d.getTooltipData());
+    const parts = await this._partsSuperGrouper(initialParts);
     //parts[0].flavor = "uhh";
 
     const templateLocation = 'systems/bunkers-and-badasses/templates/chat/damage-results.html';
@@ -356,6 +357,34 @@ export class PostToChat {
     
     // Send the roll to chat!
     return await rollResult.toMessage(messageData);
+  }
+
+  static async _partsSuperGrouper(parts) {
+    const gp = {};
+    parts.forEach(part => {
+      if (gp[part.flavor] == null) { 
+        gp[part.flavor] = {
+          flavor: part.flavor,
+          formula: '',
+          formulaChunks: [],
+          rolls: [],
+          total: 0,
+        };
+      }
+      gp[part.flavor].formulaChunks.push(part.formula);
+      gp[part.flavor].rolls.push(...part.rolls);
+      gp[part.flavor].total += part.total;
+    });
+
+    Object.entries(gp).forEach(entry => {
+      const [index, part] = entry;
+      part.formula = part.formulaChunks.join(' + ');
+      if (part.formulaChunks.length > 1) {
+        part.formula = `(${part.formula})`;
+      }
+    });
+
+    return gp;
   }
 
   static async itemInfo(options) {
