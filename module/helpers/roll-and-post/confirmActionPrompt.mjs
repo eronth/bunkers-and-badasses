@@ -300,4 +300,47 @@ export class ConfirmActionPrompt {
     return isFavoredDamageType;
   }
 
+  static async dealShootingDamage(event, options) {
+
+  }
+  
+  static async dealMeleeDamage(event, options) {
+     
+  }
+
+  static async dealGrenadeDamage(event, options) {
+    const { actor, item, dataset } = options;
+    
+    const attackType = dataset.attackType;
+    const perAttackElements = item.system.elements;
+
+    const templateLocation = 'systems/bunkers-and-badasses/templates/dialog/damage-confirmation.html';
+    const dialogHtmlContent = await renderTemplate(templateLocation, {
+      perHitElements: {},
+      perCritElements: {},
+      hits: 0, crits: 0,
+      perAttackElements: perAttackElements,
+      attackType: attackType,
+    });
+
+    this.damage = new Dialog({
+      title:'Roll Grenade Damage',
+      Id: 'grenade-attack-prompt',
+      content: dialogHtmlContent,
+      buttons: {
+        'Cancel': {
+          label: 'Cancel',
+          callback: async (html) => {}
+        },
+        'Attack': {
+          label: 'Roll Damage',
+          callback: async (html) => {
+            return await PerformRollAction.dealDamage(html, { actor: actor, item: item, attackType: attackType });
+          }
+        }
+      }
+    }).render(true);
+
+  }
+
 }

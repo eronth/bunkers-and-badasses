@@ -322,6 +322,39 @@ export class PostToChat {
     return ret;
   }
 
+  static async damageResult(options) {
+    const { actor, item, rollResult } = options;
+
+    const parts = rollResult.dice.map(d => d.getTooltipData());
+    //parts[0].flavor = "uhh";
+
+    const templateLocation = 'systems/bunkers-and-badasses/templates/chat/damage-results.html';
+    const chatHtmlContent = await renderTemplate(templateLocation, {
+      actorId: actor.id,
+      itemId: item.id,
+      overallRollFormula: rollResult._formula,
+      parts: parts,
+      total: rollResult.total,
+    });
+
+    // Prep chat values.
+    const flavorText = `${actor.name} deals damage with ${item.name}.`;
+    const messageData = {
+      user: game.user.id,
+      speaker: ChatMessage.getSpeaker({ actor: actor }),
+      flavor: flavorText,
+      type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+      roll: rollResult,
+      rollMode: CONFIG.Dice.rollModes.publicroll,
+      content: chatHtmlContent,
+      // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
+      speaker: ChatMessage.getSpeaker(),
+    }
+    
+    // Send the roll to chat!
+    return await rollResult.toMessage(messageData);
+  }
+
   static async itemInfo(options) {
     const actor = options.actor;
     const item = options.item;

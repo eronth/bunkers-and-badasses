@@ -311,4 +311,89 @@ export class PerformRollAction {
       rollResult: rollResult,
     });
   }
+
+  static async dealDamage(html, options) {
+    const { actor, item, attackType } = options;
+    
+    const { hits, crits, perHit, perCrit, perAttack } 
+      = await this._pullDamageValuesFromHtml(html, attackType);
+
+    const summary = {};
+    await this._mergeDamageValuesIntoSummary(summary, hits, perHit);
+    await this._mergeDamageValuesIntoSummary(summary, crits, perCrit);
+    await this._mergeDamageValuesIntoSummary(summary, 1, perAttack);
+
+
+    // Create the roll.
+    const rollFormula = await this._createRollFormulaFromSummary(summary);
+    const roll = new Roll(
+      rollFormula,
+      RollBuilder._createDiceRollData({ actor: actor }, { })
+    );
+    const rollResult = await roll.roll({async: true});
+
+    return await PostToChat.damageResult({
+      actor: actor,
+      item: item,
+      rollResult: rollResult,
+    });
+
+    const hi = "hi";
+  }
+
+  static async _pullDamageValuesFromHtml(html, attackType) {
+    // Pull data from html.
+    const hits = (html.find("input.hits")?.value ?? 0);
+    const crits = (html.find("input.crits")?.value ?? 0);
+
+    const perHitElements = {};
+    html.find("input.per-hit").each((index, element) => {
+      if (element.value) {
+        perHitElements[element.dataset.damageType] = element.value;
+      }
+    });
+
+    const perCritElements = {};
+    html.find("input.per-crit").each((index, element) => {
+      if (element.value) {
+        perCritElements[element.dataset.damageType] = element.value;
+      }
+    });
+
+    const perAttackElements = {};
+    html.find("input.per-attack").each((index, element) => {
+      if (element.value) {
+        perAttackElements[element.dataset.damageType] = element.value;
+      }
+    });
+
+    return {
+      hits: hits,
+      crits: crits,
+      perHit: perHitElements,
+      perCrit: perCritElements,
+      perAttack: perAttackElements,
+    };
+  }
+
+  static async _mergeDamageValuesIntoSummary(summary, damageCount, damageList) {
+    Object.entries(damageList).forEach(([damageType, damageValue]) => {
+      summary[damageType] = summary[damageType] || [];
+      summary[damageType].push(...new Array(damageCount).fill(damageValue));
+    });
+
+    return {...summary};
+  }
+
+  static async _createRollFormulaFromSummary(summary) {
+    const rollFormula = Object.entries(summary).map(([damageType, damageValues]) => {
+      let sumString = `${damageValues.join(' + ')}`;
+      if (damageValues.length > 1) { sumString = `(${sumString})`;}
+      sumString += `[${damageType}]`;
+      return sumString;
+    }).join(' + ');
+
+    return rollFormula;
+  }
+
 }
