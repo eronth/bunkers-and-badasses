@@ -45,9 +45,10 @@ export class BNBActor extends Actor {
         flags: {...initTokenFlags},
       }
     };
-
     // Update actor's token.
     this.prototypeToken.updateSource(initTokenData.token);
+
+    this.preCreateActionSkilItem();
   }
 
   preCreateBarbrawlHealthBars(data, gameFlags) {
@@ -55,6 +56,19 @@ export class BNBActor extends Actor {
     return {
       'resourceBars': {...initTokenBars} 
     };
+  }
+
+  /// Creates the default action skill item for the actor.
+  preCreateActionSkilItem() {
+    // Prepare item data.
+    const newActionSkillItemData = {
+      name: 'Action Skill',
+      type: 'Action Skill',
+      img: 'icons/svg/clockwork.svg',
+      //system: {...itemSystemData}
+    };
+    const item = new CONFIG.Item.documentClass(newActionSkillItemData);
+    this.updateSource({ items: [item.toObject()] });
   }
 
   /** @override */
