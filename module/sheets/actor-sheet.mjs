@@ -591,7 +591,7 @@ export class BNBActorSheet extends ActorSheet {
       
       // Prepare item data.
       const nameToUse = ((!actorActionSkill?.name || actorActionSkill?.name === 'Action Skill')
-        ? 'New Action Skill'
+        ? 'Action Skill'
         : actorActionSkill?.name);
       const itemSystemData = {
         class: '', 
