@@ -5,6 +5,8 @@ import { genericUtil } from "../helpers/genericUtil.mjs";
 import { OnActionUtil } from "../helpers/onActionUtil.mjs";
 import { PostToChat } from "../helpers/roll-and-post/postToChat.mjs";
 import { ConfirmActionPrompt } from "../helpers/roll-and-post/confirmActionPrompt.mjs";
+import { PerformRollAction } from "../helpers/roll-and-post/performRollAction.mjs";
+import { DefaultData } from "../helpers/defaultData.mjs";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -652,48 +654,7 @@ export class BNBActorSheet extends ActorSheet {
   }
 
   defaultArchetypeLevelBonusTotals() {
-    return {
-      skillPoints: 0,
-      feats: [],
-      bonuses: [],
-      hps: { 
-        flesh: { max: 0 },
-        armor: { max: 0 },
-        shield: { max: 0 },
-        eridian: { max: 0 },
-        bone: { max: 0 },
-      },
-      regens: {
-        flesh: { num: 0, texts: [], },
-        armor: { num: 0, texts: [], },
-        shield: { num: 0, texts: [], },
-        bone: { num: 0, texts: [], },
-        eridian: { num: 0, texts: [], },
-      },
-      stats: {
-        acc: 0,
-        dmg: 0,
-        spd: 0,
-        mst: 0,
-      },
-      maxPotions: 0,
-      maxGrenades: 0,
-      maxFavoredGuns: 0,
-      bonusDamage: {
-        elements: {
-          kinetic: 0,
-          other: 0
-        },
-        anyAttack: 0,
-        meleeAttack: 0,
-        shootingAttack: 0,
-        grenade: 0,
-        perHit: 0,
-        perCrit: 0,
-        ifAnyCrit: 0,
-        onNat20: 0,
-      },
-    };
+    return DefaultData.archetypeLevelBonusTotals();
   }
 
   /* -------------------------------------------- */
@@ -768,9 +729,11 @@ export class BNBActorSheet extends ActorSheet {
   async _onHpGain(event) {
     return await this._attributeGainDialog(event, ['value', 'base']);
   }
+
   async _onXpGain(event) {
     return await this._attributeGainDialog(event, ['value']);
   }
+
   async _attributeGainDialog(event, statsArray) {
     // Prep data.
     const actorSystem = this.actor.system;
@@ -809,7 +772,7 @@ export class BNBActorSheet extends ActorSheet {
     if (isNaN(gainAmount)) { return; }
 
     // Update the actor.
-    const attribute = this._deepFind(actorSystem, dataset.dataPath);
+    const attribute = genericUtil.deepFind(actorSystem, dataset.dataPath);
     if (!attribute.gains) { attribute.gains = []; }
     attribute.gains.push({ value: gainAmount, reason: "Add Clicked" });
 
@@ -877,21 +840,6 @@ export class BNBActorSheet extends ActorSheet {
     this.actor.update({"system.attributes.xp.total": newXp.total});
   }
 
-  _deepFind(obj, path) {
-    let paths = path.split('.')
-      , current = obj
-      , i;
-  
-    for (i = 0; i < paths.length; ++i) {
-      if (current[paths[i]] == undefined) {
-        return undefined;
-      } else {
-        current = current[paths[i]];
-      }
-    }
-    return current;
-  }
-
   _onItemDetailsComponenetClick(event) {
     const classList = event.target.classList;
     if (classList.contains('stop-dropdown')) { return; }
@@ -935,6 +883,7 @@ export class BNBActorSheet extends ActorSheet {
       await PostToChat.itemInfo({item: item, actor: this.actor});
     }
   }
+
   /**
    * Handle clickables that send rolls to chat.
    * @param {Event} event   The originating click event
@@ -952,7 +901,7 @@ export class BNBActorSheet extends ActorSheet {
         const item = this.actor.items.get(itemId);
         if (item) return await item.roll({async: true});
       } else if (dataset.rollType == 'melee-dice-roll') {
-        return this._meleeAndHPDiceRoll(dataset);
+        return PerformRollAction.meleeAndHPDice({ actor: this.actor });
       } else if (dataset.rollType == 'check') {
         return ConfirmActionPrompt.checkRoll(event, { actor: this.actor, dataset: dataset });
       } else if (dataset.rollType == 'badass-move') {
@@ -968,9 +917,9 @@ export class BNBActorSheet extends ActorSheet {
       } else if (dataset.rollType == 'item-throw') {
         return ConfirmActionPrompt.checkRoll(event, { actor: this.actor, dataset: dataset, defaultDifficulty: 12 });
       } else if (dataset.rollType == 'npc-attack') {
-        return this._npcAttackRoll(dataset);
+        return ConfirmActionPrompt.npcAttack(event, { actor: this.actor, dataset: dataset });
       } else if (dataset.rollType == 'npc-action') {
-        return this._npcActionRoll(dataset);
+        return PostToChat.npcAction({ actor: this.actor, dataset: dataset });
       }
     }
     
@@ -986,120 +935,6 @@ export class BNBActorSheet extends ActorSheet {
       });
       return rollResult;
     }
-  }
-  
-  /* -------------------------------------------- */
-  /*  Various roll starters                       */
-  /* -------------------------------------------- */
-  async _npcAttackRoll(dataset) {
-    // Prep data to access.
-    const actorSystem = this.actor.system;
-
-    const templateLocation = 'systems/bunkers-and-badasses/templates/dialog/npc-attack-confirmation.html';
-    const dialogHtmlContent = await renderTemplate(templateLocation, { });
-
-    this.attack = new Dialog({
-      title: "Attack",
-      Id: "npc-attack-prompt",
-      content: dialogHtmlContent,
-      buttons: {
-        "Cancel" : {
-          label : "Cancel",
-          callback : async (html) => {}
-        },
-        "Roll" : {
-          label : "Roll",
-          callback : async (html) => {
-            return await this._rollNpcAttackDice(dataset, html);
-          }
-        }
-      }
-    }).render(true);
-  }
-
-  async _npcActionRoll(dataset) {
-    const actorSystem = this.actor.system;
-    const actionObject = this._deepFind(actorSystem, dataset.path.replace('system.', '')); // data.data
-
-    // Prep chat values.
-    const flavorText = `${this.actor.name} uses <i>${actionObject.name}</i>.`;
-    const messageData = {
-      user: game.user.id,
-      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-      flavor: flavorText,
-      content: actionObject.description,
-      type: CONST.CHAT_MESSAGE_TYPES.IC,
-      // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
-      speaker: ChatMessage.getSpeaker(),
-    }
-
-    // Send the roll to chat!
-    return ChatMessage.create(messageData);
-  }
-
-  async _meleeAndHPDiceRoll(dataset) {
-    const actorSystem = this.actor.system;
-
-    const rollFormula = `${actorSystem.class.meleeDice}[Melee Dice] + @mstmod[MST mod]`;
-    const roll = new Roll(
-      rollFormula,
-      RollBuilder._createDiceRollData({actor: this.actor})
-    );
-    const rollResult = await roll.roll({async: true});
-
-    const flavorText = `${this.actor.name} rolls their Melee Dice.`;
-    return rollResult.toMessage({
-      user: game.user.id,
-      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-      flavor: flavorText,
-      type: CONST.CHAT_MESSAGE_TYPES.ROLL,
-      roll: rollResult,
-      rollMode: CONFIG.Dice.rollModes.publicroll,
-      // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
-      speaker: ChatMessage.getSpeaker(),
-    });
-  }
-
-  async _badassRoll(dataset) {
-    // Prep data to access.
-    const actorSystem = this.actor.system;
-
-    const roll = new Roll(
-      `1d20 + @badassrank[Badass Rank]`,
-      RollBuilder._createDiceRollData({actor: this.actor})
-    );
-    const rollResult = await roll.roll({async: true});
-
-    let badassTotal = rollResult.total;
-    if (badassTotal == 2 || badassTotal == 3) {
-      badassTotal = 1;
-    } else if (badassTotal == 19 || badassTotal == 18) {
-      badassTotal = 20;
-    }
-    badassTotal += actorSystem.attributes.badass.rank;
-
-    const templateLocation = 'systems/bunkers-and-badasses/templates/chat/badass-result.html';
-    const chatHtmlContent = await renderTemplate(templateLocation, {
-      actorId: this.actor.id,
-      badassTotal: badassTotal
-    });
-
-    // Prep chat values.
-    const flavorText = `${this.actor.name} attempts a <i class="fas fa-skull"></i> <b>Badass Move</b>.`;
-    const messageData = {
-      user: game.user.id,
-      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-      flavor: flavorText,
-      type: CONST.CHAT_MESSAGE_TYPES.ROLL,
-      roll: rollResult,
-      rollMode: CONFIG.Dice.rollModes.publicroll,
-      content: chatHtmlContent,
-      // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
-      speaker: ChatMessage.getSpeaker(),
-    }
-
-    // Send the roll to chat!
-    return rollResult.toMessage(messageData);
   }
   
   async _healthRegainRoll(dataset) {
@@ -1143,86 +978,4 @@ export class BNBActorSheet extends ActorSheet {
     // Send the roll to chat!
     return rollResult.toMessage(messageData);
   }
-
-  /* -------------------------------------------- */
-  /*  Roll the dice                               */
-  /* -------------------------------------------- */
-  async _rollNpcAttackDice(dataset, html) {
-    // Prep data to access.
-    const actorSystem = this.actor.system;
-
-    // Pull data from html.
-    const bonusValue = parseInt(html.find("#bonus")[0].value);
-    const targetSpeedValue = parseInt(html.find("#target-speed")[0].value);
-
-    // Prepare and roll the check.
-    const rollBonusMod = (!bonusValue || isNaN(bonusValue)) ? '' : ` + @extraBonus[bonus]`;
-    const rollTargetSpd = (!targetSpeedValue || isNaN(targetSpeedValue)) ? '' : ` - @targetSpd[target spd mod]`;
-    const rollFormula = `1d20${rollBonusMod}${rollTargetSpd}`;
-    const roll = new Roll(rollFormula, {
-      extraBonus: bonusValue,
-      targetSpd: targetSpeedValue
-    });
-    const rollResult = await roll.roll({async: true});
-
-    // Display the result.
-    return await this._displayNpcAttackRollResultToChat(dataset, { rollResult: rollResult });
-  }
-
-  /* -------------------------------------------- */
-  /*  Chat Displays                               */
-  /* -------------------------------------------- */
-  async _displayNpcAttackRollResultToChat(dataset, rollObjs) {
-    // Pull values from objs.
-    const rollResult = rollObjs.rollResult;
-
-    const isFail = rollResult.total <= 1;
-    const isCrit = rollResult.total >= 20;
-    let bonusDamage = 0;
-    if (!isFail && !isCrit) {
-      if (rollResult.total >= 8) {
-        bonusDamage += 2;
-      }
-      if (rollResult.total >= 16) {
-        bonusDamage += 2;
-      }
-    }
-
-    const bonusResult = isCrit ?
-     "Double damage" 
-     : (bonusDamage > 0 ? `Deal +${bonusDamage} damage` : '');
-
-    const templateLocation = 'systems/bunkers-and-badasses/templates/chat/npc-attack-roll.html';
-    const chatHtmlContent = await renderTemplate(templateLocation, {
-      actorId: this.actor.id,
-      diceRoll: `Rolled ${rollResult.formula}.`,
-      result: rollResult.result,
-      total: rollResult.total,
-      success: !isFail,
-      failure: isFail,
-      isCrit: isCrit,
-      bonusResult: bonusResult
-    });
-
-    // Prep chat values.
-    const flavorText = `${this.actor.name} makes an attack.`;
-    const messageData = {
-      user: game.user.id,
-      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-      flavor: flavorText,
-      type: CONST.CHAT_MESSAGE_TYPES.ROLL,
-      roll: rollResult,
-      rollMode: CONFIG.Dice.rollModes.publicroll,
-      content: chatHtmlContent,
-      // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
-      speaker: ChatMessage.getSpeaker(),
-    }
-
-    // Send the roll to chat!
-    return rollResult.toMessage(messageData);
-  }
-
-  // isNullOrEmpty(value) {
-  //   return value == null || value == '';
-  // }
 }

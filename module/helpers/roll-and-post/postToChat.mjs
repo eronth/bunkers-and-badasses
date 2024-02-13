@@ -653,4 +653,93 @@ export class PostToChat {
       content: chatHtmlContent
     }
   }
+
+  static async npcAttack(options) {
+    const { actor, item, rollResult } = options;
+
+    const isFail = rollResult.total <= 1;
+    const isCrit = rollResult.total >= 20;
+    let bonusDamage = 0;
+    if (!isFail && !isCrit) {
+      if (rollResult.total >= 8) {
+        bonusDamage += 2;
+      }
+      if (rollResult.total >= 16) {
+        bonusDamage += 2;
+      }
+    }
+
+    const bonusResult = isCrit
+      ? "Double damage" 
+      : (bonusDamage > 0 ? `Deal +${bonusDamage} damage` : '');
+
+    const parts = rollResult.dice.map(d => d.getTooltipData());
+    parts[0].flavor = "wheeeeeeeee!";
+    
+    const templateLocation = 'systems/bunkers-and-badasses/templates/chat/npc-attack-roll.html';
+    const chatHtmlContent = await renderTemplate(templateLocation, {
+      actorId: actor.id,
+      diceRoll: `Rolled ${rollResult.formula}.`,
+      result: rollResult.result,
+      parts: parts,
+      total: rollResult.total,
+      success: !isFail,
+      failure: isFail,
+      isCrit: isCrit,
+      bonusResult: bonusResult
+    });
+
+    // Prep chat values.
+    const flavorText = `${actor.name} makes an attack.`;
+    const messageData = {
+      user: game.user.id,
+      speaker: ChatMessage.getSpeaker({ actor: actor }),
+      flavor: flavorText,
+      type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+      roll: rollResult,
+      rollMode: CONFIG.Dice.rollModes.publicroll,
+      content: chatHtmlContent,
+      // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
+      speaker: ChatMessage.getSpeaker(),
+    }
+
+    // Send the roll to chat!
+    return rollResult.toMessage(messageData);
+  }
+
+  static async npcAction(options) {
+    const { actor, dataset } = options;
+    const actionObject = genericUtil.deepFind(actor, dataset.path);
+
+     // Prep chat values.
+     const flavorText = `${actor.name} uses <i>${actionObject.name}</i>.`;
+     const messageData = {
+       user: game.user.id,
+       speaker: ChatMessage.getSpeaker({ actor: actor }),
+       flavor: flavorText,
+       content: actionObject.description,
+       type: CONST.CHAT_MESSAGE_TYPES.IC,
+       // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
+       speaker: ChatMessage.getSpeaker(),
+     }
+ 
+     // Send the roll to chat!
+     return ChatMessage.create(messageData);
+  }
+
+  static async meleeAndHPDice(options) {
+    const { actor, rollResult } = options;
+
+    const flavorText = `${actor.name} rolls their Melee Dice.`;
+    return rollResult.toMessage({
+      user: game.user.id,
+      speaker: ChatMessage.getSpeaker({ actor: actor }),
+      flavor: flavorText,
+      type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+      roll: rollResult,
+      rollMode: CONFIG.Dice.rollModes.publicroll,
+      // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
+      speaker: ChatMessage.getSpeaker(),
+    });
+  }
 }

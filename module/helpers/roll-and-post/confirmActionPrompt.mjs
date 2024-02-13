@@ -432,4 +432,29 @@ export class ConfirmActionPrompt {
     }).render(true);
   }
 
+  static async npcAttack(event, options) {
+    const { actor } = options;
+
+    const templateLocation = 'systems/bunkers-and-badasses/templates/dialog/npc-attack-confirmation.html';
+    const dialogHtmlContent = await renderTemplate(templateLocation, { });
+
+    this.attack = new Dialog({
+      title: "Attack",
+      Id: "npc-attack-prompt",
+      content: dialogHtmlContent,
+      buttons: {
+        "Cancel" : {
+          label : "Cancel",
+          callback : async (html) => {}
+        },
+        "Roll" : {
+          label : "Attack!",
+          callback : async (html) => {
+            return await PerformRollAction.npcAttack(html, { actor: actor });
+          }
+        }
+      }
+    }).render(true);
+  }
+
 }

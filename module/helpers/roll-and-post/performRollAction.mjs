@@ -413,4 +413,37 @@ export class PerformRollAction {
     return rollFormula;
   }
 
+  static async npcAttack(html, options) {
+    const { actor } = options;
+
+    // Pull data from html.
+    const bonusValue = parseInt(html.find("#bonus")[0].value);
+    const targetSpeedValue = parseInt(html.find("#target-speed")[0].value);
+
+    // Prepare and roll the check.
+    const rollBonusMod = (!bonusValue || isNaN(bonusValue)) ? '' : ` + @extraBonus[bonus]`;
+    const rollTargetSpd = (!targetSpeedValue || isNaN(targetSpeedValue)) ? '' : ` - @targetSpd[target spd mod]`;
+    const rollFormula = `1d20${rollBonusMod}${rollTargetSpd}`;
+    const roll = new Roll(rollFormula, {
+      extraBonus: bonusValue,
+      targetSpd: targetSpeedValue
+    });
+    const rollResult = await roll.roll({async: true});
+
+    // Display the result.
+    return await PostToChat.npcAttack({ actor: actor, rollResult: rollResult });
+  }
+
+  static async meleeAndHPDice(options) {
+    const actor = options.actor;
+
+    const rollFormula = `${actor.system.class.meleeDice}[Melee Dice] + @mstmod[MST mod]`;
+    const roll = new Roll(
+      rollFormula,
+      RollBuilder._createDiceRollData({actor: actor})
+    );
+    const rollResult = await roll.roll({async: true});
+
+    PostToChat.meleeAndHPDice({actor: actor, rollResult: rollResult});
+  }
 }
