@@ -38,9 +38,24 @@ data-actor-id="{{actorId}}" data-item-id="{{itemId}}" >
   {{#if failure}}
   <div class="failure-text">Failure!</div>
   {{/if}}
-  {{#if redText}}
-  <div class="red-text">{{redText}}</div>
+
+  {{#if redTextDetails}}
+    {{#if redTextDetails.redText}}
+    <div class="red-text">{{redTextDetails.redText}}</div>
+    {{/if}}
+    {{#if redTextDetails.redTextEffect}}
+    <div class="red-text-effect">{{{redTextDetails.redTextEffect}}}</div>
+    {{/if}}
+    {{#if redTextDetails.redTextEffectBM}}
+    <hr class="gm-secret" />
+    <div class="red-text-bm-effect gm-secret">
+      <b>Hidden Red Text Effects:</b>
+      <br />
+      {{{redTextDetails.redTextEffectBM}}}
+    </div>
+    {{/if}}
   {{/if}}
+
   {{#if anoint}}
   <div class='anoint-text'>{{anoint}}</div>
   {{/if}}

@@ -202,14 +202,13 @@ export class PostToChat {
     // Generate message for chat.
     const templateLocation = 'systems/bunkers-and-badasses/templates/chat/gun-attack-roll.html';
     const chatHtmlContent = await renderTemplate(templateLocation, {
-      actorId: actor.id,
-      itemId: item.id,
+      actor: actor,
+      item: item,
 
       overallRollFormula: rollResult.formula,
       parts: parts,
       total: rollResult.total,
       
-      redText: item.system.redText,
       attackLabel: item.system.type.name,
       attackType: 'shooting',
 
@@ -217,12 +216,9 @@ export class PostToChat {
       crits: hitsAndCrits.crits,
       
       bonusCritsText: (isNatCrit ? "+1 Crit (already added)" : ""),
-      itemEffect: item.system.effect,
-      
       isNat20: isNatCrit,
       success: !isFail,   
-      failure: isFail,
-      
+      failure: isFail, 
     });
 
     // Prep chat values.
@@ -299,7 +295,12 @@ export class PostToChat {
       showDamageButton: true,
       success: (difficultyValue != null) && rollResult.total >= difficultyValue,
       failure: (difficultyValue != null) && rollResult.total < difficultyValue,
-      itemEffect: item.system.effect
+      itemEffect: item.system.effect,
+      redTextDetails: {
+        redText: item.system.redText,
+        redTextEffect: item.system.redTextEffect,
+        redTextEffectBM: item.system.redTextEffectBM,
+      },
     });
 
     // Prep chat values.

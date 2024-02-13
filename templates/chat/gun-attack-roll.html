@@ -1,5 +1,5 @@
 <div class="chat-roll-result"
-data-actor-id="{{actorId}}" data-item-id="{{itemId}}" >
+data-actor-id="{{actor.id}}" data-item-id="{{item.id}}" >
   <div class="dice-roll">
     <div class="flexcol badass-results-container">
       <label class="result-header">{{attackLabel}} Attack</label>
@@ -47,11 +47,22 @@ data-actor-id="{{actorId}}" data-item-id="{{itemId}}" >
       <div class="crits-number">{{crits}}</div>
     </div>
   </div>
-  {{#if itemEffect}}
-  <div class="item-effect"><b>Effect:</b> {{itemEffect}}</div>
+  {{#if item.system.effect}}
+  <div class="item-effect"><b>Effect:</b> {{item.system.effect}}</div>
   {{/if}}
-  {{#if redText}}
-  <div class="red-text">{{redText}}</div>
+  {{#if item.system.redText}}
+  <div class="red-text">{{item.system.redText}}</div>
+  {{/if}}
+  {{#if item.system.redTextEffect}}
+  <div class="red-text-effect">{{{item.system.redTextEffect}}}</div>
+  {{/if}}
+  {{#if item.system.redTextEffectBM}}
+  <hr class="gm-secret" />
+  <div class="red-text-bm-effect gm-secret">
+    <b>Hidden Red Text Effects:</b>
+    <br />
+    {{{item.system.redTextEffectBM}}}
+  </div>
   {{/if}}
   {{#if anoint}}
   <div class='anoint-text'>{{anoint}}</div>
@@ -59,7 +70,7 @@ data-actor-id="{{actorId}}" data-item-id="{{itemId}}" >
   
   <div class="chat-damage-buttons">
     <button data-action="damage"
-    data-actor-id="{{actorId}}" data-item-id="{{itemId}}" 
+    data-actor-id="{{actor.id}}" data-item-id="{{item.id}}" 
     data-attack-type="{{attackType}}"
     data-hits={{hits}} data-crits={{crits}}
     data-is-nat-20="{{isNat20}}"
