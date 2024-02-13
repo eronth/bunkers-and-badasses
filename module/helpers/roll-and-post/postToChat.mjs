@@ -674,12 +674,12 @@ export class PostToChat {
       : (bonusDamage > 0 ? `Deal +${bonusDamage} damage` : '');
 
     const parts = rollResult.dice.map(d => d.getTooltipData());
-    parts[0].flavor = "wheeeeeeeee!";
+    parts[0].flavor = "Attaaaaack!";
     
     const templateLocation = 'systems/bunkers-and-badasses/templates/chat/npc-attack-roll.html';
     const chatHtmlContent = await renderTemplate(templateLocation, {
       actorId: actor.id,
-      diceRoll: `Rolled ${rollResult.formula}.`,
+      overallRollFormula: rollResult.formula,
       result: rollResult.result,
       parts: parts,
       total: rollResult.total,
@@ -690,7 +690,7 @@ export class PostToChat {
     });
 
     // Prep chat values.
-    const flavorText = `${actor.name} makes an attack.`;
+    const flavorText = `${actor.name} makes an attack with <b>${actor.system.weapon}</b>.`;
     const messageData = {
       user: game.user.id,
       speaker: ChatMessage.getSpeaker({ actor: actor }),

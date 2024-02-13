@@ -421,8 +421,8 @@ export class PerformRollAction {
     const targetSpeedValue = parseInt(html.find("#target-speed")[0].value);
 
     // Prepare and roll the check.
-    const rollBonusMod = (!bonusValue || isNaN(bonusValue)) ? '' : ` + @extraBonus[bonus]`;
-    const rollTargetSpd = (!targetSpeedValue || isNaN(targetSpeedValue)) ? '' : ` - @targetSpd[target spd mod]`;
+    const rollBonusMod = (!bonusValue || isNaN(bonusValue)) ? '' : ` + @extraBonus[Bonus]`;
+    const rollTargetSpd = (!targetSpeedValue || isNaN(targetSpeedValue)) ? '' : ` - @targetSpd[Target SPD Mod]`;
     const rollFormula = `1d20${rollBonusMod}${rollTargetSpd}`;
     const roll = new Roll(rollFormula, {
       extraBonus: bonusValue,
