@@ -25,7 +25,7 @@ export class ConfirmActionPrompt {
           callback: async (html) => { }
         },
         "Delete" : {
-          label: `Delete`,
+          label: `<i class="fas fa-trash"></i> Delete`,
           callback : async (html) => {
             return OnActionUtil.onItemDelete(html, { actor: actor, item: item, li: liList[0], inRender: options.inRender });
           }
