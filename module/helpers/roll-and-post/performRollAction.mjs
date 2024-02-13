@@ -404,7 +404,7 @@ export class PerformRollAction {
     const { summary, isDoubled } = rollFormulaOptions;
     const rollFormula = Object.entries(summary).map(([damageType, damageValues]) => {
       let sumString = `${damageValues.join(' + ')}`;
-      if (damageValues.length > 1) { sumString = `(${sumString})`;}
+      if (damageValues.length > 1) { sumString = `(${sumString})`; }
       if (isDoubled) { sumString = `2*(${sumString})`; }
       sumString += `[${damageType}]`;
       return sumString;
