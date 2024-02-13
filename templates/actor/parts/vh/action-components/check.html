@@ -36,10 +36,18 @@
   
   {{^if hideStat}}
   <div class="flexcol cc2">
-    <input class="" value="{{check.value}}"
-      type="number" data-dtype="Number"
-      disabled />
-    <Label class="check-num-label">{{check.stat}}&nbsp;{{#if isBadass}}stat{{else}}mod{{/if}}</Label>
+    {{#if isBadass}}
+    <input title="Badass!" class="badass" value="{{check.value}}" type="number" data-dtype="Number" disabled />
+    {{else}}
+    <input class="" value="{{check.value}}" type="number" data-dtype="Number" disabled />
+    {{/if}}
+    <Label class="check-num-label">
+      {{#if isBadass}}
+        {{check.stat}}&nbsp;<span title="Badass!" class="badass">stat</span>
+      {{else}}
+        {{check.stat}}&nbsp;mod
+      {{/if}}
+    </Label>
   </div>
   
   <Label class="check-text-operation">+</Label>

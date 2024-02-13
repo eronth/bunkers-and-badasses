@@ -11,7 +11,7 @@
           <input id="mod" class="" value="{{attack.value}}"
           type="number" data-dtype="Number"
           disabled />
-          <label for="mod">{{attack.stat}} {{#if isBadass}}stat{{else}}mod{{/if}}</label>
+          <label for="mod">{{attack.stat}} {{#if isBadass}}<span title="Badass!" class="badass">stat</span>{{else}}mod{{/if}}</label>
         </div>
         <label class="math-sign">+</label>
         {{/if}}
@@ -50,11 +50,17 @@
 
   {{#if showFavored}}
   <div class="flexrow attack-dialog-favored">
-    <label for="favored-checkbox">Favored Weapon or Element?</label>
-    <input id="favored-checkbox" 
-    value="{{favored}}" 
-    type="checkbox" data-dtype="Boolean" {{#if favored}}checked{{/if}} />
-    (+{{attack.value}} {{attack.stat}} {{#if isBadass}}stat{{else}}mod{{/if}})
+    <label for="favored-checkbox" class="flex-size-4">Favored Weapon or Element?</label>
+    <input id="favored-checkbox"
+      value="{{favored}}"
+      type="checkbox" data-dtype="Boolean" {{#if favored}}checked{{/if}} />
+    <span class="flex-size-2">
+      {{#if isBadass}}
+      (+<span title="Badass!" class="badass">{{attack.value}}</span> {{attack.stat}} <span title="Badass!" class="badass">stat</span>)
+      {{else}}
+      (+{{attack.value}} {{attack.stat}} mod)
+      {{/if}}
+    </span>
   </div>
   {{/if}}
   

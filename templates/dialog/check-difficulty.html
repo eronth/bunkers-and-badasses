@@ -8,10 +8,12 @@
       <div class="flexrow check-dialog-body">
         {{^if showFavored}}
         <div class="flexcol">
-          <input id="mod" class="" value="{{check.value}}"
-          type="number" data-dtype="Number"
-          disabled />
-          <label for="mod">{{check.stat}} {{#if isBadass}}stat{{else}}mod{{/if}}</label>
+          {{#if isBadass}}
+          <input id="mod" title="Badass!" class="badass" value="{{check.value}}" type="number" data-dtype="Number" disabled />
+          {{else}}
+          <input id="mod" class="" value="{{check.value}}" type="number" data-dtype="Number" disabled />
+          {{/if}}
+          <label for="mod">{{check.stat}} {{#if isBadass}}<span title="Badass!" class="badass">stat</span>{{else}}mod{{/if}}</label>
         </div>
         <label class="math-sign">+</label>
         {{/if}}
