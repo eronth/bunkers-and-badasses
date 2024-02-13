@@ -352,11 +352,17 @@ export class ConfirmActionPrompt {
     const { actor, item, dataset } = options;
     
     const attackType = dataset.attackType;
-    const doubleDamage = dataset.doubleDamage;
-    const plusOneDice = dataset.plusOneDice;
+    const doubleDamage = dataset.doubleDamage == 'true';
+    const plusOneDice = dataset.plusOneDice == 'true';
+    const meleeDice = actor.system.class.meleeDice;
     const perAttackElements = {
       ...DefaultData.damageTypeEntries({ includeSpecialTypes: false }),
-      kinetic: { enabled: true, damage: actor.system.class.meleeDice },
+      kinetic: { 
+        enabled: true,
+        damage: plusOneDice 
+          ? `(${meleeDice} + ${meleeDice})`
+          : meleeDice
+      },
     }
 
     const templateLocation = 'systems/bunkers-and-badasses/templates/dialog/damage-confirmation.html';
