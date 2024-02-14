@@ -14,7 +14,7 @@ export class DefaultData {
     return retVal;
   }
 
-  static archetypeLevelBonusTotals() {
+  static archetypeLevelBonusTotals() {  
     return {
       skillPoints: 0,
       feats: [],
@@ -58,4 +58,60 @@ export class DefaultData {
       },
     };
   }
+
+  static barBrawlResourceBars() {
+    const barDefaults = this._barBrawlBarCommonSettings();
+    return {
+      barBone: {
+        ...barDefaults,
+        id: 'barBone',
+        order: 0,
+        maxcolor: '#bbbbbb',
+        mincolor: '#333333',
+        attribute: 'attributes.hps.bone',
+      },
+      bar1: {
+        ...barDefaults,
+        id: 'bar1',
+        order: 1,
+        maxcolor: '#d23232',
+        mincolor: '#a20b0b',
+        attribute: 'attributes.hps.flesh',
+      },
+      barArmor: {
+        ...barDefaults,
+        id: 'barArmor',
+        order: 2,
+        maxcolor: '#ffdd00',
+        mincolor: '#e1cc47',
+        attribute: 'attributes.hps.armor',
+      },
+      bar2: {
+        ...barDefaults,
+        id: 'bar2',
+        order: 3,
+        maxcolor: '#24e7eb',
+        mincolor: '#79d1d2',
+        attribute: 'attributes.hps.shield',
+      },
+      barEridian: {
+        ...barDefaults,
+        id: 'barEridian',
+        order: 4,
+        maxcolor: '#ff00ff',
+        mincolor: '#bb00bb',
+        attribute: 'attributes.hps.eridian',
+      }
+    };
+  }
+
+  static _barBrawlBarCommonSettings() {
+    return {
+      style: 'user',
+      position: 'top-outer',
+      otherVisibility: CONST.TOKEN_DISPLAY_MODES.HOVER,
+      ownerVisibility: CONST.TOKEN_DISPLAY_MODES.ALWAYS
+    };
+  }
+
 }

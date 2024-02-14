@@ -192,99 +192,104 @@ function getAddedDistance({ line, leftoverDiagonal, gridConversion }) {
   }
 }
 
-Hooks.on("preCreateToken", function (document, data) {
-  const actor = document?.actor;
-  const actorSystem = actor?.system;
-  const protoToken = actor?.prototypeToken;
-  
-  // Get the Hps values from the actor
-  const actorHps = actorSystem.attributes.hps;
-  const tokenBars = protoToken?.flags?.barbrawl?.resourceBars;
-  const hasTokenLoadedBefore = actorSystem?.attributes?.hasTokenLoadedBefore ?? false;
-
-  // Get the settings values.
-  const previousHpsSettings = actorSystem?.attributes?.previousHpsSettings ?? { 
-    Flesh: true,
-    Shield: true,
-    Armor: ((actor.type == 'npc') ? true : false),
-    Eridian: false,
-    Bone: false
-  };
-  const currentHpsSettings = {
-    Armor: (actor.type == 'npc'
-      ? true
-      : game.settings.get('bunkers-and-badasses', 'usePlayerArmor')),
-    Bone: (actor.type == 'npc' 
-      ? game.settings.get('bunkers-and-badasses', 'useNpcBone')
-      : game.settings.get('bunkers-and-badasses', 'usePlayerBone')),
-    Eridian: (actor.type == 'npc'
-      ? game.settings.get('bunkers-and-badasses', 'useNpcEridian')
-      : game.settings.get('bunkers-and-badasses', 'usePlayerEridian')),
-    Flesh: true,
-    Shield: true
-  }
-  
-  // Currently delete doesn't clean these up. Oh well.
-  // if (!hasTokenLoadedBefore) {
-  //   delete tokenBars.bar1;
-  //   delete tokenBars.bar2;
-  //   const removeKey = 'flags.barbrawl.resourceBars.-=';
-  //   actor.update({ [removeKey+'bar1']: null });
-  //   actor.update({ [removeKey+'bar2']: null });
-  //   actor.token.update({ [removeKey+'bar1']: null });
-  //   actor.token.update({ [removeKey+'bar2']: null });
-  // }
-  
-
-  for (const [settingName, settingValue] of Object.entries(currentHpsSettings)) {
-    const barId = `bar${settingName}`;
-    
-    // Only toggle on if the setting is different.
-    if ((settingValue !== previousHpsSettings[settingName]) || !hasTokenLoadedBefore) {
-
-      if (settingValue && (!previousHpsSettings[settingName] || !hasTokenLoadedBefore)) {
-
-        // turn the hp on only if it is not already on.
-        if (tokenBars[barId] == null) {
-          // if (actorHps[settingName.toLocaleLowerCase()].value > 0 
-          // || actorHps[settingName.toLocaleLowerCase()].max > 0) {
-            tokenBars[barId] = {...getBarbrawlBar(barId)};
-            const addBarKey = 'flags.barbrawl.resourceBars.'+barId;
-            document.updateSource({ [addBarKey]: tokenBars[barId] });
-            actor.updateSource({ [addBarKey]: tokenBars[barId] });
-            actor.prototypeToken.updateSource({ [addBarKey]: tokenBars[barId] });
-          //}
-        }
-      } else if (!settingValue && (previousHpsSettings[settingName] || !hasTokenLoadedBefore)) {
-        // turn the hp off
-        delete tokenBars[barId];
-        const removeKey = 'flags.barbrawl.resourceBars.-='+barId;
-        document.updateSource({ [removeKey]: null });
-        actor.updateSource({ [removeKey]: null });
-        actor.prototypeToken.updateSource({ [removeKey]: null });
-      }
-
-    }
-  }
-
-  // Always save settings changes.
-  const settingsKey = 'system.attributes.previousHpsSettings';
-  actor.update({[settingsKey]: currentHpsSettings});
-
-  // Mark if the token has been loaded before, so we can track first ever load or not.
-  if (!hasTokenLoadedBefore) {
-    const tokenLoadKey = 'system.attributes.hasTokenLoadedBefore';
-    actor.update({[tokenLoadKey]: true});
-  }
-
+Hooks.on('preCreateToken', (document, data) => {
+  const resourceBars = BarbrawlBuilder.buildResourceBars();
+  document.updateSource({ 'flags.barbrawl.resourceBars': resourceBars });
 });
 
-function getBarbrawlBar(barId) {
-  return tokenBarbrawlBars[barId];
-}
-const tokenBarbrawlBars = {
-  ...(BarbrawlBuilder._buildBarbrawlBars( {useAllHealth: true} ))
-};
+// Hooks.on("preCreateToken", function (document, data) {
+//   const actor = document?.actor;
+//   const actorSystem = actor?.system;
+//   const protoToken = actor?.prototypeToken;
+  
+//   // Get the Hps values from the actor
+//   const actorHps = actorSystem.attributes.hps;
+//   const tokenBars = protoToken?.flags?.barbrawl?.resourceBars;
+//   const hasTokenLoadedBefore = actorSystem?.attributes?.hasTokenLoadedBefore ?? false;
+
+//   // Get the settings values.
+//   const previousHpsSettings = actorSystem?.attributes?.previousHpsSettings ?? { 
+//     Flesh: true,
+//     Shield: true,
+//     Armor: ((actor.type == 'npc') ? true : false),
+//     Eridian: false,
+//     Bone: false
+//   };
+//   const currentHpsSettings = {
+//     Armor: (actor.type == 'npc'
+//       ? true
+//       : game.settings.get('bunkers-and-badasses', 'usePlayerArmor')),
+//     Bone: (actor.type == 'npc' 
+//       ? game.settings.get('bunkers-and-badasses', 'useNpcBone')
+//       : game.settings.get('bunkers-and-badasses', 'usePlayerBone')),
+//     Eridian: (actor.type == 'npc'
+//       ? game.settings.get('bunkers-and-badasses', 'useNpcEridian')
+//       : game.settings.get('bunkers-and-badasses', 'usePlayerEridian')),
+//     Flesh: true,
+//     Shield: true
+//   }
+  
+//   // Currently delete doesn't clean these up. Oh well.
+//   // if (!hasTokenLoadedBefore) {
+//   //   delete tokenBars.bar1;
+//   //   delete tokenBars.bar2;
+//   //   const removeKey = 'flags.barbrawl.resourceBars.-=';
+//   //   actor.update({ [removeKey+'bar1']: null });
+//   //   actor.update({ [removeKey+'bar2']: null });
+//   //   actor.token.update({ [removeKey+'bar1']: null });
+//   //   actor.token.update({ [removeKey+'bar2']: null });
+//   // }
+  
+
+//   for (const [settingName, settingValue] of Object.entries(currentHpsSettings)) {
+//     const barId = `bar${settingName}`;
+    
+//     // Only toggle on if the setting is different.
+//     if ((settingValue !== previousHpsSettings[settingName]) || !hasTokenLoadedBefore) {
+
+//       if (settingValue && (!previousHpsSettings[settingName] || !hasTokenLoadedBefore)) {
+
+//         // turn the hp on only if it is not already on.
+//         if (tokenBars[barId] == null) {
+//           // if (actorHps[settingName.toLocaleLowerCase()].value > 0 
+//           // || actorHps[settingName.toLocaleLowerCase()].max > 0) {
+//             tokenBars[barId] = {...getBarbrawlBar(barId)};
+//             const addBarKey = 'flags.barbrawl.resourceBars.'+barId;
+//             document.updateSource({ [addBarKey]: tokenBars[barId] });
+//             actor.updateSource({ [addBarKey]: tokenBars[barId] });
+//             actor.prototypeToken.updateSource({ [addBarKey]: tokenBars[barId] });
+//           //}
+//         }
+//       } else if (!settingValue && (previousHpsSettings[settingName] || !hasTokenLoadedBefore)) {
+//         // turn the hp off
+//         delete tokenBars[barId];
+//         const removeKey = 'flags.barbrawl.resourceBars.-='+barId;
+//         document.updateSource({ [removeKey]: null });
+//         actor.updateSource({ [removeKey]: null });
+//         actor.prototypeToken.updateSource({ [removeKey]: null });
+//       }
+
+//     }
+//   }
+
+//   // Always save settings changes.
+//   const settingsKey = 'system.attributes.previousHpsSettings';
+//   actor.update({[settingsKey]: currentHpsSettings});
+
+//   // Mark if the token has been loaded before, so we can track first ever load or not.
+//   if (!hasTokenLoadedBefore) {
+//     const tokenLoadKey = 'system.attributes.hasTokenLoadedBefore';
+//     actor.update({[tokenLoadKey]: true});
+//   }
+
+// });
+
+// function getBarbrawlBar(barId) {
+//   return tokenBarbrawlBars[barId];
+// }
+// const tokenBarbrawlBars = {
+//   ...(BarbrawlBuilder._buildBarbrawlBars( {useAllHealth: true} ))
+// };
 
 Hooks.once("dragRuler.ready", (SpeedProvider) => {
   class BnBSpeedProvider extends SpeedProvider {
