@@ -1,5 +1,5 @@
 <div class="bnb">
-  <div class="damage-confirmation flexcol">
+  <div class="damage-confirmation flexcol" data-is-nat-20="{{isNat20}}">
 
     <label>Confirm damage for {{item.name}} attack...</label>
     {{#if isMeleeAttack}}
@@ -103,5 +103,6 @@
       {{/each}}
     </div>
 
+    <div class="bonus-notification">Bonuses from levels and effects will be automatically added.</div>
   </div>
 </div>
