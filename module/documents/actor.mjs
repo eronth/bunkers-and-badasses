@@ -2,7 +2,7 @@ import { RollBuilder } from "../helpers/roll-builder.mjs";
 import { BarbrawlBuilder } from "../helpers/barbrawl-builder.mjs";
 import { ConfirmActionPrompt } from "../helpers/roll-and-post/confirmActionPrompt.mjs";
 import { DefaultData } from "../helpers/defaultData.mjs";
-import { HpManagement } from "../helpers/hp-management.mjs";
+import { MixedDiceAndNumber } from "../helpers/MixedDiceAndNumber.mjs";
 
 /**
  * Extend the base Actor document by defining a custom roll data structure which is ideal for the Simple system.
@@ -209,11 +209,11 @@ export class BNBActor extends Actor {
     ablt.hps.bone.max += Number(itemHps.bone.max);
 
     // Add the regens to the totals.
-    HpManagement.applyBonusToRegen(ablt.regens.flesh, itemHps.flesh.regen);
-    HpManagement.applyBonusToRegen(ablt.regens.armor, itemHps.armor.regen);
-    HpManagement.applyBonusToRegen(ablt.regens.armor, itemHps.shield.regen);
-    HpManagement.applyBonusToRegen(ablt.regens.eridian, itemHps.eridian.regen);
-    HpManagement.applyBonusToRegen(ablt.regens.bone, itemHps.bone.regen);
+    MixedDiceAndNumber.applyBonusToMixed({ mixed: ablt.regens.flesh, additionalBonus: itemHps.flesh.regen });
+    MixedDiceAndNumber.applyBonusToMixed({ mixed: ablt.regens.armor, additionalBonus: itemHps.armor.regen });
+    MixedDiceAndNumber.applyBonusToMixed({ mixed: ablt.regens.armor, additionalBonus: itemHps.shield.regen });
+    MixedDiceAndNumber.applyBonusToMixed({ mixed: ablt.regens.eridian, additionalBonus: itemHps.eridian.regen });
+    MixedDiceAndNumber.applyBonusToMixed({ mixed: ablt.regens.bone, additionalBonus: itemHps.bone.regen });
 
     // Add the stats to the totals.
     ablt.stats.acc += Number(itemStats.acc);
