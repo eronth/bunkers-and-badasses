@@ -138,29 +138,29 @@ export class BNBActor extends Actor {
     // Handle stat values and totals. Values are class+archetype. Totals are *everything*.
     Object.entries(actor.system.stats).forEach(entry => {
       const [key, statData] = entry;
-      statData.effects = actorSystem.bonus.stats[key] ?? { value: 0, mod: 0 };
+      statData.effects = actor.system.bonus.stats[key] ?? { value: 0, mod: 0 };
       statData.value = archetypeStats[key] + classStats[key] + statData.misc + statData.effects.value
       + (archetypeLevelUpStats ? archetypeLevelUpStats[key] : 0);
       statData.mod = Math.floor(statData.value / 2)  + (statData.modBonus ?? 0) + statData.effects.mod;
-      statData.modToUse = actorSystem.attributes.badass.rollsEnabled ? statData.value : statData.mod;
+      statData.modToUse = actor.system.attributes.badass.rollsEnabled ? statData.value : statData.mod;
     });
 
     // Prepare data for various check rolls.
     Object.entries(actor.system.checks).forEach(entry => {
       const [check, checkData] = entry;
-      checkData.value = actorSystem.stats[checkData.stat].modToUse;
+      checkData.value = actor.system.stats[checkData.stat].modToUse;
       
       // Determine effect bonus (shooting and melee are treated slightly different.)
-      if (actorSystem.bonus.checks[check] != null) {
-        checkData.effects = actorSystem.bonus.checks[check];
-      } else if (actorSystem.bonus.combat[check] != null) {
-        checkData.effects = actorSystem.bonus.combat[check].acc;
-        checkData.effects += actorSystem.bonus.combat.attack.acc;
+      if (actor.system.bonus.checks[check] != null) {
+        checkData.effects = actor.system.bonus.checks[check];
+      } else if (actor.system.bonus.combat[check] != null) {
+        checkData.effects = actor.system.bonus.combat[check].acc;
+        checkData.effects += actor.system.bonus.combat.attack.acc;
       } else {
         checkData.effects = 0;
       }
       
-      checkData.total = (checkData.usesBadassRank ? actorSystem.attributes.badass.rank : 0) +
+      checkData.total = (checkData.usesBadassRank ? actor.system.attributes.badass.rank : 0) +
         (checkData.base ?? 0) + checkData.value + checkData.misc + checkData.effects;
     });
 
