@@ -67,3 +67,9 @@
   vertical-align: middle;
   margin-left: 5px;
 }
+
+.bnb .damage-confirmation .bonus-notification {
+  font-size: 11px;
+  font-style: italic;
+  margin: 0.5em;
+}
