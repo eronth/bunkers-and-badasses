@@ -1,6 +1,7 @@
 import { PostToChat } from "./postToChat.mjs";
 import { RollBuilder } from "../roll-builder.mjs";
 import { genericUtil } from "../genericUtil.mjs";
+import { MixedDiceAndNumber } from "../MixedDiceAndNumber.mjs";
 
 export class PerformRollAction {
 
@@ -319,7 +320,23 @@ export class PerformRollAction {
       = await this._pullDamageValuesFromHtml(html, attackType);
 
     const doubleDamageCheckbox = html.find("#double-damage");
+    const isNat20 = html.find(".damage-confirmation")[0].dataset['isNat-20'] == 'true';
     const isDoubled = (doubleDamageCheckbox.length > 0 && doubleDamageCheckbox[0].checked);
+
+    const levelBonuses = this._getBonusDamageSummaryFromLevelBonuses({
+      actor: actor, 
+      hitsAndCrits: { hits, crits, perHit, perCrit, perAttack, isNat20 },
+      attackType: attackType,
+    });
+    // const levelUpDamageBonuses = {
+    //   untyped: unTypedLevelBonuses,
+    //   kinetic: elementalBonuses.kinetic,
+    //   elemental: elementalBonuses.allElements,
+    // };
+    // return {
+    //   levelUpDamageBonuses: levelUpDamageBonuses,
+    //   numberOfDamageTypes: numberOfDamageTypes,
+    // };
 
     const summary = {};
     await this._mergeDamageValuesIntoSummary(summary, hits, perHit);
@@ -398,6 +415,80 @@ export class PerformRollAction {
     });
 
     return {...summary};
+  }
+
+  static _getBonusDamageSummaryFromLevelBonuses(options) {
+    const { actor, hitsAndCrits, attackType } = options;
+    const { hits, crits, perHit, perCrit, perAttack, isNat20 } = hitsAndCrits;
+    const bonusDamage = actor.system.archetypeLevelBonusTotals.bonusDamage;
+
+    // Calculate bonus damage from attack type.
+    const unTypedLevelBonuses = MixedDiceAndNumber.default();
+    MixedDiceAndNumber.addMixedToMixed({ mixed: unTypedLevelBonuses, additionalMixed: bonusDamage.anyAttack });
+    if (attackType === 'grenade') {
+      MixedDiceAndNumber.addMixedToMixed({ mixed: unTypedLevelBonuses, additionalMixed: bonusDamage.grenade });
+    } else if (attackType === 'meleeAttack') {
+      MixedDiceAndNumber.addMixedToMixed({ mixed: unTypedLevelBonuses, additionalMixed: bonusDamage.meleeAttack });
+    } else if (attackType === 'shootingAttack') {
+      MixedDiceAndNumber.addMixedToMixed({ mixed: unTypedLevelBonuses, additionalMixed: bonusDamage.shootingAttack });
+    }
+
+
+    // Calculate bonus damage from crits and nat 20s.
+    if (crits > 0) {
+      MixedDiceAndNumber.addMixedToMixed({ mixed: unTypedLevelBonuses, additionalMixed: bonusDamage.ifAnyCrit });
+    }
+    if (isNat20) {
+      MixedDiceAndNumber.addMixedToMixed({ mixed: unTypedLevelBonuses, additionalMixed: bonusDamage.onNat20 });
+    }
+
+
+    // Things that potentially happen multiple times in an attack.
+    for (let i = 0; i < hits; i++) {
+      MixedDiceAndNumber.addMixedToMixed({ mixed: unTypedLevelBonuses, additionalMixed: bonusDamage.perHit });
+    }
+    for (let i = 0; i < crits; i++) {
+      MixedDiceAndNumber.addMixedToMixed({ mixed: unTypedLevelBonuses, additionalMixed: bonusDamage.perCrit });
+    }
+
+
+    // Calculate bonus damage from damage types.
+    const elementalBonuses = {
+      kinetic: MixedDiceAndNumber.default(),
+      allElements: MixedDiceAndNumber.default(),
+    };
+
+    const damageTypes = this._getAttackDamageTypes({ perHit, perCrit, perAttack });
+    const numberOfDamageTypes = damageTypes.size;
+    const hasKinetic = damageTypes.has('kinetic');
+    const hasElemental = (hasKinetic && damageTypes.size > 1) || (!hasKinetic && damageTypes.size > 0);
+    if (hasElemental) {
+      MixedDiceAndNumber.addMixedToMixed({ mixed: elementalBonuses.allElements, additionalMixed: bonusDamage.elements.other });
+    } else if (damageTypes.has('kinetic')) {
+      MixedDiceAndNumber.addMixedToMixed({ mixed: elementalBonuses.kinetic, additionalMixed: bonusDamage.elements.kinetic });
+    }
+
+    // Finalize return package.
+    const levelUpDamageBonuses = {
+      untyped: unTypedLevelBonuses,
+      kinetic: elementalBonuses.kinetic,
+      elemental: elementalBonuses.allElements,
+    };
+
+
+    return {
+      levelUpDamageBonuses: levelUpDamageBonuses,
+      numberOfDamageTypes: numberOfDamageTypes,
+    };
+  }
+
+  static _getAttackDamageTypes(options) {
+    const { perHit, perCrit, perAttack } = options;
+    const damageTypes = new Set();
+    Object.keys(perHit).forEach((damageType) => damageTypes.add(damageType));
+    Object.keys(perCrit).forEach((damageType) => damageTypes.add(damageType));
+    Object.keys(perAttack).forEach((damageType) => damageTypes.add(damageType));
+    return damageTypes;
   }
 
   static async _createRollFormulaFromSummary(rollFormulaOptions) {
