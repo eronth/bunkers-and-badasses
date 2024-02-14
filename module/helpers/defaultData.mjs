@@ -1,3 +1,4 @@
+import { MixedDiceAndNumber } from "./MixedDiceAndNumber.mjs";
 import { genericUtil } from "./genericUtil.mjs";
 
 export class DefaultData {
@@ -20,13 +21,12 @@ export class DefaultData {
       feats: [],
       bonuses: [],
       hps: { 
-        flesh: { max: 0, },
-        armor: { max: 0 },
-        shield: { max: 0 },
-        eridian: { max: 0 },
-        bone: { max: 0 },
+        flesh: { max: 0, regen: MixedDiceAndNumber.default() },
+        armor: { max: 0, regen: MixedDiceAndNumber.default() },
+        shield: { max: 0, regen: MixedDiceAndNumber.default() },
+        eridian: { max: 0, regen: MixedDiceAndNumber.default() },
+        bone: { max: 0, regen: MixedDiceAndNumber.default() },
       },
-      regens: {...this.combinedRegens()},
       stats: {
         acc: 0,
         dmg: 0,
@@ -38,33 +38,19 @@ export class DefaultData {
       maxFavoredGuns: 0,
       bonusDamage: {
         elements: {
-          kinetic: 0,
-          other: 0
+          kinetic: MixedDiceAndNumber.default(),
+          other: MixedDiceAndNumber.default(),
         },
-        anyAttack: 0,
-        meleeAttack: 0,
-        shootingAttack: 0,
-        grenade: 0,
-        perHit: 0,
-        perCrit: 0,
-        ifAnyCrit: 0,
-        onNat20: 0,
+        anyAttack: MixedDiceAndNumber.default(),
+        meleeAttack: MixedDiceAndNumber.default(),
+        shootingAttack: MixedDiceAndNumber.default(),
+        grenade: MixedDiceAndNumber.default(),
+        perHit: MixedDiceAndNumber.default(),
+        perCrit: MixedDiceAndNumber.default(),
+        ifAnyCrit: MixedDiceAndNumber.default(),
+        onNat20: MixedDiceAndNumber.default(),
       },
     };
-  }
-
-  static combinedRegens() {
-    return {
-      flesh: this.mixedNumberAndDiceElement(),
-      armor: this.mixedNumberAndDiceElement(),
-      shield: this.mixedNumberAndDiceElement(),
-      bone: this.mixedNumberAndDiceElement(),
-      eridian: this.mixedNumberAndDiceElement(),
-    };
-  }
-
-  static mixedNumberAndDiceElement() {
-    return { num: 0, texts: [] };
   }
 
   static barBrawlResourceBars() {

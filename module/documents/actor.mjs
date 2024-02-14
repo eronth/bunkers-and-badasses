@@ -227,16 +227,18 @@ export class BNBActor extends Actor {
     ablt.maxFavoredGuns += Number(i.system.maxFavoredGuns);
     
     // Add the bonus damage to the totals.
-    ablt.bonusDamage.elements.kinetic += Number(itemBonusDamage.elements.kinetic);
-    ablt.bonusDamage.elements.other += Number(itemBonusDamage.elements.other);
-    ablt.bonusDamage.anyAttack += Number(itemBonusDamage.anyAttack);
-    ablt.bonusDamage.meleeAttack += Number(itemBonusDamage.meleeAttack);
-    ablt.bonusDamage.shootingAttack += Number(itemBonusDamage.shootingAttack);
-    ablt.bonusDamage.grenade += Number(itemBonusDamage.grenade);
-    ablt.bonusDamage.perHit += Number(itemBonusDamage.perHit);
-    ablt.bonusDamage.perCrit += Number(itemBonusDamage.perCrit);
-    ablt.bonusDamage.ifAnyCrit += Number(itemBonusDamage.ifAnyCrit);
-    ablt.bonusDamage.onNat20 += Number(itemBonusDamage.onNat20);
+    const bonusDamage = ablt.bonusDamage;
+    MixedDiceAndNumber.applyBonusToMixed({ mixed: bonusDamage.elements.kinetic, additionalBonus: itemBonusDamage.elements.kinetic });
+    MixedDiceAndNumber.applyBonusToMixed({ mixed: bonusDamage.elements.other, additionalBonus: itemBonusDamage.elements.other });
+    MixedDiceAndNumber.applyBonusToMixed({ mixed: bonusDamage.anyAttack, additionalBonus: itemBonusDamage.anyAttack });
+    MixedDiceAndNumber.applyBonusToMixed({ mixed: bonusDamage.meleeAttack, additionalBonus: itemBonusDamage.meleeAttack });
+    MixedDiceAndNumber.applyBonusToMixed({ mixed: bonusDamage.shootingAttack, additionalBonus: itemBonusDamage.shootingAttack });
+    MixedDiceAndNumber.applyBonusToMixed({ mixed: bonusDamage.grenade, additionalBonus: itemBonusDamage.grenade });
+    MixedDiceAndNumber.applyBonusToMixed({ mixed: bonusDamage.perHit, additionalBonus: itemBonusDamage.perHit });
+    MixedDiceAndNumber.applyBonusToMixed({ mixed: bonusDamage.perCrit, additionalBonus: itemBonusDamage.perCrit });
+    MixedDiceAndNumber.applyBonusToMixed({ mixed: bonusDamage.ifAnyCrit, additionalBonus: itemBonusDamage.ifAnyCrit });
+    MixedDiceAndNumber.applyBonusToMixed({ mixed: bonusDamage.onNat20, additionalBonus: itemBonusDamage.onNat20 });
+    
     if (i.system.bonus) { ablt.bonuses.push(i.system.bonus); }
   }
 
