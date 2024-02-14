@@ -376,13 +376,7 @@ export class BNBActorSheet extends ActorSheet {
     actorHPs.flesh.max = actorHPs.armor.max = actorHPs.shield.max = actorHPs.bone.max = actorHPs.eridian.max = 0;
     actorHPs.flesh.combinedRegen = actorHPs.armor.combinedRegen = actorHPs.shield.combinedRegen 
       = actorHPs.bone.combinedRegen = actorHPs.eridian.combinedRegen = "";
-    const combinedRegen = {
-      flesh: { num: 0, texts: [], },
-      armor: { num: 0, texts: [], },
-      shield: { num: 0, texts: [], },
-      bone: { num: 0, texts: [], },
-      eridian: { num: 0, texts: [], },
-    };
+    const combinedRegen = DefaultData.combinedRegens();
     
     // Get the HPs from the actor items (Shields and Archetype Levels.)
     Object.entries(context.items).forEach(entry => {

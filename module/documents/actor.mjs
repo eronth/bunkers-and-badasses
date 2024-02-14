@@ -1,6 +1,8 @@
 import { RollBuilder } from "../helpers/roll-builder.mjs";
 import { BarbrawlBuilder } from "../helpers/barbrawl-builder.mjs";
 import { ConfirmActionPrompt } from "../helpers/roll-and-post/confirmActionPrompt.mjs";
+import { DefaultData } from "../helpers/defaultData.mjs";
+import { HpManagement } from "../helpers/hp-management.mjs";
 
 /**
  * Extend the base Actor document by defining a custom roll data structure which is ideal for the Simple system.
@@ -92,6 +94,7 @@ export class BNBActor extends Actor {
   _prepareVaultHunterBaseData() {
     if (this.type !== 'vault hunter') return;
   }
+
   _prepareNpcBaseData() {
     if (this.type !== 'npc') return;
   }
@@ -121,11 +124,13 @@ export class BNBActor extends Actor {
    */
   _prepareVaultHunterDerivedData(actorData) {
     if (actorData.type !== 'vault hunter') return;
+    const actor = actorData;
 
     // Run a quick update to make sure data from previous versions matches current expected version..
     this._updateVaultHunterDataVersions(actorData);
 
     // Pull basic data into easy-to-access variables.
+    actor._prepareVaultHunterArchetypeLevelBonusesData();
     const actorSystem = actorData.system;
     const archetypeStats = actorSystem.archetypes.archetype1.baseStats;
     const archetypeLevelUpStats = actorSystem?.archetypeLevelBonusTotals?.stats;
@@ -159,6 +164,80 @@ export class BNBActor extends Actor {
       checkData.total = (checkData.usesBadassRank ? actorSystem.attributes.badass.rank : 0) +
         (checkData.base ?? 0) + checkData.value + checkData.misc + checkData.effects;
     });
+
+    
+  }
+  
+  _prepareVaultHunterArchetypeLevelBonusesData() {
+    // ArchetypeLevelBonuses => alb
+    //const actor = actorData;
+    const actor = this;
+    const archetypeLevelItems = [];
+
+    // Quickly grab all of the level up items.
+    actor.items.forEach(i => {
+      if (i.type === 'Archetype Level') {
+        archetypeLevelItems.push(i);
+      }
+    });
+
+    // Create the totals object and apply the bonuses from level up.
+    const albTotals = DefaultData.archetypeLevelBonusTotals();
+    archetypeLevelItems.forEach(i => {
+      this._applyArchetypeLevelToTotal({ ablt: albTotals, i: i });
+    });
+
+    // Apply the totals to the actor's system data.
+    actor.system.archetypeLevelBonusTotals = {...albTotals};
+  }
+
+  _applyArchetypeLevelToTotal(options) {
+    const { ablt, i } = options;
+    const itemHps = i.system.hps;
+    const itemStats = i.system.stats;
+    const itemBonusDamage = i.system.bonusDamage;
+
+    // Add the bonuses to the totals.
+    ablt.skillPoints += Number(i.system.skillPoints);
+    if (i.system.feat) { ablt.feats.push(i.system.feat); }
+
+    // Add the hps to the totals.
+    ablt.hps.flesh.max += Number(itemHps.flesh.max);
+    ablt.hps.armor.max += Number(itemHps.armor.max);
+    ablt.hps.shield.max += Number(itemHps.shield.max);
+    ablt.hps.eridian.max += Number(itemHps.eridian.max);
+    ablt.hps.bone.max += Number(itemHps.bone.max);
+
+    // Add the regens to the totals.
+    HpManagement.applyBonusToRegen(ablt.regens.flesh, itemHps.flesh.regen);
+    HpManagement.applyBonusToRegen(ablt.regens.armor, itemHps.armor.regen);
+    HpManagement.applyBonusToRegen(ablt.regens.armor, itemHps.shield.regen);
+    HpManagement.applyBonusToRegen(ablt.regens.eridian, itemHps.eridian.regen);
+    HpManagement.applyBonusToRegen(ablt.regens.bone, itemHps.bone.regen);
+
+    // Add the stats to the totals.
+    ablt.stats.acc += Number(itemStats.acc);
+    ablt.stats.dmg += Number(itemStats.dmg);
+    ablt.stats.spd += Number(itemStats.spd);
+    ablt.stats.mst += Number(itemStats.mst);
+
+    // Add max to some attribute items.
+    ablt.maxPotions += Number(i.system.maxPotions);
+    ablt.maxGrenades += Number(i.system.maxGrenades);
+    ablt.maxFavoredGuns += Number(i.system.maxFavoredGuns);
+    
+    // Add the bonus damage to the totals.
+    ablt.bonusDamage.elements.kinetic += Number(itemBonusDamage.elements.kinetic);
+    ablt.bonusDamage.elements.other += Number(itemBonusDamage.elements.other);
+    ablt.bonusDamage.anyAttack += Number(itemBonusDamage.anyAttack);
+    ablt.bonusDamage.meleeAttack += Number(itemBonusDamage.meleeAttack);
+    ablt.bonusDamage.shootingAttack += Number(itemBonusDamage.shootingAttack);
+    ablt.bonusDamage.grenade += Number(itemBonusDamage.grenade);
+    ablt.bonusDamage.perHit += Number(itemBonusDamage.perHit);
+    ablt.bonusDamage.perCrit += Number(itemBonusDamage.perCrit);
+    ablt.bonusDamage.ifAnyCrit += Number(itemBonusDamage.ifAnyCrit);
+    ablt.bonusDamage.onNat20 += Number(itemBonusDamage.onNat20);
+    if (i.system.bonus) { ablt.bonuses.push(i.system.bonus); }
   }
 
   async _updateVaultHunterDataVersions(actorData) {

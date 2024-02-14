@@ -20,19 +20,13 @@ export class DefaultData {
       feats: [],
       bonuses: [],
       hps: { 
-        flesh: { max: 0 },
+        flesh: { max: 0, },
         armor: { max: 0 },
         shield: { max: 0 },
         eridian: { max: 0 },
         bone: { max: 0 },
       },
-      regens: {
-        flesh: { num: 0, texts: [], },
-        armor: { num: 0, texts: [], },
-        shield: { num: 0, texts: [], },
-        bone: { num: 0, texts: [], },
-        eridian: { num: 0, texts: [], },
-      },
+      regens: {...this.combinedRegens()},
       stats: {
         acc: 0,
         dmg: 0,
@@ -57,6 +51,20 @@ export class DefaultData {
         onNat20: 0,
       },
     };
+  }
+
+  static combinedRegens() {
+    return {
+      flesh: this.mixedNumberAndDiceElement(),
+      armor: this.mixedNumberAndDiceElement(),
+      shield: this.mixedNumberAndDiceElement(),
+      bone: this.mixedNumberAndDiceElement(),
+      eridian: this.mixedNumberAndDiceElement(),
+    };
+  }
+
+  static mixedNumberAndDiceElement() {
+    return { num: 0, texts: [] };
   }
 
   static barBrawlResourceBars() {
