@@ -23,4 +23,20 @@ export class MixedDiceAndNumber {
     }
   }
 
+  static mixedToString(options) {
+    const { mixed, numberLocation } = options;
+    const num = Number(mixed.num ?? 0);
+    const texts = mixed.texts ?? [];
+
+    if (num === 0 && texts.length === 0) { return ''; }
+
+    const isSeparatorNeeded = mixed.texts.length > 0 && mixed.num > 0;
+    const separator = isSeparatorNeeded ? ' + ' : '';
+
+    return (numberLocation === 'start'
+      ? `${num}${separator}${texts.join(' + ')}`
+      : `${texts.join(' + ')}${separator}${num}`
+    );
+  }
+
 }
