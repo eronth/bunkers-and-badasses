@@ -309,40 +309,6 @@ export class BNBActorSheet extends ActorSheet {
     return {...experienceReqs};
   }
 
-  // _applyArchetypeLevelBonus(archetypeLevelBonusTotals, i) {
-  //   // Add the bonuses to the totals.
-  //   archetypeLevelBonusTotals.skillPoints += Number(i.system.skillPoints);
-  //   if (i.system.feat) { archetypeLevelBonusTotals.feats.push(i.system.feat); }
-  //   archetypeLevelBonusTotals.hps.flesh.max += Number(i.system.hps.flesh.max);
-  //   archetypeLevelBonusTotals.hps.armor.max += Number(i.system.hps.armor.max);
-  //   archetypeLevelBonusTotals.hps.shield.max += Number(i.system.hps.shield.max);
-  //   archetypeLevelBonusTotals.hps.eridian.max += Number(i.system.hps.eridian.max);
-  //   archetypeLevelBonusTotals.hps.bone.max += Number(i.system.hps.bone.max);
-  //   this._applyBonusToRegen(archetypeLevelBonusTotals.regens, 'flesh', i.system.hps.flesh.regen);
-  //   this._applyBonusToRegen(archetypeLevelBonusTotals.regens, 'armor', i.system.hps.armor.regen);
-  //   this._applyBonusToRegen(archetypeLevelBonusTotals.regens, 'shield', i.system.hps.shield.regen);
-  //   this._applyBonusToRegen(archetypeLevelBonusTotals.regens, 'eridian', i.system.hps.eridian.regen);
-  //   this._applyBonusToRegen(archetypeLevelBonusTotals.regens, 'bone', i.system.hps.bone.regen);
-  //   archetypeLevelBonusTotals.stats.acc += Number(i.system.stats.acc);
-  //   archetypeLevelBonusTotals.stats.dmg += Number(i.system.stats.dmg);
-  //   archetypeLevelBonusTotals.stats.spd += Number(i.system.stats.spd);
-  //   archetypeLevelBonusTotals.stats.mst += Number(i.system.stats.mst);
-  //   archetypeLevelBonusTotals.maxPotions += Number(i.system.maxPotions);
-  //   archetypeLevelBonusTotals.maxGrenades += Number(i.system.maxGrenades);
-  //   archetypeLevelBonusTotals.maxFavoredGuns += Number(i.system.maxFavoredGuns);
-  //   archetypeLevelBonusTotals.bonusDamage.elements.kinetic += Number(i.system.bonusDamage.elements.kinetic);
-  //   archetypeLevelBonusTotals.bonusDamage.elements.other += Number(i.system.bonusDamage.elements.other);
-  //   archetypeLevelBonusTotals.bonusDamage.anyAttack += Number(i.system.bonusDamage.anyAttack);
-  //   archetypeLevelBonusTotals.bonusDamage.meleeAttack += Number(i.system.bonusDamage.meleeAttack);
-  //   archetypeLevelBonusTotals.bonusDamage.shootingAttack += Number(i.system.bonusDamage.shootingAttack);
-  //   archetypeLevelBonusTotals.bonusDamage.grenade += Number(i.system.bonusDamage.grenade);
-  //   archetypeLevelBonusTotals.bonusDamage.perHit += Number(i.system.bonusDamage.perHit);
-  //   archetypeLevelBonusTotals.bonusDamage.perCrit += Number(i.system.bonusDamage.perCrit);
-  //   archetypeLevelBonusTotals.bonusDamage.ifAnyCrit += Number(i.system.bonusDamage.ifAnyCrit);
-  //   archetypeLevelBonusTotals.bonusDamage.onNat20 += Number(i.system.bonusDamage.onNat20);
-  //   if (i.system.bonus) { archetypeLevelBonusTotals.bonuses.push(i.system.bonus); }
-  // }
-
   _prepareArchetypeLevelBonuses(context) {
     const archetypeLevelItems = [...(context.archetype1Levels ?? []), ...(context.archetype2Levels ?? [])];
 
