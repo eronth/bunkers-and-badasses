@@ -306,6 +306,7 @@ export class ConfirmActionPrompt {
     
     const { hits, crits } = dataset;
     const attackType = dataset.attackType;
+    const isNat20 = dataset['isNat-20'] == 'true';
     const perHitElements = {
       ...DefaultData.damageTypeEntries({ includeSpecialTypes: false }),
       ...item.system.elements
@@ -327,6 +328,7 @@ export class ConfirmActionPrompt {
       perAttackElements: perAttackElements,
       attackType: attackType,
       isShootingAttack: attackType.toLowerCase() === 'shooting',
+      isNat20: isNat20,
     });
 
     this.damage = new Dialog({
@@ -352,6 +354,7 @@ export class ConfirmActionPrompt {
     const { actor, item, dataset } = options;
     
     const attackType = dataset.attackType;
+    const isNat20 = dataset['isNat-20'] == 'true';
     const doubleDamage = dataset.doubleDamage == 'true';
     const plusOneDice = dataset.plusOneDice == 'true';
     const meleeDice = actor.system.class.meleeDice;
@@ -374,6 +377,7 @@ export class ConfirmActionPrompt {
       attackType: attackType,
       doubleDamage: doubleDamage,
       isMeleeAttack: true,
+      isNat20: isNat20,
     });
 
     this.damage = new Dialog({
@@ -399,6 +403,7 @@ export class ConfirmActionPrompt {
     const { actor, item, dataset } = options;
     
     const attackType = dataset.attackType;
+    const isNat20 = dataset['isNat-20'] == 'true';
     const perAttackElements = {
       ...DefaultData.damageTypeEntries({ includeSpecialTypes: false }),
       ...item.system.elements
@@ -411,6 +416,7 @@ export class ConfirmActionPrompt {
       hits: 0, crits: 0,
       perAttackElements: perAttackElements,
       attackType: attackType,
+      isNat20: isNat20,
     });
 
     this.damage = new Dialog({
