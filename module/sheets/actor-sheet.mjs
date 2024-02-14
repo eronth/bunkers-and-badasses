@@ -7,6 +7,7 @@ import { PostToChat } from "../helpers/roll-and-post/postToChat.mjs";
 import { ConfirmActionPrompt } from "../helpers/roll-and-post/confirmActionPrompt.mjs";
 import { PerformRollAction } from "../helpers/roll-and-post/performRollAction.mjs";
 import { DefaultData } from "../helpers/defaultData.mjs";
+import { MixedDiceAndNumber } from "../helpers/MixedDiceAndNumber.mjs";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -308,48 +309,50 @@ export class BNBActorSheet extends ActorSheet {
     return {...experienceReqs};
   }
 
-  _applyArchetypeLevelBonus(archetypeLevelBonusTotals, i) {
-    // Add the bonuses to the totals.
-    archetypeLevelBonusTotals.skillPoints += Number(i.system.skillPoints);
-    if (i.system.feat) { archetypeLevelBonusTotals.feats.push(i.system.feat); }
-    archetypeLevelBonusTotals.hps.flesh.max += Number(i.system.hps.flesh.max);
-    archetypeLevelBonusTotals.hps.armor.max += Number(i.system.hps.armor.max);
-    archetypeLevelBonusTotals.hps.shield.max += Number(i.system.hps.shield.max);
-    archetypeLevelBonusTotals.hps.eridian.max += Number(i.system.hps.eridian.max);
-    archetypeLevelBonusTotals.hps.bone.max += Number(i.system.hps.bone.max);
-    this._applyBonusToRegen(archetypeLevelBonusTotals.regens, 'flesh', i.system.hps.flesh.regen);
-    this._applyBonusToRegen(archetypeLevelBonusTotals.regens, 'armor', i.system.hps.armor.regen);
-    this._applyBonusToRegen(archetypeLevelBonusTotals.regens, 'shield', i.system.hps.shield.regen);
-    this._applyBonusToRegen(archetypeLevelBonusTotals.regens, 'eridian', i.system.hps.eridian.regen);
-    this._applyBonusToRegen(archetypeLevelBonusTotals.regens, 'bone', i.system.hps.bone.regen);
-    archetypeLevelBonusTotals.stats.acc += Number(i.system.stats.acc);
-    archetypeLevelBonusTotals.stats.dmg += Number(i.system.stats.dmg);
-    archetypeLevelBonusTotals.stats.spd += Number(i.system.stats.spd);
-    archetypeLevelBonusTotals.stats.mst += Number(i.system.stats.mst);
-    archetypeLevelBonusTotals.maxPotions += Number(i.system.maxPotions);
-    archetypeLevelBonusTotals.maxGrenades += Number(i.system.maxGrenades);
-    archetypeLevelBonusTotals.maxFavoredGuns += Number(i.system.maxFavoredGuns);
-    archetypeLevelBonusTotals.bonusDamage.elements.kinetic += Number(i.system.bonusDamage.elements.kinetic);
-    archetypeLevelBonusTotals.bonusDamage.elements.other += Number(i.system.bonusDamage.elements.other);
-    archetypeLevelBonusTotals.bonusDamage.anyAttack += Number(i.system.bonusDamage.anyAttack);
-    archetypeLevelBonusTotals.bonusDamage.meleeAttack += Number(i.system.bonusDamage.meleeAttack);
-    archetypeLevelBonusTotals.bonusDamage.shootingAttack += Number(i.system.bonusDamage.shootingAttack);
-    archetypeLevelBonusTotals.bonusDamage.grenade += Number(i.system.bonusDamage.grenade);
-    archetypeLevelBonusTotals.bonusDamage.perHit += Number(i.system.bonusDamage.perHit);
-    archetypeLevelBonusTotals.bonusDamage.perCrit += Number(i.system.bonusDamage.perCrit);
-    archetypeLevelBonusTotals.bonusDamage.ifAnyCrit += Number(i.system.bonusDamage.ifAnyCrit);
-    archetypeLevelBonusTotals.bonusDamage.onNat20 += Number(i.system.bonusDamage.onNat20);
-    if (i.system.bonus) { archetypeLevelBonusTotals.bonuses.push(i.system.bonus); }
-  }
+  // _applyArchetypeLevelBonus(archetypeLevelBonusTotals, i) {
+  //   // Add the bonuses to the totals.
+  //   archetypeLevelBonusTotals.skillPoints += Number(i.system.skillPoints);
+  //   if (i.system.feat) { archetypeLevelBonusTotals.feats.push(i.system.feat); }
+  //   archetypeLevelBonusTotals.hps.flesh.max += Number(i.system.hps.flesh.max);
+  //   archetypeLevelBonusTotals.hps.armor.max += Number(i.system.hps.armor.max);
+  //   archetypeLevelBonusTotals.hps.shield.max += Number(i.system.hps.shield.max);
+  //   archetypeLevelBonusTotals.hps.eridian.max += Number(i.system.hps.eridian.max);
+  //   archetypeLevelBonusTotals.hps.bone.max += Number(i.system.hps.bone.max);
+  //   this._applyBonusToRegen(archetypeLevelBonusTotals.regens, 'flesh', i.system.hps.flesh.regen);
+  //   this._applyBonusToRegen(archetypeLevelBonusTotals.regens, 'armor', i.system.hps.armor.regen);
+  //   this._applyBonusToRegen(archetypeLevelBonusTotals.regens, 'shield', i.system.hps.shield.regen);
+  //   this._applyBonusToRegen(archetypeLevelBonusTotals.regens, 'eridian', i.system.hps.eridian.regen);
+  //   this._applyBonusToRegen(archetypeLevelBonusTotals.regens, 'bone', i.system.hps.bone.regen);
+  //   archetypeLevelBonusTotals.stats.acc += Number(i.system.stats.acc);
+  //   archetypeLevelBonusTotals.stats.dmg += Number(i.system.stats.dmg);
+  //   archetypeLevelBonusTotals.stats.spd += Number(i.system.stats.spd);
+  //   archetypeLevelBonusTotals.stats.mst += Number(i.system.stats.mst);
+  //   archetypeLevelBonusTotals.maxPotions += Number(i.system.maxPotions);
+  //   archetypeLevelBonusTotals.maxGrenades += Number(i.system.maxGrenades);
+  //   archetypeLevelBonusTotals.maxFavoredGuns += Number(i.system.maxFavoredGuns);
+  //   archetypeLevelBonusTotals.bonusDamage.elements.kinetic += Number(i.system.bonusDamage.elements.kinetic);
+  //   archetypeLevelBonusTotals.bonusDamage.elements.other += Number(i.system.bonusDamage.elements.other);
+  //   archetypeLevelBonusTotals.bonusDamage.anyAttack += Number(i.system.bonusDamage.anyAttack);
+  //   archetypeLevelBonusTotals.bonusDamage.meleeAttack += Number(i.system.bonusDamage.meleeAttack);
+  //   archetypeLevelBonusTotals.bonusDamage.shootingAttack += Number(i.system.bonusDamage.shootingAttack);
+  //   archetypeLevelBonusTotals.bonusDamage.grenade += Number(i.system.bonusDamage.grenade);
+  //   archetypeLevelBonusTotals.bonusDamage.perHit += Number(i.system.bonusDamage.perHit);
+  //   archetypeLevelBonusTotals.bonusDamage.perCrit += Number(i.system.bonusDamage.perCrit);
+  //   archetypeLevelBonusTotals.bonusDamage.ifAnyCrit += Number(i.system.bonusDamage.ifAnyCrit);
+  //   archetypeLevelBonusTotals.bonusDamage.onNat20 += Number(i.system.bonusDamage.onNat20);
+  //   if (i.system.bonus) { archetypeLevelBonusTotals.bonuses.push(i.system.bonus); }
+  // }
 
   _prepareArchetypeLevelBonuses(context) {
     const archetypeLevelItems = [...(context.archetype1Levels ?? []), ...(context.archetype2Levels ?? [])];
-    const oldActorAlbt = { ...(this.actor.system.archetypeLevelBonusTotals ?? this.defaultArchetypeLevelBonusTotals()) };
-    const archetypeLevelBonusTotals = this.defaultArchetypeLevelBonusTotals();
+    const oldActorAlbt = { ...(this.actor.system.archetypeLevelBonusTotals ?? DefaultData.archetypeLevelBonusTotals()) };
+    const archetypeLevelBonusTotals = DefaultData.archetypeLevelBonusTotals();
 
     // Add up all the bonuses from the archetype levels.
     archetypeLevelItems.forEach(i => {
-      this._applyArchetypeLevelBonus(archetypeLevelBonusTotals, i);
+      archetypeLevelBonusTotals.maxPotions += Number(i.system.maxPotions);
+      archetypeLevelBonusTotals.maxGrenades += Number(i.system.maxGrenades);
+      archetypeLevelBonusTotals.maxFavoredGuns += Number(i.system.maxFavoredGuns);
     });
 
     context.skillPoints.max += archetypeLevelBonusTotals.skillPoints;
@@ -368,36 +371,59 @@ export class BNBActorSheet extends ActorSheet {
     const oldActorHPs = JSON.parse(JSON.stringify(actorHPs));
     const effectsHPs = this.actor.system.bonus.healths;
     const doArchetypeBonusesExist = !genericUtil.isNullOrEmptyObject(this.actor.system.archetypeLevelBonusTotals);
-    const archetypeLevelBonusTotals = ((doArchetypeBonusesExist) ? this.actor.system.archetypeLevelBonusTotals : this.defaultArchetypeLevelBonusTotals());
+    const archetypeLevelBonusTotals = ((doArchetypeBonusesExist) ? this.actor.system.archetypeLevelBonusTotals : DefaultData.archetypeLevelBonusTotals());
     const archetypeHPs = archetypeLevelBonusTotals.hps;
-    const archetypeRegens = archetypeLevelBonusTotals.regens;
+    //const archetypeRegens = archetypeLevelBonusTotals.regens;
 
     // Clean slate for HPs totals.
     actorHPs.flesh.max = actorHPs.armor.max = actorHPs.shield.max = actorHPs.bone.max = actorHPs.eridian.max = 0;
     actorHPs.flesh.combinedRegen = actorHPs.armor.combinedRegen = actorHPs.shield.combinedRegen 
       = actorHPs.bone.combinedRegen = actorHPs.eridian.combinedRegen = "";
-    const combinedRegen = DefaultData.combinedRegens();
+    const combinedRegen = {
+      flesh: MixedDiceAndNumber.default(),
+      armor: MixedDiceAndNumber.default(),
+      shield: MixedDiceAndNumber.default(),
+      eridian: MixedDiceAndNumber.default(),
+      bone: MixedDiceAndNumber.default(),
+    }
     
     // Get the HPs from the actor items (Shields and Archetype Levels.)
     Object.entries(context.items).forEach(entry => {
       const [itemIndex, itemData] = entry;
       if (itemData.type === "shield" && itemData.system.equipped) {
         actorHPs[itemData.system.healthType].max += itemData.system.capacity ?? 0;
-        this._applyBonusToRegen(combinedRegen, itemData.system.healthType, itemData.system.recoveryRate);
+        MixedDiceAndNumber.applyBonusToMixed({ 
+          mixed: combinedRegen[itemData.system.healthType],
+          additionalBonus: itemData.system.recoveryRate
+        });
       }
     });
 
     // Add bonuses from Builder Tab and effects.
     Object.entries(actorHPs).forEach(entry => {
       const [hpType, hpData] = entry;
+      
+      // Sum up max HPs values.
       hpData.max += (actorHPs[hpType].base ?? 0);
       hpData.max += (effectsHPs[hpType].max ?? 0);
       hpData.max += (archetypeHPs[hpType].max ?? 0); 
       hpData.max += (actorHPs[hpType].bonus ?? 0);
-      this._applyBonusToRegen(combinedRegen, hpType, actorHPs[hpType].regen);
-      this._applyBonusToRegen(combinedRegen, hpType, archetypeRegens[hpType].num);
-      this._applyBonusToRegen(combinedRegen, hpType, archetypeRegens[hpType].texts.join(' + '));
-      this._applyBonusToRegen(combinedRegen, hpType, effectsHPs[hpType].regen);
+      
+      // Sum up regen values.
+      MixedDiceAndNumber.applyBonusToMixed({
+        mixed: combinedRegen[hpType],
+        additionalBonus: actorHPs[hpType].regen
+      });
+      MixedDiceAndNumber.addMixedToMixed({
+        mixed: combinedRegen[hpType],
+        additionalMixed: archetypeHPs[hpType].regen
+      });
+      MixedDiceAndNumber.applyBonusToMixed({
+        mixed: combinedRegen[hpType],
+        additionalBonus: effectsHPs[hpType].regen
+      });
+
+      // Set the combined regen text of the actor's regen.
       hpData.combinedRegen = [combinedRegen[hpType].num, ...combinedRegen[hpType].texts].join(' + ');
     });    
 
@@ -425,16 +451,6 @@ export class BNBActorSheet extends ActorSheet {
       this.actor.update({[attributeLabel]: actorHPs});
     }
   }
-
-  _applyBonusToRegen(combinedRegen, healthType, recoveryRate) {
-    if (!recoveryRate) { return; }
-
-    if (isNaN(recoveryRate)) {
-      combinedRegen[healthType].texts.push(recoveryRate);
-    } else {
-      combinedRegen[healthType].num += Number(recoveryRate ?? 0);
-    };
-  };
 
   _prepareNpcHps(context) {
     context.hps = context.system.attributes.hps;
