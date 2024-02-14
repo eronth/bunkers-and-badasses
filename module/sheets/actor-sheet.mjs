@@ -345,25 +345,13 @@ export class BNBActorSheet extends ActorSheet {
 
   _prepareArchetypeLevelBonuses(context) {
     const archetypeLevelItems = [...(context.archetype1Levels ?? []), ...(context.archetype2Levels ?? [])];
-    const oldActorAlbt = { ...(this.actor.system.archetypeLevelBonusTotals ?? DefaultData.archetypeLevelBonusTotals()) };
-    const archetypeLevelBonusTotals = DefaultData.archetypeLevelBonusTotals();
 
     // Add up all the bonuses from the archetype levels.
     archetypeLevelItems.forEach(i => {
-      archetypeLevelBonusTotals.maxPotions += Number(i.system.maxPotions);
-      archetypeLevelBonusTotals.maxGrenades += Number(i.system.maxGrenades);
-      archetypeLevelBonusTotals.maxFavoredGuns += Number(i.system.maxFavoredGuns);
+      context.skillPoints.max += Number(i.system.maxPotions);
+      context.potionCount.max += Number(i.system.maxGrenades);
+      context.maxGrenades += Number(i.system.maxFavoredGuns);
     });
-
-    context.skillPoints.max += archetypeLevelBonusTotals.skillPoints;
-    context.potionCount.max += archetypeLevelBonusTotals.maxPotions;
-    context.maxGrenades += archetypeLevelBonusTotals.maxGrenades;
-    
-    const albHasChanges = JSON.stringify(archetypeLevelBonusTotals) !== JSON.stringify(oldActorAlbt);
-    if (albHasChanges) {
-      const attributeLabel = `system.archetypeLevelBonusTotals`;
-      this.actor.update({[attributeLabel]: archetypeLevelBonusTotals});
-    }
   }
 
   _prepareVhHps(context) {

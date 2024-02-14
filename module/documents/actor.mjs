@@ -209,11 +209,11 @@ export class BNBActor extends Actor {
     ablt.hps.bone.max += Number(itemHps.bone.max);
 
     // Add the regens to the totals.
-    MixedDiceAndNumber.applyBonusToMixed({ mixed: ablt.regens.flesh, additionalBonus: itemHps.flesh.regen });
-    MixedDiceAndNumber.applyBonusToMixed({ mixed: ablt.regens.armor, additionalBonus: itemHps.armor.regen });
-    MixedDiceAndNumber.applyBonusToMixed({ mixed: ablt.regens.armor, additionalBonus: itemHps.shield.regen });
-    MixedDiceAndNumber.applyBonusToMixed({ mixed: ablt.regens.eridian, additionalBonus: itemHps.eridian.regen });
-    MixedDiceAndNumber.applyBonusToMixed({ mixed: ablt.regens.bone, additionalBonus: itemHps.bone.regen });
+    MixedDiceAndNumber.applyBonusToMixed({ mixed: ablt.hps.flesh.regen, additionalBonus: itemHps.flesh.regen });
+    MixedDiceAndNumber.applyBonusToMixed({ mixed: ablt.hps.armor.regen, additionalBonus: itemHps.armor.regen });
+    MixedDiceAndNumber.applyBonusToMixed({ mixed: ablt.hps.shield.regen, additionalBonus: itemHps.shield.regen });
+    MixedDiceAndNumber.applyBonusToMixed({ mixed: ablt.hps.eridian.regen, additionalBonus: itemHps.eridian.regen });
+    MixedDiceAndNumber.applyBonusToMixed({ mixed: ablt.hps.bone.regen, additionalBonus: itemHps.bone.regen });
 
     // Add the stats to the totals.
     ablt.stats.acc += Number(itemStats.acc);

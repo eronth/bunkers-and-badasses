@@ -7,7 +7,7 @@ export class MixedDiceAndNumber {
   static addMixedToMixed(options) {
     const { mixed, additionalMixed } = options;
 
-    mixed.num += (additionalMixed.num ?? 0);
+    mixed.num += Number(additionalMixed.num ?? 0);
     mixed.texts.push(...(additionalMixed.texts ?? []));
   }
 
@@ -19,7 +19,7 @@ export class MixedDiceAndNumber {
     if (isNaN(additionalBonus)) {
       mixed.texts.push(additionalBonus);
     } else {
-      mixed.num += additionalBonus;
+      mixed.num += Number(additionalBonus ?? 0);
     }
   }
 
