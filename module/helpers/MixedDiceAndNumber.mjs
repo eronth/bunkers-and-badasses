@@ -25,7 +25,9 @@ export class MixedDiceAndNumber {
 
   static mixedToString(options) {
     const { mixed, numberLocation } = options;
-    const num = Number(mixed.num ?? 0);
+    const num = Number(mixed.num ?? 0) > 0
+      ? mixed.num
+      : '';
     const texts = mixed.texts ?? [];
 
     if (num === 0 && texts.length === 0) { return ''; }

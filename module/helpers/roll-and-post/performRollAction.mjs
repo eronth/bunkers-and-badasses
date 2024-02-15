@@ -318,6 +318,7 @@ export class PerformRollAction {
     
     const { hits, crits, perHit, perCrit, perAttack } 
       = await this._pullDamageValuesFromHtml(html, attackType);
+    const damageTypes = this._getAttackDamageTypes({ perHit, perCrit, perAttack });
 
     const doubleDamageCheckbox = html.find("#double-damage");
     const isNat20 = html.find(".damage-confirmation")[0].dataset['isNat-20'] == 'true';
@@ -327,21 +328,26 @@ export class PerformRollAction {
       actor: actor, 
       hitsAndCrits: { hits, crits, perHit, perCrit, perAttack, isNat20 },
       attackType: attackType,
+      damageTypes: damageTypes,
     });
-    // const levelUpDamageBonuses = {
-    //   untyped: unTypedLevelBonuses,
-    //   kinetic: elementalBonuses.kinetic,
-    //   elemental: elementalBonuses.allElements,
-    // };
-    // return {
-    //   levelUpDamageBonuses: levelUpDamageBonuses,
-    //   numberOfDamageTypes: numberOfDamageTypes,
-    // };
+    const effectBonuses = {
+      untyped: MixedDiceAndNumber.default(),
+      kinetic: MixedDiceAndNumber.default(),
+      elemental: MixedDiceAndNumber.default(),
+    };
+    
 
     const summary = {};
     await this._mergeDamageValuesIntoSummary(summary, hits, perHit);
     await this._mergeDamageValuesIntoSummary(summary, crits, perCrit);
     await this._mergeDamageValuesIntoSummary(summary, 1, perAttack);
+    await this._mergeBonusesIntoSummary({ 
+      summary: summary, 
+      levelBonuses: levelBonuses, 
+      effectBonuses: effectBonuses,
+      damageTypes: damageTypes
+    });
+    
 
     const rollForumlaOptions = {
       summary: summary,
@@ -409,16 +415,60 @@ export class PerformRollAction {
   static async _mergeDamageValuesIntoSummary(summary, damageCount, damageList) {
     Object.entries(damageList).forEach(([damageType, damageValue]) => {
       if (damageCount > 0) {
-        summary[damageType] = summary[damageType] || [];
-        summary[damageType].push(...new Array(damageCount).fill(damageValue));
+        summary[damageType] = summary[damageType] || MixedDiceAndNumber.default();
+        for (let i = 0; i < damageCount; i++) {
+          MixedDiceAndNumber.applyBonusToMixed({ mixed: summary[damageType], additionalBonus: damageValue });
+        }
+        //summary[damageType].push(...new Array(damageCount).fill(damageValue));
       }
     });
 
     return {...summary};
   }
 
+  static async _mergeBonusesIntoSummary(options) {
+    const { summary, levelBonuses, effectBonuses, damageTypes } = options;
+
+    const onlyOneDamageType = damageTypes.size === 1;
+    const onlyOneElementalDamageType = (
+      (damageTypes.size === 1 && !damageTypes.has('kinetic'))
+      || (damageTypes.size === 2 && damageTypes.has('kinetic'))
+      );
+
+    // Add the definitely kinetic to kinetic damage.
+    summary['kinetic'] = summary['kinetic'] || MixedDiceAndNumber.default();
+    MixedDiceAndNumber.addMixedToMixed({ mixed: summary['kinetic'], additionalMixed: levelBonuses.kinetic });
+    MixedDiceAndNumber.addMixedToMixed({ mixed: summary['kinetic'], additionalMixed: effectBonuses.kinetic });
+
+    // If there's only one damage type, add the untyped bonuses to it.
+    // This should only fire once.
+    if (onlyOneDamageType) {
+      damageTypes.forEach((dt) => {
+        MixedDiceAndNumber.addMixedToMixed({ mixed: summary[dt], additionalMixed: levelBonuses.untyped });
+        MixedDiceAndNumber.addMixedToMixed({ mixed: summary[dt], additionalMixed: effectBonuses.untyped });
+      });
+    } else {
+      /////////////////////// WHAT DO?
+    }
+
+    // If there's only one elemental damage type, add the elemental bonuses to it.
+    // This should only fire once.
+    if (onlyOneElementalDamageType) {
+      damageTypes.forEach((dt) => {
+        if (dt !== 'kinetic') {
+          MixedDiceAndNumber.addMixedToMixed({ mixed: summary[dt], additionalMixed: levelBonuses.elemental });
+          MixedDiceAndNumber.addMixedToMixed({ mixed: summary[dt], additionalMixed: effectBonuses.elemental });
+        }
+      });
+    } else {
+      /////////////////////// WHAT DO?
+    }
+
+    return {...summary};
+  }
+
   static _getBonusDamageSummaryFromLevelBonuses(options) {
-    const { actor, hitsAndCrits, attackType } = options;
+    const { actor, hitsAndCrits, attackType, damageTypes } = options;
     const { hits, crits, perHit, perCrit, perAttack, isNat20 } = hitsAndCrits;
     const bonusDamage = actor.system.archetypeLevelBonusTotals.bonusDamage;
 
@@ -458,8 +508,6 @@ export class PerformRollAction {
       allElements: MixedDiceAndNumber.default(),
     };
 
-    const damageTypes = this._getAttackDamageTypes({ perHit, perCrit, perAttack });
-    const numberOfDamageTypes = damageTypes.size;
     const hasKinetic = damageTypes.has('kinetic');
     const hasElemental = (hasKinetic && damageTypes.size > 1) || (!hasKinetic && damageTypes.size > 0);
     if (hasElemental) {
@@ -474,12 +522,7 @@ export class PerformRollAction {
       kinetic: elementalBonuses.kinetic,
       elemental: elementalBonuses.allElements,
     };
-
-
-    return {
-      levelUpDamageBonuses: levelUpDamageBonuses,
-      numberOfDamageTypes: numberOfDamageTypes,
-    };
+    return  levelUpDamageBonuses;
   }
 
   static _getAttackDamageTypes(options) {
@@ -493,9 +536,12 @@ export class PerformRollAction {
 
   static async _createRollFormulaFromSummary(rollFormulaOptions) {
     const { summary, isDoubled } = rollFormulaOptions;
-    const rollFormula = Object.entries(summary).map(([damageType, damageValues]) => {
-      let sumString = `${damageValues.join(' + ')}`;
-      if (damageValues.length > 1) { sumString = `(${sumString})`; }
+    const rollFormula = Object.entries(summary).map((damage) => {
+      const [damageType, damageValue] = damage;
+
+      let sumString = MixedDiceAndNumber.mixedToString({ mixed: damageValue, numberLocation: 'end' });
+      const stringNeedsWrapper = sumString.includes('+') || sumString.includes('-');
+      if (stringNeedsWrapper) { sumString = `(${sumString})`; }
       if (isDoubled) { sumString = `2*(${sumString})`; }
       sumString += `[${damageType}]`;
       return sumString;
