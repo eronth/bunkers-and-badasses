@@ -490,9 +490,9 @@ export class PerformRollAction {
     MixedDiceAndNumber.addMixedToMixed({ mixed: unTypedLevelBonuses, additionalMixed: bonusDamage.anyAttack });
     if (attackType === 'grenade') {
       MixedDiceAndNumber.addMixedToMixed({ mixed: unTypedLevelBonuses, additionalMixed: bonusDamage.grenade });
-    } else if (attackType === 'meleeAttack') {
+    } else if (attackType === 'melee') {
       MixedDiceAndNumber.addMixedToMixed({ mixed: unTypedLevelBonuses, additionalMixed: bonusDamage.meleeAttack });
-    } else if (attackType === 'shootingAttack') {
+    } else if (attackType === 'shooting') {
       MixedDiceAndNumber.addMixedToMixed({ mixed: unTypedLevelBonuses, additionalMixed: bonusDamage.shootingAttack });
     }
 

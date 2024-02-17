@@ -363,7 +363,7 @@ export class ConfirmActionPrompt {
       kinetic: { 
         enabled: true,
         damage: plusOneDice 
-          ? `(${meleeDice} + ${meleeDice})`
+          ? `${meleeDice} + ${meleeDice}`
           : meleeDice
       },
     }
