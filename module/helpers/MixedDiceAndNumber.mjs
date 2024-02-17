@@ -25,6 +25,8 @@ export class MixedDiceAndNumber {
 
   static mixedToString(options) {
     const { mixed, numberLocation } = options;
+    if (this.isAnyMixedValue(mixed) === false) { return ''; }
+
     const num = Number(mixed.num ?? 0) > 0
       ? mixed.num
       : '';
@@ -39,6 +41,11 @@ export class MixedDiceAndNumber {
       ? `${num}${separator}${texts.join(' + ')}`
       : `${texts.join(' + ')}${separator}${num}`
     );
+  }
+
+  static isAnyMixedValue(mixed) {
+    //const { mixed } = options;
+    return mixed && (mixed.num > 0 || mixed.texts.length > 0);
   }
 
 }
