@@ -436,22 +436,19 @@ export class PerformRollAction {
       );
 
     // Add the definitely kinetic to kinetic damage.
-    summary['kinetic'] = summary['kinetic'] || MixedDiceAndNumber.default();
-    MixedDiceAndNumber.addMixedToMixed({ mixed: summary['kinetic'], additionalMixed: levelBonuses.kinetic });
-    MixedDiceAndNumber.addMixedToMixed({ mixed: summary['kinetic'], additionalMixed: effectBonuses.kinetic });
+    const kineticOptions = { summary, summaryKey: 'kinetic', levelBonus: levelBonuses.kinetic, effectBonus: effectBonuses.kinetic };
+    this._addToSummaryIfNeeded(kineticOptions);
 
     // If there's only one damage type, add the untyped bonuses to it.
     // This should only fire once.
     if (onlyOneDamageType) {
       damageTypes.forEach((dt) => {
-        summary[dt] = summary[dt] || MixedDiceAndNumber.default();
-        MixedDiceAndNumber.addMixedToMixed({ mixed: summary[dt], additionalMixed: levelBonuses.untyped });
-        MixedDiceAndNumber.addMixedToMixed({ mixed: summary[dt], additionalMixed: effectBonuses.untyped });
+        const untypedOptions = { summary, summaryKey: dt, levelBonus: levelBonuses.untyped, effectBonus: effectBonuses.untyped };
+        this._addToSummaryIfNeeded(untypedOptions);
       });
     } else {
-      // summary['damage'] = summary['damage'] || MixedDiceAndNumber.default();
-      // MixedDiceAndNumber.addMixedToMixed({ mixed: summary['damage'], additionalMixed: levelBonuses.untyped });
-      // MixedDiceAndNumber.addMixedToMixed({ mixed: summary['damage'], additionalMixed: effectBonuses.untyped });
+      const untypedOptions = { summary, summaryKey: 'damage', levelBonus: levelBonuses.untyped, effectBonus: effectBonuses.untyped };
+      this._addToSummaryIfNeeded(untypedOptions);
     }
 
     // If there's only one elemental damage type, add the elemental bonuses to it.
@@ -459,15 +456,13 @@ export class PerformRollAction {
     if (onlyOneElementalDamageType) {
       damageTypes.forEach((dt) => {
         if (dt !== 'kinetic') {
-          summary[dt] = summary[dt] || MixedDiceAndNumber.default();
-          MixedDiceAndNumber.addMixedToMixed({ mixed: summary[dt], additionalMixed: levelBonuses.elemental });
-          MixedDiceAndNumber.addMixedToMixed({ mixed: summary[dt], additionalMixed: effectBonuses.elemental });
+          const elementalOptions = { summary, summaryKey: dt, levelBonus: levelBonuses.elemental, effectBonus: effectBonuses.elemental };
+          this._addToSummaryIfNeeded(elementalOptions);
         }
       });
     } else {
-      summary['elemental'] = summary['elemental'] || MixedDiceAndNumber.default();
-      MixedDiceAndNumber.addMixedToMixed({ mixed: summary['elemental'], additionalMixed: levelBonuses.elemental });
-      MixedDiceAndNumber.addMixedToMixed({ mixed: summary['elemental'], additionalMixed: effectBonuses.elemental });
+      const elementalOptions = { summary, summaryKey: 'elemental', levelBonus: levelBonuses.elemental, effectBonus: effectBonuses.elemental };
+      this._addToSummaryIfNeeded(elementalOptions);
     }
 
     return {...summary};
