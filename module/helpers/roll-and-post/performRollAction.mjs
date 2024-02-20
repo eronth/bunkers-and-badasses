@@ -324,6 +324,12 @@ export class PerformRollAction {
     const isNat20 = html.find(".damage-confirmation")[0].dataset['isNat-20'] == 'true';
     const isDoubled = (doubleDamageCheckbox.length > 0 && doubleDamageCheckbox[0].checked);
 
+    const baseBonuses = this._getBonusSummaryFromCharacter({ 
+      actor: actor,
+      item: item,
+      hitsAndCrits: { hits, crits, perHit, perCrit, perAttack, isNat20 },
+      attackType: attackType
+    });
     const levelBonuses = this._getBonusDamageSummaryFromLevelBonuses({
       actor: actor, 
       hitsAndCrits: { hits, crits, perHit, perCrit, perAttack, isNat20 },
@@ -342,9 +348,12 @@ export class PerformRollAction {
     await this._mergeDamageValuesIntoSummary(summary, crits, perCrit);
     await this._mergeDamageValuesIntoSummary(summary, 1, perAttack);
     await this._mergeBonusesIntoSummary({ 
-      summary: summary, 
-      levelBonuses: levelBonuses, 
-      effectBonuses: effectBonuses,
+      summary: summary,
+      additionalBonuses: {
+        baseBonuses: baseBonuses,
+        levelBonuses: levelBonuses, 
+        effectBonuses: effectBonuses,
+      },
       damageTypes: damageTypes
     });
     
@@ -427,7 +436,9 @@ export class PerformRollAction {
   }
 
   static async _mergeBonusesIntoSummary(options) {
-    const { summary, levelBonuses, effectBonuses, damageTypes } = options;
+    const { summary, additionalBonuses, damageTypes } = options;
+
+    const { baseBonuses, levelBonuses, effectBonuses } = additionalBonuses;
 
     const onlyOneDamageType = damageTypes.size === 1;
     const onlyOneElementalDamageType = (
@@ -436,18 +447,31 @@ export class PerformRollAction {
       );
 
     // Add the definitely kinetic to kinetic damage.
-    const kineticOptions = { summary, summaryKey: 'kinetic', levelBonus: levelBonuses.kinetic, effectBonus: effectBonuses.kinetic };
+    const kineticOptions = { summary, summaryKey: 'kinetic', additionalBonuses: {
+      baseBonuses: baseBonuses.kinetic,
+      levelBonus: levelBonuses.kinetic,
+      effectBonus: effectBonuses.kinetic
+    }};
     this._addToSummaryIfNeeded(kineticOptions);
 
     // If there's only one damage type, add the untyped bonuses to it.
     // This should only fire once.
     if (onlyOneDamageType) {
       damageTypes.forEach((dt) => {
-        const untypedOptions = { summary, summaryKey: dt, levelBonus: levelBonuses.untyped, effectBonus: effectBonuses.untyped };
+        const untypedOptions = { summary, summaryKey: dt, additionalBonuses: {
+          baseBonuses: baseBonuses.untyped,
+          levelBonus: levelBonuses.untyped,
+          effectBonus: effectBonuses.untyped
+        }};
         this._addToSummaryIfNeeded(untypedOptions);
       });
     } else {
-      const untypedOptions = { summary, summaryKey: 'damage', levelBonus: levelBonuses.untyped, effectBonus: effectBonuses.untyped };
+      const untypedOptions = { summary, summaryKey: 'damage', 
+      additionalBonuses: {
+        baseBonuses: baseBonuses.untyped,
+        levelBonus: levelBonuses.untyped,
+        effectBonus: effectBonuses.untyped
+      }};
       this._addToSummaryIfNeeded(untypedOptions);
     }
 
@@ -456,12 +480,20 @@ export class PerformRollAction {
     if (onlyOneElementalDamageType) {
       damageTypes.forEach((dt) => {
         if (dt !== 'kinetic') {
-          const elementalOptions = { summary, summaryKey: dt, levelBonus: levelBonuses.elemental, effectBonus: effectBonuses.elemental };
+          const elementalOptions = { summary, summaryKey: dt, additionalBonuses: {
+            baseBonuses: baseBonuses.elemental,
+            levelBonus: levelBonuses.elemental,
+            effectBonus: effectBonuses.elemental
+          }};
           this._addToSummaryIfNeeded(elementalOptions);
         }
       });
     } else {
-      const elementalOptions = { summary, summaryKey: 'elemental', levelBonus: levelBonuses.elemental, effectBonus: effectBonuses.elemental };
+      const elementalOptions = { summary, summaryKey: 'elemental', additionalBonuses: {
+        baseBonuses: baseBonuses.elemental,
+        levelBonus: levelBonuses.elemental,
+        effectBonus: effectBonuses.elemental
+      }};
       this._addToSummaryIfNeeded(elementalOptions);
     }
 
@@ -469,15 +501,62 @@ export class PerformRollAction {
   }
 
   static _addToSummaryIfNeeded(options) {
-    const { summary, summaryKey, levelBonus, effectBonus } = options;
+    const { summary, summaryKey, additionalBonuses } = options;
+    const { baseBonuses, levelBonus, effectBonus } = additionalBonuses;
     if (!summary) { return; }
     if (!summaryKey) { return; }
-    
-    if (MixedDiceAndNumber.isAnyMixedValue(levelBonus) || MixedDiceAndNumber.isAnyMixedValue(effectBonus)) {
+    if ( MixedDiceAndNumber.isAnyMixedValue(baseBonuses)
+      || MixedDiceAndNumber.isAnyMixedValue(levelBonus) 
+      || MixedDiceAndNumber.isAnyMixedValue(effectBonus)) {
       summary[summaryKey] = summary[summaryKey] || MixedDiceAndNumber.default();
+      MixedDiceAndNumber.addMixedToMixed({ mixed: summary[summaryKey], additionalMixed: baseBonuses });
       MixedDiceAndNumber.addMixedToMixed({ mixed: summary[summaryKey], additionalMixed: levelBonus });
       MixedDiceAndNumber.addMixedToMixed({ mixed: summary[summaryKey], additionalMixed: effectBonus });
     }
+  }
+
+  static _getBonusSummaryFromCharacter(options) {
+    const { actor, item, attackType } = options;
+    const { hitsAndCrits } = options;
+    const { perHit, perCrit, perAttack } = hitsAndCrits;
+    const baseBonuses = {
+      untyped: MixedDiceAndNumber.default(),
+      kinetic: MixedDiceAndNumber.default(),
+      elemental: MixedDiceAndNumber.default(),
+    };
+
+    const DmgBonus = actor.system.dmg.modToUse ?? 0;
+    
+    const attackElements = new Set();
+    Object.keys(perHit).forEach((damageType) => attackElements.add(damageType));
+    Object.keys(perCrit).forEach((damageType) => attackElements.add(damageType));
+    Object.keys(perAttack).forEach((damageType) => attackElements.add(damageType));
+
+    if (attackType === 'shooting') {
+      const itemFavoredReasons = actor.attackFavoredReasons({ item: item, attackElements: attackElements });
+      if (itemFavoredReasons.elements.size === 0 && itemFavoredReasons.itemTypes.size === 0) {
+        // Do nothing.
+      } else if (itemFavoredReasons.elements.size > 0) {
+        // If it's a favored element, add DMG to that specific element when possible.
+        if (itemFavoredReasons.elements.size === 1) {
+          const element = itemFavoredReasons.elements[0];
+          baseBonuses[element] = baseBonuses[element] || MixedDiceAndNumber.default();
+          MixedDiceAndNumber.applyBonusToMixed({ mixed: baseBonuses[element], additionalBonus: DmgBonus });
+        } else {
+          MixedDiceAndNumber.applyBonusToMixed({ mixed: baseBonuses.elemental, additionalBonus: DmgBonus });          
+        }
+      } else if (itemFavoredReasons.itemTypes.size > 0) {
+        // If it's a favored weapon type, add DMG.
+        MixedDiceAndNumber.applyBonusToMixed({ mixed: baseBonuses.untyped, additionalBonus: DmgBonus });
+      }
+
+    } else if (attackType === 'melee') {
+      // Always add DMG to melee attacks.
+      MixedDiceAndNumber.applyBonusToMixed({ mixed: baseBonuses.untyped, additionalBonus: DmgBonus });
+    }
+    // Grenades do not get DMG added.
+
+    return baseBonuses;
   }
 
   static _getBonusDamageSummaryFromLevelBonuses(options) {

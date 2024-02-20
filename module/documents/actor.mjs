@@ -327,6 +327,52 @@ export class BNBActor extends Actor {
     // Process additional NPC data here.
   }
 
+  /** 
+   * Special actor handler functions
+  **/
+  attackFavoredReasons(options) {
+    const actor = this;
+    const { item, attackElements } = options;
+    const favoredBy = {
+      itemTypes: new Set(),
+      elements: new Set(),
+    };
+    
+    const favored = actor.system.favored;
+    if (favored[item.system.type.value]) {
+      favoredBy.itemTypes.add(item.system.type.value);
+    }
+
+    const itemPerHitElements = item.system.elements;
+    Object.entries(itemPerHitElements).forEach(entry => {
+      const [key, value] = entry;
+      if (value.enabled) {
+        if (favored[key]) {
+          favoredBy.elements.add(key);
+        }
+      }
+    });
+
+    const itemPerAttackElements = item.system.bonusElements;
+    Object.entries(itemPerAttackElements).forEach(entry => {
+      const [key, value] = entry;
+      if (value.enabled) {
+        if (favored[key]) {
+          favoredBy.elements.add(key);
+        }
+      }
+    });
+
+    // For now, I don't want to do this.
+    // attackElements.forEach(element => {
+    //   if (favored[element]) {
+    //     favoredBy.elements.add(element);
+    //   }
+    // });
+
+    return favoredBy;
+  }
+
   /**
    * Apply listeners to chat messages.
    * @param {HTML} html  Rendered chat message.

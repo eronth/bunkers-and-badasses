@@ -12,7 +12,7 @@ export class MixedDiceAndNumber {
   }
 
   static applyBonusToMixed(options) {
-    const { mixed,  additionalBonus } = options;
+    const { mixed, additionalBonus } = options;
 
     if (!additionalBonus) { return; }
 
