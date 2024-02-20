@@ -9,6 +9,8 @@
         width="40" height="40"/>
     </div>
     <div class="item-header-info flexrow flex-size-3">
+      <img class="gun-icon" title="{{item.system.type.value}}" width="24" height="24"
+        src="systems/bunkers-and-badasses/assets/weapons/{{item.system.type.value}}.webp" />
       <div class="base-details flexcol flex-size-5 font-rarity"
         style="--rarityColor: {{item.system.rarity.colorValue}}">
         <div class="item-rarity-and-type-chat-display">
@@ -18,8 +20,6 @@
         {{#if item.system.prefix.name}}{{item.system.prefix.name}} {{/if}}{{item.name}}
         </div>
       </div>
-      <img class="gun-icon" title="Accuracy" width="24" height="24"
-        src="systems/bunkers-and-badasses/assets/weapons/{{item.system.type.value}}.webp" />
     </div>
   </div>
   <hr />

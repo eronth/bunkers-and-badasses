@@ -53,17 +53,25 @@
   font-size: 12px;
 }
 .system-bunkers-and-badasses #chat-log .item-header-info {
+  position: relative;
+  display: inline-block;
   font-size: 18px;
+}
+.system-bunkers-and-badasses #chat-log .item-header-info .base-details {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 .system-bunkers-and-badasses #chat-log .item-header-info .item-rarity-and-type-chat-display {
   font-size: smaller;
 }
 .system-bunkers-and-badasses #chat-log .item-header-info img.gun-icon {
+  display: block;
+  margin-right: 3px;
+  margin-left: auto;
   border: 0;
   width: auto;
   height: 24px;
-  display: block;
-  margin-right: 3px;
 }
 
 .system-bunkers-and-badasses #chat-log .chat-info-rarity-boarder {
