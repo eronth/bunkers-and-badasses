@@ -336,11 +336,12 @@ export class PerformRollAction {
       attackType: attackType,
       damageTypes: damageTypes,
     });
-    const effectBonuses = {
-      untyped: MixedDiceAndNumber.default(),
-      kinetic: MixedDiceAndNumber.default(),
-      elemental: MixedDiceAndNumber.default(),
-    };
+    const effectBonuses = this._getBonusDamageSummaryFromEffectBonuses({
+      actor: actor,
+      hitsAndCrits: { hits, crits, perHit, perCrit, perAttack, isNat20 },
+      attackType: attackType,
+      damageTypes: damageTypes,
+    });
     
 
     const summary = {};
@@ -628,10 +629,42 @@ export class PerformRollAction {
     return  levelUpDamageBonuses;
   }
 
-  // static _getBonusDamageSummaryFromEffectBonuses(options) {
-  //   const { actor, hitsAndCrits, attackType, damageTypes } = options;
-  //   const { hits, crits, perHit, perCrit, perAttack, isNat20 } = hitsAndCrits;
-  // }
+  static _getBonusDamageSummaryFromEffectBonuses(options) {
+    const { actor, hitsAndCrits, attackType, damageTypes } = options;
+    const { hits, crits, perHit, perCrit, perAttack, isNat20 } = hitsAndCrits;
+    const combatBonuses = actor.system.bonus.combat;
+
+    const effectBonuses = {
+      untyped: MixedDiceAndNumber.default(),
+      kinetic: MixedDiceAndNumber.default(),
+      elemental: MixedDiceAndNumber.default(),
+    };
+
+    MixedDiceAndNumber.addBonusToMixed({ mixed: effectBonuses.untyped, additionalBonus: combatBonuses.attack.dmg });
+    if (isNat20) {
+      MixedDiceAndNumber.addBonusToMixed({ mixed: effectBonuses.untyped, additionalBonus: combatBonuses.attack.critdmg });
+    }
+
+    if (attackType === 'grenade') {
+      MixedDiceAndNumber.addBonusToMixed({ mixed: effectBonuses.untyped, additionalBonus: combatBonuses.grenade.dmg });
+      if (isNat20) {
+        MixedDiceAndNumber.addBonusToMixed({ mixed: effectBonuses.untyped, additionalBonus: combatBonuses.grenade.critdmg });
+      }
+    } else if (attackType === 'melee') {
+      MixedDiceAndNumber.addBonusToMixed({ mixed: effectBonuses.untyped, additionalBonus: combatBonuses.melee.dmg });
+      if (isNat20) {
+        MixedDiceAndNumber.addBonusToMixed({ mixed: effectBonuses.untyped, additionalBonus: combatBonuses.melee.critdmg });
+      }
+    } else if (attackType === 'shooting') {
+      MixedDiceAndNumber.addBonusToMixed({ mixed: effectBonuses.untyped, additionalBonus: combatBonuses.shooting.dmg });
+      if (isNat20) {
+        MixedDiceAndNumber.addBonusToMixed({ mixed: effectBonuses.untyped, additionalBonus: combatBonuses.shooting.critdmg });
+      }
+    }
+
+
+    return effectBonuses;
+  }
 
   static _getAttackDamageTypes(options) {
     const { perHit, perCrit, perAttack } = options;

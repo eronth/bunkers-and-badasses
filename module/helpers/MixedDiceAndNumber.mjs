@@ -11,6 +11,10 @@ export class MixedDiceAndNumber {
     mixed.texts.push(...(additionalMixed.texts ?? []));
   }
 
+  static addBonusToMixed(options) {
+    this.applyBonusToMixed(options);
+  }
+
   static applyBonusToMixed(options) {
     const { mixed, additionalBonus } = options;
 
