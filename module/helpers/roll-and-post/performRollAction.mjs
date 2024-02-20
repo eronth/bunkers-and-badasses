@@ -437,7 +437,6 @@ export class PerformRollAction {
 
   static async _mergeBonusesIntoSummary(options) {
     const { summary, additionalBonuses, damageTypes } = options;
-
     const { baseBonuses, levelBonuses, effectBonuses } = additionalBonuses;
 
     const onlyOneDamageType = damageTypes.size === 1;
@@ -448,7 +447,7 @@ export class PerformRollAction {
 
     // Add the definitely kinetic to kinetic damage.
     const kineticOptions = { summary, summaryKey: 'kinetic', additionalBonuses: {
-      baseBonuses: baseBonuses.kinetic,
+      baseBonus: baseBonuses.kinetic,
       levelBonus: levelBonuses.kinetic,
       effectBonus: effectBonuses.kinetic
     }};
@@ -459,7 +458,7 @@ export class PerformRollAction {
     if (onlyOneDamageType) {
       damageTypes.forEach((dt) => {
         const untypedOptions = { summary, summaryKey: dt, additionalBonuses: {
-          baseBonuses: baseBonuses.untyped,
+          baseBonus: baseBonuses.untyped,
           levelBonus: levelBonuses.untyped,
           effectBonus: effectBonuses.untyped
         }};
@@ -468,7 +467,7 @@ export class PerformRollAction {
     } else {
       const untypedOptions = { summary, summaryKey: 'damage', 
       additionalBonuses: {
-        baseBonuses: baseBonuses.untyped,
+        baseBonus: baseBonuses.untyped,
         levelBonus: levelBonuses.untyped,
         effectBonus: effectBonuses.untyped
       }};
@@ -481,7 +480,7 @@ export class PerformRollAction {
       damageTypes.forEach((dt) => {
         if (dt !== 'kinetic') {
           const elementalOptions = { summary, summaryKey: dt, additionalBonuses: {
-            baseBonuses: baseBonuses.elemental,
+            baseBonus: baseBonuses.elemental,
             levelBonus: levelBonuses.elemental,
             effectBonus: effectBonuses.elemental
           }};
@@ -490,26 +489,38 @@ export class PerformRollAction {
       });
     } else {
       const elementalOptions = { summary, summaryKey: 'elemental', additionalBonuses: {
-        baseBonuses: baseBonuses.elemental,
+        baseBonus: baseBonuses.elemental,
         levelBonus: levelBonuses.elemental,
         effectBonus: effectBonuses.elemental
       }};
       this._addToSummaryIfNeeded(elementalOptions);
     }
 
+    const allElements = genericUtil.getAllElementalDamageTypes();
+    allElements.forEach((element) => {
+      if (baseBonuses[element]) {
+        const specificElementalOptions = { summary, summaryKey: element, additionalBonuses: {
+          baseBonus: baseBonuses[element],
+          levelBonus: MixedDiceAndNumber.default(),
+          effectBonus: MixedDiceAndNumber.default(),
+        }};
+        this._addToSummaryIfNeeded(specificElementalOptions);
+      }
+    });
+
     return {...summary};
   }
 
   static _addToSummaryIfNeeded(options) {
     const { summary, summaryKey, additionalBonuses } = options;
-    const { baseBonuses, levelBonus, effectBonus } = additionalBonuses;
+    const { baseBonus, levelBonus, effectBonus } = additionalBonuses;
     if (!summary) { return; }
     if (!summaryKey) { return; }
-    if ( MixedDiceAndNumber.isAnyMixedValue(baseBonuses)
+    if ( MixedDiceAndNumber.isAnyMixedValue(baseBonus)
       || MixedDiceAndNumber.isAnyMixedValue(levelBonus) 
       || MixedDiceAndNumber.isAnyMixedValue(effectBonus)) {
       summary[summaryKey] = summary[summaryKey] || MixedDiceAndNumber.default();
-      MixedDiceAndNumber.addMixedToMixed({ mixed: summary[summaryKey], additionalMixed: baseBonuses });
+      MixedDiceAndNumber.addMixedToMixed({ mixed: summary[summaryKey], additionalMixed: baseBonus });
       MixedDiceAndNumber.addMixedToMixed({ mixed: summary[summaryKey], additionalMixed: levelBonus });
       MixedDiceAndNumber.addMixedToMixed({ mixed: summary[summaryKey], additionalMixed: effectBonus });
     }
@@ -539,7 +550,7 @@ export class PerformRollAction {
       } else if (itemFavoredReasons.elements.size > 0) {
         // If it's a favored element, add DMG to that specific element when possible.
         if (itemFavoredReasons.elements.size === 1) {
-          const element = itemFavoredReasons.elements[0];
+          const element = [...itemFavoredReasons.elements][0];
           baseBonuses[element] = baseBonuses[element] || MixedDiceAndNumber.default();
           MixedDiceAndNumber.applyBonusToMixed({ mixed: baseBonuses[element], additionalBonus: DmgBonus });
         } else {
