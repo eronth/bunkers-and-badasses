@@ -22,23 +22,6 @@ export class DamageDiceRollDataExtractHelper {
     return damageData;
   }
 
-  /*
-  {
-    overallRollFormula: 'the total along the top',
-    parts: [
-      {
-        flavor: 'element type',
-        formula: 'full formulat (including static numbers)', 
-        total: 'total including types for this element'
-        rolls: [
-          { classes: 'css classes', result: 'result of the dice (or flat) roll', type: 'elem type' },
-        ]
-      },
-    ],
-    total: 'the total of all damage, still split out by type!'
-  }
-  */
-
   static _extractAndRegroupInfoFromRollResult(options) {
     const rollResult = options.rollResult;
     const parts = options.parts;
@@ -57,10 +40,7 @@ export class DamageDiceRollDataExtractHelper {
       // Separate out the damage type label.
       const damageType = segment.substring(segment.indexOf('[')+1, segment.indexOf(']'));
       const totalDamage = this._getTotalDamageForType({ rollResult, type: damageType });
-      // // Create the icon for the damage type.
-      // const damageTypeIcon = genericUtil.createElementIcon({id: 'dmg', elementType: damageType, cssClass: 'element-damage-formula-icon'});
-      // const returnText = `<span class='${damageType}-text'>${formulaPart}${damageTypeIcon}</span>`;
-      // return returnText;
+      
       return {
         damageType: damageType,
         formula: formulaPart, // Formula segment INCLUDING ANY FLAT BONUSES
@@ -116,7 +96,7 @@ export class DamageDiceRollDataExtractHelper {
       const formulaPart = df.formula;
       const damageType = df.damageType;
       const damageTypeIcon = genericUtil.createElementIcon({id: 'dmg', elementType: damageType, cssClass: 'element-damage-formula-icon'});
-      const returnText = `<span class='${damageType}-text'>${formulaPart}${damageTypeIcon}</span>`;
+      const returnText = `<span class='${damageType}-text nowrap-element-icon'>${formulaPart}${damageTypeIcon}</span>`;
       return returnText;
     });
     return textFormulas;
@@ -126,51 +106,9 @@ export class DamageDiceRollDataExtractHelper {
     const textDamageTotals = discectedFormula.map(df => {
       const damageType = df.damageType;
       const damageTypeIcon = genericUtil.createElementIcon({id: 'dmg', elementType: damageType, cssClass: 'element-damage-total-icon'});    
-      const returnText = `<span class='${damageType}-text'>${df.total}${damageTypeIcon}</span>`;
+      const returnText = `<span class='${damageType}-text nowrap-element-icon'>${df.total}${damageTypeIcon}</span>`;
       return returnText;
     });
     return textDamageTotals;
   }
-  //   const formulaSegments = formula.split('] + ');
-  //   const displaySegments = formulaSegments.map(segment => {
-  //     segment += ']';
-  //     const formulaPart = segment.substring(0, segment.indexOf('['));
-  //     const damageType = segment.substring(segment.indexOf('[')+1, segment.indexOf(']'));
-  //     const damageTypeIcon = genericUtil.createElementIcon({id: 'dmg', elementType: damageType, cssClass: 'element-damage-formula-icon'});
-  //     const returnText = `<span class='${damageType}-text'>${formulaPart}${damageTypeIcon}</span>`;
-        
-  //     return returnText;
-  //   });//.join(' + ');
-  //   return displaySegments; //displayFormula;
-  // }
-
-  // static _partsSuperGrouper(parts) {
-  //   const gp = {};
-  //   parts.forEach(part => {
-  //     if (gp[part.flavor] == null) { 
-  //       gp[part.flavor] = {
-  //         flavor: part.flavor,
-  //         formula: '',
-  //         formulaChunks: [],
-  //         rolls: [],
-  //         total: 0,
-  //       };
-  //     }
-  //     gp[part.flavor].formulaChunks.push(part.formula);
-  //     gp[part.flavor].rolls.push(...part.rolls);
-  //     gp[part.flavor].total += part.total;
-  //   });
-
-  //   Object.entries(gp).forEach(entry => {
-  //     const [index, part] = entry;
-  //     part.formula = part.formulaChunks.join(' + ');
-  //     if (part.formulaChunks.length > 1) {
-  //       part.formula = `(${part.formula})`;
-  //     }
-  //   });
-
-  //   return gp;
-  // }
-
-  
 }
