@@ -150,6 +150,7 @@
   padding: 0px 2px;
 }
 .bnb .item-list-component .item-details .remaining-gun-details {
+  max-width: 85%;
   margin-left: 6px;
 }
 .bnb .item-list-component .item-details .gun-row-crits {
