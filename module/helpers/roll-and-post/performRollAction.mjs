@@ -628,6 +628,11 @@ export class PerformRollAction {
     return  levelUpDamageBonuses;
   }
 
+  // static _getBonusDamageSummaryFromEffectBonuses(options) {
+  //   const { actor, hitsAndCrits, attackType, damageTypes } = options;
+  //   const { hits, crits, perHit, perCrit, perAttack, isNat20 } = hitsAndCrits;
+  // }
+
   static _getAttackDamageTypes(options) {
     const { perHit, perCrit, perAttack } = options;
     const damageTypes = new Set();
