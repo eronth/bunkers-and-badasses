@@ -57,7 +57,7 @@
     "path": "lang/en.json"
   }],
   "socket": true,
-  "initiative": "1d20 + @attributes.badass.rank + @checks.initiative.value + @checks.initiative.misc + @bonus.checks.initiative",
+  "initiative": "1d20",
   "gridDistance": 1,
   "gridUnits": "sq",
   "primaryTokenAttribute": "attributes.hps.flesh",

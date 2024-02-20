@@ -1,6 +1,7 @@
 // Import document classes.
 import { BNBActor } from "./documents/actor.mjs";
 import { BNBItem } from "./documents/item.mjs";
+import { BNBCombatant } from "./documents/combatant.mjs";
 // Import sheet classes.
 import { BNBActorSheet } from "./sheets/actor-sheet.mjs";
 import { BNBItemSheet } from "./sheets/item-sheet.mjs";
@@ -96,9 +97,11 @@ Hooks.once('init', async function() {
    * @type {String}
    */
   CONFIG.Combat.initiative = {
-    formula: "1d20 + @attributes.badass.rank + @checks.initiative.value + @checks.initiative.misc + @bonus.checks.inititative",
+    formula: "1d20",
     decimals: 2
   };
+
+  CONFIG.Combatant.documentClass = BNBCombatant;
 
   // Define custom Document classes
   CONFIG.Actor.documentClass = BNBActor;
