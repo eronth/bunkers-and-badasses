@@ -1,3 +1,4 @@
+import { DamageDiceRollDataExtractHelper } from "../damageDiceRollDataExtractHelper.mjs";
 import { genericUtil } from "../genericUtil.mjs";
 
 export class PostToChat {
@@ -326,18 +327,32 @@ export class PostToChat {
   static async damageResult(options) {
     const { actor, item, rollResult } = options;
 
-    const initialParts = rollResult.dice.map(d => d.getTooltipData());
-    const parts = await this._partsSuperGrouper(initialParts);
-    const displayFormula = await this._amazingDamageFormulaDisplay(rollResult._formula);
-    //parts[0].flavor = "uhh";
+    const damageDetails = DamageDiceRollDataExtractHelper.turnRollResultIntoDamageData({
+      rollResult: rollResult,
+    });
+
+    
+
+    //const initialParts = rollResult.dice.map(d => d.getTooltipData());
+    //const parts = await this._partsSuperGrouper(initialParts);
+    //const displayFormula = await this._amazingDamageFormulaDisplay(rollResult._formula);
+
+    // part.formula
+    // missing flat bonuses to formula
+    // part.flavor
+    // part.total
+    // missing flat bonuses to totals
 
     const templateLocation = 'systems/bunkers-and-badasses/templates/chat/damage-results.html';
     const chatHtmlContent = await renderTemplate(templateLocation, {
       actorId: actor.id,
       itemId: item?.id ?? '',
-      overallRollFormula: displayFormula,
-      parts: parts,
-      total: rollResult.total,
+      parts: damageDetails.parts,
+      overallRollFormula: damageDetails.overallRollFormula.join(' + '),
+      overallResultTotal: damageDetails.overallResultTotal.join(' + '),
+      // overallRollFormula: displayFormula,
+      // parts: parts,
+      // total: rollResult.total,
     });
 
     // Prep chat values.
@@ -361,47 +376,73 @@ export class PostToChat {
     return await rollResult.toMessage(messageData);
   }
 
-  static async _partsSuperGrouper(parts) {
-    const gp = {};
-    parts.forEach(part => {
-      if (gp[part.flavor] == null) { 
-        gp[part.flavor] = {
-          flavor: part.flavor,
-          formula: '',
-          formulaChunks: [],
-          rolls: [],
-          total: 0,
-        };
-      }
-      gp[part.flavor].formulaChunks.push(part.formula);
-      gp[part.flavor].rolls.push(...part.rolls);
-      gp[part.flavor].total += part.total;
-    });
+  // static prepareDamageDisplayData(resultFromDiceRoll) {
+  //   const rollResult = resultFromDiceRoll;
+  //   const displaySegments = this._amazingDamageFormulaDisplay(rollResult._formula);
+  //   const flatBonuses = this._flatsFromSegments(displaySegments);
 
-    Object.entries(gp).forEach(entry => {
-      const [index, part] = entry;
-      part.formula = part.formulaChunks.join(' + ');
-      if (part.formulaChunks.length > 1) {
-        part.formula = `(${part.formula})`;
-      }
-    });
+  //   return {
+  //     parts: '',
+  //     overallRollFormula: displaySegments.join(' + '),
+  //     total: 0//rollResult.total,
+  //   }
+  // }
 
-    return gp;
-  }
+  // static async _partsSuperGrouper(parts) {
+  //   const gp = {};
+  //   parts.forEach(part => {
+  //     if (gp[part.flavor] == null) { 
+  //       gp[part.flavor] = {
+  //         flavor: part.flavor,
+  //         formula: '',
+  //         formulaChunks: [],
+  //         rolls: [],
+  //         total: 0,
+  //       };
+  //     }
+  //     gp[part.flavor].formulaChunks.push(part.formula);
+  //     gp[part.flavor].rolls.push(...part.rolls);
+  //     gp[part.flavor].total += part.total;
+  //   });
 
-  static async _amazingDamageFormulaDisplay(formula) {
-    const formulaSegments = formula.split('] + ');
-    const displayFormula = formulaSegments.map(segment => {
-      segment += ']';
-      const formulaPart = segment.substring(0, segment.indexOf('['));
-      const damageType = segment.substring(segment.indexOf('[')+1, segment.indexOf(']'));
-      const damageTypeIcon = genericUtil.createElementIcon({id: 'dmg', elementType: damageType, cssClass: 'element-damage-formula-icon'});
-      const returnText = `<span class='${damageType}-text'>${formulaPart}${damageTypeIcon}</span>`;
+  //   Object.entries(gp).forEach(entry => {
+  //     const [index, part] = entry;
+  //     part.formula = part.formulaChunks.join(' + ');
+  //     if (part.formulaChunks.length > 1) {
+  //       part.formula = `(${part.formula})`;
+  //     }
+  //   });
+
+  //   return gp;
+  // }
+
+  // static _flatsFromSegments(displaySegments) {
+  //   const flatBonuses = {};
+  //   displaySegments.forEach(segment => {
+  //     const segmentParts = segment.split(' + ');
+  //     segmentParts.forEach(part => {
+  //       const flatBonus = part.match(/(\d+)/g);
+  //       if (flatBonus) {
+  //         flatBonuses[part] = flatBonus;
+  //       }
+  //     });
+  //   });
+  //   return flatBonuses;
+  // }
+
+  // static _amazingDamageFormulaDisplay(formula) {
+  //   const formulaSegments = formula.split('] + ');
+  //   const displaySegments = formulaSegments.map(segment => {
+  //     segment += ']';
+  //     const formulaPart = segment.substring(0, segment.indexOf('['));
+  //     const damageType = segment.substring(segment.indexOf('[')+1, segment.indexOf(']'));
+  //     const damageTypeIcon = genericUtil.createElementIcon({id: 'dmg', elementType: damageType, cssClass: 'element-damage-formula-icon'});
+  //     const returnText = `<span class='${damageType}-text'>${formulaPart}${damageTypeIcon}</span>`;
         
-      return returnText;
-    }).join(' + ');
-    return displayFormula;
-  }
+  //     return returnText;
+  //   });//.join(' + ');
+  //   return displaySegments; //displayFormula;
+  // }
 
   static async itemInfo(options) {
     const actor = options.actor;

@@ -13,11 +13,11 @@
           <div class="dice">
             <header class="part-header flexrow">
               <span class="part-formula">{{part.formula}}</span>
-              <span class="part-flavor">{{part.flavor}}</span>
-              <span class="part-total {{part.flavor}}-text">
+              <span class="part-flavor">{{part.damageType}}</span>
+              <span class="part-total {{part.damageType}}-text">
                 {{part.total}}
-                <img class="element-damage-result-icon element-{{part.flavor}}" alt="{{capitalize part.flavor}}"
-                  src="systems/bunkers-and-badasses/assets/elements/{{capitalize part.flavor}}.png" />
+                <img class="element-damage-result-icon element-{{part.damageType}}" alt="{{capitalize part.damageType}}"
+                  src="systems/bunkers-and-badasses/assets/elements/{{capitalize part.damageType}}.png" />
               </span>
             </header>
             <ol class="dice-rolls">
@@ -29,7 +29,7 @@
         </section>
         {{/each}}
       </div>
-      <h4 class="dice-total">{{total}}</h4>
+      <h4 class="dice-total">{{{overallResultTotal}}} {{total}}</h4>
     </div>
   </div>
 </div>
