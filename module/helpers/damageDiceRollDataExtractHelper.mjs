@@ -5,12 +5,12 @@ export class DamageDiceRollDataExtractHelper {
   static turnRollResultIntoDamageData(options) {
     const rollResult = options.rollResult;
     const parts = rollResult.dice.map(d => d.getTooltipData());
-    const discectedFormula = this._extractAndRegroupInfoFromRollResult({ rollResult, parts });
+    const dissectedFormula = this._extractAndRegroupInfoFromRollResult({ rollResult, parts });
 
 
-    const rollFormulaByDamageTypeComponents = this._amazingDamageFormulaDisplay(discectedFormula);
-    const totalByDamageTypeComponents = this._amazingDamageTotalDisplay(discectedFormula);
-    const newParts = discectedFormula;
+    const rollFormulaByDamageTypeComponents = this._amazingDamageFormulaDisplay(dissectedFormula);
+    const totalByDamageTypeComponents = this._amazingDamageTotalDisplay(dissectedFormula);
+    const newParts = dissectedFormula;
     const summedTotal = rollResult.total;
 
     const damageData = {
@@ -33,7 +33,7 @@ export class DamageDiceRollDataExtractHelper {
     //   formula: formulaPart, // string of INCOMPLETE formula
     //   total: totalDamage, // total damage for that type
     // };
-    const discectedFormula = formulaSegments.map(segment => {
+    const dissectedFormula = formulaSegments.map(segment => {
       segment += ']';
       // Find the segment of the string that's the formula.
       const formulaPart = segment.substring(0, segment.indexOf('['));
@@ -51,9 +51,9 @@ export class DamageDiceRollDataExtractHelper {
       };
     });
 
-    this._mergePartsIntoDiscectedFormula({ parts, discectedFormula });
+    this._mergePartsIntoDissectedFormula({ parts, dissectedFormula });
 
-    return discectedFormula;
+    return dissectedFormula;
   }
 
   static _getTotalDamageForType(options) {
@@ -67,14 +67,14 @@ export class DamageDiceRollDataExtractHelper {
     return total;
   }
 
-  static _mergePartsIntoDiscectedFormula(options) {
-    const { parts, discectedFormula } = options;
+  static _mergePartsIntoDissectedFormula(options) {
+    const { parts, dissectedFormula } = options;
     parts.forEach(part => {
-      discectedFormula.forEach(df => {
+      dissectedFormula.forEach(df => {
         if (part.flavor === df.damageType) {
           if (!df.rolls) { df.rolls = []; } // Initialize if not already.
-          df.rolls.push(...part.rolls); // Add the rolls from parts to the discected formula.
-          df.totalWithoutFlatBonus += Number(part.total ?? 0); // Add the total from parts to the discected formula.
+          df.rolls.push(...part.rolls); // Add the rolls from parts to the dissected formula.
+          df.totalWithoutFlatBonus += Number(part.total ?? 0); // Add the total from parts to the dissected formula.
         }
       });
     });
@@ -82,17 +82,17 @@ export class DamageDiceRollDataExtractHelper {
     // Calculate the flat bonus to add based on the difference in totals.
     // For whatever reason, the parts totals don't include flat bonuses, 
     // so we have to calculate it from what we know.
-    discectedFormula.forEach(df => {
+    dissectedFormula.forEach(df => {
       const flatToAdd = Number(df.total ?? 0) - Number(df.totalWithoutFlatBonus ?? 0);
-      if (flatToAdd != 0) { // If there's a flat bonus, add it to the discected formula details as needed.
+      if (flatToAdd != 0) { // If there's a flat bonus, add it to the dissected formula details as needed.
         df.flatBonus = Number(flatToAdd);
         df.rolls.push({ classes: 'flat d1', result: flatToAdd, type: df.damageType });
       }
     });
   }
 
-  static _amazingDamageFormulaDisplay(discectedFormula) {
-    const textFormulas = discectedFormula.map(df => {
+  static _amazingDamageFormulaDisplay(dissectedFormula) {
+    const textFormulas = dissectedFormula.map(df => {
       const formulaPart = df.formula;
       const damageType = df.damageType;
       const damageTypeIcon = genericUtil.createElementIcon({id: 'dmg', elementType: damageType, cssClass: 'element-damage-formula-icon'});
@@ -102,8 +102,8 @@ export class DamageDiceRollDataExtractHelper {
     return textFormulas;
   }
 
-  static _amazingDamageTotalDisplay(discectedFormula) {
-    const textDamageTotals = discectedFormula.map(df => {
+  static _amazingDamageTotalDisplay(dissectedFormula) {
+    const textDamageTotals = dissectedFormula.map(df => {
       const damageType = df.damageType;
       const damageTypeIcon = genericUtil.createElementIcon({id: 'dmg', elementType: damageType, cssClass: 'element-damage-total-icon'});    
       const returnText = `<span class='${damageType}-text nowrap-element-icon'>${df.total}${damageTypeIcon}</span>`;
