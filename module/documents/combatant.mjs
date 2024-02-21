@@ -12,7 +12,7 @@ export class BNBCombatant extends Combatant {
 
       const badassRank = actor.system.attributes.badass.rank;
       //const initValue = initiative.value; // This is equal to the stat bonus, so we go to the source instead.
-      const statBonus = actor.system[statToUse].modToUse;
+      const statBonus = actor.system[statToUse]?.modToUse ?? 0;
       const initMisc = initiative.misc;
       const initEffects = initiative.effects;
       //const initTotal = initiative.total; // This total is not used in the formula
