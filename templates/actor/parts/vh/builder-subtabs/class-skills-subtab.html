@@ -13,20 +13,21 @@
   </div>
   <ol class="items-list">
     {{#each skilltree as |skills tier|}}
-      <li class="item flexrow items-header">
-        <div class="item-name clickable skill-tier-collapse-toggle flex-size-3"
-        data-skill-tier="{{tier}}">
-          x
-        </div>
-        <div class="reward-text flex-size-6 large-text-overflow-hidden"></div>
-        <div class="reward-text flex-size-2">Skill Level</div>
-        <div class="class-skill-item-controls">
-          <a class="item-control item-create" title="Create item" data-dtype="skill" data-tier="{{tier}}"><i class="fas fa-plus"></i> Add Tier {{tier}}</a>
-        </div>
-      </li>
-      {{#each skills as |item id|}}
-        {{> (dropdownHeaderLocation "base") item=item }}
-      {{/each}}
+      {{> "systems/bunkers-and-badasses/templates/actor/parts/item-list-components/item-list.html"
+        items=skills
+        itemType="skill"
+
+        isCollapsed=../isCollapsed
+        
+        categoryType=(concat "tier" tier "Skills")
+        headerText=(concat "Tier " tier " Skills")
+        createItemText=(concat "Add Tier " tier)
+
+        allowCreate=true
+        allowDelete=true
+        hasSkillLevel=true
+        tier=tier
+      }}
     {{/each}}
   </ol>
 </div>

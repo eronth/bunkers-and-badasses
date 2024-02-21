@@ -28,414 +28,97 @@
     }}
   </div>
 </div>
+
 {{!-- Guns --}}
-<ol class="items-list">
-  <li class="item flexrow items-header">
-    <div class="item-name clickable category-collapse-toggle"
-    data-loot-category-type="guns">
-      {{> "systems/bunkers-and-badasses/templates/general/accordion-toggle-icon.html"
-        collapsed=(lootCategoryIsCollapsed isCollapsed "guns")
-        text="Guns"}}
-    </div>
-    <div class="item-details">
-      <div class="item-effect flex-size-5"><label>Description</label></div>
-    </div>
-    <div class="item-equip">
-      <div class="item-equip flex-size-1"><label>Equip?</label></div>
-    </div>
-    <div class="item-controls">
-      <a class="item-control item-create" title="Create Item" data-dtype="gun"><i class="fas fa-plus"></i> Add Gun</a>
-    </div>
-  </li>
-  {{^if (lootCategoryIsCollapsed isCollapsed "guns")}}
-  {{#each guns as |item id|}}
-  <li class="item item-element-group loot-rarity-fade-border flexrow" 
-    style="--rarityColor: {{item.system.rarity.colorValue}}"
-    data-item-id="{{item._id}}">
-    <div class="item-name rollable" data-roll-type="item">
-      <div class="item-image">
-        <a class="rollable" data-roll-type="item">
-        <img class="item-rarity-outline" 
-          style="--rarityColor: {{item.system.rarity.colorValue}}" 
-          src="{{item.img}}" title="{{item.system.class}} {{item.name}}" width="24" height="24"/></a>
-      </div>
-      <div class="flexcol">
-        <div class="bolded font-rarity" style="--rarityColor: {{item.system.rarity.colorValue}}">
-          {{item.system.rarity.name}} {{shortName item.system.type.name}}</div>
-        <h4 class="bolded">{{item.system.prefix.name}} {{item.name}}</h4>
-      </div>
-    </div>
-    <div class="item-details">
-      <div class="flexcol item-effec-stack-container">
-        <div class="item-effect item-prop-stack">
-          <div class="gun-row">
-            <img id="hits" alt="Hits" class="critshits-icon" src="systems/bunkers-and-badasses/assets/weapons/hits.png" />
-            <label class="gun-row-hits">
-              {{adder system.accuracy.low.hits ../system.bonus.combat.hits.low ../system.bonus.combat.hits.all}}
-              {{adder system.accuracy.mid.hits ../system.bonus.combat.hits.mid ../system.bonus.combat.hits.all}}
-              {{adder system.accuracy.high.hits ../system.bonus.combat.hits.high ../system.bonus.combat.hits.all}}
-            </label>
-            {{{system.dmgPerHitHtml}}}
-            <label class="gun-detail-header">  Range:</label>
-            <label>{{system.range}} sq</label>
-          </div>
-        </div>
-        <div class="item-effect item-prop-stack">
-          <div class="gun-row">
-            <img id="crits" alt="Crits" class="critshits-icon" src="systems/bunkers-and-badasses/assets/weapons/crits.png" />
-            <label class="gun-row-crits">
-              {{adder system.accuracy.low.crits ../system.bonus.combat.crits.low ../system.bonus.combat.crits.all}}
-              {{adder system.accuracy.mid.crits ../system.bonus.combat.crits.mid ../system.bonus.combat.crits.all}}
-              {{adder system.accuracy.high.crits ../system.bonus.combat.crits.high ../system.bonus.combat.crits.all}}
-            </label>
-            {{{system.bonusDamageHtml}}}
-          </div>
-        </div>
-        <!--
-          <div class="item-effect item-prop-stack">
-            <div class="gun-row">
-              <label class="gun-detail-header">Effects:</label>
-              <label class="large-text-overflow-hidden">
-                {{system.prefix.effects}}, {{system.guildBonus}}, {{system.effect}}
-              </label>
-            </div>
-          </div>
-        -->
-      </div>
-    </div>
-    <div class="item-equip-control">
-      <a class="checkbox" title="Equip Item?" data-target="item" data-item-target="system.equipped">
-        {{#if item.system.equipped}}<i class="far fa-check-square"></i>{{else}}<i class="far fa-square"></i>{{/if}}
-      </a>
-    </div>
-    <div class="item-controls">
-      <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-      <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
-    </div>
-  </li>
-  {{log item}}
-  {{/each}}
-  {{/if}}
-</ol>
+{{> "systems/bunkers-and-badasses/templates/actor/parts/item-list-components/item-list.html"
+  items=guns
+  itemType="gun"
+  
+  categoryType="guns"
+  headerText="Guns"
+  createItemText="Gun"
+
+  allowCreate=true
+  allowDelete=true
+  equippable=true
+  hasRarity=true
+  hasPrefix=true
+  showSubtype=true
+  showNameOnThirdLine=true
+}}
+
 {{!-- Shields --}}
-<ol class="items-list">
-  <li class="item flexrow items-header">
-    <div class="item-name clickable category-collapse-toggle"
-    data-loot-category-type="shields">
-      {{> "systems/bunkers-and-badasses/templates/general/accordion-toggle-icon.html"
-        collapsed=(lootCategoryIsCollapsed isCollapsed "shields")
-        text="Shield Mods"}}
-    </div>
-    <div class="item-details">
-      <div class="item-effect flex-size-5"><label>Description</label></div>
-      <!-- <div class="item-capacity flex-size-5"><label>Class Effect</label></div> -->
-    </div>
-    <div class="item-equip">
-      <div class="item-equip flex-size-1"><label>Equip?</label></div>
-    </div>
-    <div class="item-controls">
-      <a class="item-control item-create" title="Create Item" data-dtype="shield"><i class="fas fa-plus"></i> Add Shield</a>
-    </div>
-  </li>
-  {{^if (lootCategoryIsCollapsed isCollapsed "shields")}}
-  {{#each shields as |item id|}}
-  <li class="item item-element-group loot-rarity-fade-border flexrow" 
-      style="--rarityColor: {{item.system.rarity.colorValue}}"
-      data-item-id="{{item._id}}">
-    <div class="item-name rollable" data-roll-type="item">
-      <div class="item-image">
-        <a class="rollable" data-roll-type="item">  
-          <img class="item-rarity-outline" 
-               style="--rarityColor: {{item.system.rarity.colorValue}}" 
-               src="{{item.img}}" title="{{item.system.class}} {{item.name}}" width="24" height="24"/></a>
-      </div>
-      <div class="flexcol">
-        <div class="bolded font-rarity" style="--rarityColor: {{item.system.rarity.colorValue}}">{{item.system.rarity.name}}</div>
-        <h4 class="bolded">{{item.name}}</h4>
-      </div>
-    </div>
-    <div class="item-details">
-      <div class="flexcol item-effect-stack-container">
-        <div class="item-effect-stack item-prop-stack">
-          <label>{{#if item.system.effect}}<b>Effect</b>:{{/if}} {{item.system.effect}}</label>
-        </div>
-        <div class="flexrow item-effect-stack item-prop-stack">
-          <div class="loot-health">
+{{> "systems/bunkers-and-badasses/templates/actor/parts/item-list-components/item-list.html"
+  items=shields
+  itemType="shield"
+  
+  categoryType="shields"
+  headerText="Shield Mods"
+  createItemText="Shield"
 
-            <img id="enable{{label}}" alt="{{item.system.healthType}}" 
-            class="health-icon" 
-            src="systems/bunkers-and-badasses/assets/SHA/{{item.system.healthType}}-{{getBestHealthShade item.system.healthType}}.png" />
-            <label> {{item.system.capacity}} {{capitalize (hpTitle item.system.healthType)}} - {{item.system.recoveryRate}} {{capitalize (hpToRecoveryTitle item.system.healthType)}}</label>
-
-            <div class="resist-label"> 
-              <label class="resist-label">
-                {{#if item.system.resistHtml}}
-                Resists: {{{item.system.resistHtml}}}
-                {{/if}}
-              </label>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="item-equip-control">
-      <a class="checkbox" title="Equip Item?" data-target="item" data-item-target="system.equipped">
-      {{#if item.system.equipped}}<i class="far fa-check-square"></i>{{else}}<i class="far fa-square"></i>{{/if}}
-      </a>
-    </div>
-    <div class="item-controls">
-      <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-      <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
-    </div>
-  </li>
-  {{log item}}
-  {{/each}}
-  {{/if}}
-</ol>
+  allowCreate=true
+  allowDelete=true
+  equippable=true
+  hasRarity=true
+}}
 {{!-- Grenades --}}
-<ol class="items-list">
-  <li class="item flexrow items-header">
-    <div class="item-name clickable category-collapse-toggle"
-    data-loot-category-type="grenades">
-      {{> "systems/bunkers-and-badasses/templates/general/accordion-toggle-icon.html"
-        collapsed=(lootCategoryIsCollapsed isCollapsed "grenades")
-        text="Grenade Mods"}}
-    </div>
-    <div class="item-details">
-      <div class="item-effect flex-size-5"><label>Description</label></div>
-    </div>
-    <div class="item-equip">
-      <div class="item-equip flex-size-1"><label>Equip?</label></div>
-    </div>
-    <div class="item-controls">
-      <a class="item-control item-create" title="Create Item" data-dtype="grenade"><i class="fas fa-plus"></i> Add Grenade</a>
-    </div>
-  </li>
-  {{^if (lootCategoryIsCollapsed isCollapsed "grenades")}}
-  {{#each grenades as |item id|}}
-  <li class="item item-element-group loot-rarity-fade-border flexrow" 
-    style="--rarityColor: {{item.system.rarity.colorValue}}"
-    data-item-id="{{item._id}}">
-    <div class="item-name rollable" data-roll-type="item">
-      <div class="item-image">
-        <a class="rollable" data-roll-type="item">
-        <img class="item-rarity-outline" 
-          style="--rarityColor: {{item.system.rarity.colorValue}}" 
-          src="{{item.img}}" title="{{item.system.class}} {{item.name}}" width="24" height="24"/></a>
-      </div>
-      <div class="flexcol">
-        <div class="bolded font-rarity" style="--rarityColor: {{item.system.rarity.colorValue}}">{{item.system.rarity.name}}</div>
-        <h4 class="bolded">{{item.name}}</h4>
-      </div>
-    </div>
-    <div class="item-details">
-      <div class="flexcol item-effec-stack-container">
-        <div class="item-effect item-prop-stack">
-          <label class="item-effect item-prop-left">
-            <div>{{#if item.system.effect}}<b>Effect</b>:{{/if}} {{item.system.effect}}</div>
-          </label>
-        </div>
-        <div class="item-effect item-prop-stack">
-          <label class="loot-element-damage item-effect item-prop-stack loot-element-damage">
-            {{{item.system.dmgHtml}}}
-          </label>
-        </div>
-      </div>
-    </div>
-    <div class="item-equip-control">
-      <a class="checkbox" title="Equip Item?" data-target="item" data-item-target="system.equipped">
-        {{#if item.system.equipped}}<i class="far fa-check-square"></i>{{else}}<i class="far fa-square"></i>{{/if}}
-      </a>
-    </div>
-    <div class="item-controls">
-      <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-      <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
-    </div>
-  </li>
-  {{log item}}
-  {{/each}}
-  {{/if}}
-</ol>
+{{> "systems/bunkers-and-badasses/templates/actor/parts/item-list-components/item-list.html"
+  items=grenades
+  itemType="grenade"
+  
+  categoryType="grenades"
+  headerText="Grenade Mods"
+  createItemText="Grenade"
+
+  allowCreate=true
+  allowDelete=true
+  equippable=true
+  hasRarity=true
+}}
+
 {{!-- Relics --}}
-<ol class="items-list">
-  <li class="item flexrow items-header">
-    <div class="item-name clickable category-collapse-toggle"
-    data-loot-category-type="relics">
-      {{> "systems/bunkers-and-badasses/templates/general/accordion-toggle-icon.html"
-        collapsed=(lootCategoryIsCollapsed isCollapsed "relics")
-        text="Relics"}}
-    </div>
-    <div class="item-details">
-      <div class="item-effect flex-size-5"><label>Effect</label></div>
-      <!-- <div class="item-capacity flex-size-5"><label>Class Effect</label></div> -->
-    </div>
-    <div class="item-equip">
-      <div class="item-equip flex-size-1"><label>Equip?</label></div>
-    </div>
-    <div class="item-controls">
-      <a class="item-control item-create" title="Create Item" data-dtype="relic"><i class="fas fa-plus"></i> Add Relic</a>
-    </div>
-  </li>
-  {{^if (lootCategoryIsCollapsed isCollapsed "relics")}}
-  {{#each relics as |item id|}}
-  {{log item}}
-  <li class="item item-element-group loot-rarity-fade-border flexrow" 
-      style="--rarityColor: {{item.system.rarity.colorValue}}"
-      data-item-id="{{item._id}}">
-    <div class="item-name rollable" data-roll-type="item">
-      <div class="item-image">
-        <a class="rollable" data-roll-type="item">
-          <img class="item-rarity-outline" 
-               style="--rarityColor: {{item.system.rarity.colorValue}}" 
-               src="{{item.img}}" title="{{item.system.class}} {{item.name}}" width="24" height="24"/></a>
-      </div>
-      <div class="flexcol">
-        <div class="bolded font-rarity" style="--rarityColor: {{item.system.rarity.colorValue}}">{{item.system.rarity.name}}</div>
-        <h4 class="bolded">{{item.name}}</h4>
-      </div>
-    </div>
-    <div class="item-details">
-      <div class="flexcol item-effect-stack-container">
-        <div class="item-effect-stack item-prop-stack">
-          <label>{{#if item.system.effect}}<b>Effect</b>:{{/if}} {{item.system.effect}}</label>
-        </div>
-        <div class="flexrow item-effect-stack item-prop-stack">
-          <label>{{#if item.system.classEffect}}<b>{{item.system.class}} Class</b>:{{/if}} {{item.system.classEffect}}</label>
-        </div>
-      </div>
-    </div>
-    <div class="item-equip-control">
-      <a class="checkbox" title="Equip Item?" data-target="item" data-item-target="system.equipped">
-      {{#if item.system.equipped}}<i class="far fa-check-square"></i>{{else}}<i class="far fa-square"></i>{{/if}}
-      </a>
-    </div>
-    <div class="item-controls">
-      <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-      <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
-    </div>
-  </li>
-  {{/each}}
-  {{/if}}
-</ol>
+{{> "systems/bunkers-and-badasses/templates/actor/parts/item-list-components/item-list.html"
+  items=relics
+  itemType="relic"
+  
+  categoryType="relics"
+  headerText="Relic"
+  createItemText="Relic"
+
+  allowCreate=true
+  allowDelete=true
+  equippable=true
+  showClass=true
+  hasRarity=true
+  showNameOnThirdLine=true
+}}
+
 {{!-- Potions --}}
-<ol class="items-list">
-  <li class="item flexrow items-header">
-    <div class="item-name clickable category-collapse-toggle"
-    data-loot-category-type="potions">
-      {{> "systems/bunkers-and-badasses/templates/general/accordion-toggle-icon.html"
-        collapsed=(lootCategoryIsCollapsed isCollapsed "potions")
-        text="Potions"}}
-    </div>
-    <div class="item-details">
-      <div class="item-effect flex-size-5"><label>Effect</label></div>
-    </div>
-    <div class="item-equip">
-      <div class="item-equip flex-size-1"><label>Equip?</label></div>
-    </div>
-    <div class="item-controls">
-      <a class="item-control item-create" title="Create Item" data-dtype="potion"><i class="fas fa-plus"></i> Add Potion</a>
-    </div>
-  </li>
-  {{^if (lootCategoryIsCollapsed isCollapsed "potions")}}
-  {{#each potions as |item id|}}
-  {{log item}}
-  <li class="item item-element-group loot-rarity-fade-border flexrow" 
-      style="--rarityColor: {{item.system.rarity.colorValue}}"
-      data-item-id="{{item._id}}">
-    <div class="item-name rollable" data-roll-type="item">
-      <div class="item-image">
-        <a class="rollable" data-roll-type="item">
-          <img class="item-rarity-outline" 
-            style="--rarityColor: {{item.system.rarity.colorValue}}" 
-            src="{{item.img}}" title="{{item.system.class}} {{item.name}}" width="24" height="24" />
-        </a>
-      </div>
-      <div class="flexcol">
-        <div class="bolded font-rarity" style="--rarityColor: {{item.system.rarity.colorValue}}">{{item.system.rarity.name}}</div>
-        <h4 class="bolded">{{item.name}}</h4>
-      </div>
-    </div>
-    <div class="item-details">
-      <div class="item-effect item-prop-left">
-        <label class="item-effect">
-          <div>{{#if item.system.effect}}<b>Effect</b>:{{/if}} {{item.system.effect}}</div>
-        </label>
-      </div>
-      <!-- <div class="item-detail">
-        <label>{{item.system.quantity}}</label>
-      </div>
-      <div class="item-detail">
-        <label>{{item.system.cost}}g</label>
-      </div> -->
-    </div>
-    <div class="item-equip-control">
-      <a class="checkbox" title="Equip Item?" data-target="item" data-item-target="system.equipped">
-      {{#if item.system.equipped}}<i class="far fa-check-square"></i>{{else}}<i class="far fa-square"></i>{{/if}}
-      </a>
-    </div>
-    <div class="item-controls">
-      <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-      <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
-    </div>
-  </li>
-  {{/each}}
-  {{/if}}
-</ol>
+{{> "systems/bunkers-and-badasses/templates/actor/parts/item-list-components/item-list.html"
+  items=potions
+  itemType="potion"
+  
+  categoryType="potions"
+  headerText="Potions"
+  createItemText="Potion"
+
+  allowCreate=true
+  allowDelete=true
+  showItemCount=true
+  hasRarity=true
+}}
+
 {{!-- Key/Generic Items --}}
-<ol class="items-list">
-  <li class="item flexrow items-header">
-    <div class="item-name clickable category-collapse-toggle"
-    data-loot-category-type="key">
-      {{> "systems/bunkers-and-badasses/templates/general/accordion-toggle-icon.html"
-        collapsed=(lootCategoryIsCollapsed isCollapsed "key")
-        text="Key Items"}}
-    </div>
-    <div class="item-details">
-      <div class="item-effect flex-size-5"><label>Effect</label></div>
-    </div>
-    <div class="item-equip">
-      <div class="item-equip flex-size-1"><label>Equip?</label></div>
-    </div>
-    <div class="item-controls">
-      <a class="item-control item-create" title="Create Item" data-dtype="key item"><i class="fas fa-plus"></i> Add Item</a>
-    </div>
-  </li>
-  {{^if (lootCategoryIsCollapsed isCollapsed "key")}}
-  {{#each keyItems as |item id|}}
-  {{log item}}
-  <li class="item item-element-group loot-rarity-fade-border flexrow" 
-    style="--rarityColor: {{item.system.rarity.colorValue}}"
-    data-item-id="{{item._id}}">
-    <div class="item-name rollable" data-roll-type="item">
-      <div class="item-image">
-        <a class="rollable" data-roll-type="item">
-          <img class="item-rarity-outline" 
-          style="--rarityColor: {{item.system.rarity.colorValue}}" 
-          src="{{item.img}}" title="{{item.system.class}} {{item.name}}" width="24" height="24"/>
-        </a>
-      </div>
-      <div class="flexcol">
-        <div class="bolded font-rarity" style="--rarityColor: {{item.system.rarity.colorValue}}">{{item.system.rarity.name}}</div>
-        <h4 class="bolded">{{item.name}}</h4>
-      </div>
-    </div>
-    <div class="item-details">
-      <div class="item-effect item-prop-left">
-        <label class="item-effect">
-          <div>{{#if item.system.effect}}<b>Description</b>:{{/if}} {{item.system.description}}</div>
-        </label>
-      </div>
-    </div>
-    <div class="item-equip-control">
-      <a class="checkbox" title="Equip Item?" data-target="item" data-item-target="system.equipped">
-      {{#if item.system.equipped}}<i class="far fa-check-square"></i>{{else}}<i class="far fa-square"></i>{{/if}}
-      </a>
-    </div>
-    <div class="item-controls">
-      <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-      <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
-    </div>
-  </li>
-  {{/each}}
-  {{/if}}
-</ol>
+{{> "systems/bunkers-and-badasses/templates/actor/parts/item-list-components/item-list.html"
+  items=keyItems
+  itemType="key item"
+  
+  categoryType="keyItems"
+  headerText="Key Items"
+  createItemText="Item"
+
+  allowCreate=true
+  allowDelete=true
+  equippable=true
+  hasRarity=true
+}}
