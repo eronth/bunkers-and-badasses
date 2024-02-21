@@ -75,21 +75,42 @@
   height: 12px;
 }
 #chat-log .element-damage-result-icon {
-  border: 0;
-  height: 15px;
-  /* width: 15px; */
-  max-width: 16px;
   margin-left: -1px;
   margin-bottom: -2px;
+  height: 1em;
+  max-width: 16px;
 }
 #chat-log .element-damage-formula-icon {
+  padding-left: 1px;
   margin-bottom: -2px;
-  padding-left: 2px;
-  height: 13px;
+  height: .9em;
 }
 #chat-log .element-damage-total-icon {
-  height: 0.8em;
+  margin-left: 1px;
   margin-bottom: -1px;
+  height: 0.8em;
+}
+#chat-log .description .element-damage-icon {
+  height: .9em;
+}
+/* Kinetic */
+#chat-log .element-damage-formula-icon.element-melee-kinetic {
+  margin-left: 0px;
+  padding-left: 0px;
+  margin-bottom: -3px;
+  height: 1.3em;
+}
+#chat-log .element-damage-result-icon.element-melee-kinetic {
+  margin-left: 0px;
+  padding-left: 0px;
+  margin-bottom: -2px;
+  height: 1em;
+}
+#chat-log .element-damage-total-icon.element-melee-kinetic {
+  margin-left: 0px;
+  padding-left: 0px;
+  margin-bottom: -3px;
+  height: 1em;
 }
 /* Explosive */
 .system-bunkers-and-badasses #chat-log .description .element-explosive,
@@ -97,13 +118,13 @@
 .bnb .item-list-component .item-details .element-damage-icon.element-explosive {
   height: 14px;
   margin-left: -4px;
-  margin-bottom: -2px;
   margin-right: -3px;
+  margin-bottom: -2px;
 }
 .bnb .attacks-container .minor-details .damage .element-damage-icon.element-explosive {
   height: 12px;
-  margin-bottom: -2px;
   margin-left: -1px;
+  margin-bottom: -2px;
 }
 .element-damage-result-icon.element-explosive {
   margin-left: -2px;
@@ -113,8 +134,8 @@
 .bnb .item-list-component .item-details .element-damage-icon.element-crysplosive {
   height: 14px;
   margin-left: -4px;
-  margin-bottom: -2px;
   margin-right: -3px;
+  margin-bottom: -2px;
 }
 .bnb .item-list-component .item-details .element-resist-icon.element-crysplosive {
   margin-bottom: -1px;
@@ -122,17 +143,17 @@
 .bnb .items-list .item-dropdown-group .item-dropdown-body .dropdown-elements-container .element-crysplosive {
   height: 15px;
   margin-left: -4px;
-  margin-bottom: -2px;
   margin-right: -3px;
+  margin-bottom: -2px;
 }
 .bnb .attacks-container .minor-details .damage .element-damage-icon.element-crysplosive {
   height: 12px;
-  margin-bottom: -2px;
   margin-left: -1px;
+  margin-bottom: -2px;
 }
 .element-damage-result-icon.element-crysplosive {
-  margin-bottom: -2px;
   margin-left: -2px;
+  margin-bottom: -2px;
 }
 /* Incendiary */
 .element-damage-result-icon.element-incendiary {
@@ -140,6 +161,10 @@
 }
 #chat-log .element-damage-total-icon.element-incendiary {
   margin-bottom: 0px;
+}
+/* Shock */
+#chat-log .element-damage-total-icon.element-shock {
+  margin-left: 0;
 }
 /* Corrosive */
 .system-bunkers-and-badasses #chat-log .description .element-corrosive,
