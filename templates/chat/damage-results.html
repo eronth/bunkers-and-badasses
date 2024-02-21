@@ -16,8 +16,8 @@
               <span class="part-flavor">{{part.damageType}}</span>
               <span class="part-total {{part.damageType}}-text">
                 {{part.total}}
-                <img class="element-damage-result-icon element-{{part.damageType}}" alt="{{capitalize part.damageType}}"
-                  src="systems/bunkers-and-badasses/assets/elements/{{capitalize part.damageType}}.png" />
+                <img class="element-damage-result-icon element{{#if ../isMelee}}-melee{{/if}}-{{part.damageType}}" alt="{{capitalize part.damageType}}"
+                  src="systems/bunkers-and-badasses/assets/elements/{{#if ../isMelee}}melee/{{/if}}{{capitalize part.damageType}}.png" />
               </span>
             </header>
             <ol class="dice-rolls">

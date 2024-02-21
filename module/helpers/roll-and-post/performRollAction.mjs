@@ -344,7 +344,7 @@ export class PerformRollAction {
     });
     
 
-    const summary = {};
+    const summary = { };
     await this._mergeDamageValuesIntoSummary(summary, hits, perHit);
     await this._mergeDamageValuesIntoSummary(summary, crits, perCrit);
     await this._mergeDamageValuesIntoSummary(summary, 1, perAttack);
@@ -358,10 +358,19 @@ export class PerformRollAction {
       damageTypes: damageTypes
     });
     
+    // if (attackType === 'melee') {
+    //   if (MixedDiceAndNumber.isAnyMixedValue(summary['kinetic'])) {
+    //     summary['melee-kinetic'] = summary['kinetic'];
+    //   }
+    //   delete summary['kinetic'];
+    // } else {
+    //   delete summary['melee-kinetic'];
+    // } 
 
     const rollForumlaOptions = {
       summary: summary,
-      isDoubled: isDoubled
+      isDoubled: isDoubled,
+      attackType: attackType,
     };
 
     // Create the roll.
@@ -375,6 +384,7 @@ export class PerformRollAction {
     return await PostToChat.damageResult({
       actor: actor,
       item: item,
+      isMelee: attackType === 'melee',
       rollResult: rollResult,
     });
   }
@@ -679,7 +689,6 @@ export class PerformRollAction {
     const { summary, isDoubled } = rollFormulaOptions;
     const rollFormula = Object.entries(summary).map((damage) => {
       const [damageType, damageValue] = damage;
-
       let sumString = MixedDiceAndNumber.mixedToString({ mixed: damageValue, numberLocation: 'end' });
       const stringNeedsWrapper = sumString.includes('+') || sumString.includes('-');
       if (stringNeedsWrapper) { sumString = `(${sumString})`; }

@@ -4,12 +4,19 @@ export class DamageDiceRollDataExtractHelper {
   
   static turnRollResultIntoDamageData(options) {
     const rollResult = options.rollResult;
+    const isMelee = options.isMelee;
     const parts = rollResult.dice.map(d => d.getTooltipData());
     const dissectedFormula = this._extractAndRegroupInfoFromRollResult({ rollResult, parts });
 
 
-    const rollFormulaByDamageTypeComponents = this._amazingDamageFormulaDisplay(dissectedFormula);
-    const totalByDamageTypeComponents = this._amazingDamageTotalDisplay(dissectedFormula);
+    const rollFormulaByDamageTypeComponents = this._amazingDamageFormulaDisplay({
+      dissectedFormula: dissectedFormula,
+      isMelee: isMelee,
+    });
+    const totalByDamageTypeComponents = this._amazingDamageTotalDisplay({
+      dissectedFormula: dissectedFormula,
+      isMelee: isMelee,
+    });
     const newParts = dissectedFormula;
     const summedTotal = rollResult.total;
 
@@ -91,21 +98,25 @@ export class DamageDiceRollDataExtractHelper {
     });
   }
 
-  static _amazingDamageFormulaDisplay(dissectedFormula) {
+  static _amazingDamageFormulaDisplay(options) {
+    const { dissectedFormula, isMelee } = options;
     const textFormulas = dissectedFormula.map(df => {
       const formulaPart = df.formula;
       const damageType = df.damageType;
-      const damageTypeIcon = genericUtil.createElementIcon({id: 'dmg', elementType: damageType, cssClass: 'element-damage-formula-icon'});
+      const createIconData = { id: 'dmg', elementType: damageType, cssClass: 'element-damage-formula-icon', isMelee: isMelee };
+      const damageTypeIcon = genericUtil.createElementIcon(createIconData);
       const returnText = `<span class='${damageType}-text nowrap-element-icon'>${formulaPart}${damageTypeIcon}</span>`;
       return returnText;
     });
     return textFormulas;
   }
 
-  static _amazingDamageTotalDisplay(dissectedFormula) {
+  static _amazingDamageTotalDisplay(options) {
+    const { dissectedFormula, isMelee } = options;
     const textDamageTotals = dissectedFormula.map(df => {
       const damageType = df.damageType;
-      const damageTypeIcon = genericUtil.createElementIcon({id: 'dmg', elementType: damageType, cssClass: 'element-damage-total-icon'});    
+      const createIconData = { id: 'dmg', elementType: damageType, cssClass: 'element-damage-total-icon', isMelee: isMelee };
+      const damageTypeIcon = genericUtil.createElementIcon(createIconData);
       const returnText = `<span class='${damageType}-text nowrap-element-icon'>${df.total}${damageTypeIcon}</span>`;
       return returnText;
     });

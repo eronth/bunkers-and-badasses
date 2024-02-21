@@ -39,11 +39,17 @@ export class genericUtil {
     return damageTypes;
   }
 
-  static createElementIcon({id, elementType, cssClass}) {
+  static createElementIcon({ id, elementType, cssClass, isMelee }) {
+    const cssModifier = isMelee ? 'melee-' : '';
+    const pathModifier = isMelee ? 'melee/' : '';
+    const idModifier = isMelee ? 'Melee' : '';
+    const elementDisplayNameModifier = isMelee ? 'Melee ' : '';
+
     const elementKey = elementType.toLowerCase();
-    const elementDisplayName = this.capitalize(elementKey);
-    return `<img id="${id}${elementDisplayName}" alt="${elementDisplayName}" title="${elementDisplayName}"
-    class="${cssClass} element-${elementKey}" src="systems/bunkers-and-badasses/assets/elements/${elementDisplayName}.png" />`;
+    const elementFileName = this.capitalize(elementKey);
+    const elementDisplayName = elementDisplayNameModifier + this.capitalize(elementKey);
+    return `<img id="${id}${idModifier}${elementDisplayName}" alt="${elementDisplayName}" title="${elementDisplayName}"
+    class="${cssClass} element-${cssModifier}${elementKey}" src="systems/bunkers-and-badasses/assets/elements/${pathModifier}${elementFileName}.png" />`;
   }
 
   static createGunDamagePerHitHtml(options) {
