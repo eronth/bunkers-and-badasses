@@ -31,12 +31,6 @@ export class BNBActor extends Actor {
       useShield: true
     };
 
-    // // Values for flags.
-    // const initTokenFlags = {
-    //   // Values to use for barbrawl's benefit.
-    //   barbrawl: this.preCreateBarbrawlHealthBars(data, gameFlags)
-    // }
-
     // Assemble the initial token data values.
     const initTokenData = {
       token: {
@@ -52,13 +46,6 @@ export class BNBActor extends Actor {
 
     this.preCreateActionSkilItem();
   }
-
-  // preCreateBarbrawlHealthBars(data, gameFlags) {
-  //   const initTokenBars = (BarbrawlBuilder.buildResourceBars(gameFlags));
-  //   return {
-  //     'resourceBars': {...initTokenBars} 
-  //   };
-  // }
 
   /// Creates the default action skill item for the actor.
   preCreateActionSkilItem() {

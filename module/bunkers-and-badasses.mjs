@@ -42,7 +42,7 @@ Hooks.once('init', async function() {
       'exactRound': 'Euclid (Rounded) — Use exact distances, round to nearest whole number',
       'exactRoundUp': 'Euclid (Rounded Up) — Use exact distances, round up',
       'exactRoundDown': 'Euclid (Rounded Down) — Use exact distances, round down',
-      'exactDecimal': 'Euclid (Decimal) — Use exact distances, show decimal places'
+      //'exactDecimal': 'Euclid (Decimal) — Use exact distances, show decimal places'
     }
   });
   
@@ -92,6 +92,8 @@ Hooks.once('init', async function() {
     type: Boolean,
   });
 
+  
+
   /**
    * Set an initiative formula for the system
    * @type {String}
@@ -113,23 +115,23 @@ Hooks.once('init', async function() {
   Items.unregisterSheet("core", ItemSheet);
   Items.registerSheet("bunkers-and-badasses", BNBItemSheet, { makeDefault: true });
 
-  game.socket.on('show-bm-red-text', async data => {
-    const item = data.item;
-    const itemSystem = item.system;
+  // game.socket.on('show-bm-red-text', async data => {
+  //   const item = data.item;
+  //   const itemSystem = item.system;
     
-    const user = game.users.get(game.user.id);
-      if (user.isGM) 
-      {
-      const secretMessageData = {
-        user: user,
-        flavor: `Secret BM only notes for ${this.actor.name}'s <b>${item.name}</b>`,
-        content: itemSystem.redTextEffectBM,
-        whisper: game.users.filter(u => u.isGM).map(u => u.id),
-        speaker: ChatMessage.getSpeaker(),
-      };
-      return ChatMessage.create(secretMessageData);
-    }
-  });
+  //   const user = game.users.get(game.user.id);
+  //     if (user.isGM) 
+  //     {
+  //     const secretMessageData = {
+  //       user: user,
+  //       flavor: `Secret BM only notes for ${this.actor.name}'s <b>${item.name}</b>`,
+  //       content: itemSystem.redTextEffectBM,
+  //       whisper: game.users.filter(u => u.isGM).map(u => u.id),
+  //       speaker: ChatMessage.getSpeaker(),
+  //     };
+  //     return ChatMessage.create(secretMessageData);
+  //   }
+  // });
 
   // Preload Handlebars templates.
   return preloadHandlebarsTemplates();
@@ -143,7 +145,6 @@ HandlebarsHelperUtil.prepareHandlebarsHelpers();
 /* -------------------------------------------- */
 /*  Ready Hook                                  */
 /* -------------------------------------------- */
-
 Hooks.once("ready", async function() {
   // Wait to register hotbar drop hook on ready so that modules could register earlier if they want to
   Hooks.on("hotbarDrop", (bar, data, slot) => createItemMacro(data, slot));
@@ -177,7 +178,6 @@ function measureBnBDistances(segments, options) {
 function getAddedDistance({ line, leftoverDiagonal, gridConversion }) {
   const measureType = game.settings.get('bunkers-and-badasses', 'measurementType');
   const { X, Y } = line;
-
   if (measureType === 'manhattan') {
     return (Math.abs(X) + Math.abs(Y)) * gridConversion;
   } else if (measureType === 'everyOther') {
@@ -196,103 +196,20 @@ function getAddedDistance({ line, leftoverDiagonal, gridConversion }) {
 }
 
 Hooks.on('preCreateToken', (document, data) => {
-  const resourceBars = BarbrawlBuilder.buildResourceBars();
+  const actor = document.actor;
+  const isNpc = actor.type == 'npc';
+  
+  const resourceFlags = {
+    armor: (isNpc ? true : game.settings.get('bunkers-and-badasses', 'usePlayerArmor')),
+    bone: game.settings.get('bunkers-and-badasses', (isNpc ? 'useNpcBone' : 'usePlayerBone')),
+    eridian: game.settings.get('bunkers-and-badasses', (isNpc ? 'useNpcEridian' : 'usePlayerEridian')),
+    flesh: true,
+    shield: true
+  };
+
+  const resourceBars = BarbrawlBuilder.buildResourceBars({ resourceFlags: resourceFlags});
   document.updateSource({ 'flags.barbrawl.resourceBars': resourceBars });
 });
-
-// Hooks.on("preCreateToken", function (document, data) {
-//   const actor = document?.actor;
-//   const actorSystem = actor?.system;
-//   const protoToken = actor?.prototypeToken;
-  
-//   // Get the Hps values from the actor
-//   const actorHps = actorSystem.attributes.hps;
-//   const tokenBars = protoToken?.flags?.barbrawl?.resourceBars;
-//   const hasTokenLoadedBefore = actorSystem?.attributes?.hasTokenLoadedBefore ?? false;
-
-//   // Get the settings values.
-//   const previousHpsSettings = actorSystem?.attributes?.previousHpsSettings ?? { 
-//     Flesh: true,
-//     Shield: true,
-//     Armor: ((actor.type == 'npc') ? true : false),
-//     Eridian: false,
-//     Bone: false
-//   };
-//   const currentHpsSettings = {
-//     Armor: (actor.type == 'npc'
-//       ? true
-//       : game.settings.get('bunkers-and-badasses', 'usePlayerArmor')),
-//     Bone: (actor.type == 'npc' 
-//       ? game.settings.get('bunkers-and-badasses', 'useNpcBone')
-//       : game.settings.get('bunkers-and-badasses', 'usePlayerBone')),
-//     Eridian: (actor.type == 'npc'
-//       ? game.settings.get('bunkers-and-badasses', 'useNpcEridian')
-//       : game.settings.get('bunkers-and-badasses', 'usePlayerEridian')),
-//     Flesh: true,
-//     Shield: true
-//   }
-  
-//   // Currently delete doesn't clean these up. Oh well.
-//   // if (!hasTokenLoadedBefore) {
-//   //   delete tokenBars.bar1;
-//   //   delete tokenBars.bar2;
-//   //   const removeKey = 'flags.barbrawl.resourceBars.-=';
-//   //   actor.update({ [removeKey+'bar1']: null });
-//   //   actor.update({ [removeKey+'bar2']: null });
-//   //   actor.token.update({ [removeKey+'bar1']: null });
-//   //   actor.token.update({ [removeKey+'bar2']: null });
-//   // }
-  
-
-//   for (const [settingName, settingValue] of Object.entries(currentHpsSettings)) {
-//     const barId = `bar${settingName}`;
-    
-//     // Only toggle on if the setting is different.
-//     if ((settingValue !== previousHpsSettings[settingName]) || !hasTokenLoadedBefore) {
-
-//       if (settingValue && (!previousHpsSettings[settingName] || !hasTokenLoadedBefore)) {
-
-//         // turn the hp on only if it is not already on.
-//         if (tokenBars[barId] == null) {
-//           // if (actorHps[settingName.toLocaleLowerCase()].value > 0 
-//           // || actorHps[settingName.toLocaleLowerCase()].max > 0) {
-//             tokenBars[barId] = {...getBarbrawlBar(barId)};
-//             const addBarKey = 'flags.barbrawl.resourceBars.'+barId;
-//             document.updateSource({ [addBarKey]: tokenBars[barId] });
-//             actor.updateSource({ [addBarKey]: tokenBars[barId] });
-//             actor.prototypeToken.updateSource({ [addBarKey]: tokenBars[barId] });
-//           //}
-//         }
-//       } else if (!settingValue && (previousHpsSettings[settingName] || !hasTokenLoadedBefore)) {
-//         // turn the hp off
-//         delete tokenBars[barId];
-//         const removeKey = 'flags.barbrawl.resourceBars.-='+barId;
-//         document.updateSource({ [removeKey]: null });
-//         actor.updateSource({ [removeKey]: null });
-//         actor.prototypeToken.updateSource({ [removeKey]: null });
-//       }
-
-//     }
-//   }
-
-//   // Always save settings changes.
-//   const settingsKey = 'system.attributes.previousHpsSettings';
-//   actor.update({[settingsKey]: currentHpsSettings});
-
-//   // Mark if the token has been loaded before, so we can track first ever load or not.
-//   if (!hasTokenLoadedBefore) {
-//     const tokenLoadKey = 'system.attributes.hasTokenLoadedBefore';
-//     actor.update({[tokenLoadKey]: true});
-//   }
-
-// });
-
-// function getBarbrawlBar(barId) {
-//   return tokenBarbrawlBars[barId];
-// }
-// const tokenBarbrawlBars = {
-//   ...(BarbrawlBuilder._buildBarbrawlBars( {useAllHealth: true} ))
-// };
 
 Hooks.once("dragRuler.ready", (SpeedProvider) => {
   class BnBSpeedProvider extends SpeedProvider {
@@ -337,6 +254,73 @@ Hooks.once("dragRuler.ready", (SpeedProvider) => {
 
   dragRuler.registerSystem("bunkers-and-badasses", BnBSpeedProvider);
 })
+
+Hooks.on("item-piles-ready", async () => {
+
+  const columns = [{
+    label: "Type",
+    path: "system.type.name",
+    formatting: "{#}",
+    mapping: { }
+  },
+  {
+    label: "Rarity",
+    path: "system.rarity.name",
+    formatting: "{#}",
+    mapping: { }
+  },
+  {
+    label: "Guild",
+    path: "system.guild",
+    formatting: "{#}",
+    mapping: { }
+  }];
+
+  game.itempiles.API.addSystemIntegration({
+    VERSION: "1.0.0",
+    ACTOR_CLASS_TYPE: "npc",
+    ITEM_QUANTITY_ATTRIBUTE: "system.quantity",
+    ITEM_PRICE_ATTRIBUTE: "system.cost",
+    ITEM_FILTERS: [
+      {
+        path: "type",
+        filters: "feature,skill,Archetype Level,Archetype Feat,Action Skill"
+      }
+    ],
+    PILE_DEFAULTS: {
+      //pileColumns: [...columns],
+      //containerColumns: [...columns],
+      merchantColumns: [...columns],
+      //vaultColumns: [...columns],
+    },
+    UNSTACKABLE_ITEM_TYPES: ["gun", "shield", "grenade", "relic"],
+    ITEM_SIMILARITIES: ["name", "type", "system.guild.name", "system.type.name", "system.rarity.name"],
+    CURRENCIES: [
+      {
+        type: "attribute",
+        name: "Gold",
+        img: "icons/commodities/currency/coins-plain-stack-gold.webp",
+        abbreviation: "{#} G",
+        data: {
+          path: "system.gold"
+        },
+        primary: true,
+        exchangeRate: 1
+      },
+      {
+        type: "attribute",
+        name: "Grenades",
+        img: "icons/weapons/thrown/bomb-fuse-black.webp",
+        abbreviation: "{#} 'Nades",
+        data: {
+          path: "system.attributes.grenades.value"
+        },
+        primary: false,
+        exchangeRate: 1
+      }
+    ],
+  });
+});
 
 
 /* -------------------------------------------- */
