@@ -54,22 +54,18 @@
   cursor: pointer;
 }
 
-#chatlog .description .element-resist-icon,
-.element-damage-icon {
-  border: 0;
-  height: 13px;
-  padding-left: 2px;
-}
 #chat-log .element-damage-result-icon,
 #chat-log .element-damage-formula-icon,
 #chat-log .element-damage-total-icon,
-.system-bunkers-and-badasses #chat-log .description .element-damage-icon,
+#chat-log .description .element-resist-icon,
+#chat-log .description .element-damage-icon,
 .bnb .items-list .item-dropdown-group .item-dropdown-body .dropdown-elements-container .element-damage-icon,
 .bnb .item-list-component .item-details .element-damage-icon,
 .bnb .attacks-container .minor-details .damage .element-damage-icon {
   margin: 0;
   border: 0;
   padding: 0;
+  height: .8em;
 }
 .bnb .attacks-container .minor-details .damage .element-damage-icon {
   height: 12px;
@@ -112,6 +108,20 @@
   margin-bottom: -3px;
   height: 1em;
 }
+/* Incendiary */
+#chat-log .element-damage-result-icon.element-incendiary {
+  margin-bottom: -1px;
+}
+#chat-log .element-damage-total-icon.element-incendiary {
+  margin-bottom: 0px;
+}
+/* Shock */
+#chat-log .element-damage-total-icon.element-shock {
+  margin-left: 0;
+}
+
+
+/* BELOW HERE NEEDS TO BE CLEANED UP, BIGTIME!*/
 /* Explosive */
 .system-bunkers-and-badasses #chat-log .description .element-explosive,
 .bnb .items-list .item-dropdown-group .item-dropdown-body .dropdown-elements-container .element-explosive,
@@ -155,17 +165,7 @@
   margin-left: -2px;
   margin-bottom: -2px;
 }
-/* Incendiary */
-.element-damage-result-icon.element-incendiary {
-  margin-bottom: -1px;
-}
-#chat-log .element-damage-total-icon.element-incendiary {
-  margin-bottom: 0px;
-}
-/* Shock */
-#chat-log .element-damage-total-icon.element-shock {
-  margin-left: 0;
-}
+
 /* Corrosive */
 .system-bunkers-and-badasses #chat-log .description .element-corrosive,
 .bnb .items-list .item-dropdown-group .item-dropdown-body .dropdown-elements-container .element-corrosive,
