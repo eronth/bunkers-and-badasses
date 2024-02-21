@@ -473,9 +473,13 @@ export class PostToChat {
     const flavorPrefix = item.system.prefix.name ? `${item.system.prefix.name} ` : '';
     const levelAndGuild = `Level ${item.system.level} ${item.system.guild}`;
     
+    // Create flavor text.
+    const flavorTextItemName = `<div class="flavor-text-inner">${flavorPrefix}<b>${item.name}</b> ${item.system.type.name}</div>`;
+    const flavorTextLevelAndGuild = `<div class="level-and-guild">${levelAndGuild}</div>`;
+
     // Create additional message details object.
     return {
-      flavor: `<div class="flavor-text-wrapper"><div class="flavor-text-inner">${flavorPrefix}<b>${item.name}</b> ${item.system.type.name}</div><div class="level-and-guild">${levelAndGuild}</div></div>`,
+      flavor: `<div class="flavor-text-wrapper">${flavorTextItemName}${flavorTextLevelAndGuild}</div>`,
       content: chatHtmlContent
     }
   }
@@ -493,9 +497,13 @@ export class PostToChat {
     const chatHtmlContent = await renderTemplate(templateLocation, renderTemplateConfig);
     const levelAndGuild = `Level ${item.system.level} ${item.system.guild}`;
     
+    // Create flavor text.
+    const flavorTextItemName = `<div  class="flavor-text-inner"><b>${item.name}</b> ${capHealthType} Protection.</div>`;
+    const flavorTextLevelAndGuild = `<div class="level-and-guild">${levelAndGuild}</div>`;
+
     // Create additional message details object.
     return {
-      flavor: `<div class="flexrow"><div><b>${item.name}</b> ${capHealthType} Protection.</div><div class="level-and-guild">${levelAndGuild}</div></div>`,
+      flavor: `<div class="flavor-text-wrapper">${flavorTextItemName}${flavorTextLevelAndGuild}</div>`,
       content: chatHtmlContent
     }
   }
@@ -511,9 +519,13 @@ export class PostToChat {
     const chatHtmlContent = await renderTemplate(templateLocation, renderTemplateConfig);
     const levelAndGuild = `Level ${item.system.level} ${item.system.guild}`;
     
+    // Create flavor text.
+    const flavorTextItemName = `<div class="flavor-text-inner"><b>${item.name}</b> Grenade.</div>`;
+    const flavorTextLevelAndGuild = `<div class="level-and-guild">${levelAndGuild}</div>`;
+
     // Create additional message details object.
     return {
-      flavor: `<div class="flexrow"><div><b>${item.name}</b> Grenade.</div><div class="level-and-guild">${levelAndGuild}</div></div>`,
+      flavor: `<div class="flavor-text-wrapper">${flavorTextItemName}${flavorTextLevelAndGuild}</div>`,
       content: chatHtmlContent
     }
   }
