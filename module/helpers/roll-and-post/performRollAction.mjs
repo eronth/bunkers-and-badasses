@@ -358,15 +358,6 @@ export class PerformRollAction {
       damageTypes: damageTypes
     });
     
-    // if (attackType === 'melee') {
-    //   if (MixedDiceAndNumber.isAnyMixedValue(summary['kinetic'])) {
-    //     summary['melee-kinetic'] = summary['kinetic'];
-    //   }
-    //   delete summary['kinetic'];
-    // } else {
-    //   delete summary['melee-kinetic'];
-    // } 
-
     const rollForumlaOptions = {
       summary: summary,
       isDoubled: isDoubled,
