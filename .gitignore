@@ -11,8 +11,8 @@ npm-debug.log
 .vscode/settings.json
 
 # Ignoring Foundry's new pack stuff
-/packs/*/*.log
-/packs/*/LOCK*
-/packs/*/LOG*
-/packs/*/CURRENT*
-/packs/*/MANIFEST-*
+/packs/**/*.log
+/packs/**/LOCK*
+/packs/**/LOG*
+/packs/**/CURRENT*
+/packs/**/MANIFEST-*
