@@ -1,0 +1,60 @@
+{
+    "name":"New-U Conduit!",
+    "type":"shield",
+    "img":"icons/svg/aura.svg",
+    "system":{
+      "description":"",
+      "effect":"Allies within a 4 squares get +10 max shields.",
+      "level":13,
+      "special":{
+        "overrideType":""
+      },
+      "isLoot":true,
+      "quantity":1,
+      "cost":300,
+      "guild":"Corraza",
+      "rarity":{
+        "name":"Legendary",
+        "value":"legendary",
+        "colorValue":"#ffa500"
+      },
+      "carried":true,
+      "equipped":false,
+      "redText":"You can do it!",
+      "redTextEffect":"",
+      "redTextEffectBM":"<p>When a player dies while you have the New-U Conduit equipped, they can respawn during your turn in a space adjacent to you. If they do, they get +2 to each stat Mod until your next turn.</p>",
+      "elements":{
+        "kinetic":{"enabled":false,"damage":"","color":"rgb(76, 76, 76)","label":"Kinetic"},
+        "incendiary":{"enabled":false,"damage":"","color":"rgb(213, 59, 49)","label":"Incendiary"},
+        "shock":{"enabled":false,"damage":"","color":"rgb(113, 148, 205)","label":"Shock"},
+        "corrosive":{"enabled":false,"damage":"","color":"rgb(141, 157, 62)","label":"Corrosive"},
+        "explosive":{"enabled":false,"damage":"","color":"rgb(234, 70, 134)","label":"Explosive"},
+        "radiation":{"enabled":false,"damage":"","color":"rgb(228, 170, 22)","label":"Radiation"},
+        "cryo":{"enabled":false,"damage":"","color":"rgb(18, 152, 185)","label":"Cryo"},
+        "incendiation":{"enabled":false,"damage":"","color":"rgb(167, 78, 101)","label":"Incendiation"},
+        "corroshock":{"enabled":false,"damage":"","color":"rgb(73, 125, 135)","label":"Corroshock"},
+        "crysplosive":{"enabled":false,"damage":"","color":"rgb(115, 105, 160)","label":"Crysplosive"}
+      },
+      "healthType":"shield",
+      "capacity":60,
+      "recoveryRate":"15",
+      "recovery":{"rechargeRate":"","forceRechargeRate":"","hpRegenRate":"","forceHpRegenRate":"","repairRate":"","forceRepairRate":"","regrowRate":"","forceRegrowRate":"","reinvigorateRate":"","forceReinvigorateRate":""}
+    },
+    "effects":[
+      
+    ],
+    "flags":{
+      "core":{
+        "sourceId":"Item.iWwqFaZYVakAJMXA"
+      }
+    },
+    "_stats":{
+      "systemId":"bunkers-and-badasses",
+      "systemVersion":"0.3.2",
+      "coreVersion":"10.288",
+      "createdTime":1662667079974,
+      "modifiedTime":1667245175892,
+      "lastModifiedBy":"m6dA1WszdkO1t2Az"
+    },
+    "folder":null
+  }

@@ -1,0 +1,38 @@
+{
+    "name":"MMMM, Potion Juice!",
+    "type":"potion",
+    "img":"icons/svg/tankard.svg",
+    "effects":[],
+    "flags":{"core":{"sourceId":"Item.49PonxNz1I65X0hC"}},
+    "system":{
+      "description":"",
+      "effect":"Good refreshing healing.",
+      "level":1,
+      "special":{
+        "overrideType":""
+      },
+      "isLoot":true,
+      "guild":"",
+      "rarity":{
+        "name":"Epic",
+        "value":"epic",
+        "colorValue":"#7000a4"
+      },
+      "carried":true,
+      "equipped":false,
+      "redText":"Very tasty, very purple.",
+      "redTextEffect":"",
+      "redTextEffectBM":"For the next 3 turns, the character has +5 health regen and +5 shield recharge. Trigger regeneration and recharge each of those turns.",
+      "quantity":1,
+      "cost":50
+    },
+    "_stats":{
+      "systemId":"bunkers-and-badasses",
+      "systemVersion":"0.1.4",
+      "coreVersion":"10.284",
+      "createdTime":1662620029352,
+      "modifiedTime":1662620029352,
+      "lastModifiedBy":"m6dA1WszdkO1t2Az"
+    },
+    "folder":null
+  }

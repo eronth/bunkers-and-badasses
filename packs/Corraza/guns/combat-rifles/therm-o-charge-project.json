@@ -1,0 +1,143 @@
+{
+    "name":"Therm-o-charge Project",
+    "type":"gun",
+    "img":"icons/svg/hazard.svg",
+    "system":{
+      "description":"",
+      "effect":"",
+      "level":13,
+      "special":{
+        "overrideType":""
+      },
+      "isLoot":true,
+      "quantity":1,
+      "cost":300,
+      "guild":"Corraza",
+      "rarity":{
+        "name":"Legendary",
+        "value":"legendary",
+        "colorValue":"#ffa500"
+      },
+      "carried":true,
+      "equipped":false,
+      "redText":"Simple Heat Transfer.",
+      "redTextEffect":"",
+      "redTextEffectBM":"<p>The <strong><span class=\"crysplosive-text\">Crysplosive</span> </strong>damage occurs centered on the shooter instead of on their target. The shooter does not take damage from this except on an accuracy roll of a Natural 1.</p>",
+      "elements":{
+        "kinetic":{
+          "enabled":false,
+          "damage":"",
+          "color":"rgb(76, 76, 76)",
+          "label":"Kinetic"
+        },
+        "incendiary":{
+          "enabled":true,
+          "damage":"1d8",
+          "color":"rgb(213, 59, 49)",
+          "label":"Incendiary"
+        },
+        "shock":{
+          "enabled":false,
+          "damage":"",
+          "color":"rgb(113, 148, 205)",
+          "label":"Shock"
+        },
+        "corrosive":{
+          "enabled":false,
+          "damage":"",
+          "color":"rgb(141, 157, 62)",
+          "label":"Corrosive"
+        },
+        "explosive":{
+          "enabled":false,
+          "damage":"",
+          "color":"rgb(234, 70, 134)",
+          "label":"Explosive"
+        },
+        "radiation":{
+          "enabled":false,
+          "damage":"",
+          "color":"rgb(228, 170, 22)",
+          "label":"Radiation"
+        },
+        "cryo":{
+          "enabled":false,
+          "damage":"",
+          "color":"rgb(18, 152, 185)",
+          "label":"Cryo"
+        },
+        "incendiation":{
+          "enabled":false,
+          "damage":"",
+          "color":"rgb(167, 78, 101)",
+          "label":"Incendiation"
+        },
+        "corroshock":{
+          "enabled":false,
+          "damage":"",
+          "color":"rgb(73, 125, 135)",
+          "label":"Corroshock"
+        },
+        "crysplosive":{
+          "enabled":true,
+          "damage":"1d4",
+          "color":"rgb(115, 105, 160)",
+          "label":"Crysplosive"
+        }
+      },
+      "weilded":false,
+      "prefix":{
+        "name":"",
+        "effects":""
+      },
+      "type":{
+        "value":"rifle",
+        "name":"Combat Rifle"
+      },
+      "accuracy":{
+        "low":{
+          "hits":1,
+          "crits":1
+        },
+        "mid":{
+          "hits":2,
+          "crits":1
+        },
+        "high":{
+          "hits":2,
+          "crits":2
+        }
+      },
+      "damage":"",
+      "range":6,
+      "bonusCritDmg":0,
+      "statMods":{
+        "acc":0,
+        "dmg":0,
+        "spd":3,
+        "mst":2
+      },
+      "hitBonus":0,
+      "isSplash":false,
+      "overheat":"",
+      "bonus":"",
+      "guildBonus":"+3 SPD Mod, +2 MST Mod, Charge Up: The first shot after a reload deals half damage."
+    },
+    "effects":[
+      
+    ],
+    "flags":{
+      "core":{
+        "sourceId":"Item.j7g2vvlhBit5v23h"
+      }
+    },
+    "_stats":{
+      "systemId":"bunkers-and-badasses",
+      "systemVersion":"0.3.2",
+      "coreVersion":"10.288",
+      "createdTime":1662672531352,
+      "modifiedTime":1667247829783,
+      "lastModifiedBy":"m6dA1WszdkO1t2Az"
+    },
+    "folder":null
+  }

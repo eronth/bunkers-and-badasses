@@ -1,0 +1,52 @@
+{
+    "name": "Rally Cry",
+    "type": "shield",
+    "img": "icons/svg/angel.svg",
+    "effects": [],
+    "flags": { "core": { "sourceId":"Item.glawlvy8xBSpzui7" } },
+    "system":{
+      "description": "",
+      "effect": "Allies within a 4 squares get +10 max shields.",
+      "level": 13,
+      "special": { "overrideType":"" },
+      "isLoot":true,
+      "quantity":1,
+      "cost":300,
+      "guild":"Corraza",
+      "rarity": {
+        "name": "Legendary",
+        "value": "legendary",
+        "colorValue": "#ffa500"
+      },
+      "carried": true,
+      "equipped": false,
+      "redText": "Shields up!",
+      "redTextEffect": "",
+      "redTextEffectBM": "A bright light extends 4 squares from the wielder. Whenever this shield recharges, allies within 4 squares also recharge [[2d4]] shields.",
+      "elements": {
+        "kinetic": {"enabled": false,"damage": "","color":"rgb(76, 76, 76)","label":"Kinetic"},
+        "incendiary": { "enabled":false,"damage":"","color":"rgb(213, 59, 49)","label":"Incendiary"},
+        "shock":{"enabled":false,"damage":"","color":"rgb(113, 148, 205)","label":"Shock"},
+        "corrosive":{"enabled":false,"damage":"","color":"rgb(141, 157, 62)","label":"Corrosive"},
+        "explosive":{"enabled":false,"damage":"","color":"rgb(234, 70, 134)","label":"Explosive"},
+        "radiation":{"enabled":false,"damage":"","color":"rgb(228, 170, 22)","label":"Radiation"},
+        "cryo":{"enabled":false,"damage":"","color":"rgb(18, 152, 185)","label":"Cryo"},
+        "incendiation":{"enabled":false,"damage":"","color":"rgb(167, 78, 101)","label":"Incendiation"},
+        "corroshock":{"enabled":false,"damage":"","color":"rgb(73, 125, 135)","label":"Corroshock"},
+        "crysplosive":{"enabled":false,"damage":"","color":"rgb(115, 105, 160)","label":"Crysplosive"}
+      },
+      "healthType":"shield",
+      "capacity":60,
+      "recoveryRate":"15",
+      "recovery":{"rechargeRate":"4d8","forceRechargeRate":"","hpRegenRate":"","forceHpRegenRate":"","repairRate":"","forceRepairRate":"","regrowRate":"","forceRegrowRate":"","reinvigorateRate":"","forceReinvigorateRate":""}
+    },
+    "_stats":{
+      "systemId":"bunkers-and-badasses",
+      "systemVersion":"0.3.2",
+      "coreVersion":"10.288",
+      "createdTime":1662620050780,
+      "modifiedTime":1667245162786,
+      "lastModifiedBy":"m6dA1WszdkO1t2Az"
+    },
+    "folder":null
+  }

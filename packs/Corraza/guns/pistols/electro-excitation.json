@@ -1,0 +1,143 @@
+{
+    "name":"Electro-Excitation",
+    "type":"gun",
+    "img":"icons/svg/lightning.svg",
+    "system":{
+      "description":"",
+      "effect":"",
+      "level":13,
+      "special":{
+        "overrideType":""
+      },
+      "isLoot":true,
+      "quantity":1,
+      "cost":300,
+      "guild":"Corraza",
+      "rarity":{
+        "name":"Legendary",
+        "value":"legendary",
+        "colorValue":"#ffa500"
+      },
+      "carried":true,
+      "equipped":false,
+      "redText":"Ray's Gun",
+      "redTextEffect":"Science!",
+      "redTextEffectBM":"<p>If the user yells&nbsp;<em><strong>\"Science!\"</strong></em> while firing this gun, they get an additional +1d4 <strong><span class=\"shock-text\">Shock</span></strong> or <strong><span class=\"incendiary-text\">Incendiary</span></strong> damage added to the attack (their choice).</p>",
+      "elements":{
+        "kinetic":{
+          "enabled":false,
+          "damage":"",
+          "color":"rgb(76, 76, 76)",
+          "label":"Kinetic"
+        },
+        "incendiary":{
+          "enabled":true,
+          "damage":"1d6",
+          "color":"rgb(213, 59, 49)",
+          "label":"Incendiary"
+        },
+        "shock":{
+          "enabled":true,
+          "damage":"1d6",
+          "color":"rgb(113, 148, 205)",
+          "label":"Shock"
+        },
+        "corrosive":{
+          "enabled":false,
+          "damage":"",
+          "color":"rgb(141, 157, 62)",
+          "label":"Corrosive"
+        },
+        "explosive":{
+          "enabled":false,
+          "damage":"",
+          "color":"rgb(234, 70, 134)",
+          "label":"Explosive"
+        },
+        "radiation":{
+          "enabled":false,
+          "damage":"",
+          "color":"rgb(228, 170, 22)",
+          "label":"Radiation"
+        },
+        "cryo":{
+          "enabled":false,
+          "damage":"",
+          "color":"rgb(18, 152, 185)",
+          "label":"Cryo"
+        },
+        "incendiation":{
+          "enabled":false,
+          "damage":"",
+          "color":"rgb(167, 78, 101)",
+          "label":"Incendiation"
+        },
+        "corroshock":{
+          "enabled":false,
+          "damage":"",
+          "color":"rgb(73, 125, 135)",
+          "label":"Corroshock"
+        },
+        "crysplosive":{
+          "enabled":false,
+          "damage":"",
+          "color":"rgb(115, 105, 160)",
+          "label":"Crysplosive"
+        }
+      },
+      "weilded":false,
+      "prefix":{
+        "name":"",
+        "effects":""
+      },
+      "type":{
+        "value":"pistol",
+        "name":"Pistol"
+      },
+      "accuracy":{
+        "low":{
+          "hits":1,
+          "crits":0
+        },
+        "mid":{
+          "hits":2,
+          "crits":0
+        },
+        "high":{
+          "hits":2,
+          "crits":1
+        }
+      },
+      "damage":"",
+      "range":5,
+      "bonusCritDmg":0,
+      "statMods":{
+        "acc":0,
+        "dmg":0,
+        "spd":3,
+        "mst":2
+      },
+      "hitBonus":0,
+      "isSplash":false,
+      "overheat":"",
+      "bonus":"",
+      "guildBonus":"+3 SPD Mod, +2 MST Mod, Charge Up: The first shot after a reload deals half damage."
+    },
+    "effects":[
+      
+    ],
+    "flags":{
+      "core":{
+        "sourceId":"Item.jxHk341ggWKFhS2Q"
+      }
+    },
+    "_stats":{
+      "systemId":"bunkers-and-badasses",
+      "systemVersion":"0.3.2",
+      "coreVersion":"10.288",
+      "createdTime":1662673412881,
+      "modifiedTime":1667248021953,
+      "lastModifiedBy":"m6dA1WszdkO1t2Az"
+    },
+    "folder":null
+  }

@@ -1,0 +1,168 @@
+{
+  "name": "Galvanizer",
+  "type": "gun",
+  "system": {
+    "description": "",
+    "effect": "",
+    "level": 13,
+    "special": {
+      "overrideType": ""
+    },
+    "isLoot": true,
+    "quantity": 1,
+    "cost": 300,
+    "guild": "Corraza",
+    "rarity": {
+      "name": "Legendary",
+      "value": "legendary",
+      "colorValue": "#ffa500"
+    },
+    "carried": true,
+    "equipped": false,
+    "redText": "Charge!!",
+    "redTextEffect": "",
+    "redTextEffectBM": "<p>Enemies hit by this weapon are marked with a <strong><span class=\"shock-text\">Static Charge</span></strong> effect.<br><br><strong><span class=\"shock-text\">Static Charge</span>:</strong> Each time this creature his hit with an attack that deals <strong><span class=\"shock-text\">Shock</span></strong> damage, they take an additional +<strong><span class=\"shock-text\">[[/r 1d8]] Shock</span></strong> Damage.</p>",
+    "elements": {
+      "kinetic": {
+        "enabled": false,
+        "damage": ""
+      },
+      "incendiary": {
+        "enabled": false,
+        "damage": ""
+      },
+      "shock": {
+        "enabled": true,
+        "damage": "1d8"
+      },
+      "corrosive": {
+        "enabled": false,
+        "damage": ""
+      },
+      "explosive": {
+        "enabled": false,
+        "damage": ""
+      },
+      "radiation": {
+        "enabled": false,
+        "damage": ""
+      },
+      "cryo": {
+        "enabled": false,
+        "damage": ""
+      },
+      "incendiation": {
+        "enabled": false,
+        "damage": ""
+      },
+      "corroshock": {
+        "enabled": false,
+        "damage": ""
+      },
+      "crysplosive": {
+        "enabled": false,
+        "damage": ""
+      }
+    },
+    "weilded": false,
+    "prefix": {
+      "name": "",
+      "effects": ""
+    },
+    "type": {
+      "value": "rifle",
+      "name": "Combat Rifle"
+    },
+    "accuracy": {
+      "low": {
+        "hits": 1,
+        "crits": 1
+      },
+      "mid": {
+        "hits": 2,
+        "crits": 1
+      },
+      "high": {
+        "hits": 2,
+        "crits": 2
+      }
+    },
+    "bonusElements": {
+      "kinetic": {
+        "enabled": false,
+        "damage": ""
+      },
+      "incendiary": {
+        "enabled": false,
+        "damage": ""
+      },
+      "shock": {
+        "enabled": false,
+        "damage": ""
+      },
+      "corrosive": {
+        "enabled": false,
+        "damage": ""
+      },
+      "explosive": {
+        "enabled": false,
+        "damage": ""
+      },
+      "radiation": {
+        "enabled": false,
+        "damage": ""
+      },
+      "cryo": {
+        "enabled": false,
+        "damage": ""
+      },
+      "incendiation": {
+        "enabled": false,
+        "damage": ""
+      },
+      "corroshock": {
+        "enabled": false,
+        "damage": ""
+      },
+      "crysplosive": {
+        "enabled": false,
+        "damage": ""
+      }
+    },
+    "range": 6,
+    "bonusCritDmg": 0,
+    "statMods": {
+      "acc": 0,
+      "dmg": 0,
+      "spd": 3,
+      "mst": 2
+    },
+    "hitBonus": 0,
+    "isSplash": false,
+    "overheat": "",
+    "bonus": "",
+    "dtype": "gun",
+    "tier": "",
+    "guildBonus": "+3 SPD Mod, +2 MST Mod, Charge Up: The first shot after a reload deals half damage."
+  },
+  "img": "icons/magic/lightning/bolt-beam-strike-blue.webp",
+  "effects": [],
+  "folder": null,
+  "flags": {
+    "core": {},
+    "exportSource": {
+      "world": "bb-test",
+      "system": "bunkers-and-badasses",
+      "coreVersion": "11.315",
+      "systemVersion": "0.4.6"
+    }
+  },
+  "_stats": {
+    "systemId": "bunkers-and-badasses",
+    "systemVersion": "0.4.6",
+    "coreVersion": "11.315",
+    "createdTime": 1708502131404,
+    "modifiedTime": 1708761183504,
+    "lastModifiedBy": "4Pgui3qnrwyaXRsc"
+  }
+}

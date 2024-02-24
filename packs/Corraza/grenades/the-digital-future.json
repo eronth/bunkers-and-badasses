@@ -1,0 +1,97 @@
+{
+  "name": "The Digital Future",
+  "type": "grenade",
+  "system": {
+    "description": "",
+    "effect": "Targets hit by this grenade leave behind a trail of elemental puddle for 3 turns. You can choose to detonate this grenade on yourself for 0 damage, but still gain the elemental puddle trail effect.",
+    "level": 13,
+    "special": {
+      "overrideType": ""
+    },
+    "isLoot": true,
+    "quantity": 1,
+    "cost": 80,
+    "guild": "Corraza",
+    "rarity": {
+      "name": "Legendary",
+      "value": "legendary",
+      "colorValue": "#ffa500"
+    },
+    "carried": true,
+    "equipped": false,
+    "redText": "I can do anything!",
+    "redTextEffect": "<p>When this gun is generated, randomly select between <strong><span class=\"shock-text\">Shock</span></strong>, <strong><span class=\"radiation-text\">Radiation</span></strong>, or <strong><span class=\"corroshock-text\">Corroshock</span></strong> damage. Increase the number of dice rolled for the chosen type by 1.</p>",
+    "redTextEffectBM": "<p>The dice sizes on this item are irregular. That's because it's a digital item and you don't have to worry about finding those dice sizes.</p>",
+    "elements": {
+      "kinetic": {
+        "enabled": false,
+        "damage": ""
+      },
+      "incendiary": {
+        "enabled": false,
+        "damage": ""
+      },
+      "shock": {
+        "enabled": true,
+        "damage": "1d9"
+      },
+      "corrosive": {
+        "enabled": false,
+        "damage": ""
+      },
+      "explosive": {
+        "enabled": false,
+        "damage": ""
+      },
+      "radiation": {
+        "enabled": true,
+        "damage": "1d8"
+      },
+      "cryo": {
+        "enabled": false,
+        "damage": ""
+      },
+      "incendiation": {
+        "enabled": false,
+        "damage": ""
+      },
+      "corroshock": {
+        "enabled": true,
+        "damage": "1d7"
+      },
+      "crysplosive": {
+        "enabled": false,
+        "damage": ""
+      }
+    },
+    "damage": "",
+    "gainHealth": false,
+    "gainShield": false,
+    "gainArmor": false,
+    "gainBone": false,
+    "gainEridian": false,
+    "detonations": 1,
+    "dtype": "grenade",
+    "tier": ""
+  },
+  "img": "icons/magic/symbols/chevron-elipse-circle-blue.webp",
+  "effects": [],
+  "folder": null,
+  "flags": {
+    "core": {},
+    "exportSource": {
+      "world": "bb-test",
+      "system": "bunkers-and-badasses",
+      "coreVersion": "11.315",
+      "systemVersion": "0.4.6"
+    }
+  },
+  "_stats": {
+    "systemId": "bunkers-and-badasses",
+    "systemVersion": "0.4.6",
+    "coreVersion": "11.315",
+    "createdTime": 1708503815199,
+    "modifiedTime": 1708762318856,
+    "lastModifiedBy": "4Pgui3qnrwyaXRsc"
+  }
+}
