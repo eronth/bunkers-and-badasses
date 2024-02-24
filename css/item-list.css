@@ -195,6 +195,7 @@
   padding-right: 5px;
 }
 .bnb .item-list-component .item-details label.loot-element-damage {
+  flex-grow: 4;
   display: flex;
   -ms-flex-direction: row;
   flex-direction: row;
