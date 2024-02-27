@@ -1,9 +1,9 @@
 {
-  "name": "Trailblazer",
+  "name": "World Bender",
   "type": "grenade",
   "system": {
     "description": "",
-    "effect": "Targets hit by a trailblazer grenade leave behind a trail of elemental puddle for 3 turns. You can choose to detonate this grenade on yourself for 0 damage, but still gain the elemental puddle trail effect.",
+    "effect": "An energy field grenade does not deal damage on explosion, and instead creates a 2x2 zone for 3 turns. Any attacks that passes through the zone adds the grenade's damage to the attack.",
     "level": 13,
     "special": {
       "overrideType": ""
@@ -13,19 +13,19 @@
     "cost": 80,
     "guild": "Corraza",
     "rarity": {
-      "name": "Rare",
-      "value": "rare",
-      "colorValue": "#00a0ff"
+      "name": "Legendary",
+      "value": "legendary",
+      "colorValue": "#ffa500"
     },
     "carried": true,
     "equipped": false,
-    "redText": "",
-    "redTextEffect": "<p>When this gun is generated, randomly select between <strong><span class=\"incendiary-text\">Incendiary</span></strong> <strong><span class=\"shock-text\">Shock</span></strong>, or <strong><span class=\"radiation-text\">Radiation</span></strong> damage. This weapon deals the chosen type of damage instead of the default.</p>",
-    "redTextEffectBM": "",
+    "redText": "Like a regular alcohol fueled bender, but worse.",
+    "redTextEffect": "",
+    "redTextEffectBM": "<p>Any ally that steps into a World Bender's energy field can spend 3 movement to appear at another one.</p>",
     "elements": {
       "kinetic": {
-        "enabled": true,
-        "damage": "3d8"
+        "enabled": false,
+        "damage": ""
       },
       "incendiary": {
         "enabled": false,
@@ -40,8 +40,8 @@
         "damage": ""
       },
       "explosive": {
-        "enabled": false,
-        "damage": ""
+        "enabled": true,
+        "damage": "3d8"
       },
       "radiation": {
         "enabled": false,
@@ -74,7 +74,7 @@
     "dtype": "grenade",
     "tier": ""
   },
-  "img": "icons/magic/fire/projectile-fireball-embers-yellow.webp",
+  "img": "icons/magic/fire/explosion-fireball-large-purple-pink.webp",
   "effects": [],
   "folder": null,
   "flags": {
@@ -90,8 +90,10 @@
     "systemId": "bunkers-and-badasses",
     "systemVersion": "0.4.6",
     "coreVersion": "11.315",
-    "createdTime": 1708502203254,
-    "modifiedTime": 1708762087453,
+    "createdTime": 1708503815720,
+    "modifiedTime": 1708762325165,
     "lastModifiedBy": "4Pgui3qnrwyaXRsc"
-  }
+  },
+  "_id":"9ddl98ktHQ2D2SB2",
+  "_key":"!items!9ddl98ktHQ2D2SB2"
 }

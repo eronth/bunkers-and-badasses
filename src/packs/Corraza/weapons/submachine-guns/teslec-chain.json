@@ -123,9 +123,7 @@
       "bonus":"",
       "guildBonus":"+3 SPD Mod, +2 MST Mod, Charge Up: The first shot after a reload deals half damage."
     },
-    "effects":[
-      
-    ],
+    "effects":[],
     "flags":{
       "core":{
         "sourceId":"Item.gx921k7RLC9IX4wR"
@@ -139,5 +137,8 @@
       "modifiedTime":1667247839769,
       "lastModifiedBy":"m6dA1WszdkO1t2Az"
     },
-    "folder":null
+    "folder":null,
+    "sort":0,
+    "_id":"qVzc9tYXjRQ3fTa2",
+    "_key":"!items!qVzc9tYXjRQ3fTa2"
   }

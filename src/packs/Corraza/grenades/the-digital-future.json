@@ -1,9 +1,9 @@
 {
-  "name": "Energy Field",
+  "name": "The Digital Future",
   "type": "grenade",
   "system": {
     "description": "",
-    "effect": "An energy field grenade does not deal damage on explosion, and instead creates a 2x2 zone for 3 turns. Any attacks that passes through the zone adds the grenade's damage to the attack.",
+    "effect": "Targets hit by this grenade leave behind a trail of elemental puddle for 3 turns. You can choose to detonate this grenade on yourself for 0 damage, but still gain the elemental puddle trail effect.",
     "level": 13,
     "special": {
       "overrideType": ""
@@ -13,27 +13,27 @@
     "cost": 80,
     "guild": "Corraza",
     "rarity": {
-      "name": "Rare",
-      "value": "rare",
-      "colorValue": "#00a0ff"
+      "name": "Legendary",
+      "value": "legendary",
+      "colorValue": "#ffa500"
     },
     "carried": true,
     "equipped": false,
-    "redText": "",
-    "redTextEffect": "<p>When this gun is generated, randomly select between <strong><span class=\"incendiary-text\">Incendiary</span></strong> <strong><span class=\"shock-text\">Shock</span></strong>, or <strong><span class=\"radiation-text\">Radiation</span></strong> damage. This weapon deals the chosen type of damage instead of the default.</p>",
-    "redTextEffectBM": "",
+    "redText": "I can do anything!",
+    "redTextEffect": "<p>When this gun is generated, randomly select between <strong><span class=\"shock-text\">Shock</span></strong>, <strong><span class=\"radiation-text\">Radiation</span></strong>, or <strong><span class=\"corroshock-text\">Corroshock</span></strong> damage. Increase the number of dice rolled for the chosen type by 1.</p>",
+    "redTextEffectBM": "<p>The dice sizes on this item are irregular. That's because it's a digital item and you don't have to worry about finding those dice sizes.</p>",
     "elements": {
       "kinetic": {
-        "enabled": true,
-        "damage": "3d8"
+        "enabled": false,
+        "damage": ""
       },
       "incendiary": {
         "enabled": false,
         "damage": ""
       },
       "shock": {
-        "enabled": false,
-        "damage": ""
+        "enabled": true,
+        "damage": "1d9"
       },
       "corrosive": {
         "enabled": false,
@@ -44,8 +44,8 @@
         "damage": ""
       },
       "radiation": {
-        "enabled": false,
-        "damage": ""
+        "enabled": true,
+        "damage": "1d8"
       },
       "cryo": {
         "enabled": false,
@@ -56,8 +56,8 @@
         "damage": ""
       },
       "corroshock": {
-        "enabled": false,
-        "damage": ""
+        "enabled": true,
+        "damage": "1d7"
       },
       "crysplosive": {
         "enabled": false,
@@ -74,7 +74,7 @@
     "dtype": "grenade",
     "tier": ""
   },
-  "img": "icons/magic/light/explosion-glow-spiral-teal.webp",
+  "img": "icons/magic/symbols/chevron-elipse-circle-blue.webp",
   "effects": [],
   "folder": null,
   "flags": {
@@ -90,8 +90,10 @@
     "systemId": "bunkers-and-badasses",
     "systemVersion": "0.4.6",
     "coreVersion": "11.315",
-    "createdTime": 1708501877178,
-    "modifiedTime": 1708762092276,
+    "createdTime": 1708503815199,
+    "modifiedTime": 1708762318856,
     "lastModifiedBy": "4Pgui3qnrwyaXRsc"
-  }
+  },
+  "_id":"VUNfirl8pDj4q5E9",
+  "_key":"!items!VUNfirl8pDj4q5E9"
 }

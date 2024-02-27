@@ -1,5 +1,5 @@
 {
-  "name": "World Bender",
+  "name": "Energy Field",
   "type": "grenade",
   "system": {
     "description": "",
@@ -13,19 +13,19 @@
     "cost": 80,
     "guild": "Corraza",
     "rarity": {
-      "name": "Legendary",
-      "value": "legendary",
-      "colorValue": "#ffa500"
+      "name": "Rare",
+      "value": "rare",
+      "colorValue": "#00a0ff"
     },
     "carried": true,
     "equipped": false,
-    "redText": "Like a regular alcohol fueled bender, but worse.",
-    "redTextEffect": "",
-    "redTextEffectBM": "<p>Any ally that steps into a World Bender's energy field can spend 3 movement to appear at another one.</p>",
+    "redText": "",
+    "redTextEffect": "<p>When this gun is generated, randomly select between <strong><span class=\"incendiary-text\">Incendiary</span></strong> <strong><span class=\"shock-text\">Shock</span></strong>, or <strong><span class=\"radiation-text\">Radiation</span></strong> damage. This weapon deals the chosen type of damage instead of the default.</p>",
+    "redTextEffectBM": "",
     "elements": {
       "kinetic": {
-        "enabled": false,
-        "damage": ""
+        "enabled": true,
+        "damage": "3d8"
       },
       "incendiary": {
         "enabled": false,
@@ -40,8 +40,8 @@
         "damage": ""
       },
       "explosive": {
-        "enabled": true,
-        "damage": "3d8"
+        "enabled": false,
+        "damage": ""
       },
       "radiation": {
         "enabled": false,
@@ -74,7 +74,7 @@
     "dtype": "grenade",
     "tier": ""
   },
-  "img": "icons/magic/fire/explosion-fireball-large-purple-pink.webp",
+  "img": "icons/magic/light/explosion-glow-spiral-teal.webp",
   "effects": [],
   "folder": null,
   "flags": {
@@ -90,8 +90,10 @@
     "systemId": "bunkers-and-badasses",
     "systemVersion": "0.4.6",
     "coreVersion": "11.315",
-    "createdTime": 1708503815720,
-    "modifiedTime": 1708762325165,
+    "createdTime": 1708501877178,
+    "modifiedTime": 1708762092276,
     "lastModifiedBy": "4Pgui3qnrwyaXRsc"
-  }
+  },
+  "_id":"fqFJ5T7THHSadNUi",
+  "_key":"!items!fqFJ5T7THHSadNUi"
 }

@@ -1,21 +1,13 @@
 {
-    "name":"Solar Flare",
-    "type":"gun",
-    "img":"icons/svg/sun.svg",
-    "effects":[
-      
-    ],
-    "flags":{
-      "core":{
-        "sourceId":"Item.cTRShCdmg9q5RcOc"
-      }
-    },
+    "name":"Plot Armor",
+    "type":"shield",
+    "img":"icons/svg/mage-shield.svg",
     "system":{
       "description":"",
-      "effect":"",
+      "effect":"Allies within a 4 squares get +10 max shields.",
       "level":13,
       "special":{
-        "overrideType":"solarflare"
+        "overrideType":""
       },
       "isLoot":true,
       "quantity":1,
@@ -28,9 +20,9 @@
       },
       "carried":true,
       "equipped":false,
-      "redText":"Sunscreen won't help much.",
-      "redTextEffect":"Always Plasma.",
-      "redTextEffectBM":"Deals Plasma damage type. Plasma ignores target's shield and deals damage directly to armor or health. If the target still has shields, plasma damage is doubled.",
+      "redText":"You can't die yet.",
+      "redTextEffect":"",
+      "redTextEffectBM":"<p>When this character would die, Plot Armor breaks and restores them instantly to full health. At this moment, they learn share critical information or do something vital for moving the plot forward.</p>",
       "elements":{
         "kinetic":{
           "enabled":false,
@@ -91,59 +83,41 @@
           "damage":"",
           "color":"rgb(115, 105, 160)",
           "label":"Crysplosive"
-        },
-        "plasma":{
-          "label":"Plasma",
-          "color":"rgb(195, 114, 8)",
-          "enabled":true,
-          "damage":"1d6"
         }
       },
-      "weilded":false,
-      "prefix":{
-        "name":"",
-        "effects":""
-      },
-      "type":{
-        "value":"smg",
-        "name":"Submachine Gun"
-      },
-      "accuracy":{
-        "low":{
-          "hits":2,
-          "crits":0
-        },
-        "mid":{
-          "hits":3,
-          "crits":1
-        },
-        "high":{
-          "hits":5,
-          "crits":1
-        }
-      },
-      "damage":"",
-      "range":5,
-      "bonusCritDmg":0,
-      "statMods":{
-        "acc":0,
-        "dmg":0,
-        "spd":3,
-        "mst":2
-      },
-      "hitBonus":0,
-      "isSplash":false,
-      "overheat":"",
-      "bonus":"",
-      "guildBonus":"+3 SPD Mod, +2 MST Mod, Charge Up: The first shot after a reload deals half damage."
+      "healthType":"armor",
+      "capacity":60,
+      "recoveryRate":"15",
+      "recovery":{
+        "rechargeRate":"",
+        "forceRechargeRate":"",
+        "hpRegenRate":"",
+        "forceHpRegenRate":"",
+        "repairRate":"",
+        "forceRepairRate":"",
+        "regrowRate":"",
+        "forceRegrowRate":"",
+        "reinvigorateRate":"",
+        "forceReinvigorateRate":""
+      }
+    },
+    "effects":[
+      
+    ],
+    "flags":{
+      "core":{
+        "sourceId":"Item.CA2fa4AD5VHv7QHn"
+      }
     },
     "_stats":{
       "systemId":"bunkers-and-badasses",
       "systemVersion":"0.3.2",
       "coreVersion":"10.288",
-      "createdTime":1662620077132,
-      "modifiedTime":1667247872657,
+      "createdTime":1662667075811,
+      "modifiedTime":1667247245516,
       "lastModifiedBy":"m6dA1WszdkO1t2Az"
     },
-    "folder":null
+    "folder":null,
+    "_id":"WUdTDntzTyYtKapa",
+    "_key":"!items!WUdTDntzTyYtKapa"
   }
