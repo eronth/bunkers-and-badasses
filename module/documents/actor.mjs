@@ -117,7 +117,7 @@ export class BNBActor extends Actor {
     this._updateVaultHunterDataVersions(actorData);
 
     // Pull basic data into easy-to-access variables.
-    actor._prepareVaultHunterArchetypeLevelBonusesData();
+    actor._prepareVaultHunterItemBonusesData();
     const archetypeStats = actor.system.archetypes.archetype1.baseStats;
     const archetypeLevelUpStats = actor.system.archetypeLevelBonusTotals?.stats;
     const classStats = actor.system.class.baseStats;
@@ -127,7 +127,7 @@ export class BNBActor extends Actor {
       const [key, statData] = entry;
       statData.effects = actor.system.bonus.stats[key] ?? { value: 0, mod: 0 };
       statData.value = archetypeStats[key] + classStats[key] + statData.misc + statData.effects.value
-      + (archetypeLevelUpStats ? archetypeLevelUpStats[key] : 0);
+      + (archetypeLevelUpStats ? archetypeLevelUpStats[key] : 0) + statData.itemBonus;
       statData.mod = Math.floor(statData.value / 2)  + (statData.modBonus ?? 0) + statData.effects.mod;
       statData.modToUse = actor.system.attributes.badass.rollsEnabled ? statData.value : statData.mod;
     });
@@ -154,16 +154,21 @@ export class BNBActor extends Actor {
     
   }
   
-  _prepareVaultHunterArchetypeLevelBonusesData() {
+  _prepareVaultHunterItemBonusesData() {
     // ArchetypeLevelBonuses => alb
     //const actor = actorData;
     const actor = this;
     const archetypeLevelItems = [];
+    const inHandGuns = [];
 
     // Quickly grab all of the level up items.
     actor.items.forEach(i => {
       if (i.type === 'Archetype Level') {
         archetypeLevelItems.push(i);
+      } else if (i.type === 'gun') {
+        if (i.system.equipped && i.system.inHand) {
+          inHandGuns.push(i);
+        }
       }
     });
 
@@ -175,6 +180,20 @@ export class BNBActor extends Actor {
 
     // Apply the totals to the actor's system data.
     actor.system.archetypeLevelBonusTotals = {...albTotals};
+
+
+    // Handle bonuses from guns.
+    actor.system.stats.acc.itemBonus = 0;
+    actor.system.stats.dmg.itemBonus = 0;
+    actor.system.stats.spd.itemBonus = 0;
+    actor.system.stats.mst.itemBonus = 0;
+    inHandGuns.forEach(i => {
+      const modBonus = i.system.statMods;
+      actor.system.stats.acc.itemBonus += modBonus.acc;
+      actor.system.stats.dmg.itemBonus += modBonus.dmg;
+      actor.system.stats.spd.itemBonus += modBonus.spd;
+      actor.system.stats.mst.itemBonus += modBonus.mst;
+    });
   }
 
   _applyArchetypeLevelToTotal(options) {
