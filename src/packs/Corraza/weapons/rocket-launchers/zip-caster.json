@@ -1,7 +1,7 @@
 {
-    "name":"Experimental Voltwinder",
+    "name":"Zip-Caster",
     "type":"gun",
-    "img":"icons/svg/acid.svg",
+    "img":"icons/svg/lightning.svg",
     "system":{
       "description":"",
       "effect":"Splash",
@@ -20,9 +20,9 @@
       },
       "carried":true,
       "equipped":false,
-      "redText":"Simply revolting.",
+      "redText":"Zip! Zip!",
       "redTextEffect":"",
-      "redTextEffectBM":"",
+      "redTextEffectBM":"<p>Whenever this attack deals damage, the shooter is pulled to their target's location. This shoves the target one space in any direction (GM's choice).</p>",
       "elements":{
         "kinetic":{
           "enabled":false,
@@ -37,8 +37,8 @@
           "label":"Incendiary"
         },
         "shock":{
-          "enabled":false,
-          "damage":"",
+          "enabled":true,
+          "damage":"1d12",
           "color":"rgb(113, 148, 205)",
           "label":"Shock"
         },
@@ -73,8 +73,8 @@
           "label":"Incendiation"
         },
         "corroshock":{
-          "enabled":true,
-          "damage":"1d12",
+          "enabled":false,
+          "damage":"",
           "color":"rgb(73, 125, 135)",
           "label":"Corroshock"
         },
@@ -128,16 +128,18 @@
     ],
     "flags":{
       "core":{
-        "sourceId":"Item.hDrSP59nAflSGSRn"
+        "sourceId":"Item.VfW8siI5NYjQHVoo"
       }
     },
     "_stats":{
       "systemId":"bunkers-and-badasses",
       "systemVersion":"0.3.2",
       "coreVersion":"10.288",
-      "createdTime":1662672528189,
-      "modifiedTime":1667248010575,
+      "createdTime":1666943676115,
+      "modifiedTime":1667247787391,
       "lastModifiedBy":"m6dA1WszdkO1t2Az"
     },
-    "folder":null
+    "folder":null,
+    "_id":"z3NWEwZw86YocoTI",
+    "_key":"!items!z3NWEwZw86YocoTI"
   }

@@ -1,18 +1,18 @@
 {
-    "name":"Guwun, what's this?",
+    "name":"Gunzilla!",
     "type":"gun",
-    "img":"icons/svg/eye.svg",
+    "img":"icons/svg/radiation.svg",
     "effects":[
       
     ],
     "flags":{
       "core":{
-        "sourceId":"Item.x8yXt7izgVRz863E"
+        "sourceId":"Item.PAMeYCwQ5SSr2CCC"
       }
     },
     "system":{
       "description":"",
-      "effect":"If Range 3+: +3 Accuracy",
+      "effect":"Splash",
       "level":13,
       "special":{
         "overrideType":""
@@ -28,13 +28,13 @@
       },
       "carried":true,
       "equipped":false,
-      "redText":"*Notices your blood.*",
-      "redTextEffect":"Roll on the random elements table when this gun is generated.",
-      "redTextEffectBM":"This gun does an additional [[1d12]] damage against targets (who have blood) that have lost health. This does not include shield or armor.",
+      "redText":"BWAAAAHHHH!",
+      "redTextEffect":"Always elemental. Always Incendiary, Radiation, Shock, or Cryo.",
+      "redTextEffectBM":"This gun does not deal splash around the target. Instead, the shot creates a line from the attacker that goes through the target until the first solid surface (like a wall). All enemies inside the line (other than the primary target) are considered to be hit with \"splash damage\".",
       "elements":{
         "kinetic":{
-          "enabled":true,
-          "damage":"1d10",
+          "enabled":false,
+          "damage":"",
           "color":"rgb(76, 76, 76)",
           "label":"Kinetic"
         },
@@ -63,8 +63,8 @@
           "label":"Explosive"
         },
         "radiation":{
-          "enabled":false,
-          "damage":"",
+          "enabled":true,
+          "damage":"1d12",
           "color":"rgb(228, 170, 22)",
           "label":"Radiation"
         },
@@ -99,8 +99,8 @@
         "effects":""
       },
       "type":{
-        "value":"sniper",
-        "name":"Sniper Rifle"
+        "value":"heavy",
+        "name":"Rocket Launcher"
       },
       "accuracy":{
         "low":{
@@ -109,7 +109,7 @@
         },
         "mid":{
           "hits":1,
-          "crits":1
+          "crits":0
         },
         "high":{
           "hits":1,
@@ -117,7 +117,7 @@
         }
       },
       "damage":"",
-      "range":8,
+      "range":4,
       "bonusCritDmg":0,
       "statMods":{
         "acc":0,
@@ -135,9 +135,11 @@
       "systemId":"bunkers-and-badasses",
       "systemVersion":"0.3.2",
       "coreVersion":"10.288",
-      "createdTime":1662619977349,
-      "modifiedTime":1667247979828,
+      "createdTime":1662619972062,
+      "modifiedTime":1667247997856,
       "lastModifiedBy":"m6dA1WszdkO1t2Az"
     },
-    "folder":null
+    "folder":null,
+    "_id":"VwVXg9Y61TLt6Cvt",
+    "_key":"!items!VwVXg9Y61TLt6Cvt"
   }

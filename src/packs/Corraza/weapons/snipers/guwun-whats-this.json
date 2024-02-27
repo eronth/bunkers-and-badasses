@@ -1,18 +1,18 @@
 {
-    "name":"AllType",
+    "name":"Guwun, what's this?",
     "type":"gun",
-    "img":"icons/svg/upgrade.svg",
+    "img":"icons/svg/eye.svg",
     "effects":[
       
     ],
     "flags":{
       "core":{
-        "sourceId":"Item.JI1HTeyMbbcWLLC0"
+        "sourceId":"Item.x8yXt7izgVRz863E"
       }
     },
     "system":{
       "description":"",
-      "effect":"",
+      "effect":"If Range 3+: +3 Accuracy",
       "level":13,
       "special":{
         "overrideType":""
@@ -28,13 +28,13 @@
       },
       "carried":true,
       "equipped":false,
-      "redText":"One Does All",
-      "redTextEffect":"Roll on the random elements table when this gun is generated. This weapon does damage of that type instead of the default.",
-      "redTextEffectBM":"Each time this weapon is fired, roll on the elements table again. The gun's element changes to the newly rolled element AFTER the attack resolves.\n                                        \n                                User can reload to swap to element of choice.",
+      "redText":"*Notices your blood.*",
+      "redTextEffect":"Roll on the random elements table when this gun is generated.",
+      "redTextEffectBM":"This gun does an additional [[1d12]] damage against targets (who have blood) that have lost health. This does not include shield or armor.",
       "elements":{
         "kinetic":{
           "enabled":true,
-          "damage":"2d6",
+          "damage":"1d10",
           "color":"rgb(76, 76, 76)",
           "label":"Kinetic"
         },
@@ -99,8 +99,8 @@
         "effects":""
       },
       "type":{
-        "value":"pistol",
-        "name":"Pistol"
+        "value":"sniper",
+        "name":"Sniper Rifle"
       },
       "accuracy":{
         "low":{
@@ -108,16 +108,16 @@
           "crits":0
         },
         "mid":{
-          "hits":2,
-          "crits":0
+          "hits":1,
+          "crits":1
         },
         "high":{
-          "hits":2,
-          "crits":1
+          "hits":1,
+          "crits":2
         }
       },
       "damage":"",
-      "range":5,
+      "range":8,
       "bonusCritDmg":0,
       "statMods":{
         "acc":0,
@@ -135,9 +135,11 @@
       "systemId":"bunkers-and-badasses",
       "systemVersion":"0.3.2",
       "coreVersion":"10.288",
-      "createdTime":1662619937261,
-      "modifiedTime":1667247737172,
+      "createdTime":1662619977349,
+      "modifiedTime":1667247979828,
       "lastModifiedBy":"m6dA1WszdkO1t2Az"
     },
-    "folder":null
+    "folder":null,
+    "_id":"pdSXXGTam9mlyn98",
+    "_key":"!items!pdSXXGTam9mlyn98"
   }

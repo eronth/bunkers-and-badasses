@@ -1,18 +1,10 @@
 {
-    "name":"Gunzilla!",
+    "name":"Therm-o-charge Project",
     "type":"gun",
-    "img":"icons/svg/radiation.svg",
-    "effects":[
-      
-    ],
-    "flags":{
-      "core":{
-        "sourceId":"Item.PAMeYCwQ5SSr2CCC"
-      }
-    },
+    "img":"icons/svg/hazard.svg",
     "system":{
       "description":"",
-      "effect":"Splash",
+      "effect":"",
       "level":13,
       "special":{
         "overrideType":""
@@ -28,9 +20,9 @@
       },
       "carried":true,
       "equipped":false,
-      "redText":"BWAAAAHHHH!",
-      "redTextEffect":"Always elemental. Always Incendiary, Radiation, Shock, or Cryo.",
-      "redTextEffectBM":"This gun does not deal splash around the target. Instead, the shot creates a line from the attacker that goes through the target until the first solid surface (like a wall). All enemies inside the line (other than the primary target) are considered to be hit with \"splash damage\".",
+      "redText":"Simple Heat Transfer.",
+      "redTextEffect":"",
+      "redTextEffectBM":"<p>The <strong><span class=\"crysplosive-text\">Crysplosive</span> </strong>damage occurs centered on the shooter instead of on their target. The shooter does not take damage from this except on an accuracy roll of a Natural 1.</p>",
       "elements":{
         "kinetic":{
           "enabled":false,
@@ -39,8 +31,8 @@
           "label":"Kinetic"
         },
         "incendiary":{
-          "enabled":false,
-          "damage":"",
+          "enabled":true,
+          "damage":"1d8",
           "color":"rgb(213, 59, 49)",
           "label":"Incendiary"
         },
@@ -63,8 +55,8 @@
           "label":"Explosive"
         },
         "radiation":{
-          "enabled":true,
-          "damage":"1d12",
+          "enabled":false,
+          "damage":"",
           "color":"rgb(228, 170, 22)",
           "label":"Radiation"
         },
@@ -87,8 +79,8 @@
           "label":"Corroshock"
         },
         "crysplosive":{
-          "enabled":false,
-          "damage":"",
+          "enabled":true,
+          "damage":"1d4",
           "color":"rgb(115, 105, 160)",
           "label":"Crysplosive"
         }
@@ -99,25 +91,25 @@
         "effects":""
       },
       "type":{
-        "value":"heavy",
-        "name":"Rocket Launcher"
+        "value":"rifle",
+        "name":"Combat Rifle"
       },
       "accuracy":{
         "low":{
           "hits":1,
-          "crits":0
+          "crits":1
         },
         "mid":{
-          "hits":1,
-          "crits":0
+          "hits":2,
+          "crits":1
         },
         "high":{
-          "hits":1,
+          "hits":2,
           "crits":2
         }
       },
       "damage":"",
-      "range":4,
+      "range":6,
       "bonusCritDmg":0,
       "statMods":{
         "acc":0,
@@ -131,13 +123,23 @@
       "bonus":"",
       "guildBonus":"+3 SPD Mod, +2 MST Mod, Charge Up: The first shot after a reload deals half damage."
     },
+    "effects":[
+      
+    ],
+    "flags":{
+      "core":{
+        "sourceId":"Item.j7g2vvlhBit5v23h"
+      }
+    },
     "_stats":{
       "systemId":"bunkers-and-badasses",
       "systemVersion":"0.3.2",
       "coreVersion":"10.288",
-      "createdTime":1662619972062,
-      "modifiedTime":1667247997856,
+      "createdTime":1662672531352,
+      "modifiedTime":1667247829783,
       "lastModifiedBy":"m6dA1WszdkO1t2Az"
     },
-    "folder":null
+    "folder":null,
+    "_id":"Q9xqk7vnRW9iM0S7",
+    "_key":"!items!Q9xqk7vnRW9iM0S7"
   }

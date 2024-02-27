@@ -1,10 +1,10 @@
 {
-    "name":"Premier Huntsman Rifle",
+    "name":"Experimental Voltwinder",
     "type":"gun",
-    "img":"icons/svg/target.svg",
+    "img":"icons/svg/acid.svg",
     "system":{
       "description":"",
-      "effect":"If Range 3+: +3 Accuracy",
+      "effect":"Splash",
       "level":13,
       "special":{
         "overrideType":""
@@ -20,13 +20,13 @@
       },
       "carried":true,
       "equipped":false,
-      "redText":"Hold steady",
-      "redTextEffect":"<p>Roll on the elemental chance table.</p>",
-      "redTextEffectBM":"<p>Accuracy rolls of 2-15 result in no hits or crits.</p>",
+      "redText":"Simply revolting.",
+      "redTextEffect":"",
+      "redTextEffectBM":"",
       "elements":{
         "kinetic":{
-          "enabled":true,
-          "damage":"1d10",
+          "enabled":false,
+          "damage":"",
           "color":"rgb(76, 76, 76)",
           "label":"Kinetic"
         },
@@ -73,8 +73,8 @@
           "label":"Incendiation"
         },
         "corroshock":{
-          "enabled":false,
-          "damage":"",
+          "enabled":true,
+          "damage":"1d12",
           "color":"rgb(73, 125, 135)",
           "label":"Corroshock"
         },
@@ -91,66 +91,25 @@
         "effects":""
       },
       "type":{
-        "value":"sniper",
-        "name":"Sniper Rifle"
+        "value":"heavy",
+        "name":"Rocket Launcher"
       },
       "accuracy":{
         "low":{
-          "hits":0,
+          "hits":1,
           "crits":0
         },
         "mid":{
-          "hits":0,
+          "hits":1,
           "crits":0
         },
         "high":{
-          "hits":5,
+          "hits":1,
           "crits":2
         }
       },
-      "bonusElements":{
-        "kinetic":{
-          "enabled":false,
-          "damage":""
-        },
-        "incendiary":{
-          "enabled":false,
-          "damage":""
-        },
-        "shock":{
-          "enabled":false,
-          "damage":""
-        },
-        "corrosive":{
-          "enabled":false,
-          "damage":""
-        },
-        "explosive":{
-          "enabled":false,
-          "damage":""
-        },
-        "radiation":{
-          "enabled":false,
-          "damage":""
-        },
-        "cryo":{
-          "enabled":false,
-          "damage":""
-        },
-        "incendiation":{
-          "enabled":false,
-          "damage":""
-        },
-        "corroshock":{
-          "enabled":false,
-          "damage":""
-        },
-        "crysplosive":{
-          "enabled":false,
-          "damage":""
-        }
-      },
-      "range":8,
+      "damage":"",
+      "range":4,
       "bonusCritDmg":0,
       "statMods":{
         "acc":0,
@@ -162,7 +121,6 @@
       "isSplash":false,
       "overheat":"",
       "bonus":"",
-      "damage":"",
       "guildBonus":"+3 SPD Mod, +2 MST Mod, Charge Up: The first shot after a reload deals half damage."
     },
     "effects":[
@@ -170,16 +128,18 @@
     ],
     "flags":{
       "core":{
-        "sourceId":"Item.7glZBrsC3wOjyNDp"
+        "sourceId":"Item.hDrSP59nAflSGSRn"
       }
     },
     "_stats":{
       "systemId":"bunkers-and-badasses",
       "systemVersion":"0.3.2",
       "coreVersion":"10.288",
-      "createdTime":1665152740330,
-      "modifiedTime":1667541481256,
+      "createdTime":1662672528189,
+      "modifiedTime":1667248010575,
       "lastModifiedBy":"m6dA1WszdkO1t2Az"
     },
-    "folder":null
+    "folder":null,
+    "_id":"MqT6nuWTacujT8E3",
+    "_key":"!items!MqT6nuWTacujT8E3"
   }

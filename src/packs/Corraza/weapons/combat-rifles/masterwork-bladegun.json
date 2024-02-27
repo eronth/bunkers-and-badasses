@@ -1,13 +1,21 @@
 {
-    "name":"Zip-Caster",
+    "name":"Masterwork Bladegun",
     "type":"gun",
-    "img":"icons/svg/lightning.svg",
+    "img":"icons/svg/sword.svg",
+    "effects":[
+      
+    ],
+    "flags":{
+      "core":{
+        "sourceId":"Item.LImE8eSVwqI79kng"
+      }
+    },
     "system":{
       "description":"",
-      "effect":"Splash",
+      "effect":"",
       "level":13,
       "special":{
-        "overrideType":""
+        "overrideType":"MWBG"
       },
       "isLoot":true,
       "quantity":1,
@@ -20,13 +28,13 @@
       },
       "carried":true,
       "equipped":false,
-      "redText":"Zip! Zip!",
-      "redTextEffect":"",
-      "redTextEffectBM":"<p>Whenever this attack deals damage, the shooter is pulled to their target's location. This shoves the target one space in any direction (GM's choice).</p>",
+      "redText":"I studied the bladegun.",
+      "redTextEffect":"Never Elemental",
+      "redTextEffectBM":"<p>Adds mastery mod to Accuracy and Damage rolls. +1 Bonus crit damage and +1 bonus mst mod. Once per combat you can teleport to the other side of your target, up to 6 squares away from the target.</p>",
       "elements":{
         "kinetic":{
-          "enabled":false,
-          "damage":"",
+          "enabled":true,
+          "damage":"1d8",
           "color":"rgb(76, 76, 76)",
           "label":"Kinetic"
         },
@@ -37,8 +45,8 @@
           "label":"Incendiary"
         },
         "shock":{
-          "enabled":true,
-          "damage":"1d12",
+          "enabled":false,
+          "damage":"",
           "color":"rgb(113, 148, 205)",
           "label":"Shock"
         },
@@ -91,31 +99,31 @@
         "effects":""
       },
       "type":{
-        "value":"heavy",
-        "name":"Rocket Launcher"
+        "value":"rifle",
+        "name":"Combat Rifle"
       },
       "accuracy":{
         "low":{
           "hits":1,
-          "crits":0
+          "crits":1
         },
         "mid":{
-          "hits":1,
-          "crits":0
+          "hits":2,
+          "crits":1
         },
         "high":{
-          "hits":1,
+          "hits":2,
           "crits":2
         }
       },
       "damage":"",
-      "range":4,
-      "bonusCritDmg":0,
+      "range":6,
+      "bonusCritDmg":1,
       "statMods":{
         "acc":0,
         "dmg":0,
         "spd":3,
-        "mst":2
+        "mst":3
       },
       "hitBonus":0,
       "isSplash":false,
@@ -123,21 +131,15 @@
       "bonus":"",
       "guildBonus":"+3 SPD Mod, +2 MST Mod, Charge Up: The first shot after a reload deals half damage."
     },
-    "effects":[
-      
-    ],
-    "flags":{
-      "core":{
-        "sourceId":"Item.VfW8siI5NYjQHVoo"
-      }
-    },
     "_stats":{
       "systemId":"bunkers-and-badasses",
       "systemVersion":"0.3.2",
       "coreVersion":"10.288",
-      "createdTime":1666943676115,
-      "modifiedTime":1667247787391,
+      "createdTime":1662620019716,
+      "modifiedTime":1667247963261,
       "lastModifiedBy":"m6dA1WszdkO1t2Az"
     },
-    "folder":null
+    "folder":null,
+    "_id":"sGJLKM6Tqmdvdneb",
+    "_key":"!items!sGJLKM6Tqmdvdneb"
   }

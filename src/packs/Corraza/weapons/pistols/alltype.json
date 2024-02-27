@@ -1,13 +1,13 @@
 {
-    "name":"Masterwork Bladegun",
+    "name":"AllType",
     "type":"gun",
-    "img":"icons/svg/sword.svg",
+    "img":"icons/svg/upgrade.svg",
     "effects":[
       
     ],
     "flags":{
       "core":{
-        "sourceId":"Item.LImE8eSVwqI79kng"
+        "sourceId":"Item.JI1HTeyMbbcWLLC0"
       }
     },
     "system":{
@@ -15,7 +15,7 @@
       "effect":"",
       "level":13,
       "special":{
-        "overrideType":"MWBG"
+        "overrideType":""
       },
       "isLoot":true,
       "quantity":1,
@@ -28,13 +28,13 @@
       },
       "carried":true,
       "equipped":false,
-      "redText":"I studied the bladegun.",
-      "redTextEffect":"Never Elemental",
-      "redTextEffectBM":"<p>Adds mastery mod to Accuracy and Damage rolls. +1 Bonus crit damage and +1 bonus mst mod. Once per combat you can teleport to the other side of your target, up to 6 squares away from the target.</p>",
+      "redText":"One Does All",
+      "redTextEffect":"Roll on the random elements table when this gun is generated. This weapon does damage of that type instead of the default.",
+      "redTextEffectBM":"Each time this weapon is fired, roll on the elements table again. The gun's element changes to the newly rolled element AFTER the attack resolves.\n                                        \n                                User can reload to swap to element of choice.",
       "elements":{
         "kinetic":{
           "enabled":true,
-          "damage":"1d8",
+          "damage":"2d6",
           "color":"rgb(76, 76, 76)",
           "label":"Kinetic"
         },
@@ -99,31 +99,31 @@
         "effects":""
       },
       "type":{
-        "value":"rifle",
-        "name":"Combat Rifle"
+        "value":"pistol",
+        "name":"Pistol"
       },
       "accuracy":{
         "low":{
           "hits":1,
-          "crits":1
+          "crits":0
         },
         "mid":{
           "hits":2,
-          "crits":1
+          "crits":0
         },
         "high":{
           "hits":2,
-          "crits":2
+          "crits":1
         }
       },
       "damage":"",
-      "range":6,
-      "bonusCritDmg":1,
+      "range":5,
+      "bonusCritDmg":0,
       "statMods":{
         "acc":0,
         "dmg":0,
         "spd":3,
-        "mst":3
+        "mst":2
       },
       "hitBonus":0,
       "isSplash":false,
@@ -135,9 +135,11 @@
       "systemId":"bunkers-and-badasses",
       "systemVersion":"0.3.2",
       "coreVersion":"10.288",
-      "createdTime":1662620019716,
-      "modifiedTime":1667247963261,
+      "createdTime":1662619937261,
+      "modifiedTime":1667247737172,
       "lastModifiedBy":"m6dA1WszdkO1t2Az"
     },
-    "folder":null
+    "folder":null,
+    "_id":"uBc9RTSHNctByNpb",
+    "_key":"!items!uBc9RTSHNctByNpb"
   }

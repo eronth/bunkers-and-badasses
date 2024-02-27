@@ -1,10 +1,10 @@
 {
-    "name":"Electro-Excitation",
+    "name":"Premier Huntsman Rifle",
     "type":"gun",
-    "img":"icons/svg/lightning.svg",
+    "img":"icons/svg/target.svg",
     "system":{
       "description":"",
-      "effect":"",
+      "effect":"If Range 3+: +3 Accuracy",
       "level":13,
       "special":{
         "overrideType":""
@@ -20,25 +20,25 @@
       },
       "carried":true,
       "equipped":false,
-      "redText":"Ray's Gun",
-      "redTextEffect":"Science!",
-      "redTextEffectBM":"<p>If the user yells&nbsp;<em><strong>\"Science!\"</strong></em> while firing this gun, they get an additional +1d4 <strong><span class=\"shock-text\">Shock</span></strong> or <strong><span class=\"incendiary-text\">Incendiary</span></strong> damage added to the attack (their choice).</p>",
+      "redText":"Hold steady",
+      "redTextEffect":"<p>Roll on the elemental chance table.</p>",
+      "redTextEffectBM":"<p>Accuracy rolls of 2-15 result in no hits or crits.</p>",
       "elements":{
         "kinetic":{
-          "enabled":false,
-          "damage":"",
+          "enabled":true,
+          "damage":"1d10",
           "color":"rgb(76, 76, 76)",
           "label":"Kinetic"
         },
         "incendiary":{
-          "enabled":true,
-          "damage":"1d6",
+          "enabled":false,
+          "damage":"",
           "color":"rgb(213, 59, 49)",
           "label":"Incendiary"
         },
         "shock":{
-          "enabled":true,
-          "damage":"1d6",
+          "enabled":false,
+          "damage":"",
           "color":"rgb(113, 148, 205)",
           "label":"Shock"
         },
@@ -91,25 +91,66 @@
         "effects":""
       },
       "type":{
-        "value":"pistol",
-        "name":"Pistol"
+        "value":"sniper",
+        "name":"Sniper Rifle"
       },
       "accuracy":{
         "low":{
-          "hits":1,
+          "hits":0,
           "crits":0
         },
         "mid":{
-          "hits":2,
+          "hits":0,
           "crits":0
         },
         "high":{
-          "hits":2,
-          "crits":1
+          "hits":5,
+          "crits":2
         }
       },
-      "damage":"",
-      "range":5,
+      "bonusElements":{
+        "kinetic":{
+          "enabled":false,
+          "damage":""
+        },
+        "incendiary":{
+          "enabled":false,
+          "damage":""
+        },
+        "shock":{
+          "enabled":false,
+          "damage":""
+        },
+        "corrosive":{
+          "enabled":false,
+          "damage":""
+        },
+        "explosive":{
+          "enabled":false,
+          "damage":""
+        },
+        "radiation":{
+          "enabled":false,
+          "damage":""
+        },
+        "cryo":{
+          "enabled":false,
+          "damage":""
+        },
+        "incendiation":{
+          "enabled":false,
+          "damage":""
+        },
+        "corroshock":{
+          "enabled":false,
+          "damage":""
+        },
+        "crysplosive":{
+          "enabled":false,
+          "damage":""
+        }
+      },
+      "range":8,
       "bonusCritDmg":0,
       "statMods":{
         "acc":0,
@@ -121,6 +162,7 @@
       "isSplash":false,
       "overheat":"",
       "bonus":"",
+      "damage":"",
       "guildBonus":"+3 SPD Mod, +2 MST Mod, Charge Up: The first shot after a reload deals half damage."
     },
     "effects":[
@@ -128,16 +170,18 @@
     ],
     "flags":{
       "core":{
-        "sourceId":"Item.jxHk341ggWKFhS2Q"
+        "sourceId":"Item.7glZBrsC3wOjyNDp"
       }
     },
     "_stats":{
       "systemId":"bunkers-and-badasses",
       "systemVersion":"0.3.2",
       "coreVersion":"10.288",
-      "createdTime":1662673412881,
-      "modifiedTime":1667248021953,
+      "createdTime":1665152740330,
+      "modifiedTime":1667541481256,
       "lastModifiedBy":"m6dA1WszdkO1t2Az"
     },
-    "folder":null
+    "folder":null,
+    "_id":"4kskOHGiPf0YHP0v",
+    "_key":"!items!4kskOHGiPf0YHP0v"
   }

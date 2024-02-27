@@ -1,7 +1,7 @@
 {
-    "name":"Therm-o-charge Project",
+    "name":"Electro-Excitation",
     "type":"gun",
-    "img":"icons/svg/hazard.svg",
+    "img":"icons/svg/lightning.svg",
     "system":{
       "description":"",
       "effect":"",
@@ -20,9 +20,9 @@
       },
       "carried":true,
       "equipped":false,
-      "redText":"Simple Heat Transfer.",
-      "redTextEffect":"",
-      "redTextEffectBM":"<p>The <strong><span class=\"crysplosive-text\">Crysplosive</span> </strong>damage occurs centered on the shooter instead of on their target. The shooter does not take damage from this except on an accuracy roll of a Natural 1.</p>",
+      "redText":"Ray's Gun",
+      "redTextEffect":"Science!",
+      "redTextEffectBM":"<p>If the user yells&nbsp;<em><strong>\"Science!\"</strong></em> while firing this gun, they get an additional +1d4 <strong><span class=\"shock-text\">Shock</span></strong> or <strong><span class=\"incendiary-text\">Incendiary</span></strong> damage added to the attack (their choice).</p>",
       "elements":{
         "kinetic":{
           "enabled":false,
@@ -32,13 +32,13 @@
         },
         "incendiary":{
           "enabled":true,
-          "damage":"1d8",
+          "damage":"1d6",
           "color":"rgb(213, 59, 49)",
           "label":"Incendiary"
         },
         "shock":{
-          "enabled":false,
-          "damage":"",
+          "enabled":true,
+          "damage":"1d6",
           "color":"rgb(113, 148, 205)",
           "label":"Shock"
         },
@@ -79,8 +79,8 @@
           "label":"Corroshock"
         },
         "crysplosive":{
-          "enabled":true,
-          "damage":"1d4",
+          "enabled":false,
+          "damage":"",
           "color":"rgb(115, 105, 160)",
           "label":"Crysplosive"
         }
@@ -91,25 +91,25 @@
         "effects":""
       },
       "type":{
-        "value":"rifle",
-        "name":"Combat Rifle"
+        "value":"pistol",
+        "name":"Pistol"
       },
       "accuracy":{
         "low":{
           "hits":1,
-          "crits":1
+          "crits":0
         },
         "mid":{
           "hits":2,
-          "crits":1
+          "crits":0
         },
         "high":{
           "hits":2,
-          "crits":2
+          "crits":1
         }
       },
       "damage":"",
-      "range":6,
+      "range":5,
       "bonusCritDmg":0,
       "statMods":{
         "acc":0,
@@ -128,16 +128,18 @@
     ],
     "flags":{
       "core":{
-        "sourceId":"Item.j7g2vvlhBit5v23h"
+        "sourceId":"Item.jxHk341ggWKFhS2Q"
       }
     },
     "_stats":{
       "systemId":"bunkers-and-badasses",
       "systemVersion":"0.3.2",
       "coreVersion":"10.288",
-      "createdTime":1662672531352,
-      "modifiedTime":1667247829783,
+      "createdTime":1662673412881,
+      "modifiedTime":1667248021953,
       "lastModifiedBy":"m6dA1WszdkO1t2Az"
     },
-    "folder":null
+    "folder":null,
+    "_id":"RYMVIQN9ZhG8AcDO",
+    "_key":"!items!RYMVIQN9ZhG8AcDO"
   }

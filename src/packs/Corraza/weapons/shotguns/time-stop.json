@@ -1,10 +1,18 @@
 {
-    "name":"Luxurious Killer's Sniper",
+    "name":"Time Stop",
     "type":"gun",
-    "img":"icons/svg/stoned.svg",
+    "img":"icons/svg/clockwork.svg",
+    "effects":[
+      
+    ],
+    "flags":{
+      "core":{
+        "sourceId":"Item.6agkyIV0H8OMurqM"
+      }
+    },
     "system":{
       "description":"",
-      "effect":"If Range 3+: +3 Accuracy",
+      "effect":"If Range 2 or Less: +2 Damage",
       "level":13,
       "special":{
         "overrideType":""
@@ -20,13 +28,13 @@
       },
       "carried":true,
       "equipped":false,
-      "redText":"I seeeeee you!",
-      "redTextEffect":"<p>The range of this weapon is 10 instead of the usual 8.</p>\n<p>This weapon can only be <span class=\"incendiary-text bolded\">Incendiary</span>, <span class=\"shock-text bolded\">Shock</span>, or <span class=\"kinetic-text bolded\">non-elemental</span>. If a different element is rolled for this weapon, choose one of the two permitted elements.</p>",
-      "redTextEffectBM":"<p>Attacks made at range 9-10 are splash.</p>",
+      "redText":"I hope there's no Time Cop.",
+      "redTextEffect":"Roll on the random elements table when this gun is generated.",
+      "redTextEffectBM":"A number of time-pellets ricochet and hit nearby targets. Add the number of hits and crits together. Choose up to that number of enemies within 3 squares of the target; these foes are Slowed. These additional targets do NOT take damage.",
       "elements":{
         "kinetic":{
           "enabled":true,
-          "damage":"1d10",
+          "damage":"1d8",
           "color":"rgb(76, 76, 76)",
           "label":"Kinetic"
         },
@@ -91,66 +99,25 @@
         "effects":""
       },
       "type":{
-        "value":"sniper",
-        "name":"Sniper Rifle"
+        "value":"shotgun",
+        "name":"Shotgun"
       },
       "accuracy":{
         "low":{
           "hits":1,
-          "crits":0
+          "crits":1
         },
         "mid":{
-          "hits":1,
+          "hits":2,
           "crits":1
         },
         "high":{
-          "hits":1,
+          "hits":2,
           "crits":2
         }
       },
-      "bonusElements":{
-        "kinetic":{
-          "enabled":false,
-          "damage":""
-        },
-        "incendiary":{
-          "enabled":false,
-          "damage":""
-        },
-        "shock":{
-          "enabled":false,
-          "damage":""
-        },
-        "corrosive":{
-          "enabled":false,
-          "damage":""
-        },
-        "explosive":{
-          "enabled":false,
-          "damage":""
-        },
-        "radiation":{
-          "enabled":false,
-          "damage":""
-        },
-        "cryo":{
-          "enabled":false,
-          "damage":""
-        },
-        "incendiation":{
-          "enabled":false,
-          "damage":""
-        },
-        "corroshock":{
-          "enabled":false,
-          "damage":""
-        },
-        "crysplosive":{
-          "enabled":false,
-          "damage":""
-        }
-      },
-      "range":10,
+      "damage":"",
+      "range":4,
       "bonusCritDmg":0,
       "statMods":{
         "acc":0,
@@ -162,24 +129,17 @@
       "isSplash":false,
       "overheat":"",
       "bonus":"",
-      "damage":"",
       "guildBonus":"+3 SPD Mod, +2 MST Mod, Charge Up: The first shot after a reload deals half damage."
-    },
-    "effects":[
-      
-    ],
-    "flags":{
-      "core":{
-        "sourceId":"Item.7glZBrsC3wOjyNDp"
-      }
     },
     "_stats":{
       "systemId":"bunkers-and-badasses",
       "systemVersion":"0.3.2",
       "coreVersion":"10.288",
-      "createdTime":1665152740330,
-      "modifiedTime":1667541485724,
+      "createdTime":1662620111555,
+      "modifiedTime":1667247815466,
       "lastModifiedBy":"m6dA1WszdkO1t2Az"
     },
-    "folder":null
+    "folder":null,
+    "_id":"E6JxLtehkirBJTq9",
+    "_key":"!items!E6JxLtehkirBJTq9"
   }

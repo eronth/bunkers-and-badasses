@@ -1,10 +1,10 @@
 {
-  "name": "Peppergun",
+  "name": "Galvanizer",
   "type": "gun",
   "system": {
     "description": "",
-    "effect": "If Range 2 or Less: +2 Damage",
-    "level": 1,
+    "effect": "",
+    "level": 13,
     "special": {
       "overrideType": ""
     },
@@ -19,21 +19,21 @@
     },
     "carried": true,
     "equipped": false,
-    "redText": "Scatter!",
+    "redText": "Charge!!",
     "redTextEffect": "",
-    "redTextEffectBM": "<p>The attack is made against all targets in a 90 degree cone within range.</p>",
+    "redTextEffectBM": "<p>Enemies hit by this weapon are marked with a <strong><span class=\"shock-text\">Static Charge</span></strong> effect.<br><br><strong><span class=\"shock-text\">Static Charge</span>:</strong> Each time this creature his hit with an attack that deals <strong><span class=\"shock-text\">Shock</span></strong> damage, they take an additional +<strong><span class=\"shock-text\">[[/r 1d8]] Shock</span></strong> Damage.</p>",
     "elements": {
       "kinetic": {
-        "enabled": true,
-        "damage": "1d8"
+        "enabled": false,
+        "damage": ""
       },
       "incendiary": {
         "enabled": false,
         "damage": ""
       },
       "shock": {
-        "enabled": false,
-        "damage": ""
+        "enabled": true,
+        "damage": "1d8"
       },
       "corrosive": {
         "enabled": false,
@@ -70,8 +70,8 @@
       "effects": ""
     },
     "type": {
-      "value": "shotgun",
-      "name": "Shotgun"
+      "value": "rifle",
+      "name": "Combat Rifle"
     },
     "accuracy": {
       "low": {
@@ -89,8 +89,8 @@
     },
     "bonusElements": {
       "kinetic": {
-        "enabled": true,
-        "damage": "1d6"
+        "enabled": false,
+        "damage": ""
       },
       "incendiary": {
         "enabled": false,
@@ -129,7 +129,7 @@
         "damage": ""
       }
     },
-    "range": 4,
+    "range": 6,
     "bonusCritDmg": 0,
     "statMods": {
       "acc": 0,
@@ -145,7 +145,7 @@
     "tier": "",
     "guildBonus": "+3 SPD Mod, +2 MST Mod, Charge Up: The first shot after a reload deals half damage."
   },
-  "img": "icons/weapons/guns/gun-double-barrel.webp",
+  "img": "icons/magic/lightning/bolt-beam-strike-blue.webp",
   "effects": [],
   "folder": null,
   "flags": {
@@ -161,8 +161,10 @@
     "systemId": "bunkers-and-badasses",
     "systemVersion": "0.4.6",
     "coreVersion": "11.315",
-    "createdTime": 1708502147556,
-    "modifiedTime": 1708761245448,
+    "createdTime": 1708502131404,
+    "modifiedTime": 1708761183504,
     "lastModifiedBy": "4Pgui3qnrwyaXRsc"
-  }
+  },
+  "_id":"g7gFAAR1c0XT1AHq",
+  "_key":"!items!g7gFAAR1c0XT1AHq"
 }
