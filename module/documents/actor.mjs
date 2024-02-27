@@ -326,7 +326,9 @@ export class BNBActor extends Actor {
     };
     
     const favored = actor.system.favored;
-    if (favored[item.system.type.value]) {
+    if (item.system?.special?.overrideType === 'snotgun') {
+      favoredBy.itemTypes.add((actor.system.favored.sniper ? 'sniper' : 'shotgun'));
+    } else if (favored[item.system.type.value]) {
       favoredBy.itemTypes.add(item.system.type.value);
     }
 

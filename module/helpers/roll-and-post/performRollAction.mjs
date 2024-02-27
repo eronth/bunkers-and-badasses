@@ -538,7 +538,9 @@ export class PerformRollAction {
       elemental: MixedDiceAndNumber.default(),
     };
 
-    const DmgBonus = actor.system.dmg.modToUse ?? 0;
+    const DmgBonus = (item.system.special?.overrideType?.toLowerCase() === "mwbg")
+      ? actor.system.stats.mst.modToUse ?? 0
+      : actor.system.stats.dmg.modToUse ?? 0;
     
     const attackElements = new Set();
     Object.keys(perHit).forEach((damageType) => attackElements.add(damageType));
