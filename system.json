@@ -39,7 +39,7 @@
     {
       "name": "corraza-pistols",
       "label": "Corraza Pistols",
-      "path": "packs/Corraza/guns/pistols",
+      "path": "packs/Corraza/weapons/pistols",
       "type": "Item",
       "banner": "systems/bunkers-and-badasses/assets/banners/corraza-equipment.png",
       "system": "bunkers-and-badasses",
@@ -49,7 +49,7 @@
     {
       "name": "corraza-smgs",
       "label": "Corraza SMGs",
-      "path": "packs/Corraza/guns/submachine-guns",
+      "path": "packs/Corraza/weapons/submachine-guns",
       "type": "Item",
       "banner": "systems/bunkers-and-badasses/assets/banners/corraza-equipment.png",
       "system": "bunkers-and-badasses",
@@ -59,7 +59,7 @@
     {
       "name": "corraza-combat-rifles",
       "label": "Corraza Combat Rifles",
-      "path": "packs/Corraza/guns/combat-rifles",
+      "path": "packs/Corraza/weapons/combat-rifles",
       "type": "Item",
       "banner": "systems/bunkers-and-badasses/assets/banners/corraza-equipment.png",
       "system": "bunkers-and-badasses",
@@ -69,7 +69,7 @@
     {
       "name": "corraza-shotguns",
       "label": "Corraza Shotguns",
-      "path": "packs/Corraza/guns/shotguns",
+      "path": "packs/Corraza/weapons/shotguns",
       "type": "Item",
       "banner": "systems/bunkers-and-badasses/assets/banners/corraza-equipment.png",
       "system": "bunkers-and-badasses",
@@ -79,7 +79,7 @@
     {
       "name": "corraza-snipers",
       "label": "Corraza Snipers",
-      "path": "packs/Corraza/guns/snipers",
+      "path": "packs/Corraza/weapons/snipers",
       "type": "Item",
       "banner": "systems/bunkers-and-badasses/assets/banners/corraza-equipment.png",
       "system": "bunkers-and-badasses",
@@ -89,7 +89,7 @@
     {
       "name": "corraza-rocket-launchers",
       "label": "Corraza Rocket Launchers",
-      "path": "packs/Corraza/guns/rocket-launchers",
+      "path": "packs/Corraza/weapons/rocket-launchers",
       "type": "Item",
       "banner": "systems/bunkers-and-badasses/assets/banners/corraza-equipment.png",
       "system": "bunkers-and-badasses",
@@ -133,34 +133,40 @@
       "sorting": "m",
       "folders": [
         {
-          "name": "Pistols",
+          "name": "Weapons",
           "sorting": "m",
-          "packs": [ "corraza-pistols" ]
-        },
-        {
-          "name": "SMGs",
-          "sorting": "m",
-          "packs": [ "corraza-smgs" ]
-        },
-        {
-          "name": "Combat Rifles",
-          "sorting": "m",
-          "packs": [ "corraza-combat-rifles" ]
-        },
-        {
-          "name": "Shotguns",
-          "sorting": "m",
-          "packs": [ "corraza-shotguns" ]
-        },
-        {
-          "name": "Snipers",
-          "sorting": "m",
-          "packs": [ "corraza-snipers" ]
-        },
-        {
-          "name": "Rocket Launchers",
-          "sorting": "m",
-          "packs": [ "corraza-rocket-launchers" ]
+          "folders": [
+            {
+              "name": "Pistols",
+              "sorting": "m",
+              "packs": [ "corraza-pistols" ]
+            },
+            {
+              "name": "SMGs",
+              "sorting": "m",
+              "packs": [ "corraza-smgs" ]
+            },
+            {
+              "name": "Combat Rifles",
+              "sorting": "m",
+              "packs": [ "corraza-combat-rifles" ]
+            },
+            {
+              "name": "Shotguns",
+              "sorting": "m",
+              "packs": [ "corraza-shotguns" ]
+            },
+            {
+              "name": "Snipers",
+              "sorting": "m",
+              "packs": [ "corraza-snipers" ]
+            },
+            {
+              "name": "Rocket Launchers",
+              "sorting": "m",
+              "packs": [ "corraza-rocket-launchers" ]
+            }
+          ]
         },
         {
           "name": "Shields",

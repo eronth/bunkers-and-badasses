@@ -17,5 +17,8 @@
   "private": true,
   "dependencies": {
     "rpg-awesome": "^0.2.0"
+  },
+  "devDependencies": {
+    "@foundryvtt/foundryvtt-cli": "^1.0.2"
   }
 }
