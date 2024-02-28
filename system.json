@@ -41,7 +41,7 @@
       "label": "Corraza Pistols",
       "path": "packs/Corraza/weapons/pistols",
       "type": "Item",
-      "banner": "systems/bunkers-and-badasses/assets/banners/corraza-equipment.png",
+      "banner": "systems/bunkers-and-badasses/assets/banners/corraza-equipment.webp",
       "system": "bunkers-and-badasses",
       "ownership": { "PLAYER": "LIMITED", "ASSISTANT": "OWNER" },
       "flags": { }
@@ -51,7 +51,7 @@
       "label": "Corraza SMGs",
       "path": "packs/Corraza/weapons/submachine-guns",
       "type": "Item",
-      "banner": "systems/bunkers-and-badasses/assets/banners/corraza-equipment.png",
+      "banner": "systems/bunkers-and-badasses/assets/banners/corraza-equipment.webp",
       "system": "bunkers-and-badasses",
       "ownership": { "PLAYER": "LIMITED", "ASSISTANT": "OWNER" },
       "flags": { }
@@ -61,7 +61,7 @@
       "label": "Corraza Combat Rifles",
       "path": "packs/Corraza/weapons/combat-rifles",
       "type": "Item",
-      "banner": "systems/bunkers-and-badasses/assets/banners/corraza-equipment.png",
+      "banner": "systems/bunkers-and-badasses/assets/banners/corraza-equipment.webp",
       "system": "bunkers-and-badasses",
       "ownership": { "PLAYER": "LIMITED", "ASSISTANT": "OWNER" },
       "flags": { }
@@ -71,7 +71,7 @@
       "label": "Corraza Shotguns",
       "path": "packs/Corraza/weapons/shotguns",
       "type": "Item",
-      "banner": "systems/bunkers-and-badasses/assets/banners/corraza-equipment.png",
+      "banner": "systems/bunkers-and-badasses/assets/banners/corraza-equipment.webp",
       "system": "bunkers-and-badasses",
       "ownership": { "PLAYER": "LIMITED", "ASSISTANT": "OWNER" },
       "flags": { }
@@ -81,7 +81,7 @@
       "label": "Corraza Snipers",
       "path": "packs/Corraza/weapons/snipers",
       "type": "Item",
-      "banner": "systems/bunkers-and-badasses/assets/banners/corraza-equipment.png",
+      "banner": "systems/bunkers-and-badasses/assets/banners/corraza-equipment.webp",
       "system": "bunkers-and-badasses",
       "ownership": { "PLAYER": "LIMITED", "ASSISTANT": "OWNER" },
       "flags": { }
@@ -91,7 +91,7 @@
       "label": "Corraza Rocket Launchers",
       "path": "packs/Corraza/weapons/rocket-launchers",
       "type": "Item",
-      "banner": "systems/bunkers-and-badasses/assets/banners/corraza-equipment.png",
+      "banner": "systems/bunkers-and-badasses/assets/banners/corraza-equipment.webp",
       "system": "bunkers-and-badasses",
       "ownership": { "PLAYER": "LIMITED", "ASSISTANT": "OWNER" },
       "flags": { }
@@ -101,7 +101,7 @@
       "label": "Corraza Shields",
       "path": "packs/Corraza/shields",
       "type": "Item",
-      "banner": "systems/bunkers-and-badasses/assets/banners/corraza-equipment.png",
+      "banner": "systems/bunkers-and-badasses/assets/banners/corraza-equipment.webp",
       "system": "bunkers-and-badasses",
       "ownership": { "PLAYER": "LIMITED", "ASSISTANT": "OWNER" },
       "flags": { }
@@ -111,7 +111,7 @@
       "label": "Corraza Grenades",
       "path": "packs/Corraza/grenades",
       "type": "Item",
-      "banner": "systems/bunkers-and-badasses/assets/banners/corraza-equipment.png",
+      "banner": "systems/bunkers-and-badasses/assets/banners/corraza-equipment.webp",
       "system": "bunkers-and-badasses",
       "ownership": { "PLAYER": "LIMITED", "ASSISTANT": "OWNER" },
       "flags": { }
@@ -121,7 +121,7 @@
       "label": "Corraza Potions",
       "path": "packs/Corraza/potions",
       "type": "Item",
-      "banner": "systems/bunkers-and-badasses/assets/banners/corraza-equipment.png",
+      "banner": "systems/bunkers-and-badasses/assets/banners/corraza-equipment.webp",
       "system": "bunkers-and-badasses",
       "ownership": { "PLAYER": "LIMITED", "ASSISTANT": "OWNER" },
       "flags": { }
