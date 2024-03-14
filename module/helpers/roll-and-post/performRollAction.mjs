@@ -649,9 +649,9 @@ export class PerformRollAction {
     }
 
     if (attackType === 'grenade') {
-      MixedDiceAndNumber.addBonusToMixed({ mixed: effectBonuses.untyped, additionalBonus: combatBonuses.grenade.dmg });
+      MixedDiceAndNumber.addBonusToMixed({ mixed: effectBonuses.untyped, additionalBonus: combatBonuses.grenades.dmg });
       if (isNat20) {
-        MixedDiceAndNumber.addBonusToMixed({ mixed: effectBonuses.untyped, additionalBonus: combatBonuses.grenade.critdmg });
+        MixedDiceAndNumber.addBonusToMixed({ mixed: effectBonuses.untyped, additionalBonus: combatBonuses.grenades.critdmg });
       }
     } else if (attackType === 'melee') {
       MixedDiceAndNumber.addBonusToMixed({ mixed: effectBonuses.untyped, additionalBonus: combatBonuses.melee.dmg });
