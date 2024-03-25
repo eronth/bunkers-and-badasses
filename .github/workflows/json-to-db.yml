@@ -31,7 +31,7 @@ jobs:
 
       - name: Tar Files
         working-directory: ./
-        run:  tar -czv --exclude=['./.git/**\*', './.github/**\*', './node_modules/**\*', './build-scripts/**\*', './bunkers-and-badasses.zip', './bunkers-and-badasses.tar.gz'] -f ./bunkers-and-badasses.tar.gz ./* 
+        run:  tar -czv --exclude={"./.git/**\*", "./.github/**\*", "./node_modules/**\*", "./build-scripts/**\*", "./bunkers-and-badasses.zip", "./bunkers-and-badasses.tar.gz"} -f ./bunkers-and-badasses.tar.gz ./* 
 
       - uses: actions/upload-artifact@v4
         with:
