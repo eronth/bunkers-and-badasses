@@ -29,9 +29,9 @@ jobs:
         working-directory: ./
         run:  zip -r ./bunkers-and-badasses.zip ./* -x ./.git/**\* ./.github/**\* ./node_modules/**\* ./build-scripts/**\* ./bunkers-and-badasses.zip ./bunkers-and-badasses.tar.gz
 
-      - name: Zip Files
+      - name: Tar Files
         working-directory: ./
-        run:  zip -r ./bunkers-and-badasses.tar.gz ./* -x ./.git/**\* ./.github/**\* ./node_modules/**\* ./build-scripts/**\* ./bunkers-and-badasses.zip ./bunkers-and-badasses.tar.gz
+        run:  tar -czvf ./bunkers-and-badasses.tar.gz ./* --exclude=['./.git/**\*', './.github/**\*', './node_modules/**\*', './build-scripts/**\*', './bunkers-and-badasses.zip', './bunkers-and-badasses.tar.gz']
 
       - uses: actions/upload-artifact@v4
         with:
@@ -53,3 +53,7 @@ jobs:
         with:
           name: Code Artifact Zip
           path: ./bunkers-and-badasses.zip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Code Artifact Tar
+          path: ./bunkers-and-badasses.tar.gz
