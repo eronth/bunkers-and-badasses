@@ -1,33 +1,24 @@
 name: Convert JSON to DB
 
 on:
-  push:
-    paths:
-      - '**.json'
+  workflow_dispatch:
+    branches: [main, dev]
 
 jobs:
-  convert:
+  release:
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        node-version: [18.x]
+
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
         with:
-          node-version: '14'
-
-      - name: Install dependencies
-        run: npm ci
+          node-version: ${{ matrix.node-version }}
 
       - name: Convert JSON to DB
         run: node ./build-scripts/build-packs.js
-
-      - name: Commit and push changes
-        run: |
-          git config --global user.name 'GitHub Actions'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add -A
-          git commit -m "Convert JSON files to DB" || exit 0
-          git push
