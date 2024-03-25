@@ -19,5 +19,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
+      - name: Setup Node.js environment
+        run: |
+          npm ci
       - name: Convert JSON to DB
         run: node ./build-scripts/build-packs.js
