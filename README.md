@@ -2,7 +2,6 @@
  The Bunkers and Badasses System created for use with Foundry VTT.
  
 Known Issues:
-* Posting items/action skill/class skills to chat just posts [Object object] instead of any useful data.
 * Unable to add seprate bonuses for `Throw Grenade` vs `Throw Item`.
 * No mayhem counter available.
 * Miscellaneous HTML/CSS issues.
