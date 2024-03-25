@@ -2,7 +2,7 @@ name: Convert JSON to DB
 
 on:
   workflow_dispatch:
-    branches: [main, dev, big-prompt-and-chat-post-updates]
+    branches: [release, main, dev, big-prompt-and-chat-post-updates]
 
 jobs:
   release:
@@ -14,11 +14,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-
       - name: Convert JSON to DB
         run: node ./build-scripts/build-packs.js
