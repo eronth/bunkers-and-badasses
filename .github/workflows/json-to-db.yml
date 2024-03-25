@@ -30,8 +30,27 @@ jobs:
         run:  zip -r ./bunkers-and-badasses.zip ./* -x ./.git/**\* ./.github/**\* ./node_modules/**\* ./build-scripts/**\* ./bunkers-and-badasses.zip ./bunkers-and-badasses.tar.gz
 
       - name: Tar Files
-        working-directory: ./
-        run:  tar -czv --exclude={"./.git/**\*", "./.github/**\*", "./node_modules/**\*", "./build-scripts/**\*", "./bunkers-and-badasses.zip", "./bunkers-and-badasses.tar.gz"} -f ./bunkers-and-badasses.tar.gz ./* 
+        uses: a7ul/tar-action@v1.1.0
+        id: compress
+        with:
+          command: c
+          cwd: ./bunkers-and-badasses
+          files: |
+            ./assets ./css ./lang ./module ./packs ./scss ./templates \
+            ./package.json ./package-lock.json ./gulpfile.js ./LICENSE ./README.md ./system.json ./template.json \
+            ./updates.txt ./Attributes-for-Effects.txt ./roll-builder-deets.txt
+          outPath: ./bunkers-and-badasses.tar.gz
+      # - name: Tar Files
+      #   working-directory: ./
+      #   run: |
+      #     tar -czv \
+      #     --exclude='./.git/**\*'  \
+      #     --exclude='./.github/**\*'  \
+      #     --exclude='./node_modules/**\*'  \
+      #     --exclude='./build-scripts/**\*'  \
+      #     --exclude='./bunkers-and-badasses.zip'  \
+      #     --exclude='./bunkers-and-badasses.tar.gz'  \
+      #     -f ./bunkers-and-badasses.tar.gz ./* 
 
       - uses: actions/upload-artifact@v4
         with:
