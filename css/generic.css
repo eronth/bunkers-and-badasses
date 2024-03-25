@@ -506,10 +506,10 @@
 }
 
 .box-hover:hover {
-  box-shadow: 0 0 5px cyan;
+  box-shadow: 0 0 5px var(--highlight-primary);
   cursor: pointer;
 }
 .text-hover:hover {
-  text-shadow: 0 0 10px cyan;
+  text-shadow: 0 0 10px var(--highlight-primary);
   cursor: pointer;
 }

@@ -50,7 +50,7 @@
 }
 
 .element-toggle:hover {
-  text-shadow: 0 0 10px cyan;
+  text-shadow: 0 0 10px var(--highlight-primary);
   cursor: pointer;
 }
 

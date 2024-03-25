@@ -6,42 +6,40 @@
 
 .clickable:hover {
   cursor: pointer;
-  text-shadow: 0 0 10px cyan;
+  text-shadow: var(--focus-text-shadow-primary);
 }
 
 .tabs .item.active {
-  text-shadow: 0 0 10px cyan;
+  text-shadow: var(--focus-text-shadow-primary);
 }
-.tabs .item:hover {
-  text-shadow: 0 0 10px cyan;
-}
-.item-control:hover {
-  text-shadow: 0 0 10px cyan;
-}
+a:hover,
+.tabs .item:hover,
+.item-control:hover,
 .entity-name:hover,
 .entity-name a:hover {
-  text-shadow: 0 0 10px cyan;
+  text-shadow: var(--focus-text-shadow-primary);
 }
 .bh:hover,
 .bh a:hover {
-  text-shadow: 0 0 10px cyan;
+  text-shadow: var(--focus-text-shadow-primary);
 }
 .rollable:hover, .rollable:focus {
   color: #000;
-  text-shadow: 0 0 10px cyan;
+  text-shadow: var(--focus-text-shadow-primary);
   cursor: pointer;
 }
 
 button:hover {
-  box-shadow: 0 0 5px cyan;
+  box-shadow: 0 0 5px var(--highlight-primary);
 }
+
 textarea:focus,
 input[type="text"]:focus,
 input[type="number"]:focus,
 input[type="password"]:focus,
 input[type="date"]:focus,
 input[type="time"]:focus {
-  box-shadow: 0 0 5px cyan;
+  box-shadow: 0 0 5px var(--highlight-primary);
 }
 
 .elem-initial {
@@ -320,7 +318,7 @@ input[type="time"]:focus {
   font-weight: bold;
 }
 .bnb .class-stats-section .melee-dice-roll:hover {
-  text-shadow: 0 0 10px cyan;
+  text-shadow: 0 0 10px var(--highlight-primary);
   cursor: pointer;
 }
 .bnb .class-stats-section {
@@ -725,8 +723,8 @@ input[type="time"]:focus {
   cursor: pointer;
 }
 .attack-block:hover {
-  text-shadow: 0 0 10px cyan;
-  box-shadow: 0 0 5px cyan;
+  text-shadow: 0 0 10px var(--highlight-primary);
+  box-shadow: 0 0 5px var(--highlight-primary);
 }
 .attacks-container .gun-icon {
   height: 15px;

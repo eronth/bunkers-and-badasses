@@ -12,6 +12,10 @@
   --focus-text-shadow-primary: 0 0 1px var(--highlight-primary), 0 0 4px var(--highlight-primary);
   --focus-text-shadow-secondary: 0 0 1px var(--highlight-secondary), 0 0 4px var(--highlight-secondary);
 
+
+  --xp-bar-segment-separator: #10020f;
+  --xp-bar-progress: #82e4fb;
+  --xp-bar-background: #4b4347;
   
   /* Rarity colors */
   --common: #a5a49f;
