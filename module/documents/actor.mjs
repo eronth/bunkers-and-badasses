@@ -127,7 +127,7 @@ export class BNBActor extends Actor {
       const [key, statData] = entry;
       statData.effects = actor.system.bonus.stats[key] ?? { value: 0, mod: 0 };
       statData.value = archetypeStats[key] + classStats[key] + statData.misc + statData.effects.value
-      + (archetypeLevelUpStats ? archetypeLevelUpStats[key] : 0) + statData.itemBonus;
+      + (archetypeLevelUpStats ? archetypeLevelUpStats[key] : 0); //+ statData.itemBonus;
       statData.mod = Math.floor(statData.value / 2)  + (statData.modBonus ?? 0) + statData.effects.mod;
       statData.modToUse = actor.system.attributes.badass.rollsEnabled ? statData.value : statData.mod;
     });
@@ -136,6 +136,10 @@ export class BNBActor extends Actor {
     Object.entries(actor.system.checks).forEach(entry => {
       const [check, checkData] = entry;
       checkData.value = actor.system.stats[checkData.stat].modToUse;
+
+      // Copy the earlier derived item bonus values to the various checks.
+      // Kinda makes you feel like the earlier derived data is a bit redundant.
+      checkData.gear = actor.system.stats[checkData.stat]?.itemBonus ?? 0;
       
       // Determine effect bonus (shooting and melee are treated slightly different.)
       if (actor.system.bonus.checks[check] != null) {
@@ -148,10 +152,8 @@ export class BNBActor extends Actor {
       }
       
       checkData.total = (checkData.usesBadassRank ? actor.system.attributes.badass.rank : 0) +
-        (checkData.base ?? 0) + checkData.value + checkData.misc + checkData.effects;
+        (checkData.base ?? 0) + checkData.value + checkData.gear + checkData.misc + checkData.effects;
     });
-
-    
   }
   
   _prepareVaultHunterItemBonusesData() {
