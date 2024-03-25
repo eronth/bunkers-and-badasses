@@ -2,7 +2,7 @@ name: Convert JSON to DB
 
 on:
   workflow_dispatch:
-    branches: [main, dev]
+    branches: [main, dev, big-prompt-and-chat-post-updates]
 
 jobs:
   release:
