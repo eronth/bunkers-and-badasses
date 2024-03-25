@@ -112,13 +112,14 @@ export class ConfirmActionPrompt {
         check: check,
         promptCheckType: (dataset.rollType === 'check'),
       },
-      itemId: dataset.itemId
+      itemId: dataset.itemId,
+      renderOptions: { width: 500}
     });
   }
 
   static async _makeCheck(event, options) {
     // Prep data to access.
-    const { actor, checkDetails } = options;
+    const { actor, checkDetails, renderOptions } = options;
 
     const templateLocation = 'systems/bunkers-and-badasses/templates/dialog/check-difficulty.html';
     const dialogHtmlContent = await renderTemplate(templateLocation, {
@@ -149,7 +150,7 @@ export class ConfirmActionPrompt {
           }
         }
       }
-    }).render(true, { width: 500});
+    }).render(true, renderOptions);
   }
 
   static async useActionSkill(event, options) {
@@ -186,7 +187,6 @@ export class ConfirmActionPrompt {
   static async meleeAttack(event, options) {
     const { actor, dataset } = options;
     const check = actor.system.checks[dataset.checkType.toLowerCase()];
-    check.gear = 0;
     
     return await this._makeCheck(event, {
       actor: actor,
