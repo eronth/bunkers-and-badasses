@@ -14,3 +14,7 @@ Eventual Updates:
 * Add Mayhem counter
 * Add Boss Bars.
 * Redesign skills page.
+* Redo "Action!" tab to be less cluttered looking.
+    * Show gear bonuses on each check.
+    * Include armor/shield/health icons in the health section.
+    * Better restructure the Badass and Action Skill regions.
