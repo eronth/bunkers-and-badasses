@@ -1,0 +1,36 @@
+.bnb .builder-tabs {
+  -webkit-box-flex: 0;
+  -ms-flex: 0;
+  flex: 0;
+  height: 32px;
+  flex: 0 0 32px;
+  margin: 4px 0;
+  line-height: 32px;
+  margin-bottom: 0;
+  border-bottom: 1px solid var(--menu-tab);
+  border-top: 0;
+}
+
+.bnb .builder-tabs a {
+  --borderRadius: 4px;
+  border-top-left-radius: var(--borderRadius);
+  border-top-right-radius: var(--borderRadius);
+  border: 1px solid var(--menu-tab-inactive-border);
+  border-bottom: 0;
+  flex-grow: 1;
+  background-color: var(--menu-tab-inactive);
+}
+.bnb .builder-tabs a:hover {
+  background-color: var(--highlight-secondary);
+  text-shadow: var(--focus-text-shadow-primary);
+}
+.bnb .builder-tabs a.active {
+  background-color: var(--menu-tab-active);
+  border: 0;
+}
+
+.bnb .builder-body {
+  border: 1px solid var(--menu-tab);
+  border-top: 0;
+  padding: 4px;
+}

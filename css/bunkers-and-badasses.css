@@ -364,18 +364,6 @@ input[type="time"]:focus {
   height: 100%;
 }
 
-.bnb .builder-tabs {
-  -webkit-box-flex: 0;
-  -ms-flex: 0;
-  flex: 0;
-  height: 32px;
-  flex: 0 0 32px;
-  margin: 4px 0;
-  line-height: 32px;
-  border-top: 1px solid #b5b3a4;
-  border-bottom: 1px solid #b5b3a4;
-}
-
 .bnb .builder-common-container .bonus-max-xp-label,
 .bnb .builder-common-container .base-potions-label,
 .bnb .builder-common-container .base-grenades-label,

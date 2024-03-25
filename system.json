@@ -22,6 +22,7 @@
     "css/common-colors/elemental-colors.css",
     "css/common-colors/health-colors.css",
     "css/common-colors/rarity-colors.css",
+    "css/common-design-patterns/navigation-tabs.css",
     "css/generic.css",
     "css/item-list.css",
     "css/dropdown.css",

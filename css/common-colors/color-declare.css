@@ -1,12 +1,26 @@
 :root {
   --theme: cyan;
+  --highlight-primary: cyan;
+  --highlight-secondary: goldenrod;
+  
+  --menu-tab-base-rgb: 181, 179, 164;
+  --menu-tab: rgb(var(--menu-tab-base-rgb));
+  --menu-tab-inactive: rgba(var(--menu-tab-base-rgb), .4);
+  --menu-tab-inactive-border: rgba(var(--menu-tab-base-rgb), .6);
+  --menu-tab-active: var(--menu-tab);
+  
+  --focus-text-shadow-primary: 0 0 1px var(--highlight-primary), 0 0 4px var(--highlight-primary);
+  --focus-text-shadow-secondary: 0 0 1px var(--highlight-secondary), 0 0 4px var(--highlight-secondary);
+
+  
   /* Rarity colors */
   --common: #a5a49f;
   --uncommon: #0ea11f;
   --rare: #00a0ff;
   --epic: #7000a4;
   --legendary: #ffa500;
-  /* Element colors. */
+  
+  /* Element colors */
   --kinetic: hsl(0, 0%, 30%);
   --incendiary: rgb(213, 59, 49);
   --corrosive: rgb(141, 157, 62);
@@ -18,13 +32,16 @@
   --corroshock: rgb(73, 125, 135);
   --crysplosive: rgb(115, 105, 160);
   --plasma: rgb(195, 114, 8);
-  /* Attack stats. */
+  
+  /* Attack stats */
   --hits: darkblue;
   --crits: darkred;
-  /* Gear text. */
+  
+  /* Gear text */
   --redText: darkred;
   --anointText: hsl(330, 37%, 48%);
-  /* Health types. */
+  
+  /* Health types */
   --bone:             hsl(53, 100%, 95%);
   --bone-high:        hsl(53, 100%, 95%);
   --bone-low:         hsl(53, 15%, 55%);
