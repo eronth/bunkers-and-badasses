@@ -3,10 +3,9 @@
   data-roll-type="check" data-check-type="{{checkName}}" data-roll-mod="{{check.stat}}">
     {{^if nonRolled}}<i class="fa fa-dice-d20"></i> {{/if}}{{displayName}}
   </label>
-  <div class="flexcol cc2">
-    <input style="font-weight: bold; font-size: 15px;"
-      class="total" value="{{customPrefix}}{{check.total}} {{customUnit}}"
-      type="text" data-dtype="String"
+  <div class="flexcol cc2 total-group">
+    <input class="total" type="text" data-dtype="String"
+      value="{{customPrefix}}{{check.total}}{{customUnit}}"
       disabled />
     <!-- <Label class="check-num-label">total</Label> -->
   </div>

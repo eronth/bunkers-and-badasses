@@ -906,6 +906,11 @@ input[type="time"]:focus {
   justify-content: center;
   align-items: center;
 }
+.bnb .cc2.total-group input {
+  font-weight: bold;
+  font-size: 15px;
+  max-width: 45px;
+}
 .bnb .check-container-right {
   border-left: 1px solid #c9c7b8;
   flex: 4;
@@ -1090,6 +1095,10 @@ input[type="time"]:focus {
 .check-dialog .check-dialog-header label {
   font-weight: bold;
   font-size: larger;
+}
+
+.check-dialog .difficulty .check-dialog-body {
+  align-items: center;
 }
 
 .attack-dialog .attack-dialog-body .math-sign,
