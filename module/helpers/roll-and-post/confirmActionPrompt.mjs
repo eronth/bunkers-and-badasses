@@ -25,7 +25,8 @@ export class ConfirmActionPrompt {
           callback: async (html) => { }
         },
         "Delete" : {
-          label: `<i class="fas fa-trash"></i> Delete`,
+          icon: `<i class="fas fa-trash"></i>`,
+          label: `Delete`,
           callback : async (html) => {
             return OnActionUtil.onItemDelete(html, { actor: actor, item: item, li: liList[0], inRender: options.inRender });
           }
@@ -55,6 +56,7 @@ export class ConfirmActionPrompt {
           callback : async (html) => {}
         },
         'Roll': {
+          icon: '<i class="fas fa-dice-d20"></i>',
           label: 'Roll',
           callback: async (html) => {
             return await PerformRollAction.badassRoll(html, options);
@@ -236,6 +238,7 @@ export class ConfirmActionPrompt {
           callback: async (html) => {}
         },
         'Attack': {
+          icon: '<i class="fas fa-dice-d20"></i>',
           label: 'Roll Attack',
           callback: async (html) => {
             return await PerformRollAction.rangedAttack(html, actionOptions);
@@ -342,6 +345,7 @@ export class ConfirmActionPrompt {
           callback: async (html) => {}
         },
         'Damage': {
+          icon: '<i class="fas fa-dice-d20"></i>',
           label: 'Roll Damage',
           callback: async (html) => {
             return await PerformRollAction.dealDamage(html, { actor: actor, item: item, attackType: attackType });
@@ -391,6 +395,7 @@ export class ConfirmActionPrompt {
           callback: async (html) => {}
         },
         'Damage': {
+          icon: '<i class="fas fa-dice-d20"></i>',
           label: 'Roll Damage',
           callback: async (html) => {
             return await PerformRollAction.dealDamage(html, { actor: actor, item: item, attackType: attackType });
@@ -430,6 +435,7 @@ export class ConfirmActionPrompt {
           callback: async (html) => {}
         },
         'Damage': {
+          icon: '<i class="fas fa-dice-d20"></i>',
           label: 'Roll Damage',
           callback: async (html) => {
             return await PerformRollAction.dealDamage(html, { actor: actor, item: item, attackType: attackType });
