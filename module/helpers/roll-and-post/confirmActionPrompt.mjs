@@ -142,13 +142,14 @@ export class ConfirmActionPrompt {
           callback: async (html) => {}
         },
         'Roll': {
+          icon: '<i class="fas fa-dice-d20"></i>',
           label: 'Roll',
           callback: async (html) => {
             return await PerformRollAction.skillCheck(html, options);
           }
         }
       }
-    }).render(true);
+    }).render(true, { width: 500});
   }
 
   static async useActionSkill(event, options) {
