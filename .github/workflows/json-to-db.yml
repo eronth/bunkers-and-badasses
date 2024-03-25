@@ -34,11 +34,25 @@ jobs:
         id: compress
         with:
           command: c
-          cwd: ./bunkers-and-badasses
+          cwd: ./
           files: |
-            ./assets ./css ./lang ./module ./packs ./scss ./templates \
-            ./package.json ./package-lock.json ./gulpfile.js ./LICENSE ./README.md ./system.json ./template.json \
-            ./updates.txt ./Attributes-for-Effects.txt ./roll-builder-deets.txt
+            ./assets
+            ./css
+            ./lang
+            ./module
+            ./packs
+            ./scss
+            ./templates
+            ./package.json
+            ./package-lock.json
+            ./gulpfile.js
+            ./LICENSE
+            ./README.md
+            ./system.json
+            ./template.json
+            ./updates.txt
+            ./Attributes-for-Effects.txt
+            ./roll-builder-deets.txt
           outPath: ./bunkers-and-badasses.tar.gz
       # - name: Tar Files
       #   working-directory: ./
