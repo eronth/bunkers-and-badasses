@@ -1,0 +1,19 @@
+<div class="flexcol">
+  <div class="flexrow archetype-minor-detail">
+    <div class="flexrow">
+      {{#if item.system.archetype}}
+      <b>Archetype:</b> 
+      <label>{{item.system.archetype}}</label>
+      {{/if}}
+    </div>
+    <div class="flexrow">
+      <b>Requirement:</b>
+      {{#if item.system.requirement}}
+      <label>{{item.system.requirement}}</label>
+      {{else}}
+      <label>None</label>
+      {{/if}}
+    </div>
+  </div>
+  <label class="archetype-feat-description">{{{item.system.description}}}</label>  
+</div>

@@ -80,20 +80,17 @@
   </div>
   
   <section>
-    <ol class="items-list">
-      <li class="flexrow items-header">
-        <div class="item-name">Action Skill</div>
-        <div class="item-controls">
-          <!-- <a 
-            class="item-control item-create" 
-            title="Create item" data-dtype="Archetype Feat">
-              <i class="fas fa-plus"></i> Add Feat
-            </a> -->
-        </div>
-      </li>
-      {{#each actionSkills as |item id|}}
-        {{> (dropdownHeaderLocation "base") item=item }}
-      {{/each}}      
-    </ol>
+    {{> "systems/bunkers-and-badasses/templates/actor/parts/item-list-components/item-list.html"
+      items=actionSkills
+      itemType="action skill"
+
+      categoryType="actionSkills"
+      headerText="Action Skill"
+      createItemText="Action Skill"
+
+      allowCreate=false
+      allowDelete=false
+      showBonusUses=true
+    }}
   </section>
 </div>

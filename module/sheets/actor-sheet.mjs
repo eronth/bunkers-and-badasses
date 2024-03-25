@@ -3,6 +3,11 @@ import { RollBuilder } from "../helpers/roll-builder.mjs";
 import { Dropdown } from "../helpers/dropdown.mjs";
 import { genericUtil } from "../helpers/genericUtil.mjs";
 import { OnActionUtil } from "../helpers/onActionUtil.mjs";
+import { PostToChat } from "../helpers/roll-and-post/postToChat.mjs";
+import { ConfirmActionPrompt } from "../helpers/roll-and-post/confirmActionPrompt.mjs";
+import { PerformRollAction } from "../helpers/roll-and-post/performRollAction.mjs";
+import { DefaultData } from "../helpers/defaultData.mjs";
+import { MixedDiceAndNumber } from "../helpers/MixedDiceAndNumber.mjs";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -80,7 +85,7 @@ export class BNBActorSheet extends ActorSheet {
       this._prepareNpcHps(context);
     }
 
-    context.isCollapsed = this.actor.system.isCollapsed;
+    context.isCollapsed = {...(this.actor.system.isCollapsed)};
     
     // Add roll data for TinyMCE editors.
     context.rollData = context.actor.getRollData();
@@ -304,97 +309,75 @@ export class BNBActorSheet extends ActorSheet {
     return {...experienceReqs};
   }
 
-  _applyArchetypeLevelBonus(archetypeLevelBonusTotals, i) {
-    // Add the bonuses to the totals.
-    archetypeLevelBonusTotals.skillPoints += Number(i.system.skillPoints);
-    if (i.system.feat) { archetypeLevelBonusTotals.feats.push(i.system.feat); }
-    archetypeLevelBonusTotals.hps.flesh.max += Number(i.system.hps.flesh.max);
-    archetypeLevelBonusTotals.hps.armor.max += Number(i.system.hps.armor.max);
-    archetypeLevelBonusTotals.hps.shield.max += Number(i.system.hps.shield.max);
-    archetypeLevelBonusTotals.hps.eridian.max += Number(i.system.hps.eridian.max);
-    archetypeLevelBonusTotals.hps.bone.max += Number(i.system.hps.bone.max);
-    this._applyBonusToRegen(archetypeLevelBonusTotals.regens, 'flesh', i.system.hps.flesh.regen);
-    this._applyBonusToRegen(archetypeLevelBonusTotals.regens, 'armor', i.system.hps.armor.regen);
-    this._applyBonusToRegen(archetypeLevelBonusTotals.regens, 'shield', i.system.hps.shield.regen);
-    this._applyBonusToRegen(archetypeLevelBonusTotals.regens, 'eridian', i.system.hps.eridian.regen);
-    this._applyBonusToRegen(archetypeLevelBonusTotals.regens, 'bone', i.system.hps.bone.regen);
-    archetypeLevelBonusTotals.stats.acc += Number(i.system.stats.acc);
-    archetypeLevelBonusTotals.stats.dmg += Number(i.system.stats.dmg);
-    archetypeLevelBonusTotals.stats.spd += Number(i.system.stats.spd);
-    archetypeLevelBonusTotals.stats.mst += Number(i.system.stats.mst);
-    archetypeLevelBonusTotals.maxPotions += Number(i.system.maxPotions);
-    archetypeLevelBonusTotals.maxGrenades += Number(i.system.maxGrenades);
-    archetypeLevelBonusTotals.maxFavoredGuns += Number(i.system.maxFavoredGuns);
-    archetypeLevelBonusTotals.bonusDamage.elements.kinetic += Number(i.system.bonusDamage.elements.kinetic);
-    archetypeLevelBonusTotals.bonusDamage.elements.other += Number(i.system.bonusDamage.elements.other);
-    archetypeLevelBonusTotals.bonusDamage.anyAttack += Number(i.system.bonusDamage.anyAttack);
-    archetypeLevelBonusTotals.bonusDamage.meleeAttack += Number(i.system.bonusDamage.meleeAttack);
-    archetypeLevelBonusTotals.bonusDamage.shootingAttack += Number(i.system.bonusDamage.shootingAttack);
-    archetypeLevelBonusTotals.bonusDamage.grenade += Number(i.system.bonusDamage.grenade);
-    archetypeLevelBonusTotals.bonusDamage.perHit += Number(i.system.bonusDamage.perHit);
-    archetypeLevelBonusTotals.bonusDamage.perCrit += Number(i.system.bonusDamage.perCrit);
-    archetypeLevelBonusTotals.bonusDamage.ifAnyCrit += Number(i.system.bonusDamage.ifAnyCrit);
-    archetypeLevelBonusTotals.bonusDamage.onNat20 += Number(i.system.bonusDamage.onNat20);
-    if (i.system.bonus) { archetypeLevelBonusTotals.bonuses.push(i.system.bonus); }
-  }
-
   _prepareArchetypeLevelBonuses(context) {
     const archetypeLevelItems = [...(context.archetype1Levels ?? []), ...(context.archetype2Levels ?? [])];
-    const oldActorAlbt = { ...(this.actor.system.archetypeLevelBonusTotals ?? this.defaultArchetypeLevelBonusTotals()) };
-    const archetypeLevelBonusTotals = this.defaultArchetypeLevelBonusTotals();
 
     // Add up all the bonuses from the archetype levels.
     archetypeLevelItems.forEach(i => {
-      this._applyArchetypeLevelBonus(archetypeLevelBonusTotals, i);
+      context.skillPoints.max += Number(i.system.maxPotions);
+      context.potionCount.max += Number(i.system.maxGrenades);
+      context.maxGrenades += Number(i.system.maxFavoredGuns);
     });
-
-    context.skillPoints.max += archetypeLevelBonusTotals.skillPoints;
-    context.potionCount.max += archetypeLevelBonusTotals.maxPotions;
-    context.maxGrenades += archetypeLevelBonusTotals.maxGrenades;
-    
-    const albHasChanges = JSON.stringify(archetypeLevelBonusTotals) !== JSON.stringify(oldActorAlbt);
-    if (albHasChanges) {
-      const attributeLabel = `system.archetypeLevelBonusTotals`;
-      this.actor.update({[attributeLabel]: archetypeLevelBonusTotals});
-    }
   }
 
   _prepareVhHps(context) {
     const actorHPs = this.actor.system.attributes.hps;
     const oldActorHPs = JSON.parse(JSON.stringify(actorHPs));
     const effectsHPs = this.actor.system.bonus.healths;
-    const archetypeHPs = (this.actor.system.archetypeLevelBonusTotals ?? this.defaultArchetypeLevelBonusTotals()).hps;
-    const archetypeRegens = (this.actor.system.archetypeLevelBonusTotals ?? this.defaultArchetypeLevelBonusTotals()).regens;
+    const doArchetypeBonusesExist = !genericUtil.isNullOrEmptyObject(this.actor.system.archetypeLevelBonusTotals);
+    const archetypeLevelBonusTotals = ((doArchetypeBonusesExist) ? this.actor.system.archetypeLevelBonusTotals : DefaultData.archetypeLevelBonusTotals());
+    const archetypeHPs = archetypeLevelBonusTotals.hps;
+    //const archetypeRegens = archetypeLevelBonusTotals.regens;
 
     // Clean slate for HPs totals.
     actorHPs.flesh.max = actorHPs.armor.max = actorHPs.shield.max = actorHPs.bone.max = actorHPs.eridian.max = 0;
     actorHPs.flesh.combinedRegen = actorHPs.armor.combinedRegen = actorHPs.shield.combinedRegen 
       = actorHPs.bone.combinedRegen = actorHPs.eridian.combinedRegen = "";
     const combinedRegen = {
-      flesh: { num: 0, texts: [], },
-      armor: { num: 0, texts: [], },
-      shield: { num: 0, texts: [], },
-      bone: { num: 0, texts: [], },
-      eridian: { num: 0, texts: [], },
-    };
+      flesh: MixedDiceAndNumber.default(),
+      armor: MixedDiceAndNumber.default(),
+      shield: MixedDiceAndNumber.default(),
+      eridian: MixedDiceAndNumber.default(),
+      bone: MixedDiceAndNumber.default(),
+    }
     
     // Get the HPs from the actor items (Shields and Archetype Levels.)
     Object.entries(context.items).forEach(entry => {
       const [itemIndex, itemData] = entry;
       if (itemData.type === "shield" && itemData.system.equipped) {
         actorHPs[itemData.system.healthType].max += itemData.system.capacity ?? 0;
-        this._applyBonusToRegen(combinedRegen, itemData.system.healthType, itemData.system.recoveryRate);
+        MixedDiceAndNumber.applyBonusToMixed({ 
+          mixed: combinedRegen[itemData.system.healthType],
+          additionalBonus: itemData.system.recoveryRate
+        });
       }
     });
 
     // Add bonuses from Builder Tab and effects.
     Object.entries(actorHPs).forEach(entry => {
       const [hpType, hpData] = entry;
-      hpData.max += (actorHPs[hpType].base ?? 0) + (effectsHPs[hpType].max ?? 0) + (archetypeHPs[hpType].max ?? 0) + (actorHPs[hpType].bonus ?? 0);
-      this._applyBonusToRegen(combinedRegen, hpType, actorHPs[hpType].regen);
-      this._applyBonusToRegen(combinedRegen, hpType, archetypeRegens[hpType].num);
-      this._applyBonusToRegen(combinedRegen, hpType, archetypeRegens[hpType].texts.join(' + '));
-      this._applyBonusToRegen(combinedRegen, hpType, effectsHPs[hpType].regen);
+      
+      // Sum up max HPs values.
+      hpData.max += (actorHPs[hpType].base ?? 0);
+      hpData.max += (effectsHPs[hpType].max ?? 0);
+      hpData.max += (archetypeHPs[hpType].max ?? 0); 
+      hpData.max += (actorHPs[hpType].bonus ?? 0);
+      
+      // Sum up regen values.
+      MixedDiceAndNumber.applyBonusToMixed({
+        mixed: combinedRegen[hpType],
+        additionalBonus: actorHPs[hpType].regen
+      });
+      MixedDiceAndNumber.addMixedToMixed({
+        mixed: combinedRegen[hpType],
+        additionalMixed: archetypeHPs[hpType].regen
+      });
+      MixedDiceAndNumber.applyBonusToMixed({
+        mixed: combinedRegen[hpType],
+        additionalBonus: effectsHPs[hpType].regen
+      });
+
+      // Set the combined regen text of the actor's regen.
       hpData.combinedRegen = [combinedRegen[hpType].num, ...combinedRegen[hpType].texts].join(' + ');
     });    
 
@@ -422,16 +405,6 @@ export class BNBActorSheet extends ActorSheet {
       this.actor.update({[attributeLabel]: actorHPs});
     }
   }
-
-  _applyBonusToRegen(combinedRegen, healthType, recoveryRate) {
-    if (!recoveryRate) { return; }
-
-    if (isNaN(recoveryRate)) {
-      combinedRegen[healthType].texts.push(recoveryRate);
-    } else {
-      combinedRegen[healthType].num += Number(recoveryRate ?? 0);
-    };
-  };
 
   _prepareNpcHps(context) {
     context.hps = context.system.attributes.hps;
@@ -504,8 +477,6 @@ export class BNBActorSheet extends ActorSheet {
     for (let [k, v] of Object.entries(context.system.attributes.hps)) {
       v.label = game.i18n.localize(CONFIG.BNB.hps[k]) ?? k;
     }
-
-    context.skillsAreCollapsed = this.actor.system.class.skillsAreCollapsed;
   }
 
   /**
@@ -535,7 +506,6 @@ export class BNBActorSheet extends ActorSheet {
     const keyItems = [];
 
     // Iterate through items, allocating to containers
-    const elementIconDirectory = 'systems/bunkers-and-badasses/assets/elements/';
     for (let i of context.items) {
       i.img = i.img || DEFAULT_TOKEN;
       
@@ -551,79 +521,26 @@ export class BNBActorSheet extends ActorSheet {
       else if (i.type === 'Archetype Feat') { archetypeFeats.push(i); }
       else if (i.type === 'Action Skill') { actionSkills.push(i); } // Append to Action Skills (should probably only ever be one, but whatever).
       else if (i.type === 'gun') {
-        const finalPlus = `<label class="element-damage-plus"> + </label>`;
-        
-        let dmgPerHitString = "";
-        Object.entries(i.system.elements).forEach(e => {
-          const [key, element] = e;
-          if (element.enabled) {
-            const elemIcon = (e[0] === "kinetic") 
-            ? ""
-            : `<img id="gunDmg${genericUtil.capitalize(key)}" alt="${genericUtil.capitalize(key)}" 
-              class="element-damage-icon" src="${elementIconDirectory}${genericUtil.capitalize(key)}.png" />`;
 
-              dmgPerHitString += `<label class='bolded ${key}-text'>${element.damage} ${elemIcon}</label> ${finalPlus}`;
-          }
-        });
-        
-        // We need to remove the last plus label, it doesn't belong, then add the "damage" text.
-        i.system.dmgPerHitHtml = (dmgPerHitString
-          ? dmgPerHitString.slice(0, finalPlus.length * -1) + `<label class="element-damage-damage">per hit</label>`
+        const damageElementsHtml = genericUtil.createGunDamagePerHitHtml({ elements: i.system.elements });
+        i.system.dmgPerHitHtml = (damageElementsHtml 
+          ? damageElementsHtml + `<label class="element-damage-damage">per hit</label>`
           : '');
 
-
-        let bonusDmgString = "";
-        Object.entries(i.system.bonusElements).forEach(e => {
-          const [key, element] = e;
-          if (element.enabled) {
-            const elemIcon = (e[0] === "kinetic") 
-            ? ""
-            : `<img id="gunDmg${genericUtil.capitalize(key)}" alt="${genericUtil.capitalize(key)}" 
-              class="element-damage-icon" src="${elementIconDirectory}${genericUtil.capitalize(key)}.png" />`;
-
-              bonusDmgString += `<label class='bolded ${key}-text'>${element.damage} ${elemIcon}</label> ${finalPlus}`;
-          }
-        });
-        
-        // We need to remove the last plus label, it doesn't belong, then add the "damage" text.
-        i.system.bonusDamageHtml = (bonusDmgString 
-          ? bonusDmgString.slice(0, finalPlus.length * -1) + `<label class="element-damage-damage">bonus</label>`
+        const bonusDamageElementsHtml = genericUtil.createGunBonusDamageHtml({ elements: i.system.bonusElements });
+        i.system.bonusDamageHtml = (bonusDamageElementsHtml 
+          ? bonusDamageElementsHtml + `<label class="element-damage-damage">bonus</label>`
           : '');
-
-
         guns.push(i);
         if (i.system.equipped) { equippedGuns.push(i); }
       } else if (i.type === 'shield') {
-        let shieldResistString = "";
-        Object.entries(i.system.elements).forEach(e => {
-          const [key, element] = e;
-          if (element.enabled) {
-            shieldResistString += `<img id="resist${genericUtil.capitalize(key)}" alt="${genericUtil.capitalize(key)}" 
-              class="element-resist-icon" src="systems/bunkers-and-badasses/assets/elements/${genericUtil.capitalize(key)}.png" />`;
-          }
-        });
-        i.system.resistHtml = shieldResistString;
+        i.system.resistHtml = genericUtil.createMiniShieldResistHtml({ elements: i.system.elements });
         shields.push(i);
       } else if (i.type === 'grenade') {
-        const finalPlus = `<label class="element-damage-plus"> + </label>`;
-
-        let grenadeDmgString = "";
-        Object.entries(i.system.elements).forEach(e => {
-          const [key, element] = e;
-          if (element.enabled) {
-            const elemIcon = (e[0] === "kinetic") ? ""
-            : `<img id="gDmg${genericUtil.capitalize(key)}" alt="${genericUtil.capitalize(key)}" 
-              class="element-damage-icon" src="systems/bunkers-and-badasses/assets/elements/${genericUtil.capitalize(key)}.png" />`;
-
-            grenadeDmgString += `<label class='bolded ${key}-text'>${element.damage} ${elemIcon}</label> ${finalPlus}`;
-          }
-        });
-
-        // We need to remove the last plus label, it doesn't belong, then add the "damage" text.
-        i.system.dmgHtml = (grenadeDmgString
-          ? grenadeDmgString.slice(0, finalPlus.length * -1) + `<label class="element-damage-damage">Damage</label>`
+        const grenadeDamageHtml = genericUtil.createGrenadeDamageHtml({ elements: i.system.elements });
+        i.system.dmgHtml = (grenadeDamageHtml
+          ? grenadeDamageHtml + `<label class="element-damage-damage">Damage</label>`
           : '');
-
         grenades.push(i);
         if (i.system.equipped) { equippedGrenades.push(i); }
       }
@@ -640,7 +557,7 @@ export class BNBActorSheet extends ActorSheet {
       
       // Prepare item data.
       const nameToUse = ((!actorActionSkill?.name || actorActionSkill?.name === 'Action Skill')
-        ? 'New Action Skill'
+        ? 'Action Skill'
         : actorActionSkill?.name);
       const itemSystemData = {
         class: '', 
@@ -701,48 +618,7 @@ export class BNBActorSheet extends ActorSheet {
   }
 
   defaultArchetypeLevelBonusTotals() {
-    return {
-      skillPoints: 0,
-      feats: [],
-      bonuses: [],
-      hps: { 
-        flesh: { max: 0 },
-        armor: { max: 0 },
-        shield: { max: 0 },
-        eridian: { max: 0 },
-        bone: { max: 0 },
-      },
-      regens: {
-        flesh: { num: 0, texts: [], },
-        armor: { num: 0, texts: [], },
-        shield: { num: 0, texts: [], },
-        bone: { num: 0, texts: [], },
-        eridian: { num: 0, texts: [], },
-      },
-      stats: {
-        acc: 0,
-        dmg: 0,
-        spd: 0,
-        mst: 0,
-      },
-      maxPotions: 0,
-      maxGrenades: 0,
-      maxFavoredGuns: 0,
-      bonusDamage: {
-        elements: {
-          kinetic: 0,
-          other: 0
-        },
-        anyAttack: 0,
-        meleeAttack: 0,
-        shootingAttack: 0,
-        grenade: 0,
-        perHit: 0,
-        perCrit: 0,
-        ifAnyCrit: 0,
-        onNat20: 0,
-      },
-    };
+    return DefaultData.archetypeLevelBonusTotals();
   }
 
   /* -------------------------------------------- */
@@ -763,7 +639,10 @@ export class BNBActorSheet extends ActorSheet {
 
     html.find('.item-create').click((event) => OnActionUtil.onItemCreate(event, this.actor));
     html.find('.item-edit').click((event) => OnActionUtil.onItemEdit(event, this.actor));
-    html.find('.item-delete').click((event) => OnActionUtil.onItemDelete(event, this.actor, this.inRender.bind(this, false)));
+    html.find('.item-delete').click((event) => ConfirmActionPrompt.deleteItem(event, {
+      actor: this.actor,
+      inRender: this.inRender.bind(this, false),
+    }));
     
     // Handle Old Archetype Rewards.
     html.find('.old-archetype-reward-upgrade').click((event) => OnActionUtil.onOldArchetypeRewardUpgrade(event, this.actor));
@@ -772,13 +651,13 @@ export class BNBActorSheet extends ActorSheet {
     // Handle Collapsible Sections.
     html.find('.archetype-reward-collapse-toggle').click((event) => OnActionUtil.onArchetypeRewardCollapseToggle(event, this.actor));
     html.find('.skill-tier-collapse-toggle').click((event) => OnActionUtil.onSkillTierCollapseToggle(event, this.actor));
-    html.find('.loot-category-collapse-toggle').click((event) => OnActionUtil.onLootCategoryCollapseToggle(event, this.actor));
+    html.find('.category-collapse-toggle').click((event) => OnActionUtil.onCategoryCollapseToggle(event, this.actor));
 
     // Handle action skill.
-    html.find('.action-skill-use').click((event) => OnActionUtil.onActionSkillUse(event, this.actor));
+    html.find('.action-skill-use').click((event) => ConfirmActionPrompt.useActionSkill(event, {actor: this.actor}));
 
     // Handle combat health adjustments.
-    html.find('.take-damage').click(() => this._onTakeDamage());
+    html.find('.take-damage').click((event) => ConfirmActionPrompt.takeDamage(event, { actor: this.actor }));
 
     // Handle HP Gains.
     html.find('.hp-gain').click(this._onHpGain.bind(this));
@@ -811,145 +690,14 @@ export class BNBActorSheet extends ActorSheet {
     }
   }
 
-  async _onTakeDamage() {
-    const templateLocation = "systems/bunkers-and-badasses/templates/dialog/take-damage.html";
-    const takeDamageDialogContent = await renderTemplate(templateLocation, { });
-
-    this.takeDamageDialog = new Dialog({
-      title: `Take Damage`,
-      Id: `take-damage-dialog`,
-      content: takeDamageDialogContent,
-      buttons: {
-        "Cancel" : {
-          label : "Cancel",
-          callback : async (html) => {}
-        },
-        "Take Damage" : {
-          label : `Take Damage`,
-          callback : async (html) => {
-            return await this._takeDamage(html);
-          }
-        }
-      }
-    }).render(true);
-  }
-
-  async _takeDamage(html) {
-    // Prep data to access.
-    const actorSystem = this.actor.system;
-    const items = this.actor.items;
-    const hps = actorSystem.attributes.hps;
-
-    // Pull data from html.
-    const damageAmount = html.find("#damage-value")[0].value;
-    const damageType = $("input[type=radio][name=damage-type-element]:checked")[0].dataset.element.toLowerCase();
-
-    if (isNaN(damageAmount) || damageAmount <= 0) { return; }
-
-    // Determine damage reductions first.
-    let reduction = '';
-    let reductionResult = 0;
-    if (items?._source) {
-      Object.entries(items._source).forEach(([key, item]) => {
-        if (item.type === 'shield') {
-          if (item.system.equipped) {
-            if (item.system.elements[damageType].enabled) {
-              reduction += item.system.elements[damageType].damage + '+';
-            }
-          }
-        }
-      });
-    }
-    if (reduction.length > 0) { 
-      reduction = reduction.slice(0, -1); // Cleave off final +.
-
-      const roll = new Roll(reduction, this.actor.getRollData());
-      const rollResult = await roll.roll({async: true});
-      reductionResult = rollResult.total;
-
-      const label = `${this.actor.name} resists <span class='${damageType}-text bolded'>` +
-      `${reductionResult} ${damageType}`
-      + `</span> damage.`;
-      rollResult.toMessage({
-        speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-        flavor: label,
-        rollMode: game.settings.get('core', 'rollMode'),
-      });
-    }
-
-    // Track the amount of damage done to each health type.
-    const damageTaken = { };
-    const modifyDamage = {
-      eridian: {
-        x2: [],
-        ignore: []
-      },
-      shield: {
-        x2: ['shock', 'corroshock'],        
-        ignore: ['radiation', 'incendiation']
-      },
-      armor: {
-        x2: ['corrosive', 'corroshock'],
-        ignore: []
-      },
-      flesh: {
-        x2: ['incendiary', 'incendiation'],
-        ignore: []
-      },
-      bone: {
-        x2: ['cryo', 'crysplosive'],
-        ignore: []
-      },
-    };
-
-    // Calculate how much damage is taken to each health type.
-    let damageToDeal = damageAmount - reductionResult;
-    if (damageToDeal < 0) { damageToDeal = 0; }
-
-    if (reductionResult > 0) {
-      const label = `${this.actor.name} resists ${damageAmount - damageToDeal}`;
-    }
-
-    Object.entries(hps).forEach(([healthType, hpValues]) => {
-      // Skip over healthbars that don't get hit by this damage type.
-      if (!modifyDamage[healthType].ignore.includes(damageType)) {
-
-        // Initialize a damage taken for a healthbar to 0 if it hasn't been initialized yet.
-        if (damageTaken[healthType] == null) { damageTaken[healthType] = 0; }
-
-        // Looping is not the most efficient way to do this, but it's the easiest for my frail mind (for now).
-        while (damageToDeal > 0 && hps[healthType].value > damageTaken[healthType]) {
-          damageTaken[healthType]++;
-          if (modifyDamage[healthType].x2.includes(damageType)) {
-            damageTaken[healthType]++; // Double damage for x2 damage types.
-          }
-          damageToDeal--;
-        }
-
-        // After while loop, findalize values as needed.
-        if (damageTaken[healthType] > hps[healthType].value) {
-          // Don't overshoot! Going forward this will help with displaying the damage to chat.
-          damageTaken[healthType] = hps[healthType].value;
-        }
-        
-        // Make the Health take the damage.
-        hps[healthType].value -= damageTaken[healthType];
-      }
-    });
-
-    // TODO Display the damage to chat. 
-
-    // Square brackets needed to get the right value.
-    const attributeLabel = `system.attributes.hps`;
-    return await this.actor.update({[attributeLabel]: hps});
-  }
-
   async _onHpGain(event) {
     return await this._attributeGainDialog(event, ['value', 'base']);
   }
+
   async _onXpGain(event) {
     return await this._attributeGainDialog(event, ['value']);
   }
+
   async _attributeGainDialog(event, statsArray) {
     // Prep data.
     const actorSystem = this.actor.system;
@@ -988,7 +736,7 @@ export class BNBActorSheet extends ActorSheet {
     if (isNaN(gainAmount)) { return; }
 
     // Update the actor.
-    const attribute = this._deepFind(actorSystem, dataset.dataPath);
+    const attribute = genericUtil.deepFind(actorSystem, dataset.dataPath);
     if (!attribute.gains) { attribute.gains = []; }
     attribute.gains.push({ value: gainAmount, reason: "Add Clicked" });
 
@@ -1056,32 +804,28 @@ export class BNBActorSheet extends ActorSheet {
     this.actor.update({"system.attributes.xp.total": newXp.total});
   }
 
-  _deepFind(obj, path) {
-    let paths = path.split('.')
-      , current = obj
-      , i;
-  
-    for (i = 0; i < paths.length; ++i) {
-      if (current[paths[i]] == undefined) {
-        return undefined;
-      } else {
-        current = current[paths[i]];
-      }
-    }
-    return current;
-  }
-
   _onItemDetailsComponenetClick(event) {
     const classList = event.target.classList;
     if (classList.contains('stop-dropdown')) { return; }
+    const parentClassList = event.target.parentElement.classList;
+    if (parentClassList.contains('stop-dropdown')) { return; }
 
     // Get needed values.
     const id = $(event.currentTarget).attr("data-item-id");
     const item = this.actor.items.get(id);
 
     // Handle interactions per button click.
+    const dropdownData = { item: item };
+    if (item.type ==='gun') {
+      dropdownData.damagePerHitHtml = genericUtil.createGunDamagePerHitHtml({ elements: item.system.elements });
+      dropdownData.damagePerAttackHtml = genericUtil.createGunBonusDamageHtml({ elements: item.system.bonusElements });
+    } else if (item.type === 'shield') {
+      dropdownData.resistHtml = genericUtil.createFullShieldResistHtml({ elements: item.system.elements });
+    } else if (item.type === 'grenade') {
+      dropdownData.damageHtml = genericUtil.createGrenadeDamageHtml({ elements: item.system.elements });
+    }
     if (item && event.button == 0)
-      Dropdown.toggleItemDetailsDropdown(event, { description: item.system.description, notes: item.system.notes, type: item.type });
+      Dropdown.toggleItemDetailsDropdown(event, dropdownData);
     else if (item)
       item.sheet.render(true);
   }
@@ -1100,41 +844,10 @@ export class BNBActorSheet extends ActorSheet {
     if (dataset.rollType == 'item') {
       const itemId = event.currentTarget.closest('.post-item').dataset.itemId;
       const item = this.actor.items.get(itemId);
-      const chatInfoBaseLocation = 'systems/bunkers-and-badasses/templates/chat/info/';
-      const messageData = {
-        user: game.user.id,
-        speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-        type: CONST.CHAT_MESSAGE_TYPES.IC,
-        // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
-        speaker: ChatMessage.getSpeaker()
-      };
-      const renderTemplateConfig = {
-        actorId: this.actor.id,
-        description: item.system.description,
-        item: item
-      };
-
-      if (item.type == 'Archetype Feat') {
-        const templateLocation = `${chatInfoBaseLocation}archetype-feat-info.html`;
-        const chatHtmlContent = await renderTemplate(templateLocation, renderTemplateConfig);
-        messageData.flavor = `Archetype Feat <b>${item.name}</b>.`;
-        messageData.content = chatHtmlContent;
-      } else if (item.type == 'Action Skill') {
-        const templateLocation = `${chatInfoBaseLocation}action-skill-info.html`;
-        const chatHtmlContent = await renderTemplate(templateLocation, renderTemplateConfig);
-        messageData.flavor = `Action Skill <b>${item.name}</b>.`;
-        messageData.content = chatHtmlContent;
-      } else if (item.type == 'skill') {
-        const templateLocation = `${chatInfoBaseLocation}class-skill-info.html`;
-        const chatHtmlContent = await renderTemplate(templateLocation, renderTemplateConfig);
-        messageData.flavor = `Class Skill <b>${item.name}</b>.`;
-        messageData.content = chatHtmlContent;
-      }
-
-      // Send the roll to chat!
-      return ChatMessage.create(messageData);
+      await PostToChat.itemInfo({item: item, actor: this.actor});
     }
   }
+
   /**
    * Handle clickables that send rolls to chat.
    * @param {Event} event   The originating click event
@@ -1152,25 +865,25 @@ export class BNBActorSheet extends ActorSheet {
         const item = this.actor.items.get(itemId);
         if (item) return await item.roll({async: true});
       } else if (dataset.rollType == 'melee-dice-roll') {
-        return this._meleeAndHPDiceRoll(dataset);
+        return PerformRollAction.meleeAndHPDice({ actor: this.actor });
       } else if (dataset.rollType == 'check') {
-        return this._checkRoll(dataset);
+        return ConfirmActionPrompt.checkRoll(event, { actor: this.actor, dataset: dataset });
       } else if (dataset.rollType == 'badass-move') {
-        return this._badassRoll(dataset);
+        return ConfirmActionPrompt.badassRoll(event, { actor: this.actor, dataset: dataset });
       } else if (dataset.rollType == 'health-regain') {
         return this._healthRegainRoll(dataset);
       } else if (dataset.rollType == 'melee-attack') {
-        return this._meleeAttackRoll(dataset);
+        return ConfirmActionPrompt.meleeAttack(event, { actor: this.actor, dataset: dataset });
       } else if (dataset.rollType == 'gun-attack') {
-        return this._gunAccuracyRoll(dataset);
+        return ConfirmActionPrompt.rangedAttack(event, { actor: this.actor, dataset: dataset});
       } else if (dataset.rollType == 'grenade-throw') {
-        return this._grenadeThrowRoll(dataset);
+        return ConfirmActionPrompt.checkRoll(event, { actor: this.actor, dataset: dataset, defaultDifficulty: 12 });
       } else if (dataset.rollType == 'item-throw') {
-        return this._itemThrowRoll(dataset);
+        return ConfirmActionPrompt.checkRoll(event, { actor: this.actor, dataset: dataset, defaultDifficulty: 12 });
       } else if (dataset.rollType == 'npc-attack') {
-        return this._npcAttackRoll(dataset);
+        return ConfirmActionPrompt.npcAttack(event, { actor: this.actor, dataset: dataset });
       } else if (dataset.rollType == 'npc-action') {
-        return this._npcActionRoll(dataset);
+        return PostToChat.npcAction({ actor: this.actor, dataset: dataset });
       }
     }
     
@@ -1186,136 +899,6 @@ export class BNBActorSheet extends ActorSheet {
       });
       return rollResult;
     }
-  }
-  
-  /* -------------------------------------------- */
-  /*  Various roll starters                       */
-  /* -------------------------------------------- */
-  async _npcAttackRoll(dataset) {
-    // Prep data to access.
-    const actorSystem = this.actor.system;
-
-    const templateLocation = 'systems/bunkers-and-badasses/templates/dialog/npc-attack-confirmation.html';
-    const dialogHtmlContent = await renderTemplate(templateLocation, { });
-
-    this.attack = new Dialog({
-      title: "Attack",
-      Id: "npc-attack-prompt",
-      content: dialogHtmlContent,
-      buttons: {
-        "Cancel" : {
-          label : "Cancel",
-          callback : async (html) => {}
-        },
-        "Roll" : {
-          label : "Roll",
-          callback : async (html) => {
-            return await this._rollNpcAttackDice(dataset, html);
-          }
-        }
-      }
-    }).render(true);
-  }
-
-  async _npcActionRoll(dataset) {
-    const actorSystem = this.actor.system;
-    const actionObject = this._deepFind(actorSystem, dataset.path.replace('system.', '')); // data.data
-
-    // Prep chat values.
-    const flavorText = `${this.actor.name} uses <i>${actionObject.name}</i>.`;
-    const messageData = {
-      user: game.user.id,
-      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-      flavor: flavorText,
-      content: actionObject.description,
-      type: CONST.CHAT_MESSAGE_TYPES.IC,
-      // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
-      speaker: ChatMessage.getSpeaker(),
-    }
-
-    // Send the roll to chat!
-    return ChatMessage.create(messageData);
-  }
-
-  async _meleeAndHPDiceRoll(dataset) {
-    const actorSystem = this.actor.system;
-
-    const rollFormula = `${actorSystem.class.meleeDice}[Melee Dice] + @mstmod[MST mod]`;
-    const roll = new Roll(
-      rollFormula,
-      RollBuilder._createDiceRollData({actor: this.actor})
-    );
-    const rollResult = await roll.roll({async: true});
-
-    const flavorText = `${this.actor.name} rolls their Melee Dice.`;
-    return rollResult.toMessage({
-      user: game.user.id,
-      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-      flavor: flavorText,
-      type: CONST.CHAT_MESSAGE_TYPES.ROLL,
-      roll: rollResult,
-      rollMode: CONFIG.Dice.rollModes.publicroll,
-      // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
-      speaker: ChatMessage.getSpeaker(),
-    });
-  }
-
-  async _checkRoll(dataset) {
-    // Prep data to access.
-    const actorSystem = this.actor.system;
-    const check = actorSystem.checks[dataset.checkType.toLowerCase()];
-    if (check.nonRolled) return; // Special case for movement, since I (potentially foolishly) bundled it with checks.
-    if (dataset.checkType.toLowerCase() === 'initiative') {
-      return this.actor.rollInitiative({createCombatants: true});
-    }
-
-    return await this._makeCheck(dataset, {
-      checkTitle: `${actorSystem[check.stat].label} Check`,
-      checkItem: check,
-      promptCheckType: true
-    });
-  }
-
-  async _badassRoll(dataset) {
-    // Prep data to access.
-    const actorSystem = this.actor.system;
-
-    const roll = new Roll(
-      `1d20 + @badassrank[Badass Rank]`,
-      RollBuilder._createDiceRollData({actor: this.actor})
-    );
-    const rollResult = await roll.roll({async: true});
-
-    let badassTotal = rollResult.total;
-    if (badassTotal == 2 || badassTotal == 3) {
-      badassTotal = 1;
-    } else if (badassTotal == 19 || badassTotal == 18) {
-      badassTotal = 20;
-    }
-    badassTotal += actorSystem.attributes.badass.rank;
-
-    const templateLocation = 'systems/bunkers-and-badasses/templates/chat/badass-result.html';
-    const chatHtmlContent = await renderTemplate(templateLocation, {
-      actorId: this.actor.id,
-      badassTotal: badassTotal
-    });
-
-    // Prep chat values.
-    const flavorText = `${this.actor.name} attempts a <i class="fas fa-skull"></i> <b>Badass Move</b>.`;
-    const messageData = {
-      user: game.user.id,
-      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-      flavor: flavorText,
-      type: CONST.CHAT_MESSAGE_TYPES.ROLL,
-      roll: rollResult,
-      rollMode: CONFIG.Dice.rollModes.publicroll,
-      content: chatHtmlContent,
-      // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
-      speaker: ChatMessage.getSpeaker(),
-    }
-
-    // Send the roll to chat!
-    return rollResult.toMessage(messageData);
   }
   
   async _healthRegainRoll(dataset) {
@@ -1359,617 +942,4 @@ export class BNBActorSheet extends ActorSheet {
     // Send the roll to chat!
     return rollResult.toMessage(messageData);
   }
-
-  async _meleeAttackRoll(dataset) {
-    // Prep data to access.
-    const actorSystem = this.actor.system;
-
-    const templateLocation = 'systems/bunkers-and-badasses/templates/dialog/attack-confirmation.html';
-    const dialogHtmlContent = await renderTemplate(templateLocation, {
-      type: "Melee",
-      attack: actorSystem.checks.melee,
-      showFavored: false,
-      favored: true
-    });
-
-    this.attack = new Dialog({
-      title: "Melee Attack",
-      Id: "melee-attack-prompt",
-      content: dialogHtmlContent,
-      buttons: {
-        "Cancel" : {
-          label : "Cancel",
-          callback : async (html) => {}
-        },
-        "Roll" : {
-          label : "Roll",
-          callback : async (html) => {
-            return await this._rollMeleeAttackDice(dataset, html);
-          }
-        }
-      }
-    }).render(true);
-  }
-
-  async _gunAccuracyRoll(dataset) {
-    // Prep data to access.
-    const actorSystem = this.actor.system;
-    const item = this.actor.items.get(dataset.itemId);
-    const itemSystem = item.system;
-
-    const attackValues = {...actorSystem.checks.shooting};
-    attackValues.badassRollsEnabled = actorSystem.attributes.badass.rollsEnabled;
-    
-    const isFavoredWeaponType = ((itemSystem?.special?.overrideType !== 'snotgun') 
-    ? actorSystem.favored[itemSystem.type.value]
-    : (actorSystem.favored.sniper || actorSystem.favored.shotgun));
-    const elementTypes = 
-      [ "kinetic", "incendiary", "shock", "corrosive",
-        "explosive", "radiation", "cryo",
-        "incendiation", "corroshock", "crysplosive"];
-    let isFavoredElementType = false;
-    elementTypes.forEach(elementType => {
-      if (actorSystem.favored[elementType] && itemSystem.elements[elementType]?.enabled) {
-        isFavoredElementType = true;
-      }
-    });
-    const templateLocation = "systems/bunkers-and-badasses/templates/dialog/attack-confirmation.html";
-    const dialogHtmlContent = await renderTemplate(templateLocation, {
-      type: "Gun",
-      attack: attackValues,
-      showGearMod: true,
-      gearAcc: itemSystem.statMods.acc,
-      showFavored: true,
-      favored: isFavoredWeaponType || isFavoredElementType,
-    });
-
-    this.attack = new Dialog({
-      title: "Gun Attack",
-      Id: "melee-attack-prompt",
-      content: dialogHtmlContent,
-      buttons: {
-        "Cancel" : {
-          label : "Cancel",
-          callback : async (html) => {}
-        },
-        "Roll" : {
-          label : "Roll",
-          callback : async (html) => {
-            return await this._rollGunAttackDice(dataset, html, itemSystem.statMods, itemSystem.special.overrideType);
-          }
-        }
-      }
-    }).render(true);
-  }
-
-  async _grenadeThrowRoll(dataset) {
-    // Prep data to access.
-    const actorSystem = this.actor.system;
-
-    const throwCheck = {
-      stat: "acc",
-      value: actorSystem.stats.acc.modToUse,
-      misc: 0,
-      effects: actorSystem.bonus.checks.throw,
-      total: 0,
-      usesBadassRank: false
-    };
-    throwCheck.total = throwCheck.value + throwCheck.misc + throwCheck.effects;
-
-    return await this._makeCheck(dataset, {
-      checkItem: throwCheck,
-      checkTitle: "Grenade Throw Check",
-      defaultDifficulty: 12
-    }, this._displayGrenadeRollResultToChat);
-  }
-
-  async _itemThrowRoll(dataset) {
-    // Prep data to access.
-    const actorSystem = this.actor.system;
-
-    const throwCheck = {
-      stat: "acc",
-      value: actorSystem.stats.acc.modToUse,
-      misc: 0,
-      effects: actorSystem.bonus.checks.throw,
-      total: 0,
-      usesBadassRank: false
-    };
-    throwCheck.total = throwCheck.value + throwCheck.misc + throwCheck.effects;
-
-    return await this._makeCheck(dataset, {
-      checkItem: throwCheck,
-      checkTitle: "Item Throw Check",
-      defaultDifficulty: 12
-    });
-  }
-
-  async _makeCheck(dataset, checkObjects, displayResultOverride) {
-    // Prep data to access.
-    const actorSystem = this.actor.system;
-
-    const checkItem = checkObjects.checkItem;
-    const checkTitle = checkObjects.checkTitle;
-    const defaultDifficulty = checkObjects.defaultDifficulty;
-    const promptCheckType = checkObjects.promptCheckType;
-    
-    const templateLocation = 'systems/bunkers-and-badasses/templates/dialog/check-difficulty.html';
-    const dialogHtmlContent = await renderTemplate(templateLocation, {
-      attributes: actorSystem.attributes,
-      check: checkItem,
-      promptCheckType: promptCheckType ?? false,
-      isBadass: actorSystem.attributes.badass.rollsEnabled,
-      defaultDifficulty: defaultDifficulty,
-    });
-
-    this.check = new Dialog({
-      title: checkTitle,
-      Id: "check-difficulty",
-      content: dialogHtmlContent,
-      buttons: {
-        "Cancel" : {
-          label : "Cancel",
-          callback : async (html) => {}
-        },
-        "Roll" : {
-          label : "Roll",
-          callback : async (html) => {
-            return await this._rollCheckDice(dataset, html, checkItem, displayResultOverride);
-          }
-        }
-      }
-    }).render(true);
-  }
-
-  /* -------------------------------------------- */
-  /*  Roll the dice                               */
-  /* -------------------------------------------- */
-  async _rollNpcAttackDice(dataset, html) {
-    // Prep data to access.
-    const actorSystem = this.actor.system;
-
-    // Pull data from html.
-    const bonusValue = parseInt(html.find("#bonus")[0].value);
-    const targetSpeedValue = parseInt(html.find("#target-speed")[0].value);
-
-    // Prepare and roll the check.
-    const rollBonusMod = (!bonusValue || isNaN(bonusValue)) ? '' : ` + @extraBonus[bonus]`;
-    const rollTargetSpd = (!targetSpeedValue || isNaN(targetSpeedValue)) ? '' : ` - @targetSpd[target spd mod]`;
-    const rollFormula = `1d20${rollBonusMod}${rollTargetSpd}`;
-    const roll = new Roll(rollFormula, {
-      extraBonus: bonusValue,
-      targetSpd: targetSpeedValue
-    });
-    const rollResult = await roll.roll({async: true});
-
-    // Display the result.
-    return await this._displayNpcAttackRollResultToChat(dataset, { rollResult: rollResult });
-  }
-
-  async _rollMeleeAttackDice(dataset, html) {
-    // Prep data to access.
-    const actorSystem = this.actor.system;
-
-    // Pull data from html.
-    const extraBonusValue = parseInt(html.find("#extra")[0].value);
-
-    // Prepare and roll the check.
-    const rollStatMod = ` + @acc[ACC ${actorSystem.attributes.badass.rollsEnabled ? 'Stat' : 'Mod'}]`;
-    const rollMiscBonus = ` + @meleemisc[Misc]`;
-    const rollEffectsBonus = ` + @meleeeffects[Effects]`;
-    const rollExtraBonus = isNaN(extraBonusValue) ? '' : ` + ${extraBonusValue}[Extra bonus]`;
-    const rollFormula = `1d20${rollStatMod}${rollMiscBonus}${rollEffectsBonus}${rollExtraBonus}`;
-    const roll = new Roll(
-      rollFormula,
-      RollBuilder._createDiceRollData(
-        { actor: this.actor },
-        { extra: extraBonusValue }
-      )
-    );
-    const rollResult = await roll.roll({async: true});
-
-    // Display the result.
-    return await this._displayMeleeRollResultToChat(dataset, { rollResult: rollResult });
-  }
-
-  async _rollGunAttackDice(dataset, html, itemStats, itemOverrideType) {
-    // Prep data to access.
-    const actorSystem = this.actor.system;
-
-    // Pull data from html.
-    const extraBonusValue = parseInt(html.find("#extra")[0].value);
-    const isFavored = html.find("#favored-checkbox")[0].checked;
-
-    // Prepare and roll the check.
-    const rollStatMod = isFavored ? ` + @acc[ACC ${actorSystem.attributes.badass.rollsEnabled ? 'Stat' : 'Mod'}]` : '';
-    const rollGearAccBonus = ` + @gearacc[Gear ACC]`;
-    
-    //// SPECIAL special logic for a unique legendary.
-    const rollMstMod = (itemOverrideType.toLowerCase() === 'mwbg')
-      ? ` + @mst[MST ${actorSystem.attributes.badass.rollsEnabled ? 'Stat' : 'Mod'}]`
-      : '';
-    const rollGearMstBonus = (itemOverrideType.toLowerCase() === 'mwbg')
-      ? ` + @gearmst[Gear MST]`
-      : '';
-    //// /SPECIAL special logic for a unique legendary.
-
-    const rollMiscBonus = ` + @shootingmisc[Misc]`;
-    const rollEffectsBonus = ` + @shootingeffects[Effects]`;
-    const rollExtraBonus = isNaN(extraBonusValue) ? '' : ` + ${extraBonusValue}`;
-    const rollFormula = `1d20${rollStatMod}${rollGearAccBonus}${rollMstMod}${rollGearMstBonus}${rollMiscBonus}${rollEffectsBonus}${rollExtraBonus}`;
-    const roll = new Roll(
-      rollFormula,
-      RollBuilder._createDiceRollData(
-        { actor: this.actor },
-        {
-          gearacc: itemStats.acc,
-          geardmg: itemStats.dmg,
-          gearspd: itemStats.spd,
-          gearmst: itemStats.mst,
-          extrabonusvalue: extraBonusValue 
-        }
-      )
-    );
-    const rollResult = await roll.roll({async: true});
-
-    // Display the result.
-    return await this._displayGunRollResultToChat(dataset, { rollResult: rollResult });
-  }
-
-  async _rollCheckDice(dataset, html, checkItem, displayResultOverride) {
-    // Prep data to access.
-    const actorSystem = this.actor.system;
-    const checkName = dataset.checkType;
-    const checkStat = checkItem.stat;
-
-    // Pull data from html.
-    const extraBonusValue = parseInt(html.find("#extra")[0].value);
-    const difficultyValue = parseInt(html.find("#difficulty")[0].value);
-    const checkTypeElement = html.find("#check-type")
-    let checkType;
-    if (checkTypeElement && checkTypeElement.length > 0) {
-      checkType = checkTypeElement[0].value;
-    } 
-    const difficultyEntered = !isNaN(difficultyValue);
-
-    // Prepare and roll the check.
-    const badassMod = checkItem.usesBadassRank ? ' + @badassrank[Badass Rank]' : ''
-    const rollStatMod = ` + @${checkStat.toLowerCase()}[${checkStat.toUpperCase()} ${actorSystem.attributes.badass.rollsEnabled ? 'Stat' : 'Mod'}]`;
-    const rollMiscBonus = ` + @${checkName.toLowerCase()}misc[Misc]`;
-    const rollEffectBonus = ` + @${checkName.toLowerCase()}effects[Effects]`;
-    const rollExtraMod = (isNaN(extraBonusValue) || extraBonusValue == 0 ? '' : ` + @extrabonusvalue[Extra Bonus]`);
-    const rollDifficulty = ((difficultyValue != null && !isNaN(difficulty)) ? `cs>=${difficultyValue}` : ``);
-    const rollFormula = `1d20${badassMod}${rollStatMod}${rollMiscBonus}${rollEffectBonus}${rollExtraMod}${rollDifficulty}`;
-    const roll = new Roll(
-      rollFormula,
-      RollBuilder._createDiceRollData(
-        { actor: this.actor },
-        { extrabonusvalue: extraBonusValue }
-      )
-    );
-    const rollResult = await roll.roll({async: true});
-
-    // Display the result.
-    if (displayResultOverride && typeof displayResultOverride === 'function') {
-      return await displayResultOverride.call(this, dataset, {
-        checkStat: "acc",
-        checkType: checkType,
-        rollResult: rollResult,
-        difficultyValue: difficultyValue,
-        difficultyEntered: difficultyEntered
-      });
-    } else {
-      return await this._displayCheckRollResultToChat(dataset, {
-        checkStat: checkItem.stat,
-        checkSubType: checkType,
-        rollResult: rollResult, 
-        difficultyValue: difficultyValue, 
-        difficultyEntered: difficultyEntered 
-      });
-    }
-  }
-
-  /* -------------------------------------------- */
-  /*  Chat Displays                               */
-  /* -------------------------------------------- */
-  async _displayNpcAttackRollResultToChat(dataset, rollObjs) {
-    // Pull values from objs.
-    const rollResult = rollObjs.rollResult;
-
-    const isFail = rollResult.total <= 1;
-    const isCrit = rollResult.total >= 20;
-    let bonusDamage = 0;
-    if (!isFail && !isCrit) {
-      if (rollResult.total >= 8) {
-        bonusDamage += 2;
-      }
-      if (rollResult.total >= 16) {
-        bonusDamage += 2;
-      }
-    }
-
-    const bonusResult = isCrit ?
-     "Double damage" 
-     : (bonusDamage > 0 ? `Deal +${bonusDamage} damage` : '');
-
-    const templateLocation = 'systems/bunkers-and-badasses/templates/chat/npc-attack-roll.html';
-    const chatHtmlContent = await renderTemplate(templateLocation, {
-      actorId: this.actor.id,
-      diceRoll: `Rolled ${rollResult.formula}.`,
-      result: rollResult.result,
-      total: rollResult.total,
-      success: !isFail,
-      failure: isFail,
-      isCrit: isCrit,
-      bonusResult: bonusResult
-    });
-
-    // Prep chat values.
-    const flavorText = `${this.actor.name} makes an attack.`;
-    const messageData = {
-      user: game.user.id,
-      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-      flavor: flavorText,
-      type: CONST.CHAT_MESSAGE_TYPES.ROLL,
-      roll: rollResult,
-      rollMode: CONFIG.Dice.rollModes.publicroll,
-      content: chatHtmlContent,
-      // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
-      speaker: ChatMessage.getSpeaker(),
-    }
-
-    // Send the roll to chat!
-    return rollResult.toMessage(messageData);
-  }
-
-  async _displayMeleeRollResultToChat(dataset, rollObjs) {
-    // Pull values from objs.
-    const rollResult = rollObjs.rollResult;
-
-    const isFail = rollResult.total <= 1;
-    let isPlusOneDice = false;
-    let isDoubleDamage = false;
-    let isCrit = false;
-    let bonusFromAcc = "";
-    if (rollResult.total >= 20) {
-      bonusFromAcc = "Double Damage";
-      isDoubleDamage = true;
-    } else if (rollResult.total >= 16) {
-      bonusFromAcc = "+1 Damage Dice";
-      isPlusOneDice = true;
-    }
-
-    if (rollResult.dice[0].results[0].result == 20) {
-      bonusFromAcc += (bonusFromAcc === "" ? "" : " + ") + "Crit!";
-      isCrit = true;
-    }
-
-    const templateLocation = 'systems/bunkers-and-badasses/templates/chat/melee-attack-roll.html';
-    const chatHtmlContent = await renderTemplate(templateLocation, {
-      actorId: this.actor.id,
-      diceRoll: `Rolled ${rollResult.formula}.`,
-      result: rollResult.result,
-      total: rollResult.total,
-      showDamageButton: true,
-      bonusFromAcc: bonusFromAcc,
-      attackType: 'melee',
-      success: !isFail,
-      failure: isFail,
-      isPlusOneDice: isPlusOneDice,
-      isDoubleDamage: isDoubleDamage,
-      isCrit: isCrit,
-      critHit: isCrit,
-    });
-
-    // Prep chat values.
-    const flavorText = `${this.actor.name} attempts to strike a target.`;
-    const messageData = {
-      user: game.user.id,
-      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-      flavor: flavorText,
-      type: CONST.CHAT_MESSAGE_TYPES.ROLL,
-      roll: rollResult,
-      rollMode: CONFIG.Dice.rollModes.publicroll,
-      content: chatHtmlContent,
-      // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
-      speaker: ChatMessage.getSpeaker(),
-    }
-
-    // Send the roll to chat!
-    const chatMessage = rollResult.toMessage(messageData);
-  }
-
-  async _displayGunRollResultToChat(dataset, rollObjs) {
-    const item = this.actor.items.get(dataset.itemId);
-    const itemSystem = item.system;
-    const combatBonuses = this.actor.system?.bonus?.combat;
-
-    // Pull values from objs.
-    const rollResult = rollObjs.rollResult;
-
-    const isCrit = (rollResult.dice[0].results[0].result === 20);
-    const isFail = (rollResult.dice[0].results[0].result === 1);
-
-    // Determine the hits and crits counts.
-    let accRank = null;
-    if (rollResult.total >= 16) { accRank = 'high'; }
-    else if (rollResult.total >= 8) { accRank = 'mid'; }
-    else if (rollResult.total >= 2) { accRank = 'low'; }
-    
-    let hitsAndCrits = {};
-    if (accRank) {
-      hitsAndCrits = {...itemSystem.accuracy[accRank]};
-      hitsAndCrits.hits += (combatBonuses?.hits ? (combatBonuses?.hits[accRank] ?? 0) : 0)
-        + (combatBonuses?.hits?.all ?? 0);
-      hitsAndCrits.crits += (combatBonuses?.crits ? (combatBonuses?.crits[accRank] ?? 0) : 0)
-        + (combatBonuses?.crits?.all ?? 0);
-    } else {
-      hitsAndCrits = { hits: 0, crits: 0 };
-      hitsAndCrits.hits += (combatBonuses?.special?.hitsSuperLow ?? 0);
-      hitsAndCrits.crits += (combatBonuses?.special?.critsSuperLow ?? 0);
-    }
-
-    // Account for the bonus crit from a nat 20.
-    if (isCrit) {
-      hitsAndCrits.crits += 1;
-      hitsAndCrits.hits += (combatBonuses?.special?.hits20 ?? 0);
-      hitsAndCrits.crits += (combatBonuses?.special?.crits20 ?? 0);
-    } else if (isFail) {
-      hitsAndCrits.hits += (combatBonuses?.special?.hits1 ?? 0);
-      hitsAndCrits.crits += (combatBonuses?.special?.crits1 ?? 0);
-    }
-    
-    // Generate message for chat.
-    const templateLocation = 'systems/bunkers-and-badasses/templates/chat/gun-attack-roll.html';
-    const chatHtmlContent = await renderTemplate(templateLocation, {
-      actorId: this.actor.id,
-      itemId: item.id,
-      diceRoll: `Rolled ${rollResult.formula}.`,
-      result: rollResult.result,
-      total: rollResult.total,
-      redText: itemSystem.redText,
-      attackType: 'shooting',
-      hits: hitsAndCrits.hits, crits: hitsAndCrits.crits,
-      bonusCritsText: isCrit ? "+1 Crit (already added)" : "",
-      critHit: isCrit,   success: !isFail,   failure: isFail,
-      showDamageButton: !isFail
-    });
-
-    // Prep chat values.
-    const flavorText = `${this.actor.name} attempts to to shoot with <b>${item.name}</b>.`;
-    const messageData = {
-      user: game.user.id,
-      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-      flavor: flavorText,
-      type: CONST.CHAT_MESSAGE_TYPES.ROLL,
-      roll: rollResult,
-      rollMode: CONFIG.Dice.rollModes.publicroll,
-      content: chatHtmlContent,
-      // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
-      speaker: ChatMessage.getSpeaker(),
-    }
-
-    // Send the roll to chat!
-    await rollResult.toMessage(messageData);
-    
-    this._handleRedText(item);
-
-    return 
-  }
-
-  async _displayCheckRollResultToChat(dataset, rollObjs) {
-    // Pull values from objs.
-    const checkSuperType = dataset.checkType;
-    const checkSubType = rollObjs.checkSubType;
-    const checkStat = rollObjs.checkStat;
-    const rollResult = rollObjs.rollResult;
-    const difficultyValue = rollObjs.difficultyValue;
-    const difficultyEntered = rollObjs.difficultyEntered;
-
-    const templateLocation = 'systems/bunkers-and-badasses/templates/chat/check-roll.html';
-    const chatHtmlContent = await renderTemplate(templateLocation, {
-      diceRoll: `Rolled ${rollResult.formula}.`,
-      result: rollResult.result,
-      total: rollResult.total,
-      difficulty: difficultyValue,
-      attackType: 'check',
-      success: difficultyEntered && rollResult.total >= difficultyValue,
-      failure: difficultyEntered && rollResult.total < difficultyValue,
-    });
-
-    // Prep chat values.
-    const checkSubTypeText = (checkSubType != null && checkSubType != "") ? ` (${checkSubType})` : '';
-    const flavorText = (dataset.rollType === 'throw') ? `${this.actor.name} attempts to throw an item.` : `${this.actor.name} attempts a ${checkSuperType}${checkSubTypeText} check.`;
-    const messageData = {
-      user: game.user.id,
-      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-      flavor: flavorText,
-      type: CONST.CHAT_MESSAGE_TYPES.ROLL,
-      roll: rollResult,
-      rollMode: CONFIG.Dice.rollModes.publicroll,
-      content: chatHtmlContent,
-      // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
-      speaker: ChatMessage.getSpeaker(),
-    }
-
-    // Send the roll to chat!
-    return rollResult.toMessage(messageData);
-  }
-
-  async _displayGrenadeRollResultToChat(dataset, rollObjs) {
-    const item = this.actor.items.get(dataset.itemId);
-    const itemSystem = item.system;
-
-    // Pull values from objs.
-    const rollResult = rollObjs.rollResult;
-    const difficultyValue = rollObjs.difficultyValue;
-    const difficultyEntered = rollObjs.difficultyEntered;
-
-    const templateLocation = 'systems/bunkers-and-badasses/templates/chat/check-roll.html';
-    const chatHtmlContent = await renderTemplate(templateLocation, {
-      actorId: this.actor.id,
-      itemId: item.id,
-      diceRoll: `Rolled ${rollResult.formula}.`,
-      result: rollResult.result,
-      total: rollResult.total,
-      difficulty: difficultyValue,
-      redText: itemSystem.redText,
-      attackType: 'grenade',
-      showDamageButton: true,
-      success: difficultyEntered && rollResult.total >= difficultyValue,
-      failure: difficultyEntered && rollResult.total < difficultyValue,
-    });
-
-    // Prep chat values.
-    const flavorText = `${this.actor.name} attempts to throw a grenade.`;
-    const messageData = {
-      user: game.user.id,
-      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-      flavor: flavorText,
-      type: CONST.CHAT_MESSAGE_TYPES.ROLL,
-      roll: rollResult,
-      rollMode: CONFIG.Dice.rollModes.publicroll,
-      content: chatHtmlContent,
-      // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
-      speaker: ChatMessage.getSpeaker(),
-    }
-    
-    // Send the roll to chat!
-    await rollResult.toMessage(messageData);
-
-    this._handleRedText(item);
-
-    return 
-  }
-
-  // Special red text for items.
-  _handleRedText(item) {
-    const itemSystem = item.system;
-    if (itemSystem.redTextEffectBM != null && itemSystem.redTextEffectBM != '')
-    {
-      const user = game.users.get(game.user.id);
-      if (user.isGM) 
-      {
-        const secretMessageData = {
-          user: user,
-          flavor: `Secret BM only notes for ${this.actor.name}'s <b>${item.name}</b>`,
-          content: itemSystem.redTextEffectBM,
-          whisper: game.users.filter(u => u.isGM).map(u => u.id),
-          speaker: ChatMessage.getSpeaker(),
-        };
-        return ChatMessage.create(secretMessageData);
-      }
-      else
-      {
-        game.socket.emit('show-bm-red-text', {
-          item: item
-        });
-      }
-    }
-  }
-
-  isNullOrEmpty(value) {
-    return value == null || value == '';
-  }
-
 }

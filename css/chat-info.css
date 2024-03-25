@@ -1,0 +1,152 @@
+.system-bunkers-and-badasses #chat-log .simple-icon {
+  max-width: 45px;
+}
+.system-bunkers-and-badasses #chat-log .simple-icon img {
+  margin: 0;
+  margin-left: 3px;
+}
+.system-bunkers-and-badasses #chat-log .base-details {
+  margin-left: 3px;
+}
+
+.system-bunkers-and-badasses #chat-log .flavor-text-wrapper {
+  display: flex
+}
+.system-bunkers-and-badasses #chat-log .flavor-text-inner {
+  flex: 6;
+}
+.system-bunkers-and-badasses #chat-log .guild,
+.system-bunkers-and-badasses #chat-log .level {
+  color: hsl(0, 0%, 20%);
+  font-size: smaller;
+  font-weight: bold;
+}
+.system-bunkers-and-badasses #chat-log .level-and-guild {
+  flex-grow: 1;
+  text-align: right;
+  font-weight: bold;
+}
+
+.system-bunkers-and-badasses #chat-log .description .element-resist-text {
+  margin-right: 3px;
+  white-space: nowrap;
+}
+
+.system-bunkers-and-badasses #chat-log .description .range {
+  align-self: end;
+  margin-right: 3px;
+}
+
+.system-bunkers-and-badasses #chat-log .description img.health-type-icon {
+  border: 0;
+  max-height: 40px;
+  max-width: 40px;
+}
+.system-bunkers-and-badasses #chat-log .description .health-bonus-details {
+  margin: 0;
+  margin-left: 3px;
+}
+.system-bunkers-and-badasses #chat-log .description .health-bonus-details .main-data {
+  font-size: 20px;
+}
+.system-bunkers-and-badasses #chat-log .description .health-bonus-details .sub-data {
+  font-size: 12px;
+}
+.system-bunkers-and-badasses #chat-log .item-header-info {
+  position: relative;
+  display: inline-block;
+  font-size: 18px;
+}
+.system-bunkers-and-badasses #chat-log .item-header-info .base-details {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.system-bunkers-and-badasses #chat-log .item-header-info .item-rarity-and-type-chat-display {
+  font-size: smaller;
+}
+.system-bunkers-and-badasses #chat-log .item-header-info img.gun-icon {
+  display: block;
+  margin-right: 3px;
+  margin-left: auto;
+  border: 0;
+  width: auto;
+  height: 24px;
+}
+
+.system-bunkers-and-badasses #chat-log .chat-info-rarity-boarder {
+  border: 2px solid var(--rarityColor);
+  border-radius: 5px;
+  background: rgba(0, 0, 0, 0.05);
+  margin: 0;
+  padding: 0;
+  padding-top: 3px;
+  padding-bottom: 2px;
+}
+
+.system-bunkers-and-badasses #chat-log .font-rarity {
+  font-weight: bold;
+  -webkit-text-fill-color: var(--rarityColor); /* Will override color (regardless of order) */
+  -webkit-text-stroke: 0.2px hsl(0, 0%, 20%);
+  text-shadow: 1px 1px 1px hsl(0, 0%, 20%);
+}
+
+.system-bunkers-and-badasses #chat-log .description,
+.system-bunkers-and-badasses #chat-log .notes,
+.system-bunkers-and-badasses #chat-log .red-text-block {
+  color: hsl(0, 0%, 20%);
+  margin-left: 3px;
+  margin-right: 3px;
+}
+
+.system-bunkers-and-badasses #chat-log .red-text-block label.red-text {
+  color: var(--redText);
+  font-weight: bold;
+  font-style: italic;
+}
+
+.system-bunkers-and-badasses #chat-log .hits-and-crits-container .icons-container {
+  margin-top: -24px;
+}
+.system-bunkers-and-badasses #chat-log .hits-and-crits-container .gun-icon {
+  border: 0;
+}
+.system-bunkers-and-badasses #chat-log .hits-and-crits-container .hits-icon {
+  border: 0;
+}
+.system-bunkers-and-badasses #chat-log .hits-and-crits-container .crits-icon {
+  border: 0;
+}
+
+.system-bunkers-and-badasses #chat-log .hits-and-crits-container .crit-hit.title {
+  align-self: center;
+  text-align: center;
+  z-index: 5;
+}
+.system-bunkers-and-badasses #chat-log .hits-and-crits-container .crit-hit-acc.title {
+  text-align: left;
+  text-align-last: left;
+}
+
+.system-bunkers-and-badasses #chat-log .hits-and-crits-container .crit-hit.hit.detail {
+  text-align: center;
+  color: var(--hits);
+}
+.system-bunkers-and-badasses #chat-log .hits-and-crits-container .crit-hit.crit.detail {
+  text-align: center;
+  color: var(--crits);
+}
+
+.system-bunkers-and-badasses #chat-log .hits-and-crits-container {
+  margin-left: 5px;
+  margin-right: 5px;
+  border: 1px solid darkgrey;
+  border-radius: 7px;
+  padding: 3px;
+  padding-left: 4px;
+  font-size: 16px;
+}
+
+.system-bunkers-and-badasses #chat-log .description .stat-mod-container {
+  margin-left: 10px;
+}

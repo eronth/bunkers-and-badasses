@@ -1,27 +1,24 @@
 Updates
-* Updated to support Foundry v11
-* Updated Archetype Levels to be much more useful.
-  * Archetype levels now track tons of stats individually.
-  * Archetype levels now add their values to character stats automatically.
-* Prepared for potential Anointment section addition.
-* Hits and Crits can now gain bonus using the Effects tab.
-* Added ability to mark which weapon is currently in-hand.
-* Added display for extra attack damage in Action! tab gun slots.
-* Added display for skill points used.
-* Added display for potion counts.
-* Updated grenade count displays to match potions and skill points.
-* Added text that rolls health you gain on level up in the Level Up tab.
-* Adding ability to collapse potentially large sections.
-* Improved Ruler functionality.
-  * Added ruler options for measuring distances.
-  * Added support for Drag Ruler integration.
+* Much better and more informative check and attack roll chat cards. Mostly the same info, just better looking.
+* Improved damage chat cards. Far more informative and detailed than before.
+* Major efforts to unify the looks of all the item lists.
+* Improvements to virtually every item display in the item list.
+* New dropdown visuals for items so you can see details at-a-glance.
+* Major code overhaul to better support additions going forward.
+* Added confirmation prompts for many actions.
+  * Skill checks, item/grenade throws, attack rolls, damage rolls, damage taken, use action skill, badass rolls, and item deletes now have confirmation prompts.
+  * Confirmation prompts allow user to input any final tweaks (e.g. extra modifiers to hit or damage).
+  * Holy heck you can't accidentally delete an item so easily anymore. Why wasn't this always there?
+* Badass Rolls can decrement your badass tokens on use.
+* Use Action Skill can decrement uses on use. (use-use-use).
+* Weapons currently "In hand" will now pass their stat bonuses to actor.
+* Broad cleanup of visuals (still rough!)
+
+* Cleaned up and re-added Compendium packs (with additional compendium items).
+* Improved/fixed support for Bar Brawl module.
+* Added better support for Item Piles module.
 
 Bugfixes
-* Improved visuals for various combined Regen sources.
-* Fix bonuses added to NPC attack rolls.
-* Fixed the Action Skill button failing to properly print to chat.
-* Fix bug where coloring for health types sometimes didn't show up right.
-* Fixed a bug where health texts were outlined.
-* Fixed a bug where unequipped shields were adding resistances.
-* Fixed a bug with opening new NPC sheets.
-* Fixed a bug when using bonus crits.
+* Fixed text on the Default ruler type to match Foundry VTT's new default.
+* Fixed some strange Bar Brawl interactions.
+* Probably a ton more, I kinda lost track.

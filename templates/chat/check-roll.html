@@ -1,16 +1,61 @@
 <div class="chat-roll-result"
 data-actor-id="{{actorId}}" data-item-id="{{itemId}}" >
-  <div>{{diceRoll}}</div>
-  <div>Result: {{result}} = {{total}}</div>
+  <div class="dice-roll">
+    <div class="flexcol badass-results-container">
+      <label class="result-header">{{checkType}}</label>
+      {{#if difficulty}}<label class="result-header difficulty">(Difficulty {{difficulty}})</label>{{/if}}
+      <br />
+    </div>
+    <div class="dice-result">
+      <div class="dice-formula">{{overallRollFormula}}</div>
+      <div class="dice-tooltip">
+        {{#each parts as |part|}}
+        <section class="tooltip-part">
+          <div class="dice">
+            <header class="part-header flexrow">
+              <span class="part-formula">{{part.formula}}</span>
+              <span class="part-flavor">{{part.flavor}}</span>
+              <span class="part-total">{{part.total}}</span>
+            </header>
+            <ol class="dice-rolls">
+              {{#each rolls as |roll|}}
+              <li class="roll {{roll.classes}}">{{roll.result}}</li>
+              {{/each}}
+            </ol>
+          </div>
+        </section>
+        {{/each}}
+      </div>
+      <h4 class="dice-total">{{total}}</h4>
+    </div>
+  </div>
+  {{#if itemEffect}}
+  <div class="item-effect"><b>Effect:</b> {{itemEffect}}</div>
+  {{/if}}
   {{#if success}}
   <div class="success-text">Success!</div>
   {{/if}}
   {{#if failure}}
   <div class="failure-text">Failure!</div>
   {{/if}}
-  {{#if redText}}
-  <div class="red-text">{{redText}}</div>
+
+  {{#if redTextDetails}}
+    {{#if redTextDetails.redText}}
+    <div class="red-text">{{redTextDetails.redText}}</div>
+    {{/if}}
+    {{#if redTextDetails.redTextEffect}}
+    <div class="red-text-effect">{{{redTextDetails.redTextEffect}}}</div>
+    {{/if}}
+    {{#if redTextDetails.redTextEffectBM}}
+    <hr class="gm-secret" />
+    <div class="red-text-bm-effect gm-secret">
+      <b>Hidden Red Text Effects:</b>
+      <br />
+      {{{redTextDetails.redTextEffectBM}}}
+    </div>
+    {{/if}}
   {{/if}}
+
   {{#if anoint}}
   <div class='anoint-text'>{{anoint}}</div>
   {{/if}}
@@ -19,7 +64,8 @@ data-actor-id="{{actorId}}" data-item-id="{{itemId}}" >
     <button data-action="damage"
     data-attack-type={{attackType}}
     data-actor-id="{{actorId}}"
-    data-item-id="{{itemId}}" 
+    data-item-id="{{itemId}}"
+    data-is-nat-20="{{isNat20}}"
     data-flavor="Boom!!">
       Roll Damage
     </button>

@@ -1,3 +1,45 @@
-<div class='{{dropdownComponentClass "body"}} '>
-    {{{data.description}}}
+<div class='{{dropdownComponentClass "body"}}'>
+  <hr class='{{dropdownComponentClass "hr"}}' />
+  
+  <!-- Description -->
+  {{#if item.system.description}}
+  <div class="flexrow">
+    <label class="bolded">Description:</label>
+    {{#if item.system.cost}}
+    <label class="item-cost"><b>Cost:</b> {{item.system.cost}}g</label>
+    {{/if}}
+  </div>
+  <div>{{{item.system.description}}}</div>
+  {{/if}}
+
+  <!-- Effect -->
+  {{#if item.system.effect}}
+  <div class="flexrow">
+    <label class="bolded">Effect:</label>
+    {{#if item.system.cost}}
+    <label class="item-cost"><b>Cost:</b> {{item.system.cost}}g</label>
+    {{/if}}
+  </div>
+  <div>{{{item.system.effect}}}</div>
+  {{/if}}
+
+  <!-- Class Effect -->
+  {{#if item.system.classEffect}}
+  <br />
+  <label class="bolded">Class Effect ({{item.system.class}}):</label>
+  <div>{{{item.system.classEffect}}}</div>
+  {{/if}}
+
+  <!-- Notes -->
+  {{#if item.system.notes}}
+  <br />
+  <label class="bolded">Notes:</label>
+  <div>{{{item.system.notes}}}</div>
+  {{/if}}
+
+  <!-- Red Text -->
+  {{#if item.system.redText}}
+  <div class="red-text">{{{item.system.redText}}}</div>
+  <div class="red-text-notes">{{{item.system.redTextEffect}}}</div>
+  {{/if}}
 </div>

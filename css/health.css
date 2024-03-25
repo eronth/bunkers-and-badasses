@@ -43,10 +43,6 @@
 .bnb .healths .health:nth-child(n+2) {
   margin-left: -1px;
 }
-.health-icon {
-  border: 0;
-  height: 12px;
-}
 .bnb .healths .health .regen label {
   font-size: x-small;
 }
@@ -54,11 +50,7 @@
   font-size: smaller;
   width: 35px;
 }
-.loot-health {
-  display: inline-flex;
-  font-size: x-small;
-  display: -webkit-inline-box;
-}
+
 .bnb .builder-common-container .max-healths-update-container {
   margin: 2px;
   border: 1px solid #b5b3a4;

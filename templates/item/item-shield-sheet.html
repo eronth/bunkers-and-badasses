@@ -55,7 +55,7 @@
         {{!-- Recharge --}}
         <div class="item-body item-body-num flexcol">
           <label for="recharge-input-{{item.id}}">
-            {{hpToRecoveryTitle system.healthType true}}
+            {{capitalize (hpToRecoveryTitle system.healthType)}}
           </label>
           <input id="recharge-input-{{item.id}}" class="" 
           value="{{system.recoveryRate}}" name="system.recoveryRate"

@@ -305,6 +305,72 @@
   flex: 13;
 }
 
+.flex-size-14 {
+  -webkit-box-flex: 14;
+  -ms-flex: 14;
+  flex: 14;
+}
+
+.flex-size-15 {
+  -webkit-box-flex: 15;
+  -ms-flex: 15;
+  flex: 15;
+}
+
+.flex-size-16 {
+  -webkit-box-flex: 16;
+  -ms-flex: 16;
+  flex: 16;
+}
+
+.flex-size-17 {
+  -webkit-box-flex: 17;
+  -ms-flex: 17;
+  flex: 17;
+}
+
+.flex-size-18 {
+  -webkit-box-flex: 18;
+  -ms-flex: 18;
+  flex: 18;
+}
+
+.flex-size-19 {
+  -webkit-box-flex: 19;
+  -ms-flex: 19;
+  flex: 19;
+}
+
+.flex-size-20 {
+  -webkit-box-flex: 20;
+  -ms-flex: 20;
+  flex: 20;
+}
+
+.flex-size-21 {
+  -webkit-box-flex: 21;
+  -ms-flex: 21;
+  flex: 21;
+}
+
+.flex-size-22 {
+  -webkit-box-flex: 22;
+  -ms-flex: 22;
+  flex: 22;
+}
+
+.flex-size-23 {
+  -webkit-box-flex: 23;
+  -ms-flex: 23;
+  flex: 23;
+}
+
+.flex-size-24 {
+  -webkit-box-flex: 24;
+  -ms-flex: 24;
+  flex: 24;
+}
+
 .align-left {
   -webkit-box-pack: start;
   -ms-flex-pack: start;
@@ -440,10 +506,10 @@
 }
 
 .box-hover:hover {
-  box-shadow: 0 0 5px cyan;
+  box-shadow: 0 0 5px var(--highlight-primary);
   cursor: pointer;
 }
 .text-hover:hover {
-  text-shadow: 0 0 10px cyan;
+  text-shadow: 0 0 10px var(--highlight-primary);
   cursor: pointer;
 }

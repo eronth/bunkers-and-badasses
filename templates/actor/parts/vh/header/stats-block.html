@@ -7,8 +7,13 @@
     </label>
     <input class="hover-pointer" type="text" disabled=true name="system.stats.{{key}}.value" value="{{stat.value}}" data-dtype="Number"/>
     <div class="flexcol hover-pointer">
-      <label class="ability-mod hover-pointer">mod</label>
-      <span class="ability-mod hover-pointer">({{numberFormat stat.modToUse decimals=0 sign=true}})</span>
+      {{#if ../system.attributes.badass.rollsEnabled}}
+        <label class="ability-mod hover-pointer">stat</label>
+        <span class="badass ability-mod hover-pointer">({{numberFormat stat.modToUse decimals=0 sign=true}})</span>
+      {{else}}
+        <label class="ability-mod hover-pointer">mod</label>
+        <span class="ability-mod hover-pointer">({{numberFormat stat.modToUse decimals=0 sign=true}})</span>
+      {{/if}}
     </div>
   </div>
   {{/each}}

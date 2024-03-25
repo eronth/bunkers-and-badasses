@@ -2,7 +2,6 @@
  The Bunkers and Badasses System created for use with Foundry VTT.
  
 Known Issues:
-* Posting items/action skill/class skills to chat just posts [Object object] instead of any useful data.
 * Unable to add seprate bonuses for `Throw Grenade` vs `Throw Item`.
 * No mayhem counter available.
 * Miscellaneous HTML/CSS issues.
@@ -14,3 +13,7 @@ Eventual Updates:
 * Add Mayhem counter
 * Add Boss Bars.
 * Redesign skills page.
+* Redo "Action!" tab to be less cluttered looking.
+    * Show gear bonuses on each check.
+    * Include armor/shield/health icons in the health section.
+    * Better restructure the Badass and Action Skill regions.

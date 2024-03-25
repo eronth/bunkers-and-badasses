@@ -1,0 +1,171 @@
+{
+  "name": "Compact Deadeye",
+  "type": "gun",
+  "system": {
+    "description": "",
+    "effect": "",
+    "level": 13,
+    "special": {
+      "overrideType": ""
+    },
+    "isLoot": true,
+    "quantity": 1,
+    "cost": 300,
+    "guild": "Corraza",
+    "rarity": {
+      "name": "Legendary",
+      "value": "legendary",
+      "colorValue": "#ffa500"
+    },
+    "carried": true,
+    "equipped": true,
+    "redText": "Long range in a short package.",
+    "redTextEffect": "<p>When this gun is generated, randomly select between <strong><span class=\"kinetic-text\">Kinetic</span></strong>, <strong><span class=\"incendiary-text\">Incendiary</span></strong>, <strong><span class=\"shock-text\">Shock</span></strong>, or <strong><span class=\"radiation-text\">Radiation</span></strong> damage. This gun deals that type of damage instead of the default.</p>",
+    "redTextEffectBM": "<p>This weapon has a range of 8. Attacks deal additional damage equal to the distance between the attacker and the target.</p>",
+    "elements": {
+      "kinetic": {
+        "enabled": true,
+        "damage": "2d6"
+      },
+      "incendiary": {
+        "enabled": false,
+        "damage": ""
+      },
+      "shock": {
+        "enabled": false,
+        "damage": ""
+      },
+      "corrosive": {
+        "enabled": false,
+        "damage": ""
+      },
+      "explosive": {
+        "enabled": false,
+        "damage": ""
+      },
+      "radiation": {
+        "enabled": false,
+        "damage": ""
+      },
+      "cryo": {
+        "enabled": false,
+        "damage": ""
+      },
+      "incendiation": {
+        "enabled": false,
+        "damage": ""
+      },
+      "corroshock": {
+        "enabled": false,
+        "damage": ""
+      },
+      "crysplosive": {
+        "enabled": false,
+        "damage": ""
+      }
+    },
+    "weilded": false,
+    "prefix": {
+      "name": "",
+      "effects": ""
+    },
+    "type": {
+      "value": "pistol",
+      "name": "Pistol"
+    },
+    "accuracy": {
+      "low": {
+        "hits": 1,
+        "crits": 0
+      },
+      "mid": {
+        "hits": 2,
+        "crits": 0
+      },
+      "high": {
+        "hits": 2,
+        "crits": 1
+      }
+    },
+    "bonusElements": {
+      "kinetic": {
+        "enabled": false,
+        "damage": ""
+      },
+      "incendiary": {
+        "enabled": false,
+        "damage": ""
+      },
+      "shock": {
+        "enabled": false,
+        "damage": ""
+      },
+      "corrosive": {
+        "enabled": false,
+        "damage": ""
+      },
+      "explosive": {
+        "enabled": false,
+        "damage": ""
+      },
+      "radiation": {
+        "enabled": false,
+        "damage": ""
+      },
+      "cryo": {
+        "enabled": false,
+        "damage": ""
+      },
+      "incendiation": {
+        "enabled": false,
+        "damage": ""
+      },
+      "corroshock": {
+        "enabled": false,
+        "damage": ""
+      },
+      "crysplosive": {
+        "enabled": false,
+        "damage": ""
+      }
+    },
+    "range": 8,
+    "bonusCritDmg": 0,
+    "statMods": {
+      "acc": 0,
+      "dmg": 0,
+      "spd": 3,
+      "mst": 2
+    },
+    "hitBonus": 0,
+    "isSplash": false,
+    "overheat": "",
+    "bonus": "",
+    "dtype": "gun",
+    "tier": "",
+    "guildBonus": "+3 SPD Mod, +2 MST Mod, Charge Up: The first shot after a reload deals half damage.",
+    "inHand": true
+  },
+  "img": "icons/weapons/guns/gun-pistol-flintlock-metal.webp",
+  "effects": [],
+  "folder": null,
+  "flags": {
+    "core": {},
+    "exportSource": {
+      "world": "bb-test",
+      "system": "bunkers-and-badasses",
+      "coreVersion": "11.315",
+      "systemVersion": "0.4.6"
+    }
+  },
+  "_stats": {
+    "systemId": "bunkers-and-badasses",
+    "systemVersion": "0.4.6",
+    "coreVersion": "11.315",
+    "createdTime": 1708502112425,
+    "modifiedTime": 1708760232306,
+    "lastModifiedBy": "4Pgui3qnrwyaXRsc"
+  },
+  "_id":"26JAUul7ni6JCVI6",
+  "_key":"!items!26JAUul7ni6JCVI6"
+}

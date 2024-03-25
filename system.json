@@ -22,38 +22,178 @@
     "css/common-colors/elemental-colors.css",
     "css/common-colors/health-colors.css",
     "css/common-colors/rarity-colors.css",
+    "css/common-design-patterns/navigation-tabs.css",
     "css/generic.css",
+    "css/item-list.css",
     "css/dropdown.css",
+    "css/chat-post-image.css",
+    "css/chat-info.css",
     "css/elemental.css",
     "css/gear-bottom-texts.css",
     "css/health.css",
     "css/header/health.css",
     "css/header/xp-bar.css",
-    "css/archetype-level.css"
+    "css/archetype-level.css",
+    "css/damage-prompt.css"
   ],
-  "packs": [{
-    "label": "Unique Guns", "name": "unique-guns",
-    "path": "packs/unique-guns.db", "type": "Item", "entity": "Item"
-  }, {
-    "label": "Unique Grenades", "name": "unique-grenades",
-    "path": "packs/unique-grenades.db", "type": "Item", "entity": "Item"
-  }, {
-    "label": "Unique Shields", "name": "unique-shields",
-    "path": "packs/unique-shields.db", "type": "Item", "entity": "Item"
-  }, {
-    "label": "Unique Potions", "name": "unique-potions",
-    "path": "packs/unique-potions.db", "type": "Item", "entity": "Item"
-  }, {
-    "label": "Unique Relics", "name": "unique-relics",
-    "path": "packs/unique-relics.db", "type": "Item", "entity": "Item"
-  }],
+  "packs": [
+    {
+      "name": "corraza-pistols",
+      "label": "Corraza Pistols",
+      "path": "packs/Corraza/weapons/pistols",
+      "type": "Item",
+      "banner": "systems/bunkers-and-badasses/assets/banners/corraza-equipment.webp",
+      "system": "bunkers-and-badasses",
+      "ownership": { "PLAYER": "LIMITED", "ASSISTANT": "OWNER" },
+      "flags": { }
+    },
+    {
+      "name": "corraza-smgs",
+      "label": "Corraza SMGs",
+      "path": "packs/Corraza/weapons/submachine-guns",
+      "type": "Item",
+      "banner": "systems/bunkers-and-badasses/assets/banners/corraza-equipment.webp",
+      "system": "bunkers-and-badasses",
+      "ownership": { "PLAYER": "LIMITED", "ASSISTANT": "OWNER" },
+      "flags": { }
+    },
+    {
+      "name": "corraza-combat-rifles",
+      "label": "Corraza Combat Rifles",
+      "path": "packs/Corraza/weapons/combat-rifles",
+      "type": "Item",
+      "banner": "systems/bunkers-and-badasses/assets/banners/corraza-equipment.webp",
+      "system": "bunkers-and-badasses",
+      "ownership": { "PLAYER": "LIMITED", "ASSISTANT": "OWNER" },
+      "flags": { }
+    },
+    {
+      "name": "corraza-shotguns",
+      "label": "Corraza Shotguns",
+      "path": "packs/Corraza/weapons/shotguns",
+      "type": "Item",
+      "banner": "systems/bunkers-and-badasses/assets/banners/corraza-equipment.webp",
+      "system": "bunkers-and-badasses",
+      "ownership": { "PLAYER": "LIMITED", "ASSISTANT": "OWNER" },
+      "flags": { }
+    },
+    {
+      "name": "corraza-snipers",
+      "label": "Corraza Snipers",
+      "path": "packs/Corraza/weapons/snipers",
+      "type": "Item",
+      "banner": "systems/bunkers-and-badasses/assets/banners/corraza-equipment.webp",
+      "system": "bunkers-and-badasses",
+      "ownership": { "PLAYER": "LIMITED", "ASSISTANT": "OWNER" },
+      "flags": { }
+    },
+    {
+      "name": "corraza-rocket-launchers",
+      "label": "Corraza Rocket Launchers",
+      "path": "packs/Corraza/weapons/rocket-launchers",
+      "type": "Item",
+      "banner": "systems/bunkers-and-badasses/assets/banners/corraza-equipment.webp",
+      "system": "bunkers-and-badasses",
+      "ownership": { "PLAYER": "LIMITED", "ASSISTANT": "OWNER" },
+      "flags": { }
+    },
+    {
+      "name": "corraza-shields",
+      "label": "Corraza Shields",
+      "path": "packs/Corraza/shields",
+      "type": "Item",
+      "banner": "systems/bunkers-and-badasses/assets/banners/corraza-equipment.webp",
+      "system": "bunkers-and-badasses",
+      "ownership": { "PLAYER": "LIMITED", "ASSISTANT": "OWNER" },
+      "flags": { }
+    },
+    {
+      "name": "corraza-grenades",
+      "label": "Corraza Grenades",
+      "path": "packs/Corraza/grenades",
+      "type": "Item",
+      "banner": "systems/bunkers-and-badasses/assets/banners/corraza-equipment.webp",
+      "system": "bunkers-and-badasses",
+      "ownership": { "PLAYER": "LIMITED", "ASSISTANT": "OWNER" },
+      "flags": { }
+    },
+    {
+      "name": "corraza-potions",
+      "label": "Corraza Potions",
+      "path": "packs/Corraza/potions",
+      "type": "Item",
+      "banner": "systems/bunkers-and-badasses/assets/banners/corraza-equipment.webp",
+      "system": "bunkers-and-badasses",
+      "ownership": { "PLAYER": "LIMITED", "ASSISTANT": "OWNER" },
+      "flags": { }
+    }
+  ],
+  "packFolders": [
+    {
+      "name": "Equipment",
+      "sorting": "m",
+      "folders": [
+        {
+          "name": "Weapons",
+          "sorting": "m",
+          "folders": [
+            {
+              "name": "Pistols",
+              "sorting": "m",
+              "packs": [ "corraza-pistols" ]
+            },
+            {
+              "name": "SMGs",
+              "sorting": "m",
+              "packs": [ "corraza-smgs" ]
+            },
+            {
+              "name": "Combat Rifles",
+              "sorting": "m",
+              "packs": [ "corraza-combat-rifles" ]
+            },
+            {
+              "name": "Shotguns",
+              "sorting": "m",
+              "packs": [ "corraza-shotguns" ]
+            },
+            {
+              "name": "Snipers",
+              "sorting": "m",
+              "packs": [ "corraza-snipers" ]
+            },
+            {
+              "name": "Rocket Launchers",
+              "sorting": "m",
+              "packs": [ "corraza-rocket-launchers" ]
+            }
+          ]
+        },
+        {
+          "name": "Shields",
+          "sorting": "m",
+          "packs": [ "corraza-shields" ]
+        },
+        {
+          "name": "Grenades",
+          "sorting": "m",
+          "packs": [ "corraza-grenades" ]
+        },
+        {
+          "name": "Potions",
+          "sorting": "m",
+          "packs": [ "corraza-potions" ]
+        }
+      ]
+    }
+  ],
   "languages": [{
     "lang": "en",
     "name": "English",
     "path": "lang/en.json"
   }],
   "socket": true,
-  "initiative": "1d20 + @attributes.badass.rank + @checks.initiative.value + @checks.initiative.misc + @bonus.checks.initiative",
+  "initiative": "1d20",
   "gridDistance": 1,
   "gridUnits": "sq",
   "primaryTokenAttribute": "attributes.hps.flesh",

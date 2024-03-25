@@ -1,5 +1,8 @@
 import { RollBuilder } from "../helpers/roll-builder.mjs";
 import { BarbrawlBuilder } from "../helpers/barbrawl-builder.mjs";
+import { ConfirmActionPrompt } from "../helpers/roll-and-post/confirmActionPrompt.mjs";
+import { DefaultData } from "../helpers/defaultData.mjs";
+import { MixedDiceAndNumber } from "../helpers/MixedDiceAndNumber.mjs";
 
 /**
  * Extend the base Actor document by defining a custom roll data structure which is ideal for the Simple system.
@@ -28,12 +31,6 @@ export class BNBActor extends Actor {
       useShield: true
     };
 
-    // Values for flags.
-    const initTokenFlags = {
-      // Values to use for barbrawl's benefit.
-      barbrawl: this.preCreateBarbrawlHealthBars(data, gameFlags)
-    }
-
     // Assemble the initial token data values.
     const initTokenData = {
       token: {
@@ -41,19 +38,26 @@ export class BNBActor extends Actor {
         dimSight: 15,
         vision: (this.type === 'vault hunter'),
         actorLink: (this.type === 'vault hunter'),
-        flags: {...initTokenFlags},
+        //flags: {...initTokenFlags},
       }
     };
-
     // Update actor's token.
     this.prototypeToken.updateSource(initTokenData.token);
+
+    this.preCreateActionSkilItem();
   }
 
-  preCreateBarbrawlHealthBars(data, gameFlags) {
-    const initTokenBars = (BarbrawlBuilder._buildBarbrawlBars(gameFlags));
-    return {
-      'resourceBars': {...initTokenBars} 
+  /// Creates the default action skill item for the actor.
+  preCreateActionSkilItem() {
+    // Prepare item data.
+    const newActionSkillItemData = {
+      name: 'Action Skill',
+      type: 'Action Skill',
+      img: 'icons/svg/clockwork.svg',
+      //system: {...itemSystemData}
     };
+    const item = new CONFIG.Item.documentClass(newActionSkillItemData);
+    this.updateSource({ items: [item.toObject()] });
   }
 
   /** @override */
@@ -77,6 +81,7 @@ export class BNBActor extends Actor {
   _prepareVaultHunterBaseData() {
     if (this.type !== 'vault hunter') return;
   }
+
   _prepareNpcBaseData() {
     if (this.type !== 'npc') return;
   }
@@ -106,44 +111,142 @@ export class BNBActor extends Actor {
    */
   _prepareVaultHunterDerivedData(actorData) {
     if (actorData.type !== 'vault hunter') return;
+    const actor = actorData;
 
     // Run a quick update to make sure data from previous versions matches current expected version..
     this._updateVaultHunterDataVersions(actorData);
 
     // Pull basic data into easy-to-access variables.
-    const actorSystem = actorData.system;
-    const archetypeStats = actorSystem.archetypes.archetype1.baseStats;
-    const archetypeLevelUpStats = actorSystem?.archetypeLevelBonusTotals?.stats;
-    const classStats = actorSystem.class.baseStats;
+    actor._prepareVaultHunterItemBonusesData();
+    const archetypeStats = actor.system.archetypes.archetype1.baseStats;
+    const archetypeLevelUpStats = actor.system.archetypeLevelBonusTotals?.stats;
+    const classStats = actor.system.class.baseStats;
 
     // Handle stat values and totals. Values are class+archetype. Totals are *everything*.
-    Object.entries(actorSystem.stats).forEach(entry => {
+    Object.entries(actor.system.stats).forEach(entry => {
       const [key, statData] = entry;
-      statData.effects = actorSystem.bonus.stats[key] ?? { value: 0, mod: 0 };
+      statData.effects = actor.system.bonus.stats[key] ?? { value: 0, mod: 0 };
       statData.value = archetypeStats[key] + classStats[key] + statData.misc + statData.effects.value
-      + (archetypeLevelUpStats ? archetypeLevelUpStats[key] : 0);
+      + (archetypeLevelUpStats ? archetypeLevelUpStats[key] : 0); //+ statData.itemBonus;
       statData.mod = Math.floor(statData.value / 2)  + (statData.modBonus ?? 0) + statData.effects.mod;
-      statData.modToUse = actorSystem.attributes.badass.rollsEnabled ? statData.value : statData.mod;
+      statData.modToUse = actor.system.attributes.badass.rollsEnabled ? statData.value : statData.mod;
     });
 
     // Prepare data for various check rolls.
-    Object.entries(actorSystem.checks).forEach(entry => {
+    Object.entries(actor.system.checks).forEach(entry => {
       const [check, checkData] = entry;
-      checkData.value = actorSystem.stats[checkData.stat].modToUse;
+      checkData.value = actor.system.stats[checkData.stat].modToUse;
+
+      // Copy the earlier derived item bonus values to the various checks.
+      // Kinda makes you feel like the earlier derived data is a bit redundant.
+      checkData.gear = actor.system.stats[checkData.stat]?.itemBonus ?? 0;
       
       // Determine effect bonus (shooting and melee are treated slightly different.)
-      if (actorSystem.bonus.checks[check] != null) {
-        checkData.effects = actorSystem.bonus.checks[check];
-      } else if (actorSystem.bonus.combat[check] != null) {
-        checkData.effects = actorSystem.bonus.combat[check].acc;
-        checkData.effects += actorSystem.bonus.combat.attack.acc;
+      if (actor.system.bonus.checks[check] != null) {
+        checkData.effects = actor.system.bonus.checks[check];
+      } else if (actor.system.bonus.combat[check] != null) {
+        checkData.effects = actor.system.bonus.combat[check].acc;
+        checkData.effects += actor.system.bonus.combat.attack.acc;
       } else {
         checkData.effects = 0;
       }
       
-      checkData.total = (checkData.usesBadassRank ? actorSystem.attributes.badass.rank : 0) +
-        (checkData.base ?? 0) + checkData.value + checkData.misc + checkData.effects;
+      checkData.total = (checkData.usesBadassRank ? actor.system.attributes.badass.rank : 0) +
+        (checkData.base ?? 0) + checkData.value + checkData.gear + checkData.misc + checkData.effects;
     });
+  }
+  
+  _prepareVaultHunterItemBonusesData() {
+    // ArchetypeLevelBonuses => alb
+    //const actor = actorData;
+    const actor = this;
+    const archetypeLevelItems = [];
+    const inHandGuns = [];
+
+    // Quickly grab all of the level up items.
+    actor.items.forEach(i => {
+      if (i.type === 'Archetype Level') {
+        archetypeLevelItems.push(i);
+      } else if (i.type === 'gun') {
+        if (i.system.equipped && i.system.inHand) {
+          inHandGuns.push(i);
+        }
+      }
+    });
+
+    // Create the totals object and apply the bonuses from level up.
+    const albTotals = DefaultData.archetypeLevelBonusTotals();
+    archetypeLevelItems.forEach(i => {
+      this._applyArchetypeLevelToTotal({ ablt: albTotals, i: i });
+    });
+
+    // Apply the totals to the actor's system data.
+    actor.system.archetypeLevelBonusTotals = {...albTotals};
+
+
+    // Handle bonuses from guns.
+    actor.system.stats.acc.itemBonus = 0;
+    actor.system.stats.dmg.itemBonus = 0;
+    actor.system.stats.spd.itemBonus = 0;
+    actor.system.stats.mst.itemBonus = 0;
+    inHandGuns.forEach(i => {
+      const modBonus = i.system.statMods;
+      actor.system.stats.acc.itemBonus += modBonus.acc;
+      actor.system.stats.dmg.itemBonus += modBonus.dmg;
+      actor.system.stats.spd.itemBonus += modBonus.spd;
+      actor.system.stats.mst.itemBonus += modBonus.mst;
+    });
+  }
+
+  _applyArchetypeLevelToTotal(options) {
+    const { ablt, i } = options;
+    const itemHps = i.system.hps;
+    const itemStats = i.system.stats;
+    const itemBonusDamage = i.system.bonusDamage;
+
+    // Add the bonuses to the totals.
+    ablt.skillPoints += Number(i.system.skillPoints);
+    if (i.system.feat) { ablt.feats.push(i.system.feat); }
+
+    // Add the hps to the totals.
+    ablt.hps.flesh.max += Number(itemHps.flesh.max);
+    ablt.hps.armor.max += Number(itemHps.armor.max);
+    ablt.hps.shield.max += Number(itemHps.shield.max);
+    ablt.hps.eridian.max += Number(itemHps.eridian.max);
+    ablt.hps.bone.max += Number(itemHps.bone.max);
+
+    // Add the regens to the totals.
+    MixedDiceAndNumber.applyBonusToMixed({ mixed: ablt.hps.flesh.regen, additionalBonus: itemHps.flesh.regen });
+    MixedDiceAndNumber.applyBonusToMixed({ mixed: ablt.hps.armor.regen, additionalBonus: itemHps.armor.regen });
+    MixedDiceAndNumber.applyBonusToMixed({ mixed: ablt.hps.shield.regen, additionalBonus: itemHps.shield.regen });
+    MixedDiceAndNumber.applyBonusToMixed({ mixed: ablt.hps.eridian.regen, additionalBonus: itemHps.eridian.regen });
+    MixedDiceAndNumber.applyBonusToMixed({ mixed: ablt.hps.bone.regen, additionalBonus: itemHps.bone.regen });
+
+    // Add the stats to the totals.
+    ablt.stats.acc += Number(itemStats.acc);
+    ablt.stats.dmg += Number(itemStats.dmg);
+    ablt.stats.spd += Number(itemStats.spd);
+    ablt.stats.mst += Number(itemStats.mst);
+
+    // Add max to some attribute items.
+    ablt.maxPotions += Number(i.system.maxPotions);
+    ablt.maxGrenades += Number(i.system.maxGrenades);
+    ablt.maxFavoredGuns += Number(i.system.maxFavoredGuns);
+    
+    // Add the bonus damage to the totals.
+    const bonusDamage = ablt.bonusDamage;
+    MixedDiceAndNumber.applyBonusToMixed({ mixed: bonusDamage.elements.kinetic, additionalBonus: itemBonusDamage.elements.kinetic });
+    MixedDiceAndNumber.applyBonusToMixed({ mixed: bonusDamage.elements.other, additionalBonus: itemBonusDamage.elements.other });
+    MixedDiceAndNumber.applyBonusToMixed({ mixed: bonusDamage.anyAttack, additionalBonus: itemBonusDamage.anyAttack });
+    MixedDiceAndNumber.applyBonusToMixed({ mixed: bonusDamage.meleeAttack, additionalBonus: itemBonusDamage.meleeAttack });
+    MixedDiceAndNumber.applyBonusToMixed({ mixed: bonusDamage.shootingAttack, additionalBonus: itemBonusDamage.shootingAttack });
+    MixedDiceAndNumber.applyBonusToMixed({ mixed: bonusDamage.grenade, additionalBonus: itemBonusDamage.grenade });
+    MixedDiceAndNumber.applyBonusToMixed({ mixed: bonusDamage.perHit, additionalBonus: itemBonusDamage.perHit });
+    MixedDiceAndNumber.applyBonusToMixed({ mixed: bonusDamage.perCrit, additionalBonus: itemBonusDamage.perCrit });
+    MixedDiceAndNumber.applyBonusToMixed({ mixed: bonusDamage.ifAnyCrit, additionalBonus: itemBonusDamage.ifAnyCrit });
+    MixedDiceAndNumber.applyBonusToMixed({ mixed: bonusDamage.onNat20, additionalBonus: itemBonusDamage.onNat20 });
+    
+    if (i.system.bonus) { ablt.bonuses.push(i.system.bonus); }
   }
 
   async _updateVaultHunterDataVersions(actorData) {
@@ -232,88 +335,86 @@ export class BNBActor extends Actor {
     // Process additional NPC data here.
   }
 
+  /** 
+   * Special actor handler functions
+  **/
+  attackFavoredReasons(options) {
+    const actor = this;
+    const { item, attackElements } = options;
+    const favoredBy = {
+      itemTypes: new Set(),
+      elements: new Set(),
+    };
+    
+    const favored = actor.system.favored;
+    if (item.system?.special?.overrideType === 'snotgun') {
+      favoredBy.itemTypes.add((actor.system.favored.sniper ? 'sniper' : 'shotgun'));
+    } else if (favored[item.system.type.value]) {
+      favoredBy.itemTypes.add(item.system.type.value);
+    }
+
+    const itemPerHitElements = item.system.elements;
+    Object.entries(itemPerHitElements).forEach(entry => {
+      const [key, value] = entry;
+      if (value.enabled) {
+        if (favored[key]) {
+          favoredBy.elements.add(key);
+        }
+      }
+    });
+
+    const itemPerAttackElements = item.system.bonusElements;
+    Object.entries(itemPerAttackElements).forEach(entry => {
+      const [key, value] = entry;
+      if (value.enabled) {
+        if (favored[key]) {
+          favoredBy.elements.add(key);
+        }
+      }
+    });
+
+    // For now, I don't want to do this.
+    // attackElements.forEach(element => {
+    //   if (favored[element]) {
+    //     favoredBy.elements.add(element);
+    //   }
+    // });
+
+    return favoredBy;
+  }
+
   /**
    * Apply listeners to chat messages.
    * @param {HTML} html  Rendered chat message.
    */
   static addChatListeners(html) {
-    html.on('click', '.chat-melee-damage-buttons button', this._onChatMeleeCardDamage.bind(this));
+    html.on('click', '.chat-melee-damage-buttons button', this._onChatCardDamage.bind(this));
+    html.on('click', '.chat-damage-buttons button', this._onChatCardDamage.bind(this));
   }
 
-  static async _onChatMeleeCardDamage(event) {
+  static async _onChatCardDamage(event) {
     event.preventDefault();
 
-    const dataSet = event.currentTarget.dataset;
-    const actor = game.actors.get(dataSet.actorId);
+    const dataset = event.currentTarget.dataset;
+    const attackType = dataset.attackType;
+    const actor = game.actors.get(dataset.actorId);
     if (actor === null) return;
-    const actorSystem = actor.system;
-    const archetypeBonusDamages = actorSystem?.archetypeLevelBonusTotals?.bonusDamage;
-
-    const levelUpDamage = (0
-      + (archetypeBonusDamages?.anyAttack ?? 0)
-      + ((dataSet.attackType === 'shooting') ? (archetypeBonusDamages?.shootingAttack ?? 0) : 0)
-      + ((dataSet.attackType === 'melee') ? (archetypeBonusDamages?.meleeAttack ?? 0) : 0)
-      + ((dataSet.attackType === 'grenade') ? (archetypeBonusDamages?.grenade ?? 0) : 0)
-      + ((archetypeBonusDamages?.perHit ?? 0) * (dataSet.hits ?? 0))
-      + ((archetypeBonusDamages?.perCrit ?? 0) * (dataSet.crits ?? 0))
-      + (dataSet.crits ? (archetypeBonusDamages?.ifAnyCrit ?? 0) : 0)
-      // TODO add a way to know if the attack is elemental or not.
-      // + (isNonElemental ? (archetypeBonusDamages?.elements?.kinetic ?? 0) : 0)
-      // + (isElemental ? (archetypeBonusDamages?.elements?.other ?? 0) : 0)
-      + (dataSet.critHit ? (archetypeBonusDamages?.onNat20 ?? 0) : 0)
-    );
-
-    const isPlusOneDice = dataSet.plusOneDice === 'true';
-    const isDoubleDamage = dataSet.doubleDamage === 'true';
-    const isCrit = dataSet.crit === 'true';
-
-    // Prepare and roll the damage.
-    const rollPlusOneDice = isPlusOneDice ? ` + ${actorSystem.class.meleeDice}` : '';
-    const rollDoubleDamage = isDoubleDamage ? '2*' : '';
-    const effectDamage = (actorSystem?.bonus?.combat?.melee?.dmg ?? 0) + (actorSystem?.bonus?.combat?.attack?.dmg ?? 0);
-    const critEffectDamage = (actorSystem?.bonus?.combat?.melee?.critdmg ?? 0) + (actorSystem?.bonus?.combat?.attack?.critdmg ?? 0);
-    const rollCrit = (isCrit ? ' + 1d12[Crit]' : '') 
-      + ((isCrit && critEffectDamage > 0) 
-        ? ` + ${critEffectDamage}[Crit Effects]` 
-        : '');
-    const rollFormula = `${rollDoubleDamage}`
-     + `(`
-       + `${actorSystem.class?.meleeDice ?? '0d0'}${rollPlusOneDice}${rollCrit} + @dmg[DMG ${actorSystem.attributes.badass.rollsEnabled ? 'Stat' : 'Mod'}] `
-       + ((effectDamage > 0) ? `+ ${effectDamage}[Melee Dmg Effects]` : '')
-     + `)[Kinetic]`;
-    const roll = new Roll(
-      rollFormula,
-      RollBuilder._createDiceRollData({actor: actor})
-    );
-    const rollResult = await roll.roll({async: true});    
+    const item = (attackType != 'melee') 
+      ? actor.items.get(dataset.itemId)
+      : null;
     
-    // Convert roll to a results object for sheet display.
-    const rollResults = {};
-    rollResults["Kinetic"] = {
-      formula: rollResult._formula,
-      total: rollResult.total
+    const damageOptions = {
+      actor: actor,
+      item: item,
+      dataset: dataset
     };
 
-    const templateLocation = 'systems/bunkers-and-badasses/templates/chat/damage-results.html';
-    const chatHtmlContent = await renderTemplate(templateLocation, {
-      results: rollResults,
-      imageOverride: 'systems/bunkers-and-badasses/assets/elements/melee/Melee-Kinetic.png'
-    });
-
-    // Prep chat values.
-    const flavorText = `${actor.name} deals a blow.`;
-    const messageData = {
-      user: game.user.id,
-      speaker: ChatMessage.getSpeaker({ actor: actor }),
-      flavor: flavorText,
-      type: CONST.CHAT_MESSAGE_TYPES.ROLL,
-      roll: rollResult,
-      rollMode: CONFIG.Dice.rollModes.publicroll,
-      content: chatHtmlContent,
-      // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
-      speaker: ChatMessage.getSpeaker(),
+    if (attackType.toLowerCase() === 'melee') {
+      return ConfirmActionPrompt.dealMeleeDamage(event, damageOptions);
+    } else if (attackType.toLowerCase() === 'shooting') {
+      return ConfirmActionPrompt.dealShootingDamage(event, damageOptions);
+    } else if (attackType.toLowerCase() === 'grenade') {
+      return ConfirmActionPrompt.dealGrenadeDamage(event, damageOptions);
     }
-
-    return rollResult.toMessage(messageData);
   };
 }

@@ -36,5 +36,12 @@
 
   
 
-  "BNB.Add": "Add"
+  "BNB.Add": "Add",
+
+  "TYPES.Item.grenade": "Grenade",
+  "TYPES.Item.gun": "Gun",
+  "TYPES.Item.shield": "Shield",
+  "TYPES.Item.potion": "Potion",
+  "TYPES.Item.relic": "Relic",
+  "TYPES.Item.key item": "Key Item"
 }

@@ -1,0 +1,145 @@
+{
+    "name":"Time Stop",
+    "type":"gun",
+    "img":"icons/svg/clockwork.svg",
+    "effects":[
+      
+    ],
+    "flags":{
+      "core":{
+        "sourceId":"Item.6agkyIV0H8OMurqM"
+      }
+    },
+    "system":{
+      "description":"",
+      "effect":"If Range 2 or Less: +2 Damage",
+      "level":13,
+      "special":{
+        "overrideType":""
+      },
+      "isLoot":true,
+      "quantity":1,
+      "cost":300,
+      "guild":"Corraza",
+      "rarity":{
+        "name":"Legendary",
+        "value":"legendary",
+        "colorValue":"#ffa500"
+      },
+      "carried":true,
+      "equipped":false,
+      "redText":"I hope there's no Time Cop.",
+      "redTextEffect":"Roll on the random elements table when this gun is generated.",
+      "redTextEffectBM":"A number of time-pellets ricochet and hit nearby targets. Add the number of hits and crits together. Choose up to that number of enemies within 3 squares of the target; these foes are Slowed. These additional targets do NOT take damage.",
+      "elements":{
+        "kinetic":{
+          "enabled":true,
+          "damage":"1d8",
+          "color":"rgb(76, 76, 76)",
+          "label":"Kinetic"
+        },
+        "incendiary":{
+          "enabled":false,
+          "damage":"",
+          "color":"rgb(213, 59, 49)",
+          "label":"Incendiary"
+        },
+        "shock":{
+          "enabled":false,
+          "damage":"",
+          "color":"rgb(113, 148, 205)",
+          "label":"Shock"
+        },
+        "corrosive":{
+          "enabled":false,
+          "damage":"",
+          "color":"rgb(141, 157, 62)",
+          "label":"Corrosive"
+        },
+        "explosive":{
+          "enabled":false,
+          "damage":"",
+          "color":"rgb(234, 70, 134)",
+          "label":"Explosive"
+        },
+        "radiation":{
+          "enabled":false,
+          "damage":"",
+          "color":"rgb(228, 170, 22)",
+          "label":"Radiation"
+        },
+        "cryo":{
+          "enabled":false,
+          "damage":"",
+          "color":"rgb(18, 152, 185)",
+          "label":"Cryo"
+        },
+        "incendiation":{
+          "enabled":false,
+          "damage":"",
+          "color":"rgb(167, 78, 101)",
+          "label":"Incendiation"
+        },
+        "corroshock":{
+          "enabled":false,
+          "damage":"",
+          "color":"rgb(73, 125, 135)",
+          "label":"Corroshock"
+        },
+        "crysplosive":{
+          "enabled":false,
+          "damage":"",
+          "color":"rgb(115, 105, 160)",
+          "label":"Crysplosive"
+        }
+      },
+      "weilded":false,
+      "prefix":{
+        "name":"",
+        "effects":""
+      },
+      "type":{
+        "value":"shotgun",
+        "name":"Shotgun"
+      },
+      "accuracy":{
+        "low":{
+          "hits":1,
+          "crits":1
+        },
+        "mid":{
+          "hits":2,
+          "crits":1
+        },
+        "high":{
+          "hits":2,
+          "crits":2
+        }
+      },
+      "damage":"",
+      "range":4,
+      "bonusCritDmg":0,
+      "statMods":{
+        "acc":0,
+        "dmg":0,
+        "spd":3,
+        "mst":2
+      },
+      "hitBonus":0,
+      "isSplash":false,
+      "overheat":"",
+      "bonus":"",
+      "guildBonus":"+3 SPD Mod, +2 MST Mod, Charge Up: The first shot after a reload deals half damage."
+    },
+    "_stats":{
+      "systemId":"bunkers-and-badasses",
+      "systemVersion":"0.3.2",
+      "coreVersion":"10.288",
+      "createdTime":1662620111555,
+      "modifiedTime":1667247815466,
+      "lastModifiedBy":"m6dA1WszdkO1t2Az"
+    },
+    "folder":null,
+    "_id":"E6JxLtehkirBJTq9",
+    "_key":"!items!E6JxLtehkirBJTq9"
+  }

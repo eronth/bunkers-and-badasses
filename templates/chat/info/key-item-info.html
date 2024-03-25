@@ -1,3 +1,24 @@
-<div>
-  <div></div>
+<div class="chat-info-rarity-boarder"
+  style="--rarityColor: {{item.system.rarity.colorValue}}">
+  <div class="key-item flexrow">
+    <div class="simple-icon flex-size-1">
+      <img class='lr-margin-5 item-rarity-border'
+        src="{{item.img}}" title="key-item-{{item.name}}"
+        style="--rarityColor: {{item.system.rarity.colorValue}}"
+        data-item-id="{{item._id}}"
+        width="40" height="40"/>
+    </div>
+    <div class="base-details flexcol flex-size-3 font-rarity item-header-info"
+      style="--rarityColor: {{item.system.rarity.colorValue}}">
+      <div class="item-rarity-and-type-chat-display">{{item.system.rarity.name}} Item</div>
+      <div class="item-name-chat-display">{{item.name}}</div>
+    </div>
+  </div>
+  <hr />
+  <div class="description">
+    <span class="description-label"><b>Description:</b></span>
+    <br />
+    <span class="description-text">{{{enrich item.system.description}}}</span>
+  </div>
+  {{> "systems/bunkers-and-badasses/templates/chat/info/components/red-text.html" item=item }}
 </div>

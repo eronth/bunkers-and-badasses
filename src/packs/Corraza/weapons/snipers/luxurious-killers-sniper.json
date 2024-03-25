@@ -1,0 +1,187 @@
+{
+    "name":"Luxurious Killer's Sniper",
+    "type":"gun",
+    "img":"icons/svg/stoned.svg",
+    "system":{
+      "description":"",
+      "effect":"If Range 3+: +3 Accuracy",
+      "level":13,
+      "special":{
+        "overrideType":""
+      },
+      "isLoot":true,
+      "quantity":1,
+      "cost":300,
+      "guild":"Corraza",
+      "rarity":{
+        "name":"Legendary",
+        "value":"legendary",
+        "colorValue":"#ffa500"
+      },
+      "carried":true,
+      "equipped":false,
+      "redText":"I seeeeee you!",
+      "redTextEffect":"<p>The range of this weapon is 10 instead of the usual 8.</p>\n<p>This weapon can only be <span class=\"incendiary-text bolded\">Incendiary</span>, <span class=\"shock-text bolded\">Shock</span>, or <span class=\"kinetic-text bolded\">non-elemental</span>. If a different element is rolled for this weapon, choose one of the two permitted elements.</p>",
+      "redTextEffectBM":"<p>Attacks made at range 9-10 are splash.</p>",
+      "elements":{
+        "kinetic":{
+          "enabled":true,
+          "damage":"1d10",
+          "color":"rgb(76, 76, 76)",
+          "label":"Kinetic"
+        },
+        "incendiary":{
+          "enabled":false,
+          "damage":"",
+          "color":"rgb(213, 59, 49)",
+          "label":"Incendiary"
+        },
+        "shock":{
+          "enabled":false,
+          "damage":"",
+          "color":"rgb(113, 148, 205)",
+          "label":"Shock"
+        },
+        "corrosive":{
+          "enabled":false,
+          "damage":"",
+          "color":"rgb(141, 157, 62)",
+          "label":"Corrosive"
+        },
+        "explosive":{
+          "enabled":false,
+          "damage":"",
+          "color":"rgb(234, 70, 134)",
+          "label":"Explosive"
+        },
+        "radiation":{
+          "enabled":false,
+          "damage":"",
+          "color":"rgb(228, 170, 22)",
+          "label":"Radiation"
+        },
+        "cryo":{
+          "enabled":false,
+          "damage":"",
+          "color":"rgb(18, 152, 185)",
+          "label":"Cryo"
+        },
+        "incendiation":{
+          "enabled":false,
+          "damage":"",
+          "color":"rgb(167, 78, 101)",
+          "label":"Incendiation"
+        },
+        "corroshock":{
+          "enabled":false,
+          "damage":"",
+          "color":"rgb(73, 125, 135)",
+          "label":"Corroshock"
+        },
+        "crysplosive":{
+          "enabled":false,
+          "damage":"",
+          "color":"rgb(115, 105, 160)",
+          "label":"Crysplosive"
+        }
+      },
+      "weilded":false,
+      "prefix":{
+        "name":"",
+        "effects":""
+      },
+      "type":{
+        "value":"sniper",
+        "name":"Sniper Rifle"
+      },
+      "accuracy":{
+        "low":{
+          "hits":1,
+          "crits":0
+        },
+        "mid":{
+          "hits":1,
+          "crits":1
+        },
+        "high":{
+          "hits":1,
+          "crits":2
+        }
+      },
+      "bonusElements":{
+        "kinetic":{
+          "enabled":false,
+          "damage":""
+        },
+        "incendiary":{
+          "enabled":false,
+          "damage":""
+        },
+        "shock":{
+          "enabled":false,
+          "damage":""
+        },
+        "corrosive":{
+          "enabled":false,
+          "damage":""
+        },
+        "explosive":{
+          "enabled":false,
+          "damage":""
+        },
+        "radiation":{
+          "enabled":false,
+          "damage":""
+        },
+        "cryo":{
+          "enabled":false,
+          "damage":""
+        },
+        "incendiation":{
+          "enabled":false,
+          "damage":""
+        },
+        "corroshock":{
+          "enabled":false,
+          "damage":""
+        },
+        "crysplosive":{
+          "enabled":false,
+          "damage":""
+        }
+      },
+      "range":10,
+      "bonusCritDmg":0,
+      "statMods":{
+        "acc":0,
+        "dmg":0,
+        "spd":3,
+        "mst":2
+      },
+      "hitBonus":0,
+      "isSplash":false,
+      "overheat":"",
+      "bonus":"",
+      "damage":"",
+      "guildBonus":"+3 SPD Mod, +2 MST Mod, Charge Up: The first shot after a reload deals half damage."
+    },
+    "effects":[
+      
+    ],
+    "flags":{
+      "core":{
+        "sourceId":"Item.7glZBrsC3wOjyNDp"
+      }
+    },
+    "_stats":{
+      "systemId":"bunkers-and-badasses",
+      "systemVersion":"0.3.2",
+      "coreVersion":"10.288",
+      "createdTime":1665152740330,
+      "modifiedTime":1667541485724,
+      "lastModifiedBy":"m6dA1WszdkO1t2Az"
+    },
+    "folder":null,
+    "_id":"NTYpEybrxvhUEMZ6",
+    "_key":"!items!NTYpEybrxvhUEMZ6"
+  }

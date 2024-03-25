@@ -24,6 +24,9 @@
     "systems/bunkers-and-badasses/templates/actor/parts/vh/action-components/check.html",
     "systems/bunkers-and-badasses/templates/actor/parts/vh/action-components/hp-display-block.html",
     "systems/bunkers-and-badasses/templates/actor/parts/npc/action-components/action-block.html",
+    "systems/bunkers-and-badasses/templates/actor/parts/vh/action-components/attacks-block-component.html",
+    "systems/bunkers-and-badasses/templates/actor/parts/vh/action-components/attack-component.html",
+    "systems/bunkers-and-badasses/templates/actor/parts/vh/action-components/gun-attack-component.html",
     /// Builder subtabs
     "systems/bunkers-and-badasses/templates/actor/parts/vh/builder-subtabs/level-up-subtab.html",
     "systems/bunkers-and-badasses/templates/actor/parts/vh/builder-subtabs/archetypes-subtab.html",
@@ -34,6 +37,18 @@
     "systems/bunkers-and-badasses/templates/actor/parts/vh/builder-subtabs/builder-components/favored-element-component.html",
     "systems/bunkers-and-badasses/templates/actor/parts/vh/builder-subtabs/builder-components/archetype-component.html",
     "systems/bunkers-and-badasses/templates/actor/parts/vh/builder-subtabs/builder-components/base-hp-component.html",
+    /// Item list components
+    "systems/bunkers-and-badasses/templates/actor/parts/item-list-components/item-list.html",
+    "systems/bunkers-and-badasses/templates/actor/parts/item-list-components/item-list-header.html",
+    "systems/bunkers-and-badasses/templates/actor/parts/item-list-components/item-list-component.html",
+    "systems/bunkers-and-badasses/templates/actor/parts/item-list-components/item-detail/default-item-detail-component.html",
+    "systems/bunkers-and-badasses/templates/actor/parts/item-list-components/item-detail/archetype-feat-item-detail-component.html",
+    "systems/bunkers-and-badasses/templates/actor/parts/item-list-components/item-detail/grenade-mod-item-detail-component.html",
+    "systems/bunkers-and-badasses/templates/actor/parts/item-list-components/item-detail/gun-item-detail-component.html",
+    "systems/bunkers-and-badasses/templates/actor/parts/item-list-components/item-detail/key-item-detail-component.html",
+    "systems/bunkers-and-badasses/templates/actor/parts/item-list-components/item-detail/potion-item-detail-component.html",
+    "systems/bunkers-and-badasses/templates/actor/parts/item-list-components/item-detail/relic-item-detail-component.html",
+    "systems/bunkers-and-badasses/templates/actor/parts/item-list-components/item-detail/shield-mod-item-detail-component.html",
     
     /// Old (to be moved or removed)
     "systems/bunkers-and-badasses/templates/actor/parts/actor-features.html",
@@ -52,6 +67,9 @@
     // Dialog partials
     "systems/bunkers-and-badasses/templates/dialog/parts/element-radio-button.html",
 
+    // Chat partials
+    "systems/bunkers-and-badasses/templates/chat/info/components/red-text.html",
+
     // General partials
     "systems/bunkers-and-badasses/templates/general/divided-input.html",
     "systems/bunkers-and-badasses/templates/general/accordion-toggle-icon.html",
@@ -63,6 +81,8 @@
     "systems/bunkers-and-badasses/templates/general/dropdown/item-headers/action-skill-dropdown-header.html",
     "systems/bunkers-and-badasses/templates/general/dropdown/item-headers/class-skill-dropdown-header.html",
     "systems/bunkers-and-badasses/templates/general/dropdown/dropdown-details.html",
+    "systems/bunkers-and-badasses/templates/general/dropdown/gun-dropdown-details.html",
+    "systems/bunkers-and-badasses/templates/general/dropdown/mod-dropdown-details.html",
 
   ]);
 };

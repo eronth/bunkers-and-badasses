@@ -1,4 +1,28 @@
-<div class="flexcol badass-results-container">
-  <label class="result-header">(Potentially) Badass Result:</label>
-  <label class="result-label">{{badassTotal}}</label>
+<div class="dice-roll">
+  {{#if flavor}}
+  <div class="dice-flavor">{{flavor}}</div>
+  {{/if}}
+  <div class="flexcol badass-results-container">
+    <label class="result-header">(Potentially) Badass Result:</label>
+  </div>
+    <br />
+    <br />
+    <div class="dice-result">
+      <div class="dice-formula">{{overallRollFormula}}</div>
+      <div class="dice-tooltip">
+        <section class="tooltip-part">
+          <div class="dice">
+            <header class="part-header flexrow">
+              <span class="part-formula">1dBadass</span>
+              <span class="part-flavor">Badass Dice Roll</span>
+              <span class="part-total">{{badassDiceResult}}</span>
+            </header>
+            <ol class="dice-rolls">
+              <li class="roll die d20">{{badassDiceResult}}</li>
+            </ol>
+          </div>
+        </section>
+      </div>
+      <h4 class="dice-total">{{total}}</h4>
+  </div>
 </div>
