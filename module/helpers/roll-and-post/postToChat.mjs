@@ -325,11 +325,12 @@ export class PostToChat {
   }
 
   static async damageResult(options) {
-    const { actor, item, isMelee, rollResult } = options;
+    const { actor, item, isMelee, rollResult, isDoubled } = options;
 
     const damageDetails = DamageDiceRollDataExtractHelper.turnRollResultIntoDamageData({
       rollResult: rollResult,
-      isMelee: isMelee
+      isMelee: isMelee,
+      isDoubled: isDoubled
     });
 
     const templateLocation = 'systems/bunkers-and-badasses/templates/chat/damage-results.html';

@@ -376,6 +376,7 @@ export class PerformRollAction {
       actor: actor,
       item: item,
       isMelee: attackType === 'melee',
+      isDoubled: isDoubled,
       rollResult: rollResult,
     });
   }
@@ -683,9 +684,18 @@ export class PerformRollAction {
     const rollFormula = Object.entries(summary).map((damage) => {
       const [damageType, damageValue] = damage;
       let sumString = MixedDiceAndNumber.mixedToString({ mixed: damageValue, numberLocation: 'end' });
+      
+      //if double, wrap each independent dice roll in parentheses.
+      if (isDoubled) {
+        const splitSumString = sumString.split('+');
+        sumString = splitSumString.map((ss) => {
+          return `2*${ss.trim()}`;
+        }).join(' + ');
+      }
+
       const stringNeedsWrapper = sumString.includes('+') || sumString.includes('-');
       if (stringNeedsWrapper) { sumString = `(${sumString})`; }
-      if (isDoubled) { sumString = `2*(${sumString})`; }
+      //if (isDoubled) { sumString = `(2*${sumString})`; }
       sumString += `[${damageType}]`;
       return sumString;
     }).join(' + ');

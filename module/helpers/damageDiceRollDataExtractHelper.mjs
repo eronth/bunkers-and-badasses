@@ -5,8 +5,9 @@ export class DamageDiceRollDataExtractHelper {
   static turnRollResultIntoDamageData(options) {
     const rollResult = options.rollResult;
     const isMelee = options.isMelee;
+    const isDoubled = options.isDoubled;
     const parts = rollResult.dice.map(d => d.getTooltipData());
-    const dissectedFormula = this._extractAndRegroupInfoFromRollResult({ rollResult, parts });
+    const dissectedFormula = this._extractAndRegroupInfoFromRollResult({ rollResult, parts, isDoubled: isDoubled});
 
 
     const rollFormulaByDamageTypeComponents = this._amazingDamageFormulaDisplay({
@@ -32,6 +33,7 @@ export class DamageDiceRollDataExtractHelper {
   static _extractAndRegroupInfoFromRollResult(options) {
     const rollResult = options.rollResult;
     const parts = options.parts;
+    const isDoubled = options.isDoubled;
     const formulaToDiscect = rollResult._formula;
     const formulaSegments = formulaToDiscect.split('] + ');
     
@@ -58,7 +60,7 @@ export class DamageDiceRollDataExtractHelper {
       };
     });
 
-    this._mergePartsIntoDissectedFormula({ parts, dissectedFormula });
+    this._mergePartsIntoDissectedFormula({ parts, dissectedFormula, isDoubled });
 
     return dissectedFormula;
   }
@@ -75,7 +77,7 @@ export class DamageDiceRollDataExtractHelper {
   }
 
   static _mergePartsIntoDissectedFormula(options) {
-    const { parts, dissectedFormula } = options;
+    const { parts, dissectedFormula, isDoubled } = options;
     parts.forEach(part => {
       dissectedFormula.forEach(df => {
         if (part.flavor === df.damageType) {
@@ -90,7 +92,8 @@ export class DamageDiceRollDataExtractHelper {
     // For whatever reason, the parts totals don't include flat bonuses, 
     // so we have to calculate it from what we know.
     dissectedFormula.forEach(df => {
-      const flatToAdd = Number(df.total ?? 0) - Number(df.totalWithoutFlatBonus ?? 0);
+      const unmultipliedTotal = (isDoubled) ? Number(df.total ?? 0)/2 : Number(df.total ?? 0);
+      const flatToAdd = unmultipliedTotal - Number(df.totalWithoutFlatBonus ?? 0);
       if (flatToAdd != 0) { // If there's a flat bonus, add it to the dissected formula details as needed.
         df.flatBonus = Number(flatToAdd);
         df.rolls.push({ classes: 'flat d1', result: flatToAdd, type: df.damageType });
