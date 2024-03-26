@@ -119,7 +119,7 @@ export class PerformRollAction {
 
     // Pull data from html.
     const gearElements = html.find("#gear");
-    const gearValue = (gearElements.length > 0) ? parseInt(gearElements[0].value) : 0;
+    const gearValue = (gearElements?.length > 0) ? (parseInt(gearElements[0].value) ?? 0) : 0;
     const hasGear = gearValue != 0;
     const hasMisc = (parseInt(html.find("#misc")[0].value) ?? 0) != 0;
     const hasEff = (parseInt(html.find("#effects")[0].value) ?? 0) != 0;
@@ -256,7 +256,8 @@ export class PerformRollAction {
     const itemStats = item.system.statMods;
 
     // Pull data from html.
-    const gearBonus = (parseInt(html.find("#gear")[0].value) ?? 0);
+    const gearElements = html.find("#gear");
+    const gearBonus = (gearElements?.length > 0) ? (parseInt(gearElements[0].value) ?? 0) : 0;
     const miscBonus = (parseInt(html.find("#misc")[0].value) ?? 0);
     const effectBonus = (parseInt(html.find("#effects")[0].value) ?? 0);
     const extraBonusValue = (html.find("#extra")[0].value);
