@@ -29,27 +29,42 @@ jobs:
         working-directory: ./
         run:  zip -r ./bunkers-and-badasses.zip ./* -x ./.git/**\* ./.github/**\* ./node_modules/**\* ./build-scripts/**\* ./bunkers-and-badasses.zip ./bunkers-and-badasses.tar.gz
 
-      - uses: actions/upload-artifact@v4
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
         with:
-          name: Updates File
-          path: ./updates.txt
-      - uses: actions/upload-artifact@v4
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./bunkers-and-badasses.zip
+          asset_name: bunkers-and-badasses.zip
+          asset_content_type: application/zip
+        
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
         with:
-          name: System Json
-          path: ./system.json
-      - uses: actions/upload-artifact@v4
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./Attributes-for-Effects.txt
+          asset_name: Attributes-for-Effects.txt
+          asset_content_type: application/text
+      
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
         with:
-          name: Attributes File
-          path: ./Attributes-for-Effects.txt
-      - uses: actions/upload-artifact@v4
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./roll-builder-deets.txt
+          asset_name: roll-builder-deets.txt
+          asset_content_type: application/text
+      
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
         with:
-          name: Roll Builder File
-          path: ./roll-builder-deets.txt
-      - uses: actions/upload-artifact@v4
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./system.json
+          asset_name: system.json
+          asset_content_type: application/json
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
         with:
-          name: Code Artifact Zip
-          path: ./bunkers-and-badasses.zip
-      - uses: actions/upload-artifact@v4
-        with:
-          name: Code Artifact Tar
-          path: ./bunkers-and-badasses.tar.gz
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./updates.txt
+          asset_name: updates.txt
+          asset_content_type: application/text
