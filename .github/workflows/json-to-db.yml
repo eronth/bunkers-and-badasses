@@ -1,92 +1,55 @@
 # name: Convert JSON to DB
 
-# on:
-#   release:
-#     #branches: [release, main, dev, big-prompt-and-chat-post-updates]
-#     types: [published]
+on:
+  release:
+    #branches: [release, main, dev, big-prompt-and-chat-post-updates]
+    types: [published]
 
-# jobs:
-#   release:
-#     runs-on: ubuntu-latest
+jobs:
+  release:
+    runs-on: ubuntu-latest
 
-#     strategy:
-#       matrix:
-#         node-version: [18.x]
+    strategy:
+      matrix:
+        node-version: [18.x]
 
-#     steps:
-#       - uses: actions/checkout@v4
-#       - name: Use Node.js ${{ matrix.node-version }}
-#         uses: actions/setup-node@v4
-#         with:
-#           node-version: ${{ matrix.node-version }}
-#       - name: Setup Node.js environment
-#         run: |
-#           npm ci
-#       - name: Convert JSON to DB
-#         run: node ./build-scripts/build-packs.js
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Setup Node.js environment
+        run: |
+          npm ci
+      - name: Convert JSON to DB
+        run: node ./build-scripts/build-packs.js
 
-#       - name: Zip Files
-#         working-directory: ./
-#         run:  zip -r ./bunkers-and-badasses.zip ./* -x ./.git/**\* ./.github/**\* ./node_modules/**\* ./build-scripts/**\* ./bunkers-and-badasses.zip ./bunkers-and-badasses.tar.gz
+      - name: Zip Files
+        working-directory: ./
+        run:  zip -r ./bunkers-and-badasses.zip ./* -x ./.git/**\* ./.github/**\* ./node_modules/**\* ./build-scripts/**\* ./bunkers-and-badasses.zip ./bunkers-and-badasses.tar.gz
 
-#       # - name: Tar Files
-#       #   uses: a7ul/tar-action@v1.1.3
-#       #   id: compress
-#       #   with:
-#       #     command: c
-#       #     cwd: ./
-#       #     files: |
-#       #       ./assets
-#       #       ./css
-#       #       ./lang
-#       #       ./module
-#       #       ./packs
-#       #       ./scss
-#       #       ./templates
-#       #       ./package.json
-#       #       ./package-lock.json
-#       #       ./gulpfile.js
-#       #       ./LICENSE
-#       #       ./README.md
-#       #       ./system.json
-#       #       ./template.json
-#       #       ./updates.txt
-#       #       ./Attributes-for-Effects.txt
-#       #       ./roll-builder-deets.txt
-#       #     outPath: ./bunkers-and-badasses.tar.gz
-#       # - name: Tar Files
-#       #   working-directory: ./
-#       #   run: |
-#       #     tar -czv \
-#       #     --exclude='./.git/**\*'  \
-#       #     --exclude='./.github/**\*'  \
-#       #     --exclude='./node_modules/**\*'  \
-#       #     --exclude='./build-scripts/**\*'  \
-#       #     --exclude='./bunkers-and-badasses.zip'  \
-#       #     --exclude='./bunkers-and-badasses.tar.gz'  \
-#       #     -f ./bunkers-and-badasses.tar.gz ./* 
-
-#       - uses: actions/upload-artifact@v4
-#         with:
-#           name: Updates File
-#           path: ./updates.txt
-#       - uses: actions/upload-artifact@v4
-#         with:
-#           name: System Json
-#           path: ./system.json
-#       - uses: actions/upload-artifact@v4
-#         with:
-#           name: Attributes File
-#           path: ./Attributes-for-Effects.txt
-#       - uses: actions/upload-artifact@v4
-#         with:
-#           name: Roll Builder File
-#           path: ./roll-builder-deets.txt
-#       - uses: actions/upload-artifact@v4
-#         with:
-#           name: Code Artifact Zip
-#           path: ./bunkers-and-badasses.zip
-#       - uses: actions/upload-artifact@v4
-#         with:
-#           name: Code Artifact Tar
-#           path: ./bunkers-and-badasses.tar.gz
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Updates File
+          path: ./updates.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: System Json
+          path: ./system.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Attributes File
+          path: ./Attributes-for-Effects.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Roll Builder File
+          path: ./roll-builder-deets.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Code Artifact Zip
+          path: ./bunkers-and-badasses.zip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Code Artifact Tar
+          path: ./bunkers-and-badasses.tar.gz
