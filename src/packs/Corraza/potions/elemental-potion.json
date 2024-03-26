@@ -1,0 +1,40 @@
+{
+    "name":"Elemental Potion",
+    "type":"potion",
+    "img":"icons/svg/tankard.svg",
+    "effects":[],
+    "flags":{"core":{"sourceId":"Item.pnTMrS8QWPDo75I4"}},
+    "system":{
+      "description":"",
+      "effect":"Feel the elemental power surge through you!",
+      "level":1,
+      "special":{
+        "overrideType":""
+      },
+      "isLoot":true,
+      "guild":"",
+      "rarity":{
+        "name":"Rare",
+        "value":"rare",
+        "colorValue":"#00a0ff"
+      },
+      "carried":true,
+      "equipped":true,
+      "redText":"Elemental, my dear.",
+      "redTextEffect":"",
+      "redTextEffectBM":"When this potion is drank, the GM picks a random element. For the remainder of combat, the character gains the following bonuses:\n                       \n                                        * +1d4 damage of the chosen element.\n                                        * Immune to the chosen element. \n                                        * Any time the character takes damage of the chosen element, heal 1d4 health.",
+      "quantity":1,
+      "cost":50
+    },
+    "_stats":{
+      "systemId":"bunkers-and-badasses",
+      "systemVersion":"0.1.4",
+      "coreVersion":"10.284",
+      "createdTime":1662619917637,
+      "modifiedTime":1662619917637,
+      "lastModifiedBy":"m6dA1WszdkO1t2Az"
+    },
+    "folder":null,
+    "_id":"4zsPA11T0vWxhCGC",
+    "_key":"!items!4zsPA11T0vWxhCGC"
+  }

@@ -50,6 +50,289 @@
 }
 
 .element-toggle:hover {
-  text-shadow: 0 0 10px cyan;
+  text-shadow: 0 0 10px var(--highlight-primary);
   cursor: pointer;
 }
+
+#chat-log .element-damage-result-icon,
+#chat-log .element-damage-formula-icon,
+#chat-log .element-damage-total-icon,
+#chat-log .description .element-resist-icon,
+#chat-log .description .element-damage-icon,
+.bnb .items-list .item-dropdown-group .item-dropdown-body .dropdown-elements-container .element-damage-icon,
+.bnb .item-list-component .item-details .element-damage-icon,
+.bnb .attacks-container .minor-details .damage .element-damage-icon {
+  margin: 0;
+  border: 0;
+  padding: 0;
+  height: .8em;
+}
+.bnb .attacks-container .minor-details .damage .element-damage-icon {
+  height: 12px;
+}
+#chat-log .element-damage-result-icon {
+  margin-left: -1px;
+  margin-bottom: -2px;
+  height: 1em;
+  max-width: 16px;
+}
+#chat-log .element-damage-formula-icon {
+  padding-left: 1px;
+  margin-bottom: -2px;
+  height: .9em;
+}
+#chat-log .element-damage-total-icon {
+  margin-left: 1px;
+  margin-bottom: -1px;
+  height: 0.8em;
+}
+#chat-log .description .element-damage-icon {
+  height: .9em;
+}
+/* Kinetic */
+#chat-log .element-damage-formula-icon.element-melee-kinetic {
+  margin-left: 0px;
+  padding-left: 0px;
+  margin-bottom: -3px;
+  height: 1.3em;
+}
+#chat-log .element-damage-result-icon.element-melee-kinetic {
+  margin-left: 0px;
+  padding-left: 0px;
+  margin-bottom: -2px;
+  height: 1em;
+}
+#chat-log .element-damage-total-icon.element-melee-kinetic {
+  margin-left: 0px;
+  padding-left: 0px;
+  margin-bottom: -3px;
+  height: 1em;
+}
+/* Incendiary */
+#chat-log .element-damage-result-icon.element-incendiary {
+  margin-bottom: -1px;
+}
+#chat-log .element-damage-total-icon.element-incendiary {
+  margin-bottom: 0px;
+}
+/* Shock */
+#chat-log .element-damage-total-icon.element-shock {
+  margin-left: 0;
+}
+
+
+/* BELOW HERE NEEDS TO BE CLEANED UP, BIGTIME!*/
+/* Explosive */
+.system-bunkers-and-badasses #chat-log .description .element-explosive,
+.bnb .items-list .item-dropdown-group .item-dropdown-body .dropdown-elements-container .element-explosive,
+.bnb .item-list-component .item-details .element-damage-icon.element-explosive {
+  height: 14px;
+  margin-left: -4px;
+  margin-right: -3px;
+  margin-bottom: -2px;
+}
+.bnb .attacks-container .minor-details .damage .element-damage-icon.element-explosive {
+  height: 12px;
+  margin-left: -1px;
+  margin-bottom: -2px;
+}
+.element-damage-result-icon.element-explosive {
+  margin-left: -2px;
+}
+/* Crysplosive */
+.system-bunkers-and-badasses #chat-log .description .element-crysplosive,
+.bnb .item-list-component .item-details .element-damage-icon.element-crysplosive {
+  height: 14px;
+  margin-left: -4px;
+  margin-right: -3px;
+  margin-bottom: -2px;
+}
+.bnb .item-list-component .item-details .element-resist-icon.element-crysplosive {
+  margin-bottom: -1px;
+}
+.bnb .items-list .item-dropdown-group .item-dropdown-body .dropdown-elements-container .element-crysplosive {
+  height: 15px;
+  margin-left: -4px;
+  margin-right: -3px;
+  margin-bottom: -2px;
+}
+.bnb .attacks-container .minor-details .damage .element-damage-icon.element-crysplosive {
+  height: 12px;
+  margin-left: -1px;
+  margin-bottom: -2px;
+}
+.element-damage-result-icon.element-crysplosive {
+  margin-left: -2px;
+  margin-bottom: -2px;
+}
+
+/* Corrosive */
+.system-bunkers-and-badasses #chat-log .description .element-corrosive,
+.bnb .items-list .item-dropdown-group .item-dropdown-body .dropdown-elements-container .element-corrosive,
+.bnb .item-list-component .item-details .element-damage-icon.element-corrosive {
+  margin-left: -1px;
+  margin-bottom: -1px;
+  margin-right: -1px;
+}
+/* Radiation */
+.system-bunkers-and-badasses #chat-log .description .element-radiation,
+.bnb .item-list-component .item-details .element-damage-icon.element-radiation {
+  margin-left: -1px;
+  margin-bottom: -1px;
+  margin-right: -1px;
+}
+.bnb .items-list .item-dropdown-group .item-dropdown-body .dropdown-elements-container .element-radiation {
+  height: 14px;
+  margin-left: -1px;
+  margin-bottom: -2px;
+  margin-right: -1px;
+}
+.bnb .attacks-container .minor-details .damage .element-damage-icon.element-radiation {
+  height: 12px;
+  margin-bottom: -2px;
+  margin-left: -1px;
+}
+/* Incendiation */
+.system-bunkers-and-badasses #chat-log .description .element-incendiation,
+.bnb .item-list-component .item-details .element-damage-icon.element-incendiation {
+  margin-left: -1px;
+  margin-bottom: -1px;
+  margin-right: -1px;
+}
+.bnb .items-list .item-dropdown-group .item-dropdown-body .dropdown-elements-container .element-incendiation {
+  height: 14px;
+  margin-left: -1px;
+  margin-bottom: -2px;
+  margin-right: -1px;
+}
+.bnb .attacks-container .minor-details .damage .element-damage-icon.element-incendiation {
+  height: 12px;
+  margin-bottom: -2px;
+  margin-left: -1px;
+}
+/* Corrosive */
+.bnb .attacks-container .minor-details .damage .element-damage-icon.element-corrosive {
+  height: 11px;
+  margin-bottom: -1px;
+  margin-left: -1px;
+}
+/* Corroshock */
+.system-bunkers-and-badasses #chat-log .description .element-corroshock,
+.bnb .items-list .item-dropdown-group .item-dropdown-body .dropdown-elements-container .element-corroshock,
+.bnb .item-list-component .item-details .element-damage-icon.element-corroshock {
+  height: 15px;
+  margin-left: -2px;
+  margin-bottom: -2px;
+  margin-right: -1px;
+}
+
+.bnb .attacks-container .minor-details .damage .element-damage-icon.element-corroshock {
+  height: 12px;
+  margin-bottom: -2px;
+  margin-left: -1px;
+}
+/* Cryo */
+.system-bunkers-and-badasses #chat-log .description .element-cryo,
+.bnb .item-list-component .item-details .element-damage-icon.element-cryo {
+  margin-left: -2px;
+  margin-bottom: -2px;
+  margin-right: -1px;
+}
+.bnb .items-list .item-dropdown-group .item-dropdown-body .dropdown-elements-container .element-cryo {
+  height: 13px;
+  margin-left: -2px;
+  margin-bottom: -1px;
+  margin-right: -1px;
+}
+.bnb .attacks-container .minor-details .damage .element-damage-icon.element-cryo {
+  height: 12px;
+  margin-bottom: -2px;
+  margin-left: -2px;
+}
+
+.nowrap-element-icon {
+  white-space: nowrap;
+}
+
+.element-damage-nowrap-label {
+  white-space: nowrap;  
+}
+.bnb .damage-results-container .element-damage-icon {
+  height: 22px;
+}
+.element-damage-plus {
+  padding-left: 2px;
+  padding-right: 2px;
+}
+.bnb .attacks-container .minor-details .damage .element-damage-plus {
+  padding-left: 1px;
+  padding-right: 1px;
+}
+.element-damage-damage {
+  padding-left: 3px;
+}
+.elements-container {
+  border: 1px solid darkgrey;
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+.element-container {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.element-toggle {
+  align-items: center;
+}
+
+.element-resist-icon {
+  border: 0;
+  height: 12px;
+}
+
+.resist-label {
+  padding-left: 5px;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow-x: hidden;
+}
+.resist-label label {
+  padding-left: 5px;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow-x: hidden;
+}
+.elemental ul { 
+  height: 48px;
+  width: 100px;
+  max-width: 100px;
+  border: 1px rgb(122, 121, 113) solid;
+  border-radius: 3px;
+  background: rgba(0, 0, 0, 0.05);
+  list-style-type: none;
+  padding: 0;
+}
+.elemental ul li {
+  cursor: pointer;
+  border: 1px rgb(122, 121, 113) solid;
+  position: relative;
+
+  z-index: 2;
+  text-align: center;
+}
+.elemental ul li:not(.init) {
+  float: left;
+  width: 98px;
+  padding: 7px 7px;
+  display: none;
+}
+.elemental li.init { 
+  cursor: pointer;
+  padding: 15px 7px;
+  height: 48px;
+}
+.elemental ul li:not(.init):hover, ul li.selected:not(.init) {
+  text-decoration: underline;
+}
+
+

@@ -1,0 +1,408 @@
+.fvt, .flex-view-test {
+  border: 1px solid red;
+  margin: 0;
+  padding: 0;
+  margin-left: -1px;
+}
+.fvt:first, .flex-view-test:first {
+  margin-left: 0px;
+}
+
+.bnb .items-list .item-title .item-rarity,
+.bnb .items-list .item-title .item-subtype,
+.bnb .items-list .item-title .item-class {
+  margin: 0;
+  margin-left: 3px;
+  padding: 0;
+  font-size: smaller;
+}
+
+.bnb .items-list .item-title .item-name {
+  font-weight: bold;
+  margin: 0;
+  margin-left: 4px;
+  overflow: hidden;
+  font-size: 13px;
+  text-align: left;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.bnb .items-list .item-dropdown-group .item-dropdown-header {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.large-text-overflow-hidden {
+  overflow: hidden;
+  justify-content: flex-start;
+}
+
+.bnb .white-space-nowrap {
+  white-space: nowrap;
+}
+
+.bnb .item.item-list-component.gun-list-component {
+  margin-bottom: 3px;
+}
+.bnb .item.item-list-component.relic-list-component {
+  margin-bottom: 3px;
+}
+
+.bnb .items-list .item-details > div > label.default-description,
+.bnb .items-list .item-details > div > label.archetype-feat-description {
+  display: block;
+  height: 15px;
+  max-height: 18px;
+}
+.bnb .items-list .item-details > div > label.default-description > p {
+  margin: 0;
+  padding: 0;
+  margin-top: 4px;
+}
+.bnb .items-list .item-details > div > label.archetype-feat-description > p {
+  margin: 0;
+  padding: 0;
+  margin-top: 2px;
+}
+
+.bnb .items-list .item-details-header,
+.bnb .items-list .item-details,
+.bnb .items-list .item-details > div > label > p,
+.bnb .items-list .item-details .gun-effects,
+.bnb .items-list .item-details .grenade-effects > div,
+.bnb .items-list .item-details .shield-effects > div,
+.bnb .items-list .item-details .relic-effects > label {
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.bnb .items-list .item-details .shield-effects > div {
+  flex-grow: 1;
+  margin-top: 2px;
+}
+.bnb .items-list .item-details .shield-details-subsection {
+  width: 80%;
+}
+
+.bnb .items-list .item-details > div > label.default-description > p {
+  font-size: 13px;
+}
+
+.bnb .items-list .item-details {
+  border: 1px solid darkgrey;
+  border-top: 0;
+  border-bottom: 0;
+  padding-left: 3px;
+  font-size: 13px;
+}
+
+.bnb .items-list .item-dropdown-body .item-dropdown-hr {
+  margin-top: 0;
+}
+
+.bnb .items-list .items-header {
+  height: 28px;
+  margin: 2px 0;
+  padding: 0;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.05);
+  border: 2px groove #eeede0;
+  font-weight: bold;
+}
+
+.bnb .items-list .items-header > * {
+  font-size: 12px;
+}
+
+.bnb .items-list .items-header .item-name {
+  padding-left: 5px;
+  text-align: left;
+}
+
+.bnb .items-list .items-header .item-text {
+  padding-left: 5px;
+  text-align: left;
+}
+
+.bnb .noflex {
+  display: block;
+}
+
+
+
+
+
+.bnb .item-list-component .item-details .gun-row .critshits-icon {
+  border: 0;
+  height: 12px;
+  padding-right: 2px;
+}
+.bnb .item-list-component .item-details .gun-row label {
+  padding: 0px 2px;
+}
+.bnb .item-list-component .item-details .remaining-gun-details {
+  max-width: 85%;
+  margin-left: 6px;
+}
+.bnb .item-list-component .item-details .gun-row-crits {
+  color: darkred;
+  font-weight: bold;
+  align-self: center;
+}
+.bnb .item-list-component .item-details .gun-row-hits {
+  color: darkblue;
+  font-weight: bold; 
+  align-self: center;
+}
+
+.bnb .item-list-component .item-details .damage-per-hit-and-bonus-damage-in-between {
+  margin: 3px;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.bnb .items-list .items-header .skill-level {
+  text-align: center;
+}
+.bnb .items-list .item-list-component .skill-level {
+  text-align: center;
+  align-self: center;
+}
+
+.bnb .items-list .item-list-component .item-details .archetype-minor-detail {
+  margin-top: 3px;
+  font-size: 12px;
+  font-style: italic;
+}
+.bnb .items-list .item-list-component .item-details .archetype-minor-detail label {
+  flex-grow: 5;
+  margin-top: 0;
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
+.bnb .item-list-component .item-details .level-and-guild {
+  text-align: right;
+  padding-right: 5px;
+}
+.bnb .item-list-component .item-details label.loot-element-damage {
+  flex-grow: 4;
+  display: flex;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+}
+.bnb .item-list-component .item-details .loot-health {
+  /* display: inline-flex; */
+  font-size: small;
+  /* display: -webkit-inline-box; */
+}
+
+.bnb .item-list-component .item-details .health-type-icon {
+  margin: 0;
+  border: 0;
+  padding: 0;
+  align-self: center;
+  flex-shrink: 0;
+  flex-grow: 0;
+  height: 28px;
+  margin-right: 2px;
+}
+
+.bnb .item-list-component .item-details .loot-health .health-regain {
+  font-size: smaller;
+}
+.bnb .item-list-component .item-details .resist-label {
+  text-align: center;
+}
+
+
+
+
+/* EVERYTHING BELOW THIS POINT IS UNCERTAIN! */
+/* EVERYTHING BELOW THIS POINT IS UNCERTAIN! */
+/* EVERYTHING BELOW THIS POINT IS UNCERTAIN! */
+
+.bnb .items-list .item-text {
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.bnb .items-list .reward-text {
+  justify-content: flex-start;
+  text-align: left;
+  padding-left: 6px;
+  padding-right: 5px;
+}
+
+.bnb .items-list .item-name h3, 
+.bnb .items-list .item-name h4 {
+  margin: 0;
+  white-space: nowrap;
+  overflow-x: hidden;
+}
+
+.bnb .items-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  color: #444;
+}
+
+.bnb .items-list .item-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.bnb .items-list .item-equip-control {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.bnb .items-list .item-equip {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 100px;
+  flex: 0 0 100px;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.bnb .items-list .item-controls-header,
+.bnb .items-list .item-controls {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+  align-items: center;
+}
+.bnb .items-list .item-controls-header .item-create {
+  margin-right: 5px;
+}
+.bnb .items-list .item-controls {
+  border-left: 1px solid darkgrey;
+}
+
+.bnb .items-list .archetype-item-controls {
+  -webkit-box-flex: 3;
+  -ms-flex: 3;
+  flex: 3;
+}
+.bnb .items-list .class-skill-item-controls {
+  -webkit-box-flex: 2;
+  -ms-flex: 2;
+  flex: 2;
+}
+
+.bnb .items-list .item-controls a,
+.bnb .items-list .archetype-item-controls a,
+.bnb .items-list .class-skill-item-controls a {
+  font-size: 12px;
+  text-align: center;
+  margin: 0 6px;
+}
+
+
+.bnb .items-list .item-controls-small {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 0;
+  -ms-flex: 1 0 7px;
+  flex: 1 0 7px;
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+}
+
+.bnb .items-list .item-controls-small a {
+  font-size: 12px;
+  text-align: center;
+  margin: 0 6px;
+}
+
+
+.bnb .items-list .item {
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  /* padding: 0 2px; */
+  border-bottom: 1px solid #c9c7b8;
+}
+
+.bnb .items-list .item:last-child {
+  border-bottom: none;
+}
+
+.bnb .items-list .item .item-name {
+  color: #191813;
+}
+
+.bnb .items-list .item .item-name .item-image {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 30px;
+  flex: 0 0 30px;
+  height: 30px;
+  background-size: 30px;
+  border: none;
+  margin-right: 5px;
+}
+
+.bnb .items-list .item-prop {
+  text-align: center;
+  border-left: 1px solid #c9c7b8;
+  border-right: 1px solid #c9c7b8;
+  font-size: 12px;
+}
+.bnb .items-list .item-prop-left {
+  text-align: left;
+  border-left: 1px solid #c9c7b8;
+  border-right: 1px solid #c9c7b8;
+  font-size: 12px;
+}
+.bnb .items-list .item-prop-right {
+  text-align: right;
+  border-left: 1px solid #c9c7b8;
+  border-right: 1px solid #c9c7b8;
+  font-size: 12px;
+}
+.bnb .items-list .item-prop-stack {
+  text-align: center;
+  border-left: 1px solid #c9c7b8;
+  font-size: 12px;
+  align-self: flex-start;
+}
+.bnb .items-list .item-dropdown-group.no-rarity {
+  margin-right: 1px;
+}
+.bnb .items-list .item-dropdown-group.no-rarity.no-items {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-bottom: 0;
+  text-align: center;
+  font-style: italic;
+  color: grey;
+}

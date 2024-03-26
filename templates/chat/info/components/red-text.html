@@ -1,0 +1,16 @@
+<div class="red-text-block">
+  {{#if item.system.redText}}
+  <hr />
+  {{/if}}
+  <label class="red-text">{{item.system.redText}}</label>
+  <br />
+  <label class="red-text-effect">{{{enrich item.system.redTextEffect}}}</label>
+  {{#if item.system.redTextEffectBM}}
+  <hr class="gm-secret" />
+  <label class="red-text-bm-effect gm-secret">
+    <b>Hidden Red Text Effects:</b>
+    <br />
+    {{{enrich item.system.redTextEffectBM}}}
+  </label>
+  {{/if}}
+</div>

@@ -1,18 +1,52 @@
 <div class="chat-roll-result"
-data-actor-id="{{actorId}}" >
-  <div>{{diceRoll}}</div>
-  <div>Result: {{result}} = {{total}}</div>
+data-actor-id="{{actorId}}" data-item-id="{{itemId}}">
+  <div class="dice-roll">
+    <div class="flexcol badass-results-container">
+      <label class="result-header">{{checkType}}</label>
+    </div>
+    <br />
+    <br />
+    <div class="dice-result">
+      <div class="dice-formula">{{overallRollFormula}}</div>
+        <div class="dice-tooltip">
+          {{#each parts as |part|}}
+          <section class="tooltip-part">
+            <div class="dice">
+              <header class="part-header flexrow">
+                <span class="part-formula">{{part.formula}}</span>
+                <span class="part-flavor">{{part.flavor}}</span>
+                <span class="part-total">{{part.total}}</span>
+              </header>
+              <ol class="dice-rolls">
+                {{#each rolls as |roll|}}
+                <li class="roll {{roll.classes}}">{{roll.result}}</li>
+                {{/each}}
+              </ol>
+            </div>
+          </section>
+          {{/each}}
+        </div>
+      <h4 class="dice-total">{{total}}</h4>
+    </div>
+  </div>  
   {{#if success}}
   <div class="success-text">Hit!</div>
-  <div class="hit-bonus">{{bonusFromAcc}}</div>
+  <div class="hit-bonus">{{bonusFromAccResult}}</div>
   {{/if}}
   {{#if failure}}
   <div class="failure-text">Failure!</div>
+  {{/if}}
+  {{#if redText}}
+  <div class="red-text">{{redText}}</div>
+  {{/if}}
+  {{#if anoint}}
+  <div class='anoint-text'>{{anoint}}</div>
   {{/if}}
   {{#if showDamageButton}}
   <div class="chat-melee-damage-buttons">
     <button data-action="damage"
     data-actor-id="{{actorId}}"
+    data-attack-type="melee"
     data-plus-one-dice={{isPlusOneDice}}
     data-double-damage={{isDoubleDamage}}
     data-crit={{isCrit}} data-is-nat-20="{{critHit}}"

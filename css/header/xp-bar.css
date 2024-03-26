@@ -2,24 +2,25 @@
   margin-bottom: 0px;
 }
 
-.bnb .sheet-header .xpBar:hover, .bnb .sheet-header .xpBar:focus {
+.bnb .sheet-header .xpBar:hover,
+.bnb .sheet-header .xpBar:focus {
   color: #000;
-  text-shadow: 0 0 10px cyan;
+  text-shadow: 0 0 10px var(--theme);
 }
 
 .xpBar-max {
-  background: #4b4347;
+  background: var(--xp-bar-background);
   height: 11px;
   min-height: 11px;
   margin: 1px;
 }
 .bnb .xpBar-max .xpBar-segment {
-  border: 1px solid #10020f;
+  border: 1px solid var(--xp-bar-segment-separator);
   height: 11px;
   min-height: 11px;
 }
 .bnb .xpBar-max .xpBar-segment .xpBar-progress {
-  background-color: #82e4fb;
+  background-color: var(--xp-bar-progress);
   height: 9px;
   min-height: 9px;
 }

@@ -1,0 +1,145 @@
+{
+    "name":"Gunzilla!",
+    "type":"gun",
+    "img":"icons/svg/radiation.svg",
+    "effects":[
+      
+    ],
+    "flags":{
+      "core":{
+        "sourceId":"Item.PAMeYCwQ5SSr2CCC"
+      }
+    },
+    "system":{
+      "description":"",
+      "effect":"Splash",
+      "level":13,
+      "special":{
+        "overrideType":""
+      },
+      "isLoot":true,
+      "quantity":1,
+      "cost":300,
+      "guild":"Corraza",
+      "rarity":{
+        "name":"Legendary",
+        "value":"legendary",
+        "colorValue":"#ffa500"
+      },
+      "carried":true,
+      "equipped":false,
+      "redText":"BWAAAAHHHH!",
+      "redTextEffect":"Always elemental. Always Incendiary, Radiation, Shock, or Cryo.",
+      "redTextEffectBM":"This gun does not deal splash around the target. Instead, the shot creates a line from the attacker that goes through the target until the first solid surface (like a wall). All enemies inside the line (other than the primary target) are considered to be hit with \"splash damage\".",
+      "elements":{
+        "kinetic":{
+          "enabled":false,
+          "damage":"",
+          "color":"rgb(76, 76, 76)",
+          "label":"Kinetic"
+        },
+        "incendiary":{
+          "enabled":false,
+          "damage":"",
+          "color":"rgb(213, 59, 49)",
+          "label":"Incendiary"
+        },
+        "shock":{
+          "enabled":false,
+          "damage":"",
+          "color":"rgb(113, 148, 205)",
+          "label":"Shock"
+        },
+        "corrosive":{
+          "enabled":false,
+          "damage":"",
+          "color":"rgb(141, 157, 62)",
+          "label":"Corrosive"
+        },
+        "explosive":{
+          "enabled":false,
+          "damage":"",
+          "color":"rgb(234, 70, 134)",
+          "label":"Explosive"
+        },
+        "radiation":{
+          "enabled":true,
+          "damage":"1d12",
+          "color":"rgb(228, 170, 22)",
+          "label":"Radiation"
+        },
+        "cryo":{
+          "enabled":false,
+          "damage":"",
+          "color":"rgb(18, 152, 185)",
+          "label":"Cryo"
+        },
+        "incendiation":{
+          "enabled":false,
+          "damage":"",
+          "color":"rgb(167, 78, 101)",
+          "label":"Incendiation"
+        },
+        "corroshock":{
+          "enabled":false,
+          "damage":"",
+          "color":"rgb(73, 125, 135)",
+          "label":"Corroshock"
+        },
+        "crysplosive":{
+          "enabled":false,
+          "damage":"",
+          "color":"rgb(115, 105, 160)",
+          "label":"Crysplosive"
+        }
+      },
+      "weilded":false,
+      "prefix":{
+        "name":"",
+        "effects":""
+      },
+      "type":{
+        "value":"heavy",
+        "name":"Rocket Launcher"
+      },
+      "accuracy":{
+        "low":{
+          "hits":1,
+          "crits":0
+        },
+        "mid":{
+          "hits":1,
+          "crits":0
+        },
+        "high":{
+          "hits":1,
+          "crits":2
+        }
+      },
+      "damage":"",
+      "range":4,
+      "bonusCritDmg":0,
+      "statMods":{
+        "acc":0,
+        "dmg":0,
+        "spd":3,
+        "mst":2
+      },
+      "hitBonus":0,
+      "isSplash":false,
+      "overheat":"",
+      "bonus":"",
+      "guildBonus":"+3 SPD Mod, +2 MST Mod, Charge Up: The first shot after a reload deals half damage."
+    },
+    "_stats":{
+      "systemId":"bunkers-and-badasses",
+      "systemVersion":"0.3.2",
+      "coreVersion":"10.288",
+      "createdTime":1662619972062,
+      "modifiedTime":1667247997856,
+      "lastModifiedBy":"m6dA1WszdkO1t2Az"
+    },
+    "folder":null,
+    "_id":"VwVXg9Y61TLt6Cvt",
+    "_key":"!items!VwVXg9Y61TLt6Cvt"
+  }

@@ -5,6 +5,7 @@ export class Dropdown {
       case 'body': return 'item-dropdown-body';
       case 'group': return 'item-dropdown-group';
       case 'clickable': return 'item-dropdown-click-component';
+      case 'hr': return 'item-dropdown-hr';
 
       default: return 'MISSING-DROPDOWN-PARAM';
     };
@@ -31,11 +32,12 @@ export class Dropdown {
     }
   }
   static getBodyTemplateLocation(itemType) {
-    switch (itemType) {
-      case 'Action Skill':
-        return 'systems/bunkers-and-badasses/templates/general/dropdown/item-bodies/action-skill-dropdown-details.html';
-      case 'Archetype Feat':
-      case 'skill':
+    switch (itemType) { //grenade, shield, gun
+      case 'gun':
+        return 'systems/bunkers-and-badasses/templates/general/dropdown/gun-dropdown-details.html';
+      case 'shield':
+      case 'grenade':
+        return 'systems/bunkers-and-badasses/templates/general/dropdown/mod-dropdown-details.html';
       default:
         return 'systems/bunkers-and-badasses/templates/general/dropdown/dropdown-details.html';
     }
@@ -73,13 +75,8 @@ export class Dropdown {
     }
 
     // Get the html template, create the data block, then put it together.
-    const templateLocation = this.getBodyTemplateLocation(data.type);
-    const enrichedData = {
-      ...data,
-      type: data.type,
-      description: await TextEditor.enrichHTML(data.description, {async: true})
-    };
-    const dialogHtmlContent = await renderTemplate(templateLocation, { data: enrichedData});
+    const templateLocation = this.getBodyTemplateLocation(data.item.type);
+    const dialogHtmlContent = await renderTemplate(templateLocation, data);
 
     // Return the fully formed html.
     return dialogHtmlContent;

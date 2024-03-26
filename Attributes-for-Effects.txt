@@ -56,6 +56,7 @@
   system.bonus.combat.grenades.dmg
   system.bonus.combat.grenades.critdmg
 
+  /* THE VALUES BELOW THIS LINE ARE NOT WORKING */
   // The following bonuses will not be seen in gun sheets, but will show up in other places (character sheet, gun attack chat card)
   system.bonus.combat.hits.all // All results 2+.
   system.bonus.combat.crits.all // All results 2+.

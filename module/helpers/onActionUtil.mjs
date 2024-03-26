@@ -1,3 +1,6 @@
+import { ConfirmActionPrompt } from "./roll-and-post/confirmActionPrompt.mjs";
+import { PostToChat } from "./roll-and-post/postToChat.mjs";
+
 export class OnActionUtil {
   /**
    * Handle creating a new Owned Item for the actor using initial data defined in the HTML dataset
@@ -46,12 +49,10 @@ export class OnActionUtil {
     item.sheet.render(true);
   }
 
-  static onItemDelete(event, actor, render) {
-    event.stopPropagation();
-    const li = $(event.currentTarget).parents(".item-element-group");
-    const item = actor.items.get(li.data("itemId"));
+  static onItemDelete(html, options) {
+    const { actor, item, li, inRender } = options;
     item.delete();
-    li.slideUp(200, () => render(false));
+    //li.slideUp(200, () => inRender(false));
   }
 
   static onItemCheckbox(event, actor) {
@@ -78,34 +79,20 @@ export class OnActionUtil {
       return actor.update({[`${target}`] : !getProperty(actor, target)});
   }
 
-  static async onActionSkillUse(event, actor) {
-    // Prep data
-    const itemId = event.currentTarget.closest('.action-skill-use').dataset.itemId;
-    const item = actor.items.get(itemId);
-
-    if (!item) { return; }
-
-    // Prep chat values.
-    const templateLocation = `systems/bunkers-and-badasses/templates/chat/info/action-skill-info.html`;
-    const renderTemplateConfig = {
-      actorId: actor.id,
-      description: item.system.description,
-      item: item
-    };
-    const content = await renderTemplate(templateLocation, renderTemplateConfig);
-    const flavorText = `${actor.name} uses <b>${item.name}</b>.`;
-    const messageData = {
-      user: game.user.id,
-      speaker: ChatMessage.getSpeaker({ actor: actor }),
-      flavor: flavorText,
-      type: CONST.CHAT_MESSAGE_TYPES.IC,
-      // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
-      speaker: ChatMessage.getSpeaker(),
-      content: content,
+  static async onActionSkillUse(options) {
+    const { actor, item, html } = options;
+    const freeActivation = (html.find("#free-activation")[0].checked);
+    
+    if (!freeActivation) {
+      let newUses = actor.system.class.actionSkill.uses.value - 1;
+      if (newUses < 0) { 
+        ui.notifications.warn(`You don't have enough remaining Action Skill uses to activate ${item.name}!`);
+        return;
+      }
+      await actor.update({'system.class.actionSkill.uses.value': newUses});
     }
 
-    // Send the roll to chat!
-    return ChatMessage.create(messageData);
+    return await PostToChat.useActionSkill({ actor: actor, item: item });
   }
 
   static async onArchetypeRewardCollapseToggle(event, actor) {
@@ -118,23 +105,13 @@ export class OnActionUtil {
     return await actor.update({[attributeLabel]: !archetype.rewardsAreCollapsed});
   }
 
-  static async onSkillTierCollapseToggle(event, actor) {
+  static async onCategoryCollapseToggle(event, actor) {
     // Prep data
-    const skillTier = event.currentTarget.dataset.skillTier;
-    const collapsed = actor.system.class.skillsAreCollapsed['Tier'+skillTier];
+    const collapseCategory = event.currentTarget.dataset.collapseCategoryType;
+    const collapsed = actor.system.isCollapsed[collapseCategory];
 
     // Square brackets needed to get the right value.
-    const attributeLabel = `system.class.skillsAreCollapsed.${'Tier'+skillTier}`;
-    return await actor.update({[attributeLabel]: !collapsed});
-  }
-
-  static async onLootCategoryCollapseToggle(event, actor) {
-    // Prep data
-    const lootCategory = event.currentTarget.dataset.lootCategoryType;
-    const collapsed = actor.system.isCollapsed[lootCategory];
-
-    // Square brackets needed to get the right value.
-    const attributeLabel = `system.isCollapsed.${lootCategory}`;
+    const attributeLabel = `system.isCollapsed.${collapseCategory}`;
     return await actor.update({[attributeLabel]: !collapsed});
   }
 

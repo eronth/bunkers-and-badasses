@@ -1,0 +1,187 @@
+{
+    "name":"All-Purpose Snotgun",
+    "type":"gun",
+    "img":"icons/svg/bones.svg",
+    "system":{
+      "description":"",
+      "effect":"If range is 3 or less, +2 Damage. If Range 3+: +3 Accuracy.",
+      "level":1,
+      "special":{
+        "overrideType":"snotgun"
+      },
+      "isLoot":true,
+      "quantity":1,
+      "cost":300,
+      "guild":"Corraza",
+      "rarity":{
+        "name":"Legendary",
+        "value":"legendary",
+        "colorValue":"#ffa500"
+      },
+      "carried":true,
+      "equipped":false,
+      "redText":"Designated Marksman Shotgun",
+      "redTextEffect":"<p>Roll for element as normal. This weapon qualifies as a shotgun AND a sniper.</p>",
+      "redTextEffectBM":"<p>An Accuracy roll of 1 causes this weapon to gum up so bad that it takes&nbsp;<em><strong>two whole reloads</strong></em> to fix it. Enjoy the bonus Mayhem generation, DM!</p>",
+      "elements":{
+        "kinetic":{
+          "enabled":true,
+          "damage":"2d4+1",
+          "color":"rgb(76, 76, 76)",
+          "label":"Kinetic"
+        },
+        "incendiary":{
+          "enabled":false,
+          "damage":"",
+          "color":"rgb(213, 59, 49)",
+          "label":"Incendiary"
+        },
+        "shock":{
+          "enabled":false,
+          "damage":"",
+          "color":"rgb(113, 148, 205)",
+          "label":"Shock"
+        },
+        "corrosive":{
+          "enabled":false,
+          "damage":"",
+          "color":"rgb(141, 157, 62)",
+          "label":"Corrosive"
+        },
+        "explosive":{
+          "enabled":false,
+          "damage":"",
+          "color":"rgb(234, 70, 134)",
+          "label":"Explosive"
+        },
+        "radiation":{
+          "enabled":false,
+          "damage":"",
+          "color":"rgb(228, 170, 22)",
+          "label":"Radiation"
+        },
+        "cryo":{
+          "enabled":false,
+          "damage":"",
+          "color":"rgb(18, 152, 185)",
+          "label":"Cryo"
+        },
+        "incendiation":{
+          "enabled":false,
+          "damage":"",
+          "color":"rgb(167, 78, 101)",
+          "label":"Incendiation"
+        },
+        "corroshock":{
+          "enabled":false,
+          "damage":"",
+          "color":"rgb(73, 125, 135)",
+          "label":"Corroshock"
+        },
+        "crysplosive":{
+          "enabled":false,
+          "damage":"",
+          "color":"rgb(115, 105, 160)",
+          "label":"Crysplosive"
+        }
+      },
+      "weilded":false,
+      "prefix":{
+        "name":"",
+        "effects":""
+      },
+      "type":{
+        "value":"sniper",
+        "name":"Sniper Rifle"
+      },
+      "accuracy":{
+        "low":{
+          "hits":1,
+          "crits":0
+        },
+        "mid":{
+          "hits":1,
+          "crits":1
+        },
+        "high":{
+          "hits":2,
+          "crits":2
+        }
+      },
+      "bonusElements":{
+        "kinetic":{
+          "enabled":false,
+          "damage":""
+        },
+        "incendiary":{
+          "enabled":false,
+          "damage":""
+        },
+        "shock":{
+          "enabled":false,
+          "damage":""
+        },
+        "corrosive":{
+          "enabled":false,
+          "damage":""
+        },
+        "explosive":{
+          "enabled":false,
+          "damage":""
+        },
+        "radiation":{
+          "enabled":false,
+          "damage":""
+        },
+        "cryo":{
+          "enabled":false,
+          "damage":""
+        },
+        "incendiation":{
+          "enabled":false,
+          "damage":""
+        },
+        "corroshock":{
+          "enabled":false,
+          "damage":""
+        },
+        "crysplosive":{
+          "enabled":false,
+          "damage":""
+        }
+      },
+      "range":8,
+      "bonusCritDmg":0,
+      "statMods":{
+        "acc":0,
+        "dmg":0,
+        "spd":3,
+        "mst":2
+      },
+      "hitBonus":0,
+      "isSplash":false,
+      "overheat":"",
+      "bonus":"",
+      "damage":"",
+      "guildBonus":"+3 SPD Mod, +2 MST Mod, Charge Up: The first shot after a reload deals half damage."
+    },
+    "effects":[
+      
+    ],
+    "flags":{
+      "core":{
+        "sourceId":"Item.DnTQFLqGqJLqkykL"
+      }
+    },
+    "_stats":{
+      "systemId":"bunkers-and-badasses",
+      "systemVersion":"0.3.2",
+      "coreVersion":"10.288",
+      "createdTime":1662672529615,
+      "modifiedTime":1667541488006,
+      "lastModifiedBy":"m6dA1WszdkO1t2Az"
+    },
+    "folder":null,
+    "_id":"gw395j2zghLyvPzn",
+    "_key":"!items!gw395j2zghLyvPzn"
+  }

@@ -3,16 +3,29 @@
 
     <div class="flexcol flex-size-3 flex-group-center modifiers">
       <div class="flexrow check-dialog-header">
-        <label>Roll Bonuses</label>
+        <label>{{bonusesTitle}}</label>
       </div>
       <div class="flexrow check-dialog-body">
+        {{^if showFavored}}
         <div class="flexcol">
-          <input id="mod" class="" value="{{check.value}}"
-          type="number" data-dtype="Number"
-          disabled />
-          <label for="mod">{{check.stat}} {{#if isBadass}}stat{{else}}mod{{/if}}</label>
+          {{#if isBadass}}
+          <input id="mod" title="Badass!" class="badass" value="{{check.value}}" type="number" data-dtype="Number" disabled />
+          {{else}}
+          <input id="mod" class="" value="{{check.value}}" type="number" data-dtype="Number" disabled />
+          {{/if}}
+          <label for="mod">{{check.stat}} {{#if isBadass}}<span title="Badass!" class="badass">stat</span>{{else}}mod{{/if}}</label>
         </div>
         <label class="math-sign">+</label>
+        {{/if}}
+        {{#if check.gear}}
+        <div class="flexcol">
+          <input id="gear" class="" value="{{check.gear}}"
+          type="number" data-dtype="Number"
+          disabled />
+          <label for="gear">gear</label>
+        </div>
+        <label class="math-sign">+</label>
+        {{/if}}
         <div class="flexcol">
           <input id="misc" class="" value="{{check.misc}}"
           type="number" data-dtype="Number"
@@ -21,21 +34,22 @@
         </div>
         <label class="math-sign">+</label>
         <div class="flexcol">
-          <input id="misc" class="" value="{{check.effects}}"
+          <input id="effects" class="" value="{{check.effects}}"
           type="number" data-dtype="Number"
           disabled />
-          <label for="misc">effects</label>
+          <label for="effects">effects</label>
         </div>
         <label class="math-sign">+</label>
         <div class="flexcol">
           <input id="extra" class="" value=""
-          type="number" data-dtype="Number" />
+          type="text" data-dtype="String" />
           <label for="extra">extra</label>
         </div>
       </div>
     </div>
 
-    <div class="flexcol flex-group-center difficulty">
+    <div class="flexcol flex-group-center difficulty" 
+    {{^if showDifficulty}}hidden="hidden" style="display:none;"{{/if}} >
       <div class="flexrow check-dialog-header">
         <label for="difficulty">Difficulty</label>
       </div>

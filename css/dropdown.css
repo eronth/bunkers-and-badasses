@@ -84,12 +84,142 @@ a#submit { z-index: 1; }
 
 .item-dropdown-group {
   margin-top: -1px;
-  border: 1px rgb(122, 121, 113) solid;
 }
 .item-dropdown-group .item-dropdown-header {
   padding: 1px 5px;
 }
 .item-dropdown-group .item-dropdown-body {
-  border-top: 1px rgb(193, 192, 184) solid;
   padding: 2px 5px;
+  width: 100%;
+}
+
+.item-dropdown-group .item-dropdown-body .health-protection-details {
+  font-size: 16px;
+}
+.item-dropdown-group .item-dropdown-body .health-protection-details .recovery-rate{
+  font-size: small;
+}
+.item-dropdown-group .item-dropdown-body .level-and-guild {
+  text-align: right;
+}
+.item-dropdown-group .item-dropdown-body .item-cost {
+  text-align: right;
+  margin-right: 4px;
+}
+
+.item-dropdown-group.no-rarity {
+  border: 1px rgb(122, 121, 113) solid;
+}
+.item-dropdown-group .item-dropdown-body.no-rarity {
+  border-top: 1px rgb(193, 192, 184) solid;
+}
+
+.bnb .items-list .item-dropdown-group .item-dropdown-body .red-text {
+  margin-top: 2px;
+  color: darkred;
+  font-weight: bold;
+  font-style: italic;
+  text-align: center;
+}
+.bnb .items-list .item-dropdown-group .item-dropdown-body .red-text-notes {
+  padding-bottom: 5px;
+}
+
+.bnb .items-list .item-dropdown-group .item-dropdown-body .icons-container {
+  margin-top: -24px;
+}
+.bnb .items-list .item-dropdown-group .item-dropdown-body .gun-icon {
+  border: 0;
+}
+
+.bnb .items-list .item-dropdown-group .item-dropdown-body .hits-and-crits-container .hits-icon {
+  border: 0;
+}
+.bnb .items-list .item-dropdown-group .item-dropdown-body .hits-and-crits-container .crits-icon {
+  border: 0;
+}
+
+.bnb .items-list .item-dropdown-group .item-dropdown-body .hits-and-crits-container .crit-hit.title {
+  align-self: center;
+  text-align: center;
+  z-index: 5;
+}
+.bnb .items-list .item-dropdown-group .item-dropdown-body .hits-and-crits-container .crit-hit-acc.title {
+  text-align: left;
+  text-align-last: left;
+}
+.bnb .items-list .item-dropdown-group .item-dropdown-body .hits-and-crits-container .crit-hit-acc.detail {
+  font-size: smaller;
+}
+
+.bnb .items-list .item-dropdown-group .item-dropdown-body .hits-and-crits-container .crit-hit.hit.detail {
+  text-align: center;
+  color: var(--hits);
+}
+.bnb .items-list .item-dropdown-group .item-dropdown-body .hits-and-crits-container .crit-hit.crit.detail {
+  text-align: center;
+  color: var(--crits);
+}
+
+.bnb .items-list .item-dropdown-group .item-dropdown-body .hits-and-crits-container {
+  margin-left: 5px;
+  margin-right: 8px;
+  border: 1px solid darkgrey;
+  border-radius: 7px;
+  padding: 3px;
+  padding-left: 4px;
+  font-size: 16px;
+}
+
+
+
+.bnb .items-list .item-dropdown-group .item-dropdown-body .hits-and-crits-container .crit-hit.hit.title,
+.bnb .items-list .item-dropdown-group .item-dropdown-body .hits-and-crits-container .crit-hit.crit.title {
+  position: relative; /* Establish a stacking context */
+  z-index: 3; /* Bring the text to the foreground */
+  font-size: 10px;
+  color: white;
+}
+
+.bnb .items-list .item-dropdown-group .item-dropdown-body .hits-and-crits-container .crit-hit-label-icon {
+  position: relative;
+  text-align: center;
+}
+
+.bnb .items-list .item-dropdown-group .item-dropdown-body .hits-and-crits-container .hits-icon,
+.bnb .items-list .item-dropdown-group .item-dropdown-body .hits-and-crits-container .crits-icon {
+  --side-length: 31px;
+  position: absolute;
+  top: -4px;
+  left: calc(50% - var(--side-length) / 2);
+  width: var(--side-length);
+  height: var(--side-length);
+  z-index: 1; 
+}
+.bnb .items-list .item-dropdown-group .item-dropdown-body .hits-and-crits-container .crit-hit-top-row {
+  margin-top: 6px;
+}
+
+.bnb .items-list .item-dropdown-group .item-dropdown-body .gun-detail-descriptions label.header {
+  font-size: 16px;
+}
+
+.bnb .items-list .item-dropdown-group .item-dropdown-body .gun-detail-descriptions {
+  display: flex;
+  flex-wrap: wrap;
+}
+.bnb .items-list .item-dropdown-group .item-dropdown-body .gun-detail-descriptions > div.various-gun-info {
+  flex: 1 1 auto;
+  align-self: start;
+}
+.bnb .items-list .item-dropdown-group .item-dropdown-body .gun-damage-container {
+  margin-bottom: 5px;
+}
+.bnb .items-list .item-dropdown-group .item-dropdown-body .stat-mod-container {
+  margin-top: 10px;
+  font-weight: bold;
+  text-align: center;
+}
+.bnb .items-list .item-dropdown-group .item-dropdown-body .gun-damage-container .damage-container {
+  margin-left: 7px;
 }

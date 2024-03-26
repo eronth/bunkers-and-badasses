@@ -1,0 +1,13 @@
+<div class="flexcol">
+  <div class="flexrow">
+    <label class="loot-element-damage">
+      {{{item.system.dmgHtml}}}
+    </label>
+    <div class="level-and-guild"><b>Level</b> {{item.system.level}} <b>{{item.system.guild}}</b></div>
+  </div>
+  <div>
+    <label class="grenade-effects">
+      <div>{{#if item.system.effect}}<b>Effect:</b>{{/if}} {{{item.system.effect}}}</div>
+    </label>
+  </div>
+</div>

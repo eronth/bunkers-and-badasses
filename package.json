@@ -1,7 +1,8 @@
 {
   "name": "bunkers-and-badasses",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "CSS compiler for the Bunkers & Badasses system",
+  "type": "module",
   "scripts": {
     "build": "gulp build",
     "compile": "gulp css",
@@ -16,5 +17,8 @@
   "private": true,
   "dependencies": {
     "rpg-awesome": "^0.2.0"
+  },
+  "devDependencies": {
+    "@foundryvtt/foundryvtt-cli": "^1.0.2"
   }
 }

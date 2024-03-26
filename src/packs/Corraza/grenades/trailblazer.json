@@ -1,0 +1,99 @@
+{
+  "name": "Trailblazer",
+  "type": "grenade",
+  "system": {
+    "description": "",
+    "effect": "Targets hit by a trailblazer grenade leave behind a trail of elemental puddle for 3 turns. You can choose to detonate this grenade on yourself for 0 damage, but still gain the elemental puddle trail effect.",
+    "level": 13,
+    "special": {
+      "overrideType": ""
+    },
+    "isLoot": true,
+    "quantity": 1,
+    "cost": 80,
+    "guild": "Corraza",
+    "rarity": {
+      "name": "Rare",
+      "value": "rare",
+      "colorValue": "#00a0ff"
+    },
+    "carried": true,
+    "equipped": false,
+    "redText": "",
+    "redTextEffect": "<p>When this gun is generated, randomly select between <strong><span class=\"incendiary-text\">Incendiary</span></strong> <strong><span class=\"shock-text\">Shock</span></strong>, or <strong><span class=\"radiation-text\">Radiation</span></strong> damage. This weapon deals the chosen type of damage instead of the default.</p>",
+    "redTextEffectBM": "",
+    "elements": {
+      "kinetic": {
+        "enabled": true,
+        "damage": "3d8"
+      },
+      "incendiary": {
+        "enabled": false,
+        "damage": ""
+      },
+      "shock": {
+        "enabled": false,
+        "damage": ""
+      },
+      "corrosive": {
+        "enabled": false,
+        "damage": ""
+      },
+      "explosive": {
+        "enabled": false,
+        "damage": ""
+      },
+      "radiation": {
+        "enabled": false,
+        "damage": ""
+      },
+      "cryo": {
+        "enabled": false,
+        "damage": ""
+      },
+      "incendiation": {
+        "enabled": false,
+        "damage": ""
+      },
+      "corroshock": {
+        "enabled": false,
+        "damage": ""
+      },
+      "crysplosive": {
+        "enabled": false,
+        "damage": ""
+      }
+    },
+    "damage": "",
+    "gainHealth": false,
+    "gainShield": false,
+    "gainArmor": false,
+    "gainBone": false,
+    "gainEridian": false,
+    "detonations": 1,
+    "dtype": "grenade",
+    "tier": ""
+  },
+  "img": "icons/magic/fire/projectile-fireball-embers-yellow.webp",
+  "effects": [],
+  "folder": null,
+  "flags": {
+    "core": {},
+    "exportSource": {
+      "world": "bb-test",
+      "system": "bunkers-and-badasses",
+      "coreVersion": "11.315",
+      "systemVersion": "0.4.6"
+    }
+  },
+  "_stats": {
+    "systemId": "bunkers-and-badasses",
+    "systemVersion": "0.4.6",
+    "coreVersion": "11.315",
+    "createdTime": 1708502203254,
+    "modifiedTime": 1708762087453,
+    "lastModifiedBy": "4Pgui3qnrwyaXRsc"
+  },
+  "_id":"ZoZRPKV1ccRRgIot",
+  "_key":"!items!ZoZRPKV1ccRRgIot"
+}

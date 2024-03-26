@@ -6,7 +6,7 @@
     "configurations": [
         {
             "name": "Launch Chrome against localhost",
-            "type": "pwa-chrome",
+            "type": "chrome",
             "request": "launch",
             "url": "http://localhost:30000",
             "webRoot": "${workspaceFolder}"
@@ -17,7 +17,7 @@
             "args": [ "--world=testWorld" ],
             "request": "launch",
             "skipFiles": [ "<node_internals>/**" ],
-            "type": "pwa-node",
+            "type": "node",
             "outputCapture": "std",
             "preLaunchTask": "${defaultBuildTask}",
             "serverReadyAction": {
@@ -33,7 +33,7 @@
             ],
             "cwd": "${env:ProgramFiles}/Foundry Virtual Tabletop/resources/app",
             "preLaunchTask": "${defaultBuildTask}",
-            "type": "pwa-node",
+            "type": "node",
             "request": "launch",
             "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron",
             "windows": {
@@ -62,7 +62,7 @@
             "presentation": {
                 "hidden": true,
             },
-            "type": "pwa-chrome",
+            "type": "chrome",
             "request": "attach",
             "port": 9223,
             "webRoot": "${env:ProgramFiles}/Foundry Virtual Tabletop/resources/app/public",

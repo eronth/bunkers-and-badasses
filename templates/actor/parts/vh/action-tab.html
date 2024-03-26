@@ -3,7 +3,7 @@
   <div class="flexrow">
     <div class="flex-size-5 flexcol">
       {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/action-components/checks-block.html" }}
-    </div>    
+    </div>
   </div>
   
   {{!-- HP/Attack/Action Skill --}}
@@ -27,7 +27,13 @@
         <div class="flexrow badass-entity-container">
           <button class="btn btn-primary btn-badass-roll rollable" data-roll-type="badass-move"><i class="fa fa-dice-d20"></i> Badass Roll</button>
           <div class="flexcol badass-check">
-            <label>Badass?</label>
+            <label>
+              {{#if system.attributes.badass.rollsEnabled}}
+              <span title="Badass!" class="badass">Badass!</span>
+              {{else}}
+              Badass?
+              {{/if}}
+            </label>
             <a class="checkbox" title="Become Badass?" data-target="system.attributes.badass.rollsEnabled" data-item-target="system.equipped">
               {{#if system.attributes.badass.rollsEnabled}}<i class="far fa-check-square"></i>{{else}}<i class="far fa-square"></i></a>{{/if}}
             </a>
@@ -68,12 +74,12 @@
         }}
         {{/each}}
         <div class="flexrow damage-buttons">
-          <button class="btn btn-primary take-damage">Take Damage</button>
+          <button class="btn btn-primary take-damage"><i class="fa-solid fa-burst"></i> Take Damage</button>
         </div>
       </div>
     </div>
     {{!-- Attack region --}}
-    <div class="flexcol">
+    <div class="flexcol" style="max-width: 50%">
       
       {{!-- Attack Region --}}
       <div class="flexrow attack-as-shared-container">
@@ -120,144 +126,7 @@
             
         </div>
       </div>
-      <div class="flex-size-2 attacks-container">
-        {{!-- Melee Attack --}}
-        <li class="item item-element-group loot-rarity-fade-border flexrow rollable" 
-          style="--rarityColor: darkred"
-          data-roll-type="melee-attack">
-          <div class="item-details attack-block item-attack-roll">
-            <div class="item-controls">
-              <a class="item-control item-attack" title="Roll Attack"><i class="fa fa-dice-d20"></i></a>
-            </div>
-            <div class="flexcol item-effec-stack-container">
-              <div class="item-effect flexrow item-prop-stack attack-details-line">
-                <h4 class="attack-header">Melee Attack</h4>
-                <label>
-                  <div>{{#if system.effect}}<b>Effect</b>:{{/if}} {{system.effect}}</div>
-                </label>
-              </div>
-              <div class="item-effect flexrow item-prop-stack attack-details-line damage-row">
-                <label><i>Shwing!</i></label>
-                <label class="flex-size-2">
-                  <label class="kinetic-text">{{system.class.meleeDice}}&nbsp;</label>
-                  <label class="element-damage-damage">Damage</label>
-                </label>
-                <label class="gun-detail-header"><b>Range:</b>&nbsp;Adjacent</label>
-              </div>
-            </div>
-          </div>
-        </li>
-        {{!- Gun Attack --}}
-        {{#each equippedGuns as |item id|}}
-        <li class="item item-element-group loot-rarity-fade-border flexrow rollable" 
-          style="--rarityColor: {{item.system.rarity.colorValue}}"
-          data-item-id="{{item._id}}" data-roll-type="gun-attack">
-          <div class="item-details attack-block item-attack-roll">
-            <div class="item-controls">
-              <a class="item-control item-attack" title="Roll Attack"><i class="fa fa-dice-d20"></i></a>
-            </div>
-            <div class="flexcol item-effec-stack-container">
-              <div class="item-effect flexrow item-prop-stack attack-details-line gun-header-line">
-                <h4 class="attack-header">{{system.prefix.name}} {{item.name}}</h4>
-                <label>
-                  <img id="hits" alt="Hits" class="gun-icon" 
-                    src="systems/bunkers-and-badasses/assets/weapons/{{system.type.value}}.webp" />
-                  {{shortName system.type.name}}
-                </label>
-              </div>
-              <div class="item-effect item-prop-stack">
-                <div class="flexrow gun-row hits-and-crits">
-                  <div class="flexcol flex-size-2">
-                    <div class="flexrow">
-                      <label class="gun-row-hits">
-                        <img id="hits" alt="Hits" class="critshits-icon" src="systems/bunkers-and-badasses/assets/weapons/hits.png" />
-                        {{adder system.accuracy.low.hits ../system.bonus.combat.hits.low ../system.bonus.combat.hits.all}}
-                        {{adder system.accuracy.mid.hits ../system.bonus.combat.hits.mid ../system.bonus.combat.hits.all}}
-                        {{adder system.accuracy.high.hits ../system.bonus.combat.hits.high ../system.bonus.combat.hits.all}}
-                      </label>
-                    </div>
-                    <div class="flexrow">
-                      <label class="gun-row-crits">
-                        <img id="crits" alt="Crits" class="critshits-icon" src="systems/bunkers-and-badasses/assets/weapons/crits.png" />
-                        {{adder system.accuracy.low.crits ../system.bonus.combat.crits.low ../system.bonus.combat.crits.all}}
-                        {{adder system.accuracy.mid.crits ../system.bonus.combat.crits.mid ../system.bonus.combat.crits.all}}
-                        {{adder system.accuracy.high.crits ../system.bonus.combat.crits.high ../system.bonus.combat.crits.all}}
-                      </label>
-                    </div>
-                  </div>
-                  <div class="flexrow flex-size-6 post-crithit-details">
-                    <div class="flexcol">
-                      <label class="action-tab-damage">{{{system.dmgPerHitHtml}}}</label>
-                      <label class="action-tab-damage">{{{system.bonusDamageHtml}}}</label>
-                    </div>
-                  </div>
-                  <div class="flexrow flex-size-3 post-crithit-details">
-                    <div class="flexcol">
-                      <div class="flexrow">
-                        <label class="flex-size-3">In Hand?</label>
-                        <a class="checkbox" title="In hand?" data-target="item" data-item-target="system.inHand">
-                          {{#if item.system.inHand}}<i class="far fa-check-square"></i>{{else}}<i class="far fa-square"></i>{{/if}}
-                        </a>
-                      </div>
-                      <div class="flexrow">
-                        <label class="gun-detail-header">Range:</label>
-                        <label>{{system.range}} sq</label>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </li>
-        {{/each}}
-        {{!-- Grenade Attack --}}
-        {{#each equippedGrenades as |item id|}}
-        <li class="item item-element-group loot-rarity-fade-border flexrow rollable" 
-          style="--rarityColor: {{item.system.rarity.colorValue}}"
-          data-item-id="{{item._id}}" data-roll-type="grenade-throw" data-check-type="Throw" data-roll-mod="acc" data-roll-type="throw">
-          <div class="item-details attack-block item-attack-roll">
-            <div class="item-controls">
-              <a class="item-control item-attack" title="Roll Attack"><i class="fa fa-dice-d20"></i></a>
-            </div>
-            <div class="flexcol item-effec-stack-container">
-              <div class="item-effect flexrow item-prop-stack attack-details-line">
-                <h4 class="attack-header">{{item.name}}</h4>
-                <label>
-                  <div>{{#if system.effect}}<b>Effect</b>:{{/if}} {{system.effect}}</div>
-                </label>
-              </div>
-              <div class="item-effect flexrow item-prop-stack attack-details-line damage-row">
-                <label>Count: {{../system.attributes.grenades.value}} / {{../system.attributes.grenades.max}}</label>
-                <label class="flex-size-2 action-tab-damage">{{{system.dmgHtml}}}</label>
-                <label class="gun-detail-header"><b>Free Range:</b>&nbsp;{{../system.stats.dmg.modToUse}}</label>
-              </div>
-            </div>
-          </div>
-        </li>
-        {{/each}}
-        {{!-- Throw Action --}}
-        <li class="item item-element-group loot-rarity-fade-border flexrow rollable" style="--rarityColor: darkred"
-          data-roll-type="item-throw" data-check-type="Throw" data-roll-mod="acc" data-roll-type="throw">
-          <div class="item-details attack-block item-attack-roll">
-            <div class="item-controls">
-              <a class="item-control item-attack" title="Roll Attack"><i class="fa fa-dice-d20"></i></a>
-            </div>
-            <div class="flexcol item-effec-stack-container">
-              <div class="item-effect flexrow item-prop-stack attack-details-line">
-                <h4 class="attack-header">Throw Item</h4>
-                <label>Throw an item to or at a target.</label>
-              </div>
-              <div class="item-effect flexrow item-prop-stack attack-details-line damage-row">
-                <label><!--Placeholder--></label>
-                <label class="flex-size-2"><!--Placeholder--></label>
-                <label class="gun-detail-header"><b>Free Range:</b>&nbsp;{{system.stats.dmg.modToUse}}</label>
-              </div>
-            </div>
-          </div>
-        </li>
-      </div>
+      {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/action-components/attacks-block-component.html" }}
     </div>
   </div>
 

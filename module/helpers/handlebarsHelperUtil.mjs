@@ -1,4 +1,5 @@
 import { Dropdown } from "./dropdown.mjs";
+import { ItemList } from "./itemList.mjs";
 
 export class HandlebarsHelperUtil {
   static prepareHandlebarsHelpers() {
@@ -45,12 +46,6 @@ export class HandlebarsHelperUtil {
       return values.slice(0, values.length - 1);
     });
 
-    Handlebars.registerHelper('skillTierIsCollapsed', (skillsAreCollapsed, skillTier) => 
-      (skillsAreCollapsed
-      ? (skillsAreCollapsed['Tier' + skillTier] ?? false)
-      : false)
-    );
-
     Handlebars.registerHelper('lootCategoryIsCollapsed', (isCollapsed, category) =>
       (isCollapsed
       ? (isCollapsed[category] ?? false)
@@ -67,35 +62,35 @@ export class HandlebarsHelperUtil {
       return str.charAt(0).toUpperCase() + str.slice(1);
     });
 
-    Handlebars.registerHelper('hpToRecoveryTitle', function(str, doCapitalize) {
-      if (str === "flesh")
-        str = "regen";
-      else if (str === "shield")
-        str = "recharge";
-      else if (str === "armor")
-        str = "repair";
-      else if (str === "bone")
-        str = "regrow";
-      else if (str === "eridian")
-        str = "reinvigorate";
+    Handlebars.registerHelper('hpToRecoveryTitle', function(str) {
+      let recoveryTitle = str;
+      
+      const textToCheck = str.toLowerCase();
+      if (textToCheck === 'flesh' || textToCheck === 'health')
+        recoveryTitle = 'regen';
+      else if (textToCheck === 'shield')
+        recoveryTitle = 'recharge';
+      else if (textToCheck === 'armor')
+        recoveryTitle = 'repair';
+      else if (textToCheck === 'bone')
+        recoveryTitle = 'regrow';
+      else if (textToCheck === 'eridian')
+        recoveryTitle = 'reinvigorate';
 
-      if (doCapitalize)
-        return str.charAt(0).toUpperCase() + str.slice(1);
-      else
-        return str;
+        return recoveryTitle;
     });
 
     Handlebars.registerHelper('getBestHealthShade', function(str) {
       if (str === "flesh")
-        str = "light";
+        str = "dark";
       else if (str === "shield")
-        str = "light";
+        str = "dark";
       else if (str === "armor")
-        str = "light";
+        str = "dark";
       else if (str === "bone")
         str = "dark";
       else if (str === "eridian")
-        str = "light";
+        str = "dark";
       return str;
     });
 
@@ -113,6 +108,16 @@ export class HandlebarsHelperUtil {
         return str;
     });
 
+    Handlebars.registerHelper('addPlusIfPositive', (value) => {
+        return (value >= 0) ? `+${value}` : value;
+      }
+    );
+
+    Handlebars.registerHelper('listIsEmpty', (list) => {
+        return (list == null || list.length == 0);
+      }
+    );
+
     // Dropdown related helpers.
     Handlebars.registerHelper('dropdownComponentClass', ((componentType) => 
       Dropdown.getComponentClass(componentType)));
@@ -122,5 +127,8 @@ export class HandlebarsHelperUtil {
 
     Handlebars.registerHelper('dropdownHeaderLocation', ((itemType) =>
       Dropdown.getHeaderTemplateLocation(itemType)));
+
+    Handlebars.registerHelper('itemDetailsBlockTemplateLocation', ((detailsTemplateType) =>
+      ItemList.getItemDetailsBlockTemplateLocation(detailsTemplateType)));
   }
 }

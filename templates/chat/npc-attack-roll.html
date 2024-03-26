@@ -1,13 +1,36 @@
 <div class="chat-roll-result"
-data-actor-id="{{actorId}}" >
-  <div>{{diceRoll}}</div>
-  <div>Result: {{result}} = {{total}}</div>
+  data-actor-id="{{actorId}}">
+  <div class="dice-roll">
+    <div class="flexcol badass-results-container">
+      <label class="result-header">{{checkType}}</label>
+      {{#if difficulty}}<label class="result-header difficulty">(Difficulty {{difficulty}})</label>{{/if}}
+      <br />
+    </div>
+    <div class="dice-result">
+      <div class="dice-formula">{{overallRollFormula}}</div>
+      <div class="dice-tooltip">
+        {{#each parts as |part|}}
+        <section class="tooltip-part">
+          <div class="dice">
+            <header class="part-header flexrow">
+              <span class="part-formula">{{part.formula}}</span>
+              <span class="part-flavor">{{part.flavor}}</span>
+              <span class="part-total">{{part.total}}</span>
+            </header>
+            <ol class="dice-rolls">
+              {{#each rolls as |roll|}}
+              <li class="roll {{roll.classes}}">{{roll.result}}</li>
+              {{/each}}
+            </ol>
+          </div>
+        </section>
+        {{/each}}
+      </div>
+      <h4 class="dice-total">{{total}}</h4>
+    </div>
+  </div>
   {{#if success}}
-    {{#if isCrit}}
-      <div class="success-text">Crit Hit!</div>
-    {{else}}
-      <div class="success-text">Hit!</div>
-    {{/if}}
+  <div class="success-text">{{#if isCrit}}Crit{{/if}} Hit!</div>
   <div class="hit-bonus">{{bonusResult}}</div>
   {{/if}}
   {{#if failure}}

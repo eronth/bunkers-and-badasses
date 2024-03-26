@@ -1,15 +1,16 @@
-<div class="flexrow">
-  <div class="flex-size-1">
+<div class="class-skill flexrow">
+  <div class="simple-icon flex-size-1">
     <img class='lr-margin-5'
       src="{{item.img}}" title="class-skill-{{item.name}}"
+      data-item-id="{{item._id}}"
       width="40" height="40"/>
   </div>
-  <div class="flexcol flex-size-3">
+  <div class="base-details flexcol flex-size-3">
     <div><b>Tier:</b> {{item.system.tier}}</div>
     <div><b>Skill Level (SL):</b> {{item.system.skillLevel}}</div>
   </div>
 </div>
 <hr />
-<div>
+<div class="description">
   {{{enrich item.system.description}}}
 </div>

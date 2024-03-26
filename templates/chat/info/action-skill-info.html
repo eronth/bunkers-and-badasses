@@ -1,21 +1,24 @@
-<div class="flexrow">
-  <div class="flex-size-1">
+<div class="action-skill flexrow">
+  <div class="simple-icon flex-size-1">
     <img class='lr-margin-5'
       src="{{item.img}}" title="action-skill-{{item.name}}"
+      data-item-id="{{item._id}}"
       width="40" height="40"/>
   </div>
-  <div class="flexcol flex-size-3">
+  <div class="base-details flexcol flex-size-3">
     <div><b>Class:</b> {{item.system.class}}</div>
     <div><b>Bonus Uses Per Day:</b> {{item.system.bonusUses}}</div>
   </div>
 </div>
 <hr />
-<div>
+<div class="description">
   {{{enrich item.system.description}}}
 </div>
 {{#if item.system.notes}}
 <hr />
-<div>
+<div class="notes">
+  <b>Notes:</b>
+  <br />
   {{{enrich item.system.notes}}}
 </div>
 {{/if}}

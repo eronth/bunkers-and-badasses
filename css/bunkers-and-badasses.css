@@ -6,42 +6,40 @@
 
 .clickable:hover {
   cursor: pointer;
-  text-shadow: 0 0 10px cyan;
+  text-shadow: var(--focus-text-shadow-primary);
 }
 
 .tabs .item.active {
-  text-shadow: 0 0 10px cyan;
+  text-shadow: var(--focus-text-shadow-primary);
 }
-.tabs .item:hover {
-  text-shadow: 0 0 10px cyan;
-}
-.item-control:hover {
-  text-shadow: 0 0 10px cyan;
-}
+a:hover,
+.tabs .item:hover,
+.item-control:hover,
 .entity-name:hover,
 .entity-name a:hover {
-  text-shadow: 0 0 10px cyan;
+  text-shadow: var(--focus-text-shadow-primary);
 }
 .bh:hover,
 .bh a:hover {
-  text-shadow: 0 0 10px cyan;
+  text-shadow: var(--focus-text-shadow-primary);
 }
 .rollable:hover, .rollable:focus {
   color: #000;
-  text-shadow: 0 0 10px cyan;
+  text-shadow: var(--focus-text-shadow-primary);
   cursor: pointer;
 }
 
 button:hover {
-  box-shadow: 0 0 5px cyan;
+  box-shadow: 0 0 5px var(--highlight-primary);
 }
+
 textarea:focus,
 input[type="text"]:focus,
 input[type="number"]:focus,
 input[type="password"]:focus,
 input[type="date"]:focus,
 input[type="time"]:focus {
-  box-shadow: 0 0 5px cyan;
+  box-shadow: 0 0 5px var(--highlight-primary);
 }
 
 .elem-initial {
@@ -320,7 +318,7 @@ input[type="time"]:focus {
   font-weight: bold;
 }
 .bnb .class-stats-section .melee-dice-roll:hover {
-  text-shadow: 0 0 10px cyan;
+  text-shadow: 0 0 10px var(--highlight-primary);
   cursor: pointer;
 }
 .bnb .class-stats-section {
@@ -362,18 +360,6 @@ input[type="time"]:focus {
 .bnb .sheet-body .tab,
 .bnb .sheet-body .tab .editor {
   height: 100%;
-}
-
-.bnb .builder-tabs {
-  -webkit-box-flex: 0;
-  -ms-flex: 0;
-  flex: 0;
-  height: 32px;
-  flex: 0 0 32px;
-  margin: 4px 0;
-  line-height: 32px;
-  border-top: 1px solid #b5b3a4;
-  border-bottom: 1px solid #b5b3a4;
 }
 
 .bnb .builder-common-container .bonus-max-xp-label,
@@ -497,57 +483,6 @@ input[type="time"]:focus {
   display: flex;
 }
 
-.bnb .items-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  overflow-y: auto;
-  scrollbar-width: thin;
-  color: #444;
-}
-
-.bnb .items-list .item-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-
-
-.bnb .items-list .item-name {
-  -webkit-box-flex: 3;
-  -ms-flex: 3;
-  flex: 3;
-  margin: 0;
-  overflow: hidden;
-  font-size: 13px;
-  text-align: left;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.bnb .items-list .item-text {
-  justify-content: flex-start;
-  text-align: left;
-}
-
-.bnb .items-list .reward-text {
-  justify-content: flex-start;
-  text-align: left;
-  padding-left: 6px;
-  padding-right: 5px;
-}
-
-.bnb .items-list .item-name h3, .bnb .items-list .item-name h4 {
-  margin: 0;
-  white-space: nowrap;
-  overflow-x: hidden;
-}
-
 .nowrap {
   flex-wrap: nowrap;
 }
@@ -585,6 +520,12 @@ input[type="time"]:focus {
 .crit-hit .crit input{
   color: darkred;
 }
+.bnb .attacks-container .minor-details .crit-hit-container {
+  margin-bottom: 2px;
+  margin-right: 2px;
+  border: 1px solid #b5b3a4;
+  border-radius: 4px;
+}
 
 .gun-center-contain,
 .gun-center-container {
@@ -598,160 +539,6 @@ input[type="time"]:focus {
 .gun-center-container input{
   width: 25px;
   max-width: 25px;
-}
-
-.bnb .items-list .item-equip-control {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-flex: 0;
-  -ms-flex: 0 0 100px;
-  flex: 0 0 100px;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-}
-
-.bnb .items-list .item-equip {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-flex: 0;
-  -ms-flex: 0 0 100px;
-  flex: 0 0 100px;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-}
-
-.bnb .items-list .item-controls,
-.bnb .items-list .archetype-item-controls,
-.bnb .items-list .class-skill-item-controls {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-flex: 0;
-  -ms-flex: 0 0 100px;
-  flex: 0 0 100px;
-  -webkit-box-pack: end;
-  -ms-flex-pack: end;
-  justify-content: flex-end;
-}
-.bnb .items-list .archetype-item-controls {
-  -webkit-box-flex: 3;
-  -ms-flex: 3;
-  flex: 3;
-}
-.bnb .items-list .class-skill-item-controls {
-  -webkit-box-flex: 2;
-  -ms-flex: 2;
-  flex: 2;
-}
-
-.bnb .items-list .item-controls a,
-.bnb .items-list .archetype-item-controls a,
-.bnb .items-list .class-skill-item-controls a {
-  font-size: 12px;
-  text-align: center;
-  margin: 0 6px;
-}
-
-
-.bnb .items-list .item-controls-small {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-flex: 0;
-  -ms-flex: 1 0 7px;
-  flex: 1 0 7px;
-  -webkit-box-pack: end;
-  -ms-flex-pack: end;
-  justify-content: flex-end;
-}
-
-.bnb .items-list .item-controls-small a {
-  font-size: 12px;
-  text-align: center;
-  margin: 0 6px;
-}
-
-
-.bnb .items-list .item {
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  padding: 0 2px;
-  border-bottom: 1px solid #c9c7b8;
-}
-
-.bnb .items-list .item:last-child {
-  border-bottom: none;
-}
-
-.bnb .items-list .item .item-name {
-  color: #191813;
-}
-
-.bnb .items-list .item .item-name .item-image {
-  -webkit-box-flex: 0;
-  -ms-flex: 0 0 30px;
-  flex: 0 0 30px;
-  height: 30px;
-  background-size: 30px;
-  border: none;
-  margin-right: 5px;
-}
-
-.bnb .items-list .item-prop {
-  text-align: center;
-  border-left: 1px solid #c9c7b8;
-  border-right: 1px solid #c9c7b8;
-  font-size: 12px;
-}
-.bnb .items-list .item-prop-left {
-  text-align: left;
-  border-left: 1px solid #c9c7b8;
-  border-right: 1px solid #c9c7b8;
-  font-size: 12px;
-}
-.bnb .items-list .item-prop-right {
-  text-align: right;
-  border-left: 1px solid #c9c7b8;
-  border-right: 1px solid #c9c7b8;
-  font-size: 12px;
-}
-.bnb .items-list .item-prop-stack {
-  text-align: center;
-  border-left: 1px solid #c9c7b8;
-  font-size: 12px;
-  align-self: flex-start;
-}
-
-.bnb .items-list .items-header {
-  height: 28px;
-  margin: 2px 0;
-  padding: 0;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  background: rgba(0, 0, 0, 0.05);
-  border: 2px groove #eeede0;
-  font-weight: bold;
-}
-
-.bnb .items-list .items-header > * {
-  font-size: 12px;
-  text-align: center;
-}
-
-.bnb .items-list .items-header .item-name {
-  padding-left: 5px;
-  text-align: left;
-}
-
-.bnb .items-list .items-header .item-text {
-  padding-left: 5px;
-  text-align: left;
 }
 
 .bnb .item-formula {
@@ -789,20 +576,6 @@ input[type="time"]:focus {
   justify-content: center;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-}
-
-.bnb .item-details {
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -webkit-box-flex: 5;
-  -ms-flex: 5;
-  flex: 5;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  border-right: 1px solid #c9c7b8;
 }
 
 .bnb .item .item-equip label{
@@ -950,8 +723,8 @@ input[type="time"]:focus {
   cursor: pointer;
 }
 .attack-block:hover {
-  text-shadow: 0 0 10px cyan;
-  box-shadow: 0 0 5px cyan;
+  text-shadow: 0 0 10px var(--highlight-primary);
+  box-shadow: 0 0 5px var(--highlight-primary);
 }
 .attacks-container .gun-icon {
   height: 15px;
@@ -1119,6 +892,11 @@ input[type="time"]:focus {
   justify-content: center;
   align-items: center;
 }
+.bnb .cc2.total-group input {
+  font-weight: bold;
+  font-size: 15px;
+  max-width: 45px;
+}
 .bnb .check-container-right {
   border-left: 1px solid #c9c7b8;
   flex: 4;
@@ -1187,83 +965,7 @@ input[type="time"]:focus {
 .shield-stats-container-right {
   margin-left: 1px;
 }
-.elements-container {
-  border: 1px solid darkgrey;
-  margin-top: 2px;
-  margin-bottom: 2px;
-}
-.element-container {
-  margin-left: 5px;
-  margin-right: 5px;
-}
 
-.element-toggle {
-  align-items: center;
-}
-
-.element-resist-icon {
-  border: 0;
-  height: 12px;
-}
-.loot-element-damage {
-  font-size: smaller;
-}
-.element-damage-icon {
-  border: 0;
-  height: 12px;
-  padding-left: 2px;
-}
-.element-damage-plus {
-  padding-left: 2px;
-  padding-right: 2px;
-}
-.element-damage-damage {
-  padding-left: 3px;
-}
-.resist-label {
-  padding-left: 5px;
-  font-weight: bold;
-  white-space: nowrap;
-  overflow-x: hidden;
-}
-.resist-label label{
-  padding-left: 5px;
-  font-weight: bold;
-  white-space: nowrap;
-  overflow-x: hidden;
-}
-.elemental ul { 
-  height: 48px;
-  width: 100px;
-  max-width: 100px;
-  border: 1px rgb(122, 121, 113) solid;
-  border-radius: 3px;
-  background: rgba(0, 0, 0, 0.05);
-  list-style-type: none;
-  padding: 0;
-}
-.elemental ul li {
-  cursor: pointer;
-  border: 1px rgb(122, 121, 113) solid;
-  position: relative;
-
-  z-index: 2;
-  text-align: center;
-}
-.elemental ul li:not(.init) {
-  float: left;
-  width: 98px;
-  padding: 7px 7px;
-  display: none;
-}
-.elemental li.init { 
-  cursor: pointer;
-  padding: 15px 7px;
-  height: 48px;
-}
-.elemental ul li:not(.init):hover, ul li.selected:not(.init) {
-  text-decoration: underline;
-}
 .twocol ul {
   columns: 2;
   -webkit-columns: 2;
@@ -1284,22 +986,7 @@ input[type="time"]:focus {
 .bnb .gun-header-line label{
   justify-content: flex-end;
 }
-.bnb .gun-row .critshits-icon {
-  border: 0;
-  height: 12px;
-  padding-right: 2px;
-}
-.bnb .gun-row label {
-  padding: 0px 2px;
-}
-.bnb .gun-row-crits {
-  color: darkred;
-  font-weight: bold;
-}
-.bnb .gun-row-hits {
-  color: darkblue;
-  font-weight: bold;  
-}
+
 .bnb .gun-row .post-crithit-details {
   align-items: center;
   padding: 5px;
@@ -1396,6 +1083,10 @@ input[type="time"]:focus {
   font-size: larger;
 }
 
+.check-dialog .difficulty .check-dialog-body {
+  align-items: center;
+}
+
 .attack-dialog .attack-dialog-body .math-sign,
 .check-dialog .check-dialog-body .math-sign {
   padding: 4px 2px 0 2px;
@@ -1415,6 +1106,7 @@ input[type="time"]:focus {
   text-align: center;
   align-items: center;
   align-self: center;
+  width: 83%;
 }
 .attack-dialog .attack-dialog-favored label {
   font-weight: bold;
@@ -1473,19 +1165,24 @@ input[type="time"]:focus {
   padding-bottom: 2px;
 }
 
+.chat-roll-result .dice-rolls {
+  padding-bottom: 5px;
+}
 
-.success-text {
-  color: darkgreen;
+.success-text,
+.failure-text {
+  margin: 12px;
   font-weight: bold;
   font-size: larger;
   text-align: center;
+}
+.success-text {
+  color: darkgreen;
 }
 .failure-text {
   color: darkred;
-  font-weight: bold;
-  font-size: larger;
-  text-align: center;
 }
+
 .chat-roll-result .gun-crithits {
   text-align: center;
   font-size: smaller;
@@ -1518,9 +1215,6 @@ input[type="time"]:focus {
 .damage-results-container .result-label {
   font-size: xx-large;
 }
-.damage-results-container .element-damage-icon {
-  height: 22px;
-}
 
 .badass-results-container {
   text-align: center
@@ -1529,8 +1223,14 @@ input[type="time"]:focus {
   font-weight: bold;
   font-size: larger;
 }
+.badass-results-container .result-header.difficulty {
+  font-size: smaller;
+}
 .badass-results-container .result-label {
   font-size: xx-large;
+}
+.chat-roll-result .item-effect {
+  margin: 3px;
 }
 
 .cost-container input {
@@ -1569,6 +1269,25 @@ input[type="time"]:focus {
 .key-item-labels {
   align-self: center;
 }
+.use-action-skill-dialog .confirm-use-action-skill-description-title {
+  align-self: end;
+}
+.use-action-skill-dialog .confirm-use-action-skill-notes-title {
+  margin-top: 6px;
+}
+.use-action-skill-dialog .confirm-use-text {
+  margin-bottom: 6px;
+  border: 1px solid #b5b3a4;
+  border-radius: 4px;
+  background-color: hsla(0, 0%, 0%, 0.1);
+}
+.use-action-skill-dialog .free-activation-text {
+  text-align: end;
+  align-items: center;
+}
+
+
+
 .class-skill-labels {
   align-self: center;
   margin-left: 30px; /* There's got to be a better way, but CSS is just so strange. */
@@ -1580,4 +1299,97 @@ input[type="time"]:focus {
 
 .action-tab-damage {
   font-size: 12px; /* For some reason this affects kerning? */
+}
+
+.margin-top-3 {
+  margin-top: 3px;
+}
+
+.margin-top-6 {
+  margin-top: 6px;
+}
+
+.bnb .action .attacks-container .attack {
+  font-size: 12px;
+}
+
+.bnb .action .attacks-container .attack .attack-header {
+  max-width: fit-content;
+}
+
+.bnb .action .attacks-container .attack .attack-description {
+  text-align: end;
+  margin-left: 1em;
+  margin-right: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.for-some-reason-needed {
+  width: 40%;
+}
+
+.bnb .action .attacks-container .attack .dice-icon {
+  margin: 3px;
+  max-width: fit-content;
+  align-self: center;
+}
+
+.bnb .action .attacks-container .attack .minor-details {
+  font-size: 10px;
+}
+.bnb .action .attacks-container .attack .flavor-text {
+  text-align: start;
+  font-style: italic;
+}
+.bnb .action .attacks-container .attack .range {
+  text-align: end;
+  margin-right: 5px;
+}
+.bnb .action .attacks-container img.critshits-icon {
+  border: 0;
+  height: 12px;
+}
+
+
+.bnb .delete-warning .warning-header {
+  color: darkgoldenrod;
+  font-size: x-large;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 6px;
+}
+
+.bnb .delete-warning .warning-details {
+  margin: 4px;
+  margin-bottom: 10px;
+}
+
+
+span.badass,
+input.badass {
+  font-weight: bold;
+  color: var(--isBadass);
+  animation: pulsate 5s ease-out;
+  -webkit-animation: pulsate 5s ease-out;
+  animation-iteration-count: infinite;
+  -webkit-animation-iteration-count: infinite; 
+  opacity: 0.7;
+}
+@-webkit-keyframes pulsate {
+  0%, 100% { 
+    opacity: 0.7;
+  }
+  30%, 50%, 70% { 
+    opacity: 1.0;
+  }
+}
+@keyframes pulsate {
+  0%, 100% { 
+    opacity: 0.7;
+  }
+  30%, 50%, 70% { 
+    opacity: 1.0;
+  }
 }
