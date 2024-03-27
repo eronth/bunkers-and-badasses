@@ -9,7 +9,7 @@
     <label class="item-cost"><b>Cost:</b> {{item.system.cost}}g</label>
     {{/if}}
   </div>
-  <div>{{{item.system.description}}}</div>
+  <div>{{{item.system.enriched.description}}}</div>
   {{/if}}
 
   <!-- Effect -->
@@ -20,7 +20,7 @@
     <label class="item-cost"><b>Cost:</b> {{item.system.cost}}g</label>
     {{/if}}
   </div>
-  <div>{{{item.system.effect}}}</div>
+  <div>{{{item.system.enriched.effect}}}</div>
   {{/if}}
 
   <!-- Class Effect -->
@@ -34,12 +34,14 @@
   {{#if item.system.notes}}
   <br />
   <label class="bolded">Notes:</label>
-  <div>{{{item.system.notes}}}</div>
+  <div>{{{item.system.enriched.notes}}}</div>
   {{/if}}
 
   <!-- Red Text -->
   {{#if item.system.redText}}
   <div class="red-text">{{{item.system.redText}}}</div>
-  <div class="red-text-notes">{{{item.system.redTextEffect}}}</div>
+  {{/if}}
+  {{#if item.system.redTextEffect}}
+  <div class="red-text-notes">{{{item.system.enriched.redTextEffect}}}</div>
   {{/if}}
 </div>

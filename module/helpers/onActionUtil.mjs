@@ -13,7 +13,7 @@ export class OnActionUtil {
     // Get the type of item to create.
     const type = header.dataset.dtype;
     // Grab any data associated with this control.
-    const system = duplicate(header.dataset);
+    const system = foundry.utils.duplicate(header.dataset);
     // Initialize a default name.
     const name = `New ${type.capitalize()}`;
     // Prepare the item object.

@@ -45,33 +45,35 @@
   {{#if item.system.description}}
   <br />
   <label class="bolded">Description:</label>
-  <div>{{{item.system.description}}}</div>
+  <div>{{{item.system.enriched.description}}}</div>
   {{/if}}
 
   <!-- Effect -->
   {{#if item.system.effect}}
   <br />
   <label class="bolded">Effect:</label>
-  <div>{{{item.system.effect}}}</div>
+  <div>{{{item.system.enriched.effect}}}</div>
   {{/if}}
 
   <!-- Class Effect -->
   {{#if item.system.classEffect}}
   <br />
   <label class="bolded">Class Effect ({{item.system.class}}):</label>
-  <div>{{{item.system.classEffect}}}</div>
+  <div>{{{item.system.enriched.classEffect}}}</div>
   {{/if}}
 
   <!-- Notes -->
   {{#if item.system.notes}}
   <br />
   <label class="bolded">Notes:</label>
-  <div>{{{item.system.notes}}}</div>
+  <div>{{{item.system.enriched.notes}}}</div>
   {{/if}}
 
   <!-- Red Text -->
   {{#if item.system.redText}}
   <div class="red-text">{{{item.system.redText}}}</div>
-  <div class="red-text-notes">{{{item.system.redTextEffect}}}</div>
+  {{/if}}
+  {{#if item.system.redTextEffect}}
+  <div class="red-text-notes">{{{item.system.enriched.redTextEffect}}}</div>
   {{/if}}
 </div>

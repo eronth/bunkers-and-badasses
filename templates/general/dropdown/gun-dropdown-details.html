@@ -100,19 +100,19 @@
     {{#if item.system.effect}}
     <div class="various-gun-info flexcol">
       <label class="margin-top-6 header bolded">Gun Info:</label>
-      <div>{{{item.system.effect}}}</div>
+      <div>{{{item.system.enriched.effect}}}</div>
     </div>
     {{/if}}
     {{#if item.system.prefix.effects}}
     <div class="various-gun-info flexcol">
       <label class="margin-top-6 header bolded"><b>Prefix Effect:</b></label>
-      <div class=""><b>{{item.system.prefix.name}}:</b> {{{enrich item.system.prefix.effects}}}</div>
+      <div class=""><b>{{item.system.prefix.name}}:</b> {{{item.system.enriched.prefix.effects}}}</div>
     </div>
     {{/if}}
     {{#if item.system.guildBonus}}
     <div class="various-gun-info flexcol">
       <label class="margin-top-6 header bolded"><b>Guild Bonus:</b></label>
-      <div class=""><b>{{item.system.guild}}:</b> {{{enrich item.system.guildBonus}}}</div>
+      <div class=""><b>{{item.system.guild}}:</b> {{{item.system.enriched.guildBonus}}}</div>
     </div>
     {{/if}}
   </div>
@@ -121,20 +121,22 @@
   {{#if item.system.classEffect}}
   <br />
   <label class="bolded">Class Effect ({{item.system.class}}):</label>
-  <div>{{{item.system.classEffect}}}</div>
+  <div>{{{item.system.enriched.classEffect}}}</div>
   {{/if}}
 
   <!-- Notes -->
   {{#if item.system.notes}}
   <br />
   <label class="bolded">Notes:</label>
-  <div>{{{item.system.notes}}}</div>
+  <div>{{{item.system.enriched.notes}}}</div>
   {{/if}}
 
   <!-- Red Text -->
   {{#if item.system.redText}}
   <div class="red-text">{{{item.system.redText}}}</div>
-  <div class="red-text-notes">{{{item.system.redTextEffect}}}</div>
+  {{/if}}
+  {{#if item.system.redTextEffect}}
+  <div class="red-text-notes">{{{item.system.enriched.redTextEffect}}}</div>
   {{/if}}
 </div>
 
