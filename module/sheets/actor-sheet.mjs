@@ -8,6 +8,7 @@ import { ConfirmActionPrompt } from "../helpers/roll-and-post/confirmActionPromp
 import { PerformRollAction } from "../helpers/roll-and-post/performRollAction.mjs";
 import { DefaultData } from "../helpers/defaultData.mjs";
 import { MixedDiceAndNumber } from "../helpers/MixedDiceAndNumber.mjs";
+import { Enricher } from "../helpers/enricher.mjs";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -519,7 +520,7 @@ export class BNBActorSheet extends ActorSheet {
       }
       else if (i.type === 'Archetype Level') { archetypeLevels.push(i); }
       else if (i.type === 'Archetype Feat') { archetypeFeats.push(i); }
-      else if (i.type === 'Action Skill') { actionSkills.push(i); } // Append to Action Skills (should probably only ever be one, but whatever).
+      else if (i.type === 'Action Skill') { actionSkills.push(await Enricher.enrichItem(i)); } // Append to Action Skills (should probably only ever be one, but whatever).
       else if (i.type === 'gun') {
 
         const damageElementsHtml = genericUtil.createGunDamagePerHitHtml({ elements: i.system.elements });

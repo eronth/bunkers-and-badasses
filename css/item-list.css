@@ -64,6 +64,8 @@
   margin: 0;
   padding: 0;
   margin-top: 4px;
+  padding-top: 2px;
+  min-height: calc(100% + 4px);
 }
 .bnb .items-list .item-details > div > label.archetype-feat-description > p {
   margin: 0;

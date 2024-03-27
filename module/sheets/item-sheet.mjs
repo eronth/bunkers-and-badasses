@@ -26,7 +26,7 @@ export class BNBItemSheet extends ItemSheet {
   async getData(options) {
     // Retrieve base data structure.
     const context = await super.getData(options);
-
+    
     // Use a safe clone of the item data for further operations.
     const itemData = context.item;
     
@@ -93,19 +93,12 @@ export class BNBItemSheet extends ItemSheet {
   async prepareEnrichedFields(context, item) {
     const system = this.object.system;
     const configs = {async: true};
-    let extraEnrichments = {};
-
-    if (item.type == "Action Skill") {
-      extraEnrichments = {
-        notes: await TextEditor.enrichHTML(system.notes, configs),
-      };
-    }
-
+    
     context.enriched = {
       description: await TextEditor.enrichHTML(system.description, configs),
+      notes: await TextEditor.enrichHTML(system.notes, configs),
       redTextEffect: await TextEditor.enrichHTML(system.redTextEffect, configs),
       redTextEffectBM: await TextEditor.enrichHTML(system.redTextEffectBM, configs),
-      ...extraEnrichments
     };
   }
 
