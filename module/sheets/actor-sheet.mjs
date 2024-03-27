@@ -507,7 +507,10 @@ export class BNBActorSheet extends ActorSheet {
     const keyItems = [];
 
     // Iterate through items, allocating to containers
-    for (let i of context.items) {
+    for (let item of context.items) {
+      const i = (item.type != 'Archetype Level')
+        ? await Enricher.enrichItem(item)
+        : item;
       i.img = i.img || DEFAULT_TOKEN;
       
       if (i.type === 'key item') { keyItems.push(i); }
@@ -520,7 +523,7 @@ export class BNBActorSheet extends ActorSheet {
       }
       else if (i.type === 'Archetype Level') { archetypeLevels.push(i); }
       else if (i.type === 'Archetype Feat') { archetypeFeats.push(i); }
-      else if (i.type === 'Action Skill') { actionSkills.push(await Enricher.enrichItem(i)); } // Append to Action Skills (should probably only ever be one, but whatever).
+      else if (i.type === 'Action Skill') { actionSkills.push(i); } // Append to Action Skills (should probably only ever be one, but whatever).
       else if (i.type === 'gun') {
 
         const damageElementsHtml = genericUtil.createGunDamagePerHitHtml({ elements: i.system.elements });
