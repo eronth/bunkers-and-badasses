@@ -26,6 +26,7 @@ Hooks.once('init', async function() {
   
   // Add custom constants for configuration.
   CONFIG.BNB = BNB;
+  CONFIG.Dice.legacyParsing = true;
 
   game.settings.register('bunkers-and-badasses', 'measurementType', {
     name: 'Distance Measurement Style',
