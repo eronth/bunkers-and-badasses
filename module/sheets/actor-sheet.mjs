@@ -863,7 +863,7 @@ export class BNBActorSheet extends ActorSheet {
       if (dataset.rollType == 'item') {
         const itemId = element.closest('.item').dataset.itemId;
         const item = this.actor.items.get(itemId);
-        if (item) return await item.roll({async: true});
+        if (item) return await item.roll();
       } else if (dataset.rollType == 'melee-dice-roll') {
         return PerformRollAction.meleeAndHPDice({ actor: this.actor });
       } else if (dataset.rollType == 'check') {
@@ -891,7 +891,7 @@ export class BNBActorSheet extends ActorSheet {
     if (dataset.roll) {
       const label = dataset.label ? `[ability] ${dataset.label}` : '';
       const baseFormula = dataset.roll;
-      const rollResult = await new Roll(baseFormula, this.actor.getRollData()).roll({async: true});
+      const rollResult = await new Roll(baseFormula, this.actor.getRollData()).roll();
       rollResult.toMessage({
         speaker: ChatMessage.getSpeaker({ actor: this.actor }),
         flavor: label,
@@ -918,7 +918,7 @@ export class BNBActorSheet extends ActorSheet {
       `${hp.combinedRegen}`,
       RollBuilder._createDiceRollData({actor: this.actor})
     );
-    const rollResult = await roll.roll({async: true});
+    const rollResult = await roll.roll();
 
     // Prep chat values.
     const flavorText = `${this.actor.name} ${hpRegainAction[dataset.healthType.toLowerCase()]} ${rollResult.total} <b>${hp.label}</b>.`;

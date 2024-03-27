@@ -79,7 +79,7 @@ export class PerformRollAction {
     });
 
     const damageRoll = new Roll((reductionAmount ? `${damageAmount} - ${reductionAmount}` : `${damageAmount}`), actor.getRollData());
-    const damageResult = await damageRoll.roll({async: true});
+    const damageResult = await damageRoll.roll();
 
     PostToChat.damageResistance({actor: actor, rollResult: resistResult, reductionAmount: reductionAmount, damageType: damageType});
     PostToChat.damageTaken({actor: actor, rollResult: damageResult, damageAmount: damageAmount, damageTaken: damageTaken, damageType: damageType });
@@ -106,7 +106,7 @@ export class PerformRollAction {
 
     if (reductions.length > 0) { 
       const roll = new Roll(reductions.join(' + '), actor.getRollData());
-      const rollResult = await roll.roll({async: true});
+      const rollResult = await roll.roll();
       return rollResult;
     }
     return { total: 0, isFakeRollResult: true };
@@ -148,7 +148,7 @@ export class PerformRollAction {
         { extrabonusvalue: extraBonusValue }
       )
     );
-    const rollResult = await roll.roll({async: true});
+    const rollResult = await roll.roll();
 
     // Display the result.
     if (checkDetails.checkType.rollType === 'grenade-throw') {
@@ -217,7 +217,7 @@ export class PerformRollAction {
       rollFormula,
       RollBuilder._createDiceRollData({ actor: actor })
     );
-    const rollResult = await roll.roll({async: true});
+    const rollResult = await roll.roll();
 
     // Adjust the roll result based on badass dice rules.
     let correctedBadassDiceResult = rollResult.total;
@@ -300,7 +300,7 @@ export class PerformRollAction {
         }
       )
     );
-    const rollResult = await roll.roll({async: true});
+    const rollResult = await roll.roll();
 
     return await PostToChat.rangedAttack({
       actor: actor,
@@ -370,7 +370,7 @@ export class PerformRollAction {
       rollFormula,
       RollBuilder._createDiceRollData({ actor: actor }, { })
     );
-    const rollResult = await roll.roll({async: true});
+    const rollResult = await roll.roll();
 
     return await PostToChat.damageResult({
       actor: actor,
@@ -718,7 +718,7 @@ export class PerformRollAction {
       extraBonus: bonusValue,
       targetSpd: targetSpeedValue
     });
-    const rollResult = await roll.roll({async: true});
+    const rollResult = await roll.roll();
 
     // Display the result.
     return await PostToChat.npcAttack({ actor: actor, rollResult: rollResult });
@@ -732,7 +732,7 @@ export class PerformRollAction {
       rollFormula,
       RollBuilder._createDiceRollData({actor: actor})
     );
-    const rollResult = await roll.roll({async: true});
+    const rollResult = await roll.roll();
 
     PostToChat.meleeAndHPDice({actor: actor, rollResult: rollResult});
   }
