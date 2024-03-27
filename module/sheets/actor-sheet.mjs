@@ -17,7 +17,7 @@ export class BNBActorSheet extends ActorSheet {
 
   /** @override */
   static get defaultOptions() {
-    return mergeObject(super.defaultOptions, {
+    return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["bnb", "sheet", "actor"],
       template: "systems/bunkers-and-badasses/templates/actor/actor-sheet.html",
       width: 600,
@@ -926,7 +926,7 @@ export class BNBActorSheet extends ActorSheet {
       user: game.user.id,
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
       flavor: flavorText,
-      type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+      //type: CONST.CHAT_MESSAGE_STYLES.ROLL,
       roll: rollResult,
       rollMode: CONFIG.Dice.rollModes.publicroll,
       // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)

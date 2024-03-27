@@ -6,7 +6,7 @@ export class BNBItemSheet extends ItemSheet {
 
   /** @override */
   static get defaultOptions() {
-    return mergeObject(super.defaultOptions, {
+    return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["bunkers-and-badasses", "sheet", "item"],
       width: 520,
       height: 480,
@@ -17,11 +17,6 @@ export class BNBItemSheet extends ItemSheet {
   /** @override */
   get template() {
     const path = "systems/bunkers-and-badasses/templates/item";
-    // Return a single sheet for all item types.
-    // return `${path}/item-sheet.html`;
-
-    // Alternatively, you could use the following return statement to do a
-    // unique item sheet by type, like `weapon-sheet.html`.
     return `${path}/item-${this.item.type}-sheet.html`;
   }
 

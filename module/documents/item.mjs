@@ -186,7 +186,7 @@ export class BNBItem extends Item {
   //     user: game.user.id,
   //     speaker: ChatMessage.getSpeaker({ actor: actor }),
   //     flavor: flavorText,
-  //     type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+  //     // type: CONST.CHAT_MESSAGE_STYLES.ROLL,
   //     roll: rollResult,
   //     rollMode: CONFIG.Dice.rollModes.publicroll,
   //     content: chatHtmlContent,
