@@ -1,5 +1,6 @@
 import { DamageDiceRollDataExtractHelper } from "../damageDiceRollDataExtractHelper.mjs";
 import { genericUtil } from "../genericUtil.mjs";
+import { Enricher } from "../enricher.mjs";
 
 export class PostToChat {
   static chatInfoBaseLocation = 'systems/bunkers-and-badasses/templates/chat/info/';
@@ -366,7 +367,7 @@ export class PostToChat {
 
   static async itemInfo(options) {
     const actor = options.actor;
-    const item = options.item;
+    const item = await Enricher.enrichItem(options.item);
 
     // Pull message details for specific item type.
     const messageDetailOptions = {

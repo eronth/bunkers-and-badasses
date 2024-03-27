@@ -2,6 +2,7 @@ import { PerformRollAction } from "./performRollAction.mjs";
 import { OnActionUtil } from "../onActionUtil.mjs";
 import { genericUtil } from "../genericUtil.mjs";
 import { DefaultData } from "../defaultData.mjs";
+import { Enricher } from "../enricher.mjs";
 
 export class ConfirmActionPrompt {
   
@@ -161,8 +162,9 @@ export class ConfirmActionPrompt {
     if (!actor) { return; }
 
     const itemId = event.currentTarget.closest('.action-skill-use').dataset.itemId;
-    const item = actor.items.get(itemId);
-    if (!item) { return; }
+    const i = actor.items.get(itemId);
+    if (!i) { return; }
+    const item = await Enricher.enrichItem(i);
 
     const templateLocation = "systems/bunkers-and-badasses/templates/dialog/use-action-skill.html";
     const useActionSkillDialogContent = await renderTemplate(templateLocation, { item: item });
@@ -177,7 +179,7 @@ export class ConfirmActionPrompt {
           callback : async (html) => {}
         },
         "Use" : {
-          label: `Use ${item.name}`,
+          label: `Use <i>${item.name}</i>`,
           callback : async (html) => {
             return await OnActionUtil.onActionSkillUse({ html: html, actor: actor, item: item });
           }
