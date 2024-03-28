@@ -69,12 +69,19 @@
       targetData="system.elements"
     }}
     <div class="item-body flexrow">
-    <label for="effect-input-{{item.id}}">Effect</label>
-    <input id="effect-input-{{item.id}}" class="flex-size-4" 
-      value="{{system.effect}}" name="system.effect"
-      onfocus="this.select()" type="text"  data-dtype="String" />
+      <div class="enriched-editor-title">
+        <label for="effect-input-{{item.id}}">Effect</label>
+      </div>
+    </div>
+    <div class="flexrow enriched-region">
+      {{editor enriched.effect
+        target="system.effect"
+        placeholder="Effect of the shield."
+        button=true
+        editable=editable
+      }}
+    </div>
+    {{> "systems/bunkers-and-badasses/templates/item/parts/red-text.html" }}
+    {{> "systems/bunkers-and-badasses/templates/item/parts/anointment.html" }}
   </div>
-
-  {{> "systems/bunkers-and-badasses/templates/item/parts/red-text.html" }}
-  {{> "systems/bunkers-and-badasses/templates/item/parts/anointment.html" }}
 </form>

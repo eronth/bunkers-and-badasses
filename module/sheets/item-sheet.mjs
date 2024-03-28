@@ -1,3 +1,5 @@
+import { Enricher } from "../helpers/enricher.mjs";
+
 /**
  * Extend the basic ItemSheet with some very simple modifications
  * @extends {ItemSheet}
@@ -91,15 +93,7 @@ export class BNBItemSheet extends ItemSheet {
   }
 
   async prepareEnrichedFields(context, item) {
-    const system = this.object.system;
-    const configs = {async: true};
-    
-    context.enriched = {
-      description: await TextEditor.enrichHTML(system.description, configs),
-      notes: await TextEditor.enrichHTML(system.notes, configs),
-      redTextEffect: await TextEditor.enrichHTML(system.redTextEffect, configs),
-      redTextEffectBM: await TextEditor.enrichHTML(system.redTextEffectBM, configs),
-    };
+    context.enriched = (await Enricher.enrichItem(item)).system.enriched;
   }
 
   /* -------------------------------------------- */

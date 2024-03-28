@@ -1254,10 +1254,7 @@ input[type="time"]:focus {
   background-color: #0000;
 }
 
-.archetype-feat-description-title,
-.action-skill-description-title,
-.class-skill-description-title,
-.key-item-description-title {
+.enriched-editor-title {
   -webkit-box-pack: start;
   -ms-flex-pack: start;
   justify-content: start;

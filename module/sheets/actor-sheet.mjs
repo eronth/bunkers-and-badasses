@@ -70,7 +70,7 @@ export class BNBActorSheet extends ActorSheet {
     if (actorData.type == 'vault hunter') {
       context.skillPoints = { value: 0, max: 0 };
       this._updateVaultHunterFromPreviousVersions(context);
-      this._prepareItems(context);
+      await this._prepareItems(context);
       this._prepareArchetypeLevelBonuses(context);
       this._prepareArchetypes(context);
       this._prepareExperience(context);
@@ -82,7 +82,7 @@ export class BNBActorSheet extends ActorSheet {
     // Prepare NPC data and items.
     if (actorData.type == 'npc') {
       this._updateNPCFromPreviousVersions(context);
-      this._prepareItems(context);
+      await this._prepareItems(context);
       this._prepareNpcHps(context);
     }
 
@@ -508,9 +508,7 @@ export class BNBActorSheet extends ActorSheet {
 
     // Iterate through items, allocating to containers
     for (let item of context.items) {
-      const i = (item.type != 'Archetype Level')
-        ? await Enricher.enrichItem(item)
-        : item;
+      const i = await Enricher.enrichItem(item);
       i.img = i.img || DEFAULT_TOKEN;
       
       if (i.type === 'key item') { keyItems.push(i); }
