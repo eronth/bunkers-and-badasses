@@ -1,4 +1,12 @@
 <div class="flexcol relic-effects">
-    <label>{{#if item.system.effect}}<b>Effect:</b> {{/if}}{{{item.system.enriched.effect}}}</label>
-    <label>{{#if item.system.classEffect}}<b>Class Effect:</b> {{/if}}{{{item.system.enriched.classEffect}}}</label>
+    <label class="relic-effects-label">
+        <div>
+            {{#if item.system.effect}}<b>Effect:</b> {{/if}}{{{item.system.enriched.effect}}}
+        </div>
+    </label>
+    <label class="relic-effects-label">
+        <div>
+            {{#if item.system.classEffect}}<b>Class Effect:</b> {{/if}}{{{item.system.enriched.classEffect}}}
+        </div>
+    </label>
 </div>
