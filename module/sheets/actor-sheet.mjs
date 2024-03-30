@@ -456,9 +456,15 @@ export class BNBActorSheet extends ActorSheet {
   async _getNPCEnrichedFields(context) {
     const system = this.object.system;
     const configs = {async: true};
-    return {
+    const returnData = {
       special: await TextEditor.enrichHTML(system.special, configs),
+      actions: {...system.actions}
     };
+    returnData.actions.base.action1.description = await TextEditor.enrichHTML(system.actions.base.action1.description, configs);
+    returnData.actions.base.action2.description = await TextEditor.enrichHTML(system.actions.base.action2.description, configs);
+    returnData.actions.mayhem.action1 = await TextEditor.enrichHTML(system.actions.mayhem.action1, configs);
+    returnData.actions.mayhem.action2 = await TextEditor.enrichHTML(system.actions.mayhem.action2, configs);
+    return returnData;
   }
 
   /**
