@@ -200,5 +200,5 @@
   "secondaryTokenAttribute": "attributes.hps.shield",
   "url": "https://github.com/eronth/bunkers-and-badasses",
   "manifest": "https://github.com/eronth/bunkers-and-badasses/releases/download/v0.5.1/system.json",
-  "download": "https://github.com/eronth/bunkers-and-badasses/archive/refs/tags/v0.5.1.zip"
+  "download": "https://github.com/eronth/bunkers-and-badasses/releases/download/v0.5.1/bunkers-and-badasses.zip"
 }
