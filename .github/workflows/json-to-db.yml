@@ -27,44 +27,49 @@ jobs:
 
       - name: Zip Files
         working-directory: ./
-        run:  zip -r ./bunkers-and-badasses.zip ./* -x ./.git/**\* ./.github/**\* ./node_modules/**\* ./build-scripts/**\* ./bunkers-and-badasses.zip ./bunkers-and-badasses.tar.gz
+        run: |
+          zip -r ./bunkers-and-badasses.zip ./* -x ./.git/**\* ./.github/**\* ./node_modules/**\* ./build-scripts/**\* ./bunkers-and-badasses.zip ./bunkers-and-badasses.tar.gz
+          gh release upload ${{github.event.release.tag_name}} bunkers-and-badasses.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
 
-      - name: Upload Release Asset
-        uses: actions/upload-release-asset@v1
-        with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./bunkers-and-badasses.zip
-          asset_name: bunkers-and-badasses.zip
-          asset_content_type: application/zip
+      # - name: Upload Release Asset
+      #   uses: actions/upload-release-asset@v1
+      #   with:
+      #     upload_url: ${{ github.event.release.upload_url }}
+      #     asset_path: ./bunkers-and-badasses.zip
+      #     asset_name: bunkers-and-badasses.zip
+      #     asset_content_type: application/zip
         
-      - name: Upload Release Asset
-        uses: actions/upload-release-asset@v1
-        with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./Attributes-for-Effects.txt
-          asset_name: Attributes-for-Effects.txt
-          asset_content_type: application/text
+      # - name: Upload Release Asset
+      #   uses: actions/upload-release-asset@v1
+      #   with:
+      #     upload_url: ${{ github.event.release.upload_url }}
+      #     asset_path: ./Attributes-for-Effects.txt
+      #     asset_name: Attributes-for-Effects.txt
+      #     asset_content_type: application/text
       
-      - name: Upload Release Asset
-        uses: actions/upload-release-asset@v1
-        with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./roll-builder-deets.txt
-          asset_name: roll-builder-deets.txt
-          asset_content_type: application/text
+      # - name: Upload Release Asset
+      #   uses: actions/upload-release-asset@v1
+      #   with:
+      #     upload_url: ${{ github.event.release.upload_url }}
+      #     asset_path: ./roll-builder-deets.txt
+      #     asset_name: roll-builder-deets.txt
+      #     asset_content_type: application/text
       
-      - name: Upload Release Asset
-        uses: actions/upload-release-asset@v1
-        with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./system.json
-          asset_name: system.json
-          asset_content_type: application/json
+      # - name: Upload Release Asset
+      #   uses: actions/upload-release-asset@v1
+      #   with:
+      #     upload_url: ${{ github.event.release.upload_url }}
+      #     asset_path: ./system.json
+      #     asset_name: system.json
+      #     asset_content_type: application/json
 
-      - name: Upload Release Asset
-        uses: actions/upload-release-asset@v1
-        with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./updates.txt
-          asset_name: updates.txt
-          asset_content_type: application/text
+      # - name: Upload Release Asset
+      #   uses: actions/upload-release-asset@v1
+      #   with:
+      #     upload_url: ${{ github.event.release.upload_url }}
+      #     asset_path: ./updates.txt
+      #     asset_name: updates.txt
+      #     asset_content_type: application/text
