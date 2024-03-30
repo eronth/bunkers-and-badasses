@@ -1,4 +1,4 @@
-# name: Convert JSON to DB
+# Build files and create release assets
 
 on:
   release:
