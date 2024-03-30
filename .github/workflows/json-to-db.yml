@@ -30,9 +30,7 @@ jobs:
         run: |
           zip -r ./bunkers-and-badasses.zip ./* -x ./.git/**\* ./.github/**\* ./node_modules/**\* ./build-scripts/**\* ./bunkers-and-badasses.zip ./bunkers-and-badasses.tar.gz
           gh release upload ${{github.event.release.tag_name}} bunkers-and-badasses.zip
-          gh release upload ${{github.event.release.tag_name}} Attributes-for-Effects.txt
-          gh release upload ${{github.event.release.tag_name}} roll-builder-deets.txt
-          gh release upload ${{github.event.release.tag_name}} system.json updates.txt
+          gh release upload ${{github.event.release.tag_name}} Attributes-for-Effects.txt roll-builder-deets.txt system.json updates.txt
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         shell: bash
