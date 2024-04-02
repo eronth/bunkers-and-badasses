@@ -412,16 +412,16 @@ export class BNBActorSheet extends ActorSheet {
   }
 
   async _prepareEnrichedFields(context, actorType) {
-    let additionalEnrichments = {};
+    let enriched = {};
     if (actorType == 'vault hunter') {
-      additionalEnrichments = {
-        ...additionalEnrichments,
+      enriched = {
+        ...enriched,
         ...(await this._getVaultHunterEnrichedFields(context)),
       };
     }
     if (actorType == 'npc') {
-      additionalEnrichments = {
-        ...additionalEnrichments,
+      enriched = {
+        ...enriched,
         ...(await this._getNPCEnrichedFields(context)),
       };
     }
@@ -437,7 +437,7 @@ export class BNBActorSheet extends ActorSheet {
         traits: await TextEditor.enrichHTML(system.bio.traits, configs),
         additionalNotes: await TextEditor.enrichHTML(system.bio.additionalNotes, configs),
       },
-      ...additionalEnrichments
+      ...enriched
     };
   }
 
@@ -456,15 +456,31 @@ export class BNBActorSheet extends ActorSheet {
   async _getNPCEnrichedFields(context) {
     const system = this.object.system;
     const configs = {async: true};
-    const returnData = {
+    return {
       special: await TextEditor.enrichHTML(system.special, configs),
-      actions: {...system.actions}
+      actions: {
+        base: {
+          action1: {
+            name: system.actions.base.action1.name,
+            description: await TextEditor.enrichHTML(system.actions.base.action1.description, configs),
+          },
+          action2: {
+            name: system.actions.base.action2.name,
+            description: await TextEditor.enrichHTML(system.actions.base.action2.description, configs),
+          },
+        },
+        mayhem: {
+          action1: {
+            name: system.actions.mayhem.action1.name,
+            description: await TextEditor.enrichHTML(system.actions.mayhem.action1.description, configs),
+          },
+          action2: {
+            name: system.actions.mayhem.action2.name,
+            description: await TextEditor.enrichHTML(system.actions.mayhem.action2.description, configs),
+          },
+        },
+      },
     };
-    returnData.actions.base.action1.description = await TextEditor.enrichHTML(system.actions.base.action1.description, configs);
-    returnData.actions.base.action2.description = await TextEditor.enrichHTML(system.actions.base.action2.description, configs);
-    returnData.actions.mayhem.action1 = await TextEditor.enrichHTML(system.actions.mayhem.action1, configs);
-    returnData.actions.mayhem.action2 = await TextEditor.enrichHTML(system.actions.mayhem.action2, configs);
-    return returnData;
   }
 
   /**
