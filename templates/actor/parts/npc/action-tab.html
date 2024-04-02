@@ -5,7 +5,7 @@
       type="text" data-dtype="String" />
   </div>
   <label class="npc-action-label">Special:</label>
-  <dev class="flex flexrow">
+  <div class="flex flexrow">
     <div class="enriched-region">
       {{editor enriched.special
         target="system.special"
@@ -14,9 +14,13 @@
         editable=editable
       }}
     </div>
-  </dev>
-  <hr style="height:1px;border-width:0;color:gray;background-color:gray">
-  <label class="npc-action-header">Actions</label>
+  </div>
+  <hr class="npc-seperator" />
+  <div class="flexrow">
+    <label class="npc-action-header">Actions</label>
+    <div class="add-npc-action">
+    </div>
+  </div>
   <div>
     {{> "systems/bunkers-and-badasses/templates/actor/parts/npc/action-components/action-block.html"
       dataLocation="system.actions.base.action1"
@@ -29,7 +33,11 @@
       value=enriched.actions.base.action2
     }}
   </div>
-  <label class="npc-action-header"><i class="fas fa-skull"></i> Mayhem Actions</label>
+  <div class="flexrow">
+    <label class="npc-action-header"><i class="fas fa-skull"></i> Mayhem Actions</label>
+    <div class="add-npc-action">
+    </div>
+  </div>
   <div>
     {{> "systems/bunkers-and-badasses/templates/actor/parts/npc/action-components/action-block.html"
       dataLocation="system.actions.mayhem.action1"
