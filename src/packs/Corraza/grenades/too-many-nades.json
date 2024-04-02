@@ -10,7 +10,7 @@
     },
     "system": {
       "description": "",
-      "effect": "Targets hit by this grenade become vulnerable to the damage types they take. BMs can decide what \"vulnerable\" means.",
+      "effect": "<p>Targets hit by this grenade become vulnerable to the damage types they take. BMs can decide what \"vulnerable\" means.</p>",
       "level":13,
       "special":{"overrideType":""},
       "isLoot":true,

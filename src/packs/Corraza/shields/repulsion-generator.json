@@ -4,7 +4,7 @@
     "img":"icons/svg/ice-aura.svg",
     "system":{
       "description":"",
-      "effect":"You have resistance against combination damage types, but not the base types that make-up that combo.",
+      "effect":"<p>You have resistance against combination damage types, but not the base types that make-up that combo.</p>",
       "level":13,
       "special":{
         "overrideType":""

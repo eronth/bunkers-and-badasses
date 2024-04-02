@@ -3,7 +3,7 @@
   "type": "grenade",
   "system": {
     "description": "",
-    "effect": "Targets hit by this grenade leave behind a trail of elemental puddle for 3 turns. You can choose to detonate this grenade on yourself for 0 damage, but still gain the elemental puddle trail effect.",
+    "effect": "<p>Targets hit by this grenade leave behind a trail of elemental puddle for 3 turns. You can choose to detonate this grenade on yourself for 0 damage, but still gain the elemental puddle trail effect.</p>",
     "level": 13,
     "special": {
       "overrideType": ""
