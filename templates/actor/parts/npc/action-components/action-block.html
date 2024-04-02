@@ -7,7 +7,7 @@
   </div>
   <div class="flex flexrow">
     <div class="enriched-region enriched-npc-action-description">
-      {{editor (enrich value.description)
+      {{editor value.description
         target=(concat dataLocation ".description")
         placeholder="NPC action description."
         button=true

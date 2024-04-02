@@ -8,6 +8,7 @@ import { ConfirmActionPrompt } from "../helpers/roll-and-post/confirmActionPromp
 import { PerformRollAction } from "../helpers/roll-and-post/performRollAction.mjs";
 import { DefaultData } from "../helpers/defaultData.mjs";
 import { MixedDiceAndNumber } from "../helpers/MixedDiceAndNumber.mjs";
+import { Enricher } from "../helpers/enricher.mjs";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -17,7 +18,7 @@ export class BNBActorSheet extends ActorSheet {
 
   /** @override */
   static get defaultOptions() {
-    return mergeObject(super.defaultOptions, {
+    return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["bnb", "sheet", "actor"],
       template: "systems/bunkers-and-badasses/templates/actor/actor-sheet.html",
       width: 600,
@@ -69,7 +70,7 @@ export class BNBActorSheet extends ActorSheet {
     if (actorData.type == 'vault hunter') {
       context.skillPoints = { value: 0, max: 0 };
       this._updateVaultHunterFromPreviousVersions(context);
-      this._prepareItems(context);
+      await this._prepareItems(context);
       this._prepareArchetypeLevelBonuses(context);
       this._prepareArchetypes(context);
       this._prepareExperience(context);
@@ -81,7 +82,7 @@ export class BNBActorSheet extends ActorSheet {
     // Prepare NPC data and items.
     if (actorData.type == 'npc') {
       this._updateNPCFromPreviousVersions(context);
-      this._prepareItems(context);
+      await this._prepareItems(context);
       this._prepareNpcHps(context);
     }
 
@@ -411,16 +412,16 @@ export class BNBActorSheet extends ActorSheet {
   }
 
   async _prepareEnrichedFields(context, actorType) {
-    let additionalEnrichments = {};
+    let enriched = {};
     if (actorType == 'vault hunter') {
-      additionalEnrichments = {
-        ...additionalEnrichments,
+      enriched = {
+        ...enriched,
         ...(await this._getVaultHunterEnrichedFields(context)),
       };
     }
     if (actorType == 'npc') {
-      additionalEnrichments = {
-        ...additionalEnrichments,
+      enriched = {
+        ...enriched,
         ...(await this._getNPCEnrichedFields(context)),
       };
     }
@@ -436,7 +437,7 @@ export class BNBActorSheet extends ActorSheet {
         traits: await TextEditor.enrichHTML(system.bio.traits, configs),
         additionalNotes: await TextEditor.enrichHTML(system.bio.additionalNotes, configs),
       },
-      ...additionalEnrichments
+      ...enriched
     };
   }
 
@@ -457,6 +458,28 @@ export class BNBActorSheet extends ActorSheet {
     const configs = {async: true};
     return {
       special: await TextEditor.enrichHTML(system.special, configs),
+      actions: {
+        base: {
+          action1: {
+            name: system.actions.base.action1.name,
+            description: await TextEditor.enrichHTML(system.actions.base.action1.description, configs),
+          },
+          action2: {
+            name: system.actions.base.action2.name,
+            description: await TextEditor.enrichHTML(system.actions.base.action2.description, configs),
+          },
+        },
+        mayhem: {
+          action1: {
+            name: system.actions.mayhem.action1.name,
+            description: await TextEditor.enrichHTML(system.actions.mayhem.action1.description, configs),
+          },
+          action2: {
+            name: system.actions.mayhem.action2.name,
+            description: await TextEditor.enrichHTML(system.actions.mayhem.action2.description, configs),
+          },
+        },
+      },
     };
   }
 
@@ -506,7 +529,8 @@ export class BNBActorSheet extends ActorSheet {
     const keyItems = [];
 
     // Iterate through items, allocating to containers
-    for (let i of context.items) {
+    for (let item of context.items) {
+      const i = await Enricher.enrichItem(item);
       i.img = i.img || DEFAULT_TOKEN;
       
       if (i.type === 'key item') { keyItems.push(i); }
@@ -863,7 +887,7 @@ export class BNBActorSheet extends ActorSheet {
       if (dataset.rollType == 'item') {
         const itemId = element.closest('.item').dataset.itemId;
         const item = this.actor.items.get(itemId);
-        if (item) return await item.roll({async: true});
+        if (item) return await item.roll();
       } else if (dataset.rollType == 'melee-dice-roll') {
         return PerformRollAction.meleeAndHPDice({ actor: this.actor });
       } else if (dataset.rollType == 'check') {
@@ -891,7 +915,7 @@ export class BNBActorSheet extends ActorSheet {
     if (dataset.roll) {
       const label = dataset.label ? `[ability] ${dataset.label}` : '';
       const baseFormula = dataset.roll;
-      const rollResult = await new Roll(baseFormula, this.actor.getRollData()).roll({async: true});
+      const rollResult = await new Roll(baseFormula, this.actor.getRollData()).roll();
       rollResult.toMessage({
         speaker: ChatMessage.getSpeaker({ actor: this.actor }),
         flavor: label,
@@ -918,7 +942,7 @@ export class BNBActorSheet extends ActorSheet {
       `${hp.combinedRegen}`,
       RollBuilder._createDiceRollData({actor: this.actor})
     );
-    const rollResult = await roll.roll({async: true});
+    const rollResult = await roll.roll();
 
     // Prep chat values.
     const flavorText = `${this.actor.name} ${hpRegainAction[dataset.healthType.toLowerCase()]} ${rollResult.total} <b>${hp.label}</b>.`;
@@ -926,7 +950,7 @@ export class BNBActorSheet extends ActorSheet {
       user: game.user.id,
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
       flavor: flavorText,
-      type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+      //type: CONST.CHAT_MESSAGE_STYLES.ROLL,
       roll: rollResult,
       rollMode: CONFIG.Dice.rollModes.publicroll,
       // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)

@@ -26,6 +26,7 @@ Hooks.once('init', async function() {
   
   // Add custom constants for configuration.
   CONFIG.BNB = BNB;
+  CONFIG.Dice.legacyParsing = true;
 
   game.settings.register('bunkers-and-badasses', 'measurementType', {
     name: 'Distance Measurement Style',
@@ -115,24 +116,6 @@ Hooks.once('init', async function() {
   Items.unregisterSheet("core", ItemSheet);
   Items.registerSheet("bunkers-and-badasses", BNBItemSheet, { makeDefault: true });
 
-  // game.socket.on('show-bm-red-text', async data => {
-  //   const item = data.item;
-  //   const itemSystem = item.system;
-    
-  //   const user = game.users.get(game.user.id);
-  //     if (user.isGM) 
-  //     {
-  //     const secretMessageData = {
-  //       user: user,
-  //       flavor: `Secret BM only notes for ${this.actor.name}'s <b>${item.name}</b>`,
-  //       content: itemSystem.redTextEffectBM,
-  //       whisper: game.users.filter(u => u.isGM).map(u => u.id),
-  //       speaker: ChatMessage.getSpeaker(),
-  //     };
-  //     return ChatMessage.create(secretMessageData);
-  //   }
-  // });
-
   // Preload Handlebars templates.
   return preloadHandlebarsTemplates();
 });
@@ -194,6 +177,12 @@ function getAddedDistance({ line, leftoverDiagonal, gridConversion }) {
     return Math.ceil(Math.sqrt(Math.pow(X, 2) + Math.pow(Y, 2)) * gridConversion);
   }
 }
+
+// Keeping this around for future debug use...
+// Hooks.on('updateActor', (log1, log2, log3, log4) => {
+//   console.log(log1);
+//   console.log(log2.system.actions);
+// });
 
 Hooks.on('preCreateToken', (document, data) => {
   const actor = document.actor;
@@ -370,7 +359,7 @@ async function rollItemMacro(itemName) {
   if (!item) return ui.notifications.warn(`Your controlled Actor does not have an item named ${itemName}`);
 
   // Trigger the item roll
-  return await item.roll({async: true});
+  return await item.roll();
 }
 
 

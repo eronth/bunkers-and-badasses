@@ -1,3 +1,5 @@
+import { Enricher } from './enricher.mjs';
+
 export class Dropdown {
   static getComponentClass(componentType) {
     switch (componentType) {
@@ -73,6 +75,8 @@ export class Dropdown {
     if (!data) {
       return "no data found (probably because the developer messed something up).";
     }
+
+    data.item = await Enricher.enrichItem(data.item);
 
     // Get the html template, create the data block, then put it together.
     const templateLocation = this.getBodyTemplateLocation(data.item.type);
