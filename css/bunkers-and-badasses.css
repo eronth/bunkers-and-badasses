@@ -1316,6 +1316,12 @@ input[type="time"]:focus {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.bnb .action .attacks-container .attack .attack-description p {
+  margin: 0;
+  padding: 0;
+  min-height: calc(100% + 4px);
+  display: inline;
+}
 
 .for-some-reason-needed {
   width: 40%;
@@ -1391,3 +1397,4 @@ input.badass {
     opacity: 1.0;
   }
 }
+
