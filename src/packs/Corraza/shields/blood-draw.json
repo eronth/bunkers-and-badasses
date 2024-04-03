@@ -3,7 +3,7 @@
   "type": "shield",
   "system": {
     "description": "",
-    "effect": "Allies within 4 squares get +10 max health.",
+    "effect": "<p>Allies within 4 squares get +10 <span class='bolded flesh-text'>max Health</span>.</p>",
     "level": 13,
     "special": {
       "overrideType": ""

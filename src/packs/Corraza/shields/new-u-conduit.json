@@ -4,7 +4,7 @@
     "img":"icons/svg/aura.svg",
     "system":{
       "description":"",
-      "effect":"Allies within a 4 squares get +10 max shields.",
+      "effect":"<p>Allies within a 4 squares get +10 <span class='bolded shield-text'>max Shield</span>.</p>",
       "level":13,
       "special":{
         "overrideType":""

@@ -6,7 +6,7 @@
     "flags":{"core":{"sourceId":"Item.49PonxNz1I65X0hC"}},
     "system":{
       "description":"",
-      "effect":"Good refreshing healing.",
+      "effect":"<p>Good refreshing healing.</p>",
       "level":1,
       "special":{
         "overrideType":""
@@ -22,7 +22,7 @@
       "equipped":false,
       "redText":"Very tasty, very purple.",
       "redTextEffect":"",
-      "redTextEffectBM":"For the next 3 turns, the character has +5 health regen and +5 shield recharge. Trigger regeneration and recharge each of those turns.",
+      "redTextEffectBM":"<p>For the next 3 turns, the character has +5 <span class='bolded flesh-text'>Health regen</span> and +5 <span class='bolded shield-text'>Shield recharge</span>. Trigger regeneration and recharge each of those turns.</p>",
       "quantity":1,
       "cost":50
     },

@@ -3,7 +3,7 @@
   "type": "grenade",
   "system": {
     "description": "",
-    "effect": "An energy field grenade does not deal damage on explosion, and instead creates a 2x2 zone for 3 turns. Any attacks that passes through the zone adds the grenade's damage to the attack.",
+    "effect": "<p>An energy field grenade does not deal damage on explosion, and instead creates a 2x2 zone for 3 turns. Any attacks that passes through the zone adds the grenade's damage to the attack.</p>",
     "level": 13,
     "special": {
       "overrideType": ""
