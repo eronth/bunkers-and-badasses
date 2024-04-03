@@ -695,6 +695,7 @@ export class BNBActorSheet extends ActorSheet {
 
     // Display inventory details.
     html.find(`.${Dropdown.getComponentClass('clickable')}`).mouseup(this._onItemDetailsComponenetClick.bind(this));
+    html.find('.action-attack.item').mouseup((event) => this._onActionAttackClick(event));
 
     // Active Effect management
     html.find('.effect-control').click((event) => onManageActiveEffect(event, this.actor));
@@ -852,6 +853,19 @@ export class BNBActorSheet extends ActorSheet {
       Dropdown.toggleItemDetailsDropdown(event, dropdownData);
     else if (item)
       item.sheet.render(true);
+  }
+
+  _onActionAttackClick(event) {
+    // Only active on right-click.
+    if (event.button != 2) { return; }
+
+    const itemId = $(event.currentTarget).attr("data-item-id");
+    if (!itemId) { return; }
+
+    const item = this.actor.items.get(itemId);
+    if (!item) { return; }
+
+    item.sheet.render(true);
   }
 
   /**
