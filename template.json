@@ -338,7 +338,8 @@
           "action3": {
             "name": "",
             "description": ""
-          }
+          },
+          "actionList": []
         },
         "mayhem": {
           "action1": {
@@ -352,7 +353,8 @@
           "action3": {
             "name": "",
             "description": ""
-          }
+          },
+          "actionList": []
         }
       },
       "attributes": {
