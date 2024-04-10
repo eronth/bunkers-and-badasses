@@ -1,4 +1,3 @@
-import { ConfirmActionPrompt } from "./roll-and-post/confirmActionPrompt.mjs";
 import { PostToChat } from "./roll-and-post/postToChat.mjs";
 
 export class OnActionUtil {
@@ -155,5 +154,18 @@ export class OnActionUtil {
     
     // Square brackets needed to get the right value.
     actor.update({["system.archetypes.archetype"+archetypeNum+".rewards"]: archetype.rewards});
+  }
+
+  static async onNpcActionCreate(event, actor) {
+    // Prep data
+    const actionType = event.currentTarget.dataset.actionType;
+    const actionList = actor.system.actions[actionType].actionList ?? [];
+    actionList.push({
+      name: "Test Action",
+      description: "Test Action, please ignore.",
+    });
+
+    // Create the item.
+    actor.update({["system.actions."+actionType+".actionList"]: actionList});
   }
 }
