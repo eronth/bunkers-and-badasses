@@ -34,7 +34,8 @@
     "css/header/health.css",
     "css/header/xp-bar.css",
     "css/archetype-level.css",
-    "css/damage-prompt.css"
+    "css/damage-prompt.css",
+    "css/npc-sheet.css"
   ],
   "packs": [
     {
