@@ -490,7 +490,7 @@ export class BNBActorSheet extends ActorSheet {
         description: await TextEditor.enrichHTML(action.description, configs),
       });
     }
-    for (let action in system.actions.mayhem.actionList) {
+    for (let action of system.actions.mayhem.actionList) {
       enriched.actions.mayhem.actionList.push({
         name: action.name,
         description: await TextEditor.enrichHTML(action.description, configs),
