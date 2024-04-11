@@ -41,10 +41,11 @@
       {{> "systems/bunkers-and-badasses/templates/actor/parts/npc/action-components/action-block.html"
         dataLocation=(concat "system.actions.base.actionList." key)
         value=action
+        deletable=true
+        actionType="base"
+        key=key
       }}
-      <div>{{{action.name}}}</div>
-      <div>{{{action.description}}}</div>
-      <div>{{{key}}}</div>
+      <div>{{{action.name}}} ({{{key}}}): {{{action.description}}}</div>
     </div>
   {{/each}}
   <div class="flexrow" style="margin-top:1em;">

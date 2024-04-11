@@ -4,6 +4,13 @@
     <input class="" placeholder="Action Name"
       value="{{value.name}}" name="{{dataLocation}}.name" 
       type="text" data-dtype="String" />
+    {{#if deletable}}
+    <a class="npc-action-delete" title="Delete Action" 
+      data-action-type="{{actionType}}"
+      data-action-key="{{key}}">
+      <i class="fas fa-trash"></i>
+    </a>
+    {{/if}}
   </div>
   <div class="flex flexrow">
     <div class="enriched-region enriched-npc-action-description">

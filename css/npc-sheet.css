@@ -126,3 +126,7 @@
   text-align: end;
   padding-right: .25em;
 }
+
+.bnb .npc .npc-action .action-header a {
+  padding-right: .25em;
+}
