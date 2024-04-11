@@ -45,7 +45,6 @@
         actionType="base"
         key=key
       }}
-      <div>{{{action.name}}} ({{{key}}}): {{{action.description}}}</div>
     </div>
   {{/each}}
   <div class="flexrow" style="margin-top:1em;">
@@ -70,9 +69,13 @@
   </div>
   {{#each enriched.actions.mayhem.actionList as |action key|}}
     <div>
-      <div>{{{action.name}}}</div>
-      <div>{{{action.description}}}</div>
-      <div>{{{key}}}</div>
+      {{> "systems/bunkers-and-badasses/templates/actor/parts/npc/action-components/action-block.html"
+        dataLocation=(concat "system.actions.mayhem.actionList." key)
+        value=action
+        deletable=true
+        actionType="mayhem"
+        key=key
+      }}
     </div>
   {{/each}}
 </div>
