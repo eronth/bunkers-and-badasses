@@ -39,11 +39,13 @@ export class ConfirmActionPrompt {
   static async deleteNpcAction(event, options) {
     event.stopPropagation();
     const actionType = event.currentTarget.dataset.actionType;
-    const actionIndex = event.currentTarget.dataset.actionIndex;
+    const actionIndex = event.currentTarget.dataset.actionKey;
     const { actor } = options;
 
     const templateLocation = "systems/bunkers-and-badasses/templates/dialog/delete-npc-action.html";
-    const deleteNpcDialogContent = await renderTemplate(templateLocation, { });
+    const deleteNpcDialogContent = await renderTemplate(templateLocation, {
+      action: actor.system.actions[actionType].actionList[actionIndex],
+     });
 
     const deleteOptions = {
       actor: actor,

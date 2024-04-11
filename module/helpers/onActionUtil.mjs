@@ -159,7 +159,7 @@ export class OnActionUtil {
   static async onNpcActionCreate(event, actor) {
     // Prep data
     const actionType = event.currentTarget.dataset.actionType;
-    const actionList = actor.system.actions[actionType].actionList ?? [];
+    const actionList = actor.system.actions[actionType].actionList ?? {};
     const nextIndex = Object.keys(actionList).length.toString();
     actionList[nextIndex] = {
       name: "",
@@ -170,15 +170,26 @@ export class OnActionUtil {
     actor.update({["system.actions."+actionType+".actionList"]: actionList});
   }
 
-  // static async onNpcActionDelete(html, options) {
-  //   // Prep data
-  //   const { actor, actionType, actionIndex } = options;
-  //   const actionList = actor.system.actions[actionType].actionList ?? [];
+  static async onNpcActionDelete(html, options) {
+    // Prep data
+    const { actor, actionType, actionIndex } = options;
+    const actionList = actor.system.actions[actionType].actionList ?? {};
+    const newActionList = {};
 
-  //   // Remove the action.
-  //   actionList.splice(actionIndex, 1);
-
-  //   // Update the actor.
-  //   actor.update({["system.actions."+actionType+".actionList"]: actionList});
-  // }
+    // Iterate all actions, skipping the one to delete.
+    // This allows the numbering to remain consistent.
+    let i = 0;
+    for (let key in actionList) {
+      if (key === actionIndex) {
+        // Skip.
+      } else {
+        newActionList[i.toString()] = actionList[key];
+        i++;
+      }
+    }
+    
+    // Update the actor.
+    await actor.update({["system.actions."+actionType+".-=actionList"]: null});
+    await actor.update({["system.actions."+actionType+".actionList"]: newActionList});
+  }
 }
