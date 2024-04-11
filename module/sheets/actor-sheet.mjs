@@ -491,12 +491,13 @@ export class BNBActorSheet extends ActorSheet {
         description: await TextEditor.enrichHTML(action.description, configs),
       };
     }
-    // for (let action of system.actions.mayhem.actionList) {
-    //   enriched.actions.mayhem.actionList.push({
-    //     name: action.name,
-    //     description: await TextEditor.enrichHTML(action.description, configs),
-    //   });
-    // }
+    for (let key in system.actions.mayhem.actionList) {
+      const action = system.actions.mayhem.actionList[key];
+      enriched.actions.mayhem.actionList[key] = {
+        name: action.name,
+        description: await TextEditor.enrichHTML(action.description, configs),
+      };
+    }
 
     return enriched;
   }
