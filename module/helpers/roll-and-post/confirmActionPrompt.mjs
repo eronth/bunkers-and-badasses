@@ -36,6 +36,41 @@ export class ConfirmActionPrompt {
     }).render(true);
   }
 
+  static async deleteNpcAction(event, options) {
+    event.stopPropagation();
+    const actionType = event.currentTarget.dataset.actionType;
+    const actionIndex = event.currentTarget.dataset.actionIndex;
+    const { actor } = options;
+
+    const templateLocation = "systems/bunkers-and-badasses/templates/dialog/delete-npc-action.html";
+    const deleteNpcDialogContent = await renderTemplate(templateLocation, { });
+
+    const deleteOptions = {
+      actor: actor,
+      actionType: actionType,
+      actionIndex: actionIndex,
+    };
+
+    this.deleteNpcDialog = new Dialog({
+      title: `Delete Action?`,
+      Id: `delete-npc-dialog`,
+      content: deleteNpcDialogContent,
+      buttons: {
+        "Cancel": {
+          label: "Cancel",
+          callback: async (html) => { }
+        },
+        "Delete" : {
+          icon: `<i class="fas fa-trash"></i>`,
+          label: `Delete`,
+          callback : async (html) => {
+            return OnActionUtil.onNpcActionDelete(html, deleteOptions);
+          }
+        }
+      }
+    }).render(true);
+  }
+
   static async badassRoll(event, options) {
     // Prep data to access.
     const { actor, checkDetails } = options;

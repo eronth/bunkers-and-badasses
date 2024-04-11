@@ -38,6 +38,10 @@
   </div>
   {{#each enriched.actions.base.actionList as |action key|}}
     <div>
+      {{> "systems/bunkers-and-badasses/templates/actor/parts/npc/action-components/action-block.html"
+        dataLocation=(concat "system.actions.base.actionList." key)
+        value=action
+      }}
       <div>{{{action.name}}}</div>
       <div>{{{action.description}}}</div>
       <div>{{{key}}}</div>

@@ -160,12 +160,25 @@ export class OnActionUtil {
     // Prep data
     const actionType = event.currentTarget.dataset.actionType;
     const actionList = actor.system.actions[actionType].actionList ?? [];
-    actionList.push({
-      name: "Test Action",
-      description: "Test Action, please ignore.",
-    });
+    const nextIndex = Object.keys(actionList).length.toString();
+    actionList[nextIndex] = {
+      name: "",
+      description: "<p></p>",
+    };
 
     // Create the item.
     actor.update({["system.actions."+actionType+".actionList"]: actionList});
   }
+
+  // static async onNpcActionDelete(html, options) {
+  //   // Prep data
+  //   const { actor, actionType, actionIndex } = options;
+  //   const actionList = actor.system.actions[actionType].actionList ?? [];
+
+  //   // Remove the action.
+  //   actionList.splice(actionIndex, 1);
+
+  //   // Update the actor.
+  //   actor.update({["system.actions."+actionType+".actionList"]: actionList});
+  // }
 }

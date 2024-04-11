@@ -468,7 +468,7 @@ export class BNBActorSheet extends ActorSheet {
             name: system.actions.base.action2.name,
             description: await TextEditor.enrichHTML(system.actions.base.action2.description, configs),
           },
-          actionList: [],
+          actionList: {},
         },
         mayhem: {
           action1: {
@@ -479,23 +479,24 @@ export class BNBActorSheet extends ActorSheet {
             name: system.actions.mayhem.action2.name,
             description: await TextEditor.enrichHTML(system.actions.mayhem.action2.description, configs),
           },
-          actionList: [],
+          actionList: {},
         },
       },
     };
 
-    for (let action of system.actions.base.actionList) {
-      enriched.actions.base.actionList.push({
+    for (let key in system.actions.base.actionList) {
+      const action = system.actions.base.actionList[key];
+      enriched.actions.base.actionList[key] = {
         name: action.name,
         description: await TextEditor.enrichHTML(action.description, configs),
-      });
+      };
     }
-    for (let action of system.actions.mayhem.actionList) {
-      enriched.actions.mayhem.actionList.push({
-        name: action.name,
-        description: await TextEditor.enrichHTML(action.description, configs),
-      });
-    }
+    // for (let action of system.actions.mayhem.actionList) {
+    //   enriched.actions.mayhem.actionList.push({
+    //     name: action.name,
+    //     description: await TextEditor.enrichHTML(action.description, configs),
+    //   });
+    // }
 
     return enriched;
   }
