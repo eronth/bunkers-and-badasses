@@ -1,0 +1,6 @@
+.bnb .floating-tool.common-counters .counter .input-controls input {
+  padding: 2px 0;
+  height: fit-content;
+  line-height: var(--form-field-height);
+  text-align: center;
+}

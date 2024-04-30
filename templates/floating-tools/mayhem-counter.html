@@ -1,16 +1,18 @@
-<div class="floating-tool common-counters">
-  
-  <div class="component-controls flexrow">
-    <a class="drag-handle"><i class="fas fa-grip-horizontal"></i></a>
-    <h3>Mayhem</h3>
-  </div>
-
-  <div class="counter">
-    <div class="input-controls flexrow">
-      <a {{#unless canEdit}}style="visibility: hidden"{{/unless}} class="decrease">-</a> 
-      <input type="number" data-type="mayhem" value="{{mayhem}}" {{#unless canEdit}}disabled{{/unless}}>
-      <a {{#unless canEdit}}style="visibility: hidden"{{/unless}} class="increase">+</a>
+<div class="bnb">
+  <div class="floating-tool common-counters flexrow">
+    
+    <div class="component-controls flexrow">
+      <a class="drag-handle"><i class="fas fa-grip-horizontal"></i></a>
     </div>
+    
+    <div class="counter">
+      <h3>Mayhem</h3>
+      <div class="input-controls flexrow">
+        <button {{^if canEdit}}style="visibility: hidden"{{/if}} class="decrease">-</button>
+        <input class="flex-size-2" type="number" data-type="mayhem" value="{{mayhem}}" {{^if canEdit}}disabled{{/if}}>
+        <button {{^if canEdit}}style="visibility: hidden"{{/if}} class="increase">+</button>
+      </div>
+    </div>
+    
   </div>
-
 </div>
