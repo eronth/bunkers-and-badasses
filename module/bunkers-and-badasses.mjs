@@ -120,7 +120,12 @@ Hooks.once('init', async function() {
     name: 'Tracked Resource',
     scope: 'world',
     config: false,
-    default: [],
+    default: [{
+      name: 'Mayhem',
+      value: 0,
+      playersCanSee: true,
+      playersCanEdit: false,
+    }],
     type: Array,
   });
 

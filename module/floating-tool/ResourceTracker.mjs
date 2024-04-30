@@ -60,8 +60,7 @@ export default class ResourceTracker extends Application {
       const multiplier = $(ev.currentTarget).hasClass('increase') ? 1 : -1;
       $(ev.currentTarget).toggleClass("clicked");
       const newValue = await ResourceTracker.modifyTrackerValue(trackerIndex, 1 * multiplier);
-      input[0].value = newValue
-    
+      input[0].value = newValue;
     });
 
     html.find('.increase,.decrease').mouseup(ev => {
@@ -74,7 +73,9 @@ export default class ResourceTracker extends Application {
         content: `<p>Enter the name of the new tracker:</p><input type="text" id="newTrackerName" />
           <p>Initial value:</p><input type="Number" id="newTrackerValue" value=0 />`,
         buttons: {
+          cancel: { label: "Cancel" },
           ok: {
+            icon: '<i class="fas fa-plus"></i>',
             label: "Add",
             callback: async () => {
               const newTrackerName = document.getElementById("newTrackerName").value;
@@ -84,7 +85,6 @@ export default class ResourceTracker extends Application {
               }
             },
           },
-          cancel: { label: "Cancel" },
         },
       });
       popup.render(true);
@@ -92,10 +92,12 @@ export default class ResourceTracker extends Application {
 
     html.find('.remove-resource-tracker').click(async ev => {
       const trackerIndex = $(ev.currentTarget).parents('.tracker').attr('data-key');
+      const trackers = ResourceTracker.getValue("trackedResources");
       const popup = new Dialog({
         title: "Remove Resource Tracker",
-        content: ``,
+        content: `Remove the tracker for "${trackers[trackerIndex].name}"?`,
         buttons: {
+          cancel: { label: "Cancel" },
           ok: {
             icon: '<i class="fas fa-trash"></i>',
             label: "Remove",
@@ -106,7 +108,6 @@ export default class ResourceTracker extends Application {
               }
             },
           },
-          cancel: { label: "Cancel" },
         },
       });
       popup.render(true);
@@ -165,7 +166,7 @@ export default class ResourceTracker extends Application {
 
   // Edit (name, value, others?)
   static async updateTrackerData() {
-
+    // TODO - Implement
   }
 
   // CanSee
@@ -193,7 +194,7 @@ export default class ResourceTracker extends Application {
   
   static async updateRender() {
     if (game.tracker.rendered) {
-      game.tracker.render(true);
+      await game.tracker.render(true);
     }
   }
 
