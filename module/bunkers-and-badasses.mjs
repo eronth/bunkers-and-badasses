@@ -112,7 +112,7 @@ Hooks.once('init', async function() {
     name: 'Resource Tracker Tool Position',
     scope: 'client',
     config: false,
-    default: {},
+    default: { hide: false },
     type: Object,
   });
 

@@ -15,8 +15,18 @@
   text-align: center;
 }
 
+.bnb .floating-tool.common-trackers .tracker .input-controls button:disabled {
+  cursor: default;
+  box-shadow: none;
+  text-shadow: none;
+  background: rgb(255, 255, 240, .35);
+}
+
 .bnb .floating-tool.common-trackers .tracker h3 span.tracker-name {
-  flex: 5;
+  flex: 8;
+}
+.bnb .floating-tool.common-trackers .tracker h3 span.tracker-controls {
+  flex: 3;
 }
 
 .bnb .floating-tool.common-trackers .tracker h3 i {

@@ -13,11 +13,16 @@ export default class ResourceTracker extends Application {
    * @type {Object}
    */
   getData() {
-    const sneep = game.settings.get('bunkers-and-badasses', 'trackedResources');
+    const isGM = game.user.isGM;
+    const trackers = game.settings.get('bunkers-and-badasses', 'trackedResources');
+    for (let i = 0; i <  trackers.length; i++) {
+      trackers[i].canSee = trackers[i].playersCanSee || isGM;
+      trackers[i].canEdit = trackers[i].playersCanEdit || isGM;
+    }
     return {
       ...super.getData(),
-      canEdit: game.user.isGM,
-      trackedResources: game.settings.get('bunkers-and-badasses', 'trackedResources'),
+      isGM: isGM,
+      trackedResources:  trackers,
     };
   }
 
@@ -104,7 +109,7 @@ export default class ResourceTracker extends Application {
             callback: async () => {
               if (trackerIndex) {
                 await ResourceTracker.removeTrackedResource(trackerIndex);
-                this.render(true);
+                await ResourceTracker.updateRender();
               }
             },
           },
@@ -129,6 +134,13 @@ export default class ResourceTracker extends Application {
       const trackerIndex = $(ev.currentTarget).parents('.tracker').attr('data-key');
       const newValue = Number(ev.target.value);
       await ResourceTracker.modifyTrackerValue(trackerIndex, newValue);
+    });
+
+
+    html.find('.header-button.control.close').click(async ev => {
+      const position = game.settings.get("bunkers-and-badasses", "resourceTrackerToolPosition");
+      position.hide = true;
+      game.settings.set("bunkers-and-badasses", "resourceTrackerToolPosition", position);
     });
   }
 
@@ -215,11 +227,6 @@ export default class ResourceTracker extends Application {
 
     return resourceTrackers;
   }
-
-  
-
-  
-
 }
 
 Hooks.on("renderSceneControls", async (app, html, options) => {

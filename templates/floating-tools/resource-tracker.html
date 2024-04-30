@@ -10,35 +10,42 @@
   <div class="floating-tool common-trackers flexrow">
     
     {{#each trackedResources as |resource key|}}
+    {{#if resource.canSee}}
     <div class="tracker" data-key="{{key}}">
       <h3 class="flexrow">
         <span class="tracker-name">
           {{resource.name}}
         </span>
-        <a class="toggle-visibility" title="Hide/Show Resource Tracker for Players">
-          {{#if resource.playersCanSee}}
-          <i class="fas fa-eye"></i>
-          {{else}}
-          <i class="fas fa-eye-slash"></i>
+        <span class="tracker-controls flexrow">
+          {{#if ../isGM}}
+          <a class="toggle-visibility" title="Hide/Show Resource Tracker for Players">
+            {{#if resource.playersCanSee}}
+            <i class="fas fa-eye"></i>
+            {{else}}
+            <i class="fas fa-eye-slash"></i>
+            {{/if}}
+          </a>
+          <a class="toggle-editability" title="Enable/Disable Player Control Permissions">
+            {{#if resource.playersCanEdit}}
+            <i class="fas fa-lock-open"></i>
+            {{else}}
+            <i class="fas fa-lock"></i>
+            {{/if}}
+          </a>
+          <a class="remove-resource-tracker" data-action="delete" title="Remove Resource Tracker">
+            <i class="fas fa-trash"></i>
+          </a>
           {{/if}}
-        </a>
-        <a class="toggle-editability" title="Enable/Disable Player Control Permissions">
-          {{#if resource.playersCanEdit}}
-          <i class="fas fa-lock-open"></i>
-          {{else}}
-          <i class="fas fa-lock"></i>
-          {{/if}}
-        </a>
-        <a class="remove-resource-tracker" data-action="delete" title="Remove Resource Tracker">
-          <i class="fas fa-trash"></i>
-        </a>
+        </span>
       </h3>
       <div class="input-controls flexrow">
-        <button class="decrease">-</button>
-        <input class="flex-size-2" type="number" data-type="{{key}}" value="{{resource.value}}">
-        <button class="increase">+</button>
+        <button class="decrease" {{^if canEdit}}disabled{{/if}}>-</button>
+        <input class="flex-size-2" type="number"
+        value="{{resource.value}}" {{^if canEdit}}disabled{{/if}} />
+        <button class="increase" {{^if canEdit}}disabled{{/if}}>+</button>
       </div>
     </div>
+    {{/if}}
     {{/each}}
     
   </div>
