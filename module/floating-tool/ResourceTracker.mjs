@@ -131,7 +131,7 @@ export default class ResourceTracker extends Application {
       name: options?.name ?? 'Resource',
       value: options?.value ?? 0,
       playersCanSee: options?.playersCanSee ?? false,
-      palyersCanEdit: options?.playersCanEdit ?? false,
+      playersCanEdit: options?.playersCanEdit ?? false,
     });
     await ResourceTracker.setTrackedResources(trackedResources);
     await ResourceTracker.updateRender();
