@@ -15,14 +15,14 @@ export default class ResourceTracker extends Application {
   getData() {
     const isGM = game.user.isGM;
     const trackers = game.settings.get('bunkers-and-badasses', 'trackedResources');
-    for (let i = 0; i <  trackers.length; i++) {
+    for (let i = 0; i < trackers.length; i++) {
       trackers[i].canSee = trackers[i].playersCanSee || isGM;
       trackers[i].canEdit = trackers[i].playersCanEdit || isGM;
     }
     return {
       ...super.getData(),
       isGM: isGM,
-      trackedResources:  trackers,
+      trackedResources: trackers,
     };
   }
 
@@ -152,6 +152,24 @@ export default class ResourceTracker extends Application {
   get trackedResources() {
     return ResourceTracker.getValue("trackedResources");
   }
+
+  static async getTrackedResources() {
+    return game.settings.get('bunkers-and-badasses', 'trackedResources');
+  }
+
+  static async setTrackedResources(resourceTrackers) {
+    if (!game.user.isGM) {
+      game.socket.emit('system.bunkers-and-badasses', {
+        type: 'setTrackedResources',
+        payload: resourceTrackers,
+      });
+    } else {
+      await game.settings.set('bunkers-and-badasses', 'trackedResources', resourceTrackers);
+      await ResourceTracker.updateRender();
+    }
+
+    return resourceTrackers;
+  }
   
   // ************************* STATIC FUNCTIONS ***************************
 
@@ -203,29 +221,12 @@ export default class ResourceTracker extends Application {
     await ResourceTracker.setTrackedResources(trackedResources);
   }
 
-  
+  // Re-render (useful for changes).
   static async updateRender() {
     if (game.tracker.rendered) {
       await game.tracker.render(true);
+      //game.tracker.setPosition();
     }
-  }
-
-
-  static async getTrackedResources() {
-    return game.settings.get('bunkers-and-badasses', 'trackedResources');
-  }
-
-  static async setTrackedResources(resourceTrackers) {
-    if (!game.user.isGM) {
-      game.socket.emit('system.bunkers-and-badasses', {
-        type: 'setTrackedResources',
-        payload: resourceTrackers,
-      });
-    } else {
-      await game.settings.set('bunkers-and-badasses', 'trackedResources', resourceTrackers);
-    }
-
-    return resourceTrackers;
   }
 }
 
