@@ -15,14 +15,14 @@
         <span class="tracker-name">
           {{resource.name}}
         </span>
-        <a class="visibility-toggle" title="Hide/Show Resource Tracker for Players">
+        <a class="toggle-visibility" title="Hide/Show Resource Tracker for Players">
           {{#if resource.playersCanSee}}
           <i class="fas fa-eye"></i>
           {{else}}
           <i class="fas fa-eye-slash"></i>
           {{/if}}
         </a>
-        <a class="editability-toggle" title="Enable/Disable Player Control Permissions">
+        <a class="toggle-editability" title="Enable/Disable Player Control Permissions">
           {{#if resource.playersCanEdit}}
           <i class="fas fa-lock-open"></i>
           {{else}}

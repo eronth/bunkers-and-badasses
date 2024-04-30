@@ -111,6 +111,18 @@ export default class ResourceTracker extends Application {
       });
       popup.render(true);
     });
+
+    html.find('.toggle-visibility').click(async ev => {
+      const trackerIndex = $(ev.currentTarget).parents('.tracker').attr('data-key');
+      await ResourceTracker.toggleTrackerVisibility(trackerIndex);
+      await ResourceTracker.updateRender();
+    });
+
+    html.find('.toggle-editability').click(async ev => {
+      const trackerIndex = $(ev.currentTarget).parents('.tracker').attr('data-key');
+      await ResourceTracker.toggleTrackerEditability(trackerIndex);
+      await ResourceTracker.updateRender();
+    });
   }
 
   // ************************* GET SET ***************************
@@ -151,15 +163,17 @@ export default class ResourceTracker extends Application {
   }
 
   // CanSee
-  static async updateTrackerVisibility(id, visibility) {
+  static async toggleTrackerVisibility(id) {
     let trackedResources = await ResourceTracker.getTrackedResources();
-    trackedResources[id].playersCanSee = visibility;
+    trackedResources[id].playersCanSee = !trackedResources[id].playersCanSee;
     await ResourceTracker.setTrackedResources(trackedResources);
   }
 
   // CanEdit
-  static async updateTrackerEditability() {
-
+  static async toggleTrackerEditability(id) {
+    let trackedResources = await ResourceTracker.getTrackedResources();
+    trackedResources[id].playersCanEdit = !trackedResources[id].playersCanEdit;
+    await ResourceTracker.setTrackedResources(trackedResources);
   }
 
   // Trash
