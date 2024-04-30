@@ -1,4 +1,4 @@
-.bnb .floating-tool.common-counters .counter .input-controls input {
+.bnb .floating-tool.common-trackers .tracker .input-controls input {
   padding: 2px 0;
   height: fit-content;
   line-height: var(--form-field-height);

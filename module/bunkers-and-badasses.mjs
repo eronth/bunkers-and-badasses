@@ -10,7 +10,7 @@ import { preloadHandlebarsTemplates } from "./helpers/templates.mjs";
 import { BNB } from "./helpers/config.mjs";
 import { BarbrawlBuilder } from "./helpers/barbrawl-builder.mjs";
 import { HandlebarsHelperUtil } from "./helpers/handlebarsHelperUtil.mjs";
-import MayhemCounter from "./floating-tool/MayhemCounter.mjs";
+import ResourceTracker from "./floating-tool/ResourceTracker.mjs";
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -23,13 +23,15 @@ Hooks.once('init', async function() {
     BNBActor: BNBActor,
     BNBItem: BNBItem,
     rollItemMacro,
-    MayhemCounter,
+    ResourceTracker,
   };
-  game.counter = new game.bnb.MayhemCounter();
+  game.tracker = new game.bnb.ResourceTracker();
   game.socket.on("system.bunkers-and-badasses", async data => {
-    if (data.type == "setCounter" && game.user.isGM) {
-      game.settings.set("bunkers-and-badasses", data.payload.type, data.payload.value)
-    }
+    // if (data.type == "setCounter" && game.user.isGM) {
+    //   game.settings.set("bunkers-and-badasses", data.payload.type, data.payload.value)
+    // } else if (data.type == "setTrackedResourceCounters" && game.user.isGM) {
+    //   game.settings.set("bunkers-and-badasses", "trackedResourceCounters", data.payload)
+    // }
   })
   
   // Add custom constants for configuration.
@@ -103,32 +105,23 @@ Hooks.once('init', async function() {
     type: Boolean,
   });
 
-  // game.settings.register('wrath-and-glory', 'canPlayersEditCounter', {
-  //   name: 'Allow Players To Edit Mayhem',
-  //   hint: 'Players will be able to change Glory counter values manually.',
-  //   scope: 'world',
-  //   config: true,
-  //   default: false,
-  //   type: Boolean,
-  // });
-
   //////////////////////////////
   //  Hidden settings/values  //
   //////////////////////////////
-  game.settings.register('bunkers-and-badasses', 'mayhem', {
-    name: 'Mayhem',
-    scope: 'world',
-    config: false,
-    default: 0,
-    type: Number,
-  });
-
-  game.settings.register('bunkers-and-badasses', 'counterToolPosition', {
-    name: 'Counter Tool Position',
+  game.settings.register('bunkers-and-badasses', 'resourceTrackerToolPosition', {
+    name: 'Resource Tracker Tool Position',
     scope: 'client',
     config: false,
     default: {},
     type: Object,
+  });
+
+  game.settings.register('bunkers-and-badasses', 'trackedResources', {
+    name: 'Tracked Resource',
+    scope: 'world',
+    config: false,
+    default: [],
+    type: Array,
   });
 
   /**
