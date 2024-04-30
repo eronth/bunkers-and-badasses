@@ -123,6 +123,12 @@ export default class ResourceTracker extends Application {
       await ResourceTracker.toggleTrackerEditability(trackerIndex);
       await ResourceTracker.updateRender();
     });
+
+    html.find('.input-controls input').change(async ev => {
+      const trackerIndex = $(ev.currentTarget).parents('.tracker').attr('data-key');
+      const newValue = Number(ev.target.value);
+      await ResourceTracker.modifyTrackerValue(trackerIndex, newValue);
+    });
   }
 
   // ************************* GET SET ***************************
