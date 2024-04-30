@@ -10,6 +10,7 @@ import { preloadHandlebarsTemplates } from "./helpers/templates.mjs";
 import { BNB } from "./helpers/config.mjs";
 import { BarbrawlBuilder } from "./helpers/barbrawl-builder.mjs";
 import { HandlebarsHelperUtil } from "./helpers/handlebarsHelperUtil.mjs";
+import MayhemCounter from "./floating-tool/MayhemCounter.mjs";
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -21,8 +22,15 @@ Hooks.once('init', async function() {
   game.bnb = {
     BNBActor: BNBActor,
     BNBItem: BNBItem,
-    rollItemMacro
+    rollItemMacro,
+    MayhemCounter,
   };
+  game.counter = new game.bnb.MayhemCounter();
+  game.socket.on("system.bunkers-and-badasses", async data => {
+    if (data.type == "setCounter" && game.user.isGM) {
+      game.settings.set("bunkers-and-badasses", data.payload.type, data.payload.value)
+    }
+  })
   
   // Add custom constants for configuration.
   CONFIG.BNB = BNB;
@@ -47,7 +55,9 @@ Hooks.once('init', async function() {
     }
   });
   
-  // System settings here
+  ////////////////////////////
+  //  System settings here  //
+  ////////////////////////////
   game.settings.register('bunkers-and-badasses', 'usePlayerArmor', {
     name: 'Show Armor Health on VH Sheet',
     hint: 'Vault Hunters will have access to an "armor" health pool and shields can be marked as "armor" type.',
@@ -93,10 +103,38 @@ Hooks.once('init', async function() {
     type: Boolean,
   });
 
-  
+  // game.settings.register('wrath-and-glory', 'canPlayersEditCounter', {
+  //   name: 'Allow Players To Edit Mayhem',
+  //   hint: 'Players will be able to change Glory counter values manually.',
+  //   scope: 'world',
+  //   config: true,
+  //   default: false,
+  //   type: Boolean,
+  // });
+
+  //////////////////////////////
+  //  Hidden settings/values  //
+  //////////////////////////////
+  game.settings.register('bunkers-and-badasses', 'mayhem', {
+    name: 'Mayhem',
+    scope: 'world',
+    config: false,
+    default: 0,
+    type: Number,
+  });
+
+  game.settings.register('bunkers-and-badasses', 'counterToolPosition', {
+    name: 'Counter Tool Position',
+    scope: 'client',
+    config: false,
+    default: {},
+    type: Object,
+  });
 
   /**
    * Set an initiative formula for the system
+   * This is a default, just in case. Intent is to override 
+   * this for each actor type.
    * @type {String}
    */
   CONFIG.Combat.initiative = {
@@ -246,24 +284,26 @@ Hooks.once("dragRuler.ready", (SpeedProvider) => {
 
 Hooks.on("item-piles-ready", async () => {
 
-  const columns = [{
-    label: "Type",
-    path: "system.type.name",
-    formatting: "{#}",
-    mapping: { }
-  },
-  {
-    label: "Rarity",
-    path: "system.rarity.name",
-    formatting: "{#}",
-    mapping: { }
-  },
-  {
-    label: "Guild",
-    path: "system.guild",
-    formatting: "{#}",
-    mapping: { }
-  }];
+  const columns = [
+    {
+      label: "Type",
+      path: "system.type.name",
+      formatting: "{#}",
+      mapping: { }
+    },
+    {
+      label: "Rarity",
+      path: "system.rarity.name",
+      formatting: "{#}",
+      mapping: { }
+    },
+    {
+      label: "Guild",
+      path: "system.guild",
+      formatting: "{#}",
+      mapping: { }
+    }
+  ];
 
   game.itempiles.API.addSystemIntegration({
     VERSION: "1.0.0",
