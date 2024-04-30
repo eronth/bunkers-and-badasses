@@ -32,7 +32,7 @@ Hooks.once('init', async function() {
     // } else if (data.type == "setTrackedResourceCounters" && game.user.isGM) {
     //   game.settings.set("bunkers-and-badasses", "trackedResourceCounters", data.payload)
     // }
-  })
+  });
   
   // Add custom constants for configuration.
   CONFIG.BNB = BNB;

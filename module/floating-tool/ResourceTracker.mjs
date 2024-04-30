@@ -201,7 +201,7 @@ export default class ResourceTracker extends Application {
 
 }
 
-Hooks.on("renderSceneControls", (app, html, options) => {
+Hooks.on("renderSceneControls", async (app, html, options) => {
   let button = $(`<li class='scene-controls' data-tooltip="${"Resource Tracker"}"><i class="fa-solid fa-input-numeric"></i></li>`)
   
   button.on("click", () => {
@@ -211,7 +211,12 @@ Hooks.on("renderSceneControls", (app, html, options) => {
     game.settings.set("bunkers-and-badasses", "resourceTrackerToolPosition", position);
     
     game.tracker.rendered ? game.tracker.close() : game.tracker.render(true);
-  })
+  });
 
   html.find("ol.main-controls").append(button);
+
+  // Render the tracker if it was open on refresh
+  if (!game.settings.get("bunkers-and-badasses", "resourceTrackerToolPosition").hide) {
+    game.tracker.render(true);
+  };
 });

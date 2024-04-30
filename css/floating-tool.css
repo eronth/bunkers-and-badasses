@@ -1,6 +1,28 @@
+.bnb .floating-tool.common-trackers .tracker {
+  padding: 0 3px;
+}
+.bnb .floating-tool.common-trackers .tracker:first-child {
+  margin-left: 0;
+}
+.bnb .floating-tool.common-trackers .tracker:last-child {
+  margin-right: 0;
+}
+
 .bnb .floating-tool.common-trackers .tracker .input-controls input {
   padding: 2px 0;
   height: fit-content;
   line-height: var(--form-field-height);
+  text-align: center;
+}
+E
+.bnb .floating-tool.common-trackers .tracker h3 span.tracker-name {
+  flex: 5;
+}
+
+.bnb .floating-tool.common-trackers .tracker h3 i {
+  font-size: .75em;
+}
+
+.bnb .floating-tool.common-trackers .tracker h3 a {
   text-align: center;
 }

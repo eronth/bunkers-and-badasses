@@ -11,12 +11,20 @@
     
     {{#each trackedResources as |resource key|}}
     <div class="tracker" data-key="{{key}}">
-      <div class="flexrow">
-        <h3>{{resource.name}}</h3>
-        <a class="remove-resource-tracker" data-action="delete" title="Delete Resource Tracker">
+      <h3 class="flexrow">
+        <span class="tracker-name">
+          {{resource.name}}
+        </span>
+        <a class="visibility-toggle" title="Hide/Show Resource Tracker for Players">
+          <i class="fas fa-eye"></i>
+        </a>
+        <a class="editability-toggle" title="Enable/Disable Player Control Permissions">
+          <i class="fas fa-lock-open"></i>
+        </a>
+        <a class="remove-resource-tracker" data-action="delete" title="Remove Resource Tracker">
           <i class="fas fa-trash"></i>
         </a>
-      </div>
+      </h3>
       <div class="input-controls flexrow">
         <button class="decrease">-</button>
         <input class="flex-size-2" type="number" data-type="{{key}}" value="{{resource.value}}" {{^if canEdit}}disabled{{/if}}>
