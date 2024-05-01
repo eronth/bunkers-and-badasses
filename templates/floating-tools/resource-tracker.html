@@ -41,10 +41,12 @@
     {{/each}}
   </div>
   
+  {{#if isGM}}
   <div class="component-controls flexrow">
     <a class="add-resource-tracker {{#if smallerBox}}smaller{{/if}}" data-action="create" title="Add Resource Tracker">
       <i class="fas fa-plus"></i> {{localize "BNB.AddResource"}}
     </a>
   </div>
-  
+  {{/if}}
+
 </div>

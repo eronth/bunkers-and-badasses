@@ -27,11 +27,14 @@ Hooks.once('init', async function() {
   };
   game.tracker = new game.bnb.ResourceTracker();
   game.socket.on("system.bunkers-and-badasses", async data => {
-    // if (data.type == "setCounter" && game.user.isGM) {
-    //   game.settings.set("bunkers-and-badasses", data.payload.type, data.payload.value)
-    // } else if (data.type == "setTrackedResourceCounters" && game.user.isGM) {
-    //   game.settings.set("bunkers-and-badasses", "trackedResourceCounters", data.payload)
-    // }
+    // This is how we make sure the players also get the updates.
+    if (data.type == "setTrackedResources") {
+      if (game.user.isGM) {
+        ResourceTracker.setTrackedResources(data.payload);
+      } else {
+        ResourceTracker.updateRender(data.payload);
+      }
+    }
   });
   
   // Add custom constants for configuration.

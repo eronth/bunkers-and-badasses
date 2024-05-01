@@ -174,6 +174,10 @@ export default class ResourceTracker extends Application {
     } else {
       await game.settings.set('bunkers-and-badasses', 'trackedResources', resourceTrackers);
       await ResourceTracker.updateRender(options);
+      game.socket.emit('system.bunkers-and-badasses', {
+        type: 'setTrackedResources',
+        payload: options ? { diff: options.playerDiff } : null,
+      });
     }
 
     return resourceTrackers;
@@ -184,13 +188,18 @@ export default class ResourceTracker extends Application {
   // + Add
   static async addTrackedResource(options) {
     let trackedResources = await ResourceTracker.getTrackedResources();
+    const playersCanSee = options?.playersCanSee ?? false;
     trackedResources.push({
       name: options?.name ?? 'Resource',
       value: options?.value ?? 0,
       playersCanSee: options?.playersCanSee ?? false,
       playersCanEdit: options?.playersCanEdit ?? false,
     });
-    await ResourceTracker.setTrackedResources(trackedResources, { diff: 1 });
+    const setOptions = { diff: 1 };
+    if (playersCanSee) {
+      setOptions.playerDiff = 1;
+    }
+    await ResourceTracker.setTrackedResources(trackedResources, setOptions);
   }
 
   // +/-
@@ -210,7 +219,8 @@ export default class ResourceTracker extends Application {
   static async toggleTrackerVisibility(id) {
     let trackedResources = await ResourceTracker.getTrackedResources();
     trackedResources[id].playersCanSee = !trackedResources[id].playersCanSee;
-    await ResourceTracker.setTrackedResources(trackedResources);
+    const playerDiff = trackedResources[id].playersCanSee ? 1 : -1;
+    await ResourceTracker.setTrackedResources(trackedResources, { playerDiff: playerDiff });
   }
 
   // CanEdit
@@ -223,17 +233,23 @@ export default class ResourceTracker extends Application {
   // Trash
   static async removeTrackedResource(id) {
     let trackedResources = await ResourceTracker.getTrackedResources();
+    const setOptions = { diff: -1 };
+    if (trackedResources[id].playersCanSee) {
+      setOptions.playerDiff = -1;
+    }
+
     //delete trackedResources[id];
     trackedResources.splice(id, 1);
-    await ResourceTracker.setTrackedResources(trackedResources, { diff: -1 });
+    await ResourceTracker.setTrackedResources(trackedResources, setOptions);
   }
 
   // Re-render (useful for changes).
   static async updateRender(options) {
     if (game.tracker.rendered) {
       const resources = await ResourceTracker.getTrackedResources();
-      const newSize = resources.length;
-      const oldSize = newSize - options.diff;
+      const visibleResources = resources.filter(r => r.playersCanSee || game.user.isGM);
+      const newSize = visibleResources.length;
+      const oldSize = newSize - (options?.diff ?? 0);
       
       const newPosition = game.tracker.position;
       
@@ -249,12 +265,14 @@ export default class ResourceTracker extends Application {
       // If we are adding the first tracker, set the height to a default.
       if (newSize > 0 && oldSize == 0) {
         newPosition.height = ResourceTracker.defaultHeight;
-      } 
-      // If we cross the height threshold, adjust the height of the tracker.
-      else if (oldSize <= ResourceTracker.smallSizeCutoff && newSize > ResourceTracker.smallSizeCutoff) {
-        newPosition.height = newPosition.height + ResourceTracker.smallSizeTextHeightOffset;
-      } else if (oldSize > ResourceTracker.smallSizeCutoff && newSize <= ResourceTracker.smallSizeCutoff) {
-        newPosition.height = newPosition.height - ResourceTracker.smallSizeTextHeightOffset;
+      } else if (game.user.isGM) {
+        // If we cross the height threshold, adjust the height of the tracker.
+        // This is only for GMs, as players can't see the add button (which changes size).
+        if (oldSize <= ResourceTracker.smallSizeCutoff && newSize > ResourceTracker.smallSizeCutoff) {
+          newPosition.height = newPosition.height + ResourceTracker.smallSizeTextHeightOffset;
+        } else if (oldSize > ResourceTracker.smallSizeCutoff && newSize <= ResourceTracker.smallSizeCutoff) {
+          newPosition.height = newPosition.height - ResourceTracker.smallSizeTextHeightOffset;
+        }
       }
 
       await game.tracker.render();
