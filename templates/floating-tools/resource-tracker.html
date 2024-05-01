@@ -1,5 +1,5 @@
 <div class="bnb">
-  
+
   <div class="floating-tool common-trackers flexrow">
     {{#each trackedResources as |resource key|}}
     {{#if resource.canSee}}
@@ -42,9 +42,9 @@
   </div>
   
   <div class="component-controls flexrow">
-    <a class="add-resource-tracker" data-action="create" title="Add Resource Tracker">
+    <a class="add-resource-tracker {{#if smallerBox}}smaller{{/if}}" data-action="create" title="Add Resource Tracker">
       <i class="fas fa-plus"></i> {{localize "BNB.AddResource"}}
     </a>
   </div>
-
+  
 </div>

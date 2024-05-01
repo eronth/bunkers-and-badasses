@@ -8,6 +8,11 @@ export default class ResourceTracker extends Application {
     };
   }
 
+  static smallSizeCutoff = 2;
+  static smallSizeTextHeightOffset = 6;
+  static defaultHeight = 133;
+  static defaultWidth = 227;
+
   /**
    * Provide data to the HTML template for rendering
    * @type {Object}
@@ -22,6 +27,7 @@ export default class ResourceTracker extends Application {
     return {
       ...super.getData(),
       isGM: isGM,
+      smallerBox: trackers.length <= ResourceTracker.smallSizeCutoff,
       trackedResources: trackers,
     };
   }
@@ -32,7 +38,7 @@ export default class ResourceTracker extends Application {
     
     options.top = userPosition.top || window.innerHeight - 200;
     options.left = userPosition.left || 250;
-    options.width = null;
+    //options.width = null;
     //game.tracker.position.width = null;
     //this.position.width = null;
     
@@ -77,8 +83,8 @@ export default class ResourceTracker extends Application {
     html.find('.add-resource-tracker').click(async ev => {
       const popup = new Dialog({
         title: "Add Resource Tracker",
-        content: `<p>Enter the name of the new tracker:</p><input type="text" id="newTrackerName" />
-          <p>Initial value:</p><input type="Number" id="newTrackerValue" value=0 />`,
+        content: `<div class="floating-tool-prompt"><p>Enter the name of the new tracker:</p><input type="text" id="newTrackerName" />
+          <p>Initial value:</p><input type="Number" id="newTrackerValue" value=0 /></div>`,
         buttons: {
           cancel: { label: "Cancel" },
           ok: {
@@ -159,7 +165,7 @@ export default class ResourceTracker extends Application {
     return game.settings.get('bunkers-and-badasses', 'trackedResources');
   }
 
-  static async setTrackedResources(resourceTrackers) {
+  static async setTrackedResources(resourceTrackers, options) {
     if (!game.user.isGM) {
       game.socket.emit('system.bunkers-and-badasses', {
         type: 'setTrackedResources',
@@ -167,7 +173,7 @@ export default class ResourceTracker extends Application {
       });
     } else {
       await game.settings.set('bunkers-and-badasses', 'trackedResources', resourceTrackers);
-      await ResourceTracker.updateRender();
+      await ResourceTracker.updateRender(options);
     }
 
     return resourceTrackers;
@@ -184,7 +190,7 @@ export default class ResourceTracker extends Application {
       playersCanSee: options?.playersCanSee ?? false,
       playersCanEdit: options?.playersCanEdit ?? false,
     });
-    await ResourceTracker.setTrackedResources(trackedResources);
+    await ResourceTracker.setTrackedResources(trackedResources, { diff: 1 });
   }
 
   // +/-
@@ -219,15 +225,40 @@ export default class ResourceTracker extends Application {
     let trackedResources = await ResourceTracker.getTrackedResources();
     //delete trackedResources[id];
     trackedResources.splice(id, 1);
-    await ResourceTracker.setTrackedResources(trackedResources);
+    await ResourceTracker.setTrackedResources(trackedResources, { diff: -1 });
   }
 
   // Re-render (useful for changes).
-  static async updateRender() {
+  static async updateRender(options) {
     if (game.tracker.rendered) {
+      const resources = await ResourceTracker.getTrackedResources();
+      const newSize = resources.length;
+      const oldSize = newSize - options.diff;
+      
+      const newPosition = game.tracker.position;
+      
+      if (options && options.diff) {
+        if (newSize != 0) {
+          // If we are adding the first tracker, set the width to a default.
+          newPosition.width = (newSize > 0 && oldSize == 0)
+            ? ResourceTracker.defaultWidth
+            : (newSize * game.tracker.position.width) / oldSize;
+        }
+      }
+
+      // If we are adding the first tracker, set the height to a default.
+      if (newSize > 0 && oldSize == 0) {
+        newPosition.height = ResourceTracker.defaultHeight;
+      } 
+      // If we cross the height threshold, adjust the height of the tracker.
+      else if (oldSize <= ResourceTracker.smallSizeCutoff && newSize > ResourceTracker.smallSizeCutoff) {
+        newPosition.height = newPosition.height + ResourceTracker.smallSizeTextHeightOffset;
+      } else if (oldSize > ResourceTracker.smallSizeCutoff && newSize <= ResourceTracker.smallSizeCutoff) {
+        newPosition.height = newPosition.height - ResourceTracker.smallSizeTextHeightOffset;
+      }
+
       await game.tracker.render();
-      game.tracker.setPosition();
-      //await game.tracker.render(true);
+      game.tracker.setPosition(newPosition);
     }
   }
 }

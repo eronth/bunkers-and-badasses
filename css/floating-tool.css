@@ -40,5 +40,16 @@
 .bnb .component-controls .add-resource-tracker {
   font-size: 1.2em;
   text-align: center;
-  margin: .5em 0;
+  margin: 0;
+  margin-top: .6em;
+}
+
+.bnb .component-controls .add-resource-tracker.smaller {
+  font-size: 1em;
+  margin: 0;
+  margin-top: .5em;
+}
+
+.floating-tool-prompt {
+  margin-bottom: 1em;
 }
