@@ -52,7 +52,6 @@ export default class ResourceTracker extends Application {
   activateListeners(html) {
     super.activateListeners(html);
 
-    new Draggable(this, html, html.find(".drag-handle")[0], false);
     html.find('input').focusin(ev => { ev.target.select() });
 
     // Call setTracker when input is used
@@ -135,7 +134,7 @@ export default class ResourceTracker extends Application {
       const newValue = Number(ev.target.value);
       await ResourceTracker.modifyTrackerValue(trackerIndex, newValue);
     });
-    
+
   }
 
   close() {

@@ -1,14 +1,6 @@
 <div class="bnb">
-
-  <div class="component-controls flexrow">
-    <a class="drag-handle"><i class="fas fa-grip-horizontal"></i></a>
-    <a class="add-resource-tracker" data-action="create" title="Add Resource Tracker">
-      <i class="fas fa-plus"></i> {{localize "BNB.Add"}}
-    </a>
-  </div>
-
+  
   <div class="floating-tool common-trackers flexrow">
-    
     {{#each trackedResources as |resource key|}}
     {{#if resource.canSee}}
     <div class="tracker" data-key="{{key}}">
@@ -47,7 +39,12 @@
     </div>
     {{/if}}
     {{/each}}
-    
   </div>
   
+  <div class="component-controls flexrow">
+    <a class="add-resource-tracker" data-action="create" title="Add Resource Tracker">
+      <i class="fas fa-plus"></i> {{localize "BNB.AddResource"}}
+    </a>
+  </div>
+
 </div>

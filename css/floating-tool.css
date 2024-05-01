@@ -36,3 +36,9 @@
 .bnb .floating-tool.common-trackers .tracker h3 a {
   text-align: center;
 }
+
+.bnb .component-controls .add-resource-tracker {
+  font-size: 1.2em;
+  text-align: center;
+  margin: .5em 0;
+}
