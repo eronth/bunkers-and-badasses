@@ -32,8 +32,9 @@ export default class ResourceTracker extends Application {
     
     options.top = userPosition.top || window.innerHeight - 200;
     options.left = userPosition.left || 250;
-    options.width = 0;
-    this.position.width = 0;
+    options.width = null;
+    //game.tracker.position.width = null;
+    //this.position.width = null;
     
     super.render(force, options);
   }
@@ -45,7 +46,7 @@ export default class ResourceTracker extends Application {
 
   setPosition(...args) {
     super.setPosition(...args);
-    game.settings.set("bunkers-and-badasses", "resourceTrackerToolPosition", this.position)
+    game.settings.set("bunkers-and-badasses", "resourceTrackerToolPosition", game.tracker.position)
   }
 
   activateListeners(html) {
@@ -111,7 +112,6 @@ export default class ResourceTracker extends Application {
             callback: async () => {
               if (trackerIndex) {
                 await ResourceTracker.removeTrackedResource(trackerIndex);
-                //await ResourceTracker.updateRender();
               }
             },
           },
@@ -123,13 +123,11 @@ export default class ResourceTracker extends Application {
     html.find('.toggle-visibility').click(async ev => {
       const trackerIndex = $(ev.currentTarget).parents('.tracker').attr('data-key');
       await ResourceTracker.toggleTrackerVisibility(trackerIndex);
-      //await ResourceTracker.updateRender();
     });
 
     html.find('.toggle-editability').click(async ev => {
       const trackerIndex = $(ev.currentTarget).parents('.tracker').attr('data-key');
       await ResourceTracker.toggleTrackerEditability(trackerIndex);
-      //await ResourceTracker.updateRender();
     });
 
     html.find('.input-controls input').change(async ev => {
@@ -137,13 +135,16 @@ export default class ResourceTracker extends Application {
       const newValue = Number(ev.target.value);
       await ResourceTracker.modifyTrackerValue(trackerIndex, newValue);
     });
+    
+  }
 
-
-    html.find('.header-button.control.close').click(async ev => {
-      const position = game.settings.get("bunkers-and-badasses", "resourceTrackerToolPosition");
-      position.hide = true;
-      game.settings.set("bunkers-and-badasses", "resourceTrackerToolPosition", position);
-    });
+  close() {
+    const position = {
+      ...game.settings.get("bunkers-and-badasses", "resourceTrackerToolPosition"),
+      hide: true,
+    };
+    game.settings.set("bunkers-and-badasses", "resourceTrackerToolPosition", position);
+    super.close();
   }
 
   // ************************* GET SET ***************************
@@ -185,7 +186,6 @@ export default class ResourceTracker extends Application {
       playersCanEdit: options?.playersCanEdit ?? false,
     });
     await ResourceTracker.setTrackedResources(trackedResources);
-    //await ResourceTracker.updateRender();
   }
 
   // +/-
@@ -226,9 +226,9 @@ export default class ResourceTracker extends Application {
   // Re-render (useful for changes).
   static async updateRender() {
     if (game.tracker.rendered) {
-      await game.tracker.render(true);
+      await game.tracker.render();
       game.tracker.setPosition();
-      await game.tracker.render(true);
+      //await game.tracker.render(true);
     }
   }
 }
