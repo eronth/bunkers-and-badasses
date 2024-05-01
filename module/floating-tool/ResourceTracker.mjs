@@ -38,9 +38,6 @@ export default class ResourceTracker extends Application {
     
     options.top = userPosition.top || window.innerHeight - 200;
     options.left = userPosition.left || 250;
-    //options.width = null;
-    //game.tracker.position.width = null;
-    //this.position.width = null;
     
     super.render(force, options);
   }
@@ -185,7 +182,7 @@ export default class ResourceTracker extends Application {
   
   // ************************* STATIC FUNCTIONS ***************************
 
-  // + Add
+  // + Add new Resource
   static async addTrackedResource(options) {
     let trackedResources = await ResourceTracker.getTrackedResources();
     const playersCanSee = options?.playersCanSee ?? false;
@@ -202,7 +199,7 @@ export default class ResourceTracker extends Application {
     await ResourceTracker.setTrackedResources(trackedResources, setOptions);
   }
 
-  // +/-
+  // +/- Buttons
   static async modifyTrackerValue(id, diff) {
     const trackedResources = await ResourceTracker.getTrackedResources();
     trackedResources[id].value += diff;
@@ -212,10 +209,11 @@ export default class ResourceTracker extends Application {
 
   // Edit (name, value, others?)
   static async updateTrackerData() {
-    // TODO - Implement
+    // TODO - Currently this is not implemented.
+    // You can just delete and remake for now.
   }
 
-  // CanSee
+  // Players CanSee Toggle
   static async toggleTrackerVisibility(id) {
     let trackedResources = await ResourceTracker.getTrackedResources();
     trackedResources[id].playersCanSee = !trackedResources[id].playersCanSee;
@@ -223,14 +221,14 @@ export default class ResourceTracker extends Application {
     await ResourceTracker.setTrackedResources(trackedResources, { playerDiff: playerDiff });
   }
 
-  // CanEdit
+  // Plyaers CanEdit Toggle
   static async toggleTrackerEditability(id) {
     let trackedResources = await ResourceTracker.getTrackedResources();
     trackedResources[id].playersCanEdit = !trackedResources[id].playersCanEdit;
     await ResourceTracker.setTrackedResources(trackedResources);
   }
 
-  // Trash
+  // Remove/Trash Button
   static async removeTrackedResource(id) {
     let trackedResources = await ResourceTracker.getTrackedResources();
     const setOptions = { diff: -1 };
