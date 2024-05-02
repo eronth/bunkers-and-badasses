@@ -122,9 +122,20 @@
 }
 
 .bnb .npc .add-npc-action {
+  display: flex;
+  justify-content: flex-end;
   align-content: center;
+  align-self: center;
   text-align: end;
   padding-right: .25em;
+}
+
+.bnb .npc .add-npc-action a {
+  width: fit-content;
+}
+.bnb .npc .add-npc-action a i {
+  padding-top: 0.1em;
+  padding-right: 0.2em;
 }
 
 .bnb .npc .npc-action .action-header a {
