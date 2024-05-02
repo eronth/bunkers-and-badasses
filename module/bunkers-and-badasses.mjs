@@ -10,6 +10,7 @@ import { preloadHandlebarsTemplates } from "./helpers/templates.mjs";
 import { BNB } from "./helpers/config.mjs";
 import { BarbrawlBuilder } from "./helpers/barbrawl-builder.mjs";
 import { HandlebarsHelperUtil } from "./helpers/handlebarsHelperUtil.mjs";
+import ResourceTracker from "./floating-tool/ResourceTracker.mjs";
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -21,8 +22,20 @@ Hooks.once('init', async function() {
   game.bnb = {
     BNBActor: BNBActor,
     BNBItem: BNBItem,
-    rollItemMacro
+    rollItemMacro,
+    ResourceTracker,
   };
+  game.tracker = new game.bnb.ResourceTracker();
+  game.socket.on("system.bunkers-and-badasses", async data => {
+    // This is how we make sure the players also get the updates.
+    if (data.type == "setTrackedResources") {
+      if (game.user.isGM) {
+        ResourceTracker.setTrackedResources(data.payload);
+      } else {
+        ResourceTracker.updateRender(data.payload);
+      }
+    }
+  });
   
   // Add custom constants for configuration.
   CONFIG.BNB = BNB;
@@ -47,7 +60,9 @@ Hooks.once('init', async function() {
     }
   });
   
-  // System settings here
+  ////////////////////////////
+  //  System settings here  //
+  ////////////////////////////
   game.settings.register('bunkers-and-badasses', 'usePlayerArmor', {
     name: 'Show Armor Health on VH Sheet',
     hint: 'Vault Hunters will have access to an "armor" health pool and shields can be marked as "armor" type.',
@@ -93,10 +108,34 @@ Hooks.once('init', async function() {
     type: Boolean,
   });
 
-  
+  //////////////////////////////
+  //  Hidden settings/values  //
+  //////////////////////////////
+  game.settings.register('bunkers-and-badasses', 'resourceTrackerToolPosition', {
+    name: 'Resource Tracker Tool Position',
+    scope: 'client',
+    config: false,
+    default: { hide: false },
+    type: Object,
+  });
+
+  game.settings.register('bunkers-and-badasses', 'trackedResources', {
+    name: 'Tracked Resource',
+    scope: 'world',
+    config: false,
+    default: [{
+      name: 'Mayhem',
+      value: 0,
+      playersCanSee: true,
+      playersCanEdit: false,
+    }],
+    type: Array,
+  });
 
   /**
    * Set an initiative formula for the system
+   * This is a default, just in case. Intent is to override 
+   * this for each actor type.
    * @type {String}
    */
   CONFIG.Combat.initiative = {
@@ -246,24 +285,26 @@ Hooks.once("dragRuler.ready", (SpeedProvider) => {
 
 Hooks.on("item-piles-ready", async () => {
 
-  const columns = [{
-    label: "Type",
-    path: "system.type.name",
-    formatting: "{#}",
-    mapping: { }
-  },
-  {
-    label: "Rarity",
-    path: "system.rarity.name",
-    formatting: "{#}",
-    mapping: { }
-  },
-  {
-    label: "Guild",
-    path: "system.guild",
-    formatting: "{#}",
-    mapping: { }
-  }];
+  const columns = [
+    {
+      label: "Type",
+      path: "system.type.name",
+      formatting: "{#}",
+      mapping: { }
+    },
+    {
+      label: "Rarity",
+      path: "system.rarity.name",
+      formatting: "{#}",
+      mapping: { }
+    },
+    {
+      label: "Guild",
+      path: "system.guild",
+      formatting: "{#}",
+      mapping: { }
+    }
+  ];
 
   game.itempiles.API.addSystemIntegration({
     VERSION: "1.0.0",
