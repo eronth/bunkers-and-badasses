@@ -1,0 +1,55 @@
+.bnb .floating-tool.common-trackers .tracker {
+  padding: 0 3px;
+}
+.bnb .floating-tool.common-trackers .tracker:first-child {
+  margin-left: 0;
+}
+.bnb .floating-tool.common-trackers .tracker:last-child {
+  margin-right: 0;
+}
+
+.bnb .floating-tool.common-trackers .tracker .input-controls input {
+  padding: 2px 0;
+  height: fit-content;
+  line-height: var(--form-field-height);
+  text-align: center;
+}
+
+.bnb .floating-tool.common-trackers .tracker .input-controls button:disabled {
+  cursor: default;
+  box-shadow: none;
+  text-shadow: none;
+  background: rgb(255, 255, 240, .35);
+}
+
+.bnb .floating-tool.common-trackers .tracker h3 span.tracker-name {
+  flex: 8;
+}
+.bnb .floating-tool.common-trackers .tracker h3 span.tracker-controls {
+  flex: 3;
+}
+
+.bnb .floating-tool.common-trackers .tracker h3 i {
+  font-size: .75em;
+}
+
+.bnb .floating-tool.common-trackers .tracker h3 a {
+  text-align: center;
+}
+
+.bnb .component-controls .add-resource-tracker {
+  font-size: 1.2em;
+  text-align: center;
+  margin: 0;
+  margin-top: .6em;
+}
+
+.bnb .component-controls .add-resource-tracker.smaller {
+  font-size: 1em;
+  margin: 0;
+  margin-top: .5em;
+}
+
+.floating-tool-prompt {
+  margin-bottom: 1em;
+}
