@@ -66,6 +66,7 @@
 
     // Dialog partials
     "systems/bunkers-and-badasses/templates/dialog/parts/element-radio-button.html",
+    "systems/bunkers-and-badasses/templates/dialog/parts/toggle-switch.html",
 
     // Chat partials
     "systems/bunkers-and-badasses/templates/chat/info/components/red-text.html",

@@ -23,6 +23,7 @@
     "css/common-colors/health-colors.css",
     "css/common-colors/rarity-colors.css",
     "css/common-design-patterns/navigation-tabs.css",
+    "css/common-design-patterns/toggle-switches.css",
     "css/generic.css",
     "css/item-list.css",
     "css/dropdown.css",
