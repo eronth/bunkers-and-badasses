@@ -456,7 +456,7 @@ export class BNBActorSheet extends ActorSheet {
   async _getNPCEnrichedFields(context) {
     const system = this.object.system;
     const configs = {async: true};
-    return {
+    const enriched = {
       special: await TextEditor.enrichHTML(system.special, configs),
       actions: {
         base: {
@@ -468,6 +468,7 @@ export class BNBActorSheet extends ActorSheet {
             name: system.actions.base.action2.name,
             description: await TextEditor.enrichHTML(system.actions.base.action2.description, configs),
           },
+          actionList: {},
         },
         mayhem: {
           action1: {
@@ -478,9 +479,27 @@ export class BNBActorSheet extends ActorSheet {
             name: system.actions.mayhem.action2.name,
             description: await TextEditor.enrichHTML(system.actions.mayhem.action2.description, configs),
           },
+          actionList: {},
         },
       },
     };
+
+    for (let key in system.actions.base.actionList) {
+      const action = system.actions.base.actionList[key];
+      enriched.actions.base.actionList[key] = {
+        name: action.name,
+        description: await TextEditor.enrichHTML(action.description, configs),
+      };
+    }
+    for (let key in system.actions.mayhem.actionList) {
+      const action = system.actions.mayhem.actionList[key];
+      enriched.actions.mayhem.actionList[key] = {
+        name: action.name,
+        description: await TextEditor.enrichHTML(action.description, configs),
+      };
+    }
+
+    return enriched;
   }
 
   /**
@@ -664,6 +683,12 @@ export class BNBActorSheet extends ActorSheet {
     html.find('.item-create').click((event) => OnActionUtil.onItemCreate(event, this.actor));
     html.find('.item-edit').click((event) => OnActionUtil.onItemEdit(event, this.actor));
     html.find('.item-delete').click((event) => ConfirmActionPrompt.deleteItem(event, {
+      actor: this.actor,
+      inRender: this.inRender.bind(this, false),
+    }));
+
+    html.find('.npc-action-create').click((event) => OnActionUtil.onNpcActionCreate(event, this.actor));
+    html.find('.npc-action-delete').click((event) => ConfirmActionPrompt.deleteNpcAction(event, {
       actor: this.actor,
       inRender: this.inRender.bind(this, false),
     }));

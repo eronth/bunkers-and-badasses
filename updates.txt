@@ -1,4 +1,5 @@
 Updates
 * Added Resource Tracker with default Mayhem Tracker.
+* Can now add additional NPC actions beyond defaults.
 
 Bugfixes

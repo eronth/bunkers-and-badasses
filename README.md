@@ -8,7 +8,6 @@ Known Issues:
 Eventual Updates:
 * Track XP/Max HP/Max Shield bonuses as individual updates to make review easier.
 * Improve roll formulas to be more flexible for users.
-* Better support for various level up benefits.
 * Add Boss Bars.
 * Redesign skills page.
 * Redo "Action!" tab to be less cluttered looking.

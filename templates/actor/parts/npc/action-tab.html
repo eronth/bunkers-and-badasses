@@ -19,6 +19,9 @@
   <div class="flexrow">
     <label class="npc-action-header">Actions</label>
     <div class="add-npc-action">
+      <a class="flexrow npc-action-create" title="Create Action" data-action-type="base">
+        <i class="fas fa-plus"></i> Add Action
+      </a>
     </div>
   </div>
   <div>
@@ -33,9 +36,23 @@
       value=enriched.actions.base.action2
     }}
   </div>
-  <div class="flexrow">
+  {{#each enriched.actions.base.actionList as |action key|}}
+    <div>
+      {{> "systems/bunkers-and-badasses/templates/actor/parts/npc/action-components/action-block.html"
+        dataLocation=(concat "system.actions.base.actionList." key)
+        value=action
+        deletable=true
+        actionType="base"
+        key=key
+      }}
+    </div>
+  {{/each}}
+  <div class="flexrow" style="margin-top:1em;">
     <label class="npc-action-header"><i class="fas fa-skull"></i> Mayhem Actions</label>
     <div class="add-npc-action">
+      <a class="flexrow npc-action-create" title="Create Mayhem Action" data-action-type="mayhem">
+        <i class="fas fa-plus"></i> Add Mayhem Action
+      </a>
     </div>
   </div>
   <div>
@@ -50,4 +67,15 @@
       value=enriched.actions.mayhem.action2
     }}
   </div>
+  {{#each enriched.actions.mayhem.actionList as |action key|}}
+    <div>
+      {{> "systems/bunkers-and-badasses/templates/actor/parts/npc/action-components/action-block.html"
+        dataLocation=(concat "system.actions.mayhem.actionList." key)
+        value=action
+        deletable=true
+        actionType="mayhem"
+        key=key
+      }}
+    </div>
+  {{/each}}
 </div>

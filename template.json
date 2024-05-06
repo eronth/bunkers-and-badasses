@@ -329,30 +329,24 @@
         "base": {
           "action1": {
             "name": "",
-            "description": ""
+            "description": "<p></p>"
           },
           "action2": {
             "name": "",
-            "description": ""
+            "description": "<p></p>"
           },
-          "action3": {
-            "name": "",
-            "description": ""
-          }
+          "actionList": {}
         },
         "mayhem": {
           "action1": {
             "name": "",
-            "description": ""
+            "description": "<p></p>"
           },
           "action2": {
             "name": "",
-            "description": ""
+            "description": "<p></p>"
           },
-          "action3": {
-            "name": "",
-            "description": ""
-          }
+          "actionList": {}
         }
       },
       "attributes": {

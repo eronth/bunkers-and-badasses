@@ -35,6 +35,7 @@
     "css/header/xp-bar.css",
     "css/archetype-level.css",
     "css/damage-prompt.css",
+    "css/npc-sheet.css",
     "css/floating-tool.css"
   ],
   "packs": [
