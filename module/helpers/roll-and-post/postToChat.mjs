@@ -681,9 +681,11 @@ export class PostToChat {
     return rollResult.toMessage(messageData);
   }
 
-  static async npcAction(options) {
+  static async npcAction(html, options) {
     const { actor, dataset } = options;
     const actionObject = genericUtil.deepFind(actor, dataset.path);
+
+    const shouldWhisperGM = html.find(".whisper-toggle input")[0].checked;
 
      // Prep chat values.
      const flavorText = `${actor.name} uses <i>${actionObject.name}</i>.`;
@@ -695,6 +697,9 @@ export class PostToChat {
        type: CONST.CHAT_MESSAGE_STYLES.IC,
        // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
        speaker: ChatMessage.getSpeaker(),
+     };
+     if (shouldWhisperGM) {
+       messageData.whisper = ChatMessage.getWhisperRecipients("GM");
      }
  
      // Send the roll to chat!
