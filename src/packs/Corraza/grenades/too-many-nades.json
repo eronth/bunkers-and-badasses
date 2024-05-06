@@ -20,7 +20,7 @@
       "equipped":false,
       "redText":"You're just in fireworks you big baby.",
       "redTextEffect":"",
-      "redTextEffectBM":"Explodes in multicolored fireworks display. The target takes the damage of the element of the player's choice. Four nearby targets each take one of the other elemental damage rolls. If there's less than 5 total enemies hit, enemies can take multiple damage types at once.",
+      "redTextEffectBM":"</p>Explodes in multicolored fireworks display. The target takes the damage of the element of the player's choice. Four nearby targets each take one of the other elemental damage rolls. If there's less than 5 total enemies hit, enemies can take multiple damage types at once.</p>",
       "elements":{
         "kinetic":{"enabled":false,"damage":"","color":"rgb(76, 76, 76)","label":"Kinetic"},
         "incendiary":{"enabled":true,"damage":"1d6","color":"rgb(213, 59, 49)","label":"Incendiary"},

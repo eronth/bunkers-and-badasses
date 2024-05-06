@@ -24,7 +24,7 @@
       "equipped":false,
       "redText":"Protect me... squire?",
       "redTextEffect":"",
-      "redTextEffectBM":"When this is equipped by a Vault Hunter, the player picks 2 skills they have already gained. Add +1 SL to each of those skills.",
+      "redTextEffectBM":"<p>When this is equipped by a Vault Hunter, the player picks 2 skills they have already gained. Add +1 SL to each of those skills.</p>",
       "elements":{
         "kinetic":{
           "enabled":false,
