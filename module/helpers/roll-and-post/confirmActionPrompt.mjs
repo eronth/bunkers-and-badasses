@@ -1,8 +1,9 @@
-import { PerformRollAction } from "./performRollAction.mjs";
-import { OnActionUtil } from "../onActionUtil.mjs";
 import { genericUtil } from "../genericUtil.mjs";
 import { DefaultData } from "../defaultData.mjs";
+import { PerformRollAction } from "./performRollAction.mjs";
+import { OnActionUtil } from "../onActionUtil.mjs";
 import { Enricher } from "../enricher.mjs";
+import { PostToChat } from "./postToChat.mjs";
 
 export class ConfirmActionPrompt {
   
@@ -503,6 +504,41 @@ export class ConfirmActionPrompt {
           label : "Attack!",
           callback : async (html) => {
             return await PerformRollAction.npcAttack(html, { actor: actor });
+          }
+        }
+      }
+    }).render(true);
+  }
+
+  static async npcAction(event, options) {
+    const { actor } = options;
+    
+    const actionObject = (options?.dataset?.path)
+      ? genericUtil.deepFind(actor, options.dataset.path)
+      : null;
+    const action = actionObject?.action;
+
+    const templateLocation = 'systems/bunkers-and-badasses/templates/dialog/post-npc-action-confirmation.html';
+    const dialogHtmlContent = await renderTemplate(templateLocation, {
+      actorName: actor.name,
+      actionName: actionObject?.name ?? "Action",
+      whisperToggleId: `whisper-action-actor-${actor.id}-action-${options.dataset?.path}`,
+     });
+
+    this.npcActionDialog = new Dialog({
+      title: "NPC Action",
+      Id: "npc-action-prompt",
+      content: dialogHtmlContent,
+      buttons: {
+        "Cancel" : {
+          label : "Cancel",
+          callback : async (html) => {}
+        },
+        "Roll" : {
+          icon: '<i class="fas fa-comment-alt"></i>',
+          label : "Post",
+          callback : async (html) => {
+            return PostToChat.npcAction(html, { actor: actor, dataset: options.dataset });
           }
         }
       }
