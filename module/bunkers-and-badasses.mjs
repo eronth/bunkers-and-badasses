@@ -108,6 +108,15 @@ Hooks.once('init', async function() {
     type: Boolean,
   });
 
+  game.settings.register('bunkers-and-badasses', 'npcActionsDefaultWhisper', {
+    name: 'NPC Actions send Whisper to GM by Default',
+    hint: 'When an NPC uses an action, the confirmation prompt will default to whispering the action to the GM.',
+    scope: 'client',
+    config: true,
+    default: false,
+    type: Boolean,
+  });
+
   //////////////////////////////
   //  Hidden settings/values  //
   //////////////////////////////

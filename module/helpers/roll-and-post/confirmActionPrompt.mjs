@@ -516,13 +516,15 @@ export class ConfirmActionPrompt {
     const actionObject = (options?.dataset?.path)
       ? genericUtil.deepFind(actor, options.dataset.path)
       : null;
-    const action = actionObject?.action;
+    
+    const shouldDefaultWhisperGM = game.settings.get("bunkers-and-badasses", "npcActionsDefaultWhisper");
 
     const templateLocation = 'systems/bunkers-and-badasses/templates/dialog/post-npc-action-confirmation.html';
     const dialogHtmlContent = await renderTemplate(templateLocation, {
       actorName: actor.name,
       actionName: actionObject?.name ?? "Action",
       whisperToggleId: `whisper-action-actor-${actor.id}-action-${options.dataset?.path}`,
+      defaultWhisperToggleValue: shouldDefaultWhisperGM,
      });
 
     this.npcActionDialog = new Dialog({
