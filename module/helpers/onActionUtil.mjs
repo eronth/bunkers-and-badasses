@@ -1,3 +1,4 @@
+import { DefaultData } from "./defaultData.mjs";
 import { PostToChat } from "./roll-and-post/postToChat.mjs";
 
 export class OnActionUtil {
@@ -161,10 +162,7 @@ export class OnActionUtil {
     const actionType = event.currentTarget.dataset.actionType;
     const actionList = actor.system.actions[actionType].actionList ?? {};
     const nextIndex = Object.keys(actionList).length.toString();
-    actionList[nextIndex] = {
-      name: "",
-      description: "<p></p>",
-    };
+    actionList[nextIndex] = { ...DefaultData.npcAction() };
 
     // Create the item.
     actor.update({["system.actions."+actionType+".actionList"]: actionList});
