@@ -200,6 +200,10 @@
     "distance": 1,
     "units": "sq"
   },
+  "bugs": "https://github.com/eronth/bunkers-and-badasses/issues",
+  "flags": {
+    "allowBugReporter": true
+  },
   "primaryTokenAttribute": "attributes.hps.flesh",
   "secondaryTokenAttribute": "attributes.hps.shield",
   "url": "https://github.com/eronth/bunkers-and-badasses",
