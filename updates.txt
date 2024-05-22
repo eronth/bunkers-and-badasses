@@ -1,5 +1,12 @@
 Updates
+* Prepared system for v12 compatibility.
+* Improved item sheets (except guns, sorry) and prepared all for v12 as well.
+* Can now right click on items in the Loot tab to open the item sheet.
 * Added Resource Tracker with default Mayhem Tracker.
 * Can now add additional NPC actions beyond defaults.
+* Can now create Actions for NPCs beyond the initial four (2 basic and 2 mayhem).
+* NPC actions can be Whispered to GM instead of posted publicly.
+  * Default option can be configured in settings.
 
 Bugfixes
+* Fixed prior bug that removed/hid custom Item Packages.
