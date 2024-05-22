@@ -1,0 +1,12 @@
+<div class="npc-action-confirmation">
+  <h2>{{actorName}} is using <i>{{actionName}}</i>.</h2>
+  <span class="whisper-toggle">
+    {{> "systems/bunkers-and-badasses/templates/dialog/parts/toggle-switch.html"
+      toggleSwitchId=whisperToggleId
+      toggleSwitchTitle="Whisper Action to BM?"
+      defaultToggleValue=defaultWhisperToggleValue
+    }}
+    <label for="{{whisperToggleId}}">Whisper Action to BM only?</label>
+  </span>
+  <br /><br />
+</div>

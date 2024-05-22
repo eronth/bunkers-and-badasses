@@ -946,7 +946,7 @@ export class BNBActorSheet extends ActorSheet {
       } else if (dataset.rollType == 'npc-attack') {
         return ConfirmActionPrompt.npcAttack(event, { actor: this.actor, dataset: dataset });
       } else if (dataset.rollType == 'npc-action') {
-        return PostToChat.npcAction({ actor: this.actor, dataset: dataset });
+        return ConfirmActionPrompt.npcAction(event, { actor: this.actor, dataset: dataset });
       }
     }
     

@@ -141,3 +141,16 @@
 .bnb .npc .npc-action .action-header a {
   padding-right: .25em;
 }
+
+
+.dialog .dialog-content .npc-action-confirmation  {
+  text-align: center;
+}
+
+.dialog .dialog-content .npc-action-confirmation .bnb-switch {
+  margin: 0.2em auto;
+}
+
+.dialog .dialog-content .npc-action-confirmation .whisper-toggle label {
+  margin-left: .1em;
+}
