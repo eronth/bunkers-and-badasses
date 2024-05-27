@@ -13,57 +13,66 @@
     </div>
   </header>
   
-  <div class="flexcol item-sheet">
-    {{!-- Row 1 --}}
-    <div class="item-body flexrow">
+  <section class="item-body">
+    <div class="flexcol item-sheet">
 
-      {{!-- Relic Class --}}
-      <div class="item-body flexrow flex-size-2 lr-margin-2">
-        <label for="class-input-{{item.id}}">Class</label>
-        <input id="class-input-{{item.id}}" class="flex-size-3" style="margin-left:3px;"
-        value="{{system.class}}" name="system.class"
-        type="text" data-dtype="String"/>
+      {{!-- Row 1 --}}
+      <div class="flexcol">
+
+        {{!-- Effect --}}
+        <div class="flexrow lr-margin-2">
+          <div class="flexrow flex-size-5 enriched-editor-title">
+            <label for="effect-input-{{item.id}}">Effect</label>
+          </div>
+          {{!-- Cost Section --}}
+          <div class="item-body flex-size-2 flexrow lr-margin-5">
+            <div><!-- Just a space taker. I'm sure there's better ways. --></div>
+            <label for="effect-input-{{item.id}}" class="flex-size-2">Cost</label>
+            <input id="effect-input-{{item.id}}" class="flex-size-2"
+            value="{{system.cost}}" name="system.cost"
+            type="number" data-dtype="Number" />
+            <div class="flex-size-2"><!-- Just a space taker. I'm sure there's better ways. --></div>
+          </div>
+        </div>
+        <div class="flexrow enriched-region">
+          {{editor enriched.effect
+            target="system.effect"
+            placeholder="Description of generic effect."
+            button=true
+            editable=editable
+          }}
+        </div>
       </div>
 
-      {{!-- Cost Section --}}
-      <div class="item-body flexrow lr-margin-5">
-        <div><!-- Just a space taker. I'm sure there's better ways. --></div>
-        <label for="effect-input-{{item.id}}" class="flex-size-2">Cost</label>
-        <input id="effect-input-{{item.id}}" class="flex-size-2"
-        value="{{system.cost}}" name="system.cost"
-        type="number" data-dtype="Number" />
-        <div class="flex-size-2"><!-- Just a space taker. I'm sure there's better ways. --></div>
+      {{!-- Row 2 --}}
+      <div class="flexcol"> 
+
+        {{!-- Class Specific Effect --}}
+        <div class="flexrow lr-margin-2">
+          <div class="flexrow flex-size-5 enriched-editor-title">
+            <label for="class-effect-input-{{item.id}}">Class Effect</label>
+          </div>
+          {{!-- Relic Class --}}
+          <div class="item-body flexrow flex-size-2 lr-margin-2">
+            <label for="class-input-{{item.id}}">Class</label>
+            <input id="class-input-{{item.id}}" class="flex-size-3" style="margin-left:3px;"
+            value="{{system.class}}" name="system.class"
+            type="text" data-dtype="String"/>
+          </div>
+        </div>
+        <div class="flexrow enriched-region">
+          {{editor enriched.classEffect
+            target="system.classEffect"
+            placeholder="Description of class effect."
+            button=true
+            editable=editable
+          }}
+        </div>
+
       </div>
 
+      {{> "systems/bunkers-and-badasses/templates/item/parts/red-text.html" }}
+      {{> "systems/bunkers-and-badasses/templates/item/parts/anointment.html" }}
     </div>
-
-    {{!-- Row 2 --}}
-    <div class="item-body flexrow">
-
-      {{!-- Effect --}}
-      <div class="item-body flexrow lr-margin-2">
-        <label for="effect-input-{{item.id}}">Effect</label>
-        <input id="effect-input-{{item.id}}" class="flex-size-5"
-        value="{{system.effect}}" name="system.effect"
-        type="text"  data-dtype="String" />
-      </div>
-
-    </div>
-
-    {{!-- Row 3 --}}
-    <div class="item-body flexrow"> 
-
-      {{!-- Class Specific Effect --}}
-      <div class="item-body flexrow lr-margin-2">
-        <label for="class-effect-input-{{item.id}}">Class Effect</label>
-        <input id="class-effect-input-{{item.id}}" class="flex-size-5"
-        value="{{system.classEffect}}" name="system.classEffect"
-        type="text" data-dtype="String" />
-      </div>
-
-    </div>
-
-    {{> "systems/bunkers-and-badasses/templates/item/parts/red-text.html" }}
-    {{> "systems/bunkers-and-badasses/templates/item/parts/anointment.html" }}
-  </div>
+  </section>
 </form>

@@ -6,7 +6,7 @@
     "flags":{"core":{"sourceId":"Item.pnTMrS8QWPDo75I4"}},
     "system":{
       "description":"",
-      "effect":"Feel the elemental power surge through you!",
+      "effect":"<p>Feel the elemental power surge through you!</p>",
       "level":1,
       "special":{
         "overrideType":""
@@ -22,7 +22,7 @@
       "equipped":true,
       "redText":"Elemental, my dear.",
       "redTextEffect":"",
-      "redTextEffectBM":"When this potion is drank, the GM picks a random element. For the remainder of combat, the character gains the following bonuses:\n                       \n                                        * +1d4 damage of the chosen element.\n                                        * Immune to the chosen element. \n                                        * Any time the character takes damage of the chosen element, heal 1d4 health.",
+      "redTextEffectBM":"<p>When this potion is drank, the GM picks a random element. For the remainder of combat, the character gains the following bonuses:&nbsp;</p>\n<ul>\n<li>+1d4 damage of the chosen element.</li>\n<li>Immune to the chosen element.</li>\n<li>Any time the character takes damage of the chosen element, heal [[1d4]] <span class=\"bolded flesh-text\">Health</span>.</li>\n</ul>",
       "quantity":1,
       "cost":50
     },

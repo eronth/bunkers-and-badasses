@@ -6,7 +6,7 @@
     "flags":{"core":{"sourceId":"Item.9IBmGL1V0BHouxOO"}},
     "system":{
       "description":"",
-      "effect":"Allies within 4 squares get +10 max shields.",
+      "effect":"<p>Allies within 4 squares get +10 <span class='bolded shield-text'>max Shield</span>.</p>",
       "level":13,
       "special":{
         "overrideType":""

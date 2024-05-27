@@ -120,4 +120,11 @@ export class DefaultData {
     };
   }
 
+  static npcAction(options) {
+    return {
+      name: options?.name ?? "",
+      description: `<p>${options?.description ?? ""}</p>`,
+    };
+  }
+
 }

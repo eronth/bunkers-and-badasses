@@ -1,0 +1,75 @@
+ /* The switch - the box around the slider */
+ .bnb-switch {
+   --toggleNubDiameter: 1em;
+   --slideBorder: 0em;
+   --sliderExtendedWidth: 0em;
+
+
+   --toggleHeight: calc(var(--toggleNubDiameter) + 2 * var(--slideBorder));
+   --toggleWidth: calc(
+      2 * var(--toggleNubDiameter) 
+      + var(--sliderExtendedWidth) 
+      + 2 * var(--slideBorder)
+    );
+
+  position: relative;
+  display: inline-block;
+  height: var(--toggleHeight);
+  width: var(--toggleWidth);
+}
+
+/* Hide default HTML checkbox */
+.bnb-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.bnb-switch .slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.bnb-switch .slider:before {
+  position: absolute;
+  content: "";
+  height: var(--toggleNubDiameter);
+  width: var(--toggleNubDiameter);
+  left: var(--slideBorder);
+  bottom: var(--slideBorder);
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.bnb-switch input:checked + .slider {
+  background-color: #2196F3;
+}
+
+.bnb-switch input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+.bnb-switch input:checked + .slider:before {
+  --xTranslation: calc(var(--toggleNubDiameter) + var(--sliderExtendedWidth));
+  -webkit-transform: translateX(var(--xTranslation));
+  -ms-transform: translateX(var(--xTranslation));
+  transform: translateX(var(--xTranslation));
+}
+
+/* Rounded sliders */
+.bnb-switch .slider.round {
+  border-radius: calc(var(--toggleNubDiameter));
+}
+
+.bnb-switch .slider.round:before {
+  border-radius: 50%;
+}

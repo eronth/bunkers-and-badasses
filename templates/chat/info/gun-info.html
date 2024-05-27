@@ -85,15 +85,15 @@
   <div class="description flexcol">
     {{#if item.system.effect}}
     <span class="description-label"><b>Gun Info:</b></span>
-    <span class="description-text">{{{enrich item.system.effect}}}</span>
+    <span class="description-text">{{{item.system.enriched.effect}}}</span>
     {{/if}}
     {{#if item.system.prefix.effects}}
     <span class="description-label margin-top-6"><b>Prefix Effect:</b></span>
-    <span class="description-text"><b>{{item.system.prefix.name}}:</b> {{{enrich item.system.prefix.effects}}}</span>
+    <span class="description-text"><b>{{item.system.prefix.name}}:</b> {{{item.system.enriched.prefix.effects}}}</span>
     {{/if}}
     {{#if item.system.guildBonus}}
     <span class="description-label margin-top-6"><b>Guild Bonus:</b></span>
-    <span class="description-text"><b>{{item.system.guild}}:</b> {{{enrich item.system.guildBonus}}}</span>
+    <span class="description-text"><b>{{item.system.guild}}:</b> {{{item.system.enriched.guildBonus}}}</span>
     {{/if}}
   </div>
   {{/if}}

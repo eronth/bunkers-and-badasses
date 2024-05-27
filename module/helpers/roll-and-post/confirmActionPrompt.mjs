@@ -1,7 +1,9 @@
-import { PerformRollAction } from "./performRollAction.mjs";
-import { OnActionUtil } from "../onActionUtil.mjs";
 import { genericUtil } from "../genericUtil.mjs";
 import { DefaultData } from "../defaultData.mjs";
+import { PerformRollAction } from "./performRollAction.mjs";
+import { OnActionUtil } from "../onActionUtil.mjs";
+import { Enricher } from "../enricher.mjs";
+import { PostToChat } from "./postToChat.mjs";
 
 export class ConfirmActionPrompt {
   
@@ -29,6 +31,43 @@ export class ConfirmActionPrompt {
           label: `Delete`,
           callback : async (html) => {
             return OnActionUtil.onItemDelete(html, { actor: actor, item: item, li: liList[0], inRender: options.inRender });
+          }
+        }
+      }
+    }).render(true);
+  }
+
+  static async deleteNpcAction(event, options) {
+    event.stopPropagation();
+    const actionType = event.currentTarget.dataset.actionType;
+    const actionIndex = event.currentTarget.dataset.actionKey;
+    const { actor } = options;
+
+    const templateLocation = "systems/bunkers-and-badasses/templates/dialog/delete-npc-action.html";
+    const deleteNpcDialogContent = await renderTemplate(templateLocation, {
+      action: actor.system.actions[actionType].actionList[actionIndex],
+     });
+
+    const deleteOptions = {
+      actor: actor,
+      actionType: actionType,
+      actionIndex: actionIndex,
+    };
+
+    this.deleteNpcDialog = new Dialog({
+      title: `Delete Action?`,
+      Id: `delete-npc-dialog`,
+      content: deleteNpcDialogContent,
+      buttons: {
+        "Cancel": {
+          label: "Cancel",
+          callback: async (html) => { }
+        },
+        "Delete" : {
+          icon: `<i class="fas fa-trash"></i>`,
+          label: `Delete`,
+          callback : async (html) => {
+            return OnActionUtil.onNpcActionDelete(html, deleteOptions);
           }
         }
       }
@@ -161,8 +200,9 @@ export class ConfirmActionPrompt {
     if (!actor) { return; }
 
     const itemId = event.currentTarget.closest('.action-skill-use').dataset.itemId;
-    const item = actor.items.get(itemId);
-    if (!item) { return; }
+    const i = actor.items.get(itemId);
+    if (!i) { return; }
+    const item = await Enricher.enrichItem(i);
 
     const templateLocation = "systems/bunkers-and-badasses/templates/dialog/use-action-skill.html";
     const useActionSkillDialogContent = await renderTemplate(templateLocation, { item: item });
@@ -177,7 +217,7 @@ export class ConfirmActionPrompt {
           callback : async (html) => {}
         },
         "Use" : {
-          label: `Use ${item.name}`,
+          label: `Use <i>${item.name}</i>`,
           callback : async (html) => {
             return await OnActionUtil.onActionSkillUse({ html: html, actor: actor, item: item });
           }
@@ -464,6 +504,43 @@ export class ConfirmActionPrompt {
           label : "Attack!",
           callback : async (html) => {
             return await PerformRollAction.npcAttack(html, { actor: actor });
+          }
+        }
+      }
+    }).render(true);
+  }
+
+  static async npcAction(event, options) {
+    const { actor } = options;
+    
+    const actionObject = (options?.dataset?.path)
+      ? genericUtil.deepFind(actor, options.dataset.path)
+      : null;
+    
+    const shouldDefaultWhisperGM = game.settings.get("bunkers-and-badasses", "npcActionsDefaultWhisper");
+
+    const templateLocation = 'systems/bunkers-and-badasses/templates/dialog/post-npc-action-confirmation.html';
+    const dialogHtmlContent = await renderTemplate(templateLocation, {
+      actorName: actor.name,
+      actionName: actionObject?.name ?? "Action",
+      whisperToggleId: `whisper-action-actor-${actor.id}-action-${options.dataset?.path}`,
+      defaultWhisperToggleValue: shouldDefaultWhisperGM,
+     });
+
+    this.npcActionDialog = new Dialog({
+      title: "NPC Action",
+      Id: "npc-action-prompt",
+      content: dialogHtmlContent,
+      buttons: {
+        "Cancel" : {
+          label : "Cancel",
+          callback : async (html) => {}
+        },
+        "Roll" : {
+          icon: '<i class="fas fa-comment-alt"></i>',
+          label : "Post",
+          callback : async (html) => {
+            return PostToChat.npcAction(html, { actor: actor, dataset: options.dataset });
           }
         }
       }

@@ -1,5 +1,6 @@
 import { DamageDiceRollDataExtractHelper } from "../damageDiceRollDataExtractHelper.mjs";
 import { genericUtil } from "../genericUtil.mjs";
+import { Enricher } from "../enricher.mjs";
 
 export class PostToChat {
   static chatInfoBaseLocation = 'systems/bunkers-and-badasses/templates/chat/info/';
@@ -22,7 +23,7 @@ export class PostToChat {
       user: game.user.id,
       speaker: ChatMessage.getSpeaker({ actor: actor }),
       flavor: flavorText,
-      type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+      //type: CONST.CHAT_MESSAGE_STYLES.ROLL,
       roll: rollResult,
       rollMode: CONFIG.Dice.rollModes.publicroll,
       content: chatHtmlContent,
@@ -103,7 +104,7 @@ export class PostToChat {
       user: game.user.id,
       speaker: ChatMessage.getSpeaker({ actor: actor }),
       flavor: flavorText,
-      type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+      //type: CONST.CHAT_MESSAGE_STYLES.ROLL,
       roll: rollResult,
       rollMode: CONFIG.Dice.rollModes.publicroll,
       content: chatHtmlContent,
@@ -161,7 +162,7 @@ export class PostToChat {
       user: game.user.id,
       speaker: ChatMessage.getSpeaker({ actor: actor }),
       flavor: flavorText,
-      type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+      //type: CONST.CHAT_MESSAGE_STYLES.ROLL,
       roll: rollResult,
       rollMode: CONFIG.Dice.rollModes.publicroll,
       content: chatHtmlContent,
@@ -228,7 +229,7 @@ export class PostToChat {
       user: game.user.id,
       speaker: ChatMessage.getSpeaker({ actor: actor }),
       flavor: flavorText,
-      type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+      //type: CONST.CHAT_MESSAGE_STYLES.ROLL,
       roll: rollResult,
       rollMode: CONFIG.Dice.rollModes.publicroll,
       content: chatHtmlContent,
@@ -310,7 +311,7 @@ export class PostToChat {
       user: game.user.id,
       speaker: ChatMessage.getSpeaker({ actor: actor }),
       flavor: flavorText,
-      type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+      //type: CONST.CHAT_MESSAGE_STYLES.ROLL,
       roll: rollResult,
       rollMode: CONFIG.Dice.rollModes.publicroll,
       content: chatHtmlContent,
@@ -352,7 +353,7 @@ export class PostToChat {
       user: game.user.id,
       speaker: ChatMessage.getSpeaker({ actor: actor }),
       flavor: flavorText,
-      type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+      //type: CONST.CHAT_MESSAGE_STYLES.ROLL,
       roll: rollResult,
       rollMode: CONFIG.Dice.rollModes.publicroll,
       content: chatHtmlContent,
@@ -366,7 +367,7 @@ export class PostToChat {
 
   static async itemInfo(options) {
     const actor = options.actor;
-    const item = options.item;
+    const item = await Enricher.enrichItem(options.item);
 
     // Pull message details for specific item type.
     const messageDetailOptions = {
@@ -383,7 +384,7 @@ export class PostToChat {
     const messageData = {
       user: game.user.id,
       speaker: ChatMessage.getSpeaker({ actor: actor }),
-      type: CONST.CHAT_MESSAGE_TYPES.IC,
+      type: CONST.CHAT_MESSAGE_STYLES.IC,
       // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
       speaker: ChatMessage.getSpeaker(),
       ...messageDetail
@@ -411,7 +412,7 @@ export class PostToChat {
       user: game.user.id,
       speaker: ChatMessage.getSpeaker({ actor: actor }),
       flavor: flavorText,
-      type: CONST.CHAT_MESSAGE_TYPES.IC,
+      type: CONST.CHAT_MESSAGE_STYLES.IC,
       // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
       speaker: ChatMessage.getSpeaker(),
       content: content,
@@ -668,7 +669,7 @@ export class PostToChat {
       user: game.user.id,
       speaker: ChatMessage.getSpeaker({ actor: actor }),
       flavor: flavorText,
-      type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+      //type: CONST.CHAT_MESSAGE_STYLES.ROLL,
       roll: rollResult,
       rollMode: CONFIG.Dice.rollModes.publicroll,
       content: chatHtmlContent,
@@ -680,9 +681,11 @@ export class PostToChat {
     return rollResult.toMessage(messageData);
   }
 
-  static async npcAction(options) {
+  static async npcAction(html, options) {
     const { actor, dataset } = options;
     const actionObject = genericUtil.deepFind(actor, dataset.path);
+
+    const shouldWhisperGM = html.find(".whisper-toggle input")[0].checked;
 
      // Prep chat values.
      const flavorText = `${actor.name} uses <i>${actionObject.name}</i>.`;
@@ -691,9 +694,12 @@ export class PostToChat {
        speaker: ChatMessage.getSpeaker({ actor: actor }),
        flavor: flavorText,
        content: actionObject.description,
-       type: CONST.CHAT_MESSAGE_TYPES.IC,
+       type: CONST.CHAT_MESSAGE_STYLES.IC,
        // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
        speaker: ChatMessage.getSpeaker(),
+     };
+     if (shouldWhisperGM) {
+       messageData.whisper = ChatMessage.getWhisperRecipients("GM");
      }
  
      // Send the roll to chat!
@@ -708,7 +714,7 @@ export class PostToChat {
       user: game.user.id,
       speaker: ChatMessage.getSpeaker({ actor: actor }),
       flavor: flavorText,
-      type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+      //type: CONST.CHAT_MESSAGE_STYLES.ROLL,
       roll: rollResult,
       rollMode: CONFIG.Dice.rollModes.publicroll,
       // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)

@@ -10,6 +10,7 @@ import { preloadHandlebarsTemplates } from "./helpers/templates.mjs";
 import { BNB } from "./helpers/config.mjs";
 import { BarbrawlBuilder } from "./helpers/barbrawl-builder.mjs";
 import { HandlebarsHelperUtil } from "./helpers/handlebarsHelperUtil.mjs";
+import ResourceTracker from "./floating-tool/ResourceTracker.mjs";
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -21,11 +22,24 @@ Hooks.once('init', async function() {
   game.bnb = {
     BNBActor: BNBActor,
     BNBItem: BNBItem,
-    rollItemMacro
+    rollItemMacro,
+    ResourceTracker,
   };
+  game.tracker = new game.bnb.ResourceTracker();
+  game.socket.on("system.bunkers-and-badasses", async data => {
+    // This is how we make sure the players also get the updates.
+    if (data.type == "setTrackedResources") {
+      if (game.user.isGM) {
+        ResourceTracker.setTrackedResources(data.payload);
+      } else {
+        ResourceTracker.updateRender(data.payload);
+      }
+    }
+  });
   
   // Add custom constants for configuration.
   CONFIG.BNB = BNB;
+  CONFIG.Dice.legacyParsing = true;
 
   game.settings.register('bunkers-and-badasses', 'measurementType', {
     name: 'Distance Measurement Style',
@@ -46,7 +60,9 @@ Hooks.once('init', async function() {
     }
   });
   
-  // System settings here
+  ////////////////////////////
+  //  System settings here  //
+  ////////////////////////////
   game.settings.register('bunkers-and-badasses', 'usePlayerArmor', {
     name: 'Show Armor Health on VH Sheet',
     hint: 'Vault Hunters will have access to an "armor" health pool and shields can be marked as "armor" type.',
@@ -92,10 +108,43 @@ Hooks.once('init', async function() {
     type: Boolean,
   });
 
-  
+  game.settings.register('bunkers-and-badasses', 'npcActionsDefaultWhisper', {
+    name: 'NPC Actions send Whisper to GM by Default',
+    hint: 'When an NPC uses an action, the confirmation prompt will default to whispering the action to the GM.',
+    scope: 'client',
+    config: true,
+    default: false,
+    type: Boolean,
+  });
+
+  //////////////////////////////
+  //  Hidden settings/values  //
+  //////////////////////////////
+  game.settings.register('bunkers-and-badasses', 'resourceTrackerToolPosition', {
+    name: 'Resource Tracker Tool Position',
+    scope: 'client',
+    config: false,
+    default: { hide: false },
+    type: Object,
+  });
+
+  game.settings.register('bunkers-and-badasses', 'trackedResources', {
+    name: 'Tracked Resource',
+    scope: 'world',
+    config: false,
+    default: [{
+      name: 'Mayhem',
+      value: 0,
+      playersCanSee: true,
+      playersCanEdit: false,
+    }],
+    type: Array,
+  });
 
   /**
    * Set an initiative formula for the system
+   * This is a default, just in case. Intent is to override 
+   * this for each actor type.
    * @type {String}
    */
   CONFIG.Combat.initiative = {
@@ -114,24 +163,6 @@ Hooks.once('init', async function() {
   Actors.registerSheet("bunkers-and-badasses", BNBActorSheet, { makeDefault: true });
   Items.unregisterSheet("core", ItemSheet);
   Items.registerSheet("bunkers-and-badasses", BNBItemSheet, { makeDefault: true });
-
-  // game.socket.on('show-bm-red-text', async data => {
-  //   const item = data.item;
-  //   const itemSystem = item.system;
-    
-  //   const user = game.users.get(game.user.id);
-  //     if (user.isGM) 
-  //     {
-  //     const secretMessageData = {
-  //       user: user,
-  //       flavor: `Secret BM only notes for ${this.actor.name}'s <b>${item.name}</b>`,
-  //       content: itemSystem.redTextEffectBM,
-  //       whisper: game.users.filter(u => u.isGM).map(u => u.id),
-  //       speaker: ChatMessage.getSpeaker(),
-  //     };
-  //     return ChatMessage.create(secretMessageData);
-  //   }
-  // });
 
   // Preload Handlebars templates.
   return preloadHandlebarsTemplates();
@@ -195,6 +226,12 @@ function getAddedDistance({ line, leftoverDiagonal, gridConversion }) {
   }
 }
 
+// Keeping this around for future debug use...
+// Hooks.on('updateActor', (log1, log2, log3, log4) => {
+//   console.log(log1);
+//   console.log(log2.system.actions);
+// });
+
 Hooks.on('preCreateToken', (document, data) => {
   const actor = document.actor;
   const isNpc = actor.type == 'npc';
@@ -257,24 +294,26 @@ Hooks.once("dragRuler.ready", (SpeedProvider) => {
 
 Hooks.on("item-piles-ready", async () => {
 
-  const columns = [{
-    label: "Type",
-    path: "system.type.name",
-    formatting: "{#}",
-    mapping: { }
-  },
-  {
-    label: "Rarity",
-    path: "system.rarity.name",
-    formatting: "{#}",
-    mapping: { }
-  },
-  {
-    label: "Guild",
-    path: "system.guild",
-    formatting: "{#}",
-    mapping: { }
-  }];
+  const columns = [
+    {
+      label: "Type",
+      path: "system.type.name",
+      formatting: "{#}",
+      mapping: { }
+    },
+    {
+      label: "Rarity",
+      path: "system.rarity.name",
+      formatting: "{#}",
+      mapping: { }
+    },
+    {
+      label: "Guild",
+      path: "system.guild",
+      formatting: "{#}",
+      mapping: { }
+    }
+  ];
 
   game.itempiles.API.addSystemIntegration({
     VERSION: "1.0.0",
@@ -370,7 +409,7 @@ async function rollItemMacro(itemName) {
   if (!item) return ui.notifications.warn(`Your controlled Actor does not have an item named ${itemName}`);
 
   // Trigger the item roll
-  return await item.roll({async: true});
+  return await item.roll();
 }
 
 

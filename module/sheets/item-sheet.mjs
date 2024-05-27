@@ -1,3 +1,5 @@
+import { Enricher } from "../helpers/enricher.mjs";
+
 /**
  * Extend the basic ItemSheet with some very simple modifications
  * @extends {ItemSheet}
@@ -6,7 +8,7 @@ export class BNBItemSheet extends ItemSheet {
 
   /** @override */
   static get defaultOptions() {
-    return mergeObject(super.defaultOptions, {
+    return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["bunkers-and-badasses", "sheet", "item"],
       width: 520,
       height: 480,
@@ -17,11 +19,6 @@ export class BNBItemSheet extends ItemSheet {
   /** @override */
   get template() {
     const path = "systems/bunkers-and-badasses/templates/item";
-    // Return a single sheet for all item types.
-    // return `${path}/item-sheet.html`;
-
-    // Alternatively, you could use the following return statement to do a
-    // unique item sheet by type, like `weapon-sheet.html`.
     return `${path}/item-${this.item.type}-sheet.html`;
   }
 
@@ -31,7 +28,7 @@ export class BNBItemSheet extends ItemSheet {
   async getData(options) {
     // Retrieve base data structure.
     const context = await super.getData(options);
-
+    
     // Use a safe clone of the item data for further operations.
     const itemData = context.item;
     
@@ -96,22 +93,7 @@ export class BNBItemSheet extends ItemSheet {
   }
 
   async prepareEnrichedFields(context, item) {
-    const system = this.object.system;
-    const configs = {async: true};
-    let extraEnrichments = {};
-
-    if (item.type == "Action Skill") {
-      extraEnrichments = {
-        notes: await TextEditor.enrichHTML(system.notes, configs),
-      };
-    }
-
-    context.enriched = {
-      description: await TextEditor.enrichHTML(system.description, configs),
-      redTextEffect: await TextEditor.enrichHTML(system.redTextEffect, configs),
-      redTextEffectBM: await TextEditor.enrichHTML(system.redTextEffectBM, configs),
-      ...extraEnrichments
-    };
+    context.enriched = (await Enricher.enrichItem(item)).system.enriched;
   }
 
   /* -------------------------------------------- */

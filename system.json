@@ -2,16 +2,16 @@
   "id": "bunkers-and-badasses",
   "title": "Bunkers & Badasses",
   "description": "Badasses, loot, and mayhem. This system is for running the tabletop adaptation of Borderlands' 'Bunkers & Badasses' by Nerdvana.",
-  "version": "0.5.1",
-  "compatibleCoreVersion": "11",
+  "version": "0.6.0",
+  "compatibleCoreVersion": "12",
   "compatibility": {
-    "minimum": 10,
-    "verified": 11.315
+    "minimum": 12,
+    "verified": 12.318
   },
   "authors": [{
     "name": "Nic Pereira",
     "email": "BadassBunks@nicpereira.dev",
-    "discord": "emf#0016"
+    "discord": "emf"
   }],
   "scripts": [],
   "esmodules": ["module/bunkers-and-badasses.mjs"],
@@ -23,6 +23,7 @@
     "css/common-colors/health-colors.css",
     "css/common-colors/rarity-colors.css",
     "css/common-design-patterns/navigation-tabs.css",
+    "css/common-design-patterns/toggle-switches.css",
     "css/generic.css",
     "css/item-list.css",
     "css/dropdown.css",
@@ -34,7 +35,9 @@
     "css/header/health.css",
     "css/header/xp-bar.css",
     "css/archetype-level.css",
-    "css/damage-prompt.css"
+    "css/damage-prompt.css",
+    "css/npc-sheet.css",
+    "css/floating-tool.css"
   ],
   "packs": [
     {
@@ -194,11 +197,13 @@
   }],
   "socket": true,
   "initiative": "1d20",
-  "gridDistance": 1,
-  "gridUnits": "sq",
+  "grid": {
+    "distance": 1,
+    "units": "sq"
+  },
   "primaryTokenAttribute": "attributes.hps.flesh",
   "secondaryTokenAttribute": "attributes.hps.shield",
   "url": "https://github.com/eronth/bunkers-and-badasses",
-  "manifest": "https://github.com/eronth/bunkers-and-badasses/releases/download/v0.5.1/system.json",
-  "download": "https://github.com/eronth/bunkers-and-badasses/archive/refs/tags/v0.5.1.zip"
+  "manifest": "https://github.com/eronth/bunkers-and-badasses/releases/download/v0.6.0/system.json",
+  "download": "https://github.com/eronth/bunkers-and-badasses/releases/download/v0.6.0/bunkers-and-badasses.zip"
 }

@@ -1,24 +1,12 @@
 Updates
-* Much better and more informative check and attack roll chat cards. Mostly the same info, just better looking.
-* Improved damage chat cards. Far more informative and detailed than before.
-* Major efforts to unify the looks of all the item lists.
-* Improvements to virtually every item display in the item list.
-* New dropdown visuals for items so you can see details at-a-glance.
-* Major code overhaul to better support additions going forward.
-* Added confirmation prompts for many actions.
-  * Skill checks, item/grenade throws, attack rolls, damage rolls, damage taken, use action skill, badass rolls, and item deletes now have confirmation prompts.
-  * Confirmation prompts allow user to input any final tweaks (e.g. extra modifiers to hit or damage).
-  * Holy heck you can't accidentally delete an item so easily anymore. Why wasn't this always there?
-* Badass Rolls can decrement your badass tokens on use.
-* Use Action Skill can decrement uses on use. (use-use-use).
-* Weapons currently "In hand" will now pass their stat bonuses to actor.
-* Broad cleanup of visuals (still rough!)
-
-* Cleaned up and re-added Compendium packs (with additional compendium items).
-* Improved/fixed support for Bar Brawl module.
-* Added better support for Item Piles module.
+* Prepared system for v12 compatibility.
+* Improved item sheets (except guns, sorry) and prepared all for v12 as well.
+* Can now right click on items in the Loot tab to open the item sheet.
+* Added Resource Tracker with default Mayhem Tracker.
+* Can now add additional NPC actions beyond defaults.
+* Can now create Actions for NPCs beyond the initial four (2 basic and 2 mayhem).
+* NPC actions can be Whispered to GM instead of posted publicly.
+  * Default option can be configured in settings.
 
 Bugfixes
-* Fixed text on the Default ruler type to match Foundry VTT's new default.
-* Fixed some strange Bar Brawl interactions.
-* Probably a ton more, I kinda lost track.
+* Fixed prior bug that removed/hid custom Item Packages.

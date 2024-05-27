@@ -37,9 +37,8 @@ export class HandlebarsHelperUtil {
       return str.toUpperCase();
     });
 
-    Handlebars.registerHelper('enrich', function(str) {
-      return TextEditor.enrichHTML(str, {async: false});;
-    });
+    Handlebars.registerHelper('enrich', async (str) => 
+      await TextEditor.enrichHTML(str, { async: true }));
 
     Handlebars.registerHelper('toArray', (...values) => {
       // Omit the Handlebars options object.

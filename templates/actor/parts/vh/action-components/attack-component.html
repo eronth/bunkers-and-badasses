@@ -1,4 +1,4 @@
-<div class="loot-rarity-fade-border attack rollable flexrow {{#if itemId}}item{{/if}}"
+<div class="loot-rarity-fade-border action-attack attack rollable flexrow {{#if itemId}}item{{/if}}"
   title="Roll Attack" style="--rarityColor: {{rarityColor}}"
   data-roll-type="{{rollType}}" data-check-type="{{checkType}}" data-roll-mod="{{rollMod}}"
   {{#if itemId}}data-item-id="{{itemId}}"{{/if}}>
@@ -21,7 +21,7 @@
       </div>
     </div>
     <div class="minor-details flexrow">
-      <div class="flavor-text">{{flavorText}}</div>
+      <div class="flavor-text">{{{flavorText}}}</div>
       <div class="damage flex-size-3">{{#if damage}}{{{damage}}}{{/if}}</div>
       <div class="range flex-size-2"><b>{{rangeLabel}}:</b> {{rangeDistance}}{{#if rangeUnit}} {{rangeUnit}}{{/if}}</div>
     </div>

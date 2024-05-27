@@ -1,4 +1,4 @@
-import { ConfirmActionPrompt } from "./roll-and-post/confirmActionPrompt.mjs";
+import { DefaultData } from "./defaultData.mjs";
 import { PostToChat } from "./roll-and-post/postToChat.mjs";
 
 export class OnActionUtil {
@@ -13,7 +13,7 @@ export class OnActionUtil {
     // Get the type of item to create.
     const type = header.dataset.dtype;
     // Grab any data associated with this control.
-    const system = duplicate(header.dataset);
+    const system = foundry.utils.duplicate(header.dataset);
     // Initialize a default name.
     const name = `New ${type.capitalize()}`;
     // Prepare the item object.
@@ -155,5 +155,39 @@ export class OnActionUtil {
     
     // Square brackets needed to get the right value.
     actor.update({["system.archetypes.archetype"+archetypeNum+".rewards"]: archetype.rewards});
+  }
+
+  static async onNpcActionCreate(event, actor) {
+    // Prep data
+    const actionType = event.currentTarget.dataset.actionType;
+    const actionList = actor.system.actions[actionType].actionList ?? {};
+    const nextIndex = Object.keys(actionList).length.toString();
+    actionList[nextIndex] = { ...DefaultData.npcAction() };
+
+    // Create the item.
+    actor.update({["system.actions."+actionType+".actionList"]: actionList});
+  }
+
+  static async onNpcActionDelete(html, options) {
+    // Prep data
+    const { actor, actionType, actionIndex } = options;
+    const actionList = actor.system.actions[actionType].actionList ?? {};
+    const newActionList = {};
+
+    // Iterate all actions, skipping the one to delete.
+    // This allows the numbering to remain consistent.
+    let i = 0;
+    for (let key in actionList) {
+      if (key === actionIndex) {
+        // Skip.
+      } else {
+        newActionList[i.toString()] = actionList[key];
+        i++;
+      }
+    }
+    
+    // Update the actor.
+    await actor.update({["system.actions."+actionType+".-=actionList"]: null});
+    await actor.update({["system.actions."+actionType+".actionList"]: newActionList});
   }
 }
