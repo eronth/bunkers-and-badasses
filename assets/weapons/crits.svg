@@ -1,0 +1,26 @@
+<svg id="critIcon" width="56" height="56" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+	<defs>
+		<style>
+			#critIcon {
+				--critColor: #833038;
+			}
+			
+			#critCircle {
+				fill: var(--critColor);
+			}
+			
+			#bigSpike {
+				fill: var(--critColor);
+			}
+		</style>
+	</defs>
+	<circle id="critCircle" cx="28" cy="28" r="22" />
+	<g id="bigSpikes">
+		<g id="vSpikes">
+		<path id="bigSpike" d="m10,29.5 a10,7 0,0,1 -10,-1.5 a10,7 0,0,1 10,-1.5 z" />
+		<use id="vSpike" href="#bigSpike" transform="rotate(180, 28, 28)" />
+		</g>
+		<use id="hSpikes" href="#vSpikes" transform="rotate(90, 28, 28)" />
+	</g>
+	<use id="vLine" href="#bigSpikes" transform="rotate(45, 28, 28) scale(0.9) translate(3.5, 3.5)" />
+</svg>
