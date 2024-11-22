@@ -1,6 +1,21 @@
 <div class="healths-container flexrow" >
   {{#each hps as |hp key|}}
   <div class="health-block flexrow flex-group-center" >
+    {{#isEqual "shield" key}}
+	    {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/header/shield-bar.html" hp}}
+    {{/isEqual}}
+		
+    {{#isEqual "armor" key}}
+	    {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/header/armor-bar.html" hp}}
+    {{/isEqual}}
+
+    {{#isEqual "flesh" key}}
+	    {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/header/health-bar.html" hp}}
+    {{/isEqual}}
+
+    {{#isEqual "bone" key}}
+	    {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/header/bone-bar.html" hp}}
+    {{/isEqual}}
     <div class="health centerize flexcol flex-size-2">
       <label for="{{key}}-health-display" class="resource-label rollable flexlarge">{{hp.label}}</label>
       <input 

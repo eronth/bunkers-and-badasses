@@ -1,0 +1,73 @@
+<svg id="BoneBar" width="400" height="50" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+	<defs>
+		<style>
+			#BoneBar {
+				--darkGrey: #bbb;
+				--lightGrey: #ddd;
+				--hpDark: #999;
+				--hpLight: #bbb;
+                --bonePc: {{#calcPercent value max}}{{/calcPercent}};
+			}
+			
+			.hpLight {
+				fill: var(--hpLight);
+			}
+			
+			.hpDark {
+				fill: var(--hpDark);
+			}
+			
+			.bar {
+				stroke-width: 2;
+				opacity: 0.8;
+			}
+			
+			#backgroundBar { 
+				fill: url(#greyLine);
+				stroke: var(--lightYellow);
+			}
+			
+			#foregroundBar { 
+				fill: url(#bonePatt);
+				stroke: var(--lightBlue);
+				clip-path: polygon(
+					-1px -1px, 
+					calc(362px * var(--bonePc, 1) - 32px) -1px,
+					calc(362px * var(--bonePc, 1)) 31px,
+					-1px 31px
+				);
+			}
+		</style>
+		<pattern id="bonePatt"
+			x="0" y="0" width="24" height="40" 
+			patternUnits="userSpaceOnUse" patternTransform="scale(1,1) translate(4, 0)"
+		>
+			<desc>Hitpoint Pattern</desc>
+			<animateTransform attributeType="xml" attributeName="patternTransform"
+				type="translate" from="24" to="0" begin="0" dur="3s" repeatCount="indefinite"
+			/>
+			<symbol id="parthpBar">
+				<polygon points="0,10 10,10 10,30 0,30"/>
+			</symbol>
+			<use href="#parthpBar" class="hpLight" transform="translate(0, 0)" />
+			<use href="#parthpBar" class="hpLight" transform="translate(9.5,0)" />
+			<use href="#parthpBar" class="hpLight" transform="translate(14,0)" />
+			<use href="#parthpBar" class="hpLight" transform="translate(0,15)" />
+			<use href="#parthpBar" class="hpLight" transform="translate(9.5,15)" />
+			<use href="#parthpBar" class="hpDark" transform="translate(14,15)" />
+		</pattern>
+		<pattern id="greyLine" 
+			x="0" y="0" width="20" height="20" 
+			patternUnits="userSpaceOnUse" patternTransform="scale(0.2, 0.2)"
+		>
+			<desc>greyLine</desc>
+			<symbol id="line">
+				<polygon points="0,0 20,0 20,10 0,10"/>
+			</symbol>
+			<use href="#line" fill="#ddd"/>
+			<use href="#line" transform="translate(0,10)" fill="#bbbbbb"/>
+		</pattern>
+	</defs>
+	<path id="backgroundBar" class="bar" d="m20,10 l330,0 l30,30 l-360,0 z" />
+	<path id="foregroundBar" class="bar" d="m20,10 l330,0 l30,30 l-360,0 z" />
+</svg>

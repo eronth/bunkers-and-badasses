@@ -117,6 +117,20 @@ export class HandlebarsHelperUtil {
       }
     );
 
+    // hpBar related helpers.
+    Handlebars.registerHelper('isEqual', function(value, key, opts) {
+      if (value === key) {
+        return opts.fn()
+      } else {
+        return opts.inverse();
+      }
+    });
+
+    Handlebars.registerHelper('calcPercent', function(current, max) {
+      return (current / max);
+    });
+
+
     // Dropdown related helpers.
     Handlebars.registerHelper('dropdownComponentClass', ((componentType) => 
       Dropdown.getComponentClass(componentType)));
