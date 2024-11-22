@@ -88,3 +88,7 @@
   align-items: center;
   justify-content: center;
 }
+
+.hit-point-bar {
+  width: 400px;
+}
