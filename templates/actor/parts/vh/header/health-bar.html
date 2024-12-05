@@ -2,40 +2,7 @@
   <defs>
     <style>
       #hpBar {
-        --darkRed: #8b0000;
-        --lightRed: #ff0000;
-        --darkGrey: #bbb;
-        --lightGrey: #ddd;
         --healthPc: {{#calcPercent value max}}{{/calcPercent}};
-      }
-      
-      .healthHpLight {
-        fill: var(--lightRed);
-      }
-      
-      .healthHpDark {
-        fill: var(--darkRed);
-      }
-      
-      .healthBars {
-        stroke-width: 2;
-        opacity: 0.8;
-      }
-      
-      #healthBackground { 
-        fill: url(#greyLine);
-        stroke: var(--darkRed);
-      }
-      
-      #healthForeground { 
-        fill: url(#hpPatt);
-        stroke: var(--lightBlue);
-        clip-path: polygon(
-          -1px -1px, 
-          calc(362px * var(--healthPc, 1) - 32px) -1px,
-          calc(362px * var(--healthPc, 1)) 31px,
-          -1px 31px
-        );
       }
     </style>
     <pattern id="hpPatt" 

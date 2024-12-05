@@ -92,3 +92,150 @@
 .hit-point-bar {
   width: 400px;
 }
+
+#shieldBar {
+  --darkBlue: #22A9AC;
+  --lightBlue: #27D6DB;
+  --darkGrey: #bbb;
+  --lightGrey: #ddd;
+  --shieldPc: 0;
+}
+
+#shieldSingleComb {
+  stroke: var(--lightBlue);
+  stroke-width: 1.6;
+}
+
+.shieldBars {
+  stroke-width: 2;
+  opacity: 0.8;
+}
+
+#shieldBackground {
+  fill: url(#greyLine);
+}
+
+#shieldForeground {
+  fill: url(#honeycomb);
+  stroke: var(--lightBlue);
+  clip-path: polygon(
+    -1px -1px,
+    calc(362px * var(--shieldPc, 1) - 32px) -1px,
+    calc(362px * var(--shieldPc, 1)) 31px,
+    -1px 31px
+  );
+}
+
+#ArmorBar {
+  --darkGrey: #bbb;
+  --lightGrey: #ddd;
+  --lightYellow: #eeee00;
+  --mediumYellow: #bbbb00;
+  --armorPc: 0;
+}
+
+.armorPatLine {
+  stroke-width: 20;
+  fill:none;
+}
+
+#LYLine {
+  stroke: var(--lightYellow);
+}
+
+#MYLine {
+  stroke: var(--mediumYellow);
+}
+
+.armorBar {
+  stroke-width: 2;
+  opacity: 0.8;
+}
+
+#armorBackground {
+  fill: url(#greyLine);
+  stroke: var(--lightYellow);
+}
+
+#armorForeground {
+  fill: url(#armorPatt);
+  clip-path: polygon(
+    -1px -1px,
+    calc(362px * var(--armorPc, 1) - 32px) -1px,
+    calc(362px * var(--armorPc, 1)) 31px,
+    -1px 31px
+  );
+}
+
+#hpBar {
+  --darkRed: #8b0000;
+  --lightRed: #ff0000;
+  --darkGrey: #bbb;
+  --lightGrey: #ddd;
+  --healthPc: 0;
+}
+
+.healthHpLight {
+  fill: var(--lightRed);
+}
+
+.healthHpDark {
+  fill: var(--darkRed);
+}
+
+.healthBars {
+  stroke-width: 2;
+  opacity: 0.8;
+}
+
+#healthBackground { 
+  fill: url(#greyLine);
+  stroke: var(--darkRed);
+}
+
+#healthForeground { 
+  fill: url(#hpPatt);
+  stroke: var(--lightBlue);
+  clip-path: polygon(
+    -1px -1px, 
+    calc(362px * var(--healthPc, 1) - 32px) -1px,
+    calc(362px * var(--healthPc, 1)) 31px,
+    -1px 31px
+  );
+}
+
+#BoneBar {
+  --darkGrey: #bbb;
+  --lightGrey: #ddd;
+  --boneHpDark: #999;
+  --boneHpLight: #bbb;
+  --bonePc: 0;
+}
+
+.boneHpLight {
+  fill: var(--boneHpLight);
+}
+
+.boneHpDark {
+  fill: var(--boneHpDark);
+}
+
+.boneBars {
+  stroke-width: 2;
+  opacity: 0.8;
+}
+
+#boneBackground { 
+  fill: url(#greyLine);
+  stroke: var(--lightYellow);
+}
+
+#boneForeground { 
+  fill: url(#bonePatt);
+  clip-path: polygon(
+    -1px -1px, 
+    calc(362px * var(--bonePc, 1) - 32px) -1px,
+    calc(362px * var(--bonePc, 1)) 31px,
+    -1px 31px
+  );
+}

@@ -2,44 +2,7 @@
   <defs>
     <style>
       #ArmorBar {
-        --darkGrey: #bbb;
-        --lightGrey: #ddd;
-        --lightYellow: #eeee00;
-        --mediumYellow: #bbbb00;
         --armorPc: {{#calcPercent value max}}{{/calcPercent}};
-      }
-
-      .armorPatLine {
-        stroke-width: 20;
-        fill:none;
-      }
-
-      #LYLine {
-        stroke: var(--lightYellow);
-      }
-
-      #MYLine {
-        stroke: var(--mediumYellow);
-      }
-
-      .armorBar {
-        stroke-width: 2;
-        opacity: 0.8;
-      }
-
-      #armorBackground {
-        fill: url(#greyLine);
-        stroke: var(--lightYellow);
-      }
-
-      #armorForeground {
-        fill: url(#armorPatt);
-        clip-path: polygon(
-          -1px -1px,
-          calc(362px * var(--armorPc, 1) - 32px) -1px,
-          calc(362px * var(--armorPc, 1)) 31px,
-          -1px 31px
-        );
       }
     </style>
     <pattern id="armorPatt"

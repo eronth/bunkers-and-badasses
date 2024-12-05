@@ -2,36 +2,7 @@
   <defs>
     <style>
       #shieldBar {
-        --darkBlue: #22A9AC;
-        --lightBlue: #27D6DB;
-        --darkGrey: #bbb;
-        --lightGrey: #ddd;
         --shieldPc: {{#calcPercent value max}}{{/calcPercent}};
-      }
-
-      #shieldSingleComb {
-        stroke: var(--lightBlue);
-        stroke-width: 1.6;
-      }
-
-      .shieldBars {
-        stroke-width: 2;
-        opacity: 0.8;
-      }
-
-      #shieldBackground {
-        fill: url(#greyLine);
-      }
-
-      #shieldForeground {
-        fill: url(#honeycomb);
-        stroke: var(--lightBlue);
-        clip-path: polygon(
-          -1px -1px,
-          calc(362px * var(--shieldPc, 1) - 32px) -1px,
-          calc(362px * var(--shieldPc, 1)) 31px,
-          -1px 31px
-        );
       }
     </style>
 

@@ -2,39 +2,7 @@
   <defs>
     <style>
       #BoneBar {
-        --darkGrey: #bbb;
-        --lightGrey: #ddd;
-        --boneHpDark: #999;
-        --boneHpLight: #bbb;
         --bonePc: {{#calcPercent value max}}{{/calcPercent}};
-      }
-      
-      .boneHpLight {
-        fill: var(--boneHpLight);
-      }
-      
-      .boneHpDark {
-        fill: var(--boneHpDark);
-      }
-      
-      .boneBars {
-        stroke-width: 2;
-        opacity: 0.8;
-      }
-      
-      #boneBackground { 
-        fill: url(#greyLine);
-        stroke: var(--lightYellow);
-      }
-      
-      #boneForeground { 
-        fill: url(#bonePatt);
-        clip-path: polygon(
-          -1px -1px, 
-          calc(362px * var(--bonePc, 1) - 32px) -1px,
-          calc(362px * var(--bonePc, 1)) 31px,
-          -1px 31px
-        );
       }
     </style>
     <pattern id="bonePatt"
