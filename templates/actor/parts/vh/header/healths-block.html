@@ -3,7 +3,10 @@
   <div class="health-block flexrow flex-group-center" >
     <div class="health-block flexrow flex-group-center hit-point-bar animated-healthbar" >
       {{#isEqual "shield" key}}
-        {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/header/shield-bar.html" hp}}
+        <style>
+          #{{key}}Bar { --hpPercent: {{#calcPercent hp.value hp.max}}{{/calcPercent}}; }
+        </style>
+        {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/header/health-bar.html" hp key=key}}
       {{/isEqual}}
       
       {{#isEqual "armor" key}}

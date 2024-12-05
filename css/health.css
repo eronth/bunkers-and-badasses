@@ -99,7 +99,7 @@
   width: 400px;
 }
 
-#ShieldBar {
+#shieldBar {
   --darkBlue: #22A9AC;
   --lightBlue: #27D6DB;
   --darkGrey: #bbb;
@@ -107,7 +107,7 @@
   --healthbarLight: var(--lightBlue);
   --healthbarDark: var(--darkBlue);
   --healthbarBorder: var(--darkBlue);
-  --hpForegroundFill: url(#honeycomb);
+  --hpForegroundFill: url(#shieldHoneycomb);
   --hpPercent: 0;
 }
 #ArmorBar {
@@ -148,14 +148,14 @@
   stroke-width: 1.6;
 }
 
-#ShieldBar .healthbar-foreground {
+#shieldBar .healthbar-foreground {
   stroke: var(--lightBlue);
 }
 
 /* Armor Bar */
 .armorPatLine {
   stroke-width: 20;
-  fill:none;
+  fill: none;
 }
 
 #LYLine {
