@@ -2,7 +2,7 @@
   <defs>
     <style>
       #BoneBar {
-        --bonePc: {{#calcPercent value max}}{{/calcPercent}};
+        --hpPercent: {{#calcPercent value max}}{{/calcPercent}};
       }
     </style>
     <pattern id="bonePatt"
@@ -16,12 +16,12 @@
       <symbol id="parthpBar">
         <polygon points="0,10 10,10 10,30 0,30"/>
       </symbol>
-      <use href="#parthpBar" class="boneHpLight" transform="translate(0, 0)" />
-      <use href="#parthpBar" class="boneHpLight" transform="translate(9.5,0)" />
-      <use href="#parthpBar" class="boneHpLight" transform="translate(14,0)" />
-      <use href="#parthpBar" class="boneHpLight" transform="translate(0,15)" />
-      <use href="#parthpBar" class="boneHpLight" transform="translate(9.5,15)" />
-      <use href="#parthpBar" class="boneHpDark" transform="translate(14,15)" />
+      <use href="#parthpBar" class="hp-light" transform="translate(0, 0)" />
+      <use href="#parthpBar" class="hp-light" transform="translate(9.5,0)" />
+      <use href="#parthpBar" class="hp-light" transform="translate(14,0)" />
+      <use href="#parthpBar" class="hp-light" transform="translate(0,15)" />
+      <use href="#parthpBar" class="hp-light" transform="translate(9.5,15)" />
+      <use href="#parthpBar" class="hp-dark" transform="translate(14,15)" />
     </pattern>
     <pattern id="greyLine" 
       x="0" y="0" width="20" height="20" 
@@ -35,6 +35,6 @@
       <use href="#line" transform="translate(0,10)" fill="#bbbbbb"/>
     </pattern>
   </defs>
-  <path class="boneBars healthbar-background" d="m20,10 l330,0 l30,30 l-360,0 z" />
-  <path id="boneForeground" class="boneBars" d="m20,10 l330,0 l30,30 l-360,0 z" />
+  <path class="health-bars healthbar-background" d="m20,10 l330,0 l30,30 l-360,0 z" />
+  <path class="health-bars healthbar-foreground" d="m20,10 l330,0 l30,30 l-360,0 z" />
 </svg>
