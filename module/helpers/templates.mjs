@@ -87,6 +87,5 @@
     
     // Archy templates
     "systems/bunkers-and-badasses/templates/actor/parts/vh/header/health-bar.html",
-    "systems/bunkers-and-badasses/templates/actor/parts/vh/header/armor-bar.html",
   ]);
 };

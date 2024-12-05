@@ -98,47 +98,50 @@
 .hit-point-bar {
   width: 400px;
 }
-
+#eridianBar {
+  --darkPurple: #6b0f9c;
+  --lightPurple: #b913ff;
+  --healthbarLight: var(--lightPurple);
+  --healthbarDark: var(--darkPurple);
+  --healthbarBorder: var(--darkPurple);
+  --hpForegroundFill: url(#eridianPatt);
+}
 #shieldBar {
   --darkBlue: #22A9AC;
   --lightBlue: #27D6DB;
-  --darkGrey: #bbb;
-  --lightGrey: #ddd;
   --healthbarLight: var(--lightBlue);
   --healthbarDark: var(--darkBlue);
   --healthbarBorder: var(--darkBlue);
   --hpForegroundFill: url(#shieldHoneycomb);
-  --hpPercent: 0;
 }
 #armorBar {
-  --darkGrey: #bbb;
-  --lightGrey: #ddd;
   --lightYellow: #eeee00;
   --mediumYellow: #bbbb00;
   --healthbarBorder: var(--lightYellow);
   --hpForegroundFill: url(#armorWavePatt);
-  --hpPercent: 0;
 }
 #fleshBar {
   --darkRed: #8b0000;
   --lightRed: #ff0000;
-  --darkGrey: #bbb;
-  --lightGrey: #ddd;
   --healthbarLight: var(--lightRed);
   --healthbarDark: var(--darkRed);
   --healthbarBorder: var(--darkRed);
   --hpForegroundFill: url(#fleshPatt);
-  --hpPercent: 0;
 }
 #boneBar {
-  --darkGrey: #bbb;
-  --lightGrey: #ddd;
   --boneHpDark: #999;
   --boneHpLight: #bbb;
   --healthbarLight: var(--boneHpLight);
   --healthbarDark: var(--boneHpDark);
-  --healthbarBorder: var(--darkGrey);
+  --healthbarBorder: var(--boneHpDark);
   --hpForegroundFill: url(#bonePatt);
+}
+
+#eridianBar,
+#shieldBar,
+#armorBar ,
+#fleshBar,
+#boneBar {
   --hpPercent: 0;
 }
 
