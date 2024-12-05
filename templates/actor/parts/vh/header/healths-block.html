@@ -10,7 +10,12 @@
       {{/isEqual}}
       
       {{#isEqual "armor" key}}
-        {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/header/armor-bar.html" hp}}
+        <style>
+          #{{key}}Bar {
+            --hpPercent: {{#calcPercent value max}}{{/calcPercent}};
+          }
+        </style>
+        {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/header/armor-bar.html" hp key=key}}
       {{/isEqual}}
 
       {{#isEqual "flesh" key}}

@@ -110,13 +110,13 @@
   --hpForegroundFill: url(#shieldHoneycomb);
   --hpPercent: 0;
 }
-#ArmorBar {
+#armorBar {
   --darkGrey: #bbb;
   --lightGrey: #ddd;
   --lightYellow: #eeee00;
   --mediumYellow: #bbbb00;
   --healthbarBorder: var(--lightYellow);
-  --hpForegroundFill: url(#armorPatt);
+  --hpForegroundFill: url(#armorWavePatt);
   --hpPercent: 0;
 }
 #fleshBar {
