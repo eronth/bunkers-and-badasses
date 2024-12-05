@@ -119,7 +119,7 @@
   --hpForegroundFill: url(#armorPatt);
   --hpPercent: 0;
 }
-#hpBar {
+#fleshBar {
   --darkRed: #8b0000;
   --lightRed: #ff0000;
   --darkGrey: #bbb;
@@ -130,7 +130,7 @@
   --hpForegroundFill: url(#hpPatt);
   --hpPercent: 0;
 }
-#BoneBar {
+#boneBar {
   --darkGrey: #bbb;
   --lightGrey: #ddd;
   --boneHpDark: #999;
