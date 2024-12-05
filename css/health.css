@@ -89,6 +89,12 @@
   justify-content: center;
 }
 
+
+
+
+
+
+
 .hit-point-bar {
   width: 400px;
 }
@@ -98,6 +104,7 @@
   --lightBlue: #27D6DB;
   --darkGrey: #bbb;
   --lightGrey: #ddd;
+  --healthbarBorder: var(--darkBlue);
   --shieldPc: 0;
 }
 
@@ -109,10 +116,6 @@
 .shieldBars {
   stroke-width: 2;
   opacity: 0.8;
-}
-
-#shieldBackground {
-  fill: url(#greyLine);
 }
 
 #shieldForeground {
@@ -131,6 +134,7 @@
   --lightGrey: #ddd;
   --lightYellow: #eeee00;
   --mediumYellow: #bbbb00;
+  --healthbarBorder: var(--lightYellow);
   --armorPc: 0;
 }
 
@@ -152,11 +156,6 @@
   opacity: 0.8;
 }
 
-#armorBackground {
-  fill: url(#greyLine);
-  stroke: var(--lightYellow);
-}
-
 #armorForeground {
   fill: url(#armorPatt);
   clip-path: polygon(
@@ -172,6 +171,7 @@
   --lightRed: #ff0000;
   --darkGrey: #bbb;
   --lightGrey: #ddd;
+  --healthbarBorder: var(--darkRed);
   --healthPc: 0;
 }
 
@@ -186,11 +186,6 @@
 .healthBars {
   stroke-width: 2;
   opacity: 0.8;
-}
-
-#healthBackground { 
-  fill: url(#greyLine);
-  stroke: var(--darkRed);
 }
 
 #healthForeground { 
@@ -209,6 +204,7 @@
   --lightGrey: #ddd;
   --boneHpDark: #999;
   --boneHpLight: #bbb;
+  --healthbarBorder: var(--darkGrey);
   --bonePc: 0;
 }
 
@@ -225,11 +221,6 @@
   opacity: 0.8;
 }
 
-#boneBackground { 
-  fill: url(#greyLine);
-  stroke: var(--lightYellow);
-}
-
 #boneForeground { 
   fill: url(#bonePatt);
   clip-path: polygon(
@@ -238,4 +229,9 @@
     calc(362px * var(--bonePc, 1)) 31px,
     -1px 31px
   );
+}
+
+.animated-healthbar .healthbar-background {
+  fill: url(#greyLine);
+  stroke: var(--healthbarBorder);
 }
