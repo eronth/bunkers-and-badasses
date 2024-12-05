@@ -107,7 +107,33 @@
   --healthbarBorder: var(--darkBlue);
   --shieldPc: 0;
 }
+#ArmorBar {
+  --darkGrey: #bbb;
+  --lightGrey: #ddd;
+  --lightYellow: #eeee00;
+  --mediumYellow: #bbbb00;
+  --healthbarBorder: var(--lightYellow);
+  --armorPc: 0;
+}
+#hpBar {
+  --darkRed: #8b0000;
+  --lightRed: #ff0000;
+  --darkGrey: #bbb;
+  --lightGrey: #ddd;
+  --healthbarBorder: var(--darkRed);
+  --healthPc: 0;
+}
+#BoneBar {
+  --darkGrey: #bbb;
+  --lightGrey: #ddd;
+  --boneHpDark: #999;
+  --boneHpLight: #bbb;
+  --healthbarBorder: var(--darkGrey);
+  --bonePc: 0;
+}
 
+
+/* Shield Bar */
 #shieldSingleComb {
   stroke: var(--lightBlue);
   stroke-width: 1.6;
@@ -129,15 +155,7 @@
   );
 }
 
-#ArmorBar {
-  --darkGrey: #bbb;
-  --lightGrey: #ddd;
-  --lightYellow: #eeee00;
-  --mediumYellow: #bbbb00;
-  --healthbarBorder: var(--lightYellow);
-  --armorPc: 0;
-}
-
+/* Armor Bar */
 .armorPatLine {
   stroke-width: 20;
   fill:none;
@@ -166,15 +184,7 @@
   );
 }
 
-#hpBar {
-  --darkRed: #8b0000;
-  --lightRed: #ff0000;
-  --darkGrey: #bbb;
-  --lightGrey: #ddd;
-  --healthbarBorder: var(--darkRed);
-  --healthPc: 0;
-}
-
+/* Health Bar */
 .healthHpLight {
   fill: var(--lightRed);
 }
@@ -199,15 +209,7 @@
   );
 }
 
-#BoneBar {
-  --darkGrey: #bbb;
-  --lightGrey: #ddd;
-  --boneHpDark: #999;
-  --boneHpLight: #bbb;
-  --healthbarBorder: var(--darkGrey);
-  --bonePc: 0;
-}
-
+/* Bone Bar */
 .boneHpLight {
   fill: var(--boneHpLight);
 }
@@ -231,6 +233,7 @@
   );
 }
 
+/* All Health Bars */
 .animated-healthbar .healthbar-background {
   fill: url(#greyLine);
   stroke: var(--healthbarBorder);
