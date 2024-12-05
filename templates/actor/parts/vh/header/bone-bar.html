@@ -1,14 +1,9 @@
-<svg id="{{label}}Bar" viewBox="0 0 400 50" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+<svg id="{{key}}Bar" viewBox="0 0 400 50" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
   <defs>
-    <style>
-      #BoneBar {
-        --hpPercent: {{#calcPercent value max}}{{/calcPercent}};
-      }
-    </style>
     <pattern id="bonePatt"
       x="0" y="0" width="24" height="40" 
       patternUnits="userSpaceOnUse" patternTransform="scale(1,1) translate(4, 0)"
-    >
+      >
       <desc>Hitpoint Pattern</desc>
       <animateTransform attributeType="xml" attributeName="patternTransform"
         type="translate" from="24" to="0" begin="0" dur="3s" repeatCount="indefinite"
@@ -26,7 +21,7 @@
     <pattern id="greyLine" 
       x="0" y="0" width="20" height="20" 
       patternUnits="userSpaceOnUse" patternTransform="scale(0.2, 0.2)"
-    >
+      >
       <desc>greyLine</desc>
       <symbol id="line">
         <polygon points="0,0 20,0 20,10 0,10"/>

@@ -127,7 +127,7 @@
   --healthbarLight: var(--lightRed);
   --healthbarDark: var(--darkRed);
   --healthbarBorder: var(--darkRed);
-  --hpForegroundFill: url(#hpPatt);
+  --hpForegroundFill: url(#fleshPatt);
   --hpPercent: 0;
 }
 #boneBar {
