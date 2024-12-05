@@ -1,5 +1,11 @@
 <svg id="{{key}}Bar" viewBox="0 0 400 50" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
   <defs>
+    <style>
+      #{{key}}Bar {
+        --hpPercent: {{#calcPercent value max}}{{/calcPercent}};
+      }
+    </style>
+
     <pattern id="{{key}}Patt"
       x="0" y="0" width="24" height="40" 
       patternUnits="userSpaceOnUse" patternTransform="scale(1,1) translate(4, 0)"
@@ -36,6 +42,18 @@
       <use href="#shieldSingleComb" transform="translate(10,9)" />
       <use href="#shieldSingleComb" transform="translate(10,-9)" />
       <use href="#shieldSingleComb" transform="translate(25.2,0)" />
+    </pattern>
+
+    <pattern id="{{key}}WavePatt"
+      x="0" y="0" width="240" height="40"
+      patternUnits="userSpaceOnUse" patternTransform="scale(1,1) translate(4, 0)"
+    >
+      <desc>Armor Pattern</desc>
+      <animateTransform attributeType="xml" attributeName="patternTransform"
+        type="translate" from="240" to="0" begin="0" dur="30s" repeatCount="indefinite"
+      />
+      <path id="LYLine"  class="armorPatLine" d="m-20,35 l20,-20 l100,0 l20,20 l100,0 l20,-20 l20,0" />
+      <path id="MYLine" class="armorPatLine" d="m-20,15 l20,20 l100,0 l20,-20 l100,0 l20,20 l20,0" />
     </pattern>
 
     <pattern id="greyLine" 

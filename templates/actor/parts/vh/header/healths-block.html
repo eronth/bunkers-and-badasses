@@ -3,32 +3,18 @@
   <div class="health-block flexrow flex-group-center" >
     <div class="health-block flexrow flex-group-center hit-point-bar animated-healthbar" >
       {{#isEqual "shield" key}}
-        <style>
-          #{{key}}Bar { --hpPercent: {{#calcPercent hp.value hp.max}}{{/calcPercent}}; }
-        </style>
         {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/header/health-bar.html" hp key=key}}
       {{/isEqual}}
       
       {{#isEqual "armor" key}}
-        <style>
-          #{{key}}Bar {
-            --hpPercent: {{#calcPercent value max}}{{/calcPercent}};
-          }
-        </style>
-        {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/header/armor-bar.html" hp key=key}}
+        {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/header/health-bar.html" hp key=key}}
       {{/isEqual}}
 
       {{#isEqual "flesh" key}}
-        <style>
-          #{{key}}Bar { --hpPercent: {{#calcPercent hp.value hp.max}}{{/calcPercent}}; }
-        </style>
         {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/header/health-bar.html" hp key=key}}
       {{/isEqual}}
 
       {{#isEqual "bone" key}}
-        <style>
-          #{{key}}Bar { --hpPercent: {{#calcPercent hp.value hp.max}}{{/calcPercent}}; }
-        </style>
         {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/header/health-bar.html" hp key=key}}
       {{/isEqual}}
     </div>
