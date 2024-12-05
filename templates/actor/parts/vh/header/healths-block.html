@@ -1,7 +1,7 @@
 <div class="healths-container flexrow" >
   {{#each hps as |hp key|}}
   <div class="health-block flexrow flex-group-center" >
-    <div class="health-block flexrow flex-group-center hit-point-bar" >
+    <div class="health-block flexrow flex-group-center hit-point-bar animated-healthbar" >
       {{#isEqual "shield" key}}
         {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/header/shield-bar.html" hp}}
       {{/isEqual}}
@@ -11,15 +11,21 @@
       {{/isEqual}}
 
       {{#isEqual "flesh" key}}
-        {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/header/health-bar.html" hp}}
+        <style>
+          #{{key}}Bar { --hpPercent: {{#calcPercent hp.value hp.max}}{{/calcPercent}}; }
+        </style>
+        {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/header/health-bar.html" hp key=key}}
       {{/isEqual}}
 
       {{#isEqual "bone" key}}
-        {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/header/bone-bar.html" hp}}
+        <style>
+          #{{key}}Bar { --hpPercent: {{#calcPercent hp.value hp.max}}{{/calcPercent}}; }
+        </style>
+        {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/header/health-bar.html" hp key=key}}
       {{/isEqual}}
     </div>
-    <div>
-      <div class="health centerize flexcol flex-size-2">
+    <div class="flexrow">
+      <div class="health centerize flexrow flex-size-2">
         <label for="{{key}}-health-display" class="resource-label rollable flexlarge">{{hp.label}}</label>
         <input 
           class="flexlarge font-small" 
