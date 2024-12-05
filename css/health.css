@@ -104,7 +104,7 @@
   --healthbarLight: var(--lightPurple);
   --healthbarDark: var(--darkPurple);
   --healthbarBorder: var(--darkPurple);
-  --hpForegroundFill: url(#eridianPatt);
+  --hpForegroundFill: url(#eridianWavePatt);
 }
 #shieldBar {
   --darkBlue: #22A9AC;
@@ -117,7 +117,9 @@
 #armorBar {
   --lightYellow: #eeee00;
   --mediumYellow: #bbbb00;
-  --healthbarBorder: var(--lightYellow);
+  --healthbarLight: var(--lightYellow);
+  --healthbarDark: var(--mediumYellow);
+  --healthbarBorder: var(--mediumYellow);
   --hpForegroundFill: url(#armorWavePatt);
 }
 #fleshBar {
@@ -145,6 +147,20 @@
   --hpPercent: 0;
 }
 
+/* Eridian Bar */
+.eridian-pattern-line {
+  stroke-width: 20;
+  fill: none;
+}
+
+#eridianLightLine {
+  stroke: var(--healthbarLight);
+}
+
+#eridianDarkLine {
+  stroke: var(--healthbarDark);
+}
+
 /* Shield Bar */
 #shieldSingleComb {
   stroke: var(--healthbarLight);
@@ -156,17 +172,17 @@
 }
 
 /* Armor Bar */
-.armorPatLine {
+.armor-pattern-line {
   stroke-width: 20;
   fill: none;
 }
 
-#LYLine {
-  stroke: var(--lightYellow);
+#armorLightLine {
+  stroke: var(--healthbarLight);
 }
 
-#MYLine {
-  stroke: var(--mediumYellow);
+#armorDarkLine {
+  stroke: var(--healthbarDark);
 }
 
 /* All Health Bars */

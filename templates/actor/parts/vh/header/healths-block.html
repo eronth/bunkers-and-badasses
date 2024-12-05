@@ -2,21 +2,10 @@
   {{#each hps as |hp key|}}
   <div class="health-block flexrow flex-group-center" >
     <div class="health-block flexrow flex-group-center hit-point-bar animated-healthbar" >
-      {{#isEqual "shield" key}}
-        {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/header/health-bar.html" hp key=key}}
-      {{/isEqual}}
-      
-      {{#isEqual "armor" key}}
-        {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/header/health-bar.html" hp key=key}}
-      {{/isEqual}}
-
-      {{#isEqual "flesh" key}}
-        {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/header/health-bar.html" hp key=key}}
-      {{/isEqual}}
-
-      {{#isEqual "bone" key}}
-        {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/header/health-bar.html" hp key=key}}
-      {{/isEqual}}
+      {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/header/health-bar.html"
+        hp 
+        key=key
+        actorId=../actor.id}}
     </div>
     <div class="flexrow">
       <div class="health centerize flexrow flex-size-2">
