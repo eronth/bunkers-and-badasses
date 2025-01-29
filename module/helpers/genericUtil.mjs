@@ -65,14 +65,13 @@ export class genericUtil {
         ? ""
         : this.createElementIcon(iconData);
 
-        damageHtmlString += `<label class='bolded element-damage-nowrap-label ${key}-text'>${element.damage} ${elemIcon}</label> ${finalPlus}`;
+        damageHtmlString += `<label class='bolded dice-element-single element-damage-nowrap-label ${key}-text'>${element.damage} ${elemIcon}</label> ${finalPlus}`;
       }
     });
     
     // We need to remove the last plus label, it doesn't belong, then add the "damage" text.
-    return (damageHtmlString
-      ? damageHtmlString.slice(0, finalPlus.length * -1)
-      : '');
+    const diceAndTypeHtml = (damageHtmlString ? damageHtmlString.slice(0, finalPlus.length * -1) : '');
+    return `<span class='dice-element-list'>${diceAndTypeHtml}</span>`;
   }
 
   static createGunBonusDamageHtml(options) {
@@ -88,12 +87,13 @@ export class genericUtil {
           ? ""
           : this.createElementIcon(iconData);
 
-        damageHtmlString += `<label class='bolded element-damage-nowrap-label ${key}-text'>${element.damage} ${elemIcon}</label> ${finalPlus}`;
+        damageHtmlString += `<label class='bolded dice-element-single element-damage-nowrap-label ${key}-text'>${element.damage} ${elemIcon}</label> ${finalPlus}`;
       }
     });
     
     // We need to remove the last plus label, it doesn't belong, then add the "damage" text.
-    return (damageHtmlString ? damageHtmlString.slice(0, finalPlus.length * -1) : '');
+    const diceAndTypeHtml = (damageHtmlString ? damageHtmlString.slice(0, finalPlus.length * -1) : '');
+    return `<span class="dice-element-list">${diceAndTypeHtml}</span>`;
   }
 
   static createGrenadeDamageHtml(options) {
@@ -109,12 +109,13 @@ export class genericUtil {
           ? ""
           : this.createElementIcon(iconData));
 
-        damageHtmlString += `<label class='bolded element-damage-nowrap-label ${key}-text'>${element.damage} ${elemIcon}</label> ${finalPlus}`;
+        damageHtmlString += `<label class='bolded dice-element-single element-damage-nowrap-label ${key}-text'>${element.damage} ${elemIcon}</label> ${finalPlus}`;
       }
     });
 
     // We need to remove the last plus label, it doesn't belong, then add the "damage" text.
-    return (damageHtmlString ? damageHtmlString.slice(0, finalPlus.length * -1) : '');
+    const diceAndTypeHtml = (damageHtmlString ? damageHtmlString.slice(0, finalPlus.length * -1) : '');
+    return `<span class="dice-element-list">${diceAndTypeHtml}</span>`;
   }
 
   static createMiniShieldResistHtml(options) {
@@ -128,8 +129,10 @@ export class genericUtil {
         shieldResistString += this.createElementIcon(iconData);
       }
     });
-    
-    return shieldResistString;
+
+    //const diceAndTypeHtml = (damageHtmlString ? damageHtmlString.slice(0, finalPlus.length * -1) : '');
+    const diceAndTypeHtml = shieldResistString;
+    return `<span class="dice-element-list shield-mini-resists">${diceAndTypeHtml}</span>`;
   }
 
   static createFullShieldResistHtml(options) {
@@ -144,15 +147,16 @@ export class genericUtil {
           ? ''
           : ` ${this.createElementIcon(iconData)}`);
 
-        shieldResistString += `<label class='bolded ${key}-text element-resist-text'>${element.damage}${elemIcon}</label> `;
+        shieldResistString += `<label class='bolded dice-element-single ${key}-text element-resist-text'>${element.damage}${elemIcon}</label> `;
       }
     });
     
-    return shieldResistString;
+    //const diceAndTypeHtml = (damageHtmlString ? damageHtmlString.slice(0, finalPlus.length * -1) : '');
+    const diceAndTypeHtml = shieldResistString;
+    return `<span class="dice-element-list">${diceAndTypeHtml}</span>`;
   }
 
-  static isNullOrEmptyObject(obj) 
-  {
+  static isNullOrEmptyObject(obj) {
     if (obj === null || obj === undefined) {
       return true;
     }
