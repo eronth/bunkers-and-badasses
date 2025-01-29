@@ -51,10 +51,10 @@ export class PostToChat {
   }
 
   static async damageResistance(options) {
-    const { actor, rollResult, reductionAmount, damageType } = options;
+    const { actor, rollResult, damage } = options;
 
-    const label = `${actor.name} resists <span class='${damageType}-text bolded'>`
-      + `${reductionAmount} ${damageType}` 
+    const label = `${actor.name} resists <span class='${damage.type}-text bolded'>`
+      + `${damage.reduction} ${damage.type}` 
       + `</span> damage.`;
 
     if (rollResult.isFakeRollResult) return;
@@ -67,20 +67,23 @@ export class PostToChat {
   }
 
   static async damageTaken(options) {
-    const { actor, rollResult, damageAmount, damageTaken, damageType } = options;
+    const { actor, rollResult, damage } = options;
 
     const damageLossesText = [];
 
-    Object.entries(damageTaken).forEach(([healthType, healthLoss]) => {
+    Object.entries(damage.taken).forEach(([healthType, healthLoss]) => {
       if (healthLoss > 0) {
         const healthTypeText = genericUtil.capitalize(genericUtil.healthTypeToText(healthType));
         damageLossesText.push(`<span class='${healthType}-text bolded'>${healthLoss} ${healthTypeText}</span>`);
       }
     });
 
+    const healthLossesText = (damageLossesText.length > 0) 
+      ? formatter.format(damageLossesText) 
+      : '<span class="bolded">no health</span>';
     const formatter = new Intl.ListFormat('en', { style: 'long', type: 'conjunction' });
-    const label = `${actor.name} takes <span class='${damageType}-text bolded'>${damageAmount} ${damageType}</span> damage. `
-      + `They lose ${ (damageLossesText.length > 0) ? formatter.format(damageLossesText) : 'no health'}.`;
+    const label = `${actor.name} takes <span class='${damage.type}-text bolded'>${damage.total} ${damage.type}</span> damage. `
+      + `They${ (damage.reduction > 0) ? ` <span class='${damage.type}-text bolded'>resist ${damage.reduction}</span>` : '' } lose ${healthLossesText}.`;
 
     rollResult.toMessage({
       speaker: ChatMessage.getSpeaker({ actor: actor }),
