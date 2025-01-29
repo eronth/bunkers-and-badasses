@@ -27,8 +27,8 @@ data-actor-id="{{actor.id}}"
   <div class="chat-damage-buttons">
     <button data-action="damage"
     data-attack-type={{attackType}}
-    data-actor-id="{{actorId}}"
-    data-item-id="{{itemId}}"
+    data-actor-id="{{actor.id}}"
+    {{#if item}}data-item-id="{{item.id}}"{{/if}}
     data-is-nat-20="{{isNat20}}"
     data-flavor="Boom!!">
       Roll Damage

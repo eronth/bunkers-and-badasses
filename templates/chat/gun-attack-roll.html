@@ -35,7 +35,8 @@ data-actor-id="{{actor.id}}"
   
   <div class="chat-damage-buttons">
     <button data-action="damage"
-    data-actor-id="{{actor.id}}" data-item-id="{{item.id}}" 
+    data-actor-id="{{actor.id}}"
+    {{#if item}}data-item-id="{{item.id}}"{{/if}}
     data-attack-type="{{attackType}}"
     data-hits={{hits}} data-crits={{crits}}
     data-is-nat-20="{{isNat20}}"

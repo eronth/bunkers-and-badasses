@@ -23,7 +23,8 @@ data-actor-id="{{actor.id}}"
   {{#if showDamageButton}}
   <div class="chat-melee-damage-buttons">
     <button data-action="damage"
-    data-actor-id="{{actorId}}"
+    data-actor-id="{{actor.id}}"
+    {{#if item}}data-item-id="{{item.id}}"{{/if}}
     data-attack-type="melee"
     data-plus-one-dice={{isPlusOneDice}}
     data-double-damage={{isDoubleDamage}}
