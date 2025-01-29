@@ -1276,3 +1276,7 @@ input.badass {
   }
 }
 
+.chat-damage-buttons button,
+.chat-melee-damage-buttons button {
+  width: 100%;
+}
