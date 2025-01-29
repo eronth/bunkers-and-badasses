@@ -8,14 +8,14 @@ data-actor-id="{{actor.id}}"
 
   <div class="dice-roll" data-action="expandRoll">
     <div class="dice-result">
-      <div class="dice-formula">{{{overallRollFormula}}}</div>
+      <div class="dice-formula dice-element-formula">{{{overallRollFormula}}}</div>
       <div class="dice-tooltip">
         <div class="wrapper">
           {{#each parts as |part|}}
           <section class="tooltip-part">
             <div class="dice">
               <header class="part-header flexrow">
-                <span class="part-formula">{{part.formula}}</span>
+                <span class="part-formula {{part.damageType}}-text">{{part.formula}}</span>
                 <span class="part-flavor">{{part.damageType}}</span>
                 <span class="part-total damage-type {{part.damageType}}-text">
                   {{part.total}}
@@ -33,7 +33,7 @@ data-actor-id="{{actor.id}}"
           {{/each}}
         </div>
       </div>
-      <h4 class="dice-total">{{{total}}}</h4>
+      <h4 class="dice-total dice-element-total">{{{total}}}</h4>
     </div>
   </div>
 

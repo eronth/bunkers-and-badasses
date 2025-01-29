@@ -87,6 +87,16 @@
 .dice-element-list .element-damage-plus {
   padding: 0 .15em;
 }
+.dice-element-formula,
+.dice-element-total {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  flex-direction: row;
+}
+.dice-element-total {
+  justify-content: space-evenly;
+}
 
 .nowrap-element-icon {
   white-space: nowrap;
