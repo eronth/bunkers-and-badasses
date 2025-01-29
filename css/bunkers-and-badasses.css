@@ -1027,6 +1027,10 @@ input[type="time"]:focus {
 .damage-dialog .damage-dialog-elements {
   padding: 2px;
 }
+.damage-dialog .damage-dialog-elements input[type="radio"] {
+  --checkbox-size: .9em;
+  --checkbox-font-weight: unset;
+}
 .damage-dialog .element-radio-choice {
   padding: 2px;
 }
