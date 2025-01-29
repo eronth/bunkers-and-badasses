@@ -71,7 +71,7 @@ export class genericUtil {
     
     // We need to remove the last plus label, it doesn't belong, then add the "damage" text.
     const diceAndTypeHtml = (damageHtmlString ? damageHtmlString.slice(0, finalPlus.length * -1) : '');
-    return `<span class='dice-element-list'>${diceAndTypeHtml}</span>`;
+    return (diceAndTypeHtml ? `<span class='dice-element-list'>${diceAndTypeHtml}</span>` : '');
   }
 
   static createGunBonusDamageHtml(options) {
@@ -93,7 +93,7 @@ export class genericUtil {
     
     // We need to remove the last plus label, it doesn't belong, then add the "damage" text.
     const diceAndTypeHtml = (damageHtmlString ? damageHtmlString.slice(0, finalPlus.length * -1) : '');
-    return `<span class="dice-element-list">${diceAndTypeHtml}</span>`;
+    return (diceAndTypeHtml ? `<span class="dice-element-list">${diceAndTypeHtml}</span>` : '');
   }
 
   static createGrenadeDamageHtml(options) {
@@ -115,7 +115,7 @@ export class genericUtil {
 
     // We need to remove the last plus label, it doesn't belong, then add the "damage" text.
     const diceAndTypeHtml = (damageHtmlString ? damageHtmlString.slice(0, finalPlus.length * -1) : '');
-    return `<span class="dice-element-list">${diceAndTypeHtml}</span>`;
+    return (diceAndTypeHtml ? `<span class="dice-element-list">${diceAndTypeHtml}</span>` : '');
   }
 
   static createMiniShieldResistHtml(options) {
@@ -132,7 +132,7 @@ export class genericUtil {
 
     //const diceAndTypeHtml = (damageHtmlString ? damageHtmlString.slice(0, finalPlus.length * -1) : '');
     const diceAndTypeHtml = shieldResistString;
-    return `<span class="dice-element-list shield-mini-resists">${diceAndTypeHtml}</span>`;
+    return (diceAndTypeHtml ? `<span class="dice-element-list shield-mini-resists">${diceAndTypeHtml}</span>` : '');
   }
 
   static createFullShieldResistHtml(options) {
@@ -153,7 +153,7 @@ export class genericUtil {
     
     //const diceAndTypeHtml = (damageHtmlString ? damageHtmlString.slice(0, finalPlus.length * -1) : '');
     const diceAndTypeHtml = shieldResistString;
-    return `<span class="dice-element-list">${diceAndTypeHtml}</span>`;
+    return (diceAndTypeHtml ? `<span class="dice-element-list">${diceAndTypeHtml}</span>` : '');
   }
 
   static isNullOrEmptyObject(obj) {

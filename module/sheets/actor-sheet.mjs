@@ -567,7 +567,7 @@ export class BNBActorSheet extends ActorSheet {
 
         const damageElementsHtml = genericUtil.createGunDamagePerHitHtml({ elements: i.system.elements });
         i.system.dmgPerHitHtml = (damageElementsHtml 
-          ? damageElementsHtml + `<label class="element-damage-damage">per hit</label>`
+          ? `${damageElementsHtml}<label class="element-damage-damage">per hit</label>`
           : '');
 
         const bonusDamageElementsHtml = genericUtil.createGunBonusDamageHtml({ elements: i.system.bonusElements });
