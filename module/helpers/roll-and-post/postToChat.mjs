@@ -78,10 +78,10 @@ export class PostToChat {
       }
     });
 
+    const formatter = new Intl.ListFormat('en', { style: 'long', type: 'conjunction' });
     const healthLossesText = (damageLossesText.length > 0) 
       ? formatter.format(damageLossesText) 
       : '<span class="bolded">no health</span>';
-    const formatter = new Intl.ListFormat('en', { style: 'long', type: 'conjunction' });
     const label = `${actor.name} takes <span class='${damage.type}-text bolded'>${damage.total} ${damage.type}</span> damage. `
       + `They${ (damage.reduction > 0) ? ` <span class='${damage.type}-text bolded'>resist ${damage.reduction}</span>` : '' } lose ${healthLossesText}.`;
 
