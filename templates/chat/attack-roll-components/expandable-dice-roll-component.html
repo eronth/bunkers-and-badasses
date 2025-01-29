@@ -2,26 +2,26 @@
 <div class="dice-roll" data-action="expandRoll">
   <div class="dice-result">
     <div class="dice-formula">{{overallRollFormula}}</div>
-      <div class="dice-tooltip">
-        <div class="wrapper">
-          {{#each parts as |part|}}
-          <section class="tooltip-part">
-            <div class="dice">
-              <header class="part-header flexrow">
-                <span class="part-formula">{{part.formula}}</span>
-                <span class="part-flavor">{{part.flavor}}</span>
-                <span class="part-total">{{part.total}}</span>
-              </header>
-              <ol class="dice-rolls">
-                {{#each rolls as |roll|}}
-                <li class="roll {{roll.classes}}">{{roll.result}}</li>
-                {{/each}}
-              </ol>
-            </div>
-          </section>
-          {{/each}}
-        </div>
+    <div class="dice-tooltip">
+      <div class="wrapper">
+        {{#each parts as |part|}}
+        <section class="tooltip-part">
+          <div class="dice">
+            <header class="part-header flexrow">
+              <span class="part-formula">{{part.formula}}</span>
+              <span class="part-flavor">{{part.flavor}}</span>
+              <span class="part-total">{{part.total}}</span>
+            </header>
+            <ol class="dice-rolls">
+              {{#each rolls as |roll|}}
+              <li class="roll {{roll.classes}}">{{roll.result}}</li>
+              {{/each}}
+            </ol>
+          </div>
+        </section>
+        {{/each}}
       </div>
-    <h4 class="dice-total">{{total}}</h4>
+    </div>
+    <h4 class="dice-total">{{{total}}}</h4>
   </div>
 </div>

@@ -345,12 +345,12 @@ export class PostToChat {
 
     const templateLocation = 'systems/bunkers-and-badasses/templates/chat/damage-results.html';
     const chatHtmlContent = await renderTemplate(templateLocation, {
-      actorId: actor.id,
-      itemId: item?.id ?? '',
+      actor: actor,
+      item: item,
       isMelee: isMelee,
       parts: damageDetails.parts,
       overallRollFormula: damageDetails.overallRollFormula.join(' + '),
-      overallResultTotal: damageDetails.overallResultTotal.join(' + '),
+      total: damageDetails.overallResultTotal.join(' + '),
     });
 
     // Prep chat values.

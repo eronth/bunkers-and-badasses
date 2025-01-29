@@ -49,7 +49,7 @@ export class genericUtil {
     const elementFileName = this.capitalize(elementKey);
     const elementDisplayName = elementDisplayNameModifier + this.capitalize(elementKey);
     return `<img id="${id}${idModifier}${elementDisplayName}" alt="${elementDisplayName}" title="${elementDisplayName}"
-    class="${cssClass} element-${cssModifier}${elementKey}" src="systems/bunkers-and-badasses/assets/elements/${pathModifier}${elementFileName}.png" />`;
+    class="element-type-icon ${cssClass} element-${cssModifier}${elementKey}" src="systems/bunkers-and-badasses/assets/elements/${pathModifier}${elementFileName}.png" />`;
   }
 
   static createGunDamagePerHitHtml(options) {

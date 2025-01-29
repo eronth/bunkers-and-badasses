@@ -54,12 +54,23 @@
   cursor: pointer;
 }
 
-.element-damage-icon,
-.element-resist-icon {
+.element-type-icon {
   border: 0;
   padding: 0;
   height: 1em;
 }
+.element-roll-display {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.dice-roll .dice .part-total.damage-type {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  flex-direction: row;
+}
+
 
 .dice-element-list {
   display: flex;
