@@ -1,0 +1,30 @@
+{{#if item}}
+  <br />
+  {{#if item.system.effect}}
+  <div class="item-effect"><b>Effect:</b> {{item.system.effect}}</div>
+  {{/if}}
+  
+  {{#if item.system.redText}}
+  <div class="red-text">{{item.system.redText}}</div>
+  {{/if}}
+  
+  {{#if item.system.redTextEffect}}
+  <div class="red-text-effect">{{{item.system.redTextEffect}}}</div>
+  {{/if}}
+  
+  {{#if item.system.redTextEffectBM}}
+  <hr class="gm-secret" />
+  <div class="red-text-bm-effect gm-secret">
+    <b>Hidden Red Text Effects:</b>
+    <br />
+    {{{item.system.redTextEffectBM}}}
+  </div>
+  {{/if}}
+  
+  {{#if item.system.anointment}}
+  <div class='anoint-text'>{{item.system.anointment}}</div>
+  {{/if}}
+{{/if}}
+<!-- Taking damage. rolling damage. badass roll. regen. -->
+<!-- damage selection bullets; red text entry fields: cclass background,  console.log -->
+<!-- other console logging -->
