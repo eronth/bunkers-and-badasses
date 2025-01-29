@@ -1,5 +1,6 @@
 <div class="chat-roll-result"
-data-actor-id="{{actorId}}" data-item-id="{{itemId}}" >
+data-actor-id="{{actor.id}}" 
+{{#if item}}data-item-id="{{item.id}}"{{/if}} >
 
   {{> "systems/bunkers-and-badasses/templates/chat/attack-roll-components/dice-roll-header-component.html" 
     headerLabel = checkType

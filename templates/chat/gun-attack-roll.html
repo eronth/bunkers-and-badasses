@@ -1,5 +1,6 @@
 <div class="chat-roll-result"
-data-actor-id="{{actor.id}}" data-item-id="{{item.id}}" >
+data-actor-id="{{actor.id}}" 
+{{#if item}}data-item-id="{{item.id}}"{{/if}} >
   
   {{> "systems/bunkers-and-badasses/templates/chat/attack-roll-components/dice-roll-header-component.html" 
     headerLabel = (concat attackLabel " Attack")

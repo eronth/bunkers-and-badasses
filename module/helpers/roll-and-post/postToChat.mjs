@@ -10,10 +10,23 @@ export class PostToChat {
     //const difficultyValue = checkDetails.difficultyValue;
 
     const templateLocation = 'systems/bunkers-and-badasses/templates/chat/badass-result.html';
+    const mockDiceRollParts = [
+      {
+        formula: '1dBadass',
+        flavor: 'Badass Dice Roll',
+        total: checkDetails.badassDiceResult,
+        rolls: [{
+          result: checkDetails.badassDiceResult,
+          classes: 'die d20',
+        }]
+      }
+    ];
     const chatHtmlContent = await renderTemplate(templateLocation, {
-      badassDiceResult: checkDetails.badassDiceResult,
-      total: checkDetails.total,
+      actor: actor,
+
       overallRollFormula: checkDetails.overallRollFormula,
+      parts: mockDiceRollParts,
+      total: checkDetails.total,
     });
     
 
@@ -87,7 +100,7 @@ export class PostToChat {
     
     const templateLocation = 'systems/bunkers-and-badasses/templates/chat/check-roll.html';
     const chatHtmlContent = await renderTemplate(templateLocation, {
-      actorId: actor.id,
+      actor: actor,
       checkType: checkTypeText,
       overallRollFormula: rollResult.formula,
       parts: parts,
@@ -140,7 +153,7 @@ export class PostToChat {
 
     const templateLocation = 'systems/bunkers-and-badasses/templates/chat/melee-attack-roll.html';
     const chatHtmlContent = await renderTemplate(templateLocation, {
-      actorId: actor.id,
+      actor: actor,
       checkType: 'Melee Attack',
       overallRollFormula: rollResult.formula,
       parts: parts,
@@ -285,24 +298,17 @@ export class PostToChat {
 
     const templateLocation = 'systems/bunkers-and-badasses/templates/chat/check-roll.html';
     const chatHtmlContent = await renderTemplate(templateLocation, {
-      actorId: actor.id,
-      itemId: item.id,
+      actor: actor,
+      item: item,
       checkType: `${item.name} Grenade Toss`,
       overallRollFormula: rollResult.formula,
       parts: parts,
       total: rollResult.total,
       difficulty: difficultyValue,
-      redText: item.system.redText,
       attackType: 'grenade',
       showDamageButton: true,
       success: (difficultyValue != null) && rollResult.total >= difficultyValue,
       failure: (difficultyValue != null) && rollResult.total < difficultyValue,
-      itemEffect: item.system.effect,
-      redTextDetails: {
-        redText: item.system.redText,
-        redTextEffect: item.system.redTextEffect,
-        redTextEffectBM: item.system.redTextEffectBM,
-      },
     });
 
     // Prep chat values.
