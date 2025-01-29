@@ -1,34 +1,12 @@
 <div class="chat-roll-result"
 data-actor-id="{{actorId}}" data-item-id="{{itemId}}">
-  <div class="dice-roll">
-    <div class="flexcol badass-results-container">
-      <label class="result-header">{{checkType}}</label>
-    </div>
-    <br />
-    <br />
-    <div class="dice-result">
-      <div class="dice-formula">{{overallRollFormula}}</div>
-        <div class="dice-tooltip">
-          {{#each parts as |part|}}
-          <section class="tooltip-part">
-            <div class="dice">
-              <header class="part-header flexrow">
-                <span class="part-formula">{{part.formula}}</span>
-                <span class="part-flavor">{{part.flavor}}</span>
-                <span class="part-total">{{part.total}}</span>
-              </header>
-              <ol class="dice-rolls">
-                {{#each rolls as |roll|}}
-                <li class="roll {{roll.classes}}">{{roll.result}}</li>
-                {{/each}}
-              </ol>
-            </div>
-          </section>
-          {{/each}}
-        </div>
-      <h4 class="dice-total">{{total}}</h4>
-    </div>
-  </div>  
+  
+  {{> "systems/bunkers-and-badasses/templates/chat/attack-roll-components/dice-roll-header-component.html" 
+    headerLabel = checkType
+  }}
+  
+  {{> "systems/bunkers-and-badasses/templates/chat/attack-roll-components/expandable-dice-roll-component.html" }}
+  
   {{#if success}}
   <div class="success-text">Hit!</div>
   <div class="hit-bonus">{{bonusFromAccResult}}</div>
@@ -36,12 +14,11 @@ data-actor-id="{{actorId}}" data-item-id="{{itemId}}">
   {{#if failure}}
   <div class="failure-text">Failure!</div>
   {{/if}}
-  {{#if redText}}
-  <div class="red-text">{{redText}}</div>
-  {{/if}}
-  {{#if anoint}}
-  <div class='anoint-text'>{{anoint}}</div>
-  {{/if}}
+
+  {{> "systems/bunkers-and-badasses/templates/chat/attack-roll-components/attack-roll-item-info.html" 
+    item = item
+  }}
+  
   {{#if showDamageButton}}
   <div class="chat-melee-damage-buttons">
     <button data-action="damage"
