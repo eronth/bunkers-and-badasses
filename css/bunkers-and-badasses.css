@@ -1127,7 +1127,16 @@ input[type="time"]:focus {
   border: 1px solid rgb(122, 121, 113);
   border-radius: 3px;
   padding: 3px 4px;
-  min-height: 40px;
+  --height: 150px;
+  height: var(--height);
+  min-height: var(--height);
+}
+.enriched-region .editor {
+  --fill: 100%;
+  height: var(--fill);
+  max-height: var(--fill);
+  width: var(--fill);
+  max-width: var(--fill);
 }
 
 .enriched-npc-action-description {
