@@ -1,0 +1,21 @@
+<svg id="hitIcon" width="56" height="56" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+	<defs>
+		<style>
+			#hitIcon {
+				--hitColor: #315E73;
+			}
+			
+			#hitCircle {
+				fill: var(--hitColor);
+			}
+			
+			#hLine {
+				stroke: var(--hitColor);
+				stroke-width: 3;
+			}
+		</style>
+	</defs>
+	<circle id="hitCircle" cx="28" cy="28" r="17.5"  />
+	<line id="hLine" x1="0" y1="28" x2="56" y2="28" />
+	<use id="vLine" href="#hLine" transform="rotate(90, 28, 28)" />
+</svg>

@@ -1,35 +1,40 @@
 <div class="chat-roll-result"
-  data-actor-id="{{actorId}}" data-item-id="{{itemId}}" >
-  <div class="dice-roll">
-    <div class="flexcol badass-results-container">
-      <label class="result-header">Damage</label>
-      <br />
-    </div>
+data-actor-id="{{actor.id}}" 
+{{#if item}}data-item-id="{{item.id}}"{{/if}} >
+
+  {{> "systems/bunkers-and-badasses/templates/chat/attack-roll-components/dice-roll-header-component.html" 
+    headerLabel = "Damage"
+  }}
+
+  <div class="dice-roll" data-action="expandRoll">
     <div class="dice-result">
-      <div class="dice-formula">{{{overallRollFormula}}}</div>
+      <div class="dice-formula dice-element-formula">{{{overallRollFormula}}}</div>
       <div class="dice-tooltip">
-        {{#each parts as |part|}}
-        <section class="tooltip-part">
-          <div class="dice">
-            <header class="part-header flexrow">
-              <span class="part-formula">{{part.formula}}</span>
-              <span class="part-flavor">{{part.damageType}}</span>
-              <span class="part-total {{part.damageType}}-text">
-                {{part.total}}
-                <img class="element-damage-result-icon element{{#if ../isMelee}}-melee{{/if}}-{{part.damageType}}" alt="{{capitalize part.damageType}}"
-                  src="systems/bunkers-and-badasses/assets/elements/{{#if ../isMelee}}melee/{{/if}}{{capitalize part.damageType}}.png" />
-              </span>
-            </header>
-            <ol class="dice-rolls">
-              {{#each rolls as |roll|}}
-              <li class="roll {{roll.classes}}">{{roll.result}}</li>
-              {{/each}}
-            </ol>
-          </div>
-        </section>
-        {{/each}}
+        <div class="wrapper">
+          {{#each parts as |part|}}
+          <section class="tooltip-part">
+            <div class="dice">
+              <header class="part-header flexrow">
+                <span class="part-formula {{part.damageType}}-text">{{part.formula}}</span>
+                <span class="part-flavor">{{part.damageType}}</span>
+                <span class="part-total damage-type {{part.damageType}}-text">
+                  {{part.total}}
+                  <img class="element-type-icon element-damage-result-icon element{{#if ../isMelee}}-melee{{/if}}-{{part.damageType}}" alt="{{capitalize part.damageType}}"
+                    src="systems/bunkers-and-badasses/assets/elements/{{#if ../isMelee}}melee/{{/if}}{{capitalize part.damageType}}.png" />
+                </span>
+              </header>
+              <ol class="dice-rolls">
+                {{#each rolls as |roll|}}
+                <li class="roll {{roll.classes}}">{{roll.result}}</li>
+                {{/each}}
+              </ol>
+            </div>
+          </section>
+          {{/each}}
+        </div>
       </div>
-      <h4 class="dice-total">{{{overallResultTotal}}} {{total}}</h4>
+      <h4 class="dice-total dice-element-total">{{{total}}}</h4>
     </div>
   </div>
+
 </div>

@@ -17,20 +17,18 @@
 
     {{#if isShootingAttack}}      
     <div class="flexrow damage-crithits">
-      <div><!-- Space Holder, easier than doing it through CSS --></div>
       <div class="container" for="{{attackType}}-hits-input">
         <img id="hits" alt="Hits" class="critshits-icon" for="{{attackType}}-hits-input"
-          src="systems/bunkers-and-badasses/assets/weapons/hits.png" />
+          src="systems/bunkers-and-badasses/assets/weapons/hits.svg" />
         <input id="{{attackType}}-hits-input" class="hits hits-number flex-size-1" 
-          type="number" type="Int" value="{{hits}}" placeholder="" />
+          type="number" type="Int" value="{{hits}}" placeholder="" onfocus="this.select()"/>
       </div>
       <div class="container" for="{{attackType}}-crits-input">
         <img id="crits" alt="Crits" class="critshits-icon" for="{{attackType}}-crits-input"
-          src="systems/bunkers-and-badasses/assets/weapons/crits.png" />
+          src="systems/bunkers-and-badasses/assets/weapons/crits.svg" />
         <input id="{{attackType}}-crits-input" class="crits crits-number flex-size-1" 
-          type="number" type="Int" value="{{crits}}" placeholder="" />
+          type="number" type="Int" value="{{crits}}" placeholder="" onfocus="this.select()"/>
       </div>
-      <div><!-- Space Holder, easier than doing it through CSS --></div>
     </div>
     {{/if}}
 

@@ -81,8 +81,17 @@ export class PerformRollAction {
     const damageRoll = new Roll((reductionAmount ? `${damageAmount} - ${reductionAmount}` : `${damageAmount}`), actor.getRollData());
     const damageResult = await damageRoll.roll();
 
-    PostToChat.damageResistance({actor: actor, rollResult: resistResult, reductionAmount: reductionAmount, damageType: damageType});
-    PostToChat.damageTaken({actor: actor, rollResult: damageResult, damageAmount: damageAmount, damageTaken: damageTaken, damageType: damageType });
+    const diceRollWithResistParams = {
+      actor,
+      damage: {
+        total: damageAmount,
+        taken: damageTaken,
+        reduction: reductionAmount,
+        type: damageType,
+      },
+    };
+    PostToChat.damageResistance({ ...diceRollWithResistParams, rollResult: resistResult });
+    PostToChat.damageTaken({ ...diceRollWithResistParams, rollResult: damageResult });
 
     // Square brackets needed to get the right value.
     const attributeLabel = `system.attributes.hps`;

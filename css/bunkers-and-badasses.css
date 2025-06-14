@@ -1027,6 +1027,10 @@ input[type="time"]:focus {
 .damage-dialog .damage-dialog-elements {
   padding: 2px;
 }
+.damage-dialog .damage-dialog-elements input[type="radio"] {
+  --checkbox-size: .9em;
+  --checkbox-font-weight: unset;
+}
 .damage-dialog .element-radio-choice {
   padding: 2px;
 }
@@ -1059,21 +1063,33 @@ input[type="time"]:focus {
   text-align: center;
   font-size: smaller;
   padding-bottom: 2px;
+
+  display: flex;
+  justify-content: space-around;
+  padding-inline: 50px;
 }
 .chat-roll-result .gun-crithits .container {
   position: relative;
   text-align: center;
   color: white;
+
+  --side: 55px;
+  height: var(--side);
+  max-height: var(--side);
+  width: var(--side);
+  max-width: var(--side);
 }
 .chat-roll-result .gun-crithits .container img {
   border: 0;
+  height: 100%;
+  width: 100%;
 }
 .chat-roll-result .gun-crithits .container .hits-number,
 .chat-roll-result .gun-crithits .container .crits-number {
   font-size: x-large;
   position: absolute;
-  top: 47%;
-  left: 50%;
+  top: 49%;
+  left: 51%;
   transform: translate(-50%, -50%);
 }
 
@@ -1115,7 +1131,16 @@ input[type="time"]:focus {
   border: 1px solid rgb(122, 121, 113);
   border-radius: 3px;
   padding: 3px 4px;
-  min-height: 40px;
+  --height: 150px;
+  height: var(--height);
+  min-height: var(--height);
+}
+.enriched-region .editor {
+  --fill: 100%;
+  height: var(--fill);
+  max-height: var(--fill);
+  width: var(--fill);
+  max-width: var(--fill);
 }
 
 .enriched-npc-action-description {
@@ -1274,5 +1299,10 @@ input.badass {
   30%, 50%, 70% { 
     opacity: 1.0;
   }
+}
+
+.chat-damage-buttons button,
+.chat-melee-damage-buttons button {
+  width: 100%;
 }
 

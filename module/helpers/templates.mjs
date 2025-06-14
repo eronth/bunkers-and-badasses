@@ -70,6 +70,9 @@
 
     // Chat partials
     "systems/bunkers-and-badasses/templates/chat/info/components/red-text.html",
+    "systems/bunkers-and-badasses/templates/chat/attack-roll-components/dice-roll-header-component.html",
+    "systems/bunkers-and-badasses/templates/chat/attack-roll-components/expandable-dice-roll-component.html",
+    "systems/bunkers-and-badasses/templates/chat/attack-roll-components/attack-roll-item-info.html",
 
     // General partials
     "systems/bunkers-and-badasses/templates/general/divided-input.html",
@@ -84,6 +87,8 @@
     "systems/bunkers-and-badasses/templates/general/dropdown/dropdown-details.html",
     "systems/bunkers-and-badasses/templates/general/dropdown/gun-dropdown-details.html",
     "systems/bunkers-and-badasses/templates/general/dropdown/mod-dropdown-details.html",
-
+    
+    // Archy templates
+    "systems/bunkers-and-badasses/templates/actor/parts/vh/header/health-bar.html",
   ]);
 };

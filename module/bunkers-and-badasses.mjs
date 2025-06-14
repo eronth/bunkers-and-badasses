@@ -182,7 +182,7 @@ Hooks.once("ready", async function() {
 });
 
 Hooks.on('canvasInit', (gameCanvas) => {
-  SquareGrid.prototype.measureDistances = measureBnBDistances;
+  foundry.grid.SquareGrid.prototype.measureDistances = measureBnBDistances;
 });
 
 function measureBnBDistances(segments, options) {

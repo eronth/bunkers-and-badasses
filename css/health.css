@@ -88,3 +88,122 @@
   align-items: center;
   justify-content: center;
 }
+
+.hit-point-bar {
+  width: 400px;
+}
+#eridianBar {
+  --darkPurple: #6b0f9c;
+  --lightPurple: #b913ff;
+  --healthbarLight: var(--lightPurple);
+  --healthbarDark: var(--darkPurple);
+  --healthbarBorder: var(--darkPurple);
+  --hpForegroundFill: url(#eridianWavePatt);
+}
+#shieldBar {
+  --darkBlue: #22A9AC;
+  --lightBlue: #27D6DB;
+  --healthbarLight: var(--lightBlue);
+  --healthbarDark: var(--darkBlue);
+  --healthbarBorder: var(--darkBlue);
+  --hpForegroundFill: url(#shieldHoneycomb);
+}
+#armorBar {
+  --lightYellow: #eeee00;
+  --mediumYellow: #bbbb00;
+  --healthbarLight: var(--lightYellow);
+  --healthbarDark: var(--mediumYellow);
+  --healthbarBorder: var(--mediumYellow);
+  --hpForegroundFill: url(#armorWavePatt);
+}
+#fleshBar {
+  --darkRed: #8b0000;
+  --lightRed: #ff0000;
+  --healthbarLight: var(--lightRed);
+  --healthbarDark: var(--darkRed);
+  --healthbarBorder: var(--darkRed);
+  --hpForegroundFill: url(#fleshPatt);
+}
+#boneBar {
+  --boneHpDark: #999;
+  --boneHpLight: #bbb;
+  --healthbarLight: var(--boneHpLight);
+  --healthbarDark: var(--boneHpDark);
+  --healthbarBorder: var(--boneHpDark);
+  --hpForegroundFill: url(#bonePatt);
+}
+
+#eridianBar,
+#shieldBar,
+#armorBar ,
+#fleshBar,
+#boneBar {
+  --hpPercent: 0;
+}
+
+/* Eridian Bar */
+.eridian-pattern-line {
+  stroke-width: 20;
+  fill: none;
+}
+
+#eridianLightLine {
+  stroke: var(--healthbarLight);
+}
+
+#eridianDarkLine {
+  stroke: var(--healthbarDark);
+}
+
+/* Shield Bar */
+#shieldSingleComb {
+  stroke: var(--healthbarLight);
+  stroke-width: 1.6;
+}
+
+#shieldBar .healthbar-foreground {
+  stroke: var(--lightBlue);
+}
+
+/* Armor Bar */
+.armor-pattern-line {
+  stroke-width: 20;
+  fill: none;
+}
+
+#armorLightLine {
+  stroke: var(--healthbarLight);
+}
+
+#armorDarkLine {
+  stroke: var(--healthbarDark);
+}
+
+/* All Health Bars */
+.animated-healthbar .hp-light {
+  fill: var(--healthbarLight);
+}
+
+.animated-healthbar .hp-dark {
+  fill: var(--healthbarDark);
+}
+
+.animated-healthbar .health-bars {
+  stroke-width: 2;
+  opacity: 0.8;
+}
+
+.animated-healthbar .healthbar-background {
+  fill: url(#greyLine);
+  stroke: var(--healthbarBorder);
+}
+
+.animated-healthbar .healthbar-foreground {
+  fill: var(--hpForegroundFill);
+  clip-path: polygon(
+    -1px -1px, 
+    calc(362px * var(--hpPercent, 1) - 32px) -1px,
+    calc(362px * var(--hpPercent, 1)) 31px,
+    -1px 31px
+  );
+}

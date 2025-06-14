@@ -5,7 +5,7 @@
     <div class="hits-and-crits flexcol">
       <div class="gun-row">
         <img id="hits" alt="Hits" title="Hits" class="critshits-icon" 
-          src="systems/bunkers-and-badasses/assets/weapons/hits.png" />
+          src="systems/bunkers-and-badasses/assets/weapons/hits.svg" />
         <label class="gun-row-hits">
           {{adder system.accuracy.low.hits ../system.bonus.combat.hits.low ../system.bonus.combat.hits.all}}
           {{adder system.accuracy.mid.hits ../system.bonus.combat.hits.mid ../system.bonus.combat.hits.all}}
@@ -14,7 +14,7 @@
       </div>
       <div class="gun-row">
         <img id="crits" alt="Crits" title="Crits" class="critshits-icon" 
-          src="systems/bunkers-and-badasses/assets/weapons/crits.png" />
+          src="systems/bunkers-and-badasses/assets/weapons/crits.svg" />
         <label class="gun-row-crits">
           {{adder system.accuracy.low.crits ../system.bonus.combat.crits.low ../system.bonus.combat.crits.all}}
           {{adder system.accuracy.mid.crits ../system.bonus.combat.crits.mid ../system.bonus.combat.crits.all}}
@@ -33,15 +33,17 @@
         </label>
       </div>
       <label class="gun-damage">
-        {{{system.dmgPerHitHtml}}}
-        {{#if system.bonusDamageHtml}}
-          {{#if system.dmgPerHitHtml}}
-          <label class="damage-per-hit-and-bonus-damage-in-between">+</label>
+        <span class="flex">
+          {{{system.dmgPerHitHtml}}}
+          {{#if system.bonusDamageHtml}}
+            {{#if system.dmgPerHitHtml}}
+            <label class="damage-per-hit-and-bonus-damage-in-between">+</label>
+            {{/if}}
+            {{{system.bonusDamageHtml}}}
           {{/if}}
-        {{/if}}
-        {{{system.bonusDamageHtml}}}
+        </span>
         {{#if system.bonusCritDmg}}
-        + {{system.bonusCritDmg}} on crit
+        <span class="flex">+ {{system.bonusCritDmg}} on crit</span>
         {{/if}}
       </label>
     </div>
