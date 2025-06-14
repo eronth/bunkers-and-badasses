@@ -2,6 +2,10 @@
   text-align: center;
   font-size: smaller;
   padding-bottom: 2px;
+
+  display: flex;
+  justify-content: space-around;
+  padding-inline: 50px;
 }
 
 .damage-confirmation .damage-crithits .container {
@@ -11,6 +15,12 @@
   color: white;
   --borderVal: 0;
   --background: transparent;
+
+  --side: 55px;
+  height: var(--side);
+  max-height: var(--side);
+  width: var(--side);
+  max-width: var(--side);
 }
 
 .damage-confirmation .damage-crithits .container:hover {
@@ -20,14 +30,15 @@
 
 .damage-confirmation .damage-crithits .container img {
   border: 0;
+  height: 100%;
+  width: 100%;
 }
-
 .damage-confirmation .damage-crithits .container .hits-number,
 .damage-confirmation .damage-crithits .container .crits-number {
   font-size: x-large;
   position: absolute;
-  top: 47%;
-  left: 50%;
+  top: 49%;
+  left: 51%;
   transform: translate(-50%, -50%);
 }
 

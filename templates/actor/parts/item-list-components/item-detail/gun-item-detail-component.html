@@ -33,15 +33,17 @@
         </label>
       </div>
       <label class="gun-damage">
-        {{{system.dmgPerHitHtml}}}
-        {{#if system.bonusDamageHtml}}
-          {{#if system.dmgPerHitHtml}}
-          <label class="damage-per-hit-and-bonus-damage-in-between">+</label>
+        <span class="flex">
+          {{{system.dmgPerHitHtml}}}
+          {{#if system.bonusDamageHtml}}
+            {{#if system.dmgPerHitHtml}}
+            <label class="damage-per-hit-and-bonus-damage-in-between">+</label>
+            {{/if}}
+            {{{system.bonusDamageHtml}}}
           {{/if}}
-        {{/if}}
-        {{{system.bonusDamageHtml}}}
+        </span>
         {{#if system.bonusCritDmg}}
-        + {{system.bonusCritDmg}} on crit
+        <span class="flex">+ {{system.bonusCritDmg}} on crit</span>
         {{/if}}
       </label>
     </div>

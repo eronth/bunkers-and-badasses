@@ -68,16 +68,18 @@
       </div>
     </div>
   </div>
-  {{#if item.system.bonusCritDmg}}<label>Crit Hit Bonus Damage: {{item.system.bonusCritDmg}}</label>{{/if}}
+  <div class="description">
+    {{#if item.system.bonusCritDmg}}<label>Crit Hit Bonus Damage: {{item.system.bonusCritDmg}}</label>{{/if}}
+  </div>
   <hr />
   <div class="description flexcol">
     {{#if damagePerHitHtml}}
     <label><b>Damage Per Hit:</b></label>
-    <label>{{{damagePerHitHtml}}}</label>
+    <label class="flex">{{{damagePerHitHtml}}}</label>
     {{/if}}
     {{#if damagePerAttackHtml}}
     <label class="{{#if damagePerHitHtml}}margin-top-3{{/if}}"><b>Bonus Damage:</b></label>
-    <label>{{{damagePerAttackHtml}}}</label>
+    <label class="flex">{{{damagePerAttackHtml}}}</label>
     {{/if}}
   </div>
   {{#if item.system.effect}}
