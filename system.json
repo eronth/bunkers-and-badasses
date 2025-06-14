@@ -2,11 +2,11 @@
   "id": "bunkers-and-badasses",
   "title": "Bunkers & Badasses",
   "description": "Badasses, loot, and mayhem. This system is for running the tabletop adaptation of Borderlands' 'Bunkers & Badasses' by Nerdvana.",
-  "version": "0.6.0",
-  "compatibleCoreVersion": "12",
+  "version": "0.7.0",
+  "compatibleCoreVersion": "13",
   "compatibility": {
-    "minimum": 12,
-    "verified": 12.318
+    "minimum": 13,
+    "verified": 13.345
   },
   "authors": [{
     "name": "Nic Pereira",
@@ -204,6 +204,6 @@
   "primaryTokenAttribute": "attributes.hps.flesh",
   "secondaryTokenAttribute": "attributes.hps.shield",
   "url": "https://github.com/eronth/bunkers-and-badasses",
-  "manifest": "https://github.com/eronth/bunkers-and-badasses/releases/download/v0.6.0/system.json",
-  "download": "https://github.com/eronth/bunkers-and-badasses/releases/download/v0.6.0/bunkers-and-badasses.zip"
+  "manifest": "https://github.com/eronth/bunkers-and-badasses/releases/download/v0.7.0/system.json",
+  "download": "https://github.com/eronth/bunkers-and-badasses/releases/download/v0.7.0/bunkers-and-badasses.zip"
 }
