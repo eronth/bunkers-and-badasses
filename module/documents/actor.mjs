@@ -388,14 +388,20 @@ export class BNBActor extends Actor {
    * @param {HTML} html  Rendered chat message.
    */
   static addChatListeners(html) {
-    html.on('click', '.chat-melee-damage-buttons button', this._onChatCardDamage.bind(this));
-    html.on('click', '.chat-damage-buttons button', this._onChatCardDamage.bind(this));
+    html.addEventListener('click', (e) => {
+      const el = e.target.closest('.chat-melee-damage-buttons button');
+      if (el) { return this._onChatCardDamage.call(this, e); }
+    });
+    html.addEventListener('click', (e) => {
+      const el = e.target.closest('.chat-damage-buttons button');
+      if (el) { return this._onChatCardDamage.call(this, e); }
+    });
   }
 
   static async _onChatCardDamage(event) {
     event.preventDefault();
 
-    const dataset = event.currentTarget.dataset;
+    const dataset = event.target.dataset;
     const attackType = dataset.attackType;
     const actor = game.actors.get(dataset.actorId);
     if (actor === null) return;

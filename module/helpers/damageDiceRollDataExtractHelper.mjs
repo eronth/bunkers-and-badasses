@@ -108,7 +108,7 @@ export class DamageDiceRollDataExtractHelper {
       const damageType = df.damageType;
       const createIconData = { id: 'dmg', elementType: damageType, cssClass: 'element-damage-formula-icon', isMelee: isMelee };
       const damageTypeIcon = genericUtil.createElementIcon(createIconData);
-      const returnText = `<span class='${damageType}-text nowrap-element-icon'>${formulaPart}${damageTypeIcon}</span>`;
+      const returnText = `<span class='element-roll-display ${damageType}-text nowrap-element-icon'>${formulaPart}${damageTypeIcon}</span>`;
       return returnText;
     });
     return textFormulas;
@@ -120,7 +120,7 @@ export class DamageDiceRollDataExtractHelper {
       const damageType = df.damageType;
       const createIconData = { id: 'dmg', elementType: damageType, cssClass: 'element-damage-total-icon', isMelee: isMelee };
       const damageTypeIcon = genericUtil.createElementIcon(createIconData);
-      const returnText = `<span class='${damageType}-text nowrap-element-icon'>${df.total}${damageTypeIcon}</span>`;
+      const returnText = `<span class='element-roll-display ${damageType}-text nowrap-element-icon'>${df.total}${damageTypeIcon}</span>`;
       return returnText;
     });
     return textDamageTotals;

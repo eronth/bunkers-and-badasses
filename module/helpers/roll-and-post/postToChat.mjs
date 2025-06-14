@@ -10,10 +10,23 @@ export class PostToChat {
     //const difficultyValue = checkDetails.difficultyValue;
 
     const templateLocation = 'systems/bunkers-and-badasses/templates/chat/badass-result.html';
+    const mockDiceRollParts = [
+      {
+        formula: '1dBadass',
+        flavor: 'Badass Dice Roll',
+        total: checkDetails.badassDiceResult,
+        rolls: [{
+          result: checkDetails.badassDiceResult,
+          classes: 'die d20',
+        }]
+      }
+    ];
     const chatHtmlContent = await renderTemplate(templateLocation, {
-      badassDiceResult: checkDetails.badassDiceResult,
-      total: checkDetails.total,
+      actor: actor,
+
       overallRollFormula: checkDetails.overallRollFormula,
+      parts: mockDiceRollParts,
+      total: checkDetails.total,
     });
     
 
@@ -38,10 +51,10 @@ export class PostToChat {
   }
 
   static async damageResistance(options) {
-    const { actor, rollResult, reductionAmount, damageType } = options;
+    const { actor, rollResult, damage } = options;
 
-    const label = `${actor.name} resists <span class='${damageType}-text bolded'>`
-      + `${reductionAmount} ${damageType}` 
+    const label = `${actor.name} resists <span class='${damage.type}-text bolded'>`
+      + `${damage.reduction} ${damage.type}` 
       + `</span> damage.`;
 
     if (rollResult.isFakeRollResult) return;
@@ -54,11 +67,11 @@ export class PostToChat {
   }
 
   static async damageTaken(options) {
-    const { actor, rollResult, damageAmount, damageTaken, damageType } = options;
+    const { actor, rollResult, damage } = options;
 
     const damageLossesText = [];
 
-    Object.entries(damageTaken).forEach(([healthType, healthLoss]) => {
+    Object.entries(damage.taken).forEach(([healthType, healthLoss]) => {
       if (healthLoss > 0) {
         const healthTypeText = genericUtil.capitalize(genericUtil.healthTypeToText(healthType));
         damageLossesText.push(`<span class='${healthType}-text bolded'>${healthLoss} ${healthTypeText}</span>`);
@@ -66,8 +79,11 @@ export class PostToChat {
     });
 
     const formatter = new Intl.ListFormat('en', { style: 'long', type: 'conjunction' });
-    const label = `${actor.name} takes <span class='${damageType}-text bolded'>${damageAmount} ${damageType}</span> damage. `
-      + `They lose ${ (damageLossesText.length > 0) ? formatter.format(damageLossesText) : 'no health'}.`;
+    const healthLossesText = (damageLossesText.length > 0) 
+      ? formatter.format(damageLossesText) 
+      : '<span class="bolded">no health</span>';
+    const label = `${actor.name} takes <span class='${damage.type}-text bolded'>${damage.total} ${damage.type}</span> damage. `
+      + `They${ (damage.reduction > 0) ? ` <span class='${damage.type}-text bolded'>resist ${damage.reduction}</span>` : '' } lose ${healthLossesText}.`;
 
     rollResult.toMessage({
       speaker: ChatMessage.getSpeaker({ actor: actor }),
@@ -87,7 +103,7 @@ export class PostToChat {
     
     const templateLocation = 'systems/bunkers-and-badasses/templates/chat/check-roll.html';
     const chatHtmlContent = await renderTemplate(templateLocation, {
-      actorId: actor.id,
+      actor: actor,
       checkType: checkTypeText,
       overallRollFormula: rollResult.formula,
       parts: parts,
@@ -140,7 +156,7 @@ export class PostToChat {
 
     const templateLocation = 'systems/bunkers-and-badasses/templates/chat/melee-attack-roll.html';
     const chatHtmlContent = await renderTemplate(templateLocation, {
-      actorId: actor.id,
+      actor: actor,
       checkType: 'Melee Attack',
       overallRollFormula: rollResult.formula,
       parts: parts,
@@ -285,24 +301,17 @@ export class PostToChat {
 
     const templateLocation = 'systems/bunkers-and-badasses/templates/chat/check-roll.html';
     const chatHtmlContent = await renderTemplate(templateLocation, {
-      actorId: actor.id,
-      itemId: item.id,
+      actor: actor,
+      item: item,
       checkType: `${item.name} Grenade Toss`,
       overallRollFormula: rollResult.formula,
       parts: parts,
       total: rollResult.total,
       difficulty: difficultyValue,
-      redText: item.system.redText,
       attackType: 'grenade',
       showDamageButton: true,
       success: (difficultyValue != null) && rollResult.total >= difficultyValue,
       failure: (difficultyValue != null) && rollResult.total < difficultyValue,
-      itemEffect: item.system.effect,
-      redTextDetails: {
-        redText: item.system.redText,
-        redTextEffect: item.system.redTextEffect,
-        redTextEffectBM: item.system.redTextEffectBM,
-      },
     });
 
     // Prep chat values.
@@ -336,12 +345,12 @@ export class PostToChat {
 
     const templateLocation = 'systems/bunkers-and-badasses/templates/chat/damage-results.html';
     const chatHtmlContent = await renderTemplate(templateLocation, {
-      actorId: actor.id,
-      itemId: item?.id ?? '',
+      actor: actor,
+      item: item,
       isMelee: isMelee,
       parts: damageDetails.parts,
       overallRollFormula: damageDetails.overallRollFormula.join(' + '),
-      overallResultTotal: damageDetails.overallResultTotal.join(' + '),
+      total: damageDetails.overallResultTotal.join(' + '),
     });
 
     // Prep chat values.

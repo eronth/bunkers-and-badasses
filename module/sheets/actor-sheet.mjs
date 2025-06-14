@@ -567,7 +567,7 @@ export class BNBActorSheet extends ActorSheet {
 
         const damageElementsHtml = genericUtil.createGunDamagePerHitHtml({ elements: i.system.elements });
         i.system.dmgPerHitHtml = (damageElementsHtml 
-          ? damageElementsHtml + `<label class="element-damage-damage">per hit</label>`
+          ? `${damageElementsHtml}<label class="element-damage-damage">per hit</label>`
           : '');
 
         const bonusDamageElementsHtml = genericUtil.createGunBonusDamageHtml({ elements: i.system.bonusElements });
@@ -967,7 +967,8 @@ export class BNBActorSheet extends ActorSheet {
   async _healthRegainRoll(dataset) {
     // Prep data to access.
     const actorSystem = this.actor.system;
-    const hp = actorSystem.attributes.hps[dataset.healthType.toLowerCase()];
+    const healthType = dataset.healthType.toLowerCase();
+    const hp = actorSystem.attributes.hps[healthType];
     const hpRegainAction = {
       shield: "recharges",
       armor: "repairs",
@@ -984,7 +985,8 @@ export class BNBActorSheet extends ActorSheet {
     const rollResult = await roll.roll();
 
     // Prep chat values.
-    const flavorText = `${this.actor.name} ${hpRegainAction[dataset.healthType.toLowerCase()]} ${rollResult.total} <b>${hp.label}</b>.`;
+    const flavorText = `${this.actor.name} ${hpRegainAction[healthType]} 
+    <span class='${healthType}-text bolded'>${rollResult.total} ${hp.label}</span>.`;
     const messageData = {
       user: game.user.id,
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
@@ -999,7 +1001,7 @@ export class BNBActorSheet extends ActorSheet {
     // Update the appopriate values.
     let newValue = hp.value + rollResult.total;
     if (newValue > hp.max) newValue = hp.max;
-    const target = "system.attributes.hps." + dataset.healthType.toLowerCase() + ".value";
+    const target = "system.attributes.hps." + healthType + ".value";
     this.actor.update({[`${target}`] : newValue});
 
     // Send the roll to chat!
