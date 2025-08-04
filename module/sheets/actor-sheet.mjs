@@ -9,7 +9,7 @@ import { PerformRollAction } from "../helpers/roll-and-post/performRollAction.mj
 import { DefaultData } from "../helpers/defaultData.mjs";
 import { MixedDiceAndNumber } from "../helpers/MixedDiceAndNumber.mjs";
 import { Enricher } from "../helpers/enricher.mjs";
-import { TextEditor, Sheets } from "../helpers/foundryAccessHelper.mjs";
+import { RenderTemplate, Sheets, TextEditor } from "../helpers/foundryAccessHelper.mjs";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
