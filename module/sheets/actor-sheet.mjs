@@ -755,7 +755,7 @@ export class BNBActorSheet extends Sheets.ActorSheet {
     const dataset = event.currentTarget.dataset;
 
     const templateLocation = 'systems/bunkers-and-badasses/templates/dialog/gain-attribute.html';
-    const dialogHtmlContent = await renderTemplate(templateLocation, {
+    const dialogHtmlContent = await RenderTemplate(templateLocation, {
       attributeName: dataset.attributeName,
     });
 
@@ -810,7 +810,7 @@ export class BNBActorSheet extends Sheets.ActorSheet {
     const dataset = event.currentTarget.dataset;
 
     const templateLocation = 'systems/bunkers-and-badasses/templates/dialog/set-level.html';
-    const dialogHtmlContent = await renderTemplate(templateLocation, { });
+    const dialogHtmlContent = await RenderTemplate(templateLocation, { });
 
     this.gain = new Dialog({
       title: `Set Level`,
