@@ -701,6 +701,7 @@ export class BNBActorSheet extends ActorSheet {
     html.find('.archetype-reward-collapse-toggle').click((event) => OnActionUtil.onArchetypeRewardCollapseToggle(event, this.actor));
     html.find('.skill-tier-collapse-toggle').click((event) => OnActionUtil.onSkillTierCollapseToggle(event, this.actor));
     html.find('.category-collapse-toggle').click((event) => OnActionUtil.onCategoryCollapseToggle(event, this.actor));
+    html.find('.display-skill-calculations-toggle').click((event) => OnActionUtil.onDisplaySkillCalculationsToggle(event, this.actor));
 
     // Handle action skill.
     html.find('.action-skill-use').click((event) => ConfirmActionPrompt.useActionSkill(event, {actor: this.actor}));

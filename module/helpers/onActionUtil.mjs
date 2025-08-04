@@ -115,6 +115,16 @@ export class OnActionUtil {
     return await actor.update({[attributeLabel]: !collapsed});
   }
 
+  static async onDisplaySkillCalculationsToggle(event, actor) {
+    // Prep data
+    const collapseCategory = "skillCalculations";
+    const collapsed = actor.system.isCollapsed[collapseCategory];
+
+    // Square brackets needed to get the right value.
+    const attributeLabel = `system.isCollapsed.${collapseCategory}`;
+    return await actor.update({[attributeLabel]: !collapsed});
+  }
+
   // I wanted these to be automatic, but it was just straight up not working.
   // Instead, I will just make the players manually update their archetype levels.
   static async onOldArchetypeRewardUpgrade(event, actor) {

@@ -1,6 +1,10 @@
 <div class="flexrow check-container-container">
   <div class="flexcol check-container-left">
-    <div class="check-segment-header-left">Checks</div>
+    <div class="check-segment-header-left clickable display-skill-calculations-toggle">
+      {{> "systems/bunkers-and-badasses/templates/general/accordion-toggle-icon.html"
+        collapsed=system.isCollapsed.skillCalculations
+        text="Checks"}}
+    </div>
     <div class="flexrow">
       <div>
         {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/action-components/check.html" 
@@ -55,7 +59,11 @@
     </div>
   </div>
   <div class="flexcol check-container-right">
-    <div class="check-segment-header-right">Combat Values</div>
+    <div class="check-segment-header-right clickable display-skill-calculations-toggle">
+      {{> "systems/bunkers-and-badasses/templates/general/accordion-toggle-icon.html"
+        collapsed=system.isCollapsed.skillCalculations
+        text="Combat Values"}}
+    </div>
     <div class="flexrow">
       <div>
         {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/action-components/check.html"
