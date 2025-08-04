@@ -82,17 +82,27 @@ export class OnActionUtil {
   static async onActionSkillUse(options) {
     const { actor, item, html } = options;
     const freeActivation = (html.find("#free-activation")[0].checked);
-    
+    let newUses = undefined;
+
     if (!freeActivation) {
-      let newUses = actor.system.class.actionSkill.uses.value - 1;
+      newUses = actor.system.class.actionSkill.uses.value - 1;
       if (newUses < 0) { 
         ui.notifications.warn(`You don't have enough remaining Action Skill uses to activate ${item.name}!`);
         return;
       }
+    }
+
+    const postRes = await PostToChat.useActionSkill({ 
+      actor: actor,
+      item: item,
+    });
+
+    // THIS MUST BE DONE AFTER THE CHAT POSTING, OTHERWISE IT WILL NOT WORK.
+    if (newUses !== undefined) {
       await actor.update({'system.class.actionSkill.uses.value': newUses});
     }
 
-    return await PostToChat.useActionSkill({ actor: actor, item: item });
+    return postRes;
   }
 
   static async onArchetypeRewardCollapseToggle(event, actor) {
