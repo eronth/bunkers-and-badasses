@@ -2,9 +2,9 @@ import { Enricher } from "../helpers/enricher.mjs";
 
 /**
  * Extend the basic ItemSheet with some very simple modifications
- * @extends {ItemSheet}
+ * @extends {foundry.appv1.sheets.ItemSheet}
  */
-export class BNBItemSheet extends ItemSheet {
+export class BNBItemSheet extends foundry.appv1.sheets.ItemSheet {
 
   /** @override */
   static get defaultOptions() {

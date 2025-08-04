@@ -12,9 +12,9 @@ import { Enricher } from "../helpers/enricher.mjs";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
- * @extends {ActorSheet}
+ * @extends {foundry.appv1.sheets.ActorSheet}
  */
-export class BNBActorSheet extends ActorSheet {
+export class BNBActorSheet extends foundry.appv1.sheets.ActorSheet {
 
   /** @override */
   static get defaultOptions() {

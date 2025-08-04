@@ -159,10 +159,12 @@ Hooks.once('init', async function() {
   CONFIG.Item.documentClass = BNBItem;
 
   // Register sheet application classes
-  Actors.unregisterSheet("core", ActorSheet);
-  Actors.registerSheet("bunkers-and-badasses", BNBActorSheet, { makeDefault: true });
-  Items.unregisterSheet("core", ItemSheet);
-  Items.registerSheet("bunkers-and-badasses", BNBItemSheet, { makeDefault: true });
+  const collections = foundry.documents.collections;
+  const sheets = foundry.appv1.sheets;
+  collections.Actors.unregisterSheet("core", sheets.ActorSheet);
+  collections.Actors.registerSheet("bunkers-and-badasses", BNBActorSheet, { makeDefault: true });
+  collections.Items.unregisterSheet("core", sheets.ItemSheet);
+  collections.Items.registerSheet("bunkers-and-badasses", BNBItemSheet, { makeDefault: true });
 
   // Preload Handlebars templates.
   return preloadHandlebarsTemplates();
