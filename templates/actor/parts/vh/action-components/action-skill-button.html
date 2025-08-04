@@ -1,0 +1,19 @@
+<div class="action-skill-container">
+  <button class="action-skill action-skill-use"
+    data-item-id="{{actionSkillId}}"
+  >
+    {{actionSkillName}}
+  </button>
+  <div class="flexcol flex-size-2 uses-container">
+    <div class="flexrow">
+      {{> "systems/bunkers-and-badasses/templates/general/divided-input.html"
+        id="action-skill"
+        targetObj=actionSkillUses targetText="system.class.actionSkill.uses"
+        leftDisable=false 
+        rightValueOverride=(adder system.bonus.class.actionSkill.uses.max actionSkillUses.max)
+        rightDisable=true
+      }}
+    </div>
+    <label class="check-num-label">uses</label>
+  </div>
+</div>

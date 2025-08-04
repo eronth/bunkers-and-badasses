@@ -709,32 +709,35 @@ input[type="time"]:focus {
   margin-left: 3px;
 }
 
-.bnb .action-skill {
-  justify-content: center;
-}
-.bnb .action-skill .secondary-text {
-  font-size: smaller; 
-}
 .bnb .action .action-skill {
-  align-items: center;
-  max-width: 250px;
+  height: 100%
 }
 .bnb .action-skill-item {
   border: 1px solid #c9c7b8;
-
 }
-.bnb .action-skill .uses-container {
+.bnb .action-skill-container {
+  position: relative
+}
+.bnb .action-skill-container .uses-container {
+  position: absolute;
+  top: 5px;
+  right: 4px;
+  z-index: 20;
+}
+.bnb .action-skill-container .uses-container {
   justify-content: center;
   align-items: center;
   text-align: center;
 }
-.bnb .action-skill .uses-container input {
+.bnb .action-skill-container .uses-container input {
   width: 20px;
   font-size: smaller;
 }
-.bnb .action-skill .uses-container label {
+.bnb .action-skill-container .uses-container label {
   align-self: center;
 }
+
+
 
 .bnb .check-text {
   font-weight: bold;
