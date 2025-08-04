@@ -1,5 +1,6 @@
 import { Dropdown } from "./dropdown.mjs";
 import { ItemList } from "./itemList.mjs";
+import { TextEditor } from "./foundryAccessHelper.mjs";
 
 export class HandlebarsHelperUtil {
   static prepareHandlebarsHelpers() {

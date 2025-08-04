@@ -1,3 +1,5 @@
+import { TextEditor } from "../helpers/foundryAccessHelper.mjs";
+
 export class Enricher {
     static async enrichItem(item) {
         const enrichOptions = { secrets: this.actor?.isGM };

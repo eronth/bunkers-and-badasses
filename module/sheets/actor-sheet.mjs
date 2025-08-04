@@ -9,12 +9,13 @@ import { PerformRollAction } from "../helpers/roll-and-post/performRollAction.mj
 import { DefaultData } from "../helpers/defaultData.mjs";
 import { MixedDiceAndNumber } from "../helpers/MixedDiceAndNumber.mjs";
 import { Enricher } from "../helpers/enricher.mjs";
+import { TextEditor, Sheets } from "../helpers/foundryAccessHelper.mjs";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
- * @extends {foundry.appv1.sheets.ActorSheet}
+ * @extends {Sheets.ActorSheet}
  */
-export class BNBActorSheet extends foundry.appv1.sheets.ActorSheet {
+export class BNBActorSheet extends Sheets.ActorSheet {
 
   /** @override */
   static get defaultOptions() {
