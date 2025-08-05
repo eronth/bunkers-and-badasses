@@ -1,6 +1,7 @@
 import { DamageDiceRollDataExtractHelper } from "../damageDiceRollDataExtractHelper.mjs";
 import { genericUtil } from "../genericUtil.mjs";
 import { Enricher } from "../enricher.mjs";
+import { RenderTemplate } from "../foundryAccessHelper.mjs";
 
 export class PostToChat {
   static chatInfoBaseLocation = 'systems/bunkers-and-badasses/templates/chat/info/';
@@ -21,7 +22,7 @@ export class PostToChat {
         }]
       }
     ];
-    const chatHtmlContent = await renderTemplate(templateLocation, {
+    const chatHtmlContent = await RenderTemplate(templateLocation, {
       actor: actor,
 
       overallRollFormula: checkDetails.overallRollFormula,
@@ -102,7 +103,7 @@ export class PostToChat {
     parts[0].flavor = checkTypeText;
     
     const templateLocation = 'systems/bunkers-and-badasses/templates/chat/check-roll.html';
-    const chatHtmlContent = await renderTemplate(templateLocation, {
+    const chatHtmlContent = await RenderTemplate(templateLocation, {
       actor: actor,
       checkType: checkTypeText,
       overallRollFormula: rollResult.formula,
@@ -155,7 +156,7 @@ export class PostToChat {
     parts[0].flavor = 'Grenade Toss';
 
     const templateLocation = 'systems/bunkers-and-badasses/templates/chat/melee-attack-roll.html';
-    const chatHtmlContent = await renderTemplate(templateLocation, {
+    const chatHtmlContent = await RenderTemplate(templateLocation, {
       actor: actor,
       checkType: 'Melee Attack',
       overallRollFormula: rollResult.formula,
@@ -219,7 +220,7 @@ export class PostToChat {
 
     // Generate message for chat.
     const templateLocation = 'systems/bunkers-and-badasses/templates/chat/gun-attack-roll.html';
-    const chatHtmlContent = await renderTemplate(templateLocation, {
+    const chatHtmlContent = await RenderTemplate(templateLocation, {
       actor: actor,
       item: item,
 
@@ -413,7 +414,7 @@ export class PostToChat {
       description: item.system.description,
       item: item
     };
-    const content = await renderTemplate(templateLocation, renderTemplateConfig);
+    const content = await RenderTemplate(templateLocation, renderTemplateConfig);
 
     const flavorText = (options.freeActivation)
       ? `<b>${actor.name}</b> uses <i><b>${item.name}</b></i> for free!`
@@ -482,7 +483,7 @@ export class PostToChat {
     if (renderTemplateConfig.damagePerAttackHtml) {
       renderTemplateConfig.damagePerAttackHtml += `<label class="element-damage-plus"> Damage</label>`;
     }
-    const chatHtmlContent = await renderTemplate(templateLocation, renderTemplateConfig);
+    const chatHtmlContent = await RenderTemplate(templateLocation, renderTemplateConfig);
     const flavorPrefix = item.system.prefix.name ? `${item.system.prefix.name} ` : '';
     const levelAndGuild = `Level ${item.system.level} ${item.system.guild}`;
     
@@ -507,7 +508,7 @@ export class PostToChat {
     const capHealthType = genericUtil.capitalize(genericUtil.healthTypeToText(item.system.healthType));
     renderTemplateConfig.healthType = capHealthType;
     renderTemplateConfig.resistHtml = genericUtil.createFullShieldResistHtml({elements: item.system.elements});
-    const chatHtmlContent = await renderTemplate(templateLocation, renderTemplateConfig);
+    const chatHtmlContent = await RenderTemplate(templateLocation, renderTemplateConfig);
     const levelAndGuild = `Level ${item.system.level} ${item.system.guild}`;
     
     // Create flavor text.
@@ -529,7 +530,7 @@ export class PostToChat {
 
     // Create chat info data.
     renderTemplateConfig.damageHtml = genericUtil.createGrenadeDamageHtml({elements: item.system.elements});
-    const chatHtmlContent = await renderTemplate(templateLocation, renderTemplateConfig);
+    const chatHtmlContent = await RenderTemplate(templateLocation, renderTemplateConfig);
     const levelAndGuild = `Level ${item.system.level} ${item.system.guild}`;
     
     // Create flavor text.
@@ -550,8 +551,8 @@ export class PostToChat {
     const item = renderTemplateConfig.item;
     
     // Create chat info data.
-    const chatHtmlContent = await renderTemplate(templateLocation, renderTemplateConfig);
-    
+    const chatHtmlContent = await RenderTemplate(templateLocation, renderTemplateConfig);
+
     // Create additional message details object.
     return {
       flavor: `Relic <b>${item.name}</b>.`,
@@ -566,8 +567,8 @@ export class PostToChat {
     const item = renderTemplateConfig.item;
     
     // Create chat info data.
-    const chatHtmlContent = await renderTemplate(templateLocation, renderTemplateConfig);
-    
+    const chatHtmlContent = await RenderTemplate(templateLocation, renderTemplateConfig);
+
     // Create additional message details object.
     return {
       flavor: `Potion <b>${item.name}</b>.`,
@@ -582,8 +583,8 @@ export class PostToChat {
     const item = renderTemplateConfig.item;
 
     // Create chat info data.
-    const chatHtmlContent = await renderTemplate(templateLocation, renderTemplateConfig);
-    
+    const chatHtmlContent = await RenderTemplate(templateLocation, renderTemplateConfig);
+
     // Create additional message details object.
     return {
       flavor: `Key Item <b>${item.name}</b>.`,
@@ -598,8 +599,8 @@ export class PostToChat {
     const item = renderTemplateConfig.item;
 
     // Create chat info data.
-    const chatHtmlContent = await renderTemplate(templateLocation, renderTemplateConfig);
-    
+    const chatHtmlContent = await RenderTemplate(templateLocation, renderTemplateConfig);
+
     // Create additional message details object.
     return {
       flavor: `Archetype Feat <b>${item.name}</b>.`,
@@ -614,8 +615,8 @@ export class PostToChat {
     const item = renderTemplateConfig.item;
 
     // Create chat info data.
-    const chatHtmlContent = await renderTemplate(templateLocation, renderTemplateConfig);
-    
+    const chatHtmlContent = await RenderTemplate(templateLocation, renderTemplateConfig);
+
     // Create additional message details object.
     return {
       flavor: `Action Skill <b>${item.name}</b>.`,
@@ -630,8 +631,8 @@ export class PostToChat {
     const item = renderTemplateConfig.item;
 
     // Create chat info data.
-    const chatHtmlContent = await renderTemplate(templateLocation, renderTemplateConfig);
-    
+    const chatHtmlContent = await RenderTemplate(templateLocation, renderTemplateConfig);
+
     // Create additional message details object.
     return {
       flavor: `Class Skill <b>${item.name}</b>.`,
@@ -662,7 +663,7 @@ export class PostToChat {
     parts[0].flavor = "Attaaaaack!";
     
     const templateLocation = 'systems/bunkers-and-badasses/templates/chat/npc-attack-roll.html';
-    const chatHtmlContent = await renderTemplate(templateLocation, {
+    const chatHtmlContent = await RenderTemplate(templateLocation, {
       actorId: actor.id,
       overallRollFormula: rollResult.formula,
       result: rollResult.result,

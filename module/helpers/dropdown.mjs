@@ -1,4 +1,5 @@
 import { Enricher } from './enricher.mjs';
+import { RenderTemplate } from './foundryAccessHelper.mjs';
 
 export class Dropdown {
   static getComponentClass(componentType) {
@@ -80,7 +81,7 @@ export class Dropdown {
 
     // Get the html template, create the data block, then put it together.
     const templateLocation = this.getBodyTemplateLocation(data.item.type);
-    const dialogHtmlContent = await renderTemplate(templateLocation, data);
+    const dialogHtmlContent = await RenderTemplate(templateLocation, data);
 
     // Return the fully formed html.
     return dialogHtmlContent;

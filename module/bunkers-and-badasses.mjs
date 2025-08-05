@@ -11,6 +11,7 @@ import { BNB } from "./helpers/config.mjs";
 import { BarbrawlBuilder } from "./helpers/barbrawl-builder.mjs";
 import { HandlebarsHelperUtil } from "./helpers/handlebarsHelperUtil.mjs";
 import ResourceTracker from "./floating-tool/ResourceTracker.mjs";
+import { Collections, Sheets } from "./helpers/foundryAccessHelper.mjs";
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -159,10 +160,10 @@ Hooks.once('init', async function() {
   CONFIG.Item.documentClass = BNBItem;
 
   // Register sheet application classes
-  Actors.unregisterSheet("core", ActorSheet);
-  Actors.registerSheet("bunkers-and-badasses", BNBActorSheet, { makeDefault: true });
-  Items.unregisterSheet("core", ItemSheet);
-  Items.registerSheet("bunkers-and-badasses", BNBItemSheet, { makeDefault: true });
+  Collections.Actors.unregisterSheet("core", Sheets.ActorSheet);
+  Collections.Actors.registerSheet("bunkers-and-badasses", BNBActorSheet, { makeDefault: true });
+  Collections.Items.unregisterSheet("core", Sheets.ItemSheet);
+  Collections.Items.registerSheet("bunkers-and-badasses", BNBItemSheet, { makeDefault: true });
 
   // Preload Handlebars templates.
   return preloadHandlebarsTemplates();
@@ -416,9 +417,11 @@ async function rollItemMacro(itemName) {
 /* -------------------------------------------- */
 /*  Chat Hooks                                  */
 /* -------------------------------------------- */
-Hooks.on('renderChatMessage', (app, html, data) => {
+Hooks.on('renderChatMessageHTML', (app, html, data) => {
   if (!game.user.isGM) {
-    html.find('.gm-secret').remove();
+    for (const el of html.querySelectorAll('.gm-secret')) {
+      el.remove();
+    }
   }
 });
 Hooks.on('renderChatLog', (app, html, data) => {
