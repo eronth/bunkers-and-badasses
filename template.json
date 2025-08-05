@@ -69,7 +69,8 @@
         "tier3Skills": false,
         "tier4Skills": false,
         "tier5Skills": false,
-        "tier6Skills": false
+        "tier6Skills": false,
+        "skillCalculations": false
       },
       "attributes": {
         "badass": {

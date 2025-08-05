@@ -22,6 +22,7 @@
     /// Action tab components
     "systems/bunkers-and-badasses/templates/actor/parts/vh/action-components/checks-block.html",
     "systems/bunkers-and-badasses/templates/actor/parts/vh/action-components/check.html",
+    "systems/bunkers-and-badasses/templates/actor/parts/vh/action-components/action-skill-button.html",
     "systems/bunkers-and-badasses/templates/actor/parts/vh/action-components/hp-display-block.html",
     "systems/bunkers-and-badasses/templates/actor/parts/npc/action-components/action-block.html",
     "systems/bunkers-and-badasses/templates/actor/parts/vh/action-components/attacks-block-component.html",

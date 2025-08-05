@@ -7,6 +7,8 @@
     </div>
   </div>
   <div class="confirm-use-text">{{{item.system.enriched.description}}}</div>
-  <label class="bolded confirm-use-action-skill-notes-title">Extra Notes</label>
-  <div class="confirm-use-text">{{{item.system.enriched.notes}}}</div>
+  {{#if item.system.enriched.notes}}
+    <label class="bolded confirm-use-action-skill-notes-title">Extra Notes</label>
+    <div class="confirm-use-text">{{{item.system.enriched.notes}}}</div>
+  {{/if}}
 </div>

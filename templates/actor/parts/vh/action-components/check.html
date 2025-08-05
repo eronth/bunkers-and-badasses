@@ -10,61 +10,64 @@
     <!-- <Label class="check-num-label">total</Label> -->
   </div>
 </div>
-<div class="flexrow check-container cc2">
-  
-  {{#if check.usesBadassRank}}
+<!-- Only show the calculation bits if set to display. -->
+{{^if system.isCollapsed.skillCalculations}}
+  <div class="flexrow check-container cc2">
+    
+    {{#if check.usesBadassRank}}
+      <div class="flexcol cc2">
+        <input class="" value="{{system.attributes.badass.rank}}"
+          type="number" data-dtype="Number"
+          disabled />
+        <label class="check-num-label">badass&nbsp;rank</label>
+      </div>
+
+      <Label class="check-text-operation">+</Label>
+    {{/if}}
+    {{#if check.base}}
     <div class="flexcol cc2">
-      <input class="" value="{{system.attributes.badass.rank}}"
+      <input class="" value="{{check.base}}"
         type="number" data-dtype="Number"
         disabled />
-      <label class="check-num-label">badass&nbsp;rank</label>
+      <label class="check-num-label">base</label>
     </div>
 
     <Label class="check-text-operation">+</Label>
-  {{/if}}
-  {{#if check.base}}
-  <div class="flexcol cc2">
-    <input class="" value="{{check.base}}"
-      type="number" data-dtype="Number"
-      disabled />
-    <label class="check-num-label">base</label>
-  </div>
-
-  <Label class="check-text-operation">+</Label>
-  {{/if}}
-  
-  {{^if hideStat}}
-  <div class="flexcol cc2">
-    {{#if isBadass}}
-    <input title="Badass!" class="badass" value="{{check.value}}" type="number" data-dtype="Number" disabled />
-    {{else}}
-    <input class="" value="{{check.value}}" type="number" data-dtype="Number" disabled />
     {{/if}}
-    <Label class="check-num-label">
-      {{#if isBadass}}
-        {{check.stat}}&nbsp;<span title="Badass!" class="badass">stat</span>
-      {{else}}
-        {{check.stat}}&nbsp;mod
-      {{/if}}
-    </Label>
-  </div>
-  
-  <Label class="check-text-operation">+</Label>
-  {{/if}}
-  
-  <div class="flexcol cc2">
-    <input class="" value="{{check.misc}}" name="system.checks.{{toLowerCase checkName}}.misc"
-      onfocus="this.select()"
-      type="number" data-dtype="Number" />
-    <label class="check-num-label">misc</label>
-  </div>
     
-  <Label class="check-text-operation">+</Label>
-  
-  <div class="flexcol cc2">
-    <input class="" value="{{check.effects}}"
-      type="text" data-dtype="String"
-      disabled />
-    <Label class="check-num-label">effects</Label>
+    {{^if hideStat}}
+    <div class="flexcol cc2">
+      {{#if isBadass}}
+      <input title="Badass!" class="badass" value="{{check.value}}" type="number" data-dtype="Number" disabled />
+      {{else}}
+      <input class="" value="{{check.value}}" type="number" data-dtype="Number" disabled />
+      {{/if}}
+      <Label class="check-num-label">
+        {{#if isBadass}}
+          {{check.stat}}&nbsp;<span title="Badass!" class="badass">stat</span>
+        {{else}}
+          {{check.stat}}&nbsp;mod
+        {{/if}}
+      </Label>
+    </div>
+    
+    <Label class="check-text-operation">+</Label>
+    {{/if}}
+    
+    <div class="flexcol cc2">
+      <input class="" value="{{check.misc}}" name="system.checks.{{toLowerCase checkName}}.misc"
+        onfocus="this.select()"
+        type="number" data-dtype="Number" />
+      <label class="check-num-label">misc</label>
+    </div>
+      
+    <Label class="check-text-operation">+</Label>
+    
+    <div class="flexcol cc2">
+      <input class="" value="{{check.effects}}"
+        type="text" data-dtype="String"
+        disabled />
+      <Label class="check-num-label">effects</Label>
+    </div>
   </div>
-</div>
+{{/if}}
