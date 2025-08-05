@@ -95,6 +95,7 @@ export class OnActionUtil {
     const postRes = await PostToChat.useActionSkill({ 
       actor: actor,
       item: item,
+      freeActivation: freeActivation,
     });
 
     // THIS MUST BE DONE AFTER THE CHAT POSTING, OTHERWISE IT WILL NOT WORK.

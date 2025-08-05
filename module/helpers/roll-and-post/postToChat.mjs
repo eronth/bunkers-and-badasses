@@ -415,8 +415,10 @@ export class PostToChat {
     };
     const content = await renderTemplate(templateLocation, renderTemplateConfig);
 
-    const flavorText = `${actor.name} uses <b>${item.name}</b>.`;
-    
+    const flavorText = (options.freeActivation)
+      ? `<b>${actor.name}</b> uses <i><b>${item.name}</b></i> for free!`
+      : `<b>${actor.name}</b> spends one use of <i><b>${item.name}</b></i>.`;
+
     const messageData = {
       user: game.user.id,
       speaker: ChatMessage.getSpeaker({ actor: actor }),
