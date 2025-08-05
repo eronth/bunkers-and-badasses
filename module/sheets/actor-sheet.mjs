@@ -9,12 +9,13 @@ import { PerformRollAction } from "../helpers/roll-and-post/performRollAction.mj
 import { DefaultData } from "../helpers/defaultData.mjs";
 import { MixedDiceAndNumber } from "../helpers/MixedDiceAndNumber.mjs";
 import { Enricher } from "../helpers/enricher.mjs";
+import { RenderTemplate, Sheets, TextEditor } from "../helpers/foundryAccessHelper.mjs";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
- * @extends {ActorSheet}
+ * @extends {Sheets.ActorSheet}
  */
-export class BNBActorSheet extends ActorSheet {
+export class BNBActorSheet extends Sheets.ActorSheet {
 
   /** @override */
   static get defaultOptions() {
@@ -701,6 +702,7 @@ export class BNBActorSheet extends ActorSheet {
     html.find('.archetype-reward-collapse-toggle').click((event) => OnActionUtil.onArchetypeRewardCollapseToggle(event, this.actor));
     html.find('.skill-tier-collapse-toggle').click((event) => OnActionUtil.onSkillTierCollapseToggle(event, this.actor));
     html.find('.category-collapse-toggle').click((event) => OnActionUtil.onCategoryCollapseToggle(event, this.actor));
+    html.find('.display-skill-calculations-toggle').click((event) => OnActionUtil.onDisplaySkillCalculationsToggle(event, this.actor));
 
     // Handle action skill.
     html.find('.action-skill-use').click((event) => ConfirmActionPrompt.useActionSkill(event, {actor: this.actor}));
@@ -754,7 +756,7 @@ export class BNBActorSheet extends ActorSheet {
     const dataset = event.currentTarget.dataset;
 
     const templateLocation = 'systems/bunkers-and-badasses/templates/dialog/gain-attribute.html';
-    const dialogHtmlContent = await renderTemplate(templateLocation, {
+    const dialogHtmlContent = await RenderTemplate(templateLocation, {
       attributeName: dataset.attributeName,
     });
 
@@ -809,7 +811,7 @@ export class BNBActorSheet extends ActorSheet {
     const dataset = event.currentTarget.dataset;
 
     const templateLocation = 'systems/bunkers-and-badasses/templates/dialog/set-level.html';
-    const dialogHtmlContent = await renderTemplate(templateLocation, { });
+    const dialogHtmlContent = await RenderTemplate(templateLocation, { });
 
     this.gain = new Dialog({
       title: `Set Level`,

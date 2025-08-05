@@ -4,6 +4,7 @@ import { PerformRollAction } from "./performRollAction.mjs";
 import { OnActionUtil } from "../onActionUtil.mjs";
 import { Enricher } from "../enricher.mjs";
 import { PostToChat } from "./postToChat.mjs";
+import { RenderTemplate } from "../foundryAccessHelper.mjs";
 
 export class ConfirmActionPrompt {
   
@@ -15,7 +16,7 @@ export class ConfirmActionPrompt {
     const item = actor.items.get(liList.data("itemId"));
     
     const templateLocation = "systems/bunkers-and-badasses/templates/dialog/delete-item.html";
-    const deleteItemDialogContent = await renderTemplate(templateLocation, { item: item });
+    const deleteItemDialogContent = await RenderTemplate(templateLocation, { item: item });
 
     this.deleteItemDialog = new Dialog({
       title: `Delete ${item.name}?`,
@@ -44,7 +45,7 @@ export class ConfirmActionPrompt {
     const { actor } = options;
 
     const templateLocation = "systems/bunkers-and-badasses/templates/dialog/delete-npc-action.html";
-    const deleteNpcDialogContent = await renderTemplate(templateLocation, {
+    const deleteNpcDialogContent = await RenderTemplate(templateLocation, {
       action: actor.system.actions[actionType].actionList[actionIndex],
      });
 
@@ -79,7 +80,7 @@ export class ConfirmActionPrompt {
     const { actor, checkDetails } = options;
 
     const templateLocation = 'systems/bunkers-and-badasses/templates/dialog/badass-roll.html';
-    const dialogHtmlContent = await renderTemplate(templateLocation, {
+    const dialogHtmlContent = await RenderTemplate(templateLocation, {
       badassRank: actor.system.attributes.badass.rank,
       badassRankEffectBonus: actor.system.bonus.badass,
       tokenCost: 1,
@@ -108,7 +109,7 @@ export class ConfirmActionPrompt {
   static async takeDamage(event, options) {
     const { actor } = options;
     const templateLocation = "systems/bunkers-and-badasses/templates/dialog/take-damage.html";
-    const takeDamageDialogContent = await renderTemplate(templateLocation, { });
+    const takeDamageDialogContent = await RenderTemplate(templateLocation, { });
 
     this.takeDamageDialog = new Dialog({
       title: `Take Damage`,
@@ -163,7 +164,7 @@ export class ConfirmActionPrompt {
     const { actor, checkDetails, renderOptions } = options;
 
     const templateLocation = 'systems/bunkers-and-badasses/templates/dialog/check-difficulty.html';
-    const dialogHtmlContent = await renderTemplate(templateLocation, {
+    const dialogHtmlContent = await RenderTemplate(templateLocation, {
       bonusesTitle: checkDetails.bonusesTitle,
       attributes: actor.system.attributes,
       check: checkDetails.check,
@@ -205,7 +206,7 @@ export class ConfirmActionPrompt {
     const item = await Enricher.enrichItem(i);
 
     const templateLocation = "systems/bunkers-and-badasses/templates/dialog/use-action-skill.html";
-    const useActionSkillDialogContent = await renderTemplate(templateLocation, { item: item });
+    const useActionSkillDialogContent = await RenderTemplate(templateLocation, { item: item });
 
     this.useActionSkillDialog = new Dialog({
       title: `Activate Action Skill: ${item.name}`,
@@ -257,7 +258,7 @@ export class ConfirmActionPrompt {
     const isBadass = actor.system.attributes.badass.rollsEnabled;
     
     const templateLocation = 'systems/bunkers-and-badasses/templates/dialog/attack-confirmation.html';
-    const dialogHtmlContent = await renderTemplate(templateLocation, {
+    const dialogHtmlContent = await RenderTemplate(templateLocation, {
       type: "Gun",
       attack: attackValues,
       showGearMod: true,
@@ -365,7 +366,7 @@ export class ConfirmActionPrompt {
     };
 
     const templateLocation = 'systems/bunkers-and-badasses/templates/dialog/damage-confirmation.html';
-    const dialogHtmlContent = await renderTemplate(templateLocation, {
+    const dialogHtmlContent = await RenderTemplate(templateLocation, {
       perHitElements: perHitElements,
       perCritElements: perCritElements,
       hits: hits, crits: crits,
@@ -414,7 +415,7 @@ export class ConfirmActionPrompt {
     }
 
     const templateLocation = 'systems/bunkers-and-badasses/templates/dialog/damage-confirmation.html';
-    const dialogHtmlContent = await renderTemplate(templateLocation, {
+    const dialogHtmlContent = await RenderTemplate(templateLocation, {
       perHitElements: {},
       perCritElements: {},
       hits: 0, crits: 0,
@@ -456,7 +457,7 @@ export class ConfirmActionPrompt {
     };
 
     const templateLocation = 'systems/bunkers-and-badasses/templates/dialog/damage-confirmation.html';
-    const dialogHtmlContent = await renderTemplate(templateLocation, {
+    const dialogHtmlContent = await RenderTemplate(templateLocation, {
       perHitElements: {},
       perCritElements: {},
       hits: 0, crits: 0,
@@ -489,7 +490,7 @@ export class ConfirmActionPrompt {
     const { actor } = options;
 
     const templateLocation = 'systems/bunkers-and-badasses/templates/dialog/npc-attack-confirmation.html';
-    const dialogHtmlContent = await renderTemplate(templateLocation, { });
+    const dialogHtmlContent = await RenderTemplate(templateLocation, { });
 
     this.attack = new Dialog({
       title: "Attack",
@@ -520,7 +521,7 @@ export class ConfirmActionPrompt {
     const shouldDefaultWhisperGM = game.settings.get("bunkers-and-badasses", "npcActionsDefaultWhisper");
 
     const templateLocation = 'systems/bunkers-and-badasses/templates/dialog/post-npc-action-confirmation.html';
-    const dialogHtmlContent = await renderTemplate(templateLocation, {
+    const dialogHtmlContent = await RenderTemplate(templateLocation, {
       actorName: actor.name,
       actionName: actionObject?.name ?? "Action",
       whisperToggleId: `whisper-action-actor-${actor.id}-action-${options.dataset?.path}`,

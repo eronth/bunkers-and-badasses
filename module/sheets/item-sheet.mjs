@@ -1,10 +1,11 @@
 import { Enricher } from "../helpers/enricher.mjs";
+import { RenderTemplate, Sheets } from "../helpers/foundryAccessHelper.mjs";
 
 /**
  * Extend the basic ItemSheet with some very simple modifications
- * @extends {ItemSheet}
+ * @extends {Sheets.ItemSheet}
  */
-export class BNBItemSheet extends ItemSheet {
+export class BNBItemSheet extends Sheets.ItemSheet {
 
   /** @override */
   static get defaultOptions() {
@@ -196,7 +197,7 @@ export class BNBItemSheet extends ItemSheet {
     event.preventDefault();
 
     const templateLocation = 'systems/bunkers-and-badasses/templates/item/parts/damage-entry.html';
-    let htmlContent = await renderTemplate(templateLocation, {
+    let htmlContent = await RenderTemplate(templateLocation, {
         elements: this.item.system.elements,
       });
 

@@ -9,6 +9,8 @@
   {{!-- HP/Attack/Action Skill --}}
   <div class="flexrow">
     <div class="flexcol">
+      {{!-- Action Skill Region --}}
+      {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/action-components/action-skill-button.html" }}
       {{!-- Badass Region --}}
       <div class="flexcol badass-container">
         <div class="flexrow badass-entity-container">
@@ -25,7 +27,8 @@
           </div>
         </div>
         <div class="flexrow badass-entity-container">
-          <button class="btn btn-primary btn-badass-roll rollable" data-roll-type="badass-move"><i class="fa fa-dice-d20"></i> Badass Roll</button>
+          <button class="btn btn-primary btn-badass-roll rollable" 
+          data-roll-type="badass-move"><i class="fa fa-dice-d20"></i> Badass Roll</button>
           <div class="flexcol badass-check">
             <label>
               {{#if system.attributes.badass.rollsEnabled}}
@@ -37,29 +40,6 @@
             <a class="checkbox" title="Become Badass?" data-target="system.attributes.badass.rollsEnabled" data-item-target="system.equipped">
               {{#if system.attributes.badass.rollsEnabled}}<i class="far fa-check-square"></i>{{else}}<i class="far fa-square"></i></a>{{/if}}
             </a>
-          </div>
-        </div>
-      </div>
-      {{!-- Action Skill Region --}}
-      <div class="action-skill-container">
-        <div class="flexrow as-btn-inner-container action-skill">
-          <div></div>
-          <div class="flex-size-3">
-            <button class="btn btn-primary action-skill-button action-skill-use" data-item-id="{{actionSkillId}}">
-              <label>{{actionSkillName}}</label>
-            </button>
-          </div>
-          <div class="flexcol flex-size-2 uses-container cc2">
-            <div class="flexrow">
-              {{> "systems/bunkers-and-badasses/templates/general/divided-input.html"
-                id="action-skill"
-                targetObj=actionSkillUses targetText="system.class.actionSkill.uses"
-                leftDisable=false 
-                rightValueOverride=(adder system.bonus.class.actionSkill.uses.max actionSkillUses.max)
-                rightDisable=true
-              }}
-            </div>
-            <label class="check-num-label">uses</label>
           </div>
         </div>
       </div>
