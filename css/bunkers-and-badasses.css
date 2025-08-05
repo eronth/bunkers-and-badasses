@@ -1136,7 +1136,7 @@ input[type="time"]:focus {
   min-height: var(--height);
 }
 .enriched-region .editor {
-  --fill: 100%;
+  --fill: auto;
   height: var(--fill);
   max-height: var(--fill);
   width: var(--fill);
