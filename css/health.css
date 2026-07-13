@@ -80,6 +80,13 @@
   padding-right: 6px;
   padding-bottom: 6px;
 }
+.bnb .hp-container.hp-entry {
+  border-color: var(--hpEntryColor);
+}
+.bnb .hp-container.hp-entry .hp-title,
+.bnb .hp-container.hp-entry .rollable label {
+  color: var(--hpEntryColor);
+}
 .bnb .hp-set-btn,
 .bnb .hp-quick-regen-btn {
   max-height: 25px;

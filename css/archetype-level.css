@@ -36,6 +36,12 @@
   padding: 0;
   margin-left: 3px;
 }
+.level-details-container .level-detail-entry.hp-entry > label {
+  color: var(--hpEntryColor);
+}
+.level-details-container .level-detail-entry.hp-entry > input {
+  border-color: var(--hpEntryColor);
+}
 .level-details-container .level-detail-entry > input {
   padding: 0;
   text-align: center;
