@@ -39,7 +39,6 @@ export class PostToChat {
       flavor: flavorText,
       //type: CONST.CHAT_MESSAGE_STYLES.ROLL,
       roll: rollResult,
-      rollMode: CONFIG.Dice.rollModes.publicroll,
       content: chatHtmlContent,
       checkDetails: checkDetails,
       // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
@@ -63,7 +62,6 @@ export class PostToChat {
     rollResult.toMessage({
       speaker: ChatMessage.getSpeaker({ actor: actor }),
       flavor: label,
-      rollMode: game.settings.get('core', 'rollMode'),
     });
   }
 
@@ -89,7 +87,6 @@ export class PostToChat {
     rollResult.toMessage({
       speaker: ChatMessage.getSpeaker({ actor: actor }),
       flavor: label,
-      rollMode: game.settings.get('core', 'rollMode'),
     });
   }
 
@@ -123,7 +120,6 @@ export class PostToChat {
       flavor: flavorText,
       //type: CONST.CHAT_MESSAGE_STYLES.ROLL,
       roll: rollResult,
-      rollMode: CONFIG.Dice.rollModes.publicroll,
       content: chatHtmlContent,
       // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
       speaker: ChatMessage.getSpeaker(),
@@ -181,7 +177,6 @@ export class PostToChat {
       flavor: flavorText,
       //type: CONST.CHAT_MESSAGE_STYLES.ROLL,
       roll: rollResult,
-      rollMode: CONFIG.Dice.rollModes.publicroll,
       content: chatHtmlContent,
       // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
       speaker: ChatMessage.getSpeaker(),
@@ -248,7 +243,6 @@ export class PostToChat {
       flavor: flavorText,
       //type: CONST.CHAT_MESSAGE_STYLES.ROLL,
       roll: rollResult,
-      rollMode: CONFIG.Dice.rollModes.publicroll,
       content: chatHtmlContent,
       // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
       speaker: ChatMessage.getSpeaker(),
@@ -323,7 +317,6 @@ export class PostToChat {
       flavor: flavorText,
       //type: CONST.CHAT_MESSAGE_STYLES.ROLL,
       roll: rollResult,
-      rollMode: CONFIG.Dice.rollModes.publicroll,
       content: chatHtmlContent,
       // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
       speaker: ChatMessage.getSpeaker(),
@@ -365,7 +358,6 @@ export class PostToChat {
       flavor: flavorText,
       //type: CONST.CHAT_MESSAGE_STYLES.ROLL,
       roll: rollResult,
-      rollMode: CONFIG.Dice.rollModes.publicroll,
       content: chatHtmlContent,
       // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
       speaker: ChatMessage.getSpeaker(),
@@ -683,7 +675,6 @@ export class PostToChat {
       flavor: flavorText,
       //type: CONST.CHAT_MESSAGE_STYLES.ROLL,
       roll: rollResult,
-      rollMode: CONFIG.Dice.rollModes.publicroll,
       content: chatHtmlContent,
       // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
       speaker: ChatMessage.getSpeaker(),
@@ -728,7 +719,6 @@ export class PostToChat {
       flavor: flavorText,
       //type: CONST.CHAT_MESSAGE_STYLES.ROLL,
       roll: rollResult,
-      rollMode: CONFIG.Dice.rollModes.publicroll,
       // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
       speaker: ChatMessage.getSpeaker(),
     });

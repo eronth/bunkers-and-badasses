@@ -960,7 +960,6 @@ export class BNBActorSheet extends Sheets.ActorSheet {
       rollResult.toMessage({
         speaker: ChatMessage.getSpeaker({ actor: this.actor }),
         flavor: label,
-        rollMode: game.settings.get('core', 'rollMode'),
       });
       return rollResult;
     }
@@ -995,7 +994,6 @@ export class BNBActorSheet extends Sheets.ActorSheet {
       flavor: flavorText,
       //type: CONST.CHAT_MESSAGE_STYLES.ROLL,
       roll: rollResult,
-      rollMode: CONFIG.Dice.rollModes.publicroll,
       // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
       speaker: ChatMessage.getSpeaker(),
     }
