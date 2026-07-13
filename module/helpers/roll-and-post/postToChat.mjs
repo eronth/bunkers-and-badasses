@@ -295,7 +295,7 @@ export class PostToChat {
     parts[0].flavor = 'Grenade Toss';
 
     const templateLocation = 'systems/bunkers-and-badasses/templates/chat/check-roll.html';
-    const chatHtmlContent = await renderTemplate(templateLocation, {
+    const chatHtmlContent = await RenderTemplate(templateLocation, {
       actor: actor,
       item: item,
       checkType: `${item.name} Grenade Toss`,
@@ -338,7 +338,7 @@ export class PostToChat {
     });
 
     const templateLocation = 'systems/bunkers-and-badasses/templates/chat/damage-results.html';
-    const chatHtmlContent = await renderTemplate(templateLocation, {
+    const chatHtmlContent = await RenderTemplate(templateLocation, {
       actor: actor,
       item: item,
       isMelee: isMelee,
