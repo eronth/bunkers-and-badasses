@@ -18,51 +18,51 @@
   --xp-bar-background: #4b4347;
   
   /* Rarity colors */
-  --common: #a5a49f;
-  --uncommon: #0ea11f;
-  --rare: #00a0ff;
-  --epic: #7000a4;
-  --legendary: #ffa500;
+  --common:       oklch(58% 0.00714  97);
+  --uncommon:     oklch(58% 0.19858 143);
+  --rare:         oklch(58% 0.17693 246);
+  --epic:         oklch(58% 0.21569 308);
+  --legendary:    oklch(58% 0.17097  70);
   
   /* Element colors */
-  --kinetic: hsl(0, 0%, 30%);
-  --incendiary: rgb(213, 59, 49);
-  --corrosive: rgb(141, 157, 62);
-  --shock: rgb(113, 148, 205);
-  --explosive: rgb(234, 70, 134);
-  --radiation: rgb(228, 170, 22);
-  --cryo: rgb(18, 152, 185);
-  --incendiation: rgb(167, 78, 101);
-  --corroshock: rgb(73, 125, 135);
-  --crysplosive: rgb(115, 105, 160);
-  --plasma: rgb(195, 114, 8);
+  --kinetic:      oklch(55.024% 0.00005 271.152);
+  --incendiary:   oklch(60.205% 0.19247 28.34);
+  --corrosive:    oklch(60.362% 0.1215 117.913);
+  --shock:        oklch(60.338% 0.0941 259.922);
+  --explosive:    oklch(66.477% 0.2055 1.032);
+  --radiation:    oklch(66.171% 0.15468 83.12);
+  --cryo:         oklch(55.035% 0.11264 221.117);
+  --incendiation: oklch(54.188% 0.11917 5.582);
+  --corroshock:   oklch(55.724% 0.0577 211.297);
+  --crysplosive:  oklch(55.251% 0.08483 291.711);
+  --plasma:       oklch(62.792% 0.14135 62.847);
   
   /* Attack stats */
-  --hits: darkblue;
-  --crits: darkred;
+  --hits:              darkblue;
+  --crits:             darkred;
   
   /* Gear text */
-  --redText: darkred;
-  --anointText: hsl(330, 37%, 48%);
+  --redText:           darkred;
+  --anointText:        hsl(330, 37%, 48%);
   
   /* Health types */
-  --bone:             hsl(53, 100%, 95%);
-  --bone-high:        hsl(53, 100%, 95%);
-  --bone-low:         hsl(53, 15%, 55%);
-  --bone-light-icon:  hsl(0, 0%, 83%);
-  --bone-dark-icon:   hsl(0, 0%, 51%);
+  --bone:              hsl(53, 100%, 95%);
+  --bone-high:         hsl(53, 100%, 95%);
+  --bone-low:          hsl(53, 15%, 55%);
+  --bone-light-icon:   hsl(0, 0%, 83%);
+  --bone-dark-icon:    hsl(0, 0%, 51%);
 
-  --flesh:            hsl(0, 65%, 50%);
-  --flesh-high:       hsl(0, 65%, 50%);
-  --flesh-low:        hsl(0, 90%, 35%);
-  --flesh-light-icon: hsl(0, 92%, 48%);
-  --flesh-dark-icon:  hsl(353, 72%, 39%);
+  --flesh:             hsl(0, 65%, 50%);
+  --flesh-high:        hsl(0, 65%, 50%);
+  --flesh-low:         hsl(0, 90%, 35%);
+  --flesh-light-icon:  hsl(0, 92%, 48%);
+  --flesh-dark-icon:   hsl(353, 72%, 39%);
 
-  --armor:            hsl(50, 95%, 44%);
-  --armor-high:       hsl(50, 95%, 44%);
-  --armor-low:        hsl(53, 85%, 33%);
-  --armor-light-icon: hsl(52, 52%, 65%);
-  --armor-dark-icon:  hsl(53, 40%, 44%);
+  --armor:             hsl(50, 95%, 44%);
+  --armor-high:        hsl(50, 95%, 44%);
+  --armor-low:         hsl(53, 85%, 33%);
+  --armor-light-icon:  hsl(52, 52%, 65%);
+  --armor-dark-icon:   hsl(53, 40%, 44%);
 
   --shield:            hsl(181, 70%, 50%);
   --shield-high:       hsl(181, 70%, 50%);
@@ -76,7 +76,7 @@
   --eridian-light-icon:hsl(274, 99%, 58%);
   --eridian-dark-icon: hsl(274, 80%, 36%);
 
-  --brown-seventeen:  hsl(17, 17%, 17%);
+  --brown-seventeen:   hsl(17, 17%, 17%);
 
-  --isBadass:     hsl(3, 68%, 50%);
+  --isBadass:          hsl(3, 68%, 50%);
 }
