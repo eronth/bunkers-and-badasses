@@ -5,8 +5,11 @@
   {{!-- Sheet Header --}}
   <header class="sheet-header">
     {{!-- Icon --}}
-    <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
-    
+    <div class="portrait-column flexcol">
+      <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
+      <div class="portrait-filler"></div>
+    </div>
+
     <div class="header-fields">
       {{!-- Vault Hunter name --}}
       <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name"/></h1>
@@ -21,14 +24,16 @@
       
       {{!-- HP Components --}}
       {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/header/healths-block.html"}}
-      
-      
-      {{!-- Stat Components --}}
-      {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/header/stats-block.html"}}
 
     </div>
 
   </header>
+
+  {{!-- Stat Components --}}
+  <div class="sheet-header stats-bar">
+    {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/header/stats-block.html"}}
+  </div>
+
   {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/header/experience-bar.html" }}
   
   {{!-- Sheet Tab Navigation --}}

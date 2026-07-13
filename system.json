@@ -32,6 +32,8 @@
     "css/gear-bottom-texts.css",
     "css/health.css",
     "css/header/health.css",
+    "css/header/portrait.css",
+    "css/header/stats.css",
     "css/header/xp-bar.css",
     "css/archetype-level.css",
     "css/damage-prompt.css",

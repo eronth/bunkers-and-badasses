@@ -115,6 +115,8 @@ input[type="time"]:focus {
   flex: 0 0 100px;
   height: 100px;
   margin-right: 10px;
+  align-self: flex-start;
+  margin-top: 0;
 }
 
 .bnb .sheet-header .header-fields {
@@ -126,7 +128,7 @@ input[type="time"]:focus {
 .bnb .sheet-header h1.charname {
   height: 50px;
   padding: 0px;
-  margin: 5px 0;
+  margin: 0 0 5px;
   border-bottom: 0;
 }
 

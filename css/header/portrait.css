@@ -1,0 +1,59 @@
+.bnb {
+  .sheet-header .portrait-column {
+    flex: 0 0 100px;
+    align-self: stretch;
+    margin-right: 10px;
+    min-height: 0;
+
+    .profile-img {
+      flex: 0 0 100px;
+      width: 100px;
+      height: 100px;
+      margin-right: 0;
+    }
+
+    /* Grows to whatever room the health block leaves under the portrait,
+       and collapses to nothing when there is none. */
+    .portrait-filler {
+      position: relative;
+      flex: 1 1 0;
+      min-height: 0;
+      overflow: hidden;
+      border: 1px solid #b5b3a4;
+      border-top: 0;
+      background-color: rgba(var(--menu-tab-base-rgb), 0.12);
+      box-shadow: inset 0 3px 5px -3px rgba(0, 0, 0, 0.35);
+    }
+
+    /* Hazard stripes, faded out downward so the panel reads as a plate
+       that recedes rather than a broken image. */
+    .portrait-filler::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: repeating-linear-gradient(
+        -45deg,
+        rgba(var(--menu-tab-base-rgb), 0.65) 0 5px,
+        transparent 5px 12px
+      );
+      -webkit-mask-image: linear-gradient(to bottom, #000 0%, transparent 90%);
+      mask-image: linear-gradient(to bottom, #000 0%, transparent 90%);
+    }
+
+    /* Rivets in the corners plus a seam under the portrait frame. */
+    .portrait-filler::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(to right, transparent, var(--highlight-secondary), transparent),
+        radial-gradient(circle at 5px 6px, #6d6a5c 0 1.5px, transparent 1.5px),
+        radial-gradient(circle at calc(100% - 5px) 6px, #6d6a5c 0 1.5px, transparent 1.5px),
+        radial-gradient(circle at 5px calc(100% - 6px), #6d6a5c 0 1.5px, transparent 1.5px),
+        radial-gradient(circle at calc(100% - 5px) calc(100% - 6px), #6d6a5c 0 1.5px, transparent 1.5px);
+      background-size: 100% 1px, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+      background-repeat: no-repeat;
+      opacity: 0.75;
+    }
+  }
+}
