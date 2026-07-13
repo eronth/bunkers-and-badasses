@@ -73,8 +73,9 @@ input[type="time"]:focus {
 
 .gold-input {
   font-size: smaller;
-  justify-content: center;
   max-width: 70%;
+  justify-content: left;
+  padding-left: .75em;
 }
 .gold-input label{
   max-width: 40%;
