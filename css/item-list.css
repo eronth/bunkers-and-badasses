@@ -1,13 +1,3 @@
-.fvt, .flex-view-test {
-  border: 1px solid red;
-  margin: 0;
-  padding: 0;
-  margin-left: -1px;
-}
-.fvt:first, .flex-view-test:first {
-  margin-left: 0px;
-}
-
 .bnb .items-list .item-title .item-rarity,
 .bnb .items-list .item-title .item-subtype,
 .bnb .items-list .item-title .item-class {
