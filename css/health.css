@@ -105,6 +105,18 @@
     padding-left: 2px;
     padding-right: 6px;
     padding-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+
+    .hp-title-icon {
+      flex: 0 0 auto;
+      height: 16px;
+      width: 16px;
+      margin: 0;
+      border: 0;
+      padding: 0;
+    }
   }
 
   .hp-set-btn,
