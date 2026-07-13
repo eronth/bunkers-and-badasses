@@ -12,6 +12,7 @@ export default class ResourceTracker extends Application {
   static smallSizeTextHeightOffset = 6;
   static defaultHeight = 133;
   static defaultWidth = 227;
+  static controlTool = "bnb-resource-tracker";
 
   /**
    * Provide data to the HTML template for rendering
@@ -146,7 +147,34 @@ export default class ResourceTracker extends Application {
       hide: true,
     };
     game.settings.set("bunkers-and-badasses", "resourceTrackerToolPosition", position);
+    ResourceTracker.syncControlTool(false);
     super.close();
+  }
+
+  /**
+   * Show or hide the tracker, persisting the choice so it survives a refresh.
+   */
+  static setVisibility(visible) {
+    const position = {
+      ...game.settings.get("bunkers-and-badasses", "resourceTrackerToolPosition"),
+      hide: !visible,
+    };
+    // Must be stored before rendering, since render() bails out while hidden.
+    game.settings.set("bunkers-and-badasses", "resourceTrackerToolPosition", position);
+    visible ? game.tracker.render(true) : game.tracker.close();
+  }
+
+  /**
+   * Keep the scene control toggle pressed-state in step with the tracker when it is
+   * closed by something other than the toggle itself (such as its own close button).
+   */
+  static syncControlTool(active) {
+    const tool = ui.controls?.controls?.tokens?.tools?.[ResourceTracker.controlTool];
+    if (!tool) { return; }
+    tool.active = active;
+    ui.controls.element
+      ?.querySelector(`button.tool[data-tool="${ResourceTracker.controlTool}"]`)
+      ?.setAttribute("aria-pressed", active ? "true" : "false");
   }
 
   // ************************* GET SET ***************************
@@ -279,25 +307,20 @@ export default class ResourceTracker extends Application {
   }
 }
 
-Hooks.on("renderSceneControls", async (app, html, options) => {
-  const button = document.createElement("li");
-  button.innerHTML = `<button type="button" class="control ui-control layer icon fa-solid fa-input-numeric"
-    role="tab" data-action="control" data-control="resource-tracker" data-tooltip="Resource Tracker" 
-    aria-pressed="false" aria-label="Resource Tracker Controls" aria-controls="scene-controls-tools"></button>`;
-  
-  button.addEventListener("click", () => {
-    // Retain show/hide on refresh by storing in settings
-    const position = game.settings.get("bunkers-and-badasses", "resourceTrackerToolPosition");
-    position.hide = game.tracker.rendered;
-    game.settings.set("bunkers-and-badasses", "resourceTrackerToolPosition", position);
-    
-    game.tracker.rendered ? game.tracker.close() : game.tracker.render(true);
-  });
+Hooks.on("getSceneControlButtons", (controls) => {
+  const tools = controls.tokens?.tools;
+  if (!tools) { return; }
 
-  html.querySelector("menu#scene-controls-layers").append(button);
-
-  // Render the tracker if it was open on refresh
-  if (!game.settings.get("bunkers-and-badasses", "resourceTrackerToolPosition").hide) {
-    game.tracker.render(true);
+  tools[ResourceTracker.controlTool] = {
+    name: ResourceTracker.controlTool,
+    title: "Resource Tracker",
+    icon: "fa-solid fa-input-numeric",
+    order: Object.keys(tools).length,
+    toggle: true,
+    active: !ResourceTracker.getValue("resourceTrackerToolPosition").hide,
+    onChange: (event, active) => ResourceTracker.setVisibility(active),
   };
 });
+
+// Render the tracker if it was left open on refresh.
+Hooks.once("ready", () => game.tracker.render(true));
