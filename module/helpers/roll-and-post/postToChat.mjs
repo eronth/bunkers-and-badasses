@@ -394,7 +394,7 @@ export class PostToChat {
     const messageData = {
       user: game.user.id,
       speaker: ChatMessage.getSpeaker({ actor: actor }),
-      type: CONST.CHAT_MESSAGE_STYLES.IC,
+      style: CONST.CHAT_MESSAGE_STYLES.IC,
       // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
       speaker: ChatMessage.getSpeaker(),
       ...messageDetail
@@ -424,7 +424,7 @@ export class PostToChat {
       user: game.user.id,
       speaker: ChatMessage.getSpeaker({ actor: actor }),
       flavor: flavorText,
-      type: CONST.CHAT_MESSAGE_STYLES.IC,
+      style: CONST.CHAT_MESSAGE_STYLES.IC,
       // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
       speaker: ChatMessage.getSpeaker(),
       content: content,
@@ -706,7 +706,7 @@ export class PostToChat {
        speaker: ChatMessage.getSpeaker({ actor: actor }),
        flavor: flavorText,
        content: actionObject.description,
-       type: CONST.CHAT_MESSAGE_STYLES.IC,
+       style: CONST.CHAT_MESSAGE_STYLES.IC,
        // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
        speaker: ChatMessage.getSpeaker(),
      };
