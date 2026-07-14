@@ -567,14 +567,18 @@ export class BNBActorSheet extends Sheets.ActorSheet {
       else if (i.type === 'gun') {
 
         const damageElementsHtml = genericUtil.createGunDamagePerHitHtml({ elements: i.system.elements });
-        i.system.dmgPerHitHtml = (damageElementsHtml 
+        i.system.dmgPerHitHtml = (damageElementsHtml
           ? `${damageElementsHtml}<label class="element-damage-damage">per hit</label>`
           : '');
 
         const bonusDamageElementsHtml = genericUtil.createGunBonusDamageHtml({ elements: i.system.bonusElements });
-        i.system.bonusDamageHtml = (bonusDamageElementsHtml 
+        i.system.bonusDamageHtml = (bonusDamageElementsHtml
           ? bonusDamageElementsHtml + `<label class="element-damage-damage">bonus</label>`
           : '');
+
+        // The item list shows the dice on their own, without the trailing "per hit"/"bonus" labels.
+        i.system.dmgDiceHtml = damageElementsHtml;
+        i.system.bonusDiceHtml = bonusDamageElementsHtml;
         guns.push(i);
         if (i.system.equipped) { equippedGuns.push(i); }
       } else if (i.type === 'shield') {

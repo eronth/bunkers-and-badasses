@@ -407,6 +407,7 @@
     "gun": {
       "templates": ["base", "loot", "elemental"],
       "weilded": false,
+      "notes": "",
       "prefix": {
         "name": "",
         "effects": ""

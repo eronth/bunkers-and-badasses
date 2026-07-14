@@ -63,6 +63,7 @@
       "systems/bunkers-and-badasses/templates/item/parts/elemental-value-input.html",
     "systems/bunkers-and-badasses/templates/item/parts/gun-type-dropdown.html",
     "systems/bunkers-and-badasses/templates/item/parts/health-type-dropdown.html",
+    "systems/bunkers-and-badasses/templates/item/parts/notes.html",
     "systems/bunkers-and-badasses/templates/item/parts/red-text.html",
     "systems/bunkers-and-badasses/templates/item/parts/anointment.html",
 

@@ -82,6 +82,8 @@ export class HandlebarsHelperUtil {
       }
     );
 
+    Handlebars.registerHelper('isPositive', (value) => (value >= 0));
+
     Handlebars.registerHelper('listIsEmpty', (list) => {
         return (list == null || list.length == 0);
       }

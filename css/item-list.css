@@ -166,33 +166,60 @@
 
 
 
-.bnb .item-list-component .item-details .gun-row .critshits-icon {
-  border: 0;
-  height: 12px;
-  padding-right: 2px;
-}
-.bnb .item-list-component .item-details .gun-row label {
-  padding: 0px 2px;
-}
-.bnb .item-list-component .item-details .remaining-gun-details {
-  max-width: 85%;
-  margin-left: 6px;
-}
-.bnb .item-list-component .item-details .gun-row-crits {
-  color: darkred;
-  font-weight: bold;
-  align-self: center;
-}
-.bnb .item-list-component .item-details .gun-row-hits {
-  color: darkblue;
-  font-weight: bold; 
-  align-self: center;
+/* ---------------------------------------------------------------------------
+   Gun row (collapsed)
+   --------------------------------------------------------------------------- */
+.bnb .item-list-component .item-details .gun-detail {
+  align-items: center;
+  gap: 10px;
 }
 
-.bnb .item-list-component .item-details .damage-per-hit-and-bonus-damage-in-between {
-  margin: 3px;
-  margin-top: 0;
-  margin-bottom: 0;
+/* Hits and crits are two rows on one grid, so the figures stay in fixed columns
+   and line up as you scan down the list — even when a value hits two digits. */
+.bnb .item-list-component .item-details .gun-accuracy-mini {
+  display: grid;
+  grid-template-columns: auto repeat(3, 1.15em);
+  align-items: center;
+  gap: 1px 5px;
+  flex: 0 0 auto;
+  font-size: 13px;
+  font-weight: bold;
+  line-height: 1.3;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.bnb .item-list-component .item-details .accuracy-mini-icon {
+  width: 13px;
+  height: 13px;
+  border: 0;
+  margin-right: 1px;
+}
+.bnb .item-list-component .item-details .accuracy-mini-hit { color: var(--hits); }
+.bnb .item-list-component .item-details .accuracy-mini-crit { color: var(--crits); }
+
+.bnb .item-list-component .item-details .gun-detail-damage {
+  min-width: 0;
+  justify-content: center;
+}
+.bnb .item-list-component .item-details .gun-damage-line {
+  display: flex;
+  align-items: baseline;
+  gap: 3px;
+  font-size: 13px;
+  font-weight: bold;
+  line-height: 1.25;
+}
+.bnb .item-list-component .item-details .gun-damage-plus {
+  color: #9a9280;
+  font-weight: normal;
+}
+.bnb .item-list-component .item-details .gun-detail-subline {
+  font-size: 11px;
+  color: #6b6455;
+  line-height: 1.3;
+}
+.bnb .item-list-component .item-details .gun-subline-dot {
+  color: #b3ab95;
 }
 
 .bnb .items-list .items-header .skill-level {
@@ -430,4 +457,65 @@
   text-align: center;
   font-style: italic;
   color: grey;
+}
+/* ---------------------------------------------------------------------------
+   Item card rarity treatment
+   --rarityColor comes in per-item from the template. Items without a rarity
+   fall back to a neutral, so the glow still works on them.
+   --------------------------------------------------------------------------- */
+.bnb .items-list .item-dropdown-group {
+  --rarity-glow: var(--rarityColor, #8a8578);
+  background: linear-gradient(90deg,
+    color-mix(in oklab, var(--rarity-glow) 12%, transparent),
+    transparent 38%);
+  transition: background 160ms ease-out, box-shadow 160ms ease-out;
+}
+
+/* Video-game inventory hover: the card brightens and picks up a soft rarity
+   glow, then breathes. Subtle on purpose — this is a list you scan, not a menu
+   you stare at. */
+.bnb .items-list .item-dropdown-group:hover {
+  background: linear-gradient(90deg,
+    color-mix(in oklab, var(--rarity-glow) 26%, transparent),
+    color-mix(in oklab, var(--rarity-glow) 4%, transparent) 60%,
+    transparent);
+  animation: bnb-rarity-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes bnb-rarity-pulse {
+  0%, 100% {
+    box-shadow:
+      inset 2px 0 0 color-mix(in oklab, var(--rarity-glow) 55%, transparent),
+      0 0 4px -1px color-mix(in oklab, var(--rarity-glow) 30%, transparent);
+  }
+  50% {
+    box-shadow:
+      inset 2px 0 0 color-mix(in oklab, var(--rarity-glow) 90%, transparent),
+      0 0 9px 0 color-mix(in oklab, var(--rarity-glow) 55%, transparent);
+  }
+}
+
+/* Once the dropdown is open you're reading it, so hold the glow still. */
+.bnb .items-list .item-dropdown-group.expanded:hover {
+  animation: none;
+  box-shadow:
+    inset 2px 0 0 color-mix(in oklab, var(--rarity-glow) 75%, transparent),
+    0 0 6px -1px color-mix(in oklab, var(--rarity-glow) 40%, transparent);
+}
+
+/* Keep the glow, drop the breathing. */
+@media (prefers-reduced-motion: reduce) {
+  .bnb .items-list .item-dropdown-group:hover {
+    animation: none;
+    box-shadow:
+      inset 2px 0 0 color-mix(in oklab, var(--rarity-glow) 75%, transparent),
+      0 0 6px -1px color-mix(in oklab, var(--rarity-glow) 40%, transparent);
+  }
+}
+
+/* The empty-list placeholder is not an item; it should not light up. */
+.bnb .items-list .item-dropdown-group.no-items:hover {
+  background: none;
+  animation: none;
+  box-shadow: none;
 }

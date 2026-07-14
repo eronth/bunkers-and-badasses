@@ -125,101 +125,250 @@ a#submit { z-index: 1; }
   padding-bottom: 5px;
 }
 
-.bnb .items-list .item-dropdown-group .item-dropdown-body .icons-container {
-  margin-top: -24px;
-}
-.bnb .items-list .item-dropdown-group .item-dropdown-body .gun-icon {
-  border: 0;
-}
-
-.bnb .items-list .item-dropdown-group .item-dropdown-body .hits-and-crits-container .hits-icon {
-  border: 0;
-}
-.bnb .items-list .item-dropdown-group .item-dropdown-body .hits-and-crits-container .crits-icon {
-  border: 0;
+/* ---------------------------------------------------------------------------
+   Gun dropdown
+   The rarity color arrives as --rarityColor on the item's <li>.
+   --------------------------------------------------------------------------- */
+.bnb .items-list .item-dropdown-group .gun-dropdown {
+  padding-bottom: 6px;
+  background: linear-gradient(180deg,
+    color-mix(in oklab, var(--rarityColor) 8%, transparent),
+    transparent 70px);
 }
 
-.bnb .items-list .item-dropdown-group .item-dropdown-body .hits-and-crits-container .crit-hit.title {
-  align-self: center;
-  text-align: center;
-  z-index: 5;
-}
-.bnb .items-list .item-dropdown-group .item-dropdown-body .hits-and-crits-container .crit-hit-acc.title {
-  text-align: left;
-  text-align-last: left;
-}
-.bnb .items-list .item-dropdown-group .item-dropdown-body .hits-and-crits-container .crit-hit-acc.detail {
-  font-size: smaller;
+/* Accuracy table takes the width; the aside is capped so it can't crowd it. */
+.bnb .items-list .item-dropdown-group .gun-dropdown-top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(150px, 60%);
+  align-items: stretch;
+  gap: 6px;
+  margin-bottom: 6px;
 }
 
-.bnb .items-list .item-dropdown-group .item-dropdown-body .hits-and-crits-container .crit-hit.hit.detail {
-  text-align: center;
-  color: var(--hits);
-}
-.bnb .items-list .item-dropdown-group .item-dropdown-body .hits-and-crits-container .crit-hit.crit.detail {
-  text-align: center;
-  color: var(--crits);
+.bnb .items-list .item-dropdown-group .gun-accuracy-table {
+  width: 100%;
+  /* height lets the rows absorb whatever the aside is taller by, so no gap opens up */
+  height: 100%;
+  border-collapse: collapse;
+  background: rgb(255 255 255 / 0.5);
+  border: 1px solid #d9d3bf;
+  border-radius: 3px;
+  font-variant-numeric: tabular-nums;
+
+  thead {
+    text-shadow: 0 0 BLACK;
+    background: rgb(2 2 2 / 0.1);
+
+    th {
+      font-size: 10px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: #8d8574;
+      border-bottom: 1px solid #ddd7c3;
+    }
+  }
+
+  th,
+  td {
+    padding: 2px 8px;
+    text-align: center;
+
+    &:first-child {
+      text-align: left;
+    }
+
+    &.hit { color: var(--hits); }
+      
+    &.crit { color: var(--crits); }
+  }
+  .accuracy-swatch {
+    display: inline-block;
+    width: 9px;
+    height: 9px;
+    margin-right: 4px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+  tbody td {
+    font-size: 17px;
+    font-weight: bold;
+    line-height: 1.4;
+  }
+  tbody tr + tr td {
+    border-top: 1px solid #e8e3d1;
+  }
+  td.accuracy-band {
+    font-size: 12px;
+    font-weight: normal;
+    color: #6b6455;
+  }
 }
 
-.bnb .items-list .item-dropdown-group .item-dropdown-body .hits-and-crits-container {
-  margin-left: 5px;
-  margin-right: 8px;
-  border: 1px solid darkgrey;
-  border-radius: 7px;
-  padding: 3px;
-  padding-left: 4px;
-  font-size: 16px;
+/* Specs: three across, so five of them land in two rows. */
+.bnb .items-list .item-dropdown-group dl.gun-spec-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  margin: 0;
+  border: 1px solid #d9d3bf;
+  border-radius: 3px;
+  overflow: hidden;
+  
+  .gun-spec {
+    padding: 2px 8px;
+    background: rgb(255 255 255 / 0.55);
+  
+    /* A gun may have any number of specs, so the last one widens to fill out its row.
+       Otherwise the empty cell shows the grid's gap color as a dark notch. */
+    &:last-child:nth-child(3n + 1) { grid-column: span 3; }
+    &:last-child:nth-child(3n + 2) { grid-column: span 2; }
+    dt {
+      margin: 0;
+      font-size: 9px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: #8d8574;
+      text-shadow: 0 0 BLACK;
+    }
+  
+    dd {
+      margin: 0;
+      font-size: 13px;
+      font-weight: bold;
+      font-variant-numeric: tabular-nums;
+    }
+  }
 }
 
-
-
-.bnb .items-list .item-dropdown-group .item-dropdown-body .hits-and-crits-container .crit-hit.hit.title,
-.bnb .items-list .item-dropdown-group .item-dropdown-body .hits-and-crits-container .crit-hit.crit.title {
-  position: relative; /* Establish a stacking context */
-  z-index: 3; /* Bring the text to the foreground */
-  font-size: 10px;
-  color: white;
-}
-
-.bnb .items-list .item-dropdown-group .item-dropdown-body .hits-and-crits-container .crit-hit-label-icon {
-  position: relative;
-  text-align: center;
-}
-
-.bnb .items-list .item-dropdown-group .item-dropdown-body .hits-and-crits-container .hits-icon,
-.bnb .items-list .item-dropdown-group .item-dropdown-body .hits-and-crits-container .crits-icon {
-  --side-length: 31px;
-  position: absolute;
-  top: -4px;
-  left: calc(50% - var(--side-length) / 2);
-  width: var(--side-length);
-  height: var(--side-length);
-  z-index: 1; 
-}
-.bnb .items-list .item-dropdown-group .item-dropdown-body .hits-and-crits-container .crit-hit-top-row {
-  margin-top: 6px;
-}
-
-.bnb .items-list .item-dropdown-group .item-dropdown-body .gun-detail-descriptions label.header {
-  font-size: 16px;
-}
-
-.bnb .items-list .item-dropdown-group .item-dropdown-body .gun-detail-descriptions {
+/* Stat mods, tinted by sign so a penalty reads without being read. */
+.bnb .items-list .item-dropdown-group .gun-stat-mods {
   display: flex;
   flex-wrap: wrap;
+  margin-top: 5px;
+  margin-inline: .5em;
+  gap: 4px;
+  justify-content: space-evenly;
 }
-.bnb .items-list .item-dropdown-group .item-dropdown-body .gun-detail-descriptions > div.various-gun-info {
-  flex: 1 1 auto;
-  align-self: start;
-}
-.bnb .items-list .item-dropdown-group .item-dropdown-body .gun-damage-container {
-  margin-bottom: 5px;
-}
-.bnb .items-list .item-dropdown-group .item-dropdown-body .stat-mod-container {
-  margin-top: 10px;
+.bnb .items-list .item-dropdown-group .gun-stat-chip {
+  padding: 1px 8px;
+  border: 1px solid #cfc8b2;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.6);
+  font-size: 11px;
   font-weight: bold;
-  text-align: center;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
-.bnb .items-list .item-dropdown-group .item-dropdown-body .gun-damage-container .damage-container {
-  margin-left: 7px;
+.bnb .items-list .item-dropdown-group .gun-stat-chip.positive {
+  color: oklch(45% 0.13 150);
+  border-color: oklch(45% 0.13 150 / 0.38);
+  background: oklch(45% 0.13 150 / 0.08);
+}
+.bnb .items-list .item-dropdown-group .gun-stat-chip.negative {
+  color: oklch(45% 0.16 25);
+  border-color: oklch(45% 0.16 25 / 0.38);
+  background: oklch(45% 0.16 25 / 0.08);
+}
+
+/* Damage: one full-width row, the loudest thing in the dropdown. */
+.bnb .items-list .item-dropdown-group .gun-damage-strip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 16px;
+  margin: 6px 0;
+  padding: 4px 10px;
+  background: rgba(0, 0, 0, 0.05);
+  border-left: 3px solid var(--rarityColor);
+  border-radius: 2px;
+}
+.bnb .items-list .item-dropdown-group .gun-damage-unit {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+.bnb .items-list .item-dropdown-group .gun-damage-tag {
+  font-size: 9px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #857d6b;
+  white-space: nowrap;
+}
+.bnb .items-list .item-dropdown-group .gun-damage-value {
+  font-size: 18px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+.bnb .items-list .item-dropdown-group .gun-damage-value .element-damage-icon {
+  height: 1em;
+}
+.bnb .items-list .item-dropdown-group .gun-damage-separator {
+  font-size: 15px;
+  color: #b5ad99;
+}
+
+/* Every block of the gun's own text gets the same treatment, wrapping as a row. */
+.bnb .items-list .item-dropdown-group .gun-sections {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.bnb .items-list .item-dropdown-group .gun-section {
+  flex: 1 1 150px;
+  min-width: 0;
+  padding: 2px 7px 3px;
+  background: rgba(255, 255, 255, 0.42);
+  border: 1px solid #e2dcc8;
+  border-radius: 3px;
+}
+.bnb .items-list .item-dropdown-group .gun-dropdown-aside .gun-section {
+  margin-top: 5px;
+}
+.bnb .items-list .item-dropdown-group .gun-section > h4 {
+  margin: 0;
+  border: 0;
+  font-size: 9px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #8d8574;
+}
+.bnb .items-list .item-dropdown-group .gun-section .gun-section-name {
+  color: var(--rarityColor);
+}
+.bnb .items-list .item-dropdown-group .gun-section > div,
+.bnb .items-list .item-dropdown-group .gun-section p {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.38;
+}
+.bnb .items-list .item-dropdown-group .gun-section.flavor > div {
+  font-style: italic;
+  color: #5f5849;
+}
+
+/* Red text and its effect are a quote and its rules text — one card. */
+.bnb .items-list .item-dropdown-group .gun-red-text-card {
+  margin-top: 6px;
+  padding: 3px 9px 4px;
+  border: 1px solid color-mix(in oklab, var(--redText) 35%, transparent);
+  border-left: 3px solid var(--redText);
+  border-radius: 2px;
+  background: color-mix(in oklab, var(--redText) 6%, transparent);
+}
+.bnb .items-list .item-dropdown-group .gun-red-text-card .red-text {
+  margin: 0;
+  text-align: left;
+  font-size: 13px;
+}
+.bnb .items-list .item-dropdown-group .gun-red-text-card .red-text-notes {
+  padding-bottom: 0;
+  font-size: 12px;
+  color: #6a5252;
+}
+.bnb .items-list .item-dropdown-group .gun-red-text-card .red-text-notes p {
+  margin: 0;
 }

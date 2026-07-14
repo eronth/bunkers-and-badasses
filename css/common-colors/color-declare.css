@@ -46,17 +46,17 @@
   --anointText:        hsl(330, 37%, 48%);
   
   /* Health types */
-  --bone:              hsl(53, 100%, 95%);
-  --bone-high:         hsl(53, 100%, 95%);
-  --bone-low:          hsl(53, 15%, 55%);
-  --bone-light-icon:   hsl(0, 0%, 83%);
-  --bone-dark-icon:    hsl(0, 0%, 51%);
+  --bone:              oklch(98.732% 0.03008 100.899);
+  --bone-high:         oklch(98.732% 0.03008 100.899);
+  --bone-low:          oklch(67.826% 0.04244 101.163);
+  --bone-light-icon:   oklch(86.995% 0.0001 271.152);
+  --bone-dark-icon:    oklch(60.662% 0.00007 271.152);
 
-  --flesh:             hsl(0, 65%, 50%);
-  --flesh-high:        hsl(0, 65%, 50%);
-  --flesh-low:         hsl(0, 90%, 35%);
-  --flesh-light-icon:  hsl(0, 92%, 48%);
-  --flesh-dark-icon:   hsl(353, 72%, 39%);
+  --flesh:             oklch(56.444% 0.20089 26.543);
+  --flesh-high:        oklch(56.444% 0.20089 26.543);
+  --flesh-low:         oklch(46.668% 0.18686 28.685);
+  --flesh-light-icon:  oklch(59.253% 0.23995 28.928);
+  --flesh-dark-icon:   oklch(48.091% 0.17608 21.731);
 
   --armor:             hsl(50, 95%, 44%);
   --armor-high:        hsl(50, 95%, 44%);
