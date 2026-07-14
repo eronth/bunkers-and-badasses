@@ -25,6 +25,7 @@
     "systems/bunkers-and-badasses/templates/actor/parts/vh/action-components/action-skill-button.html",
     "systems/bunkers-and-badasses/templates/actor/parts/vh/action-components/hp-display-block.html",
     "systems/bunkers-and-badasses/templates/actor/parts/npc/action-components/action-block.html",
+    "systems/bunkers-and-badasses/templates/actor/parts/vh/action-components/attack-stat-chip.html",
     "systems/bunkers-and-badasses/templates/actor/parts/vh/action-components/attacks-block-component.html",
     "systems/bunkers-and-badasses/templates/actor/parts/vh/action-components/attack-component.html",
     "systems/bunkers-and-badasses/templates/actor/parts/vh/action-components/gun-attack-component.html",
