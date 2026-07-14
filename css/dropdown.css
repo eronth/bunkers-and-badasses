@@ -149,6 +149,11 @@ a#submit { z-index: 1; }
   width: 100%;
   /* height lets the rows absorb whatever the aside is taller by, so no gap opens up */
   height: 100%;
+  /* Foundry's core sheet puts a vertical margin on every <table>. Left alone it
+     offsets the table inside its grid cell while height:100% keeps it full-height,
+     so the bottom hangs out over the damage strip. */
+  margin: 0;
+  box-sizing: border-box;
   border-collapse: collapse;
   background: rgb(255 255 255 / 0.5);
   border: 1px solid #d9d3bf;
@@ -182,13 +187,21 @@ a#submit { z-index: 1; }
       
     &.crit { color: var(--crits); }
   }
-  .accuracy-swatch {
-    display: inline-block;
-    width: 9px;
-    height: 9px;
-    margin-right: 4px;
-    border-radius: 50%;
-    background: currentColor;
+  /* The icon is taller than the 10px uppercase label, so baseline alignment
+     kicks it up out of the line box. Centering them against each other in a
+     flex line is the only thing that holds at any font size. The <th> itself
+     has to stay a table-cell or the column would stop tracking the body. */
+  .accuracy-heading {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .accuracy-icon {
+    /* Foundry's core sheet styling puts a border on every img. */
+    border: 0;
+    flex: none;
+    width: 13px;
+    height: 13px;
   }
   tbody td {
     font-size: 17px;

@@ -7,8 +7,18 @@
       <thead>
         <tr>
           <th>Accuracy</th>
-          <th class="hit"><span class="accuracy-swatch"></span>Hits</th>
-          <th class="crit"><span class="accuracy-swatch"></span>Crits</th>
+          <th class="hit">
+            <span class="accuracy-heading">
+              <img class="accuracy-icon" alt="" aria-hidden="true"
+                src="systems/bunkers-and-badasses/assets/weapons/hits.png" />Hits
+            </span>
+          </th>
+          <th class="crit">
+            <span class="accuracy-heading">
+              <img class="accuracy-icon" alt="" aria-hidden="true"
+                src="systems/bunkers-and-badasses/assets/weapons/crits.png" />Crits
+            </span>
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -50,6 +60,13 @@
         {{/if}}
       </dl>
 
+      {{#if item.system.effect}}
+      <div class="gun-section">
+        <h4>Gun Info</h4>
+        <div>{{{item.system.enriched.effect}}}</div>
+      </div>
+      {{/if}}
+
       <div class="gun-stat-mods">
         {{#if item.system.statMods.acc}}
         <span class="gun-stat-chip {{#if (isPositive item.system.statMods.acc)}}positive{{else}}negative{{/if}}">
@@ -72,13 +89,6 @@
         </span>
         {{/if}}
       </div>
-
-      {{#if item.system.effect}}
-      <div class="gun-section">
-        <h4>Gun Info</h4>
-        <div>{{{item.system.enriched.effect}}}</div>
-      </div>
-      {{/if}}
     </div>
   </div>
 
