@@ -106,7 +106,6 @@ input[type="time"]:focus {
   -webkit-box-pack: start;
   -ms-flex-pack: start;
   justify-content: flex-start;
-  margin-bottom: 5px;
 }
 
 .bnb .sheet-header .profile-img {
@@ -135,7 +134,6 @@ input[type="time"]:focus {
 .bnb .abilities {
   justify-content: center;
   align-items: center;
-  margin-top: -1px;
 }
 .bnb .abilities .ability {
   border: 1px solid #b5b3a4;

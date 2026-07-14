@@ -43,12 +43,16 @@
   .npc .healths-container {
     background-color: #c3c3c3;
     border-radius: 10px;
+    margin-bottom: 2px;
   }
 
   .healths-container {
     border: 1px solid #c9c7b8;
     margin-top: 3px;
-    margin-bottom: 2px;
+  }
+
+  .vault.hunter .healths-container {
+    border-bottom: 0;
   }
 
   .healths {
