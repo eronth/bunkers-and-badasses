@@ -165,6 +165,17 @@ export class OnActionUtil {
     this.onOldArchetypeRewardDelete(event, actor);
   }
 
+  // Rewards can end up pointing at an archetype the character doesn't have, which
+  // hides them from the sheet entirely. This drops them back onto a real archetype.
+  static async onArchetypeRewardReassign(event, actor) {
+    event.stopPropagation();
+    const archetypeNum = event.currentTarget.dataset.archetypeNumber;
+    const li = $(event.currentTarget).parents(".item-element-group");
+    const item = actor.items.get(li.data("itemId"));
+
+    return await item.update({"system.archetypeNumber": archetypeNum});
+  }
+
   static async onOldArchetypeRewardDelete(event, actor) {
     // Pull data from event.
     const archetypeNum = event.currentTarget.dataset.archetypeNumber;
