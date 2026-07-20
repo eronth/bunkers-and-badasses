@@ -107,10 +107,9 @@
     </div>
     {{/if}}
     {{#if item.system.bonusCritDmg}}
-    <span class="gun-damage-separator">+</span>
     <div class="gun-damage-unit">
-      <span class="gun-damage-value">{{item.system.bonusCritDmg}}</span>
-      <span class="gun-damage-tag">On crit</span>
+      <span class="gun-damage-value">{{addPlusIfPositive item.system.bonusCritDmg}}</span>
+      <span class="gun-damage-tag">On nat 20</span>
     </div>
     {{/if}}
   </div>
