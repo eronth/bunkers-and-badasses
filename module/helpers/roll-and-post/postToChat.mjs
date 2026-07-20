@@ -388,7 +388,6 @@ export class PostToChat {
       speaker: ChatMessage.getSpeaker({ actor: actor }),
       style: CONST.CHAT_MESSAGE_STYLES.IC,
       // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
-      speaker: ChatMessage.getSpeaker(),
       ...messageDetail
     };
 
@@ -418,7 +417,6 @@ export class PostToChat {
       flavor: flavorText,
       style: CONST.CHAT_MESSAGE_STYLES.IC,
       // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
-      speaker: ChatMessage.getSpeaker(),
       content: content,
     }
 
@@ -719,8 +717,7 @@ export class PostToChat {
       flavor: flavorText,
       //type: CONST.CHAT_MESSAGE_STYLES.ROLL,
       roll: rollResult,
-      // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
-      speaker: ChatMessage.getSpeaker(),
+       // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
     });
   }
 }
