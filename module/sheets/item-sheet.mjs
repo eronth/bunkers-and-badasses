@@ -220,7 +220,7 @@ export class BNBItemSheet extends Sheets.ItemSheet {
 
   _onCheckboxToggleClick(event) {
     const targetKey = $(event.currentTarget).attr("data-item-target");
-    const currentValue = getProperty(this.item, targetKey);
+    const currentValue = foundry.utils.getProperty(this.item, targetKey);
     return this.item.update({ [targetKey]: !currentValue });
   }
 

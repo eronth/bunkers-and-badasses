@@ -25,6 +25,7 @@
     "systems/bunkers-and-badasses/templates/actor/parts/vh/action-components/action-skill-button.html",
     "systems/bunkers-and-badasses/templates/actor/parts/vh/action-components/hp-display-block.html",
     "systems/bunkers-and-badasses/templates/actor/parts/npc/action-components/action-block.html",
+    "systems/bunkers-and-badasses/templates/actor/parts/vh/action-components/attack-stat-chip.html",
     "systems/bunkers-and-badasses/templates/actor/parts/vh/action-components/attacks-block-component.html",
     "systems/bunkers-and-badasses/templates/actor/parts/vh/action-components/attack-component.html",
     "systems/bunkers-and-badasses/templates/actor/parts/vh/action-components/gun-attack-component.html",
@@ -62,6 +63,7 @@
       "systems/bunkers-and-badasses/templates/item/parts/elemental-value-input.html",
     "systems/bunkers-and-badasses/templates/item/parts/gun-type-dropdown.html",
     "systems/bunkers-and-badasses/templates/item/parts/health-type-dropdown.html",
+    "systems/bunkers-and-badasses/templates/item/parts/notes.html",
     "systems/bunkers-and-badasses/templates/item/parts/red-text.html",
     "systems/bunkers-and-badasses/templates/item/parts/anointment.html",
 

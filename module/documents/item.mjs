@@ -35,14 +35,12 @@ export class BNBItem extends Item {
   async roll() {
     // Initialize chat data.
     const speaker = ChatMessage.getSpeaker({ actor: this.actor });
-    const rollMode = game.settings.get('core', 'rollMode');
     const label = `[${this.type}] ${this.name}`;
 
     // If there's no roll data, send a chat message.
     if (!this.system.formula) {
       ChatMessage.create({
         speaker: speaker,
-        rollMode: rollMode,
         flavor: label,
         content: this.system.description ?? ''
       });
@@ -56,7 +54,6 @@ export class BNBItem extends Item {
       const roll = await new Roll(rollData.item.formula, rollData).roll();
       roll.toMessage({
         speaker: speaker,
-        rollMode: rollMode,
         flavor: label,
       });
       return roll;

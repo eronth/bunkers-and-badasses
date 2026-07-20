@@ -62,10 +62,10 @@ export class OnActionUtil {
     if (target == "item") {
       target = $(event.currentTarget).attr("data-item-target")
       const item = actor.items.get($(event.currentTarget).parents(".item").attr("data-item-id"))
-      return item.update({ [`${target}`]: !getProperty(item.system, target) })
+      return item.update({ [`${target}`]: !foundry.utils.getProperty(item, target) })
     }
     if (target)
-      return actor.update({[`${target}`] : !getProperty(actor.system, target)});
+      return actor.update({[`${target}`] : !foundry.utils.getProperty(actor, target)});
   }
 
   static onCheckboxClick(event, actor) {
@@ -73,10 +73,10 @@ export class OnActionUtil {
     if (target == "item") {
       target = $(event.currentTarget).attr("data-item-target")
       let item = actor.items.get($(event.currentTarget).parents(".item").attr("data-item-id"))
-      return item.update({ [`${target}`]: !getProperty(item, target) })
+      return item.update({ [`${target}`]: !foundry.utils.getProperty(item, target) })
     }
     if (target)
-      return actor.update({[`${target}`] : !getProperty(actor, target)});
+      return actor.update({[`${target}`] : !foundry.utils.getProperty(actor, target)});
   }
 
   static async onActionSkillUse(options) {
@@ -163,6 +163,17 @@ export class OnActionUtil {
     // Create item for use.
     const newArchetypeLevelItem = await Item.create(newArchetypeLevelData, { parent: actor });
     this.onOldArchetypeRewardDelete(event, actor);
+  }
+
+  // Rewards can end up pointing at an archetype the character doesn't have, which
+  // hides them from the sheet entirely. This drops them back onto a real archetype.
+  static async onArchetypeRewardReassign(event, actor) {
+    event.stopPropagation();
+    const archetypeNum = event.currentTarget.dataset.archetypeNumber;
+    const li = $(event.currentTarget).parents(".item-element-group");
+    const item = actor.items.get(li.data("itemId"));
+
+    return await item.update({"system.archetypeNumber": archetypeNum});
   }
 
   static async onOldArchetypeRewardDelete(event, actor) {

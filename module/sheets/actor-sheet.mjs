@@ -567,14 +567,18 @@ export class BNBActorSheet extends Sheets.ActorSheet {
       else if (i.type === 'gun') {
 
         const damageElementsHtml = genericUtil.createGunDamagePerHitHtml({ elements: i.system.elements });
-        i.system.dmgPerHitHtml = (damageElementsHtml 
+        i.system.dmgPerHitHtml = (damageElementsHtml
           ? `${damageElementsHtml}<label class="element-damage-damage">per hit</label>`
           : '');
 
         const bonusDamageElementsHtml = genericUtil.createGunBonusDamageHtml({ elements: i.system.bonusElements });
-        i.system.bonusDamageHtml = (bonusDamageElementsHtml 
+        i.system.bonusDamageHtml = (bonusDamageElementsHtml
           ? bonusDamageElementsHtml + `<label class="element-damage-damage">bonus</label>`
           : '');
+
+        // The item list shows the dice on their own, without the trailing "per hit"/"bonus" labels.
+        i.system.dmgDiceHtml = damageElementsHtml;
+        i.system.bonusDiceHtml = bonusDamageElementsHtml;
         guns.push(i);
         if (i.system.equipped) { equippedGuns.push(i); }
       } else if (i.type === 'shield') {
@@ -624,14 +628,14 @@ export class BNBActorSheet extends Sheets.ActorSheet {
     // My code is a disaster and so am I.
     const archetype1Levels = [];
     const archetype2Levels = [];
-    const unbouncArchetypeLevels = [];
+    const unboundArchetypeLevels = [];
     for (let level of archetypeLevels) {
       if (level.system.archetypeNumber == '1') {
         archetype1Levels.push(level);
       } else if (level.system.archetypeNumber == '2') {
         archetype2Levels.push(level);
       } else {
-        unbouncArchetypeLevels.push(level);
+        unboundArchetypeLevels.push(level);
       }
     }
 
@@ -644,6 +648,9 @@ export class BNBActorSheet extends Sheets.ActorSheet {
     context.skilltree = skilltree;
     context.archetype1Levels = archetype1Levels.sort(archCompare);
     context.archetype2Levels = archetype2Levels.sort(archCompare);
+    // Rewards whose archetypeNumber isn't 1 or 2 still grant bonuses, so surface
+    // them for the player to reassign or delete instead of leaving them invisible.
+    context.unboundArchetypeLevels = unboundArchetypeLevels.sort(archCompare);
     context.archetypeFeats = archetypeFeats;
     context.actionSkills = actionSkills;
     /// Items that are actually inventory items.
@@ -694,6 +701,8 @@ export class BNBActorSheet extends Sheets.ActorSheet {
       inRender: this.inRender.bind(this, false),
     }));
     
+    html.find('.archetype-reward-reassign').click((event) => OnActionUtil.onArchetypeRewardReassign(event, this.actor));
+
     // Handle Old Archetype Rewards.
     html.find('.old-archetype-reward-upgrade').click((event) => OnActionUtil.onOldArchetypeRewardUpgrade(event, this.actor));
     html.find('.old-archetype-reward-delete').click((event) => OnActionUtil.onOldArchetypeRewardDelete(event, this.actor));
@@ -960,7 +969,6 @@ export class BNBActorSheet extends Sheets.ActorSheet {
       rollResult.toMessage({
         speaker: ChatMessage.getSpeaker({ actor: this.actor }),
         flavor: label,
-        rollMode: game.settings.get('core', 'rollMode'),
       });
       return rollResult;
     }
@@ -995,7 +1003,6 @@ export class BNBActorSheet extends Sheets.ActorSheet {
       flavor: flavorText,
       //type: CONST.CHAT_MESSAGE_STYLES.ROLL,
       roll: rollResult,
-      rollMode: CONFIG.Dice.rollModes.publicroll,
       // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
       speaker: ChatMessage.getSpeaker(),
     }

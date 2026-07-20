@@ -7,7 +7,7 @@
   </div>
   
   {{!-- HP/Attack/Action Skill --}}
-  <div class="flexrow">
+  <div class="flexrow action-main-row">
     <div class="flexcol">
       {{!-- Action Skill Region --}}
       {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/action-components/action-skill-button.html" }}
@@ -59,51 +59,27 @@
       </div>
     </div>
     {{!-- Attack region --}}
-    <div class="flexcol" style="max-width: 50%">
-      
-      {{!-- Attack Region --}}
-      <div class="flexrow attack-as-shared-container">
-        <div class="flexrow flex-size-1 attack-header-outer-container">
-          <div class="flexrow attack-header-container">
-            <div class="attack-header-inner-container">
-              <label class="">Attacks!</label>
-            </div>
-          </div>
+    <div class="attacks-panel">
+      <div class="attacks-tab-bar">
+        <div class="attacks-tab">
+          <label>Attacks!</label>
         </div>
-
-        <div class="flexrow flex-size-4 as-btn-outer-container">
-          <!-- Placeholder -->
-          <div>
-            {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/action-components/check.html"
-              displayName="Melee"
-              checkName="Melee"
-              check=system.checks.melee
-              isBadass=system.attributes.badass.rollsEnabled
-              nonRolled=true
-              hideStat=true
-            }}
-          </div>
-          <div>
-            {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/action-components/check.html"
-              displayName="Shoot"
-              checkName="Shooting"
-              check=system.checks.shooting
-              isBadass=system.attributes.badass.rollsEnabled
-              nonRolled=true
-              hideStat=true
-            }}
-          </div>
-          <div>
-            {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/action-components/check.html"
-              displayName="Throw"
-              checkName="Throw"
-              check=system.checks.throw
-              isBadass=system.attributes.badass.rollsEnabled
-              nonRolled=true
-              hideStat=true
-            }}
-          </div>
-            
+        <div class="attacks-tab-stats">
+          {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/action-components/attack-stat-chip.html"
+            displayName="Melee"
+            check=system.checks.melee
+            isBadass=system.attributes.badass.rollsEnabled
+          }}
+          {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/action-components/attack-stat-chip.html"
+            displayName="Shoot"
+            check=system.checks.shooting
+            isBadass=system.attributes.badass.rollsEnabled
+          }}
+          {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/action-components/attack-stat-chip.html"
+            displayName="Throw"
+            check=system.checks.throw
+            isBadass=system.attributes.badass.rollsEnabled
+          }}
         </div>
       </div>
       {{> "systems/bunkers-and-badasses/templates/actor/parts/vh/action-components/attacks-block-component.html" }}

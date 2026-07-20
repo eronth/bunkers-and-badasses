@@ -1,0 +1,12 @@
+.bnb {
+  .sheet-header.stats-bar {
+    margin-bottom: 3px;
+    .abilities {
+      width: 100%;
+      .ability {
+        flex: 1;
+        justify-content: space-between;
+      }
+    }
+  }
+}

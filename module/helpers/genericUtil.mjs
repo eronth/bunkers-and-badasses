@@ -52,70 +52,35 @@ export class genericUtil {
     class="element-type-icon ${cssClass} element-${cssModifier}${elementKey}" src="systems/bunkers-and-badasses/assets/elements/${pathModifier}${elementFileName}.png" />`;
   }
 
+  static createElementDamageHtml({ elements, iconId }) {
+    const plusSeparator = `<label class="element-damage-plus"> + </label>`;
+
+    const damageLabels = Object.entries(elements ?? {})
+      .filter(([, element]) => element.enabled)
+      .map(([key, element]) => {
+        // Kinetic has no icon of its own, the damage number stands alone.
+        const elemIcon = (key === 'kinetic')
+          ? ''
+          : this.createElementIcon({ id: iconId, elementType: key, cssClass: 'element-damage-icon' });
+
+        return `<label class="bolded dice-element-single element-damage-nowrap-label ${key}-text">${element.damage} ${elemIcon}</label>`;
+      });
+
+    return (damageLabels.length
+      ? `<span class="dice-element-list">${damageLabels.join(` ${plusSeparator}`)}</span>`
+      : '');
+  }
+
   static createGunDamagePerHitHtml(options) {
-    const elements = options.elements;
-    const finalPlus = `<label class="element-damage-plus"> + </label>`;
-
-    let damageHtmlString = "";
-    Object.entries(elements).forEach(e => {
-      const [key, element] = e;
-      if (element.enabled) {
-        const iconData = {id: 'gunDmg', elementType: key, cssClass: 'element-damage-icon'};
-        const elemIcon = (e[0] === "kinetic") 
-        ? ""
-        : this.createElementIcon(iconData);
-
-        damageHtmlString += `<label class='bolded dice-element-single element-damage-nowrap-label ${key}-text'>${element.damage} ${elemIcon}</label> ${finalPlus}`;
-      }
-    });
-    
-    // We need to remove the last plus label, it doesn't belong, then add the "damage" text.
-    const diceAndTypeHtml = (damageHtmlString ? damageHtmlString.slice(0, finalPlus.length * -1) : '');
-    return (diceAndTypeHtml ? `<span class='dice-element-list'>${diceAndTypeHtml}</span>` : '');
+    return this.createElementDamageHtml({ elements: options.elements, iconId: 'gunDmg' });
   }
 
   static createGunBonusDamageHtml(options) {
-    const elements = options.elements;
-    const finalPlus = `<label class="element-damage-plus"> + </label>`;
-
-    let damageHtmlString = '';
-    Object.entries(elements).forEach(e => {
-      const [key, element] = e;
-      if (element.enabled) {
-        const iconData = {id: 'gunDmg', elementType: key, cssClass: 'element-damage-icon' };
-        const elemIcon = (e[0] === "kinetic") 
-          ? ""
-          : this.createElementIcon(iconData);
-
-        damageHtmlString += `<label class='bolded dice-element-single element-damage-nowrap-label ${key}-text'>${element.damage} ${elemIcon}</label> ${finalPlus}`;
-      }
-    });
-    
-    // We need to remove the last plus label, it doesn't belong, then add the "damage" text.
-    const diceAndTypeHtml = (damageHtmlString ? damageHtmlString.slice(0, finalPlus.length * -1) : '');
-    return (diceAndTypeHtml ? `<span class="dice-element-list">${diceAndTypeHtml}</span>` : '');
+    return this.createElementDamageHtml({ elements: options.elements, iconId: 'gunDmg' });
   }
 
   static createGrenadeDamageHtml(options) {
-    const elements = options.elements;
-    const finalPlus = `<label class="element-damage-plus"> + </label>`;
-
-    let damageHtmlString = '';
-    Object.entries(elements).forEach(e => {
-      const [key, element] = e;
-      if (element.enabled) {
-        const iconData = {id: 'gDmg', elementType: key, cssClass: 'element-damage-icon' };
-        const elemIcon = ((e[0] === "kinetic") 
-          ? ""
-          : this.createElementIcon(iconData));
-
-        damageHtmlString += `<label class='bolded dice-element-single element-damage-nowrap-label ${key}-text'>${element.damage} ${elemIcon}</label> ${finalPlus}`;
-      }
-    });
-
-    // We need to remove the last plus label, it doesn't belong, then add the "damage" text.
-    const diceAndTypeHtml = (damageHtmlString ? damageHtmlString.slice(0, finalPlus.length * -1) : '');
-    return (diceAndTypeHtml ? `<span class="dice-element-list">${diceAndTypeHtml}</span>` : '');
+    return this.createElementDamageHtml({ elements: options.elements, iconId: 'gDmg' });
   }
 
   static createMiniShieldResistHtml(options) {

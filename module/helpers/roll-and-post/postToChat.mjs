@@ -39,7 +39,6 @@ export class PostToChat {
       flavor: flavorText,
       //type: CONST.CHAT_MESSAGE_STYLES.ROLL,
       roll: rollResult,
-      rollMode: CONFIG.Dice.rollModes.publicroll,
       content: chatHtmlContent,
       checkDetails: checkDetails,
       // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
@@ -63,7 +62,6 @@ export class PostToChat {
     rollResult.toMessage({
       speaker: ChatMessage.getSpeaker({ actor: actor }),
       flavor: label,
-      rollMode: game.settings.get('core', 'rollMode'),
     });
   }
 
@@ -89,7 +87,6 @@ export class PostToChat {
     rollResult.toMessage({
       speaker: ChatMessage.getSpeaker({ actor: actor }),
       flavor: label,
-      rollMode: game.settings.get('core', 'rollMode'),
     });
   }
 
@@ -123,7 +120,6 @@ export class PostToChat {
       flavor: flavorText,
       //type: CONST.CHAT_MESSAGE_STYLES.ROLL,
       roll: rollResult,
-      rollMode: CONFIG.Dice.rollModes.publicroll,
       content: chatHtmlContent,
       // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
       speaker: ChatMessage.getSpeaker(),
@@ -181,7 +177,6 @@ export class PostToChat {
       flavor: flavorText,
       //type: CONST.CHAT_MESSAGE_STYLES.ROLL,
       roll: rollResult,
-      rollMode: CONFIG.Dice.rollModes.publicroll,
       content: chatHtmlContent,
       // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
       speaker: ChatMessage.getSpeaker(),
@@ -248,7 +243,6 @@ export class PostToChat {
       flavor: flavorText,
       //type: CONST.CHAT_MESSAGE_STYLES.ROLL,
       roll: rollResult,
-      rollMode: CONFIG.Dice.rollModes.publicroll,
       content: chatHtmlContent,
       // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
       speaker: ChatMessage.getSpeaker(),
@@ -301,7 +295,7 @@ export class PostToChat {
     parts[0].flavor = 'Grenade Toss';
 
     const templateLocation = 'systems/bunkers-and-badasses/templates/chat/check-roll.html';
-    const chatHtmlContent = await renderTemplate(templateLocation, {
+    const chatHtmlContent = await RenderTemplate(templateLocation, {
       actor: actor,
       item: item,
       checkType: `${item.name} Grenade Toss`,
@@ -323,7 +317,6 @@ export class PostToChat {
       flavor: flavorText,
       //type: CONST.CHAT_MESSAGE_STYLES.ROLL,
       roll: rollResult,
-      rollMode: CONFIG.Dice.rollModes.publicroll,
       content: chatHtmlContent,
       // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
       speaker: ChatMessage.getSpeaker(),
@@ -345,7 +338,7 @@ export class PostToChat {
     });
 
     const templateLocation = 'systems/bunkers-and-badasses/templates/chat/damage-results.html';
-    const chatHtmlContent = await renderTemplate(templateLocation, {
+    const chatHtmlContent = await RenderTemplate(templateLocation, {
       actor: actor,
       item: item,
       isMelee: isMelee,
@@ -365,7 +358,6 @@ export class PostToChat {
       flavor: flavorText,
       //type: CONST.CHAT_MESSAGE_STYLES.ROLL,
       roll: rollResult,
-      rollMode: CONFIG.Dice.rollModes.publicroll,
       content: chatHtmlContent,
       // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
       speaker: ChatMessage.getSpeaker(),
@@ -394,9 +386,8 @@ export class PostToChat {
     const messageData = {
       user: game.user.id,
       speaker: ChatMessage.getSpeaker({ actor: actor }),
-      type: CONST.CHAT_MESSAGE_STYLES.IC,
+      style: CONST.CHAT_MESSAGE_STYLES.IC,
       // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
-      speaker: ChatMessage.getSpeaker(),
       ...messageDetail
     };
 
@@ -424,9 +415,8 @@ export class PostToChat {
       user: game.user.id,
       speaker: ChatMessage.getSpeaker({ actor: actor }),
       flavor: flavorText,
-      type: CONST.CHAT_MESSAGE_STYLES.IC,
+      style: CONST.CHAT_MESSAGE_STYLES.IC,
       // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
-      speaker: ChatMessage.getSpeaker(),
       content: content,
     }
 
@@ -683,7 +673,6 @@ export class PostToChat {
       flavor: flavorText,
       //type: CONST.CHAT_MESSAGE_STYLES.ROLL,
       roll: rollResult,
-      rollMode: CONFIG.Dice.rollModes.publicroll,
       content: chatHtmlContent,
       // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
       speaker: ChatMessage.getSpeaker(),
@@ -706,7 +695,7 @@ export class PostToChat {
        speaker: ChatMessage.getSpeaker({ actor: actor }),
        flavor: flavorText,
        content: actionObject.description,
-       type: CONST.CHAT_MESSAGE_STYLES.IC,
+       style: CONST.CHAT_MESSAGE_STYLES.IC,
        // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
        speaker: ChatMessage.getSpeaker(),
      };
@@ -728,9 +717,7 @@ export class PostToChat {
       flavor: flavorText,
       //type: CONST.CHAT_MESSAGE_STYLES.ROLL,
       roll: rollResult,
-      rollMode: CONFIG.Dice.rollModes.publicroll,
-      // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
-      speaker: ChatMessage.getSpeaker(),
+       // whisper: game.users.entities.filter(u => u.isGM).map(u => u.id)
     });
   }
 }

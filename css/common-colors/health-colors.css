@@ -302,3 +302,20 @@
 .eridian-light-icon-border {
     border: 1px solid var(--eridian-light-icon);
 }
+/* Per-health-type color, for elements that tint several children (label, input, border).
+   The low variants are used because base --bone is nearly white. */
+.eridian-hp-entry {
+    --hpEntryColor: var(--eridian-low);
+}
+.shield-hp-entry {
+    --hpEntryColor: var(--shield-low);
+}
+.armor-hp-entry {
+    --hpEntryColor: var(--armor-low);
+}
+.flesh-hp-entry {
+    --hpEntryColor: var(--flesh-low);
+}
+.bone-hp-entry {
+    --hpEntryColor: var(--bone-low);
+}

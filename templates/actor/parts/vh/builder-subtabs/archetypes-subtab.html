@@ -18,6 +18,39 @@
     }}
   </div>
 </section>
+<!-- Unassigned Archetype Rewards -->
+{{#if unboundArchetypeLevels.length}}
+<section>
+  <ol class="items-list">
+    <li class="item flexrow items-header">
+      <div class="item-name">Unassigned Archetype Rewards</div>
+    </li>
+    <li>
+      <div class="reminder-text italicized">
+        These still grant bonuses. Assign to archetype or delete.
+      </div>
+    </li>
+    {{#each unboundArchetypeLevels as |item id|}}
+    <li class="item item-element-group flexrow" data-item-id="{{item._id}}">
+      <div class="item-name bolded flex-size-2">Level {{item.system.level}}</div>
+      <div class="reward-text flex-size-7 large-text-overflow-hidden">{{item.system.bonus}}</div>
+      <div class="item-controls flex-size-fit">
+        <a class="item-control archetype-reward-reassign white-space-nowrap" data-archetype-number="1">
+          <i class="fas fa-plus"></i>
+          Add to {{#if ../system.archetypes.archetype1.name}}{{../system.archetypes.archetype1.name}}{{else}}Archetype 1{{/if}}
+        </a>
+        <a class="item-control archetype-reward-reassign white-space-nowrap" data-archetype-number="2">
+          <i class="fas fa-plus"></i>
+          Add to {{#if ../system.archetypes.archetype2.name}}{{../system.archetypes.archetype2.name}}{{else}}Archetype 2{{/if}}
+        </a>
+        <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+        <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+      </div>
+    </li>
+    {{/each}}
+  </ol>
+</section>
+{{/if}}
 <!-- Archetype Feats -->
 <section>
   {{> "systems/bunkers-and-badasses/templates/actor/parts/item-list-components/item-list.html"

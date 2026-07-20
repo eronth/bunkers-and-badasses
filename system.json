@@ -2,10 +2,10 @@
   "id": "bunkers-and-badasses",
   "title": "Bunkers & Badasses",
   "description": "Badasses, loot, and mayhem. This system is for running the tabletop adaptation of Borderlands' 'Bunkers & Badasses' by Nerdvana.",
-  "version": "0.7.3",
+  "version": "0.7.4",
   "compatibility": {
-    "minimum": 13,
-    "verified": 13.346
+    "minimum": 14,
+    "verified": 14.364
   },
   "authors": [{
     "name": "Nic Pereira",
@@ -32,6 +32,8 @@
     "css/gear-bottom-texts.css",
     "css/health.css",
     "css/header/health.css",
+    "css/header/portrait.css",
+    "css/header/stats.css",
     "css/header/xp-bar.css",
     "css/archetype-level.css",
     "css/damage-prompt.css",
