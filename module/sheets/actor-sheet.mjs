@@ -628,14 +628,14 @@ export class BNBActorSheet extends Sheets.ActorSheet {
     // My code is a disaster and so am I.
     const archetype1Levels = [];
     const archetype2Levels = [];
-    const unbouncArchetypeLevels = [];
+    const unboundArchetypeLevels = [];
     for (let level of archetypeLevels) {
       if (level.system.archetypeNumber == '1') {
         archetype1Levels.push(level);
       } else if (level.system.archetypeNumber == '2') {
         archetype2Levels.push(level);
       } else {
-        unbouncArchetypeLevels.push(level);
+        unboundArchetypeLevels.push(level);
       }
     }
 
@@ -648,6 +648,9 @@ export class BNBActorSheet extends Sheets.ActorSheet {
     context.skilltree = skilltree;
     context.archetype1Levels = archetype1Levels.sort(archCompare);
     context.archetype2Levels = archetype2Levels.sort(archCompare);
+    // Rewards whose archetypeNumber isn't 1 or 2 still grant bonuses, so surface
+    // them for the player to reassign or delete instead of leaving them invisible.
+    context.unboundArchetypeLevels = unboundArchetypeLevels.sort(archCompare);
     context.archetypeFeats = archetypeFeats;
     context.actionSkills = actionSkills;
     /// Items that are actually inventory items.
@@ -698,6 +701,8 @@ export class BNBActorSheet extends Sheets.ActorSheet {
       inRender: this.inRender.bind(this, false),
     }));
     
+    html.find('.archetype-reward-reassign').click((event) => OnActionUtil.onArchetypeRewardReassign(event, this.actor));
+
     // Handle Old Archetype Rewards.
     html.find('.old-archetype-reward-upgrade').click((event) => OnActionUtil.onOldArchetypeRewardUpgrade(event, this.actor));
     html.find('.old-archetype-reward-delete').click((event) => OnActionUtil.onOldArchetypeRewardDelete(event, this.actor));

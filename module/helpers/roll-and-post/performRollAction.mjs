@@ -542,7 +542,7 @@ export class PerformRollAction {
   static _getBonusSummaryFromCharacter(options) {
     const { actor, item, attackType } = options;
     const { hitsAndCrits } = options;
-    const { perHit, perCrit, perAttack } = hitsAndCrits;
+    const { perHit, perCrit, perAttack, isNat20 } = hitsAndCrits;
     const baseBonuses = {
       untyped: MixedDiceAndNumber.default(),
       kinetic: MixedDiceAndNumber.default(),
@@ -581,6 +581,14 @@ export class PerformRollAction {
       MixedDiceAndNumber.applyBonusToMixed({ mixed: baseBonuses.untyped, additionalBonus: DmgBonus });
     }
     // Grenades do not get DMG added.
+
+    // The weapon's own crit damage bonus applies once, on a nat 20.
+    if (isNat20) {
+      MixedDiceAndNumber.applyBonusToMixed({
+        mixed: baseBonuses.untyped,
+        additionalBonus: Number(item?.system?.bonusCritDmg) || 0
+      });
+    }
 
     return baseBonuses;
   }

@@ -356,15 +356,9 @@ export class ConfirmActionPrompt {
       ...DefaultData.damageTypeEntries({ includeSpecialTypes: false }),
       ...item.system.elements
     };
-    const bonusCritDmg = Number(item.system.bonusCritDmg) || 0;
     const perCritElements = {
       ...DefaultData.damageTypeEntries({ includeSpecialTypes: false }),
-      kinetic: {
-        enabled: true,
-        damage: bonusCritDmg !== 0
-          ? `1d12 ${bonusCritDmg > 0 ? '+' : '-'} ${Math.abs(bonusCritDmg)}`
-          : '1d12'
-      }
+      kinetic: { enabled: true, damage: '1d12' }
     };
     const perAttackElements = {
       ...DefaultData.damageTypeEntries({ includeSpecialTypes: false }),
