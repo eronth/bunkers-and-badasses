@@ -7,6 +7,9 @@
     "minimum": 14,
     "verified": 14.364
   },
+  "url": "https://github.com/eronth/bunkers-and-badasses",
+  "manifest": "https://github.com/eronth/bunkers-and-badasses/releases/download/v0.7.4/system.json",
+  "download": "https://github.com/eronth/bunkers-and-badasses/releases/download/v0.7.4/bunkers-and-badasses.zip",
   "authors": [{
     "name": "Nic Pereira",
     "email": "BadassBunks@nicpereira.dev",
@@ -203,8 +206,5 @@
     "units": "sq"
   },
   "primaryTokenAttribute": "attributes.hps.flesh",
-  "secondaryTokenAttribute": "attributes.hps.shield",
-  "url": "https://github.com/eronth/bunkers-and-badasses",
-  "manifest": "https://github.com/eronth/bunkers-and-badasses/releases/download/v0.7.3/system.json",
-  "download": "https://github.com/eronth/bunkers-and-badasses/releases/download/v0.7.3/bunkers-and-badasses.zip"
+  "secondaryTokenAttribute": "attributes.hps.shield"
 }
